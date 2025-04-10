@@ -1,23 +1,21 @@
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from '../src/dots/DigitalOceanApiKeyAuthenticationProvider.js';
-import { v4 as uuidv4 } from 'uuid';
-import { Volume_action_post_attach, Volumes_ext4 } from "../src/dots/models/index.js";
-
+import {v4 as uuidv4} from 'uuid';
+import {Volume_action_post_attach, Volumes_ext4} from "../src/dots/models/index.js";
 
 
 const token = process.env.DIGITALOCEAN_TOKEN;
 if (!token) {
     throw new Error("DIGITALOCEAN_TOKEN not set");
 }
+
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token!);
 // Create request adapter using the fetch-based implementation
 const adapter = new FetchRequestAdapter(authProvider);
 // Create the API client
 const client = createDigitalOceanClient(adapter);
-
 const REGION = "nyc3"; // Example region, change as needed
-
 
 
 async function main(): Promise<void> {
@@ -74,9 +72,6 @@ async function main(): Promise<void> {
 
         console.log("Done!");
 
-
-
-
     } catch (err) {
         console.error(err);
     }
@@ -86,30 +81,30 @@ async function waitForAction(id: number, wait: number = 5): Promise<void> {
     console.log(`Waiting for action ${id} to complete...`, "", { flush: true });
     let status = "in-progress";
     while (status === "in-progress") {
-        try {
-            const resp = await client.v2.actions.byAction_id(id).get();
-            if (resp && resp.action) {
-                status = resp.action.status as string;
-            } else {
-                throw new Error("Response or action is undefined");
-            }
-            if (status === "in-progress") {
-                process.stdout.write(".");
-                await new Promise(resolve => setTimeout(resolve, wait * 1000));
-            } else if (status === "errored") {
-                throw new Error(`${resp.action.type} action ${resp.action.id} ${status}`);
-            } else {
-                console.log(".");
-            }
-        } catch (err) {
-            if (err instanceof Error && 'statusCode' in err) {
-                const httpError = err as any;
-                throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
-            } else {
-                throw err;
-            }
+    try {
+        const resp = await client.v2.actions.byAction_id(id).get();
+        if (resp && resp.action) {
+            status = resp.action.status as string;
+        } else {
+            throw new Error("Response or action is undefined");
+        }
+        if (status === "in-progress") {
+            process.stdout.write(".");
+            await new Promise(resolve => setTimeout(resolve, wait * 1000));
+        } else if (status === "errored") {
+            throw new Error(`${resp.action.type} action ${resp.action.id} ${status}`);
+        } else {
+            console.log(".");
+        }
+    } catch (err) {
+        if (err instanceof Error && 'statusCode' in err) {
+            const httpError = err as any;
+            throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
+        } else {
+            throw err;
         }
     }
+}
 }
 
 async function createVolume(req: any): Promise<any> {
@@ -225,5 +220,5 @@ async function createDroplet(req: any = {}): Promise<any> {
     }
 }
 
-main();
 
+main();
