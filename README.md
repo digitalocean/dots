@@ -82,4 +82,3 @@ Done!
 ```
 
 More working examples can be found in `dots/examples`. 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
