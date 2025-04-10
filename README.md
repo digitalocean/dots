@@ -75,7 +75,7 @@ async function main(): Promise<void> {
 main();
 ```
 
-The above code snippet would output the following:
+Running the above code snippet with `tsc && node index.js` would output the following:
 ```
 Created volume test-volume <ID: 751d0c09-1613-11f0-8aa5-0a58ac147241>
 Done!
