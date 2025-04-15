@@ -1,0 +1,23 @@
+
+{
+  "name": "dots",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "examples/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@azure/core-http": "^3.0.5",
+    "@microsoft/kiota-authentication-azure": "^1.0.0-preview.61",
+    "@microsoft/kiota-bundle": "^1.0.0-preview.9",
+    "uuid": "^11.1.0"
+  }
+}

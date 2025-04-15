@@ -1,0 +1,15 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+venv/
+.vscode/
+.idea/
+!.vscode/extensions.json
+.idea/
+.env
+*.log
+*.swp
+node_modules/
+
+# client gen
+DigitalOcean-public.v2.yaml
