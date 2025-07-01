@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createKafka_topic_verboseFromDiscriminatorValue, serializeKafka_topic_update, serializeKafka_topic_verbose, type ErrorEscaped, type Kafka_topic_update, type Kafka_topic_verbose } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -52,7 +52,6 @@ export function deserializeIntoWithTopic_namePutResponse(withTopic_namePutRespon
 export function serializeWithTopic_nameGetResponse(writer: SerializationWriter, withTopic_nameGetResponse: Partial<WithTopic_nameGetResponse> | undefined | null = {}) : void {
     if (withTopic_nameGetResponse) {
         writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_nameGetResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(withTopic_nameGetResponse.additionalData);
     }
 }
 /**
@@ -63,14 +62,9 @@ export function serializeWithTopic_nameGetResponse(writer: SerializationWriter, 
 export function serializeWithTopic_namePutResponse(writer: SerializationWriter, withTopic_namePutResponse: Partial<WithTopic_namePutResponse> | undefined | null = {}) : void {
     if (withTopic_namePutResponse) {
         writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_namePutResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(withTopic_namePutResponse.additionalData);
     }
 }
-export interface WithTopic_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithTopic_nameGetResponse extends Parsable {
     /**
      * The topic property
      */
@@ -133,11 +127,7 @@ export interface WithTopic_nameItemRequestBuilder extends BaseRequestBuilder<Wit
      */
      toPutRequestInformation(body: Kafka_topic_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithTopic_namePutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithTopic_namePutResponse extends Parsable {
     /**
      * The topic property
      */

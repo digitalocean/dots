@@ -49,7 +49,6 @@ export function deserializeIntoWithAlert_uuPutResponse(withAlert_uuPutResponse =
 export function serializeWithAlert_uuGetResponse(writer, withAlert_uuGetResponse = {}) {
     if (withAlert_uuGetResponse) {
         writer.writeObjectValue("policy", withAlert_uuGetResponse.policy, serializeAlert_policy);
-        writer.writeAdditionalData(withAlert_uuGetResponse.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeWithAlert_uuGetResponse(writer, withAlert_uuGetResponse
 export function serializeWithAlert_uuPutResponse(writer, withAlert_uuPutResponse = {}) {
     if (withAlert_uuPutResponse) {
         writer.writeObjectValue("policy", withAlert_uuPutResponse.policy, serializeAlert_policy);
-        writer.writeAdditionalData(withAlert_uuPutResponse.additionalData);
     }
 }
 /**

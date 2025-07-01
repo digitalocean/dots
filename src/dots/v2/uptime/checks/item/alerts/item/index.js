@@ -68,7 +68,6 @@ export function deserializeIntoWithAlert_PutResponse(withAlert_PutResponse = {})
 export function serializeWithAlert_GetResponse(writer, withAlert_GetResponse = {}) {
     if (withAlert_GetResponse) {
         writer.writeObjectValue("alert", withAlert_GetResponse.alert, serializeAlert);
-        writer.writeAdditionalData(withAlert_GetResponse.additionalData);
     }
 }
 /**
@@ -89,7 +88,6 @@ export function serializeWithAlert_PutRequestBody(writer, withAlert_PutRequestBo
 export function serializeWithAlert_PutResponse(writer, withAlert_PutResponse = {}) {
     if (withAlert_PutResponse) {
         writer.writeObjectValue("alert", withAlert_PutResponse.alert, serializeAlert);
-        writer.writeAdditionalData(withAlert_PutResponse.additionalData);
     }
 }
 /**

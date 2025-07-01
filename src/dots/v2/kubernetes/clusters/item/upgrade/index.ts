@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoUpgradePostRequestBody(upgradePostRequestBody: Pa
 export function serializeUpgradePostRequestBody(writer: SerializationWriter, upgradePostRequestBody: Partial<UpgradePostRequestBody> | undefined | null = {}) : void {
     if (upgradePostRequestBody) {
         writer.writeStringValue("version", upgradePostRequestBody.version);
-        writer.writeAdditionalData(upgradePostRequestBody.additionalData);
     }
 }
-export interface UpgradePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface UpgradePostRequestBody extends Parsable {
     /**
      * The slug identifier for the version of Kubernetes that the cluster will be upgraded to.
      */

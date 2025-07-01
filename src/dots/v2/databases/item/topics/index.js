@@ -51,7 +51,6 @@ export function deserializeIntoTopicsPostResponse(topicsPostResponse = {}) {
 export function serializeTopicsGetResponse(writer, topicsGetResponse = {}) {
     if (topicsGetResponse) {
         writer.writeCollectionOfObjectValues("topics", topicsGetResponse.topics, serializeKafka_topic);
-        writer.writeAdditionalData(topicsGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeTopicsGetResponse(writer, topicsGetResponse = {}) {
 export function serializeTopicsPostResponse(writer, topicsPostResponse = {}) {
     if (topicsPostResponse) {
         writer.writeObjectValue("topic", topicsPostResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(topicsPostResponse.additionalData);
     }
 }
 /**

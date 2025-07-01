@@ -32,7 +32,6 @@ export function deserializeIntoWithTag_GetResponse(withTag_GetResponse = {}) {
 export function serializeWithTag_GetResponse(writer, withTag_GetResponse = {}) {
     if (withTag_GetResponse) {
         writer.writeObjectValue("tag", withTag_GetResponse.tag, serializeTags);
-        writer.writeAdditionalData(withTag_GetResponse.additionalData);
     }
 }
 /**

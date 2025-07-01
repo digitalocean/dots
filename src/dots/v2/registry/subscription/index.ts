@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSubscriptionFromDiscriminatorValue, serializeSubscription, type ErrorEscaped, type Subscription } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -71,7 +71,6 @@ export function deserializeIntoSubscriptionPostResponse(subscriptionPostResponse
 export function serializeSubscriptionGetResponse(writer: SerializationWriter, subscriptionGetResponse: Partial<SubscriptionGetResponse> | undefined | null = {}) : void {
     if (subscriptionGetResponse) {
         writer.writeObjectValue<Subscription>("subscription", subscriptionGetResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionGetResponse.additionalData);
     }
 }
 /**
@@ -82,7 +81,6 @@ export function serializeSubscriptionGetResponse(writer: SerializationWriter, su
 export function serializeSubscriptionPostRequestBody(writer: SerializationWriter, subscriptionPostRequestBody: Partial<SubscriptionPostRequestBody> | undefined | null = {}) : void {
     if (subscriptionPostRequestBody) {
         writer.writeEnumValue<SubscriptionPostRequestBody_tier_slug>("tier_slug", subscriptionPostRequestBody.tierSlug);
-        writer.writeAdditionalData(subscriptionPostRequestBody.additionalData);
     }
 }
 /**
@@ -93,35 +91,22 @@ export function serializeSubscriptionPostRequestBody(writer: SerializationWriter
 export function serializeSubscriptionPostResponse(writer: SerializationWriter, subscriptionPostResponse: Partial<SubscriptionPostResponse> | undefined | null = {}) : void {
     if (subscriptionPostResponse) {
         writer.writeObjectValue<Subscription>("subscription", subscriptionPostResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionPostResponse.additionalData);
     }
 }
-export interface SubscriptionGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SubscriptionGetResponse extends Parsable {
     /**
      * The subscription property
      */
     subscription?: Subscription | null;
 }
-export interface SubscriptionPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SubscriptionPostRequestBody extends Parsable {
     /**
      * The slug of the subscription tier to sign up for.
      */
     tierSlug?: SubscriptionPostRequestBody_tier_slug | null;
 }
 export type SubscriptionPostRequestBody_tier_slug = (typeof SubscriptionPostRequestBody_tier_slugObject)[keyof typeof SubscriptionPostRequestBody_tier_slugObject];
-export interface SubscriptionPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SubscriptionPostResponse extends Parsable {
     /**
      * The subscription property
      */
@@ -147,6 +132,7 @@ export interface SubscriptionRequestBuilder extends BaseRequestBuilder<Subscript
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SubscriptionPostResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
+     * @throws {ErrorEscaped} error when the service returns a 412 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
@@ -199,6 +185,7 @@ export const SubscriptionRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            412: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

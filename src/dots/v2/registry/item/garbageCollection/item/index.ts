@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createGarbage_collectionFromDiscriminatorValue, serializeGarbage_collection, serializeUpdate_registry, type ErrorEscaped, type Garbage_collection, type Update_registry } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,7 +33,6 @@ export function deserializeIntoWithGarbage_collection_uuPutResponse(withGarbage_
 export function serializeWithGarbage_collection_uuPutResponse(writer: SerializationWriter, withGarbage_collection_uuPutResponse: Partial<WithGarbage_collection_uuPutResponse> | undefined | null = {}) : void {
     if (withGarbage_collection_uuPutResponse) {
         writer.writeObjectValue<Garbage_collection>("garbage_collection", withGarbage_collection_uuPutResponse.garbageCollection, serializeGarbage_collection);
-        writer.writeAdditionalData(withGarbage_collection_uuPutResponse.additionalData);
     }
 }
 /**
@@ -60,11 +59,7 @@ export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequest
      */
      toPutRequestInformation(body: Update_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithGarbage_collection_uuPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithGarbage_collection_uuPutResponse extends Parsable {
     /**
      * The garbage_collection property
      */

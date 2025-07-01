@@ -30,7 +30,6 @@ export function deserializeIntoUpgradesGetResponse(upgradesGetResponse = {}) {
 export function serializeUpgradesGetResponse(writer, upgradesGetResponse = {}) {
     if (upgradesGetResponse) {
         writer.writeCollectionOfObjectValues("available_upgrade_versions", upgradesGetResponse.availableUpgradeVersions, serializeKubernetes_version);
-        writer.writeAdditionalData(upgradesGetResponse.additionalData);
     }
 }
 /**

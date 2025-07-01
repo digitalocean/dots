@@ -38,7 +38,6 @@ export function serializeInvoicesGetResponse(writer, invoicesGetResponse = {}) {
         writer.writeCollectionOfObjectValues("invoices", invoicesGetResponse.invoices, serializeInvoice_preview);
         writer.writeObjectValue("links", invoicesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", invoicesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(invoicesGetResponse.additionalData);
     }
 }
 /**

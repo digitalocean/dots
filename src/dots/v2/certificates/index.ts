@@ -6,13 +6,9 @@ import { createCertificate_request_customFromDiscriminatorValue, createCertifica
 // @ts-ignore
 import { type WithCertificate_ItemRequestBuilder, WithCertificate_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface CertificatesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface CertificatesGetResponse extends Parsable {
     /**
      * The certificates property
      */
@@ -27,11 +23,7 @@ export interface CertificatesGetResponse extends AdditionalDataHolder, Parsable 
     meta?: Meta_properties | null;
 }
 export type CertificatesPostRequestBody = Certificate_request_custom | Certificate_request_lets_encrypt;
-export interface CertificatesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface CertificatesPostResponse extends Parsable {
     /**
      * The certificate property
      */
@@ -42,7 +34,7 @@ export interface CertificatesPostResponse extends AdditionalDataHolder, Parsable
  */
 export interface CertificatesRequestBuilder extends BaseRequestBuilder<CertificatesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.certificates.item collection
+     * Gets an item from the dots.v2.certificates.item collection
      * @param certificate_id A unique identifier for a certificate.
      * @returns {WithCertificate_ItemRequestBuilder}
      */
@@ -169,7 +161,6 @@ export function serializeCertificatesGetResponse(writer: SerializationWriter, ce
         writer.writeCollectionOfObjectValues<Certificate>("certificates", certificatesGetResponse.certificates, serializeCertificate);
         writer.writeObjectValue<Page_links>("links", certificatesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", certificatesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(certificatesGetResponse.additionalData);
     }
 }
 /**
@@ -189,7 +180,6 @@ export function serializeCertificatesPostRequestBody(writer: SerializationWriter
 export function serializeCertificatesPostResponse(writer: SerializationWriter, certificatesPostResponse: Partial<CertificatesPostResponse> | undefined | null = {}) : void {
     if (certificatesPostResponse) {
         writer.writeObjectValue<Certificate>("certificate", certificatesPostResponse.certificate, serializeCertificate);
-        writer.writeAdditionalData(certificatesPostResponse.additionalData);
     }
 }
 /**

@@ -75,7 +75,6 @@ export function serializeCertificatesGetResponse(writer, certificatesGetResponse
         writer.writeCollectionOfObjectValues("certificates", certificatesGetResponse.certificates, serializeCertificate);
         writer.writeObjectValue("links", certificatesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", certificatesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(certificatesGetResponse.additionalData);
     }
 }
 /**
@@ -95,7 +94,6 @@ export function serializeCertificatesPostRequestBody(writer, certificatesPostReq
 export function serializeCertificatesPostResponse(writer, certificatesPostResponse = {}) {
     if (certificatesPostResponse) {
         writer.writeObjectValue("certificate", certificatesPostResponse.certificate, serializeCertificate);
-        writer.writeAdditionalData(certificatesPostResponse.additionalData);
     }
 }
 /**

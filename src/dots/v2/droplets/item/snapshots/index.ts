@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDroplet_snapshotFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeDroplet_snapshot, serializeMeta_properties, serializePage_links, type Droplet_snapshot, type ErrorEscaped, type Meta_properties, type Page_links } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -37,14 +37,9 @@ export function serializeSnapshotsGetResponse(writer: SerializationWriter, snaps
         writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Droplet_snapshot>("snapshots", snapshotsGetResponse.snapshots, serializeDroplet_snapshot);
-        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
     }
 }
-export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SnapshotsGetResponse extends Parsable {
     /**
      * The links property
      */

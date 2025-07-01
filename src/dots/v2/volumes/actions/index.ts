@@ -4,18 +4,14 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createVolume_action_post_attachFromDiscriminatorValue, createVolume_action_post_detachFromDiscriminatorValue, createVolumeActionFromDiscriminatorValue, deserializeIntoVolume_action_post_attach, deserializeIntoVolume_action_post_detach, serializeVolume_action_post_attach, serializeVolume_action_post_detach, serializeVolumeAction, type ErrorEscaped, type Volume_action_post_attach, type Volume_action_post_detach, type VolumeAction } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 export type ActionsPostRequestBody = Volume_action_post_attach | Volume_action_post_detach;
-export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsPostResponse extends Parsable {
     /**
      * The action property
      */
     action?: VolumeAction | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/volumes/actions
@@ -110,7 +106,6 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
     if (actionsPostResponse) {
         writer.writeObjectValue<VolumeAction>("action", actionsPostResponse.action, serializeVolumeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
     }
 }
 /**

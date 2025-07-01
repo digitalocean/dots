@@ -3,8 +3,8 @@ import { createDigitalOceanClient } from "../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from '../src/dots/DigitalOceanApiKeyAuthenticationProvider.js';
 import {v4 as uuidv4} from 'uuid';
 import {Volume_action_post_attach, Volumes_ext4} from "../src/dots/models/index.js";
-
-
+import dotenv from "dotenv";
+dotenv.config();
 const token = process.env.DIGITALOCEAN_TOKEN;
 if (!token) {
     throw new Error("DIGITALOCEAN_TOKEN not set");
@@ -33,7 +33,6 @@ async function main(): Promise<void> {
             image: "ubuntu-22-04-x64",
             ssh_keys: [sshKey.fingerprint],
         };
-
         const droplet = await createDroplet(dropletReq);
         console.log("Droplet created: ", droplet.id);
 

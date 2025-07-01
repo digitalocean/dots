@@ -49,7 +49,6 @@ export function deserializeIntoDropletsPostRequestBody(dropletsPostRequestBody =
 export function serializeDropletsDeleteRequestBody(writer, dropletsDeleteRequestBody = {}) {
     if (dropletsDeleteRequestBody) {
         writer.writeCollectionOfPrimitiveValues("droplet_ids", dropletsDeleteRequestBody.dropletIds);
-        writer.writeAdditionalData(dropletsDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeDropletsDeleteRequestBody(writer, dropletsDeleteRequest
 export function serializeDropletsPostRequestBody(writer, dropletsPostRequestBody = {}) {
     if (dropletsPostRequestBody) {
         writer.writeCollectionOfPrimitiveValues("droplet_ids", dropletsPostRequestBody.dropletIds);
-        writer.writeAdditionalData(dropletsPostRequestBody.additionalData);
     }
 }
 /**

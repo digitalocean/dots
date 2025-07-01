@@ -6,7 +6,7 @@ import { createDomainFromDiscriminatorValue, createErrorEscapedFromDiscriminator
 // @ts-ignore
 import { RecordsRequestBuilderNavigationMetadata, RecordsRequestBuilderRequestsMetadata, type RecordsRequestBuilder } from './records/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithDomain_nameGetResponse(withDomain_nameGetResp
 export function serializeWithDomain_nameGetResponse(writer: SerializationWriter, withDomain_nameGetResponse: Partial<WithDomain_nameGetResponse> | undefined | null = {}) : void {
     if (withDomain_nameGetResponse) {
         writer.writeObjectValue<Domain>("domain", withDomain_nameGetResponse.domain, serializeDomain);
-        writer.writeAdditionalData(withDomain_nameGetResponse.additionalData);
     }
 }
-export interface WithDomain_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDomain_nameGetResponse extends Parsable {
     /**
      * The domain property
      */

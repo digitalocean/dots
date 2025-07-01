@@ -68,7 +68,6 @@ export function deserializeIntoWithSsh_key_identifierPutResponse(withSsh_key_ide
 export function serializeWithSsh_key_identifierGetResponse(writer, withSsh_key_identifierGetResponse = {}) {
     if (withSsh_key_identifierGetResponse) {
         writer.writeObjectValue("ssh_key", withSsh_key_identifierGetResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(withSsh_key_identifierGetResponse.additionalData);
     }
 }
 /**
@@ -79,7 +78,6 @@ export function serializeWithSsh_key_identifierGetResponse(writer, withSsh_key_i
 export function serializeWithSsh_key_identifierPutRequestBody(writer, withSsh_key_identifierPutRequestBody = {}) {
     if (withSsh_key_identifierPutRequestBody) {
         writer.writeStringValue("name", withSsh_key_identifierPutRequestBody.name);
-        writer.writeAdditionalData(withSsh_key_identifierPutRequestBody.additionalData);
     }
 }
 /**
@@ -90,7 +88,6 @@ export function serializeWithSsh_key_identifierPutRequestBody(writer, withSsh_ke
 export function serializeWithSsh_key_identifierPutResponse(writer, withSsh_key_identifierPutResponse = {}) {
     if (withSsh_key_identifierPutResponse) {
         writer.writeObjectValue("ssh_key", withSsh_key_identifierPutResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(withSsh_key_identifierPutResponse.additionalData);
     }
 }
 /**

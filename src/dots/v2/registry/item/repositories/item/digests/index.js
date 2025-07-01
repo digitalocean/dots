@@ -36,7 +36,6 @@ export function serializeDigestsGetResponse(writer, digestsGetResponse = {}) {
         writer.writeObjectValue("links", digestsGetResponse.links, serializePage_links);
         writer.writeCollectionOfObjectValues("manifests", digestsGetResponse.manifests, serializeRepository_manifest);
         writer.writeObjectValue("meta", digestsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(digestsGetResponse.additionalData);
     }
 }
 /**

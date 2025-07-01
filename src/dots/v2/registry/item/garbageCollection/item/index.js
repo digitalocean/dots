@@ -30,7 +30,6 @@ export function deserializeIntoWithGarbage_collection_uuPutResponse(withGarbage_
 export function serializeWithGarbage_collection_uuPutResponse(writer, withGarbage_collection_uuPutResponse = {}) {
     if (withGarbage_collection_uuPutResponse) {
         writer.writeObjectValue("garbage_collection", withGarbage_collection_uuPutResponse.garbageCollection, serializeGarbage_collection);
-        writer.writeAdditionalData(withGarbage_collection_uuPutResponse.additionalData);
     }
 }
 /**

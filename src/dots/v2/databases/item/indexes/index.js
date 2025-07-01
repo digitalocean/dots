@@ -32,7 +32,6 @@ export function deserializeIntoIndexesGetResponse(indexesGetResponse = {}) {
 export function serializeIndexesGetResponse(writer, indexesGetResponse = {}) {
     if (indexesGetResponse) {
         writer.writeCollectionOfObjectValues("indexes", indexesGetResponse.indexes, serializeOpensearch_index);
-        writer.writeAdditionalData(indexesGetResponse.additionalData);
     }
 }
 /**

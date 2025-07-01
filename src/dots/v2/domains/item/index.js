@@ -32,7 +32,6 @@ export function deserializeIntoWithDomain_nameGetResponse(withDomain_nameGetResp
 export function serializeWithDomain_nameGetResponse(writer, withDomain_nameGetResponse = {}) {
     if (withDomain_nameGetResponse) {
         writer.writeObjectValue("domain", withDomain_nameGetResponse.domain, serializeDomain);
-        writer.writeAdditionalData(withDomain_nameGetResponse.additionalData);
     }
 }
 /**

@@ -34,7 +34,6 @@ export function serializeBilling_historyGetResponse(writer, billing_historyGetRe
         writer.writeCollectionOfObjectValues("billing_history", billing_historyGetResponse.billingHistory, serializeBilling_history);
         writer.writeObjectValue("links", billing_historyGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", billing_historyGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(billing_historyGetResponse.additionalData);
     }
 }
 /**

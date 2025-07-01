@@ -4,13 +4,9 @@
 // @ts-ignore
 import { createBilling_historyFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeBilling_history, serializeMeta_properties, serializePage_links, type Billing_history, type ErrorEscaped, type Meta_properties, type Page_links } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface Billing_historyGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Billing_historyGetResponse extends Parsable {
     /**
      * The billing_history property
      */
@@ -77,7 +73,6 @@ export function serializeBilling_historyGetResponse(writer: SerializationWriter,
         writer.writeCollectionOfObjectValues<Billing_history>("billing_history", billing_historyGetResponse.billingHistory, serializeBilling_history);
         writer.writeObjectValue<Page_links>("links", billing_historyGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", billing_historyGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(billing_historyGetResponse.additionalData);
     }
 }
 /**

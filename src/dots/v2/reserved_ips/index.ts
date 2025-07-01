@@ -6,7 +6,7 @@ import { createAction_linkFromDiscriminatorValue, createErrorEscapedFromDiscrimi
 // @ts-ignore
 import { type WithReserved_ipItemRequestBuilder, WithReserved_ipItemRequestBuilderNavigationMetadata, WithReserved_ipItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -90,11 +90,7 @@ export function deserializeIntoReserved_ipsPostResponse_links(reserved_ipsPostRe
     }
 }
 export type Reserved_ip_create = Reserved_ip_createMember1 | Reserved_ip_createMember2;
-export interface Reserved_ipsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -108,11 +104,7 @@ export interface Reserved_ipsGetResponse extends AdditionalDataHolder, Parsable 
      */
     reservedIps?: Reserved_ip[] | null;
 }
-export interface Reserved_ipsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipsPostResponse extends Parsable {
     /**
      * The links property
      */
@@ -122,15 +114,11 @@ export interface Reserved_ipsPostResponse extends AdditionalDataHolder, Parsable
      */
     reservedIp?: Reserved_ip | null;
 }
-export interface Reserved_ipsPostResponse_links extends AdditionalDataHolder, Parsable {
+export interface Reserved_ipsPostResponse_links extends Parsable {
     /**
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -141,7 +129,7 @@ export interface Reserved_ipsPostResponse_links extends AdditionalDataHolder, Pa
  */
 export interface Reserved_ipsRequestBuilder extends BaseRequestBuilder<Reserved_ipsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.reserved_ips.item collection
+     * Gets an item from the dots.v2.reserved_ips.item collection
      * @param reserved_ip A reserved IP address.
      * @returns {WithReserved_ipItemRequestBuilder}
      */
@@ -213,7 +201,6 @@ export function serializeReserved_ipsGetResponse(writer: SerializationWriter, re
         writer.writeObjectValue<Page_links>("links", reserved_ipsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", reserved_ipsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Reserved_ip>("reserved_ips", reserved_ipsGetResponse.reservedIps, serializeReserved_ip);
-        writer.writeAdditionalData(reserved_ipsGetResponse.additionalData);
     }
 }
 /**
@@ -225,7 +212,6 @@ export function serializeReserved_ipsPostResponse(writer: SerializationWriter, r
     if (reserved_ipsPostResponse) {
         writer.writeObjectValue<Reserved_ipsPostResponse_links>("links", reserved_ipsPostResponse.links, serializeReserved_ipsPostResponse_links);
         writer.writeObjectValue<Reserved_ip>("reserved_ip", reserved_ipsPostResponse.reservedIp, serializeReserved_ip);
-        writer.writeAdditionalData(reserved_ipsPostResponse.additionalData);
     }
 }
 /**
@@ -237,7 +223,6 @@ export function serializeReserved_ipsPostResponse_links(writer: SerializationWri
     if (reserved_ipsPostResponse_links) {
         writer.writeCollectionOfObjectValues<Action_link>("actions", reserved_ipsPostResponse_links.actions, serializeAction_link);
         writer.writeCollectionOfObjectValues<Action_link>("droplets", reserved_ipsPostResponse_links.droplets, serializeAction_link);
-        writer.writeAdditionalData(reserved_ipsPostResponse_links.additionalData);
     }
 }
 /**

@@ -10,7 +10,9 @@ import { Indexing_jobsRequestBuilderNavigationMetadata, Indexing_jobsRequestBuil
 // @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata } from './knowledge_bases/index.js';
 // @ts-ignore
-import { ModelsRequestBuilderRequestsMetadata } from './modelsRequests/index.js';
+import { ModelsRequestBuilderNavigationMetadata, ModelsRequestBuilderRequestsMetadata } from './modelsRequests/index.js';
+// @ts-ignore
+import { OpenaiRequestBuilderNavigationMetadata } from './openai/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata } from './regions/index.js';
 /**
@@ -38,6 +40,10 @@ export const GenAiRequestBuilderNavigationMetadata = {
     },
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,
+        navigationMetadata: ModelsRequestBuilderNavigationMetadata,
+    },
+    openai: {
+        navigationMetadata: OpenaiRequestBuilderNavigationMetadata,
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,

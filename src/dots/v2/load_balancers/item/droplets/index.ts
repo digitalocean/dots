@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44,21 +44,13 @@ export function deserializeIntoDropletsPostRequestBody(dropletsPostRequestBody: 
         "droplet_ids": n => { dropletsPostRequestBody.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
     }
 }
-export interface DropletsDeleteRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DropletsDeleteRequestBody extends Parsable {
     /**
      * An array containing the IDs of the Droplets assigned to the load balancer.
      */
     dropletIds?: number[] | null;
 }
-export interface DropletsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DropletsPostRequestBody extends Parsable {
     /**
      * An array containing the IDs of the Droplets assigned to the load balancer.
      */
@@ -113,7 +105,6 @@ export interface DropletsRequestBuilder extends BaseRequestBuilder<DropletsReque
 export function serializeDropletsDeleteRequestBody(writer: SerializationWriter, dropletsDeleteRequestBody: Partial<DropletsDeleteRequestBody> | undefined | null = {}) : void {
     if (dropletsDeleteRequestBody) {
         writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsDeleteRequestBody.dropletIds);
-        writer.writeAdditionalData(dropletsDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -124,7 +115,6 @@ export function serializeDropletsDeleteRequestBody(writer: SerializationWriter, 
 export function serializeDropletsPostRequestBody(writer: SerializationWriter, dropletsPostRequestBody: Partial<DropletsPostRequestBody> | undefined | null = {}) : void {
     if (dropletsPostRequestBody) {
         writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsPostRequestBody.dropletIds);
-        writer.writeAdditionalData(dropletsPostRequestBody.additionalData);
     }
 }
 /**

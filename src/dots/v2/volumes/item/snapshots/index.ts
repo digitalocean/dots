@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createSnapshotsFromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeSnapshots, type ErrorEscaped, type Meta_properties, type Page_links, type Snapshots } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -76,7 +76,6 @@ export function serializeSnapshotsGetResponse(writer: SerializationWriter, snaps
         writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Snapshots>("snapshots", snapshotsGetResponse.snapshots, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
     }
 }
 /**
@@ -88,7 +87,6 @@ export function serializeSnapshotsPostRequestBody(writer: SerializationWriter, s
     if (snapshotsPostRequestBody) {
         writer.writeStringValue("name", snapshotsPostRequestBody.name);
         writer.writeCollectionOfPrimitiveValues<string>("tags", snapshotsPostRequestBody.tags);
-        writer.writeAdditionalData(snapshotsPostRequestBody.additionalData);
     }
 }
 /**
@@ -99,14 +97,9 @@ export function serializeSnapshotsPostRequestBody(writer: SerializationWriter, s
 export function serializeSnapshotsPostResponse(writer: SerializationWriter, snapshotsPostResponse: Partial<SnapshotsPostResponse> | undefined | null = {}) : void {
     if (snapshotsPostResponse) {
         writer.writeObjectValue<Snapshots>("snapshot", snapshotsPostResponse.snapshot, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsPostResponse.additionalData);
     }
 }
-export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SnapshotsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -120,11 +113,7 @@ export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
      */
     snapshots?: Snapshots[] | null;
 }
-export interface SnapshotsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SnapshotsPostRequestBody extends Parsable {
     /**
      * A human-readable name for the volume snapshot.
      */
@@ -134,11 +123,7 @@ export interface SnapshotsPostRequestBody extends AdditionalDataHolder, Parsable
      */
     tags?: string[] | null;
 }
-export interface SnapshotsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SnapshotsPostResponse extends Parsable {
     /**
      * The snapshot property
      */

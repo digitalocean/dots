@@ -105,7 +105,6 @@ export function serializeFloating_ipsGetResponse(writer, floating_ipsGetResponse
         writer.writeCollectionOfObjectValues("floating_ips", floating_ipsGetResponse.floatingIps, serializeFloating_ip);
         writer.writeObjectValue("links", floating_ipsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", floating_ipsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(floating_ipsGetResponse.additionalData);
     }
 }
 /**
@@ -117,7 +116,6 @@ export function serializeFloating_ipsPostResponse(writer, floating_ipsPostRespon
     if (floating_ipsPostResponse) {
         writer.writeObjectValue("floating_ip", floating_ipsPostResponse.floatingIp, serializeFloating_ip);
         writer.writeObjectValue("links", floating_ipsPostResponse.links, serializeFloating_ipsPostResponse_links);
-        writer.writeAdditionalData(floating_ipsPostResponse.additionalData);
     }
 }
 /**
@@ -129,7 +127,6 @@ export function serializeFloating_ipsPostResponse_links(writer, floating_ipsPost
     if (floating_ipsPostResponse_links) {
         writer.writeCollectionOfObjectValues("actions", floating_ipsPostResponse_links.actions, serializeAction_link);
         writer.writeCollectionOfObjectValues("droplets", floating_ipsPostResponse_links.droplets, serializeAction_link);
-        writer.writeAdditionalData(floating_ipsPostResponse_links.additionalData);
     }
 }
 /**

@@ -6,17 +6,13 @@ import { createActionFromDiscriminatorValue, createErrorEscapedFromDiscriminator
 // @ts-ignore
 import { type WithAction_ItemRequestBuilder, WithAction_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsGetResponse extends Parsable {
     /**
      * The actions property
      */
     actions?: Action[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -32,7 +28,7 @@ export type ActionsPostRequestBody = Image_action_base | Image_action_transfer;
  */
 export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.images.item.actions.item collection
+     * Gets an item from the dots.v2.images.item.actions.item collection
      * @param action_id A unique numeric ID that can be used to identify and reference an action.
      * @returns {WithAction_ItemRequestBuilder}
      */
@@ -125,7 +121,6 @@ export function serializeActionsGetResponse(writer: SerializationWriter, actions
         writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
         writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(actionsGetResponse.additionalData);
     }
 }
 /**

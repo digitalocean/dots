@@ -68,7 +68,6 @@ export function deserializeIntoWithDomain_record_PutResponse(withDomain_record_P
 export function serializeWithDomain_record_GetResponse(writer, withDomain_record_GetResponse = {}) {
     if (withDomain_record_GetResponse) {
         writer.writeObjectValue("domain_record", withDomain_record_GetResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_GetResponse.additionalData);
     }
 }
 /**
@@ -79,7 +78,6 @@ export function serializeWithDomain_record_GetResponse(writer, withDomain_record
 export function serializeWithDomain_record_PatchResponse(writer, withDomain_record_PatchResponse = {}) {
     if (withDomain_record_PatchResponse) {
         writer.writeObjectValue("domain_record", withDomain_record_PatchResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PatchResponse.additionalData);
     }
 }
 /**
@@ -90,7 +88,6 @@ export function serializeWithDomain_record_PatchResponse(writer, withDomain_reco
 export function serializeWithDomain_record_PutResponse(writer, withDomain_record_PutResponse = {}) {
     if (withDomain_record_PutResponse) {
         writer.writeObjectValue("domain_record", withDomain_record_PutResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PutResponse.additionalData);
     }
 }
 /**

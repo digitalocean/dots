@@ -68,7 +68,6 @@ export function deserializeIntoSubscriptionPostResponse(subscriptionPostResponse
 export function serializeSubscriptionGetResponse(writer, subscriptionGetResponse = {}) {
     if (subscriptionGetResponse) {
         writer.writeObjectValue("subscription", subscriptionGetResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionGetResponse.additionalData);
     }
 }
 /**
@@ -79,7 +78,6 @@ export function serializeSubscriptionGetResponse(writer, subscriptionGetResponse
 export function serializeSubscriptionPostRequestBody(writer, subscriptionPostRequestBody = {}) {
     if (subscriptionPostRequestBody) {
         writer.writeEnumValue("tier_slug", subscriptionPostRequestBody.tierSlug);
-        writer.writeAdditionalData(subscriptionPostRequestBody.additionalData);
     }
 }
 /**
@@ -90,7 +88,6 @@ export function serializeSubscriptionPostRequestBody(writer, subscriptionPostReq
 export function serializeSubscriptionPostResponse(writer, subscriptionPostResponse = {}) {
     if (subscriptionPostResponse) {
         writer.writeObjectValue("subscription", subscriptionPostResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionPostResponse.additionalData);
     }
 }
 /**
@@ -126,6 +123,7 @@ export const SubscriptionRequestBuilderRequestsMetadata = {
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue,
+            412: createErrorEscapedFromDiscriminatorValue,
             429: createErrorEscapedFromDiscriminatorValue,
             500: createErrorEscapedFromDiscriminatorValue,
             XXX: createErrorEscapedFromDiscriminatorValue,

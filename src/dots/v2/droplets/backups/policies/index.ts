@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeMeta_properties, serializePage_links, type ErrorEscaped, type Meta_properties, type Page_links } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -45,11 +45,7 @@ export function deserializeIntoPoliciesGetResponse_policies(policiesGetResponse_
     return {
     }
 }
-export interface PoliciesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PoliciesGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -66,11 +62,7 @@ export interface PoliciesGetResponse extends AdditionalDataHolder, Parsable {
 /**
  * A map where the keys are the Droplet IDs and the values areobjects containing the backup policy information for each Droplet.
  */
-export interface PoliciesGetResponse_policies extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PoliciesGetResponse_policies extends Parsable {
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/backups/policies
@@ -117,7 +109,6 @@ export function serializePoliciesGetResponse(writer: SerializationWriter, polici
         writer.writeObjectValue<Page_links>("links", policiesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", policiesGetResponse.meta, serializeMeta_properties);
         writer.writeObjectValue<PoliciesGetResponse_policies>("policies", policiesGetResponse.policies, serializePoliciesGetResponse_policies);
-        writer.writeAdditionalData(policiesGetResponse.additionalData);
     }
 }
 /**
@@ -127,7 +118,6 @@ export function serializePoliciesGetResponse(writer: SerializationWriter, polici
 // @ts-ignore
 export function serializePoliciesGetResponse_policies(writer: SerializationWriter, policiesGetResponse_policies: Partial<PoliciesGetResponse_policies> | undefined | null = {}) : void {
     if (policiesGetResponse_policies) {
-        writer.writeAdditionalData(policiesGetResponse_policies.additionalData);
     }
 }
 /**

@@ -30,7 +30,6 @@ export function deserializeIntoWithDestination_uuGetResponse(withDestination_uuG
 export function serializeWithDestination_uuGetResponse(writer, withDestination_uuGetResponse = {}) {
     if (withDestination_uuGetResponse) {
         writer.writeObjectValue("destination", withDestination_uuGetResponse.destination, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(withDestination_uuGetResponse.additionalData);
     }
 }
 /**

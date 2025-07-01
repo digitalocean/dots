@@ -71,7 +71,6 @@ export function deserializeIntoUsersPostResponse(usersPostResponse = {}) {
 export function serializeUsersGetResponse(writer, usersGetResponse = {}) {
     if (usersGetResponse) {
         writer.writeCollectionOfObjectValues("users", usersGetResponse.users, serializeDatabase_user);
-        writer.writeAdditionalData(usersGetResponse.additionalData);
     }
 }
 /**
@@ -93,7 +92,6 @@ export function serializeUsersPostRequestBody(writer, usersPostRequestBody = {})
 export function serializeUsersPostResponse(writer, usersPostResponse = {}) {
     if (usersPostResponse) {
         writer.writeObjectValue("user", usersPostResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(usersPostResponse.additionalData);
     }
 }
 /**

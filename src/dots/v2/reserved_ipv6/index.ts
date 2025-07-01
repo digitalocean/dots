@@ -6,7 +6,7 @@ import { createDropletFromDiscriminatorValue, createErrorEscapedFromDiscriminato
 // @ts-ignore
 import { type WithReserved_ipv6ItemRequestBuilder, WithReserved_ipv6ItemRequestBuilderNavigationMetadata, WithReserved_ipv6ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -91,11 +91,7 @@ export function deserializeIntoReserved_ipv6PostResponse_reserved_ipv6(reserved_
         "reserved_at": n => { reserved_ipv6PostResponse_reserved_ipv6.reservedAt = n.getDateValue(); },
     }
 }
-export interface Reserved_ipv6GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipv6GetResponse extends Parsable {
     /**
      * The links property
      */
@@ -109,11 +105,7 @@ export interface Reserved_ipv6GetResponse extends AdditionalDataHolder, Parsable
      */
     reservedIpv6s?: Reserved_ipv6GetResponse_reserved_ipv6s[] | null;
 }
-export interface Reserved_ipv6GetResponse_reserved_ipv6s extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipv6GetResponse_reserved_ipv6s extends Parsable {
     /**
      * The droplet property
      */
@@ -131,21 +123,13 @@ export interface Reserved_ipv6GetResponse_reserved_ipv6s extends AdditionalDataH
      */
     reservedAt?: Date | null;
 }
-export interface Reserved_ipv6PostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipv6PostResponse extends Parsable {
     /**
      * The reserved_ipv6 property
      */
     reservedIpv6?: Reserved_ipv6PostResponse_reserved_ipv6 | null;
 }
-export interface Reserved_ipv6PostResponse_reserved_ipv6 extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reserved_ipv6PostResponse_reserved_ipv6 extends Parsable {
     /**
      * The public IP address of the reserved IPv6. It also serves as its identifier.
      */
@@ -164,7 +148,7 @@ export interface Reserved_ipv6PostResponse_reserved_ipv6 extends AdditionalDataH
  */
 export interface Reserved_ipv6RequestBuilder extends BaseRequestBuilder<Reserved_ipv6RequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.reserved_ipv6.item collection
+     * Gets an item from the dots.v2.reserved_ipv6.item collection
      * @param reserved_ipv6 A reserved IPv6 address.
      * @returns {WithReserved_ipv6ItemRequestBuilder}
      */
@@ -227,7 +211,6 @@ export function serializeReserved_ipv6GetResponse(writer: SerializationWriter, r
         writer.writeObjectValue<Page_links>("links", reserved_ipv6GetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", reserved_ipv6GetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Reserved_ipv6GetResponse_reserved_ipv6s>("reserved_ipv6s", reserved_ipv6GetResponse.reservedIpv6s, serializeReserved_ipv6GetResponse_reserved_ipv6s);
-        writer.writeAdditionalData(reserved_ipv6GetResponse.additionalData);
     }
 }
 /**
@@ -241,7 +224,6 @@ export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer: Seriali
         writer.writeStringValue("ip", reserved_ipv6GetResponse_reserved_ipv6s.ip);
         writer.writeStringValue("region_slug", reserved_ipv6GetResponse_reserved_ipv6s.regionSlug);
         writer.writeDateValue("reserved_at", reserved_ipv6GetResponse_reserved_ipv6s.reservedAt);
-        writer.writeAdditionalData(reserved_ipv6GetResponse_reserved_ipv6s.additionalData);
     }
 }
 /**
@@ -252,7 +234,6 @@ export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer: Seriali
 export function serializeReserved_ipv6PostResponse(writer: SerializationWriter, reserved_ipv6PostResponse: Partial<Reserved_ipv6PostResponse> | undefined | null = {}) : void {
     if (reserved_ipv6PostResponse) {
         writer.writeObjectValue<Reserved_ipv6PostResponse_reserved_ipv6>("reserved_ipv6", reserved_ipv6PostResponse.reservedIpv6, serializeReserved_ipv6PostResponse_reserved_ipv6);
-        writer.writeAdditionalData(reserved_ipv6PostResponse.additionalData);
     }
 }
 /**
@@ -265,7 +246,6 @@ export function serializeReserved_ipv6PostResponse_reserved_ipv6(writer: Seriali
         writer.writeStringValue("ip", reserved_ipv6PostResponse_reserved_ipv6.ip);
         writer.writeStringValue("region_slug", reserved_ipv6PostResponse_reserved_ipv6.regionSlug);
         writer.writeDateValue("reserved_at", reserved_ipv6PostResponse_reserved_ipv6.reservedAt);
-        writer.writeAdditionalData(reserved_ipv6PostResponse_reserved_ipv6.additionalData);
     }
 }
 /**

@@ -6,13 +6,9 @@ import { createCheckFromDiscriminatorValue, createErrorEscapedFromDiscriminatorV
 // @ts-ignore
 import { type WithCheck_ItemRequestBuilder, WithCheck_ItemRequestBuilderNavigationMetadata, WithCheck_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface ChecksGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ChecksGetResponse extends Parsable {
     /**
      * The checks property
      */
@@ -28,11 +24,7 @@ export interface ChecksGetResponse extends AdditionalDataHolder, Parsable {
 }
 export interface ChecksPostRequestBody extends Check_updatable, Parsable {
 }
-export interface ChecksPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ChecksPostResponse extends Parsable {
     /**
      * The check property
      */
@@ -43,7 +35,7 @@ export interface ChecksPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ChecksRequestBuilder extends BaseRequestBuilder<ChecksRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.uptime.checks.item collection
+     * Gets an item from the dots.v2.uptime.checks.item collection
      * @param check_id A unique identifier for a check.
      * @returns {WithCheck_ItemRequestBuilder}
      */
@@ -166,7 +158,6 @@ export function serializeChecksGetResponse(writer: SerializationWriter, checksGe
         writer.writeCollectionOfObjectValues<Check>("checks", checksGetResponse.checks, serializeCheck);
         writer.writeObjectValue<Page_links>("links", checksGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", checksGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(checksGetResponse.additionalData);
     }
 }
 /**
@@ -187,7 +178,6 @@ export function serializeChecksPostRequestBody(writer: SerializationWriter, chec
 export function serializeChecksPostResponse(writer: SerializationWriter, checksPostResponse: Partial<ChecksPostResponse> | undefined | null = {}) : void {
     if (checksPostResponse) {
         writer.writeObjectValue<Check>("check", checksPostResponse.check, serializeCheck);
-        writer.writeAdditionalData(checksPostResponse.additionalData);
     }
 }
 /**

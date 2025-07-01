@@ -49,7 +49,6 @@ export function deserializeIntoEviction_policyPutRequestBody(eviction_policyPutR
 export function serializeEviction_policyGetResponse(writer, eviction_policyGetResponse = {}) {
     if (eviction_policyGetResponse) {
         writer.writeEnumValue("eviction_policy", eviction_policyGetResponse.evictionPolicy);
-        writer.writeAdditionalData(eviction_policyGetResponse.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeEviction_policyGetResponse(writer, eviction_policyGetRe
 export function serializeEviction_policyPutRequestBody(writer, eviction_policyPutRequestBody = {}) {
     if (eviction_policyPutRequestBody) {
         writer.writeEnumValue("eviction_policy", eviction_policyPutRequestBody.evictionPolicy);
-        writer.writeAdditionalData(eviction_policyPutRequestBody.additionalData);
     }
 }
 /**

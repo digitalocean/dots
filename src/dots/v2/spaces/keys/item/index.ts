@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createKeyFromDiscriminatorValue, serializeKey, type ErrorEscaped, type Key } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -71,7 +71,6 @@ export function deserializeIntoWithAccess_keyPutResponse(withAccess_keyPutRespon
 export function serializeWithAccess_keyGetResponse(writer: SerializationWriter, withAccess_keyGetResponse: Partial<WithAccess_keyGetResponse> | undefined | null = {}) : void {
     if (withAccess_keyGetResponse) {
         writer.writeCollectionOfObjectValues<Key>("keys", withAccess_keyGetResponse.keys, serializeKey);
-        writer.writeAdditionalData(withAccess_keyGetResponse.additionalData);
     }
 }
 /**
@@ -82,7 +81,6 @@ export function serializeWithAccess_keyGetResponse(writer: SerializationWriter, 
 export function serializeWithAccess_keyPatchResponse(writer: SerializationWriter, withAccess_keyPatchResponse: Partial<WithAccess_keyPatchResponse> | undefined | null = {}) : void {
     if (withAccess_keyPatchResponse) {
         writer.writeObjectValue<Key>("key", withAccess_keyPatchResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPatchResponse.additionalData);
     }
 }
 /**
@@ -93,14 +91,9 @@ export function serializeWithAccess_keyPatchResponse(writer: SerializationWriter
 export function serializeWithAccess_keyPutResponse(writer: SerializationWriter, withAccess_keyPutResponse: Partial<WithAccess_keyPutResponse> | undefined | null = {}) : void {
     if (withAccess_keyPutResponse) {
         writer.writeObjectValue<Key>("key", withAccess_keyPutResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPutResponse.additionalData);
     }
 }
-export interface WithAccess_keyGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAccess_keyGetResponse extends Parsable {
     /**
      * The keys property
      */
@@ -184,21 +177,13 @@ export interface WithAccess_keyItemRequestBuilder extends BaseRequestBuilder<Wit
      */
      toPutRequestInformation(body: Key, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithAccess_keyPatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAccess_keyPatchResponse extends Parsable {
     /**
      * The key property
      */
     key?: Key | null;
 }
-export interface WithAccess_keyPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAccess_keyPutResponse extends Parsable {
     /**
      * The key property
      */

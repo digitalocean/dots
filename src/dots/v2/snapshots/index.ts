@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithSnapshot_ItemRequestBuilder, WithSnapshot_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -40,14 +40,9 @@ export function serializeSnapshotsGetResponse(writer: SerializationWriter, snaps
         writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Snapshots>("snapshots", snapshotsGetResponse.snapshots, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
     }
 }
-export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SnapshotsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -66,7 +61,7 @@ export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface SnapshotsRequestBuilder extends BaseRequestBuilder<SnapshotsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.snapshots.item collection
+     * Gets an item from the dots.v2.snapshots.item collection
      * @param snapshot_id Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.
      * @returns {WithSnapshot_ItemRequestBuilder}
      */

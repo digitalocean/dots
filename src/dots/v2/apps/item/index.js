@@ -10,6 +10,10 @@ import { ComponentsRequestBuilderNavigationMetadata } from './components/index.j
 // @ts-ignore
 import { DeploymentsRequestBuilderNavigationMetadata, DeploymentsRequestBuilderRequestsMetadata } from './deployments/index.js';
 // @ts-ignore
+import { HealthRequestBuilderRequestsMetadata } from './health/index.js';
+// @ts-ignore
+import { InstancesRequestBuilderRequestsMetadata } from './instances/index.js';
+// @ts-ignore
 import { LogsRequestBuilderRequestsMetadata } from './logs/index.js';
 // @ts-ignore
 import { MetricsRequestBuilderNavigationMetadata } from './metrics/index.js';
@@ -35,6 +39,12 @@ export const App_ItemRequestBuilderNavigationMetadata = {
     deployments: {
         requestsMetadata: DeploymentsRequestBuilderRequestsMetadata,
         navigationMetadata: DeploymentsRequestBuilderNavigationMetadata,
+    },
+    health: {
+        requestsMetadata: HealthRequestBuilderRequestsMetadata,
+    },
+    instances: {
+        requestsMetadata: InstancesRequestBuilderRequestsMetadata,
     },
     logs: {
         requestsMetadata: LogsRequestBuilderRequestsMetadata,

@@ -51,7 +51,6 @@ export function deserializeIntoDbsPostResponse(dbsPostResponse = {}) {
 export function serializeDbsGetResponse(writer, dbsGetResponse = {}) {
     if (dbsGetResponse) {
         writer.writeCollectionOfObjectValues("dbs", dbsGetResponse.dbs, serializeDatabase);
-        writer.writeAdditionalData(dbsGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeDbsGetResponse(writer, dbsGetResponse = {}) {
 export function serializeDbsPostResponse(writer, dbsPostResponse = {}) {
     if (dbsPostResponse) {
         writer.writeObjectValue("db", dbsPostResponse.db, serializeDatabase);
-        writer.writeAdditionalData(dbsPostResponse.additionalData);
     }
 }
 /**

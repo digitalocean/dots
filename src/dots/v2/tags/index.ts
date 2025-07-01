@@ -6,7 +6,7 @@ import { createError_with_root_causesFromDiscriminatorValue, createErrorEscapedF
 // @ts-ignore
 import { type WithTag_ItemRequestBuilder, WithTag_ItemRequestBuilderNavigationMetadata, WithTag_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -58,7 +58,6 @@ export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetRes
         writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Tags>("tags", tagsGetResponse.tags, serializeTags);
-        writer.writeAdditionalData(tagsGetResponse.additionalData);
     }
 }
 /**
@@ -69,14 +68,9 @@ export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetRes
 export function serializeTagsPostResponse(writer: SerializationWriter, tagsPostResponse: Partial<TagsPostResponse> | undefined | null = {}) : void {
     if (tagsPostResponse) {
         writer.writeObjectValue<Tags>("tag", tagsPostResponse.tag, serializeTags);
-        writer.writeAdditionalData(tagsPostResponse.additionalData);
     }
 }
-export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TagsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -90,11 +84,7 @@ export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
      */
     tags?: Tags[] | null;
 }
-export interface TagsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TagsPostResponse extends Parsable {
     /**
      * A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged.
      */
@@ -105,7 +95,7 @@ export interface TagsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.tags.item collection
+     * Gets an item from the dots.v2.tags.item collection
      * @param tag_id The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores. There is a limit of 255 characters per tag.
      * @returns {WithTag_ItemRequestBuilder}
      */

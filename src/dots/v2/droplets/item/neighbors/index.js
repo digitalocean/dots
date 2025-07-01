@@ -30,7 +30,6 @@ export function deserializeIntoNeighborsGetResponse(neighborsGetResponse = {}) {
 export function serializeNeighborsGetResponse(writer, neighborsGetResponse = {}) {
     if (neighborsGetResponse) {
         writer.writeCollectionOfObjectValues("droplets", neighborsGetResponse.droplets, serializeDroplet);
-        writer.writeAdditionalData(neighborsGetResponse.additionalData);
     }
 }
 /**

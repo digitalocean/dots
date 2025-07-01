@@ -51,7 +51,6 @@ export function deserializeIntoNamespacesPostResponse(namespacesPostResponse = {
 export function serializeNamespacesGetResponse(writer, namespacesGetResponse = {}) {
     if (namespacesGetResponse) {
         writer.writeCollectionOfObjectValues("namespaces", namespacesGetResponse.namespaces, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeNamespacesGetResponse(writer, namespacesGetResponse = {
 export function serializeNamespacesPostResponse(writer, namespacesPostResponse = {}) {
     if (namespacesPostResponse) {
         writer.writeObjectValue("namespace", namespacesPostResponse.namespace, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesPostResponse.additionalData);
     }
 }
 /**

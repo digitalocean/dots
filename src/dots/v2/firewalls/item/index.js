@@ -55,7 +55,6 @@ export function deserializeIntoWithFirewall_PutResponse(withFirewall_PutResponse
 export function serializeWithFirewall_GetResponse(writer, withFirewall_GetResponse = {}) {
     if (withFirewall_GetResponse) {
         writer.writeObjectValue("firewall", withFirewall_GetResponse.firewall, serializeFirewall);
-        writer.writeAdditionalData(withFirewall_GetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeWithFirewall_GetResponse(writer, withFirewall_GetRespon
 export function serializeWithFirewall_PutResponse(writer, withFirewall_PutResponse = {}) {
     if (withFirewall_PutResponse) {
         writer.writeObjectValue("firewall", withFirewall_PutResponse.firewall, serializeFirewall);
-        writer.writeAdditionalData(withFirewall_PutResponse.additionalData);
     }
 }
 /**

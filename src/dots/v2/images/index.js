@@ -55,7 +55,6 @@ export function serializeImagesGetResponse(writer, imagesGetResponse = {}) {
         writer.writeCollectionOfObjectValues("images", imagesGetResponse.images, serializeImage);
         writer.writeObjectValue("links", imagesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", imagesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(imagesGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeImagesGetResponse(writer, imagesGetResponse = {}) {
 export function serializeImagesPostResponse(writer, imagesPostResponse = {}) {
     if (imagesPostResponse) {
         writer.writeObjectValue("image", imagesPostResponse.image, serializeImage);
-        writer.writeAdditionalData(imagesPostResponse.additionalData);
     }
 }
 /**

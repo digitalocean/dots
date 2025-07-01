@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createTrigger_infoFromDiscrim
 // @ts-ignore
 import { type WithTrigger_nameItemRequestBuilder, WithTrigger_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -54,7 +54,6 @@ export function deserializeIntoTriggersPostResponse(triggersPostResponse: Partia
 export function serializeTriggersGetResponse(writer: SerializationWriter, triggersGetResponse: Partial<TriggersGetResponse> | undefined | null = {}) : void {
     if (triggersGetResponse) {
         writer.writeCollectionOfObjectValues<Trigger_info>("triggers", triggersGetResponse.triggers, serializeTrigger_info);
-        writer.writeAdditionalData(triggersGetResponse.additionalData);
     }
 }
 /**
@@ -65,24 +64,15 @@ export function serializeTriggersGetResponse(writer: SerializationWriter, trigge
 export function serializeTriggersPostResponse(writer: SerializationWriter, triggersPostResponse: Partial<TriggersPostResponse> | undefined | null = {}) : void {
     if (triggersPostResponse) {
         writer.writeObjectValue<Trigger_info>("trigger", triggersPostResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(triggersPostResponse.additionalData);
     }
 }
-export interface TriggersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TriggersGetResponse extends Parsable {
     /**
      * The triggers property
      */
     triggers?: Trigger_info[] | null;
 }
-export interface TriggersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TriggersPostResponse extends Parsable {
     /**
      * The trigger property
      */
@@ -93,7 +83,7 @@ export interface TriggersPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface TriggersRequestBuilder extends BaseRequestBuilder<TriggersRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.functions.namespaces.item.triggers.item collection
+     * Gets an item from the dots.v2.functions.namespaces.item.triggers.item collection
      * @param trigger_name The name of the trigger to be managed.
      * @returns {WithTrigger_nameItemRequestBuilder}
      */

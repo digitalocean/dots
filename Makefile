@@ -10,6 +10,12 @@ download-spec: ## Download Latest DO Spec
 dev-dependencies: ## Install development tooling
 	npm install --only=dev
 
+.PHONY: clean
+clean: ## Removes all generated code in src/dots 
+	@printf "=== Cleaning src/dots directory\n"
+	 @rm -rf src/dots/*
+
+
 .PHONY: generate
 ifndef SPEC_FILE
 generate: SPEC_FILE = $(LOCAL_SPEC_FILE)

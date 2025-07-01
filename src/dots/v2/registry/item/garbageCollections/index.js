@@ -30,7 +30,6 @@ export function deserializeIntoGarbageCollectionsGetResponse(garbageCollectionsG
 export function serializeGarbageCollectionsGetResponse(writer, garbageCollectionsGetResponse = {}) {
     if (garbageCollectionsGetResponse) {
         writer.writeCollectionOfObjectValues("garbage_collections", garbageCollectionsGetResponse.garbageCollections, serializeGarbage_collection);
-        writer.writeAdditionalData(garbageCollectionsGetResponse.additionalData);
     }
 }
 /**

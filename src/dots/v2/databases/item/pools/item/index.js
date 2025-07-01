@@ -30,7 +30,6 @@ export function deserializeIntoWithPool_nameGetResponse(withPool_nameGetResponse
 export function serializeWithPool_nameGetResponse(writer, withPool_nameGetResponse = {}) {
     if (withPool_nameGetResponse) {
         writer.writeObjectValue("pool", withPool_nameGetResponse.pool, serializeConnection_pool);
-        writer.writeAdditionalData(withPool_nameGetResponse.additionalData);
     }
 }
 /**

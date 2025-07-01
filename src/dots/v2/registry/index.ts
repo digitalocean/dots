@@ -14,7 +14,7 @@ import { SubscriptionRequestBuilderRequestsMetadata, type SubscriptionRequestBui
 // @ts-ignore
 import { type ValidateNameRequestBuilder, ValidateNameRequestBuilderRequestsMetadata } from './validateName/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -54,21 +54,13 @@ export function deserializeIntoRegistryPostResponse(registryPostResponse: Partia
         "registry": n => { registryPostResponse.registry = n.getObjectValue<Registry>(createRegistryFromDiscriminatorValue); },
     }
 }
-export interface RegistryGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RegistryGetResponse extends Parsable {
     /**
      * The registry property
      */
     registry?: Registry | null;
 }
-export interface RegistryPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RegistryPostResponse extends Parsable {
     /**
      * The registry property
      */
@@ -95,26 +87,28 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      */
     get validateName(): ValidateNameRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.registry.item collection
+     * Gets an item from the dots.v2.registry.item collection
      * @param registry_name The name of a container registry.
      * @returns {WithRegistry_nameItemRequestBuilder}
      */
      byRegistry_name(registry_name: string) : WithRegistry_nameItemRequestBuilder;
     /**
-     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
+     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
+     * @throws {ErrorEscaped} error when the service returns a 412 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To get information about your container registry, send a GET request to `/v2/registry`.
+     * To get information about your container registry, send a GET request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RegistryGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
+     * @throws {ErrorEscaped} error when the service returns a 412 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
@@ -132,13 +126,13 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      */
      post(body: Registry_create, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<RegistryPostResponse | undefined>;
     /**
-     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
+     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To get information about your container registry, send a GET request to `/v2/registry`.
+     * To get information about your container registry, send a GET request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -159,7 +153,6 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
 export function serializeRegistryGetResponse(writer: SerializationWriter, registryGetResponse: Partial<RegistryGetResponse> | undefined | null = {}) : void {
     if (registryGetResponse) {
         writer.writeObjectValue<Registry>("registry", registryGetResponse.registry, serializeRegistry);
-        writer.writeAdditionalData(registryGetResponse.additionalData);
     }
 }
 /**
@@ -170,7 +163,6 @@ export function serializeRegistryGetResponse(writer: SerializationWriter, regist
 export function serializeRegistryPostResponse(writer: SerializationWriter, registryPostResponse: Partial<RegistryPostResponse> | undefined | null = {}) : void {
     if (registryPostResponse) {
         writer.writeObjectValue<Registry>("registry", registryPostResponse.registry, serializeRegistry);
-        writer.writeAdditionalData(registryPostResponse.additionalData);
     }
 }
 /**
@@ -208,6 +200,7 @@ export const RegistryRequestBuilderRequestsMetadata: RequestsMetadata = {
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             404: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            412: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -219,6 +212,7 @@ export const RegistryRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            412: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

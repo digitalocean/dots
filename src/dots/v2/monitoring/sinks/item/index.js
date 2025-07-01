@@ -30,7 +30,6 @@ export function deserializeIntoWithSink_uuGetResponse(withSink_uuGetResponse = {
 export function serializeWithSink_uuGetResponse(writer, withSink_uuGetResponse = {}) {
     if (withSink_uuGetResponse) {
         writer.writeObjectValue("sink", withSink_uuGetResponse.sink, serializeSinks_response);
-        writer.writeAdditionalData(withSink_uuGetResponse.additionalData);
     }
 }
 /**

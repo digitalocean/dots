@@ -51,7 +51,6 @@ export function deserializeIntoReplicasPostResponse(replicasPostResponse = {}) {
 export function serializeReplicasGetResponse(writer, replicasGetResponse = {}) {
     if (replicasGetResponse) {
         writer.writeCollectionOfObjectValues("replicas", replicasGetResponse.replicas, serializeDatabase_replica);
-        writer.writeAdditionalData(replicasGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeReplicasGetResponse(writer, replicasGetResponse = {}) {
 export function serializeReplicasPostResponse(writer, replicasPostResponse = {}) {
     if (replicasPostResponse) {
         writer.writeObjectValue("replica", replicasPostResponse.replica, serializeDatabase_replica);
-        writer.writeAdditionalData(replicasPostResponse.additionalData);
     }
 }
 /**

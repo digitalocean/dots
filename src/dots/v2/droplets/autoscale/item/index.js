@@ -55,7 +55,6 @@ export function deserializeIntoWithAutoscale_pool_PutResponse(withAutoscale_pool
 export function serializeWithAutoscale_pool_GetResponse(writer, withAutoscale_pool_GetResponse = {}) {
     if (withAutoscale_pool_GetResponse) {
         writer.writeObjectValue("autoscale_pool", withAutoscale_pool_GetResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(withAutoscale_pool_GetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeWithAutoscale_pool_GetResponse(writer, withAutoscale_po
 export function serializeWithAutoscale_pool_PutResponse(writer, withAutoscale_pool_PutResponse = {}) {
     if (withAutoscale_pool_PutResponse) {
         writer.writeObjectValue("autoscale_pool", withAutoscale_pool_PutResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(withAutoscale_pool_PutResponse.additionalData);
     }
 }
 /**

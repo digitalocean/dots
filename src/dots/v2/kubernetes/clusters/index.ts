@@ -6,13 +6,9 @@ import { createClusterFromDiscriminatorValue, createErrorEscapedFromDiscriminato
 // @ts-ignore
 import { type WithCluster_ItemRequestBuilder, WithCluster_ItemRequestBuilderNavigationMetadata, WithCluster_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface ClustersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ClustersGetResponse extends Parsable {
     /**
      * The kubernetes_clusters property
      */
@@ -26,11 +22,7 @@ export interface ClustersGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
 }
-export interface ClustersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ClustersPostResponse extends Parsable {
     /**
      * The kubernetes_cluster property
      */
@@ -41,7 +33,7 @@ export interface ClustersPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ClustersRequestBuilder extends BaseRequestBuilder<ClustersRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.kubernetes.clusters.item collection
+     * Gets an item from the dots.v2.kubernetes.clusters.item collection
      * @param cluster_id A unique ID that can be used to reference a Kubernetes cluster.
      * @returns {WithCluster_ItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeClustersGetResponse(writer: SerializationWriter, cluste
         writer.writeCollectionOfObjectValues<Cluster>("kubernetes_clusters", clustersGetResponse.kubernetesClusters, serializeCluster);
         writer.writeObjectValue<Page_links>("links", clustersGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", clustersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(clustersGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeClustersGetResponse(writer: SerializationWriter, cluste
 export function serializeClustersPostResponse(writer: SerializationWriter, clustersPostResponse: Partial<ClustersPostResponse> | undefined | null = {}) : void {
     if (clustersPostResponse) {
         writer.writeObjectValue<Cluster>("kubernetes_cluster", clustersPostResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(clustersPostResponse.additionalData);
     }
 }
 /**

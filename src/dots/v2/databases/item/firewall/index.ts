@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createFirewall_ruleFromDiscriminatorValue, serializeFirewall_rule, type ErrorEscaped, type Firewall_rule } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44,21 +44,13 @@ export function deserializeIntoFirewallPutRequestBody(firewallPutRequestBody: Pa
         "rules": n => { firewallPutRequestBody.rules = n.getCollectionOfObjectValues<Firewall_rule>(createFirewall_ruleFromDiscriminatorValue); },
     }
 }
-export interface FirewallGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface FirewallGetResponse extends Parsable {
     /**
      * The rules property
      */
     rules?: Firewall_rule[] | null;
 }
-export interface FirewallPutRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface FirewallPutRequestBody extends Parsable {
     /**
      * The rules property
      */
@@ -112,7 +104,6 @@ export interface FirewallRequestBuilder extends BaseRequestBuilder<FirewallReque
 export function serializeFirewallGetResponse(writer: SerializationWriter, firewallGetResponse: Partial<FirewallGetResponse> | undefined | null = {}) : void {
     if (firewallGetResponse) {
         writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallGetResponse.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallGetResponse.additionalData);
     }
 }
 /**
@@ -123,7 +114,6 @@ export function serializeFirewallGetResponse(writer: SerializationWriter, firewa
 export function serializeFirewallPutRequestBody(writer: SerializationWriter, firewallPutRequestBody: Partial<FirewallPutRequestBody> | undefined | null = {}) : void {
     if (firewallPutRequestBody) {
         writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallPutRequestBody.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallPutRequestBody.additionalData);
     }
 }
 /**

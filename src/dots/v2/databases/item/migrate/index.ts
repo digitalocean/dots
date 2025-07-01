@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoMigratePutRequestBody(migratePutRequestBody: Part
         "region": n => { migratePutRequestBody.region = n.getStringValue(); },
     }
 }
-export interface MigratePutRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface MigratePutRequestBody extends Parsable {
     /**
      * A slug identifier for the region to which the database cluster will be migrated.
      */
@@ -66,7 +62,6 @@ export interface MigrateRequestBuilder extends BaseRequestBuilder<MigrateRequest
 export function serializeMigratePutRequestBody(writer: SerializationWriter, migratePutRequestBody: Partial<MigratePutRequestBody> | undefined | null = {}) : void {
     if (migratePutRequestBody) {
         writer.writeStringValue("region", migratePutRequestBody.region);
-        writer.writeAdditionalData(migratePutRequestBody.additionalData);
     }
 }
 /**

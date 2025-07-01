@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createActionFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeAction, type Action, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,18 +33,13 @@ export function deserializeIntoWithAction_GetResponse(withAction_GetResponse: Pa
 export function serializeWithAction_GetResponse(writer: SerializationWriter, withAction_GetResponse: Partial<WithAction_GetResponse> | undefined | null = {}) : void {
     if (withAction_GetResponse) {
         writer.writeObjectValue<Action>("action", withAction_GetResponse.action, serializeAction);
-        writer.writeAdditionalData(withAction_GetResponse.additionalData);
     }
 }
-export interface WithAction_GetResponse extends AdditionalDataHolder, Parsable {
+export interface WithAction_GetResponse extends Parsable {
     /**
      * The action property
      */
     action?: Action | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/actions/{action_id}

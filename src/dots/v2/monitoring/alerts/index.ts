@@ -6,13 +6,9 @@ import { createAlert_policyFromDiscriminatorValue, createErrorEscapedFromDiscrim
 // @ts-ignore
 import { type WithAlert_uuItemRequestBuilder, WithAlert_uuItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AlertsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -26,11 +22,7 @@ export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
      */
     policies?: Alert_policy[] | null;
 }
-export interface AlertsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AlertsPostResponse extends Parsable {
     /**
      * The policy property
      */
@@ -41,7 +33,7 @@ export interface AlertsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface AlertsRequestBuilder extends BaseRequestBuilder<AlertsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.monitoring.alerts.item collection
+     * Gets an item from the dots.v2.monitoring.alerts.item collection
      * @param alert_uuid A unique identifier for an alert policy.
      * @returns {WithAlert_uuItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeAlertsGetResponse(writer: SerializationWriter, alertsGe
         writer.writeObjectValue<Page_links>("links", alertsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", alertsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Alert_policy>("policies", alertsGetResponse.policies, serializeAlert_policy);
-        writer.writeAdditionalData(alertsGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeAlertsGetResponse(writer: SerializationWriter, alertsGe
 export function serializeAlertsPostResponse(writer: SerializationWriter, alertsPostResponse: Partial<AlertsPostResponse> | undefined | null = {}) : void {
     if (alertsPostResponse) {
         writer.writeObjectValue<Alert_policy>("policy", alertsPostResponse.policy, serializeAlert_policy);
-        writer.writeAdditionalData(alertsPostResponse.additionalData);
     }
 }
 /**

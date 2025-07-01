@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, Eviction_policy_model, Eviction_policy_modelObject, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44,23 +44,15 @@ export function deserializeIntoEviction_policyPutRequestBody(eviction_policyPutR
         "eviction_policy": n => { eviction_policyPutRequestBody.evictionPolicy = n.getEnumValue<Eviction_policy_model>(Eviction_policy_modelObject); },
     }
 }
-export interface Eviction_policyGetResponse extends AdditionalDataHolder, Parsable {
+export interface Eviction_policyGetResponse extends Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
-     * A string specifying the desired eviction policy for the Redis cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     evictionPolicy?: Eviction_policy_model | null;
 }
-export interface Eviction_policyPutRequestBody extends AdditionalDataHolder, Parsable {
+export interface Eviction_policyPutRequestBody extends Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
-     * A string specifying the desired eviction policy for the Redis cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     evictionPolicy?: Eviction_policy_model | null;
 }
@@ -69,7 +61,7 @@ export interface Eviction_policyPutRequestBody extends AdditionalDataHolder, Par
  */
 export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Eviction_policyRequestBuilder> {
     /**
-     * To retrieve the configured eviction policy for an existing Redis cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
+     * To retrieve the configured eviction policy for an existing Redis or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Eviction_policyGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -80,7 +72,7 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Eviction_policyGetResponse | undefined>;
     /**
-     * To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
+     * To configure an eviction policy for an existing Redis or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -91,13 +83,13 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
      */
      put(body: Eviction_policyPutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To retrieve the configured eviction policy for an existing Redis cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
+     * To retrieve the configured eviction policy for an existing Redis or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
+     * To configure an eviction policy for an existing Redis or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -112,7 +104,6 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
 export function serializeEviction_policyGetResponse(writer: SerializationWriter, eviction_policyGetResponse: Partial<Eviction_policyGetResponse> | undefined | null = {}) : void {
     if (eviction_policyGetResponse) {
         writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyGetResponse.evictionPolicy);
-        writer.writeAdditionalData(eviction_policyGetResponse.additionalData);
     }
 }
 /**
@@ -123,7 +114,6 @@ export function serializeEviction_policyGetResponse(writer: SerializationWriter,
 export function serializeEviction_policyPutRequestBody(writer: SerializationWriter, eviction_policyPutRequestBody: Partial<Eviction_policyPutRequestBody> | undefined | null = {}) : void {
     if (eviction_policyPutRequestBody) {
         writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyPutRequestBody.evictionPolicy);
-        writer.writeAdditionalData(eviction_policyPutRequestBody.additionalData);
     }
 }
 /**

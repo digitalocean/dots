@@ -40,7 +40,6 @@ export function serializeWithInvoice_uuGetResponse(writer, withInvoice_uuGetResp
         writer.writeCollectionOfObjectValues("invoice_items", withInvoice_uuGetResponse.invoiceItems, serializeInvoice_item);
         writer.writeObjectValue("links", withInvoice_uuGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", withInvoice_uuGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(withInvoice_uuGetResponse.additionalData);
     }
 }
 /**

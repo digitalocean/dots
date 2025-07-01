@@ -44,7 +44,7 @@ import { type UpgradeRequestBuilder, UpgradeRequestBuilderRequestsMetadata } fro
 // @ts-ignore
 import { type UsersRequestBuilder, UsersRequestBuilderNavigationMetadata, UsersRequestBuilderRequestsMetadata } from './users/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -73,14 +73,9 @@ export function deserializeIntoWithDatabase_cluster_uuGetResponse(withDatabase_c
 export function serializeWithDatabase_cluster_uuGetResponse(writer: SerializationWriter, withDatabase_cluster_uuGetResponse: Partial<WithDatabase_cluster_uuGetResponse> | undefined | null = {}) : void {
     if (withDatabase_cluster_uuGetResponse) {
         writer.writeObjectValue<Database_cluster>("database", withDatabase_cluster_uuGetResponse.database, serializeDatabase_cluster);
-        writer.writeAdditionalData(withDatabase_cluster_uuGetResponse.additionalData);
     }
 }
-export interface WithDatabase_cluster_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDatabase_cluster_uuGetResponse extends Parsable {
     /**
      * The database property
      */

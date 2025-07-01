@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createForwarding_ruleFromDiscriminatorValue, serializeForwarding_rule, type ErrorEscaped, type Forwarding_rule } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44,21 +44,13 @@ export function deserializeIntoForwarding_rulesPostRequestBody(forwarding_rulesP
         "forwarding_rules": n => { forwarding_rulesPostRequestBody.forwardingRules = n.getCollectionOfObjectValues<Forwarding_rule>(createForwarding_ruleFromDiscriminatorValue); },
     }
 }
-export interface Forwarding_rulesDeleteRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Forwarding_rulesDeleteRequestBody extends Parsable {
     /**
      * The forwarding_rules property
      */
     forwardingRules?: Forwarding_rule[] | null;
 }
-export interface Forwarding_rulesPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Forwarding_rulesPostRequestBody extends Parsable {
     /**
      * The forwarding_rules property
      */
@@ -113,7 +105,6 @@ export interface Forwarding_rulesRequestBuilder extends BaseRequestBuilder<Forwa
 export function serializeForwarding_rulesDeleteRequestBody(writer: SerializationWriter, forwarding_rulesDeleteRequestBody: Partial<Forwarding_rulesDeleteRequestBody> | undefined | null = {}) : void {
     if (forwarding_rulesDeleteRequestBody) {
         writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesDeleteRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -124,7 +115,6 @@ export function serializeForwarding_rulesDeleteRequestBody(writer: Serialization
 export function serializeForwarding_rulesPostRequestBody(writer: SerializationWriter, forwarding_rulesPostRequestBody: Partial<Forwarding_rulesPostRequestBody> | undefined | null = {}) : void {
     if (forwarding_rulesPostRequestBody) {
         writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesPostRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesPostRequestBody.additionalData);
     }
 }
 /**

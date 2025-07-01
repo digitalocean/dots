@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createAlertFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, deserializeIntoAlert_updatable, serializeAlert, serializeAlert_updatable, type Alert, type Alert_updatable, type ErrorEscaped } from '../../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -71,7 +71,6 @@ export function deserializeIntoWithAlert_PutResponse(withAlert_PutResponse: Part
 export function serializeWithAlert_GetResponse(writer: SerializationWriter, withAlert_GetResponse: Partial<WithAlert_GetResponse> | undefined | null = {}) : void {
     if (withAlert_GetResponse) {
         writer.writeObjectValue<Alert>("alert", withAlert_GetResponse.alert, serializeAlert);
-        writer.writeAdditionalData(withAlert_GetResponse.additionalData);
     }
 }
 /**
@@ -92,14 +91,9 @@ export function serializeWithAlert_PutRequestBody(writer: SerializationWriter, w
 export function serializeWithAlert_PutResponse(writer: SerializationWriter, withAlert_PutResponse: Partial<WithAlert_PutResponse> | undefined | null = {}) : void {
     if (withAlert_PutResponse) {
         writer.writeObjectValue<Alert>("alert", withAlert_PutResponse.alert, serializeAlert);
-        writer.writeAdditionalData(withAlert_PutResponse.additionalData);
     }
 }
-export interface WithAlert_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAlert_GetResponse extends Parsable {
     /**
      * The alert property
      */
@@ -164,11 +158,7 @@ export interface WithAlert_ItemRequestBuilder extends BaseRequestBuilder<WithAle
 }
 export interface WithAlert_PutRequestBody extends Alert_updatable, Parsable {
 }
-export interface WithAlert_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAlert_PutResponse extends Parsable {
     /**
      * The alert property
      */

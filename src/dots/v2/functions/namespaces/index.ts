@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createNamespace_infoFromDiscr
 // @ts-ignore
 import { type WithNamespace_ItemRequestBuilder, WithNamespace_ItemRequestBuilderNavigationMetadata, WithNamespace_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,21 +46,13 @@ export function deserializeIntoNamespacesPostResponse(namespacesPostResponse: Pa
         "namespace": n => { namespacesPostResponse.namespace = n.getObjectValue<Namespace_info>(createNamespace_infoFromDiscriminatorValue); },
     }
 }
-export interface NamespacesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface NamespacesGetResponse extends Parsable {
     /**
      * The namespaces property
      */
     namespaces?: Namespace_info[] | null;
 }
-export interface NamespacesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface NamespacesPostResponse extends Parsable {
     /**
      * The namespace property
      */
@@ -71,7 +63,7 @@ export interface NamespacesPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface NamespacesRequestBuilder extends BaseRequestBuilder<NamespacesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.functions.namespaces.item collection
+     * Gets an item from the dots.v2.functions.namespaces.item collection
      * @param namespace_id The ID of the namespace to be managed.
      * @returns {WithNamespace_ItemRequestBuilder}
      */
@@ -121,7 +113,6 @@ export interface NamespacesRequestBuilder extends BaseRequestBuilder<NamespacesR
 export function serializeNamespacesGetResponse(writer: SerializationWriter, namespacesGetResponse: Partial<NamespacesGetResponse> | undefined | null = {}) : void {
     if (namespacesGetResponse) {
         writer.writeCollectionOfObjectValues<Namespace_info>("namespaces", namespacesGetResponse.namespaces, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeNamespacesGetResponse(writer: SerializationWriter, name
 export function serializeNamespacesPostResponse(writer: SerializationWriter, namespacesPostResponse: Partial<NamespacesPostResponse> | undefined | null = {}) : void {
     if (namespacesPostResponse) {
         writer.writeObjectValue<Namespace_info>("namespace", namespacesPostResponse.namespace, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesPostResponse.additionalData);
     }
 }
 /**

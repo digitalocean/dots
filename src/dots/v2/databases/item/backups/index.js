@@ -30,7 +30,6 @@ export function deserializeIntoBackupsGetResponse(backupsGetResponse = {}) {
 export function serializeBackupsGetResponse(writer, backupsGetResponse = {}) {
     if (backupsGetResponse) {
         writer.writeCollectionOfObjectValues("backups", backupsGetResponse.backups, serializeBackup);
-        writer.writeAdditionalData(backupsGetResponse.additionalData);
     }
 }
 /**

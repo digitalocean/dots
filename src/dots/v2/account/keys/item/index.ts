@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSshKeysFromDiscriminatorValue, serializeSshKeys, type ErrorEscaped, type SshKeys } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -71,7 +71,6 @@ export function deserializeIntoWithSsh_key_identifierPutResponse(withSsh_key_ide
 export function serializeWithSsh_key_identifierGetResponse(writer: SerializationWriter, withSsh_key_identifierGetResponse: Partial<WithSsh_key_identifierGetResponse> | undefined | null = {}) : void {
     if (withSsh_key_identifierGetResponse) {
         writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierGetResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(withSsh_key_identifierGetResponse.additionalData);
     }
 }
 /**
@@ -82,7 +81,6 @@ export function serializeWithSsh_key_identifierGetResponse(writer: Serialization
 export function serializeWithSsh_key_identifierPutRequestBody(writer: SerializationWriter, withSsh_key_identifierPutRequestBody: Partial<WithSsh_key_identifierPutRequestBody> | undefined | null = {}) : void {
     if (withSsh_key_identifierPutRequestBody) {
         writer.writeStringValue("name", withSsh_key_identifierPutRequestBody.name);
-        writer.writeAdditionalData(withSsh_key_identifierPutRequestBody.additionalData);
     }
 }
 /**
@@ -93,14 +91,9 @@ export function serializeWithSsh_key_identifierPutRequestBody(writer: Serializat
 export function serializeWithSsh_key_identifierPutResponse(writer: SerializationWriter, withSsh_key_identifierPutResponse: Partial<WithSsh_key_identifierPutResponse> | undefined | null = {}) : void {
     if (withSsh_key_identifierPutResponse) {
         writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierPutResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(withSsh_key_identifierPutResponse.additionalData);
     }
 }
-export interface WithSsh_key_identifierGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithSsh_key_identifierGetResponse extends Parsable {
     /**
      * The ssh_key property
      */
@@ -163,21 +156,13 @@ export interface WithSsh_key_identifierItemRequestBuilder extends BaseRequestBui
      */
      toPutRequestInformation(body: WithSsh_key_identifierPutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithSsh_key_identifierPutRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithSsh_key_identifierPutRequestBody extends Parsable {
     /**
      * A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.
      */
     name?: string | null;
 }
-export interface WithSsh_key_identifierPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithSsh_key_identifierPutResponse extends Parsable {
     /**
      * The ssh_key property
      */

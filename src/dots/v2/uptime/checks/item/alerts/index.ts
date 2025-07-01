@@ -6,13 +6,9 @@ import { createAlertFromDiscriminatorValue, createErrorEscapedFromDiscriminatorV
 // @ts-ignore
 import { type WithAlert_ItemRequestBuilder, WithAlert_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AlertsGetResponse extends Parsable {
     /**
      * The alerts property
      */
@@ -28,11 +24,7 @@ export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
 }
 export interface AlertsPostRequestBody extends Alert, Parsable {
 }
-export interface AlertsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AlertsPostResponse extends Parsable {
     /**
      * The alert property
      */
@@ -43,7 +35,7 @@ export interface AlertsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface AlertsRequestBuilder extends BaseRequestBuilder<AlertsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.uptime.checks.item.alerts.item collection
+     * Gets an item from the dots.v2.uptime.checks.item.alerts.item collection
      * @param alert_id A unique identifier for an alert.
      * @returns {WithAlert_ItemRequestBuilder}
      */
@@ -167,7 +159,6 @@ export function serializeAlertsGetResponse(writer: SerializationWriter, alertsGe
         writer.writeCollectionOfObjectValues<Alert>("alerts", alertsGetResponse.alerts, serializeAlert);
         writer.writeObjectValue<Page_links>("links", alertsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", alertsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(alertsGetResponse.additionalData);
     }
 }
 /**
@@ -188,7 +179,6 @@ export function serializeAlertsPostRequestBody(writer: SerializationWriter, aler
 export function serializeAlertsPostResponse(writer: SerializationWriter, alertsPostResponse: Partial<AlertsPostResponse> | undefined | null = {}) : void {
     if (alertsPostResponse) {
         writer.writeObjectValue<Alert>("alert", alertsPostResponse.alert, serializeAlert);
-        writer.writeAdditionalData(alertsPostResponse.additionalData);
     }
 }
 /**

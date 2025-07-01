@@ -59,7 +59,6 @@ export function serializeWithVpc_peering_PatchRequestBody(writer, withVpc_peerin
 export function serializeWithVpc_peering_PatchResponse(writer, withVpc_peering_PatchResponse = {}) {
     if (withVpc_peering_PatchResponse) {
         writer.writeObjectValue("peering", withVpc_peering_PatchResponse.peering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
     }
 }
 /**

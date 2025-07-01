@@ -98,7 +98,6 @@ export function serializeReserved_ipv6GetResponse(writer, reserved_ipv6GetRespon
         writer.writeObjectValue("links", reserved_ipv6GetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", reserved_ipv6GetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("reserved_ipv6s", reserved_ipv6GetResponse.reservedIpv6s, serializeReserved_ipv6GetResponse_reserved_ipv6s);
-        writer.writeAdditionalData(reserved_ipv6GetResponse.additionalData);
     }
 }
 /**
@@ -112,7 +111,6 @@ export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer, reserve
         writer.writeStringValue("ip", reserved_ipv6GetResponse_reserved_ipv6s.ip);
         writer.writeStringValue("region_slug", reserved_ipv6GetResponse_reserved_ipv6s.regionSlug);
         writer.writeDateValue("reserved_at", reserved_ipv6GetResponse_reserved_ipv6s.reservedAt);
-        writer.writeAdditionalData(reserved_ipv6GetResponse_reserved_ipv6s.additionalData);
     }
 }
 /**
@@ -123,7 +121,6 @@ export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer, reserve
 export function serializeReserved_ipv6PostResponse(writer, reserved_ipv6PostResponse = {}) {
     if (reserved_ipv6PostResponse) {
         writer.writeObjectValue("reserved_ipv6", reserved_ipv6PostResponse.reservedIpv6, serializeReserved_ipv6PostResponse_reserved_ipv6);
-        writer.writeAdditionalData(reserved_ipv6PostResponse.additionalData);
     }
 }
 /**
@@ -136,7 +133,6 @@ export function serializeReserved_ipv6PostResponse_reserved_ipv6(writer, reserve
         writer.writeStringValue("ip", reserved_ipv6PostResponse_reserved_ipv6.ip);
         writer.writeStringValue("region_slug", reserved_ipv6PostResponse_reserved_ipv6.regionSlug);
         writer.writeDateValue("reserved_at", reserved_ipv6PostResponse_reserved_ipv6.reservedAt);
-        writer.writeAdditionalData(reserved_ipv6PostResponse_reserved_ipv6.additionalData);
     }
 }
 /**

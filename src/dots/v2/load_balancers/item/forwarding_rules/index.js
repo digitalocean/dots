@@ -49,7 +49,6 @@ export function deserializeIntoForwarding_rulesPostRequestBody(forwarding_rulesP
 export function serializeForwarding_rulesDeleteRequestBody(writer, forwarding_rulesDeleteRequestBody = {}) {
     if (forwarding_rulesDeleteRequestBody) {
         writer.writeCollectionOfObjectValues("forwarding_rules", forwarding_rulesDeleteRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeForwarding_rulesDeleteRequestBody(writer, forwarding_ru
 export function serializeForwarding_rulesPostRequestBody(writer, forwarding_rulesPostRequestBody = {}) {
     if (forwarding_rulesPostRequestBody) {
         writer.writeCollectionOfObjectValues("forwarding_rules", forwarding_rulesPostRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesPostRequestBody.additionalData);
     }
 }
 /**

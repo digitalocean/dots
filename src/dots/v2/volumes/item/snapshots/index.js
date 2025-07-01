@@ -73,7 +73,6 @@ export function serializeSnapshotsGetResponse(writer, snapshotsGetResponse = {})
         writer.writeObjectValue("links", snapshotsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", snapshotsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("snapshots", snapshotsGetResponse.snapshots, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
     }
 }
 /**
@@ -85,7 +84,6 @@ export function serializeSnapshotsPostRequestBody(writer, snapshotsPostRequestBo
     if (snapshotsPostRequestBody) {
         writer.writeStringValue("name", snapshotsPostRequestBody.name);
         writer.writeCollectionOfPrimitiveValues("tags", snapshotsPostRequestBody.tags);
-        writer.writeAdditionalData(snapshotsPostRequestBody.additionalData);
     }
 }
 /**
@@ -96,7 +94,6 @@ export function serializeSnapshotsPostRequestBody(writer, snapshotsPostRequestBo
 export function serializeSnapshotsPostResponse(writer, snapshotsPostResponse = {}) {
     if (snapshotsPostResponse) {
         writer.writeObjectValue("snapshot", snapshotsPostResponse.snapshot, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsPostResponse.additionalData);
     }
 }
 /**

@@ -30,7 +30,6 @@ export function deserializeIntoWithAction_GetResponse(withAction_GetResponse = {
 export function serializeWithAction_GetResponse(writer, withAction_GetResponse = {}) {
     if (withAction_GetResponse) {
         writer.writeObjectValue("action", withAction_GetResponse.action, serializeVolumeAction);
-        writer.writeAdditionalData(withAction_GetResponse.additionalData);
     }
 }
 /**

@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createFirewallFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeFirewall, serializeMeta_properties, serializePage_links, type ErrorEscaped, type Firewall, type Meta_properties, type Page_links } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoFirewallsGetResponse(firewallsGetResponse: Partia
         "meta": n => { firewallsGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface FirewallsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface FirewallsGetResponse extends Parsable {
     /**
      * The firewalls property
      */
@@ -90,7 +86,6 @@ export function serializeFirewallsGetResponse(writer: SerializationWriter, firew
         writer.writeCollectionOfObjectValues<Firewall>("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
         writer.writeObjectValue<Page_links>("links", firewallsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", firewallsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(firewallsGetResponse.additionalData);
     }
 }
 /**

@@ -32,7 +32,6 @@ export function deserializeIntoWithReserved_ipv6GetResponse(withReserved_ipv6Get
 export function serializeWithReserved_ipv6GetResponse(writer, withReserved_ipv6GetResponse = {}) {
     if (withReserved_ipv6GetResponse) {
         writer.writeObjectValue("reserved_ipv6", withReserved_ipv6GetResponse.reservedIpv6, serializeReserved_ipv6);
-        writer.writeAdditionalData(withReserved_ipv6GetResponse.additionalData);
     }
 }
 /**

@@ -55,7 +55,6 @@ export function serializeDomainsGetResponse(writer, domainsGetResponse = {}) {
         writer.writeCollectionOfObjectValues("domains", domainsGetResponse.domains, serializeDomain);
         writer.writeObjectValue("links", domainsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", domainsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(domainsGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeDomainsGetResponse(writer, domainsGetResponse = {}) {
 export function serializeDomainsPostResponse(writer, domainsPostResponse = {}) {
     if (domainsPostResponse) {
         writer.writeObjectValue("domain", domainsPostResponse.domain, serializeDomain);
-        writer.writeAdditionalData(domainsPostResponse.additionalData);
     }
 }
 /**

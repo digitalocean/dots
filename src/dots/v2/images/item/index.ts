@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createImageFromDiscriminatorV
 // @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -54,7 +54,6 @@ export function deserializeIntoWithImage_PutResponse(withImage_PutResponse: Part
 export function serializeWithImage_GetResponse(writer: SerializationWriter, withImage_GetResponse: Partial<WithImage_GetResponse> | undefined | null = {}) : void {
     if (withImage_GetResponse) {
         writer.writeObjectValue<Image>("image", withImage_GetResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_GetResponse.additionalData);
     }
 }
 /**
@@ -65,14 +64,9 @@ export function serializeWithImage_GetResponse(writer: SerializationWriter, with
 export function serializeWithImage_PutResponse(writer: SerializationWriter, withImage_PutResponse: Partial<WithImage_PutResponse> | undefined | null = {}) : void {
     if (withImage_PutResponse) {
         writer.writeObjectValue<Image>("image", withImage_PutResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_PutResponse.additionalData);
     }
 }
-export interface WithImage_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithImage_GetResponse extends Parsable {
     /**
      * The image property
      */
@@ -139,11 +133,7 @@ export interface WithImage_ItemRequestBuilder extends BaseRequestBuilder<WithIma
      */
      toPutRequestInformation(body: Image_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithImage_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithImage_PutResponse extends Parsable {
     /**
      * The image property
      */

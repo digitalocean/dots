@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -52,7 +52,6 @@ export function deserializeIntoTagsPostRequestBody(tagsPostRequestBody: Partial<
 export function serializeTagsDeleteRequestBody(writer: SerializationWriter, tagsDeleteRequestBody: Partial<TagsDeleteRequestBody> | undefined | null = {}) : void {
     if (tagsDeleteRequestBody) {
         writer.writeCollectionOfPrimitiveValues<string>("tags", tagsDeleteRequestBody.tags);
-        writer.writeAdditionalData(tagsDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -63,24 +62,15 @@ export function serializeTagsDeleteRequestBody(writer: SerializationWriter, tags
 export function serializeTagsPostRequestBody(writer: SerializationWriter, tagsPostRequestBody: Partial<TagsPostRequestBody> | undefined | null = {}) : void {
     if (tagsPostRequestBody) {
         writer.writeCollectionOfPrimitiveValues<string>("tags", tagsPostRequestBody.tags);
-        writer.writeAdditionalData(tagsPostRequestBody.additionalData);
     }
 }
-export interface TagsDeleteRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TagsDeleteRequestBody extends Parsable {
     /**
      * The tags property
      */
     tags?: string[] | null;
 }
-export interface TagsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TagsPostRequestBody extends Parsable {
     /**
      * The tags property
      */

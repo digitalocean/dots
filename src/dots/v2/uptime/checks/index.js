@@ -74,7 +74,6 @@ export function serializeChecksGetResponse(writer, checksGetResponse = {}) {
         writer.writeCollectionOfObjectValues("checks", checksGetResponse.checks, serializeCheck);
         writer.writeObjectValue("links", checksGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", checksGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(checksGetResponse.additionalData);
     }
 }
 /**
@@ -95,7 +94,6 @@ export function serializeChecksPostRequestBody(writer, checksPostRequestBody = {
 export function serializeChecksPostResponse(writer, checksPostResponse = {}) {
     if (checksPostResponse) {
         writer.writeObjectValue("check", checksPostResponse.check, serializeCheck);
-        writer.writeAdditionalData(checksPostResponse.additionalData);
     }
 }
 /**

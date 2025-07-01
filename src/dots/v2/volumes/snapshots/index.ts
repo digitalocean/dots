@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface SnapshotsRequestBuilder extends BaseRequestBuilder<SnapshotsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.volumes.snapshots.item collection
+     * Gets an item from the dots.v2.volumes.snapshots.item collection
      * @param snapshot_id The unique identifier for the snapshot.
      * @returns {WithSnapshot_ItemRequestBuilder}
      */

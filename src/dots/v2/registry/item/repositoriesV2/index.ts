@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createRepository_v2FromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeRepository_v2, type ErrorEscaped, type Meta_properties, type Page_links, type Repository_v2 } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoRepositoriesV2GetResponse(repositoriesV2GetRespon
         "repositories": n => { repositoriesV2GetResponse.repositories = n.getCollectionOfObjectValues<Repository_v2>(createRepository_v2FromDiscriminatorValue); },
     }
 }
-export interface RepositoriesV2GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RepositoriesV2GetResponse extends Parsable {
     /**
      * The links property
      */
@@ -95,7 +91,6 @@ export function serializeRepositoriesV2GetResponse(writer: SerializationWriter, 
         writer.writeObjectValue<Page_links>("links", repositoriesV2GetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", repositoriesV2GetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Repository_v2>("repositories", repositoriesV2GetResponse.repositories, serializeRepository_v2);
-        writer.writeAdditionalData(repositoriesV2GetResponse.additionalData);
     }
 }
 /**

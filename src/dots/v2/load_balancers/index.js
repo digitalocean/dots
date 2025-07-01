@@ -55,7 +55,6 @@ export function serializeLoad_balancersGetResponse(writer, load_balancersGetResp
         writer.writeObjectValue("links", load_balancersGetResponse.links, serializePage_links);
         writer.writeCollectionOfObjectValues("load_balancers", load_balancersGetResponse.loadBalancers, serializeLoad_balancer);
         writer.writeObjectValue("meta", load_balancersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(load_balancersGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeLoad_balancersGetResponse(writer, load_balancersGetResp
 export function serializeLoad_balancersPostResponse(writer, load_balancersPostResponse = {}) {
     if (load_balancersPostResponse) {
         writer.writeObjectValue("load_balancer", load_balancersPostResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(load_balancersPostResponse.additionalData);
     }
 }
 /**

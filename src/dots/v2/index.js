@@ -8,6 +8,8 @@ import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsM
 // @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata } from './apps/index.js';
 // @ts-ignore
+import { Byoip_prefixesRequestBuilderNavigationMetadata, Byoip_prefixesRequestBuilderRequestsMetadata } from './byoip_prefixes/index.js';
+// @ts-ignore
 import { CdnRequestBuilderNavigationMetadata } from './cdn/index.js';
 // @ts-ignore
 import { CertificatesRequestBuilderNavigationMetadata, CertificatesRequestBuilderRequestsMetadata } from './certificates/index.js';
@@ -38,9 +40,13 @@ import { MonitoringRequestBuilderNavigationMetadata } from './monitoring/index.j
 // @ts-ignore
 import { OneClicksRequestBuilderNavigationMetadata, OneClicksRequestBuilderRequestsMetadata } from './oneClicks/index.js';
 // @ts-ignore
+import { Partner_network_connectRequestBuilderNavigationMetadata } from './partner_network_connect/index.js';
+// @ts-ignore
 import { ProjectsRequestBuilderNavigationMetadata, ProjectsRequestBuilderRequestsMetadata } from './projects/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata } from './regions/index.js';
+// @ts-ignore
+import { RegistriesRequestBuilderNavigationMetadata, RegistriesRequestBuilderRequestsMetadata } from './registries/index.js';
 // @ts-ignore
 import { RegistryRequestBuilderNavigationMetadata, RegistryRequestBuilderRequestsMetadata } from './registry/index.js';
 // @ts-ignore
@@ -84,6 +90,10 @@ export const V2RequestBuilderNavigationMetadata = {
     apps: {
         requestsMetadata: AppsRequestBuilderRequestsMetadata,
         navigationMetadata: AppsRequestBuilderNavigationMetadata,
+    },
+    byoip_prefixes: {
+        requestsMetadata: Byoip_prefixesRequestBuilderRequestsMetadata,
+        navigationMetadata: Byoip_prefixesRequestBuilderNavigationMetadata,
     },
     cdn: {
         navigationMetadata: CdnRequestBuilderNavigationMetadata,
@@ -139,12 +149,19 @@ export const V2RequestBuilderNavigationMetadata = {
         requestsMetadata: OneClicksRequestBuilderRequestsMetadata,
         navigationMetadata: OneClicksRequestBuilderNavigationMetadata,
     },
+    partner_network_connect: {
+        navigationMetadata: Partner_network_connectRequestBuilderNavigationMetadata,
+    },
     projects: {
         requestsMetadata: ProjectsRequestBuilderRequestsMetadata,
         navigationMetadata: ProjectsRequestBuilderNavigationMetadata,
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,
+    },
+    registries: {
+        requestsMetadata: RegistriesRequestBuilderRequestsMetadata,
+        navigationMetadata: RegistriesRequestBuilderNavigationMetadata,
     },
     registry: {
         requestsMetadata: RegistryRequestBuilderRequestsMetadata,

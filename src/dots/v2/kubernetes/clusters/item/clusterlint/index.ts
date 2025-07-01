@@ -4,13 +4,9 @@
 // @ts-ignore
 import { createClusterlint_resultsFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeClusterlint_request, type Clusterlint_request, type Clusterlint_results, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface ClusterlintPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ClusterlintPostResponse extends Parsable {
     /**
      * ID of the clusterlint run that can be used later to fetch the diagnostics.
      */
@@ -93,7 +89,6 @@ export function deserializeIntoClusterlintPostResponse(clusterlintPostResponse: 
 export function serializeClusterlintPostResponse(writer: SerializationWriter, clusterlintPostResponse: Partial<ClusterlintPostResponse> | undefined | null = {}) : void {
     if (clusterlintPostResponse) {
         writer.writeStringValue("run_id", clusterlintPostResponse.runId);
-        writer.writeAdditionalData(clusterlintPostResponse.additionalData);
     }
 }
 /**

@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface ComponentsRequestBuilder extends BaseRequestBuilder<ComponentsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.apps.item.deployments.item.components.item collection
+     * Gets an item from the dots.v2.apps.item.deployments.item.components.item collection
      * @param component_name An optional component name. If set, logs will be limited to this component only.
      * @returns {WithComponent_nameItemRequestBuilder}
      */

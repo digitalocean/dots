@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface KeysRequestBuilder extends BaseRequestBuilder<KeysRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.anthropic.keys.item collection
+     * Gets an item from the dots.v2.genAi.anthropic.keys.item collection
      * @param api_key_uuId API key ID
      * @returns {Api_key_uuItemRequestBuilder}
      */

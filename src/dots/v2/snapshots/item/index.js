@@ -30,7 +30,6 @@ export function deserializeIntoWithSnapshot_GetResponse(withSnapshot_GetResponse
 export function serializeWithSnapshot_GetResponse(writer, withSnapshot_GetResponse = {}) {
     if (withSnapshot_GetResponse) {
         writer.writeObjectValue("snapshot", withSnapshot_GetResponse.snapshot, serializeSnapshots);
-        writer.writeAdditionalData(withSnapshot_GetResponse.additionalData);
     }
 }
 /**

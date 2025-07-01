@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface AlertsRequestBuilder extends BaseRequestBuilder<AlertsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.apps.item.alerts.item collection
+     * Gets an item from the dots.v2.apps.item.alerts.item collection
      * @param alert_id The alert ID
      * @returns {WithAlert_ItemRequestBuilder}
      */

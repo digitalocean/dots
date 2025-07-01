@@ -30,7 +30,6 @@ export function deserializeIntoSupported_policiesGetResponse(supported_policiesG
 export function serializeSupported_policiesGetResponse(writer, supported_policiesGetResponse = {}) {
     if (supported_policiesGetResponse) {
         writer.writeCollectionOfObjectValues("supported_policies", supported_policiesGetResponse.supportedPolicies, serializeSupported_droplet_backup_policy);
-        writer.writeAdditionalData(supported_policiesGetResponse.additionalData);
     }
 }
 /**

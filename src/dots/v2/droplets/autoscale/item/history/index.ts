@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createHistoryFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeHistory, serializeMeta_properties, serializePage_links, type ErrorEscaped, type History, type Meta_properties, type Page_links } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoHistoryGetResponse(historyGetResponse: Partial<Hi
         "meta": n => { historyGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface HistoryGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface HistoryGetResponse extends Parsable {
     /**
      * The history property
      */
@@ -90,7 +86,6 @@ export function serializeHistoryGetResponse(writer: SerializationWriter, history
         writer.writeCollectionOfObjectValues<History>("history", historyGetResponse.history, serializeHistory);
         writer.writeObjectValue<Page_links>("links", historyGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", historyGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(historyGetResponse.additionalData);
     }
 }
 /**

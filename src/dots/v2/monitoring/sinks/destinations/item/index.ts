@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDestination_omit_credentialsFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDestination_omit_credentials, serializeDestination_request, type Destination_omit_credentials, type Destination_request, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoWithDestination_uuGetResponse(withDestination_uuG
 export function serializeWithDestination_uuGetResponse(writer: SerializationWriter, withDestination_uuGetResponse: Partial<WithDestination_uuGetResponse> | undefined | null = {}) : void {
     if (withDestination_uuGetResponse) {
         writer.writeObjectValue<Destination_omit_credentials>("destination", withDestination_uuGetResponse.destination, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(withDestination_uuGetResponse.additionalData);
     }
 }
-export interface WithDestination_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDestination_uuGetResponse extends Parsable {
     /**
      * The destination property
      */

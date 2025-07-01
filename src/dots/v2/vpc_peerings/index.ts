@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithVpc_peering_ItemRequestBuilder, WithVpc_peering_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -78,7 +78,6 @@ export function serializeVpc_peeringsGetResponse(writer: SerializationWriter, vp
         writer.writeObjectValue<Page_links>("links", vpc_peeringsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", vpc_peeringsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Vpc_peering>("vpc_peerings", vpc_peeringsGetResponse.vpcPeerings, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsGetResponse.additionalData);
     }
 }
 /**
@@ -90,7 +89,6 @@ export function serializeVpc_peeringsPostRequestBody(writer: SerializationWriter
     if (vpc_peeringsPostRequestBody) {
         writer.writeStringValue("name", vpc_peeringsPostRequestBody.name);
         writer.writeCollectionOfPrimitiveValues<Guid>("vpc_ids", vpc_peeringsPostRequestBody.vpcIds);
-        writer.writeAdditionalData(vpc_peeringsPostRequestBody.additionalData);
     }
 }
 /**
@@ -101,14 +99,9 @@ export function serializeVpc_peeringsPostRequestBody(writer: SerializationWriter
 export function serializeVpc_peeringsPostResponse(writer: SerializationWriter, vpc_peeringsPostResponse: Partial<Vpc_peeringsPostResponse> | undefined | null = {}) : void {
     if (vpc_peeringsPostResponse) {
         writer.writeObjectValue<Vpc_peering>("vpc_peering", vpc_peeringsPostResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsPostResponse.additionalData);
     }
 }
-export interface Vpc_peeringsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Vpc_peeringsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -122,11 +115,7 @@ export interface Vpc_peeringsGetResponse extends AdditionalDataHolder, Parsable 
      */
     vpcPeerings?: Vpc_peering[] | null;
 }
-export interface Vpc_peeringsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Vpc_peeringsPostRequestBody extends Parsable {
     /**
      * The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.
      */
@@ -136,11 +125,7 @@ export interface Vpc_peeringsPostRequestBody extends AdditionalDataHolder, Parsa
      */
     vpcIds?: Guid[] | null;
 }
-export interface Vpc_peeringsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Vpc_peeringsPostResponse extends Parsable {
     /**
      * The vpc_peering property
      */
@@ -151,7 +136,7 @@ export interface Vpc_peeringsPostResponse extends AdditionalDataHolder, Parsable
  */
 export interface Vpc_peeringsRequestBuilder extends BaseRequestBuilder<Vpc_peeringsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.vpc_peerings.item collection
+     * Gets an item from the dots.v2.vpc_peerings.item collection
      * @param vpc_peering_id A unique identifier for a VPC peering.
      * @returns {WithVpc_peering_ItemRequestBuilder}
      */

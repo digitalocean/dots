@@ -55,7 +55,6 @@ export function serializeEndpointsGetResponse(writer, endpointsGetResponse = {})
         writer.writeCollectionOfObjectValues("endpoints", endpointsGetResponse.endpoints, serializeCdn_endpoint);
         writer.writeObjectValue("links", endpointsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", endpointsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(endpointsGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeEndpointsGetResponse(writer, endpointsGetResponse = {})
 export function serializeEndpointsPostResponse(writer, endpointsPostResponse = {}) {
     if (endpointsPostResponse) {
         writer.writeObjectValue("endpoint", endpointsPostResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(endpointsPostResponse.additionalData);
     }
 }
 /**

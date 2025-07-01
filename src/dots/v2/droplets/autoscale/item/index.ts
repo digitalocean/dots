@@ -10,7 +10,7 @@ import { HistoryRequestBuilderRequestsMetadata, type HistoryRequestBuilder } fro
 // @ts-ignore
 import { MembersRequestBuilderRequestsMetadata, type MembersRequestBuilder } from './members/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -58,7 +58,6 @@ export function deserializeIntoWithAutoscale_pool_PutResponse(withAutoscale_pool
 export function serializeWithAutoscale_pool_GetResponse(writer: SerializationWriter, withAutoscale_pool_GetResponse: Partial<WithAutoscale_pool_GetResponse> | undefined | null = {}) : void {
     if (withAutoscale_pool_GetResponse) {
         writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_GetResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(withAutoscale_pool_GetResponse.additionalData);
     }
 }
 /**
@@ -69,14 +68,9 @@ export function serializeWithAutoscale_pool_GetResponse(writer: SerializationWri
 export function serializeWithAutoscale_pool_PutResponse(writer: SerializationWriter, withAutoscale_pool_PutResponse: Partial<WithAutoscale_pool_PutResponse> | undefined | null = {}) : void {
     if (withAutoscale_pool_PutResponse) {
         writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_PutResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(withAutoscale_pool_PutResponse.additionalData);
     }
 }
-export interface WithAutoscale_pool_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAutoscale_pool_GetResponse extends Parsable {
     /**
      * The autoscale_pool property
      */
@@ -151,11 +145,7 @@ export interface WithAutoscale_pool_ItemRequestBuilder extends BaseRequestBuilde
      */
      toPutRequestInformation(body: Autoscale_pool_create, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithAutoscale_pool_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAutoscale_pool_PutResponse extends Parsable {
     /**
      * The autoscale_pool property
      */

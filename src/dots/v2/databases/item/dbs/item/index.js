@@ -30,7 +30,6 @@ export function deserializeIntoWithDatabase_nameGetResponse(withDatabase_nameGet
 export function serializeWithDatabase_nameGetResponse(writer, withDatabase_nameGetResponse = {}) {
     if (withDatabase_nameGetResponse) {
         writer.writeObjectValue("db", withDatabase_nameGetResponse.db, serializeDatabase);
-        writer.writeAdditionalData(withDatabase_nameGetResponse.additionalData);
     }
 }
 /**

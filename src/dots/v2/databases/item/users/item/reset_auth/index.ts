@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDatabase_userFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createMysql_settingsFromDiscriminatorValue, serializeDatabase_user, serializeMysql_settings, type Database_user, type ErrorEscaped, type Mysql_settings } from '../../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44,21 +44,13 @@ export function deserializeIntoReset_authPostResponse(reset_authPostResponse: Pa
         "user": n => { reset_authPostResponse.user = n.getObjectValue<Database_user>(createDatabase_userFromDiscriminatorValue); },
     }
 }
-export interface Reset_authPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reset_authPostRequestBody extends Parsable {
     /**
      * The mysql_settings property
      */
     mysqlSettings?: Mysql_settings | null;
 }
-export interface Reset_authPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Reset_authPostResponse extends Parsable {
     /**
      * The user property
      */
@@ -96,7 +88,6 @@ export interface Reset_authRequestBuilder extends BaseRequestBuilder<Reset_authR
 export function serializeReset_authPostRequestBody(writer: SerializationWriter, reset_authPostRequestBody: Partial<Reset_authPostRequestBody> | undefined | null = {}) : void {
     if (reset_authPostRequestBody) {
         writer.writeObjectValue<Mysql_settings>("mysql_settings", reset_authPostRequestBody.mysqlSettings, serializeMysql_settings);
-        writer.writeAdditionalData(reset_authPostRequestBody.additionalData);
     }
 }
 /**
@@ -107,7 +98,6 @@ export function serializeReset_authPostRequestBody(writer: SerializationWriter, 
 export function serializeReset_authPostResponse(writer: SerializationWriter, reset_authPostResponse: Partial<Reset_authPostResponse> | undefined | null = {}) : void {
     if (reset_authPostResponse) {
         writer.writeObjectValue<Database_user>("user", reset_authPostResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(reset_authPostResponse.additionalData);
     }
 }
 /**

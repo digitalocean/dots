@@ -32,7 +32,6 @@ export function deserializeIntoOneClicksGetResponse(oneClicksGetResponse = {}) {
 export function serializeOneClicksGetResponse(writer, oneClicksGetResponse = {}) {
     if (oneClicksGetResponse) {
         writer.writeCollectionOfObjectValues("1_clicks", oneClicksGetResponse.oneClicks, serializeOneClicks);
-        writer.writeAdditionalData(oneClicksGetResponse.additionalData);
     }
 }
 /**

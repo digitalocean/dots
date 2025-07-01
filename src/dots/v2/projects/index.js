@@ -57,7 +57,6 @@ export function serializeProjectsGetResponse(writer, projectsGetResponse = {}) {
         writer.writeObjectValue("links", projectsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", projectsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("projects", projectsGetResponse.projects, serializeProject);
-        writer.writeAdditionalData(projectsGetResponse.additionalData);
     }
 }
 /**
@@ -68,7 +67,6 @@ export function serializeProjectsGetResponse(writer, projectsGetResponse = {}) {
 export function serializeProjectsPostResponse(writer, projectsPostResponse = {}) {
     if (projectsPostResponse) {
         writer.writeObjectValue("project", projectsPostResponse.project, serializeProject);
-        writer.writeAdditionalData(projectsPostResponse.additionalData);
     }
 }
 /**

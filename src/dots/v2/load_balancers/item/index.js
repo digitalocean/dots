@@ -55,7 +55,6 @@ export function deserializeIntoWithLb_PutResponse(withLb_PutResponse = {}) {
 export function serializeWithLb_GetResponse(writer, withLb_GetResponse = {}) {
     if (withLb_GetResponse) {
         writer.writeObjectValue("load_balancer", withLb_GetResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(withLb_GetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeWithLb_GetResponse(writer, withLb_GetResponse = {}) {
 export function serializeWithLb_PutResponse(writer, withLb_PutResponse = {}) {
     if (withLb_PutResponse) {
         writer.writeObjectValue("load_balancer", withLb_PutResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(withLb_PutResponse.additionalData);
     }
 }
 /**

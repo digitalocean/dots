@@ -30,7 +30,6 @@ export function deserializeIntoUpgradePostRequestBody(upgradePostRequestBody = {
 export function serializeUpgradePostRequestBody(writer, upgradePostRequestBody = {}) {
     if (upgradePostRequestBody) {
         writer.writeStringValue("version", upgradePostRequestBody.version);
-        writer.writeAdditionalData(upgradePostRequestBody.additionalData);
     }
 }
 /**

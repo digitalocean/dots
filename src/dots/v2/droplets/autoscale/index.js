@@ -55,7 +55,6 @@ export function serializeAutoscaleGetResponse(writer, autoscaleGetResponse = {})
         writer.writeCollectionOfObjectValues("autoscale_pools", autoscaleGetResponse.autoscalePools, serializeAutoscale_pool);
         writer.writeObjectValue("links", autoscaleGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", autoscaleGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(autoscaleGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeAutoscaleGetResponse(writer, autoscaleGetResponse = {})
 export function serializeAutoscalePostResponse(writer, autoscalePostResponse = {}) {
     if (autoscalePostResponse) {
         writer.writeObjectValue("autoscale_pool", autoscalePostResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(autoscalePostResponse.additionalData);
     }
 }
 /**

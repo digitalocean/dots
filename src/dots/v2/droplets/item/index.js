@@ -44,7 +44,6 @@ export function deserializeIntoWithDroplet_GetResponse(withDroplet_GetResponse =
 export function serializeWithDroplet_GetResponse(writer, withDroplet_GetResponse = {}) {
     if (withDroplet_GetResponse) {
         writer.writeObjectValue("droplet", withDroplet_GetResponse.droplet, serializeDroplet);
-        writer.writeAdditionalData(withDroplet_GetResponse.additionalData);
     }
 }
 /**

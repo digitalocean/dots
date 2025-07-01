@@ -30,7 +30,6 @@ export function deserializeIntoEventsGetResponse(eventsGetResponse = {}) {
 export function serializeEventsGetResponse(writer, eventsGetResponse = {}) {
     if (eventsGetResponse) {
         writer.writeCollectionOfObjectValues("events", eventsGetResponse.events, serializeEvents_logs);
-        writer.writeAdditionalData(eventsGetResponse.additionalData);
     }
 }
 /**

@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSnapshotsFromDiscriminatorValue, serializeSnapshots, type ErrorEscaped, type Snapshots } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoWithSnapshot_GetResponse(withSnapshot_GetResponse
 export function serializeWithSnapshot_GetResponse(writer: SerializationWriter, withSnapshot_GetResponse: Partial<WithSnapshot_GetResponse> | undefined | null = {}) : void {
     if (withSnapshot_GetResponse) {
         writer.writeObjectValue<Snapshots>("snapshot", withSnapshot_GetResponse.snapshot, serializeSnapshots);
-        writer.writeAdditionalData(withSnapshot_GetResponse.additionalData);
     }
 }
-export interface WithSnapshot_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithSnapshot_GetResponse extends Parsable {
     /**
      * The snapshot property
      */

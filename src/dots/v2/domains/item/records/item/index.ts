@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDomain_recordFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDomain_record, type Domain_record, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -71,7 +71,6 @@ export function deserializeIntoWithDomain_record_PutResponse(withDomain_record_P
 export function serializeWithDomain_record_GetResponse(writer: SerializationWriter, withDomain_record_GetResponse: Partial<WithDomain_record_GetResponse> | undefined | null = {}) : void {
     if (withDomain_record_GetResponse) {
         writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_GetResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_GetResponse.additionalData);
     }
 }
 /**
@@ -82,7 +81,6 @@ export function serializeWithDomain_record_GetResponse(writer: SerializationWrit
 export function serializeWithDomain_record_PatchResponse(writer: SerializationWriter, withDomain_record_PatchResponse: Partial<WithDomain_record_PatchResponse> | undefined | null = {}) : void {
     if (withDomain_record_PatchResponse) {
         writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PatchResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PatchResponse.additionalData);
     }
 }
 /**
@@ -93,14 +91,9 @@ export function serializeWithDomain_record_PatchResponse(writer: SerializationWr
 export function serializeWithDomain_record_PutResponse(writer: SerializationWriter, withDomain_record_PutResponse: Partial<WithDomain_record_PutResponse> | undefined | null = {}) : void {
     if (withDomain_record_PutResponse) {
         writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PutResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PutResponse.additionalData);
     }
 }
-export interface WithDomain_record_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDomain_record_GetResponse extends Parsable {
     /**
      * The domain_record property
      */
@@ -182,21 +175,13 @@ export interface WithDomain_record_ItemRequestBuilder extends BaseRequestBuilder
      */
      toPutRequestInformation(body: Domain_record, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithDomain_record_PatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDomain_record_PatchResponse extends Parsable {
     /**
      * The domain_record property
      */
     domainRecord?: Domain_record | null;
 }
-export interface WithDomain_record_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithDomain_record_PutResponse extends Parsable {
     /**
      * The domain_record property
      */

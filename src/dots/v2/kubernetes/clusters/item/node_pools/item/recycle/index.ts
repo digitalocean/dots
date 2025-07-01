@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoRecyclePostRequestBody(recyclePostRequestBody: Pa
         "nodes": n => { recyclePostRequestBody.nodes = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
-export interface RecyclePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RecyclePostRequestBody extends Parsable {
     /**
      * The nodes property
      */
@@ -68,7 +64,6 @@ export interface RecycleRequestBuilder extends BaseRequestBuilder<RecycleRequest
 export function serializeRecyclePostRequestBody(writer: SerializationWriter, recyclePostRequestBody: Partial<RecyclePostRequestBody> | undefined | null = {}) : void {
     if (recyclePostRequestBody) {
         writer.writeCollectionOfPrimitiveValues<string>("nodes", recyclePostRequestBody.nodes);
-        writer.writeAdditionalData(recyclePostRequestBody.additionalData);
     }
 }
 /**

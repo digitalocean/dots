@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface FunctionsRequestBuilder extends BaseRequestBuilder<FunctionsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.agents.item.functions.item collection
+     * Gets an item from the dots.v2.genAi.agents.item.functions.item collection
      * @param function_uuid Function id
      * @returns {WithFunction_uuItemRequestBuilder}
      */

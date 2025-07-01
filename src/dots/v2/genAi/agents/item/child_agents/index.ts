@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface Child_agentsRequestBuilder extends BaseRequestBuilder<Child_agentsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.agents.item.child_agents.item collection
+     * Gets an item from the dots.v2.genAi.agents.item.child_agents.item collection
      * @param child_agent_uuid Routed agent id
      * @returns {WithChild_agent_uuItemRequestBuilder}
      */

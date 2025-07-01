@@ -30,7 +30,6 @@ export function deserializeIntoCaGetResponse(caGetResponse = {}) {
 export function serializeCaGetResponse(writer, caGetResponse = {}) {
     if (caGetResponse) {
         writer.writeObjectValue("ca", caGetResponse.ca, serializeCa);
-        writer.writeAdditionalData(caGetResponse.additionalData);
     }
 }
 /**

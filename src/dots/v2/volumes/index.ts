@@ -10,7 +10,7 @@ import { type WithVolume_ItemRequestBuilder, WithVolume_ItemRequestBuilderNaviga
 // @ts-ignore
 import { SnapshotsRequestBuilderNavigationMetadata, type SnapshotsRequestBuilder } from './snapshots/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -82,7 +82,6 @@ export function serializeVolumesGetResponse(writer: SerializationWriter, volumes
         writer.writeObjectValue<Page_links>("links", volumesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", volumesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Volume_full>("volumes", volumesGetResponse.volumes, serializeVolume_full);
-        writer.writeAdditionalData(volumesGetResponse.additionalData);
     }
 }
 /**
@@ -102,14 +101,9 @@ export function serializeVolumesPostRequestBody(writer: SerializationWriter, vol
 export function serializeVolumesPostResponse(writer: SerializationWriter, volumesPostResponse: Partial<VolumesPostResponse> | undefined | null = {}) : void {
     if (volumesPostResponse) {
         writer.writeObjectValue<Volume_full>("volume", volumesPostResponse.volume, serializeVolume_full);
-        writer.writeAdditionalData(volumesPostResponse.additionalData);
     }
 }
-export interface VolumesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface VolumesGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -124,11 +118,7 @@ export interface VolumesGetResponse extends AdditionalDataHolder, Parsable {
     volumes?: Volume_full[] | null;
 }
 export type VolumesPostRequestBody = Volumes_ext4 | Volumes_xfs;
-export interface VolumesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface VolumesPostResponse extends Parsable {
     /**
      * The volume property
      */
@@ -147,7 +137,7 @@ export interface VolumesRequestBuilder extends BaseRequestBuilder<VolumesRequest
      */
     get snapshots(): SnapshotsRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.volumes.item collection
+     * Gets an item from the dots.v2.volumes.item collection
      * @param volume_id The ID of the block storage volume.
      * @returns {WithVolume_ItemRequestBuilder}
      */

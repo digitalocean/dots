@@ -74,7 +74,6 @@ export function serializeAlertsGetResponse(writer, alertsGetResponse = {}) {
         writer.writeCollectionOfObjectValues("alerts", alertsGetResponse.alerts, serializeAlert);
         writer.writeObjectValue("links", alertsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", alertsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(alertsGetResponse.additionalData);
     }
 }
 /**
@@ -95,7 +94,6 @@ export function serializeAlertsPostRequestBody(writer, alertsPostRequestBody = {
 export function serializeAlertsPostResponse(writer, alertsPostResponse = {}) {
     if (alertsPostResponse) {
         writer.writeObjectValue("alert", alertsPostResponse.alert, serializeAlert);
-        writer.writeAdditionalData(alertsPostResponse.additionalData);
     }
 }
 /**

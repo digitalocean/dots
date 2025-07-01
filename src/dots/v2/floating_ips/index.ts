@@ -6,7 +6,7 @@ import { createAction_linkFromDiscriminatorValue, createErrorEscapedFromDiscrimi
 // @ts-ignore
 import { type WithFloating_ipItemRequestBuilder, WithFloating_ipItemRequestBuilderNavigationMetadata, WithFloating_ipItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -90,11 +90,7 @@ export function deserializeIntoFloating_ipsPostResponse_links(floating_ipsPostRe
     }
 }
 export type Floating_ip_create = Floating_ip_createMember1 | Floating_ip_createMember2;
-export interface Floating_ipsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Floating_ipsGetResponse extends Parsable {
     /**
      * The floating_ips property
      */
@@ -108,11 +104,7 @@ export interface Floating_ipsGetResponse extends AdditionalDataHolder, Parsable 
      */
     meta?: Meta_properties | null;
 }
-export interface Floating_ipsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Floating_ipsPostResponse extends Parsable {
     /**
      * The floating_ip property
      */
@@ -122,15 +114,11 @@ export interface Floating_ipsPostResponse extends AdditionalDataHolder, Parsable
      */
     links?: Floating_ipsPostResponse_links | null;
 }
-export interface Floating_ipsPostResponse_links extends AdditionalDataHolder, Parsable {
+export interface Floating_ipsPostResponse_links extends Parsable {
     /**
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -141,7 +129,7 @@ export interface Floating_ipsPostResponse_links extends AdditionalDataHolder, Pa
  */
 export interface Floating_ipsRequestBuilder extends BaseRequestBuilder<Floating_ipsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.floating_ips.item collection
+     * Gets an item from the dots.v2.floating_ips.item collection
      * @param floating_ip A floating IP address.
      * @returns {WithFloating_ipItemRequestBuilder}
      */
@@ -213,7 +201,6 @@ export function serializeFloating_ipsGetResponse(writer: SerializationWriter, fl
         writer.writeCollectionOfObjectValues<Floating_ip>("floating_ips", floating_ipsGetResponse.floatingIps, serializeFloating_ip);
         writer.writeObjectValue<Page_links>("links", floating_ipsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", floating_ipsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(floating_ipsGetResponse.additionalData);
     }
 }
 /**
@@ -225,7 +212,6 @@ export function serializeFloating_ipsPostResponse(writer: SerializationWriter, f
     if (floating_ipsPostResponse) {
         writer.writeObjectValue<Floating_ip>("floating_ip", floating_ipsPostResponse.floatingIp, serializeFloating_ip);
         writer.writeObjectValue<Floating_ipsPostResponse_links>("links", floating_ipsPostResponse.links, serializeFloating_ipsPostResponse_links);
-        writer.writeAdditionalData(floating_ipsPostResponse.additionalData);
     }
 }
 /**
@@ -237,7 +223,6 @@ export function serializeFloating_ipsPostResponse_links(writer: SerializationWri
     if (floating_ipsPostResponse_links) {
         writer.writeCollectionOfObjectValues<Action_link>("actions", floating_ipsPostResponse_links.actions, serializeAction_link);
         writer.writeCollectionOfObjectValues<Action_link>("droplets", floating_ipsPostResponse_links.droplets, serializeAction_link);
-        writer.writeAdditionalData(floating_ipsPostResponse_links.additionalData);
     }
 }
 /**

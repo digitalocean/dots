@@ -32,7 +32,6 @@ export function deserializeIntoWithReplica_nameGetResponse(withReplica_nameGetRe
 export function serializeWithReplica_nameGetResponse(writer, withReplica_nameGetResponse = {}) {
     if (withReplica_nameGetResponse) {
         writer.writeObjectValue("replica", withReplica_nameGetResponse.replica, serializeDatabase_replica);
-        writer.writeAdditionalData(withReplica_nameGetResponse.additionalData);
     }
 }
 /**

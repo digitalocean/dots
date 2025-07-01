@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createKafka_topic_verboseFrom
 // @ts-ignore
 import { type WithTopic_nameItemRequestBuilder, WithTopic_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -54,7 +54,6 @@ export function deserializeIntoTopicsPostResponse(topicsPostResponse: Partial<To
 export function serializeTopicsGetResponse(writer: SerializationWriter, topicsGetResponse: Partial<TopicsGetResponse> | undefined | null = {}) : void {
     if (topicsGetResponse) {
         writer.writeCollectionOfObjectValues<Kafka_topic>("topics", topicsGetResponse.topics, serializeKafka_topic);
-        writer.writeAdditionalData(topicsGetResponse.additionalData);
     }
 }
 /**
@@ -65,24 +64,15 @@ export function serializeTopicsGetResponse(writer: SerializationWriter, topicsGe
 export function serializeTopicsPostResponse(writer: SerializationWriter, topicsPostResponse: Partial<TopicsPostResponse> | undefined | null = {}) : void {
     if (topicsPostResponse) {
         writer.writeObjectValue<Kafka_topic_verbose>("topic", topicsPostResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(topicsPostResponse.additionalData);
     }
 }
-export interface TopicsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TopicsGetResponse extends Parsable {
     /**
      * The topics property
      */
     topics?: Kafka_topic[] | null;
 }
-export interface TopicsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TopicsPostResponse extends Parsable {
     /**
      * The topic property
      */
@@ -93,7 +83,7 @@ export interface TopicsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface TopicsRequestBuilder extends BaseRequestBuilder<TopicsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.topics.item collection
+     * Gets an item from the dots.v2.databases.item.topics.item collection
      * @param topic_name The name used to identify the Kafka topic.
      * @returns {WithTopic_nameItemRequestBuilder}
      */

@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createLoad_balancerFromDiscri
 // @ts-ignore
 import { type WithLb_ItemRequestBuilder, WithLb_ItemRequestBuilderNavigationMetadata, WithLb_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter, type UntypedNode } from '@microsoft/kiota-abstractions';
+import { createUntypedNodeFromDiscriminatorValue, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter, type UntypedNode } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -48,11 +48,7 @@ export function deserializeIntoLoad_balancersPostResponse(load_balancersPostResp
         "load_balancer": n => { load_balancersPostResponse.loadBalancer = n.getObjectValue<Load_balancer>(createLoad_balancerFromDiscriminatorValue); },
     }
 }
-export interface Load_balancersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Load_balancersGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -66,11 +62,7 @@ export interface Load_balancersGetResponse extends AdditionalDataHolder, Parsabl
      */
     meta?: Meta_properties | null;
 }
-export interface Load_balancersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Load_balancersPostResponse extends Parsable {
     /**
      * The load_balancer property
      */
@@ -81,7 +73,7 @@ export interface Load_balancersPostResponse extends AdditionalDataHolder, Parsab
  */
 export interface Load_balancersRequestBuilder extends BaseRequestBuilder<Load_balancersRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.load_balancers.item collection
+     * Gets an item from the dots.v2.load_balancers.item collection
      * @param lb_id A unique identifier for a load balancer.
      * @returns {WithLb_ItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeLoad_balancersGetResponse(writer: SerializationWriter, 
         writer.writeObjectValue<Page_links>("links", load_balancersGetResponse.links, serializePage_links);
         writer.writeCollectionOfObjectValues<Load_balancer>("load_balancers", load_balancersGetResponse.loadBalancers, serializeLoad_balancer);
         writer.writeObjectValue<Meta_properties>("meta", load_balancersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(load_balancersGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeLoad_balancersGetResponse(writer: SerializationWriter, 
 export function serializeLoad_balancersPostResponse(writer: SerializationWriter, load_balancersPostResponse: Partial<Load_balancersPostResponse> | undefined | null = {}) : void {
     if (load_balancersPostResponse) {
         writer.writeObjectValue<Load_balancer>("load_balancer", load_balancersPostResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(load_balancersPostResponse.additionalData);
     }
 }
 /**

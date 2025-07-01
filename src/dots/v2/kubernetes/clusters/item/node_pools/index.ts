@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createKubernetes_node_poolFro
 // @ts-ignore
 import { type WithNode_pool_ItemRequestBuilder, WithNode_pool_ItemRequestBuilderNavigationMetadata, WithNode_pool_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,21 +46,13 @@ export function deserializeIntoNode_poolsPostResponse(node_poolsPostResponse: Pa
         "node_pool": n => { node_poolsPostResponse.nodePool = n.getObjectValue<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
     }
 }
-export interface Node_poolsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Node_poolsGetResponse extends Parsable {
     /**
      * The node_pools property
      */
     nodePools?: Kubernetes_node_pool[] | null;
 }
-export interface Node_poolsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Node_poolsPostResponse extends Parsable {
     /**
      * The node_pool property
      */
@@ -71,7 +63,7 @@ export interface Node_poolsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface Node_poolsRequestBuilder extends BaseRequestBuilder<Node_poolsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.kubernetes.clusters.item.node_pools.item collection
+     * Gets an item from the dots.v2.kubernetes.clusters.item.node_pools.item collection
      * @param node_pool_id A unique ID that can be used to reference a Kubernetes node pool.
      * @returns {WithNode_pool_ItemRequestBuilder}
      */
@@ -121,7 +113,6 @@ export interface Node_poolsRequestBuilder extends BaseRequestBuilder<Node_poolsR
 export function serializeNode_poolsGetResponse(writer: SerializationWriter, node_poolsGetResponse: Partial<Node_poolsGetResponse> | undefined | null = {}) : void {
     if (node_poolsGetResponse) {
         writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", node_poolsGetResponse.nodePools, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(node_poolsGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeNode_poolsGetResponse(writer: SerializationWriter, node
 export function serializeNode_poolsPostResponse(writer: SerializationWriter, node_poolsPostResponse: Partial<Node_poolsPostResponse> | undefined | null = {}) : void {
     if (node_poolsPostResponse) {
         writer.writeObjectValue<Kubernetes_node_pool>("node_pool", node_poolsPostResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(node_poolsPostResponse.additionalData);
     }
 }
 /**

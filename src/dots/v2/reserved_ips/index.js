@@ -105,7 +105,6 @@ export function serializeReserved_ipsGetResponse(writer, reserved_ipsGetResponse
         writer.writeObjectValue("links", reserved_ipsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", reserved_ipsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("reserved_ips", reserved_ipsGetResponse.reservedIps, serializeReserved_ip);
-        writer.writeAdditionalData(reserved_ipsGetResponse.additionalData);
     }
 }
 /**
@@ -117,7 +116,6 @@ export function serializeReserved_ipsPostResponse(writer, reserved_ipsPostRespon
     if (reserved_ipsPostResponse) {
         writer.writeObjectValue("links", reserved_ipsPostResponse.links, serializeReserved_ipsPostResponse_links);
         writer.writeObjectValue("reserved_ip", reserved_ipsPostResponse.reservedIp, serializeReserved_ip);
-        writer.writeAdditionalData(reserved_ipsPostResponse.additionalData);
     }
 }
 /**
@@ -129,7 +127,6 @@ export function serializeReserved_ipsPostResponse_links(writer, reserved_ipsPost
     if (reserved_ipsPostResponse_links) {
         writer.writeCollectionOfObjectValues("actions", reserved_ipsPostResponse_links.actions, serializeAction_link);
         writer.writeCollectionOfObjectValues("droplets", reserved_ipsPostResponse_links.droplets, serializeAction_link);
-        writer.writeAdditionalData(reserved_ipsPostResponse_links.additionalData);
     }
 }
 /**

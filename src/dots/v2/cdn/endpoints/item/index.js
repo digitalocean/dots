@@ -51,7 +51,6 @@ export function deserializeIntoWithCdn_PutResponse(withCdn_PutResponse = {}) {
 export function serializeWithCdn_GetResponse(writer, withCdn_GetResponse = {}) {
     if (withCdn_GetResponse) {
         writer.writeObjectValue("endpoint", withCdn_GetResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_GetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeWithCdn_GetResponse(writer, withCdn_GetResponse = {}) {
 export function serializeWithCdn_PutResponse(writer, withCdn_PutResponse = {}) {
     if (withCdn_PutResponse) {
         writer.writeObjectValue("endpoint", withCdn_PutResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_PutResponse.additionalData);
     }
 }
 /**

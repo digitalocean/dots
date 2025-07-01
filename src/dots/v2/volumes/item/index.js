@@ -34,7 +34,6 @@ export function deserializeIntoWithVolume_GetResponse(withVolume_GetResponse = {
 export function serializeWithVolume_GetResponse(writer, withVolume_GetResponse = {}) {
     if (withVolume_GetResponse) {
         writer.writeObjectValue("volume", withVolume_GetResponse.volume, serializeVolume_full);
-        writer.writeAdditionalData(withVolume_GetResponse.additionalData);
     }
 }
 /**

@@ -78,7 +78,6 @@ export function serializeActionsPostRequestBody(writer, actionsPostRequestBody =
 export function serializeActionsPostResponse(writer, actionsPostResponse = {}) {
     if (actionsPostResponse) {
         writer.writeObjectValue("action", actionsPostResponse.action, serializeActionsPostResponse_action);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
     }
 }
 /**

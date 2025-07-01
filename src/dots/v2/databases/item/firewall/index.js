@@ -49,7 +49,6 @@ export function deserializeIntoFirewallPutRequestBody(firewallPutRequestBody = {
 export function serializeFirewallGetResponse(writer, firewallGetResponse = {}) {
     if (firewallGetResponse) {
         writer.writeCollectionOfObjectValues("rules", firewallGetResponse.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallGetResponse.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeFirewallGetResponse(writer, firewallGetResponse = {}) {
 export function serializeFirewallPutRequestBody(writer, firewallPutRequestBody = {}) {
     if (firewallPutRequestBody) {
         writer.writeCollectionOfObjectValues("rules", firewallPutRequestBody.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallPutRequestBody.additionalData);
     }
 }
 /**

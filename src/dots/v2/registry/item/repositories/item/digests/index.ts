@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithManifest_digestItemRequestBuilder, WithManifest_digestItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -29,11 +29,7 @@ export function deserializeIntoDigestsGetResponse(digestsGetResponse: Partial<Di
         "meta": n => { digestsGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface DigestsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DigestsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -52,7 +48,7 @@ export interface DigestsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface DigestsRequestBuilder extends BaseRequestBuilder<DigestsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.registry.item.repositories.item.digests.item collection
+     * Gets an item from the dots.v2.registry.item.repositories.item.digests.item collection
      * @param manifest_digest The manifest digest of a container registry repository tag.
      * @returns {WithManifest_digestItemRequestBuilder}
      */
@@ -98,7 +94,6 @@ export function serializeDigestsGetResponse(writer: SerializationWriter, digests
         writer.writeObjectValue<Page_links>("links", digestsGetResponse.links, serializePage_links);
         writer.writeCollectionOfObjectValues<Repository_manifest>("manifests", digestsGetResponse.manifests, serializeRepository_manifest);
         writer.writeObjectValue<Meta_properties>("meta", digestsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(digestsGetResponse.additionalData);
     }
 }
 /**

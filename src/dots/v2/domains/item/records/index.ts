@@ -6,7 +6,7 @@ import { createDomain_record_aaaaFromDiscriminatorValue, createDomain_record_aFr
 // @ts-ignore
 import { type WithDomain_record_ItemRequestBuilder, WithDomain_record_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -76,11 +76,7 @@ export function deserializeIntoRecordsPostResponse(recordsPostResponse: Partial<
     }
 }
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
-export interface RecordsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RecordsGetResponse extends Parsable {
     /**
      * The domain_records property
      */
@@ -95,11 +91,7 @@ export interface RecordsGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export type RecordsPostRequestBody = Domain_record_aaaa | Domain_record_a | Domain_record_caa | Domain_record_cname | Domain_record_mx | Domain_record_ns | Domain_record_soa | Domain_record_srv | Domain_record_txt;
-export interface RecordsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RecordsPostResponse extends Parsable {
     /**
      * The domain_record property
      */
@@ -110,7 +102,7 @@ export interface RecordsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface RecordsRequestBuilder extends BaseRequestBuilder<RecordsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.domains.item.records.item collection
+     * Gets an item from the dots.v2.domains.item.records.item collection
      * @param domain_record_id The unique identifier of the domain record.
      * @returns {WithDomain_record_ItemRequestBuilder}
      */
@@ -183,7 +175,6 @@ export function serializeRecordsGetResponse(writer: SerializationWriter, records
         writer.writeCollectionOfObjectValues<Domain_record>("domain_records", recordsGetResponse.domainRecords, serializeDomain_record);
         writer.writeObjectValue<Page_links>("links", recordsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", recordsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(recordsGetResponse.additionalData);
     }
 }
 /**
@@ -210,7 +201,6 @@ export function serializeRecordsPostRequestBody(writer: SerializationWriter, rec
 export function serializeRecordsPostResponse(writer: SerializationWriter, recordsPostResponse: Partial<RecordsPostResponse> | undefined | null = {}) : void {
     if (recordsPostResponse) {
         writer.writeObjectValue<Domain_record>("domain_record", recordsPostResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(recordsPostResponse.additionalData);
     }
 }
 /**

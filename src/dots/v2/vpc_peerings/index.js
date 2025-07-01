@@ -75,7 +75,6 @@ export function serializeVpc_peeringsGetResponse(writer, vpc_peeringsGetResponse
         writer.writeObjectValue("links", vpc_peeringsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", vpc_peeringsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("vpc_peerings", vpc_peeringsGetResponse.vpcPeerings, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsGetResponse.additionalData);
     }
 }
 /**
@@ -87,7 +86,6 @@ export function serializeVpc_peeringsPostRequestBody(writer, vpc_peeringsPostReq
     if (vpc_peeringsPostRequestBody) {
         writer.writeStringValue("name", vpc_peeringsPostRequestBody.name);
         writer.writeCollectionOfPrimitiveValues("vpc_ids", vpc_peeringsPostRequestBody.vpcIds);
-        writer.writeAdditionalData(vpc_peeringsPostRequestBody.additionalData);
     }
 }
 /**
@@ -98,7 +96,6 @@ export function serializeVpc_peeringsPostRequestBody(writer, vpc_peeringsPostReq
 export function serializeVpc_peeringsPostResponse(writer, vpc_peeringsPostResponse = {}) {
     if (vpc_peeringsPostResponse) {
         writer.writeObjectValue("vpc_peering", vpc_peeringsPostResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsPostResponse.additionalData);
     }
 }
 /**

@@ -8,7 +8,7 @@ import { DefaultRequestBuilderNavigationMetadata, DefaultRequestBuilderRequestsM
 // @ts-ignore
 import { type WithProject_ItemRequestBuilder, WithProject_ItemRequestBuilderNavigationMetadata, WithProject_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -50,11 +50,7 @@ export function deserializeIntoProjectsPostResponse(projectsPostResponse: Partia
         "project": n => { projectsPostResponse.project = n.getObjectValue<Project>(createProjectFromDiscriminatorValue); },
     }
 }
-export interface ProjectsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ProjectsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -68,11 +64,7 @@ export interface ProjectsGetResponse extends AdditionalDataHolder, Parsable {
      */
     projects?: Project[] | null;
 }
-export interface ProjectsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ProjectsPostResponse extends Parsable {
     /**
      * The project property
      */
@@ -87,7 +79,7 @@ export interface ProjectsRequestBuilder extends BaseRequestBuilder<ProjectsReque
      */
     get defaultEscaped(): DefaultRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.projects.item collection
+     * Gets an item from the dots.v2.projects.item collection
      * @param project_id A unique identifier for a project.
      * @returns {WithProject_ItemRequestBuilder}
      */
@@ -150,7 +142,6 @@ export function serializeProjectsGetResponse(writer: SerializationWriter, projec
         writer.writeObjectValue<Page_links>("links", projectsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", projectsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Project>("projects", projectsGetResponse.projects, serializeProject);
-        writer.writeAdditionalData(projectsGetResponse.additionalData);
     }
 }
 /**
@@ -161,7 +152,6 @@ export function serializeProjectsGetResponse(writer: SerializationWriter, projec
 export function serializeProjectsPostResponse(writer: SerializationWriter, projectsPostResponse: Partial<ProjectsPostResponse> | undefined | null = {}) : void {
     if (projectsPostResponse) {
         writer.writeObjectValue<Project>("project", projectsPostResponse.project, serializeProject);
-        writer.writeAdditionalData(projectsPostResponse.additionalData);
     }
 }
 /**

@@ -55,7 +55,6 @@ export function serializeKeysGetResponse(writer, keysGetResponse = {}) {
         writer.writeCollectionOfObjectValues("keys", keysGetResponse.keys, serializeKey);
         writer.writeObjectValue("links", keysGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", keysGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(keysGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeKeysGetResponse(writer, keysGetResponse = {}) {
 export function serializeKeysPostResponse(writer, keysPostResponse = {}) {
     if (keysPostResponse) {
         writer.writeObjectValue("key", keysPostResponse.key, serializeKey_create_response);
-        writer.writeAdditionalData(keysPostResponse.additionalData);
     }
 }
 /**

@@ -30,7 +30,6 @@ export function deserializeIntoMigratePutRequestBody(migratePutRequestBody = {})
 export function serializeMigratePutRequestBody(writer, migratePutRequestBody = {}) {
     if (migratePutRequestBody) {
         writer.writeStringValue("region", migratePutRequestBody.region);
-        writer.writeAdditionalData(migratePutRequestBody.additionalData);
     }
 }
 /**

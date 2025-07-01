@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface Indexing_jobsRequestBuilder extends BaseRequestBuilder<Indexing_jobsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.indexing_jobs.item collection
+     * Gets an item from the dots.v2.genAi.indexing_jobs.item collection
      * @param indexing_job_uuId Indexing job id
      * @returns {Indexing_job_uuItemRequestBuilder}
      */

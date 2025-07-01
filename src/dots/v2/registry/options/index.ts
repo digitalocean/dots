@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -73,21 +73,13 @@ export function deserializeIntoOptionsGetResponse_options_subscription_tiers(opt
         "storage_overage_price_in_cents": n => { optionsGetResponse_options_subscription_tiers.storageOveragePriceInCents = n.getNumberValue(); },
     }
 }
-export interface OptionsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface OptionsGetResponse extends Parsable {
     /**
      * The options property
      */
     options?: OptionsGetResponse_options | null;
 }
-export interface OptionsGetResponse_options extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface OptionsGetResponse_options extends Parsable {
     /**
      * The available_regions property
      */
@@ -97,11 +89,7 @@ export interface OptionsGetResponse_options extends AdditionalDataHolder, Parsab
      */
     subscriptionTiers?: OptionsGetResponse_options_subscription_tiers[] | null;
 }
-export interface OptionsGetResponse_options_subscription_tiers extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface OptionsGetResponse_options_subscription_tiers extends Parsable {
     /**
      * A boolean indicating whether the subscription tier supports additional storage above what is included in the base plan at an additional cost per GiB used.
      */
@@ -173,7 +161,6 @@ export interface OptionsRequestBuilder extends BaseRequestBuilder<OptionsRequest
 export function serializeOptionsGetResponse(writer: SerializationWriter, optionsGetResponse: Partial<OptionsGetResponse> | undefined | null = {}) : void {
     if (optionsGetResponse) {
         writer.writeObjectValue<OptionsGetResponse_options>("options", optionsGetResponse.options, serializeOptionsGetResponse_options);
-        writer.writeAdditionalData(optionsGetResponse.additionalData);
     }
 }
 /**
@@ -185,7 +172,6 @@ export function serializeOptionsGetResponse_options(writer: SerializationWriter,
     if (optionsGetResponse_options) {
         writer.writeCollectionOfPrimitiveValues<string>("available_regions", optionsGetResponse_options.availableRegions);
         writer.writeCollectionOfObjectValues<OptionsGetResponse_options_subscription_tiers>("subscription_tiers", optionsGetResponse_options.subscriptionTiers, serializeOptionsGetResponse_options_subscription_tiers);
-        writer.writeAdditionalData(optionsGetResponse_options.additionalData);
     }
 }
 /**
@@ -206,7 +192,6 @@ export function serializeOptionsGetResponse_options_subscription_tiers(writer: S
         writer.writeStringValue("name", optionsGetResponse_options_subscription_tiers.name);
         writer.writeStringValue("slug", optionsGetResponse_options_subscription_tiers.slug);
         writer.writeNumberValue("storage_overage_price_in_cents", optionsGetResponse_options_subscription_tiers.storageOveragePriceInCents);
-        writer.writeAdditionalData(optionsGetResponse_options_subscription_tiers.additionalData);
     }
 }
 /**

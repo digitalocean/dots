@@ -160,7 +160,6 @@ export function serializeDropletsGetResponse(writer, dropletsGetResponse = {}) {
         writer.writeCollectionOfObjectValues("droplets", dropletsGetResponse.droplets, serializeDroplet);
         writer.writeObjectValue("links", dropletsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", dropletsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(dropletsGetResponse.additionalData);
     }
 }
 /**
@@ -190,7 +189,6 @@ export function serializeDropletsPostResponseMember1(writer, dropletsPostRespons
     if (dropletsPostResponseMember1) {
         writer.writeObjectValue("droplet", dropletsPostResponseMember1.droplet, serializeDroplet);
         writer.writeObjectValue("links", dropletsPostResponseMember1.links, serializeDropletsPostResponseMember1_links);
-        writer.writeAdditionalData(dropletsPostResponseMember1.additionalData);
     }
 }
 /**
@@ -201,7 +199,6 @@ export function serializeDropletsPostResponseMember1(writer, dropletsPostRespons
 export function serializeDropletsPostResponseMember1_links(writer, dropletsPostResponseMember1_links = {}) {
     if (dropletsPostResponseMember1_links) {
         writer.writeCollectionOfObjectValues("actions", dropletsPostResponseMember1_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember1_links.additionalData);
     }
 }
 /**
@@ -213,7 +210,6 @@ export function serializeDropletsPostResponseMember2(writer, dropletsPostRespons
     if (dropletsPostResponseMember2) {
         writer.writeCollectionOfObjectValues("droplets", dropletsPostResponseMember2.droplets, serializeDroplet);
         writer.writeObjectValue("links", dropletsPostResponseMember2.links, serializeDropletsPostResponseMember2_links);
-        writer.writeAdditionalData(dropletsPostResponseMember2.additionalData);
     }
 }
 /**
@@ -224,7 +220,6 @@ export function serializeDropletsPostResponseMember2(writer, dropletsPostRespons
 export function serializeDropletsPostResponseMember2_links(writer, dropletsPostResponseMember2_links = {}) {
     if (dropletsPostResponseMember2_links) {
         writer.writeCollectionOfObjectValues("actions", dropletsPostResponseMember2_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember2_links.additionalData);
     }
 }
 /**

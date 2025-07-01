@@ -6,7 +6,7 @@ import { createCdn_endpointFromDiscriminatorValue, createErrorEscapedFromDiscrim
 // @ts-ignore
 import { CacheRequestBuilderRequestsMetadata, type CacheRequestBuilder } from './cache/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -54,7 +54,6 @@ export function deserializeIntoWithCdn_PutResponse(withCdn_PutResponse: Partial<
 export function serializeWithCdn_GetResponse(writer: SerializationWriter, withCdn_GetResponse: Partial<WithCdn_GetResponse> | undefined | null = {}) : void {
     if (withCdn_GetResponse) {
         writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_GetResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_GetResponse.additionalData);
     }
 }
 /**
@@ -65,14 +64,9 @@ export function serializeWithCdn_GetResponse(writer: SerializationWriter, withCd
 export function serializeWithCdn_PutResponse(writer: SerializationWriter, withCdn_PutResponse: Partial<WithCdn_PutResponse> | undefined | null = {}) : void {
     if (withCdn_PutResponse) {
         writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_PutResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_PutResponse.additionalData);
     }
 }
-export interface WithCdn_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCdn_GetResponse extends Parsable {
     /**
      * The endpoint property
      */
@@ -139,11 +133,7 @@ export interface WithCdn_ItemRequestBuilder extends BaseRequestBuilder<WithCdn_I
      */
      toPutRequestInformation(body: Update_endpoint, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithCdn_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCdn_PutResponse extends Parsable {
     /**
      * The endpoint property
      */

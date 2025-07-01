@@ -6,7 +6,7 @@ import { createDatabase_replicaFromDiscriminatorValue, createErrorEscapedFromDis
 // @ts-ignore
 import { type WithReplica_nameItemRequestBuilder, WithReplica_nameItemRequestBuilderNavigationMetadata, WithReplica_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,21 +46,13 @@ export function deserializeIntoReplicasPostResponse(replicasPostResponse: Partia
         "replica": n => { replicasPostResponse.replica = n.getObjectValue<Database_replica>(createDatabase_replicaFromDiscriminatorValue); },
     }
 }
-export interface ReplicasGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ReplicasGetResponse extends Parsable {
     /**
      * The replicas property
      */
     replicas?: Database_replica[] | null;
 }
-export interface ReplicasPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ReplicasPostResponse extends Parsable {
     /**
      * The replica property
      */
@@ -71,13 +63,13 @@ export interface ReplicasPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ReplicasRequestBuilder extends BaseRequestBuilder<ReplicasRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.replicas.item collection
+     * Gets an item from the dots.v2.databases.item.replicas.item collection
      * @param replica_name The name of the database replica.
      * @returns {WithReplica_nameItemRequestBuilder}
      */
      byReplica_name(replica_name: string) : WithReplica_nameItemRequestBuilder;
     /**
-     * To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.**Note**: Read-only replicas are not supported for Redis clusters.The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
+     * To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ReplicasGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -88,7 +80,7 @@ export interface ReplicasRequestBuilder extends BaseRequestBuilder<ReplicasReque
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ReplicasGetResponse | undefined>;
     /**
-     * To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.**Note**: Read-only replicas are not supported for Redis clusters.The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
+     * To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ReplicasPostResponse>}
@@ -100,13 +92,13 @@ export interface ReplicasRequestBuilder extends BaseRequestBuilder<ReplicasReque
      */
      post(body: Database_replica, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ReplicasPostResponse | undefined>;
     /**
-     * To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.**Note**: Read-only replicas are not supported for Redis clusters.The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
+     * To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.**Note**: Read-only replicas are not supported for Redis clusters.The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
+     * To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -121,7 +113,6 @@ export interface ReplicasRequestBuilder extends BaseRequestBuilder<ReplicasReque
 export function serializeReplicasGetResponse(writer: SerializationWriter, replicasGetResponse: Partial<ReplicasGetResponse> | undefined | null = {}) : void {
     if (replicasGetResponse) {
         writer.writeCollectionOfObjectValues<Database_replica>("replicas", replicasGetResponse.replicas, serializeDatabase_replica);
-        writer.writeAdditionalData(replicasGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeReplicasGetResponse(writer: SerializationWriter, replic
 export function serializeReplicasPostResponse(writer: SerializationWriter, replicasPostResponse: Partial<ReplicasPostResponse> | undefined | null = {}) : void {
     if (replicasPostResponse) {
         writer.writeObjectValue<Database_replica>("replica", replicasPostResponse.replica, serializeDatabase_replica);
-        writer.writeAdditionalData(replicasPostResponse.additionalData);
     }
 }
 /**

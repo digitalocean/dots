@@ -50,7 +50,6 @@ export function deserializeIntoWithAction_GetResponse_action(withAction_GetRespo
 export function serializeWithAction_GetResponse(writer, withAction_GetResponse = {}) {
     if (withAction_GetResponse) {
         writer.writeObjectValue("action", withAction_GetResponse.action, serializeWithAction_GetResponse_action);
-        writer.writeAdditionalData(withAction_GetResponse.additionalData);
     }
 }
 /**

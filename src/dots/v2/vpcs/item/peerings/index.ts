@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithVpc_peering_ItemRequestBuilder, WithVpc_peering_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -68,11 +68,7 @@ export function deserializeIntoPeeringsPostResponse(peeringsPostResponse: Partia
         "peering": n => { peeringsPostResponse.peering = n.getObjectValue<Vpc_peering>(createVpc_peeringFromDiscriminatorValue); },
     }
 }
-export interface PeeringsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PeeringsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -86,11 +82,7 @@ export interface PeeringsGetResponse extends AdditionalDataHolder, Parsable {
      */
     peerings?: Vpc_peering[] | null;
 }
-export interface PeeringsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PeeringsPostRequestBody extends Parsable {
     /**
      * The name of the VPC peering. Must be unique and may only contain alphanumeric characters, dashes, and periods.
      */
@@ -100,11 +92,7 @@ export interface PeeringsPostRequestBody extends AdditionalDataHolder, Parsable 
      */
     vpcId?: Guid | null;
 }
-export interface PeeringsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PeeringsPostResponse extends Parsable {
     /**
      * The peering property
      */
@@ -115,7 +103,7 @@ export interface PeeringsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface PeeringsRequestBuilder extends BaseRequestBuilder<PeeringsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.vpcs.item.peerings.item collection
+     * Gets an item from the dots.v2.vpcs.item.peerings.item collection
      * @param vpc_peering_id A unique identifier for a VPC peering.
      * @returns {WithVpc_peering_ItemRequestBuilder}
      */
@@ -180,7 +168,6 @@ export function serializePeeringsGetResponse(writer: SerializationWriter, peerin
         writer.writeObjectValue<Page_links>("links", peeringsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", peeringsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Vpc_peering>("peerings", peeringsGetResponse.peerings, serializeVpc_peering);
-        writer.writeAdditionalData(peeringsGetResponse.additionalData);
     }
 }
 /**
@@ -192,7 +179,6 @@ export function serializePeeringsPostRequestBody(writer: SerializationWriter, pe
     if (peeringsPostRequestBody) {
         writer.writeStringValue("name", peeringsPostRequestBody.name);
         writer.writeGuidValue("vpc_id", peeringsPostRequestBody.vpcId);
-        writer.writeAdditionalData(peeringsPostRequestBody.additionalData);
     }
 }
 /**
@@ -203,7 +189,6 @@ export function serializePeeringsPostRequestBody(writer: SerializationWriter, pe
 export function serializePeeringsPostResponse(writer: SerializationWriter, peeringsPostResponse: Partial<PeeringsPostResponse> | undefined | null = {}) : void {
     if (peeringsPostResponse) {
         writer.writeObjectValue<Vpc_peering>("peering", peeringsPostResponse.peering, serializeVpc_peering);
-        writer.writeAdditionalData(peeringsPostResponse.additionalData);
     }
 }
 /**

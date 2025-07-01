@@ -49,7 +49,6 @@ export function deserializeIntoWithTrigger_namePutResponse(withTrigger_namePutRe
 export function serializeWithTrigger_nameGetResponse(writer, withTrigger_nameGetResponse = {}) {
     if (withTrigger_nameGetResponse) {
         writer.writeObjectValue("trigger", withTrigger_nameGetResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(withTrigger_nameGetResponse.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeWithTrigger_nameGetResponse(writer, withTrigger_nameGet
 export function serializeWithTrigger_namePutResponse(writer, withTrigger_namePutResponse = {}) {
     if (withTrigger_namePutResponse) {
         writer.writeObjectValue("trigger", withTrigger_namePutResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(withTrigger_namePutResponse.additionalData);
     }
 }
 /**

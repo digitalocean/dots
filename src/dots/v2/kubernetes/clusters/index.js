@@ -55,7 +55,6 @@ export function serializeClustersGetResponse(writer, clustersGetResponse = {}) {
         writer.writeCollectionOfObjectValues("kubernetes_clusters", clustersGetResponse.kubernetesClusters, serializeCluster);
         writer.writeObjectValue("links", clustersGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", clustersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(clustersGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeClustersGetResponse(writer, clustersGetResponse = {}) {
 export function serializeClustersPostResponse(writer, clustersPostResponse = {}) {
     if (clustersPostResponse) {
         writer.writeObjectValue("kubernetes_cluster", clustersPostResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(clustersPostResponse.additionalData);
     }
 }
 /**

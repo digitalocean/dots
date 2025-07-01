@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createImageFromDiscriminatorV
 // @ts-ignore
 import { type WithImage_ItemRequestBuilder, WithImage_ItemRequestBuilderNavigationMetadata, WithImage_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -49,11 +49,7 @@ export function deserializeIntoImagesPostResponse(imagesPostResponse: Partial<Im
     }
 }
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
-export interface ImagesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ImagesGetResponse extends Parsable {
     /**
      * The images property
      */
@@ -67,11 +63,7 @@ export interface ImagesGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
 }
-export interface ImagesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ImagesPostResponse extends Parsable {
     /**
      * The image property
      */
@@ -82,7 +74,7 @@ export interface ImagesPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ImagesRequestBuilder extends BaseRequestBuilder<ImagesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.images.item collection
+     * Gets an item from the dots.v2.images.item collection
      * @param image_id A unique number (id) or string (slug) used to identify and reference aspecific image.**Public** images can be identified by image `id` or `slug`.**Private** images *must* be identified by image `id`.
      * @returns {WithImage_ItemRequestBuilder}
      */
@@ -157,7 +149,6 @@ export function serializeImagesGetResponse(writer: SerializationWriter, imagesGe
         writer.writeCollectionOfObjectValues<Image>("images", imagesGetResponse.images, serializeImage);
         writer.writeObjectValue<Page_links>("links", imagesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", imagesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(imagesGetResponse.additionalData);
     }
 }
 /**
@@ -168,7 +159,6 @@ export function serializeImagesGetResponse(writer: SerializationWriter, imagesGe
 export function serializeImagesPostResponse(writer: SerializationWriter, imagesPostResponse: Partial<ImagesPostResponse> | undefined | null = {}) : void {
     if (imagesPostResponse) {
         writer.writeObjectValue<Image>("image", imagesPostResponse.image, serializeImage);
-        writer.writeAdditionalData(imagesPostResponse.additionalData);
     }
 }
 /**

@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface Instance_sizesRequestBuilder extends BaseRequestBuilder<Instance_sizesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.apps.tiers.instance_sizes.item collection
+     * Gets an item from the dots.v2.apps.tiers.instance_sizes.item collection
      * @param slug The slug of the instance size
      * @returns {WithSlugItemRequestBuilder}
      */

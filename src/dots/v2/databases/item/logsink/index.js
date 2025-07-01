@@ -51,7 +51,6 @@ export function deserializeIntoLogsinkPostResponse(logsinkPostResponse = {}) {
 export function serializeLogsinkGetResponse(writer, logsinkGetResponse = {}) {
     if (logsinkGetResponse) {
         writer.writeCollectionOfObjectValues("sinks", logsinkGetResponse.sinks, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeLogsinkGetResponse(writer, logsinkGetResponse = {}) {
 export function serializeLogsinkPostResponse(writer, logsinkPostResponse = {}) {
     if (logsinkPostResponse) {
         writer.writeObjectValue("sink", logsinkPostResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkPostResponse.additionalData);
     }
 }
 /**

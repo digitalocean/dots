@@ -49,7 +49,6 @@ export function deserializeIntoTagsPostRequestBody(tagsPostRequestBody = {}) {
 export function serializeTagsDeleteRequestBody(writer, tagsDeleteRequestBody = {}) {
     if (tagsDeleteRequestBody) {
         writer.writeCollectionOfPrimitiveValues("tags", tagsDeleteRequestBody.tags);
-        writer.writeAdditionalData(tagsDeleteRequestBody.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeTagsDeleteRequestBody(writer, tagsDeleteRequestBody = {
 export function serializeTagsPostRequestBody(writer, tagsPostRequestBody = {}) {
     if (tagsPostRequestBody) {
         writer.writeCollectionOfPrimitiveValues("tags", tagsPostRequestBody.tags);
-        writer.writeAdditionalData(tagsPostRequestBody.additionalData);
     }
 }
 /**

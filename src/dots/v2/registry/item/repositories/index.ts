@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithRepository_nameItemRequestBuilder, WithRepository_nameItemRequestBuilderNavigationMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -29,11 +29,7 @@ export function deserializeIntoRepositoriesGetResponse(repositoriesGetResponse: 
         "repositories": n => { repositoriesGetResponse.repositories = n.getCollectionOfObjectValues<Repository>(createRepositoryFromDiscriminatorValue); },
     }
 }
-export interface RepositoriesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface RepositoriesGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -52,7 +48,7 @@ export interface RepositoriesGetResponse extends AdditionalDataHolder, Parsable 
  */
 export interface RepositoriesRequestBuilder extends BaseRequestBuilder<RepositoriesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.registry.item.repositories.item collection
+     * Gets an item from the dots.v2.registry.item.repositories.item collection
      * @param repository_name The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
      * @returns {WithRepository_nameItemRequestBuilder}
      */
@@ -100,7 +96,6 @@ export function serializeRepositoriesGetResponse(writer: SerializationWriter, re
         writer.writeObjectValue<Page_links>("links", repositoriesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", repositoriesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Repository>("repositories", repositoriesGetResponse.repositories, serializeRepository);
-        writer.writeAdditionalData(repositoriesGetResponse.additionalData);
     }
 }
 /**

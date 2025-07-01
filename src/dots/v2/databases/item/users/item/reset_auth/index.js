@@ -49,7 +49,6 @@ export function deserializeIntoReset_authPostResponse(reset_authPostResponse = {
 export function serializeReset_authPostRequestBody(writer, reset_authPostRequestBody = {}) {
     if (reset_authPostRequestBody) {
         writer.writeObjectValue("mysql_settings", reset_authPostRequestBody.mysqlSettings, serializeMysql_settings);
-        writer.writeAdditionalData(reset_authPostRequestBody.additionalData);
     }
 }
 /**
@@ -60,7 +59,6 @@ export function serializeReset_authPostRequestBody(writer, reset_authPostRequest
 export function serializeReset_authPostResponse(writer, reset_authPostResponse = {}) {
     if (reset_authPostResponse) {
         writer.writeObjectValue("user", reset_authPostResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(reset_authPostResponse.additionalData);
     }
 }
 /**

@@ -12,7 +12,9 @@ import { Deployment_visibilityRequestBuilderRequestsMetadata } from './deploymen
 // @ts-ignore
 import { FunctionsRequestBuilderNavigationMetadata, FunctionsRequestBuilderRequestsMetadata } from './functions/index.js';
 // @ts-ignore
-import { Knowledge_basesRequestBuilderNavigationMetadata } from './knowledge_bases/index.js';
+import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata } from './knowledge_bases/index.js';
+// @ts-ignore
+import { VersionsRequestBuilderRequestsMetadata } from './versions/index.js';
 /**
  * Uri template for the request builder.
  */
@@ -37,7 +39,11 @@ export const Agent_uuItemRequestBuilderNavigationMetadata = {
         navigationMetadata: FunctionsRequestBuilderNavigationMetadata,
     },
     knowledge_bases: {
+        requestsMetadata: Knowledge_basesRequestBuilderRequestsMetadata,
         navigationMetadata: Knowledge_basesRequestBuilderNavigationMetadata,
+    },
+    versions: {
+        requestsMetadata: VersionsRequestBuilderRequestsMetadata,
     },
 };
 /**

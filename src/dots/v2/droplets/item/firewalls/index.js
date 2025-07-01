@@ -34,7 +34,6 @@ export function serializeFirewallsGetResponse(writer, firewallsGetResponse = {})
         writer.writeCollectionOfObjectValues("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
         writer.writeObjectValue("links", firewallsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", firewallsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(firewallsGetResponse.additionalData);
     }
 }
 /**

@@ -114,6 +114,15 @@ export function createApiAgentChatbotIdentifierFromDiscriminatorValue(parseNode)
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentChildRelationshipVerion}
+ */
+// @ts-ignore
+export function createApiAgentChildRelationshipVerionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentChildRelationshipVerion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiAgent}
  */
 // @ts-ignore
@@ -150,6 +159,15 @@ export function createApiAgentFunctionFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentFunctionVersion}
+ */
+// @ts-ignore
+export function createApiAgentFunctionVersionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentFunctionVersion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiAgentGuardrail_metadata}
  */
 // @ts-ignore
@@ -164,6 +182,24 @@ export function createApiAgentGuardrail_metadataFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createApiAgentGuardrailFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiAgentGuardrail;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentGuardrailVersion}
+ */
+// @ts-ignore
+export function createApiAgentGuardrailVersionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentGuardrailVersion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentKnowledgeBaseVersion}
+ */
+// @ts-ignore
+export function createApiAgentKnowledgeBaseVersionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentKnowledgeBaseVersion;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -186,6 +222,24 @@ export function createApiAgentTemplateFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentTemplateGuardrail}
+ */
+// @ts-ignore
+export function createApiAgentTemplateGuardrailFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentTemplateGuardrail;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentVersion}
+ */
+// @ts-ignore
+export function createApiAgentVersionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAgentVersion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiAgreement}
  */
 // @ts-ignore
@@ -200,6 +254,33 @@ export function createApiAgreementFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createApiAnthropicAPIKeyInfoFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiAnthropicAPIKeyInfo;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAuditHeader}
+ */
+// @ts-ignore
+export function createApiAuditHeaderFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAuditHeader;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAWSDataSourceDisplay}
+ */
+// @ts-ignore
+export function createApiAWSDataSourceDisplayFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAWSDataSourceDisplay;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAWSDataSource}
+ */
+// @ts-ignore
+export function createApiAWSDataSourceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiAWSDataSource;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -321,6 +402,42 @@ export function createApiCreateKnowledgeBaseOutputFromDiscriminatorValue(parseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateModelAPIKeyInputPublic}
+ */
+// @ts-ignore
+export function createApiCreateModelAPIKeyInputPublicFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiCreateModelAPIKeyInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateModelAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiCreateModelAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiCreateModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateOpenAIAPIKeyInputPublic}
+ */
+// @ts-ignore
+export function createApiCreateOpenAIAPIKeyInputPublicFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiCreateOpenAIAPIKeyInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateOpenAIAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiCreateOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiCreateOpenAIAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiDeleteAgentAPIKeyOutput}
  */
 // @ts-ignore
@@ -366,11 +483,47 @@ export function createApiDeleteKnowledgeBaseOutputFromDiscriminatorValue(parseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteModelAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiDeleteModelAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiDeleteModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteOpenAIAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiDeleteOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiDeleteOpenAIAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiDeployment}
  */
 // @ts-ignore
 export function createApiDeploymentFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiDeployment;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiEvaluationMetric}
+ */
+// @ts-ignore
+export function createApiEvaluationMetricFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiEvaluationMetric;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiEvaluationTestCase}
+ */
+// @ts-ignore
+export function createApiEvaluationTestCaseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiEvaluationTestCase;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -425,6 +578,15 @@ export function createApiGetKnowledgeBaseIndexingJobOutputFromDiscriminatorValue
 // @ts-ignore
 export function createApiGetKnowledgeBaseOutputFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiGetKnowledgeBaseOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetOpenAIAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiGetOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiGetOpenAIAPIKeyOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -564,11 +726,29 @@ export function createApiListAgentsByAnthropicKeyOutputFromDiscriminatorValue(pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListAgentsByOpenAIKeyOutput}
+ */
+// @ts-ignore
+export function createApiListAgentsByOpenAIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiListAgentsByOpenAIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListAgentsOutputPublic}
  */
 // @ts-ignore
 export function createApiListAgentsOutputPublicFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiListAgentsOutputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListAgentVersionsOutput}
+ */
+// @ts-ignore
+export function createApiListAgentVersionsOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiListAgentVersionsOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -618,11 +798,29 @@ export function createApiListKnowledgeBasesOutputFromDiscriminatorValue(parseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelAPIKeysOutput}
+ */
+// @ts-ignore
+export function createApiListModelAPIKeysOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiListModelAPIKeysOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListModelsOutputPublic}
  */
 // @ts-ignore
 export function createApiListModelsOutputPublicFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiListModelsOutputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListOpenAIAPIKeysOutput}
+ */
+// @ts-ignore
+export function createApiListOpenAIAPIKeysOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiListOpenAIAPIKeysOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -654,6 +852,15 @@ export function createApiModel_metadataFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelAPIKeyInfo}
+ */
+// @ts-ignore
+export function createApiModelAPIKeyInfoFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiModelAPIKeyInfo;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiModel}
  */
 // @ts-ignore
@@ -681,6 +888,15 @@ export function createApiModelVersionFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiOpenAIAPIKeyInfo}
+ */
+// @ts-ignore
+export function createApiOpenAIAPIKeyInfoFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiOpenAIAPIKeyInfo;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiPages}
  */
 // @ts-ignore
@@ -699,11 +915,47 @@ export function createApiRegenerateAgentAPIKeyOutputFromDiscriminatorValue(parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiRegenerateModelAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiRegenerateModelAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiRegenerateModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiRollbackToAgentVersionInputPublic}
+ */
+// @ts-ignore
+export function createApiRollbackToAgentVersionInputPublicFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiRollbackToAgentVersionInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiRollbackToAgentVersionOutput}
+ */
+// @ts-ignore
+export function createApiRollbackToAgentVersionOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiRollbackToAgentVersionOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiSpacesDataSource}
  */
 // @ts-ignore
 export function createApiSpacesDataSourceFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiSpacesDataSource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiStarMetric}
+ */
+// @ts-ignore
+export function createApiStarMetricFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiStarMetric;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -897,11 +1149,56 @@ export function createApiUpdateLinkedAgentOutputFromDiscriminatorValue(parseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateModelAPIKeyInputPublic}
+ */
+// @ts-ignore
+export function createApiUpdateModelAPIKeyInputPublicFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiUpdateModelAPIKeyInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateModelAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiUpdateModelAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiUpdateModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateOpenAIAPIKeyInputPublic}
+ */
+// @ts-ignore
+export function createApiUpdateOpenAIAPIKeyInputPublicFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiUpdateOpenAIAPIKeyInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateOpenAIAPIKeyOutput}
+ */
+// @ts-ignore
+export function createApiUpdateOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiUpdateOpenAIAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiWebCrawlerDataSource}
  */
 // @ts-ignore
 export function createApiWebCrawlerDataSourceFromDiscriminatorValue(parseNode) {
     return deserializeIntoApiWebCrawlerDataSource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiWorkspace}
+ */
+// @ts-ignore
+export function createApiWorkspaceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApiWorkspace;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -969,6 +1266,15 @@ export function createApp_component_baseFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_component_health}
+ */
+// @ts-ignore
+export function createApp_component_healthFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_component_health;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_database_spec}
  */
 // @ts-ignore
@@ -1005,11 +1311,56 @@ export function createApp_egress_specFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_functions_component_health_functions_component_health_metrics}
+ */
+// @ts-ignore
+export function createApp_functions_component_health_functions_component_health_metricsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_functions_component_health_functions_component_health_metrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_functions_component_health}
+ */
+// @ts-ignore
+export function createApp_functions_component_healthFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_functions_component_health;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_functions_spec}
  */
 // @ts-ignore
 export function createApp_functions_specFromDiscriminatorValue(parseNode) {
     return deserializeIntoApp_functions_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_health_check_spec}
+ */
+// @ts-ignore
+export function createApp_health_check_specFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_health_check_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_health_response}
+ */
+// @ts-ignore
+export function createApp_health_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_health_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_health}
+ */
+// @ts-ignore
+export function createApp_healthFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_health;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -1041,11 +1392,20 @@ export function createApp_ingress_spec_rule_routing_redirectFromDiscriminatorVal
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_ingress_spec_rule_string_match}
+ * @returns {App_ingress_spec_rule_string_match_exact}
  */
 // @ts-ignore
-export function createApp_ingress_spec_rule_string_matchFromDiscriminatorValue(parseNode) {
-    return deserializeIntoApp_ingress_spec_rule_string_match;
+export function createApp_ingress_spec_rule_string_match_exactFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_ingress_spec_rule_string_match_exact;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_ingress_spec_rule_string_match_prefix}
+ */
+// @ts-ignore
+export function createApp_ingress_spec_rule_string_match_prefixFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_ingress_spec_rule_string_match_prefix;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -1064,6 +1424,24 @@ export function createApp_ingress_spec_ruleFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createApp_ingress_specFromDiscriminatorValue(parseNode) {
     return deserializeIntoApp_ingress_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_instance}
+ */
+// @ts-ignore
+export function createApp_instanceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_instance;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_instances}
+ */
+// @ts-ignore
+export function createApp_instancesFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_instances;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -1932,6 +2310,42 @@ export function createBilling_historyFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Byoip_prefix_create}
+ */
+// @ts-ignore
+export function createByoip_prefix_createFromDiscriminatorValue(parseNode) {
+    return deserializeIntoByoip_prefix_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Byoip_prefix_resource}
+ */
+// @ts-ignore
+export function createByoip_prefix_resourceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoByoip_prefix_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Byoip_prefix_validations}
+ */
+// @ts-ignore
+export function createByoip_prefix_validationsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoByoip_prefix_validations;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Byoip_prefix}
+ */
+// @ts-ignore
+export function createByoip_prefixFromDiscriminatorValue(parseNode) {
+    return deserializeIntoByoip_prefix;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Ca}
  */
 // @ts-ignore
@@ -2184,7 +2598,7 @@ export function createDatabase_clusterFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config}
+ * @returns {Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config}
  */
 // @ts-ignore
 export function createDatabase_config_configFromDiscriminatorValue(parseNode) {
@@ -2288,6 +2702,15 @@ export function createDatabaseFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createDatabases_basic_auth_credentialsFromDiscriminatorValue(parseNode) {
     return deserializeIntoDatabases_basic_auth_credentials;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Datadog_logsink}
+ */
+// @ts-ignore
+export function createDatadog_logsinkFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDatadog_logsink;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -3278,7 +3701,7 @@ export function createLogsink_baseFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
+ * @returns {Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
  */
 // @ts-ignore
 export function createLogsink_create_configFromDiscriminatorValue(parseNode) {
@@ -3296,7 +3719,7 @@ export function createLogsink_createFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
+ * @returns {Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
  */
 // @ts-ignore
 export function createLogsink_update_configFromDiscriminatorValue(parseNode) {
@@ -3314,7 +3737,7 @@ export function createLogsink_updateFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
+ * @returns {Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
  */
 // @ts-ignore
 export function createLogsink_verbose_configFromDiscriminatorValue(parseNode) {
@@ -3409,6 +3832,24 @@ export function createMetricsFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createMongo_advanced_configFromDiscriminatorValue(parseNode) {
     return deserializeIntoMongo_advanced_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Multiregistry_create}
+ */
+// @ts-ignore
+export function createMultiregistry_createFromDiscriminatorValue(parseNode) {
+    return deserializeIntoMultiregistry_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Multiregistry}
+ */
+// @ts-ignore
+export function createMultiregistryFromDiscriminatorValue(parseNode) {
+    return deserializeIntoMultiregistry;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -3674,6 +4115,15 @@ export function createOptions_options_redisFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Options_options_valkey}
+ */
+// @ts-ignore
+export function createOptions_options_valkeyFromDiscriminatorValue(parseNode) {
+    return deserializeIntoOptions_options_valkey;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Options_options}
  */
 // @ts-ignore
@@ -3724,6 +4174,96 @@ export function createPage_links_pagesMember1FromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createPage_linksFromDiscriminatorValue(parseNode) {
     return deserializeIntoPage_links;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_bgp}
+ */
+// @ts-ignore
+export function createPartner_attachment_bgpFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_bgp;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_remote_route_writable}
+ */
+// @ts-ignore
+export function createPartner_attachment_remote_route_writableFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_remote_route_writable;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_remote_route}
+ */
+// @ts-ignore
+export function createPartner_attachment_remote_routeFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_remote_route;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_updatableMember1}
+ */
+// @ts-ignore
+export function createPartner_attachment_updatableMember1FromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_updatableMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_updatableMember2}
+ */
+// @ts-ignore
+export function createPartner_attachment_updatableMember2FromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_updatableMember2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_updatableMember3_bgp}
+ */
+// @ts-ignore
+export function createPartner_attachment_updatableMember3_bgpFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_updatableMember3_bgp;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_updatableMember3}
+ */
+// @ts-ignore
+export function createPartner_attachment_updatableMember3FromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_updatableMember3;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_writable_bgp}
+ */
+// @ts-ignore
+export function createPartner_attachment_writable_bgpFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_writable_bgp;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment_writable}
+ */
+// @ts-ignore
+export function createPartner_attachment_writableFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment_writable;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Partner_attachment}
+ */
+// @ts-ignore
+export function createPartner_attachmentFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPartner_attachment;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -3845,11 +4385,29 @@ export function createRegionFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Registry_base}
+ */
+// @ts-ignore
+export function createRegistry_baseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoRegistry_base;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Registry_create}
  */
 // @ts-ignore
 export function createRegistry_createFromDiscriminatorValue(parseNode) {
     return deserializeIntoRegistry_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Registry_run_gc}
+ */
+// @ts-ignore
+export function createRegistry_run_gcFromDiscriminatorValue(parseNode) {
+    return deserializeIntoRegistry_run_gc;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4206,6 +4764,15 @@ export function createStateFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Status_messages}
+ */
+// @ts-ignore
+export function createStatus_messagesFromDiscriminatorValue(parseNode) {
+    return deserializeIntoStatus_messages;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Sticky_sessions}
  */
 // @ts-ignore
@@ -4359,6 +4926,15 @@ export function createUser_settings_aclFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {User_settings_mongo_user_settings}
+ */
+// @ts-ignore
+export function createUser_settings_mongo_user_settingsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoUser_settings_mongo_user_settings;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {User_settings_opensearch_acl}
  */
 // @ts-ignore
@@ -4391,6 +4967,15 @@ export function createUserFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createValidate_registryFromDiscriminatorValue(parseNode) {
     return deserializeIntoValidate_registry;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Valkey_advanced_config}
+ */
+// @ts-ignore
+export function createValkey_advanced_configFromDiscriminatorValue(parseNode) {
+    return deserializeIntoValkey_advanced_config;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4681,9 +5266,12 @@ export function deserializeIntoApiAgent(apiAgent = {}) {
         "max_tokens": n => { apiAgent.maxTokens = n.getNumberValue(); },
         "model": n => { apiAgent.model = n.getObjectValue(createApiModelFromDiscriminatorValue); },
         "name": n => { apiAgent.name = n.getStringValue(); },
+        "openai_api_key": n => { apiAgent.openaiApiKey = n.getObjectValue(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
         "parent_agents": n => { apiAgent.parentAgents = n.getCollectionOfObjectValues(createApiAgentFromDiscriminatorValue); },
         "project_id": n => { apiAgent.projectId = n.getStringValue(); },
+        "provide_citations": n => { apiAgent.provideCitations = n.getBooleanValue(); },
         "region": n => { apiAgent.region = n.getStringValue(); },
+        "retrieval_method": n => { apiAgent.retrievalMethod = n.getEnumValue(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
         "route_created_at": n => { apiAgent.routeCreatedAt = n.getDateValue(); },
         "route_created_by": n => { apiAgent.routeCreatedBy = n.getStringValue(); },
         "route_name": n => { apiAgent.routeName = n.getStringValue(); },
@@ -4696,6 +5284,7 @@ export function deserializeIntoApiAgent(apiAgent = {}) {
         "url": n => { apiAgent.url = n.getStringValue(); },
         "user_id": n => { apiAgent.userId = n.getStringValue(); },
         "uuid": n => { apiAgent.uuid = n.getStringValue(); },
+        "workspace": n => { apiAgent.workspace = n.getObjectValue(createApiWorkspaceFromDiscriminatorValue); },
     };
 }
 /**
@@ -4738,10 +5327,25 @@ export function deserializeIntoApiAgentChatbotIdentifier(apiAgentChatbotIdentifi
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiAgentChildRelationshipVerion(apiAgentChildRelationshipVerion = {}) {
+    return {
+        "agent_name": n => { apiAgentChildRelationshipVerion.agentName = n.getStringValue(); },
+        "child_agent_uuid": n => { apiAgentChildRelationshipVerion.childAgentUuid = n.getStringValue(); },
+        "if_case": n => { apiAgentChildRelationshipVerion.ifCase = n.getStringValue(); },
+        "is_deleted": n => { apiAgentChildRelationshipVerion.isDeleted = n.getBooleanValue(); },
+        "route_name": n => { apiAgentChildRelationshipVerion.routeName = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiAgentFunction(apiAgentFunction = {}) {
     return {
         "api_key": n => { apiAgentFunction.apiKey = n.getStringValue(); },
         "created_at": n => { apiAgentFunction.createdAt = n.getDateValue(); },
+        "created_by": n => { apiAgentFunction.createdBy = n.getStringValue(); },
         "description": n => { apiAgentFunction.description = n.getStringValue(); },
         "faas_name": n => { apiAgentFunction.faasName = n.getStringValue(); },
         "faas_namespace": n => { apiAgentFunction.faasNamespace = n.getStringValue(); },
@@ -4768,6 +5372,20 @@ export function deserializeIntoApiAgentFunction_input_schema(apiAgentFunction_in
 // @ts-ignore
 export function deserializeIntoApiAgentFunction_output_schema(apiAgentFunction_output_schema = {}) {
     return {};
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAgentFunctionVersion(apiAgentFunctionVersion = {}) {
+    return {
+        "description": n => { apiAgentFunctionVersion.description = n.getStringValue(); },
+        "faas_name": n => { apiAgentFunctionVersion.faasName = n.getStringValue(); },
+        "faas_namespace": n => { apiAgentFunctionVersion.faasNamespace = n.getStringValue(); },
+        "is_deleted": n => { apiAgentFunctionVersion.isDeleted = n.getBooleanValue(); },
+        "name": n => { apiAgentFunctionVersion.name = n.getStringValue(); },
+    };
 }
 /**
  * The deserialization information for the current model
@@ -4804,6 +5422,31 @@ export function deserializeIntoApiAgentGuardrail_metadata(apiAgentGuardrail_meta
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiAgentGuardrailVersion(apiAgentGuardrailVersion = {}) {
+    return {
+        "is_deleted": n => { apiAgentGuardrailVersion.isDeleted = n.getBooleanValue(); },
+        "name": n => { apiAgentGuardrailVersion.name = n.getStringValue(); },
+        "priority": n => { apiAgentGuardrailVersion.priority = n.getNumberValue(); },
+        "uuid": n => { apiAgentGuardrailVersion.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAgentKnowledgeBaseVersion(apiAgentKnowledgeBaseVersion = {}) {
+    return {
+        "is_deleted": n => { apiAgentKnowledgeBaseVersion.isDeleted = n.getBooleanValue(); },
+        "name": n => { apiAgentKnowledgeBaseVersion.name = n.getStringValue(); },
+        "uuid": n => { apiAgentKnowledgeBaseVersion.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiAgentPublic(apiAgentPublic = {}) {
     return {
         "chatbot": n => { apiAgentPublic.chatbot = n.getObjectValue(createApiChatbotFromDiscriminatorValue); },
@@ -4818,7 +5461,9 @@ export function deserializeIntoApiAgentPublic(apiAgentPublic = {}) {
         "model": n => { apiAgentPublic.model = n.getObjectValue(createApiModelFromDiscriminatorValue); },
         "name": n => { apiAgentPublic.name = n.getStringValue(); },
         "project_id": n => { apiAgentPublic.projectId = n.getStringValue(); },
+        "provide_citations": n => { apiAgentPublic.provideCitations = n.getBooleanValue(); },
         "region": n => { apiAgentPublic.region = n.getStringValue(); },
+        "retrieval_method": n => { apiAgentPublic.retrievalMethod = n.getEnumValue(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
         "route_created_at": n => { apiAgentPublic.routeCreatedAt = n.getDateValue(); },
         "route_created_by": n => { apiAgentPublic.routeCreatedBy = n.getStringValue(); },
         "route_name": n => { apiAgentPublic.routeName = n.getStringValue(); },
@@ -4842,16 +5487,65 @@ export function deserializeIntoApiAgentTemplate(apiAgentTemplate = {}) {
     return {
         "created_at": n => { apiAgentTemplate.createdAt = n.getDateValue(); },
         "description": n => { apiAgentTemplate.description = n.getStringValue(); },
+        "guardrails": n => { apiAgentTemplate.guardrails = n.getCollectionOfObjectValues(createApiAgentTemplateGuardrailFromDiscriminatorValue); },
         "instruction": n => { apiAgentTemplate.instruction = n.getStringValue(); },
         "k": n => { apiAgentTemplate.k = n.getNumberValue(); },
         "knowledge_bases": n => { apiAgentTemplate.knowledgeBases = n.getCollectionOfObjectValues(createApiKnowledgeBaseFromDiscriminatorValue); },
+        "long_description": n => { apiAgentTemplate.longDescription = n.getStringValue(); },
         "max_tokens": n => { apiAgentTemplate.maxTokens = n.getNumberValue(); },
         "model": n => { apiAgentTemplate.model = n.getObjectValue(createApiModelFromDiscriminatorValue); },
         "name": n => { apiAgentTemplate.name = n.getStringValue(); },
+        "short_description": n => { apiAgentTemplate.shortDescription = n.getStringValue(); },
+        "summary": n => { apiAgentTemplate.summary = n.getStringValue(); },
+        "tags": n => { apiAgentTemplate.tags = n.getCollectionOfPrimitiveValues(); },
         "temperature": n => { apiAgentTemplate.temperature = n.getNumberValue(); },
+        "template_type": n => { apiAgentTemplate.templateType = n.getEnumValue(ApiAgentTemplateTypeObject) ?? ApiAgentTemplateTypeObject.AGENT_TEMPLATE_TYPE_STANDARD; },
         "top_p": n => { apiAgentTemplate.topP = n.getNumberValue(); },
         "updated_at": n => { apiAgentTemplate.updatedAt = n.getDateValue(); },
         "uuid": n => { apiAgentTemplate.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAgentTemplateGuardrail(apiAgentTemplateGuardrail = {}) {
+    return {
+        "priority": n => { apiAgentTemplateGuardrail.priority = n.getNumberValue(); },
+        "uuid": n => { apiAgentTemplateGuardrail.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAgentVersion(apiAgentVersion = {}) {
+    return {
+        "agent_uuid": n => { apiAgentVersion.agentUuid = n.getStringValue(); },
+        "attached_child_agents": n => { apiAgentVersion.attachedChildAgents = n.getCollectionOfObjectValues(createApiAgentChildRelationshipVerionFromDiscriminatorValue); },
+        "attached_functions": n => { apiAgentVersion.attachedFunctions = n.getCollectionOfObjectValues(createApiAgentFunctionVersionFromDiscriminatorValue); },
+        "attached_guardrails": n => { apiAgentVersion.attachedGuardrails = n.getCollectionOfObjectValues(createApiAgentGuardrailVersionFromDiscriminatorValue); },
+        "attached_knowledgebases": n => { apiAgentVersion.attachedKnowledgebases = n.getCollectionOfObjectValues(createApiAgentKnowledgeBaseVersionFromDiscriminatorValue); },
+        "can_rollback": n => { apiAgentVersion.canRollback = n.getBooleanValue(); },
+        "created_at": n => { apiAgentVersion.createdAt = n.getDateValue(); },
+        "created_by_email": n => { apiAgentVersion.createdByEmail = n.getStringValue(); },
+        "currently_applied": n => { apiAgentVersion.currentlyApplied = n.getBooleanValue(); },
+        "description": n => { apiAgentVersion.description = n.getStringValue(); },
+        "id": n => { apiAgentVersion.id = n.getStringValue(); },
+        "instruction": n => { apiAgentVersion.instruction = n.getStringValue(); },
+        "k": n => { apiAgentVersion.k = n.getNumberValue(); },
+        "max_tokens": n => { apiAgentVersion.maxTokens = n.getNumberValue(); },
+        "model_name": n => { apiAgentVersion.modelName = n.getStringValue(); },
+        "name": n => { apiAgentVersion.name = n.getStringValue(); },
+        "provide_citations": n => { apiAgentVersion.provideCitations = n.getBooleanValue(); },
+        "retrieval_method": n => { apiAgentVersion.retrievalMethod = n.getEnumValue(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
+        "tags": n => { apiAgentVersion.tags = n.getCollectionOfPrimitiveValues(); },
+        "temperature": n => { apiAgentVersion.temperature = n.getNumberValue(); },
+        "top_p": n => { apiAgentVersion.topP = n.getNumberValue(); },
+        "trigger_action": n => { apiAgentVersion.triggerAction = n.getStringValue(); },
+        "version_hash": n => { apiAgentVersion.versionHash = n.getStringValue(); },
     };
 }
 /**
@@ -4880,6 +5574,48 @@ export function deserializeIntoApiAnthropicAPIKeyInfo(apiAnthropicAPIKeyInfo = {
         "name": n => { apiAnthropicAPIKeyInfo.name = n.getStringValue(); },
         "updated_at": n => { apiAnthropicAPIKeyInfo.updatedAt = n.getDateValue(); },
         "uuid": n => { apiAnthropicAPIKeyInfo.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAuditHeader(apiAuditHeader = {}) {
+    return {
+        "actor_id": n => { apiAuditHeader.actorId = n.getStringValue(); },
+        "actor_ip": n => { apiAuditHeader.actorIp = n.getStringValue(); },
+        "actor_uuid": n => { apiAuditHeader.actorUuid = n.getStringValue(); },
+        "context_urn": n => { apiAuditHeader.contextUrn = n.getStringValue(); },
+        "origin_application": n => { apiAuditHeader.originApplication = n.getStringValue(); },
+        "user_id": n => { apiAuditHeader.userId = n.getStringValue(); },
+        "user_uuid": n => { apiAuditHeader.userUuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAWSDataSource(apiAWSDataSource = {}) {
+    return {
+        "bucket_name": n => { apiAWSDataSource.bucketName = n.getStringValue(); },
+        "item_path": n => { apiAWSDataSource.itemPath = n.getStringValue(); },
+        "key_id": n => { apiAWSDataSource.keyId = n.getStringValue(); },
+        "region": n => { apiAWSDataSource.region = n.getStringValue(); },
+        "secret_key": n => { apiAWSDataSource.secretKey = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAWSDataSourceDisplay(apiAWSDataSourceDisplay = {}) {
+    return {
+        "bucket_name": n => { apiAWSDataSourceDisplay.bucketName = n.getStringValue(); },
+        "item_path": n => { apiAWSDataSourceDisplay.itemPath = n.getStringValue(); },
+        "region": n => { apiAWSDataSourceDisplay.region = n.getStringValue(); },
     };
 }
 /**
@@ -4951,6 +5687,7 @@ export function deserializeIntoApiCreateAgentInputPublic(apiCreateAgentInputPubl
         "knowledge_base_uuid": n => { apiCreateAgentInputPublic.knowledgeBaseUuid = n.getCollectionOfPrimitiveValues(); },
         "model_uuid": n => { apiCreateAgentInputPublic.modelUuid = n.getStringValue(); },
         "name": n => { apiCreateAgentInputPublic.name = n.getStringValue(); },
+        "open_ai_key_uuid": n => { apiCreateAgentInputPublic.openAiKeyUuid = n.getStringValue(); },
         "project_id": n => { apiCreateAgentInputPublic.projectId = n.getStringValue(); },
         "region": n => { apiCreateAgentInputPublic.region = n.getStringValue(); },
         "tags": n => { apiCreateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues(); },
@@ -4994,9 +5731,10 @@ export function deserializeIntoApiCreateAnthropicAPIKeyOutput(apiCreateAnthropic
 // @ts-ignore
 export function deserializeIntoApiCreateKnowledgeBaseDataSourceInputPublic(apiCreateKnowledgeBaseDataSourceInputPublic = {}) {
     return {
-        "file_upload_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.fileUploadDataSource = n.getObjectValue(createApiFileUploadDataSourceFromDiscriminatorValue); },
+        "aws_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource = n.getObjectValue(createApiAWSDataSourceFromDiscriminatorValue); },
         "knowledge_base_uuid": n => { apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid = n.getStringValue(); },
         "spaces_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource = n.getObjectValue(createApiSpacesDataSourceFromDiscriminatorValue); },
+        "web_crawler_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.webCrawlerDataSource = n.getObjectValue(createApiWebCrawlerDataSourceFromDiscriminatorValue); },
     };
 }
 /**
@@ -5034,6 +5772,47 @@ export function deserializeIntoApiCreateKnowledgeBaseInputPublic(apiCreateKnowle
 export function deserializeIntoApiCreateKnowledgeBaseOutput(apiCreateKnowledgeBaseOutput = {}) {
     return {
         "knowledge_base": n => { apiCreateKnowledgeBaseOutput.knowledgeBase = n.getObjectValue(createApiKnowledgeBaseFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateModelAPIKeyInputPublic(apiCreateModelAPIKeyInputPublic = {}) {
+    return {
+        "name": n => { apiCreateModelAPIKeyInputPublic.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateModelAPIKeyOutput(apiCreateModelAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiCreateModelAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateOpenAIAPIKeyInputPublic(apiCreateOpenAIAPIKeyInputPublic = {}) {
+    return {
+        "api_key": n => { apiCreateOpenAIAPIKeyInputPublic.apiKey = n.getStringValue(); },
+        "name": n => { apiCreateOpenAIAPIKeyInputPublic.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateOpenAIAPIKeyOutput(apiCreateOpenAIAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiCreateOpenAIAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
     };
 }
 /**
@@ -5092,6 +5871,26 @@ export function deserializeIntoApiDeleteKnowledgeBaseOutput(apiDeleteKnowledgeBa
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiDeleteModelAPIKeyOutput(apiDeleteModelAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiDeleteModelAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteOpenAIAPIKeyOutput(apiDeleteOpenAIAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiDeleteOpenAIAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiDeployment(apiDeployment = {}) {
     return {
         "created_at": n => { apiDeployment.createdAt = n.getDateValue(); },
@@ -5101,6 +5900,46 @@ export function deserializeIntoApiDeployment(apiDeployment = {}) {
         "url": n => { apiDeployment.url = n.getStringValue(); },
         "uuid": n => { apiDeployment.uuid = n.getStringValue(); },
         "visibility": n => { apiDeployment.visibility = n.getEnumValue(ApiDeploymentVisibilityObject) ?? ApiDeploymentVisibilityObject.VISIBILITY_UNKNOWN; },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric = {}) {
+    return {
+        "description": n => { apiEvaluationMetric.description = n.getStringValue(); },
+        "metric_name": n => { apiEvaluationMetric.metricName = n.getStringValue(); },
+        "metric_type": n => { apiEvaluationMetric.metricType = n.getEnumValue(ApiEvaluationMetricTypeObject) ?? ApiEvaluationMetricTypeObject.METRIC_TYPE_UNSPECIFIED; },
+        "metric_uuid": n => { apiEvaluationMetric.metricUuid = n.getStringValue(); },
+        "metric_value_type": n => { apiEvaluationMetric.metricValueType = n.getEnumValue(ApiEvaluationMetricValueTypeObject) ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED; },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiEvaluationTestCase(apiEvaluationTestCase = {}) {
+    return {
+        "archived_at": n => { apiEvaluationTestCase.archivedAt = n.getDateValue(); },
+        "created_at": n => { apiEvaluationTestCase.createdAt = n.getDateValue(); },
+        "created_by_user_email": n => { apiEvaluationTestCase.createdByUserEmail = n.getStringValue(); },
+        "created_by_user_id": n => { apiEvaluationTestCase.createdByUserId = n.getStringValue(); },
+        "dataset_name": n => { apiEvaluationTestCase.datasetName = n.getStringValue(); },
+        "dataset_uuid": n => { apiEvaluationTestCase.datasetUuid = n.getStringValue(); },
+        "description": n => { apiEvaluationTestCase.description = n.getStringValue(); },
+        "latest_version_number_of_runs": n => { apiEvaluationTestCase.latestVersionNumberOfRuns = n.getNumberValue(); },
+        "metrics": n => { apiEvaluationTestCase.metrics = n.getCollectionOfObjectValues(createApiEvaluationMetricFromDiscriminatorValue); },
+        "name": n => { apiEvaluationTestCase.name = n.getStringValue(); },
+        "star_metric": n => { apiEvaluationTestCase.starMetric = n.getObjectValue(createApiStarMetricFromDiscriminatorValue); },
+        "test_case_uuid": n => { apiEvaluationTestCase.testCaseUuid = n.getStringValue(); },
+        "total_runs": n => { apiEvaluationTestCase.totalRuns = n.getNumberValue(); },
+        "updated_at": n => { apiEvaluationTestCase.updatedAt = n.getDateValue(); },
+        "updated_by_user_email": n => { apiEvaluationTestCase.updatedByUserEmail = n.getStringValue(); },
+        "updated_by_user_id": n => { apiEvaluationTestCase.updatedByUserId = n.getStringValue(); },
+        "version": n => { apiEvaluationTestCase.version = n.getNumberValue(); },
     };
 }
 /**
@@ -5171,12 +6010,29 @@ export function deserializeIntoApiGetKnowledgeBaseOutput(apiGetKnowledgeBaseOutp
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiGetOpenAIAPIKeyOutput(apiGetOpenAIAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiGetOpenAIAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiIndexedDataSource(apiIndexedDataSource = {}) {
     return {
         "completed_at": n => { apiIndexedDataSource.completedAt = n.getDateValue(); },
         "data_source_uuid": n => { apiIndexedDataSource.dataSourceUuid = n.getStringValue(); },
+        "error_details": n => { apiIndexedDataSource.errorDetails = n.getStringValue(); },
+        "error_msg": n => { apiIndexedDataSource.errorMsg = n.getStringValue(); },
+        "failed_item_count": n => { apiIndexedDataSource.failedItemCount = n.getStringValue(); },
         "indexed_file_count": n => { apiIndexedDataSource.indexedFileCount = n.getStringValue(); },
+        "indexed_item_count": n => { apiIndexedDataSource.indexedItemCount = n.getStringValue(); },
+        "removed_item_count": n => { apiIndexedDataSource.removedItemCount = n.getStringValue(); },
+        "skipped_item_count": n => { apiIndexedDataSource.skippedItemCount = n.getStringValue(); },
         "started_at": n => { apiIndexedDataSource.startedAt = n.getDateValue(); },
+        "status": n => { apiIndexedDataSource.status = n.getEnumValue(ApiIndexedDataSourceStatusObject) ?? ApiIndexedDataSourceStatusObject.DATA_SOURCE_STATUS_UNKNOWN; },
         "total_bytes": n => { apiIndexedDataSource.totalBytes = n.getStringValue(); },
         "total_bytes_indexed": n => { apiIndexedDataSource.totalBytesIndexed = n.getStringValue(); },
         "total_file_count": n => { apiIndexedDataSource.totalFileCount = n.getStringValue(); },
@@ -5209,6 +6065,7 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob = {}) {
 // @ts-ignore
 export function deserializeIntoApiKBDataSource(apiKBDataSource = {}) {
     return {
+        "aws_data_source": n => { apiKBDataSource.awsDataSource = n.getObjectValue(createApiAWSDataSourceFromDiscriminatorValue); },
         "bucket_name": n => { apiKBDataSource.bucketName = n.getStringValue(); },
         "bucket_region": n => { apiKBDataSource.bucketRegion = n.getStringValue(); },
         "file_upload_data_source": n => { apiKBDataSource.fileUploadDataSource = n.getObjectValue(createApiFileUploadDataSourceFromDiscriminatorValue); },
@@ -5246,6 +6103,7 @@ export function deserializeIntoApiKnowledgeBase(apiKnowledgeBase = {}) {
 // @ts-ignore
 export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSource = {}) {
     return {
+        "aws_data_source": n => { apiKnowledgeBaseDataSource.awsDataSource = n.getObjectValue(createApiAWSDataSourceDisplayFromDiscriminatorValue); },
         "bucket_name": n => { apiKnowledgeBaseDataSource.bucketName = n.getStringValue(); },
         "created_at": n => { apiKnowledgeBaseDataSource.createdAt = n.getDateValue(); },
         "file_upload_data_source": n => { apiKnowledgeBaseDataSource.fileUploadDataSource = n.getObjectValue(createApiFileUploadDataSourceFromDiscriminatorValue); },
@@ -5373,11 +6231,35 @@ export function deserializeIntoApiListAgentsByAnthropicKeyOutput(apiListAgentsBy
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiListAgentsByOpenAIKeyOutput(apiListAgentsByOpenAIKeyOutput = {}) {
+    return {
+        "agents": n => { apiListAgentsByOpenAIKeyOutput.agents = n.getCollectionOfObjectValues(createApiAgentFromDiscriminatorValue); },
+        "links": n => { apiListAgentsByOpenAIKeyOutput.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListAgentsByOpenAIKeyOutput.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiListAgentsOutputPublic(apiListAgentsOutputPublic = {}) {
     return {
         "agents": n => { apiListAgentsOutputPublic.agents = n.getCollectionOfObjectValues(createApiAgentPublicFromDiscriminatorValue); },
         "links": n => { apiListAgentsOutputPublic.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
         "meta": n => { apiListAgentsOutputPublic.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListAgentVersionsOutput(apiListAgentVersionsOutput = {}) {
+    return {
+        "agent_versions": n => { apiListAgentVersionsOutput.agentVersions = n.getCollectionOfObjectValues(createApiAgentVersionFromDiscriminatorValue); },
+        "links": n => { apiListAgentVersionsOutput.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListAgentVersionsOutput.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
     };
 }
 /**
@@ -5443,11 +6325,35 @@ export function deserializeIntoApiListKnowledgeBasesOutput(apiListKnowledgeBases
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiListModelAPIKeysOutput(apiListModelAPIKeysOutput = {}) {
+    return {
+        "api_key_infos": n => { apiListModelAPIKeysOutput.apiKeyInfos = n.getCollectionOfObjectValues(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+        "links": n => { apiListModelAPIKeysOutput.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListModelAPIKeysOutput.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiListModelsOutputPublic(apiListModelsOutputPublic = {}) {
     return {
         "links": n => { apiListModelsOutputPublic.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
         "meta": n => { apiListModelsOutputPublic.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
         "models": n => { apiListModelsOutputPublic.models = n.getCollectionOfObjectValues(createApiModelPublicFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListOpenAIAPIKeysOutput(apiListOpenAIAPIKeysOutput = {}) {
+    return {
+        "api_key_infos": n => { apiListOpenAIAPIKeysOutput.apiKeyInfos = n.getCollectionOfObjectValues(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
+        "links": n => { apiListOpenAIAPIKeysOutput.links = n.getObjectValue(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListOpenAIAPIKeysOutput.meta = n.getObjectValue(createApiMetaFromDiscriminatorValue); },
     };
 }
 /**
@@ -5491,6 +6397,7 @@ export function deserializeIntoApiModel(apiModel = {}) {
         "updated_at": n => { apiModel.updatedAt = n.getDateValue(); },
         "upload_complete": n => { apiModel.uploadComplete = n.getBooleanValue(); },
         "url": n => { apiModel.url = n.getStringValue(); },
+        "usecases": n => { apiModel.usecases = n.getCollectionOfEnumValues(ApiModelUsecaseObject); },
         "uuid": n => { apiModel.uuid = n.getStringValue(); },
         "version": n => { apiModel.version = n.getObjectValue(createApiModelVersionFromDiscriminatorValue); },
     };
@@ -5502,6 +6409,21 @@ export function deserializeIntoApiModel(apiModel = {}) {
 // @ts-ignore
 export function deserializeIntoApiModel_metadata(apiModel_metadata = {}) {
     return {};
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelAPIKeyInfo(apiModelAPIKeyInfo = {}) {
+    return {
+        "created_at": n => { apiModelAPIKeyInfo.createdAt = n.getDateValue(); },
+        "created_by": n => { apiModelAPIKeyInfo.createdBy = n.getStringValue(); },
+        "deleted_at": n => { apiModelAPIKeyInfo.deletedAt = n.getDateValue(); },
+        "name": n => { apiModelAPIKeyInfo.name = n.getStringValue(); },
+        "secret_key": n => { apiModelAPIKeyInfo.secretKey = n.getStringValue(); },
+        "uuid": n => { apiModelAPIKeyInfo.uuid = n.getStringValue(); },
+    };
 }
 /**
  * The deserialization information for the current model
@@ -5539,6 +6461,22 @@ export function deserializeIntoApiModelVersion(apiModelVersion = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiOpenAIAPIKeyInfo(apiOpenAIAPIKeyInfo = {}) {
+    return {
+        "created_at": n => { apiOpenAIAPIKeyInfo.createdAt = n.getDateValue(); },
+        "created_by": n => { apiOpenAIAPIKeyInfo.createdBy = n.getStringValue(); },
+        "deleted_at": n => { apiOpenAIAPIKeyInfo.deletedAt = n.getDateValue(); },
+        "models": n => { apiOpenAIAPIKeyInfo.models = n.getCollectionOfObjectValues(createApiModelFromDiscriminatorValue); },
+        "name": n => { apiOpenAIAPIKeyInfo.name = n.getStringValue(); },
+        "updated_at": n => { apiOpenAIAPIKeyInfo.updatedAt = n.getDateValue(); },
+        "uuid": n => { apiOpenAIAPIKeyInfo.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiPages(apiPages = {}) {
     return {
         "first": n => { apiPages.first = n.getStringValue(); },
@@ -5562,11 +6500,55 @@ export function deserializeIntoApiRegenerateAgentAPIKeyOutput(apiRegenerateAgent
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApiRegenerateModelAPIKeyOutput(apiRegenerateModelAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiRegenerateModelAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiRollbackToAgentVersionInputPublic(apiRollbackToAgentVersionInputPublic = {}) {
+    return {
+        "uuid": n => { apiRollbackToAgentVersionInputPublic.uuid = n.getStringValue(); },
+        "version_hash": n => { apiRollbackToAgentVersionInputPublic.versionHash = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiRollbackToAgentVersionOutput(apiRollbackToAgentVersionOutput = {}) {
+    return {
+        "audit_header": n => { apiRollbackToAgentVersionOutput.auditHeader = n.getObjectValue(createApiAuditHeaderFromDiscriminatorValue); },
+        "version_hash": n => { apiRollbackToAgentVersionOutput.versionHash = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApiSpacesDataSource(apiSpacesDataSource = {}) {
     return {
         "bucket_name": n => { apiSpacesDataSource.bucketName = n.getStringValue(); },
         "item_path": n => { apiSpacesDataSource.itemPath = n.getStringValue(); },
         "region": n => { apiSpacesDataSource.region = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiStarMetric(apiStarMetric = {}) {
+    return {
+        "metric_uuid": n => { apiStarMetric.metricUuid = n.getStringValue(); },
+        "name": n => { apiStarMetric.name = n.getStringValue(); },
+        "success_threshold_pct": n => { apiStarMetric.successThresholdPct = n.getNumberValue(); },
     };
 }
 /**
@@ -5721,7 +6703,10 @@ export function deserializeIntoApiUpdateAgentInputPublic(apiUpdateAgentInputPubl
         "max_tokens": n => { apiUpdateAgentInputPublic.maxTokens = n.getNumberValue(); },
         "model_uuid": n => { apiUpdateAgentInputPublic.modelUuid = n.getStringValue(); },
         "name": n => { apiUpdateAgentInputPublic.name = n.getStringValue(); },
+        "open_ai_key_uuid": n => { apiUpdateAgentInputPublic.openAiKeyUuid = n.getStringValue(); },
         "project_id": n => { apiUpdateAgentInputPublic.projectId = n.getStringValue(); },
+        "provide_citations": n => { apiUpdateAgentInputPublic.provideCitations = n.getBooleanValue(); },
+        "retrieval_method": n => { apiUpdateAgentInputPublic.retrievalMethod = n.getEnumValue(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
         "tags": n => { apiUpdateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues(); },
         "temperature": n => { apiUpdateAgentInputPublic.temperature = n.getNumberValue(); },
         "top_p": n => { apiUpdateAgentInputPublic.topP = n.getNumberValue(); },
@@ -5808,7 +6793,51 @@ export function deserializeIntoApiUpdateLinkedAgentOutput(apiUpdateLinkedAgentOu
     return {
         "child_agent_uuid": n => { apiUpdateLinkedAgentOutput.childAgentUuid = n.getStringValue(); },
         "parent_agent_uuid": n => { apiUpdateLinkedAgentOutput.parentAgentUuid = n.getStringValue(); },
+        "rollback": n => { apiUpdateLinkedAgentOutput.rollback = n.getBooleanValue(); },
         "uuid": n => { apiUpdateLinkedAgentOutput.uuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateModelAPIKeyInputPublic(apiUpdateModelAPIKeyInputPublic = {}) {
+    return {
+        "api_key_uuid": n => { apiUpdateModelAPIKeyInputPublic.apiKeyUuid = n.getStringValue(); },
+        "name": n => { apiUpdateModelAPIKeyInputPublic.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateModelAPIKeyOutput(apiUpdateModelAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiUpdateModelAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateOpenAIAPIKeyInputPublic(apiUpdateOpenAIAPIKeyInputPublic = {}) {
+    return {
+        "api_key": n => { apiUpdateOpenAIAPIKeyInputPublic.apiKey = n.getStringValue(); },
+        "api_key_uuid": n => { apiUpdateOpenAIAPIKeyInputPublic.apiKeyUuid = n.getStringValue(); },
+        "name": n => { apiUpdateOpenAIAPIKeyInputPublic.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateOpenAIAPIKeyOutput(apiUpdateOpenAIAPIKeyOutput = {}) {
+    return {
+        "api_key_info": n => { apiUpdateOpenAIAPIKeyOutput.apiKeyInfo = n.getObjectValue(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
     };
 }
 /**
@@ -5821,6 +6850,25 @@ export function deserializeIntoApiWebCrawlerDataSource(apiWebCrawlerDataSource =
         "base_url": n => { apiWebCrawlerDataSource.baseUrl = n.getStringValue(); },
         "crawling_option": n => { apiWebCrawlerDataSource.crawlingOption = n.getEnumValue(ApiCrawlingOptionObject) ?? ApiCrawlingOptionObject.UNKNOWN; },
         "embed_media": n => { apiWebCrawlerDataSource.embedMedia = n.getBooleanValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiWorkspace(apiWorkspace = {}) {
+    return {
+        "agents": n => { apiWorkspace.agents = n.getCollectionOfObjectValues(createApiAgentFromDiscriminatorValue); },
+        "created_at": n => { apiWorkspace.createdAt = n.getDateValue(); },
+        "created_by": n => { apiWorkspace.createdBy = n.getStringValue(); },
+        "created_by_email": n => { apiWorkspace.createdByEmail = n.getStringValue(); },
+        "deleted_at": n => { apiWorkspace.deletedAt = n.getDateValue(); },
+        "description": n => { apiWorkspace.description = n.getStringValue(); },
+        "evaluation_test_cases": n => { apiWorkspace.evaluationTestCases = n.getCollectionOfObjectValues(createApiEvaluationTestCaseFromDiscriminatorValue); },
+        "name": n => { apiWorkspace.name = n.getStringValue(); },
+        "updated_at": n => { apiWorkspace.updatedAt = n.getDateValue(); },
+        "uuid": n => { apiWorkspace.uuid = n.getStringValue(); },
     };
 }
 /**
@@ -5954,6 +7002,21 @@ export function deserializeIntoApp_component_base(app_component_base = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApp_component_health(app_component_health = {}) {
+    return {
+        "cpu_usage_percent": n => { app_component_health.cpuUsagePercent = n.getNumberValue(); },
+        "memory_usage_percent": n => { app_component_health.memoryUsagePercent = n.getNumberValue(); },
+        "name": n => { app_component_health.name = n.getStringValue(); },
+        "replicas_desired": n => { app_component_health.replicasDesired = n.getNumberValue(); },
+        "replicas_ready": n => { app_component_health.replicasReady = n.getNumberValue(); },
+        "state": n => { app_component_health.state = n.getEnumValue(App_component_health_stateObject) ?? App_component_health_stateObject.UNKNOWN; },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApp_database_spec(app_database_spec = {}) {
     return {
         "cluster_name": n => { app_database_spec.clusterName = n.getStringValue(); },
@@ -6005,6 +7068,29 @@ export function deserializeIntoApp_egress_spec(app_egress_spec = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoApp_functions_component_health(app_functions_component_health = {}) {
+    return {
+        "functions_component_health_metrics": n => { app_functions_component_health.functionsComponentHealthMetrics = n.getCollectionOfObjectValues(createApp_functions_component_health_functions_component_health_metricsFromDiscriminatorValue); },
+        "name": n => { app_functions_component_health.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_functions_component_health_functions_component_health_metrics(app_functions_component_health_functions_component_health_metrics = {}) {
+    return {
+        "metric_label": n => { app_functions_component_health_functions_component_health_metrics.metricLabel = n.getStringValue(); },
+        "metric_value": n => { app_functions_component_health_functions_component_health_metrics.metricValue = n.getNumberValue(); },
+        "time_window": n => { app_functions_component_health_functions_component_health_metrics.timeWindow = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoApp_functions_spec(app_functions_spec = {}) {
     return {
         "alerts": n => { app_functions_spec.alerts = n.getCollectionOfObjectValues(createApp_alert_specFromDiscriminatorValue); },
@@ -6018,6 +7104,43 @@ export function deserializeIntoApp_functions_spec(app_functions_spec = {}) {
         "name": n => { app_functions_spec.name = n.getStringValue(); },
         "routes": n => { app_functions_spec.routes = n.getCollectionOfObjectValues(createApp_route_specFromDiscriminatorValue); },
         "source_dir": n => { app_functions_spec.sourceDir = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_health(app_health = {}) {
+    return {
+        "components": n => { app_health.components = n.getCollectionOfObjectValues(createApp_component_healthFromDiscriminatorValue); },
+        "functions_components": n => { app_health.functionsComponents = n.getCollectionOfObjectValues(createApp_functions_component_healthFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_health_check_spec(app_health_check_spec = {}) {
+    return {
+        "failure_threshold": n => { app_health_check_spec.failureThreshold = n.getNumberValue(); },
+        "http_path": n => { app_health_check_spec.httpPath = n.getStringValue(); },
+        "initial_delay_seconds": n => { app_health_check_spec.initialDelaySeconds = n.getNumberValue(); },
+        "period_seconds": n => { app_health_check_spec.periodSeconds = n.getNumberValue(); },
+        "port": n => { app_health_check_spec.port = n.getNumberValue(); },
+        "success_threshold": n => { app_health_check_spec.successThreshold = n.getNumberValue(); },
+        "timeout_seconds": n => { app_health_check_spec.timeoutSeconds = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_health_response(app_health_response = {}) {
+    return {
+        "app_health": n => { app_health_response.appHealth = n.getObjectValue(createApp_healthFromDiscriminatorValue); },
     };
 }
 /**
@@ -6050,7 +7173,8 @@ export function deserializeIntoApp_ingress_spec_rule(app_ingress_spec_rule = {})
 // @ts-ignore
 export function deserializeIntoApp_ingress_spec_rule_match(app_ingress_spec_rule_match = {}) {
     return {
-        "path": n => { app_ingress_spec_rule_match.path = n.getObjectValue(createApp_ingress_spec_rule_string_matchFromDiscriminatorValue); },
+        "authority": n => { app_ingress_spec_rule_match.authority = n.getObjectValue(createApp_ingress_spec_rule_string_match_exactFromDiscriminatorValue); },
+        "path": n => { app_ingress_spec_rule_match.path = n.getObjectValue(createApp_ingress_spec_rule_string_match_prefixFromDiscriminatorValue); },
     };
 }
 /**
@@ -6084,9 +7208,42 @@ export function deserializeIntoApp_ingress_spec_rule_routing_redirect(app_ingres
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoApp_ingress_spec_rule_string_match(app_ingress_spec_rule_string_match = {}) {
+export function deserializeIntoApp_ingress_spec_rule_string_match_exact(app_ingress_spec_rule_string_match_exact = {}) {
     return {
-        "prefix": n => { app_ingress_spec_rule_string_match.prefix = n.getStringValue(); },
+        "exact": n => { app_ingress_spec_rule_string_match_exact.exact = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_ingress_spec_rule_string_match_prefix(app_ingress_spec_rule_string_match_prefix = {}) {
+    return {
+        "prefix": n => { app_ingress_spec_rule_string_match_prefix.prefix = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_instance(app_instance = {}) {
+    return {
+        "component_name": n => { app_instance.componentName = n.getStringValue(); },
+        "component_type": n => { app_instance.componentType = n.getEnumValue(App_instance_component_typeObject); },
+        "instance_alias": n => { app_instance.instanceAlias = n.getStringValue(); },
+        "instance_name": n => { app_instance.instanceName = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_instances(app_instances = {}) {
+    return {
+        "instances": n => { app_instances.instances = n.getCollectionOfObjectValues(createApp_instanceFromDiscriminatorValue); },
     };
 }
 /**
@@ -6355,6 +7512,7 @@ export function deserializeIntoApp_service_spec(app_service_spec = {}) {
         "instance_count": n => { app_service_spec.instanceCount = n.getNumberValue(); },
         "instance_size_slug": n => { app_service_spec.instanceSizeSlug = n.getStringValue(); },
         "internal_ports": n => { app_service_spec.internalPorts = n.getCollectionOfPrimitiveValues(); },
+        "liveness_health_check": n => { app_service_spec.livenessHealthCheck = n.getObjectValue(createApp_health_check_specFromDiscriminatorValue); },
         "log_destinations": n => { app_service_spec.logDestinations = n.getCollectionOfObjectValues(createApp_log_destination_definitionFromDiscriminatorValue); },
         "name": n => { app_service_spec.name = n.getStringValue(); },
         "protocol": n => { app_service_spec.protocol = n.getEnumValue(App_service_spec_protocolObject); },
@@ -6492,6 +7650,7 @@ export function deserializeIntoApp_worker_spec(app_worker_spec = {}) {
         "image": n => { app_worker_spec.image = n.getObjectValue(createApps_image_source_specFromDiscriminatorValue); },
         "instance_count": n => { app_worker_spec.instanceCount = n.getNumberValue(); },
         "instance_size_slug": n => { app_worker_spec.instanceSizeSlug = n.getStringValue(); },
+        "liveness_health_check": n => { app_worker_spec.livenessHealthCheck = n.getObjectValue(createApp_health_check_specFromDiscriminatorValue); },
         "log_destinations": n => { app_worker_spec.logDestinations = n.getCollectionOfObjectValues(createApp_log_destination_definitionFromDiscriminatorValue); },
         "name": n => { app_worker_spec.name = n.getStringValue(); },
         "run_command": n => { app_worker_spec.runCommand = n.getStringValue(); },
@@ -7269,6 +8428,60 @@ export function deserializeIntoBilling_history(billing_history = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoByoip_prefix(byoip_prefix = {}) {
+    return {
+        "failure_reason": n => { byoip_prefix.failureReason = n.getStringValue(); },
+        "name": n => { byoip_prefix.name = n.getStringValue(); },
+        "prefix": n => { byoip_prefix.prefix = n.getStringValue(); },
+        "region": n => { byoip_prefix.region = n.getStringValue(); },
+        "status": n => { byoip_prefix.status = n.getStringValue(); },
+        "uuid": n => { byoip_prefix.uuid = n.getStringValue(); },
+        "validations": n => { byoip_prefix.validations = n.getCollectionOfObjectValues(createByoip_prefix_validationsFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoByoip_prefix_create(byoip_prefix_create = {}) {
+    return {
+        "prefix": n => { byoip_prefix_create.prefix = n.getStringValue(); },
+        "region": n => { byoip_prefix_create.region = n.getStringValue(); },
+        "signature": n => { byoip_prefix_create.signature = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoByoip_prefix_resource(byoip_prefix_resource = {}) {
+    return {
+        "assigned_at": n => { byoip_prefix_resource.assignedAt = n.getDateValue(); },
+        "byoip": n => { byoip_prefix_resource.byoip = n.getStringValue(); },
+        "id": n => { byoip_prefix_resource.id = n.getNumberValue(); },
+        "region": n => { byoip_prefix_resource.region = n.getStringValue(); },
+        "resource": n => { byoip_prefix_resource.resource = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoByoip_prefix_validations(byoip_prefix_validations = {}) {
+    return {
+        "name": n => { byoip_prefix_validations.name = n.getStringValue(); },
+        "note": n => { byoip_prefix_validations.note = n.getStringValue(); },
+        "status": n => { byoip_prefix_validations.status = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoCa(ca = {}) {
     return {
         "certificate": n => { ca.certificate = n.getStringValue(); },
@@ -7409,6 +8622,7 @@ export function deserializeIntoCluster(cluster = {}) {
 // @ts-ignore
 export function deserializeIntoCluster_autoscaler_configuration(cluster_autoscaler_configuration = {}) {
     return {
+        "expanders": n => { cluster_autoscaler_configuration.expanders = n.getCollectionOfEnumValues(Cluster_autoscaler_configuration_expandersObject); },
         "scale_down_unneeded_time": n => { cluster_autoscaler_configuration.scaleDownUnneededTime = n.getStringValue(); },
         "scale_down_utilization_threshold": n => { cluster_autoscaler_configuration.scaleDownUtilizationThreshold = n.getNumberValue(); },
     };
@@ -7681,7 +8895,7 @@ export function deserializeIntoDatabase_cluster_resize(database_cluster_resize =
 // @ts-ignore
 export function deserializeIntoDatabase_config(database_config = {}) {
     return {
-        "config": n => { database_config.config = n.getObjectValue(createKafka_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createMongo_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createMysql_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createPostgres_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createRedis_advanced_configFromDiscriminatorValue); },
+        "config": n => { database_config.config = n.getObjectValue(createKafka_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createMongo_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createMysql_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createPostgres_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createRedis_advanced_configFromDiscriminatorValue) ?? n.getObjectValue(createValkey_advanced_configFromDiscriminatorValue); },
     };
 }
 /**
@@ -7697,6 +8911,7 @@ export function deserializeIntoDatabase_config_config(database_config_config = {
         ...deserializeIntoOpensearch_advanced_config(database_config_config),
         ...deserializeIntoPostgres_advanced_config(database_config_config),
         ...deserializeIntoRedis_advanced_config(database_config_config),
+        ...deserializeIntoValkey_advanced_config(database_config_config),
     };
 }
 /**
@@ -7817,6 +9032,17 @@ export function deserializeIntoDatabases_basic_auth_credentials(databases_basic_
     return {
         "basic_auth_password": n => { databases_basic_auth_credentials.basicAuthPassword = n.getStringValue(); },
         "basic_auth_username": n => { databases_basic_auth_credentials.basicAuthUsername = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDatadog_logsink(datadog_logsink = {}) {
+    return {
+        "datadog_api_key": n => { datadog_logsink.datadogApiKey = n.getStringValue(); },
+        "site": n => { datadog_logsink.site = n.getStringValue(); },
     };
 }
 /**
@@ -9178,6 +10404,7 @@ export function deserializeIntoLoad_balancer_base(load_balancer_base = {}) {
         "status": n => { load_balancer_base.status = n.getEnumValue(Load_balancer_base_statusObject); },
         "sticky_sessions": n => { load_balancer_base.stickySessions = n.getObjectValue(createSticky_sessionsFromDiscriminatorValue); },
         "target_load_balancer_ids": n => { load_balancer_base.targetLoadBalancerIds = n.getCollectionOfPrimitiveValues(); },
+        "tls_cipher_policy": n => { load_balancer_base.tlsCipherPolicy = n.getEnumValue(Load_balancer_base_tls_cipher_policyObject) ?? Load_balancer_base_tls_cipher_policyObject.DEFAULTEscaped; },
         "type": n => { load_balancer_base.type = n.getEnumValue(Load_balancer_base_typeObject) ?? Load_balancer_base_typeObject.REGIONAL; },
         "vpc_uuid": n => { load_balancer_base.vpcUuid = n.getGuidValue(); },
     };
@@ -9223,7 +10450,7 @@ export function deserializeIntoLogsink_base_verbose(logsink_base_verbose = {}) {
 export function deserializeIntoLogsink_create(logsink_create = {}) {
     return {
         ...deserializeIntoLogsink_base(logsink_create),
-        "config": n => { logsink_create.config = n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
+        "config": n => { logsink_create.config = n.getObjectValue(createDatadog_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
     };
 }
 /**
@@ -9233,6 +10460,7 @@ export function deserializeIntoLogsink_create(logsink_create = {}) {
 // @ts-ignore
 export function deserializeIntoLogsink_create_config(logsink_create_config = {}) {
     return {
+        ...deserializeIntoDatadog_logsink(logsink_create_config),
         ...deserializeIntoElasticsearch_logsink(logsink_create_config),
         ...deserializeIntoOpensearch_logsink(logsink_create_config),
         ...deserializeIntoRsyslog_logsink(logsink_create_config),
@@ -9245,7 +10473,7 @@ export function deserializeIntoLogsink_create_config(logsink_create_config = {})
 // @ts-ignore
 export function deserializeIntoLogsink_update(logsink_update = {}) {
     return {
-        "config": n => { logsink_update.config = n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
+        "config": n => { logsink_update.config = n.getObjectValue(createDatadog_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
     };
 }
 /**
@@ -9255,6 +10483,7 @@ export function deserializeIntoLogsink_update(logsink_update = {}) {
 // @ts-ignore
 export function deserializeIntoLogsink_update_config(logsink_update_config = {}) {
     return {
+        ...deserializeIntoDatadog_logsink(logsink_update_config),
         ...deserializeIntoElasticsearch_logsink(logsink_update_config),
         ...deserializeIntoOpensearch_logsink(logsink_update_config),
         ...deserializeIntoRsyslog_logsink(logsink_update_config),
@@ -9268,7 +10497,7 @@ export function deserializeIntoLogsink_update_config(logsink_update_config = {})
 export function deserializeIntoLogsink_verbose(logsink_verbose = {}) {
     return {
         ...deserializeIntoLogsink_base_verbose(logsink_verbose),
-        "config": n => { logsink_verbose.config = n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
+        "config": n => { logsink_verbose.config = n.getObjectValue(createDatadog_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createElasticsearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createOpensearch_logsinkFromDiscriminatorValue) ?? n.getObjectValue(createRsyslog_logsinkFromDiscriminatorValue); },
     };
 }
 /**
@@ -9278,6 +10507,7 @@ export function deserializeIntoLogsink_verbose(logsink_verbose = {}) {
 // @ts-ignore
 export function deserializeIntoLogsink_verbose_config(logsink_verbose_config = {}) {
     return {
+        ...deserializeIntoDatadog_logsink(logsink_verbose_config),
         ...deserializeIntoElasticsearch_logsink(logsink_verbose_config),
         ...deserializeIntoOpensearch_logsink(logsink_verbose_config),
         ...deserializeIntoRsyslog_logsink(logsink_verbose_config),
@@ -9384,6 +10614,27 @@ export function deserializeIntoMongo_advanced_config(mongo_advanced_config = {})
         "slow_op_threshold_ms": n => { mongo_advanced_config.slowOpThresholdMs = n.getNumberValue(); },
         "transaction_lifetime_limit_seconds": n => { mongo_advanced_config.transactionLifetimeLimitSeconds = n.getNumberValue(); },
         "verbosity": n => { mongo_advanced_config.verbosity = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMultiregistry(multiregistry = {}) {
+    return {
+        ...deserializeIntoRegistry_base(multiregistry),
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMultiregistry_create(multiregistry_create = {}) {
+    return {
+        "name": n => { multiregistry_create.name = n.getStringValue(); },
+        "region": n => { multiregistry_create.region = n.getEnumValue(Multiregistry_create_regionObject); },
     };
 }
 /**
@@ -9602,6 +10853,8 @@ export function deserializeIntoOpensearch_advanced_config(opensearch_advanced_co
         "ism_history_max_docs": n => { opensearch_advanced_config.ismHistoryMaxDocs = n.getNumberValue(); },
         "ism_history_rollover_check_period_hours": n => { opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours = n.getNumberValue(); },
         "ism_history_rollover_retention_period_days": n => { opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays = n.getNumberValue(); },
+        "knn_memory_circuit_breaker_enabled": n => { opensearch_advanced_config.knnMemoryCircuitBreakerEnabled = n.getBooleanValue(); },
+        "knn_memory_circuit_breaker_limit": n => { opensearch_advanced_config.knnMemoryCircuitBreakerLimit = n.getNumberValue(); },
         "override_main_response_version": n => { opensearch_advanced_config.overrideMainResponseVersion = n.getBooleanValue(); },
         "plugins_alerting_filter_by_backend_roles_enabled": n => { opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled = n.getBooleanValue(); },
         "reindex_remote_whitelist": n => { opensearch_advanced_config.reindexRemoteWhitelist = n.getCollectionOfPrimitiveValues(); },
@@ -9767,6 +11020,7 @@ export function deserializeIntoOptions_options(options_options = {}) {
         "opensearch": n => { options_options.opensearch = n.getObjectValue(createOptions_options_opensearchFromDiscriminatorValue); },
         "pg": n => { options_options.pg = n.getObjectValue(createOptions_options_pgFromDiscriminatorValue); },
         "redis": n => { options_options.redis = n.getObjectValue(createOptions_options_redisFromDiscriminatorValue); },
+        "valkey": n => { options_options.valkey = n.getObjectValue(createOptions_options_valkeyFromDiscriminatorValue); },
     };
 }
 /**
@@ -9846,6 +11100,18 @@ export function deserializeIntoOptions_options_redis(options_options_redis = {})
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoOptions_options_valkey(options_options_valkey = {}) {
+    return {
+        "layouts": n => { options_options_valkey.layouts = n.getCollectionOfObjectValues(createDatabase_layout_optionFromDiscriminatorValue); },
+        "regions": n => { options_options_valkey.regions = n.getCollectionOfPrimitiveValues(); },
+        "versions": n => { options_options_valkey.versions = n.getCollectionOfPrimitiveValues(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoOptions_version_availability(options_version_availability = {}) {
     return {
         "kafka": n => { options_version_availability.kafka = n.getCollectionOfObjectValues(createDatabase_version_availabilityFromDiscriminatorValue); },
@@ -9854,6 +11120,7 @@ export function deserializeIntoOptions_version_availability(options_version_avai
         "opensearch": n => { options_version_availability.opensearch = n.getCollectionOfObjectValues(createDatabase_version_availabilityFromDiscriminatorValue); },
         "pg": n => { options_version_availability.pg = n.getCollectionOfObjectValues(createDatabase_version_availabilityFromDiscriminatorValue); },
         "redis": n => { options_version_availability.redis = n.getCollectionOfObjectValues(createDatabase_version_availabilityFromDiscriminatorValue); },
+        "valkey": n => { options_version_availability.valkey = n.getCollectionOfObjectValues(createDatabase_version_availabilityFromDiscriminatorValue); },
     };
 }
 /**
@@ -9885,6 +11152,132 @@ export function deserializeIntoPage_links_pages(page_links_pages = {}) {
 // @ts-ignore
 export function deserializeIntoPage_links_pagesMember1(page_links_pagesMember1 = {}) {
     return {};
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment(partner_attachment = {}) {
+    return {
+        "bgp": n => { partner_attachment.bgp = n.getObjectValue(createPartner_attachment_bgpFromDiscriminatorValue); },
+        "children": n => { partner_attachment.children = n.getCollectionOfPrimitiveValues(); },
+        "connection_bandwidth_in_mbps": n => { partner_attachment.connectionBandwidthInMbps = n.getNumberValue(); },
+        "created_at": n => { partner_attachment.createdAt = n.getDateValue(); },
+        "id": n => { partner_attachment.id = n.getStringValue(); },
+        "naas_provider": n => { partner_attachment.naasProvider = n.getStringValue(); },
+        "name": n => { partner_attachment.name = n.getStringValue(); },
+        "parent_uuid": n => { partner_attachment.parentUuid = n.getStringValue(); },
+        "region": n => { partner_attachment.region = n.getStringValue(); },
+        "state": n => { partner_attachment.state = n.getStringValue(); },
+        "vpc_ids": n => { partner_attachment.vpcIds = n.getCollectionOfPrimitiveValues(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_bgp(partner_attachment_bgp = {}) {
+    return {
+        "local_asn": n => { partner_attachment_bgp.localAsn = n.getNumberValue(); },
+        "local_router_ip": n => { partner_attachment_bgp.localRouterIp = n.getStringValue(); },
+        "peer_asn": n => { partner_attachment_bgp.peerAsn = n.getNumberValue(); },
+        "peer_router_ip": n => { partner_attachment_bgp.peerRouterIp = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_remote_route(partner_attachment_remote_route = {}) {
+    return {
+        "cidr": n => { partner_attachment_remote_route.cidr = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_remote_route_writable(partner_attachment_remote_route_writable = {}) {
+    return {
+        "cidr": n => { partner_attachment_remote_route_writable.cidr = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_updatableMember1(partner_attachment_updatableMember1 = {}) {
+    return {
+        "name": n => { partner_attachment_updatableMember1.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_updatableMember2(partner_attachment_updatableMember2 = {}) {
+    return {
+        "vpc_ids": n => { partner_attachment_updatableMember2.vpcIds = n.getCollectionOfPrimitiveValues(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_updatableMember3(partner_attachment_updatableMember3 = {}) {
+    return {
+        "bgp": n => { partner_attachment_updatableMember3.bgp = n.getObjectValue(createPartner_attachment_updatableMember3_bgpFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_updatableMember3_bgp(partner_attachment_updatableMember3_bgp = {}) {
+    return {
+        "auth_key": n => { partner_attachment_updatableMember3_bgp.authKey = n.getStringValue(); },
+        "local_router_ip": n => { partner_attachment_updatableMember3_bgp.localRouterIp = n.getStringValue(); },
+        "peer_router_asn": n => { partner_attachment_updatableMember3_bgp.peerRouterAsn = n.getNumberValue(); },
+        "peer_router_ip": n => { partner_attachment_updatableMember3_bgp.peerRouterIp = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_writable(partner_attachment_writable = {}) {
+    return {
+        "bgp": n => { partner_attachment_writable.bgp = n.getObjectValue(createPartner_attachment_writable_bgpFromDiscriminatorValue); },
+        "connection_bandwidth_in_mbps": n => { partner_attachment_writable.connectionBandwidthInMbps = n.getNumberValue(); },
+        "naas_provider": n => { partner_attachment_writable.naasProvider = n.getStringValue(); },
+        "name": n => { partner_attachment_writable.name = n.getStringValue(); },
+        "parent_uuid": n => { partner_attachment_writable.parentUuid = n.getStringValue(); },
+        "redundancy_zone": n => { partner_attachment_writable.redundancyZone = n.getEnumValue(Partner_attachment_writable_redundancy_zoneObject); },
+        "region": n => { partner_attachment_writable.region = n.getStringValue(); },
+        "vpc_ids": n => { partner_attachment_writable.vpcIds = n.getCollectionOfPrimitiveValues(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPartner_attachment_writable_bgp(partner_attachment_writable_bgp = {}) {
+    return {
+        "auth_key": n => { partner_attachment_writable_bgp.authKey = n.getStringValue(); },
+        "local_router_ip": n => { partner_attachment_writable_bgp.localRouterIp = n.getStringValue(); },
+        "peer_router_asn": n => { partner_attachment_writable_bgp.peerRouterAsn = n.getNumberValue(); },
+        "peer_router_ip": n => { partner_attachment_writable_bgp.peerRouterIp = n.getStringValue(); },
+    };
 }
 /**
  * The deserialization information for the current model
@@ -10117,12 +11510,22 @@ export function deserializeIntoRegional_state(regional_state = {}) {
 // @ts-ignore
 export function deserializeIntoRegistry(registry = {}) {
     return {
-        "created_at": n => { registry.createdAt = n.getDateValue(); },
-        "name": n => { registry.name = n.getStringValue(); },
-        "region": n => { registry.region = n.getStringValue(); },
-        "storage_usage_bytes": n => { registry.storageUsageBytes = n.getNumberValue(); },
-        "storage_usage_bytes_updated_at": n => { registry.storageUsageBytesUpdatedAt = n.getDateValue(); },
+        ...deserializeIntoRegistry_base(registry),
         "subscription": n => { registry.subscription = n.getObjectValue(createSubscriptionFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoRegistry_base(registry_base = {}) {
+    return {
+        "created_at": n => { registry_base.createdAt = n.getDateValue(); },
+        "name": n => { registry_base.name = n.getStringValue(); },
+        "region": n => { registry_base.region = n.getStringValue(); },
+        "storage_usage_bytes": n => { registry_base.storageUsageBytes = n.getNumberValue(); },
+        "storage_usage_bytes_updated_at": n => { registry_base.storageUsageBytesUpdatedAt = n.getDateValue(); },
     };
 }
 /**
@@ -10135,6 +11538,16 @@ export function deserializeIntoRegistry_create(registry_create = {}) {
         "name": n => { registry_create.name = n.getStringValue(); },
         "region": n => { registry_create.region = n.getEnumValue(Registry_create_regionObject); },
         "subscription_tier_slug": n => { registry_create.subscriptionTierSlug = n.getEnumValue(Registry_create_subscription_tier_slugObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoRegistry_run_gc(registry_run_gc = {}) {
+    return {
+        "type": n => { registry_run_gc.type = n.getEnumValue(Registry_run_gc_typeObject); },
     };
 }
 /**
@@ -10572,6 +11985,17 @@ export function deserializeIntoState(state = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoStatus_messages(status_messages = {}) {
+    return {
+        "message": n => { status_messages.message = n.getStringValue(); },
+        "timestamp": n => { status_messages.timestamp = n.getDateValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoSticky_sessions(sticky_sessions = {}) {
     return {
         "cookie_name": n => { sticky_sessions.cookieName = n.getStringValue(); },
@@ -10781,6 +12205,7 @@ export function deserializeIntoUser_kubernetes_cluster_user(user_kubernetes_clus
 export function deserializeIntoUser_settings(user_settings = {}) {
     return {
         "acl": n => { user_settings.acl = n.getCollectionOfObjectValues(createUser_settings_aclFromDiscriminatorValue); },
+        "mongo_user_settings": n => { user_settings.mongoUserSettings = n.getObjectValue(createUser_settings_mongo_user_settingsFromDiscriminatorValue); },
         "opensearch_acl": n => { user_settings.opensearchAcl = n.getCollectionOfObjectValues(createUser_settings_opensearch_aclFromDiscriminatorValue); },
         "pg_allow_replication": n => { user_settings.pgAllowReplication = n.getBooleanValue(); },
     };
@@ -10802,6 +12227,17 @@ export function deserializeIntoUser_settings_acl(user_settings_acl = {}) {
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoUser_settings_mongo_user_settings(user_settings_mongo_user_settings = {}) {
+    return {
+        "databases": n => { user_settings_mongo_user_settings.databases = n.getCollectionOfPrimitiveValues(); },
+        "role": n => { user_settings_mongo_user_settings.role = n.getEnumValue(User_settings_mongo_user_settings_roleObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoUser_settings_opensearch_acl(user_settings_opensearch_acl = {}) {
     return {
         "index": n => { user_settings_opensearch_acl.index = n.getStringValue(); },
@@ -10816,6 +12252,26 @@ export function deserializeIntoUser_settings_opensearch_acl(user_settings_opense
 export function deserializeIntoValidate_registry(validate_registry = {}) {
     return {
         "name": n => { validate_registry.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoValkey_advanced_config(valkey_advanced_config = {}) {
+    return {
+        "valkey_acl_channels_default": n => { valkey_advanced_config.valkeyAclChannelsDefault = n.getEnumValue(Valkey_advanced_config_valkey_acl_channels_defaultObject); },
+        "valkey_io_threads": n => { valkey_advanced_config.valkeyIoThreads = n.getNumberValue(); },
+        "valkey_lfu_decay_time": n => { valkey_advanced_config.valkeyLfuDecayTime = n.getNumberValue(); },
+        "valkey_lfu_log_factor": n => { valkey_advanced_config.valkeyLfuLogFactor = n.getNumberValue(); },
+        "valkey_maxmemory_policy": n => { valkey_advanced_config.valkeyMaxmemoryPolicy = n.getEnumValue(Eviction_policy_modelObject); },
+        "valkey_notify_keyspace_events": n => { valkey_advanced_config.valkeyNotifyKeyspaceEvents = n.getStringValue(); },
+        "valkey_number_of_databases": n => { valkey_advanced_config.valkeyNumberOfDatabases = n.getNumberValue(); },
+        "valkey_persistence": n => { valkey_advanced_config.valkeyPersistence = n.getEnumValue(Valkey_advanced_config_valkey_persistenceObject); },
+        "valkey_pubsub_client_output_buffer_limit": n => { valkey_advanced_config.valkeyPubsubClientOutputBufferLimit = n.getNumberValue(); },
+        "valkey_ssl": n => { valkey_advanced_config.valkeySsl = n.getBooleanValue(); },
+        "valkey_timeout": n => { valkey_advanced_config.valkeyTimeout = n.getNumberValue(); },
     };
 }
 /**
@@ -11021,7 +12477,6 @@ export function serializeAccount(writer, account = {}) {
         writer.writeStringValue("status_message", account.statusMessage);
         writer.writeObjectValue("team", account.team, serializeAccount_team);
         writer.writeStringValue("uuid", account.uuid);
-        writer.writeAdditionalData(account.additionalData);
     }
 }
 /**
@@ -11033,7 +12488,6 @@ export function serializeAccount_team(writer, account_team = {}) {
     if (account_team) {
         writer.writeStringValue("name", account_team.name);
         writer.writeStringValue("uuid", account_team.uuid);
-        writer.writeAdditionalData(account_team.additionalData);
     }
 }
 /**
@@ -11052,7 +12506,6 @@ export function serializeAction(writer, action = {}) {
         writer.writeDateValue("started_at", action.startedAt);
         writer.writeEnumValue("status", action.status ?? Action_statusObject.InProgress);
         writer.writeStringValue("type", action.type);
-        writer.writeAdditionalData(action.additionalData);
     }
 }
 /**
@@ -11065,7 +12518,6 @@ export function serializeAction_link(writer, action_link = {}) {
         writer.writeStringValue("href", action_link.href);
         writer.writeNumberValue("id", action_link.id);
         writer.writeStringValue("rel", action_link.rel);
-        writer.writeAdditionalData(action_link.additionalData);
     }
 }
 /**
@@ -11081,7 +12533,6 @@ export function serializeAlert(writer, alert = {}) {
         writer.writeEnumValue("period", alert.period);
         writer.writeNumberValue("threshold", alert.threshold);
         writer.writeEnumValue("type", alert.type);
-        writer.writeAdditionalData(alert.additionalData);
     }
 }
 /**
@@ -11101,7 +12552,6 @@ export function serializeAlert_policy(writer, alert_policy = {}) {
         writer.writeStringValue("uuid", alert_policy.uuid);
         writer.writeNumberValue("value", alert_policy.value);
         writer.writeEnumValue("window", alert_policy.window);
-        writer.writeAdditionalData(alert_policy.additionalData);
     }
 }
 /**
@@ -11120,7 +12570,6 @@ export function serializeAlert_policy_request(writer, alert_policy_request = {})
         writer.writeEnumValue("type", alert_policy_request.type);
         writer.writeNumberValue("value", alert_policy_request.value);
         writer.writeEnumValue("window", alert_policy_request.window);
-        writer.writeAdditionalData(alert_policy_request.additionalData);
     }
 }
 /**
@@ -11136,7 +12585,6 @@ export function serializeAlert_updatable(writer, alert_updatable = {}) {
         writer.writeEnumValue("period", alert_updatable.period);
         writer.writeNumberValue("threshold", alert_updatable.threshold);
         writer.writeEnumValue("type", alert_updatable.type);
-        writer.writeAdditionalData(alert_updatable.additionalData);
     }
 }
 /**
@@ -11148,7 +12596,6 @@ export function serializeAlerts(writer, alerts = {}) {
     if (alerts) {
         writer.writeCollectionOfPrimitiveValues("email", alerts.email);
         writer.writeCollectionOfObjectValues("slack", alerts.slack, serializeSlack_details);
-        writer.writeAdditionalData(alerts.additionalData);
     }
 }
 /**
@@ -11176,9 +12623,12 @@ export function serializeApiAgent(writer, apiAgent = {}) {
         writer.writeNumberValue("max_tokens", apiAgent.maxTokens);
         writer.writeObjectValue("model", apiAgent.model, serializeApiModel);
         writer.writeStringValue("name", apiAgent.name);
+        writer.writeObjectValue("openai_api_key", apiAgent.openaiApiKey, serializeApiOpenAIAPIKeyInfo);
         writer.writeCollectionOfObjectValues("parent_agents", apiAgent.parentAgents, serializeApiAgent);
         writer.writeStringValue("project_id", apiAgent.projectId);
+        writer.writeBooleanValue("provide_citations", apiAgent.provideCitations);
         writer.writeStringValue("region", apiAgent.region);
+        writer.writeEnumValue("retrieval_method", apiAgent.retrievalMethod ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN);
         writer.writeDateValue("route_created_at", apiAgent.routeCreatedAt);
         writer.writeStringValue("route_created_by", apiAgent.routeCreatedBy);
         writer.writeStringValue("route_name", apiAgent.routeName);
@@ -11191,7 +12641,7 @@ export function serializeApiAgent(writer, apiAgent = {}) {
         writer.writeStringValue("url", apiAgent.url);
         writer.writeStringValue("user_id", apiAgent.userId);
         writer.writeStringValue("uuid", apiAgent.uuid);
-        writer.writeAdditionalData(apiAgent.additionalData);
+        writer.writeObjectValue("workspace", apiAgent.workspace, serializeApiWorkspace);
     }
 }
 /**
@@ -11202,7 +12652,6 @@ export function serializeApiAgent(writer, apiAgent = {}) {
 export function serializeApiAgentAPIKey(writer, apiAgentAPIKey = {}) {
     if (apiAgentAPIKey) {
         writer.writeStringValue("api_key", apiAgentAPIKey.apiKey);
-        writer.writeAdditionalData(apiAgentAPIKey.additionalData);
     }
 }
 /**
@@ -11218,7 +12667,6 @@ export function serializeApiAgentAPIKeyInfo(writer, apiAgentAPIKeyInfo = {}) {
         writer.writeStringValue("name", apiAgentAPIKeyInfo.name);
         writer.writeStringValue("secret_key", apiAgentAPIKeyInfo.secretKey);
         writer.writeStringValue("uuid", apiAgentAPIKeyInfo.uuid);
-        writer.writeAdditionalData(apiAgentAPIKeyInfo.additionalData);
     }
 }
 /**
@@ -11229,7 +12677,20 @@ export function serializeApiAgentAPIKeyInfo(writer, apiAgentAPIKeyInfo = {}) {
 export function serializeApiAgentChatbotIdentifier(writer, apiAgentChatbotIdentifier = {}) {
     if (apiAgentChatbotIdentifier) {
         writer.writeStringValue("agent_chatbot_identifier", apiAgentChatbotIdentifier.agentChatbotIdentifier);
-        writer.writeAdditionalData(apiAgentChatbotIdentifier.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentChildRelationshipVerion(writer, apiAgentChildRelationshipVerion = {}) {
+    if (apiAgentChildRelationshipVerion) {
+        writer.writeStringValue("agent_name", apiAgentChildRelationshipVerion.agentName);
+        writer.writeStringValue("child_agent_uuid", apiAgentChildRelationshipVerion.childAgentUuid);
+        writer.writeStringValue("if_case", apiAgentChildRelationshipVerion.ifCase);
+        writer.writeBooleanValue("is_deleted", apiAgentChildRelationshipVerion.isDeleted);
+        writer.writeStringValue("route_name", apiAgentChildRelationshipVerion.routeName);
     }
 }
 /**
@@ -11241,6 +12702,7 @@ export function serializeApiAgentFunction(writer, apiAgentFunction = {}) {
     if (apiAgentFunction) {
         writer.writeStringValue("api_key", apiAgentFunction.apiKey);
         writer.writeDateValue("created_at", apiAgentFunction.createdAt);
+        writer.writeStringValue("created_by", apiAgentFunction.createdBy);
         writer.writeStringValue("description", apiAgentFunction.description);
         writer.writeStringValue("faas_name", apiAgentFunction.faasName);
         writer.writeStringValue("faas_namespace", apiAgentFunction.faasNamespace);
@@ -11250,7 +12712,6 @@ export function serializeApiAgentFunction(writer, apiAgentFunction = {}) {
         writer.writeDateValue("updated_at", apiAgentFunction.updatedAt);
         writer.writeStringValue("url", apiAgentFunction.url);
         writer.writeStringValue("uuid", apiAgentFunction.uuid);
-        writer.writeAdditionalData(apiAgentFunction.additionalData);
     }
 }
 /**
@@ -11260,7 +12721,6 @@ export function serializeApiAgentFunction(writer, apiAgentFunction = {}) {
 // @ts-ignore
 export function serializeApiAgentFunction_input_schema(writer, apiAgentFunction_input_schema = {}) {
     if (apiAgentFunction_input_schema) {
-        writer.writeAdditionalData(apiAgentFunction_input_schema.additionalData);
     }
 }
 /**
@@ -11270,7 +12730,20 @@ export function serializeApiAgentFunction_input_schema(writer, apiAgentFunction_
 // @ts-ignore
 export function serializeApiAgentFunction_output_schema(writer, apiAgentFunction_output_schema = {}) {
     if (apiAgentFunction_output_schema) {
-        writer.writeAdditionalData(apiAgentFunction_output_schema.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentFunctionVersion(writer, apiAgentFunctionVersion = {}) {
+    if (apiAgentFunctionVersion) {
+        writer.writeStringValue("description", apiAgentFunctionVersion.description);
+        writer.writeStringValue("faas_name", apiAgentFunctionVersion.faasName);
+        writer.writeStringValue("faas_namespace", apiAgentFunctionVersion.faasNamespace);
+        writer.writeBooleanValue("is_deleted", apiAgentFunctionVersion.isDeleted);
+        writer.writeStringValue("name", apiAgentFunctionVersion.name);
     }
 }
 /**
@@ -11293,7 +12766,6 @@ export function serializeApiAgentGuardrail(writer, apiAgentGuardrail = {}) {
         writer.writeEnumValue("type", apiAgentGuardrail.type ?? ApiGuardrailTypeObject.GUARDRAIL_TYPE_UNKNOWN);
         writer.writeDateValue("updated_at", apiAgentGuardrail.updatedAt);
         writer.writeStringValue("uuid", apiAgentGuardrail.uuid);
-        writer.writeAdditionalData(apiAgentGuardrail.additionalData);
     }
 }
 /**
@@ -11303,7 +12775,31 @@ export function serializeApiAgentGuardrail(writer, apiAgentGuardrail = {}) {
 // @ts-ignore
 export function serializeApiAgentGuardrail_metadata(writer, apiAgentGuardrail_metadata = {}) {
     if (apiAgentGuardrail_metadata) {
-        writer.writeAdditionalData(apiAgentGuardrail_metadata.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentGuardrailVersion(writer, apiAgentGuardrailVersion = {}) {
+    if (apiAgentGuardrailVersion) {
+        writer.writeBooleanValue("is_deleted", apiAgentGuardrailVersion.isDeleted);
+        writer.writeStringValue("name", apiAgentGuardrailVersion.name);
+        writer.writeNumberValue("priority", apiAgentGuardrailVersion.priority);
+        writer.writeStringValue("uuid", apiAgentGuardrailVersion.uuid);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentKnowledgeBaseVersion(writer, apiAgentKnowledgeBaseVersion = {}) {
+    if (apiAgentKnowledgeBaseVersion) {
+        writer.writeBooleanValue("is_deleted", apiAgentKnowledgeBaseVersion.isDeleted);
+        writer.writeStringValue("name", apiAgentKnowledgeBaseVersion.name);
+        writer.writeStringValue("uuid", apiAgentKnowledgeBaseVersion.uuid);
     }
 }
 /**
@@ -11325,7 +12821,9 @@ export function serializeApiAgentPublic(writer, apiAgentPublic = {}) {
         writer.writeObjectValue("model", apiAgentPublic.model, serializeApiModel);
         writer.writeStringValue("name", apiAgentPublic.name);
         writer.writeStringValue("project_id", apiAgentPublic.projectId);
+        writer.writeBooleanValue("provide_citations", apiAgentPublic.provideCitations);
         writer.writeStringValue("region", apiAgentPublic.region);
+        writer.writeEnumValue("retrieval_method", apiAgentPublic.retrievalMethod ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN);
         writer.writeDateValue("route_created_at", apiAgentPublic.routeCreatedAt);
         writer.writeStringValue("route_created_by", apiAgentPublic.routeCreatedBy);
         writer.writeStringValue("route_name", apiAgentPublic.routeName);
@@ -11338,7 +12836,6 @@ export function serializeApiAgentPublic(writer, apiAgentPublic = {}) {
         writer.writeStringValue("url", apiAgentPublic.url);
         writer.writeStringValue("user_id", apiAgentPublic.userId);
         writer.writeStringValue("uuid", apiAgentPublic.uuid);
-        writer.writeAdditionalData(apiAgentPublic.additionalData);
     }
 }
 /**
@@ -11350,17 +12847,65 @@ export function serializeApiAgentTemplate(writer, apiAgentTemplate = {}) {
     if (apiAgentTemplate) {
         writer.writeDateValue("created_at", apiAgentTemplate.createdAt);
         writer.writeStringValue("description", apiAgentTemplate.description);
+        writer.writeCollectionOfObjectValues("guardrails", apiAgentTemplate.guardrails, serializeApiAgentTemplateGuardrail);
         writer.writeStringValue("instruction", apiAgentTemplate.instruction);
         writer.writeNumberValue("k", apiAgentTemplate.k);
         writer.writeCollectionOfObjectValues("knowledge_bases", apiAgentTemplate.knowledgeBases, serializeApiKnowledgeBase);
+        writer.writeStringValue("long_description", apiAgentTemplate.longDescription);
         writer.writeNumberValue("max_tokens", apiAgentTemplate.maxTokens);
         writer.writeObjectValue("model", apiAgentTemplate.model, serializeApiModel);
         writer.writeStringValue("name", apiAgentTemplate.name);
+        writer.writeStringValue("short_description", apiAgentTemplate.shortDescription);
+        writer.writeStringValue("summary", apiAgentTemplate.summary);
+        writer.writeCollectionOfPrimitiveValues("tags", apiAgentTemplate.tags);
         writer.writeNumberValue("temperature", apiAgentTemplate.temperature);
+        writer.writeEnumValue("template_type", apiAgentTemplate.templateType ?? ApiAgentTemplateTypeObject.AGENT_TEMPLATE_TYPE_STANDARD);
         writer.writeNumberValue("top_p", apiAgentTemplate.topP);
         writer.writeDateValue("updated_at", apiAgentTemplate.updatedAt);
         writer.writeStringValue("uuid", apiAgentTemplate.uuid);
-        writer.writeAdditionalData(apiAgentTemplate.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentTemplateGuardrail(writer, apiAgentTemplateGuardrail = {}) {
+    if (apiAgentTemplateGuardrail) {
+        writer.writeNumberValue("priority", apiAgentTemplateGuardrail.priority);
+        writer.writeStringValue("uuid", apiAgentTemplateGuardrail.uuid);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentVersion(writer, apiAgentVersion = {}) {
+    if (apiAgentVersion) {
+        writer.writeStringValue("agent_uuid", apiAgentVersion.agentUuid);
+        writer.writeCollectionOfObjectValues("attached_child_agents", apiAgentVersion.attachedChildAgents, serializeApiAgentChildRelationshipVerion);
+        writer.writeCollectionOfObjectValues("attached_functions", apiAgentVersion.attachedFunctions, serializeApiAgentFunctionVersion);
+        writer.writeCollectionOfObjectValues("attached_guardrails", apiAgentVersion.attachedGuardrails, serializeApiAgentGuardrailVersion);
+        writer.writeCollectionOfObjectValues("attached_knowledgebases", apiAgentVersion.attachedKnowledgebases, serializeApiAgentKnowledgeBaseVersion);
+        writer.writeBooleanValue("can_rollback", apiAgentVersion.canRollback);
+        writer.writeDateValue("created_at", apiAgentVersion.createdAt);
+        writer.writeStringValue("created_by_email", apiAgentVersion.createdByEmail);
+        writer.writeBooleanValue("currently_applied", apiAgentVersion.currentlyApplied);
+        writer.writeStringValue("description", apiAgentVersion.description);
+        writer.writeStringValue("id", apiAgentVersion.id);
+        writer.writeStringValue("instruction", apiAgentVersion.instruction);
+        writer.writeNumberValue("k", apiAgentVersion.k);
+        writer.writeNumberValue("max_tokens", apiAgentVersion.maxTokens);
+        writer.writeStringValue("model_name", apiAgentVersion.modelName);
+        writer.writeStringValue("name", apiAgentVersion.name);
+        writer.writeBooleanValue("provide_citations", apiAgentVersion.provideCitations);
+        writer.writeEnumValue("retrieval_method", apiAgentVersion.retrievalMethod ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN);
+        writer.writeCollectionOfPrimitiveValues("tags", apiAgentVersion.tags);
+        writer.writeNumberValue("temperature", apiAgentVersion.temperature);
+        writer.writeNumberValue("top_p", apiAgentVersion.topP);
+        writer.writeStringValue("trigger_action", apiAgentVersion.triggerAction);
+        writer.writeStringValue("version_hash", apiAgentVersion.versionHash);
     }
 }
 /**
@@ -11374,7 +12919,6 @@ export function serializeApiAgreement(writer, apiAgreement = {}) {
         writer.writeStringValue("name", apiAgreement.name);
         writer.writeStringValue("url", apiAgreement.url);
         writer.writeStringValue("uuid", apiAgreement.uuid);
-        writer.writeAdditionalData(apiAgreement.additionalData);
     }
 }
 /**
@@ -11390,7 +12934,48 @@ export function serializeApiAnthropicAPIKeyInfo(writer, apiAnthropicAPIKeyInfo =
         writer.writeStringValue("name", apiAnthropicAPIKeyInfo.name);
         writer.writeDateValue("updated_at", apiAnthropicAPIKeyInfo.updatedAt);
         writer.writeStringValue("uuid", apiAnthropicAPIKeyInfo.uuid);
-        writer.writeAdditionalData(apiAnthropicAPIKeyInfo.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAuditHeader(writer, apiAuditHeader = {}) {
+    if (apiAuditHeader) {
+        writer.writeStringValue("actor_id", apiAuditHeader.actorId);
+        writer.writeStringValue("actor_ip", apiAuditHeader.actorIp);
+        writer.writeStringValue("actor_uuid", apiAuditHeader.actorUuid);
+        writer.writeStringValue("context_urn", apiAuditHeader.contextUrn);
+        writer.writeStringValue("origin_application", apiAuditHeader.originApplication);
+        writer.writeStringValue("user_id", apiAuditHeader.userId);
+        writer.writeStringValue("user_uuid", apiAuditHeader.userUuid);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAWSDataSource(writer, apiAWSDataSource = {}) {
+    if (apiAWSDataSource) {
+        writer.writeStringValue("bucket_name", apiAWSDataSource.bucketName);
+        writer.writeStringValue("item_path", apiAWSDataSource.itemPath);
+        writer.writeStringValue("key_id", apiAWSDataSource.keyId);
+        writer.writeStringValue("region", apiAWSDataSource.region);
+        writer.writeStringValue("secret_key", apiAWSDataSource.secretKey);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAWSDataSourceDisplay(writer, apiAWSDataSourceDisplay = {}) {
+    if (apiAWSDataSourceDisplay) {
+        writer.writeStringValue("bucket_name", apiAWSDataSourceDisplay.bucketName);
+        writer.writeStringValue("item_path", apiAWSDataSourceDisplay.itemPath);
+        writer.writeStringValue("region", apiAWSDataSourceDisplay.region);
     }
 }
 /**
@@ -11401,7 +12986,6 @@ export function serializeApiAnthropicAPIKeyInfo(writer, apiAnthropicAPIKeyInfo =
 export function serializeApiCancelKnowledgeBaseIndexingJobInputPublic(writer, apiCancelKnowledgeBaseIndexingJobInputPublic = {}) {
     if (apiCancelKnowledgeBaseIndexingJobInputPublic) {
         writer.writeStringValue("uuid", apiCancelKnowledgeBaseIndexingJobInputPublic.uuid);
-        writer.writeAdditionalData(apiCancelKnowledgeBaseIndexingJobInputPublic.additionalData);
     }
 }
 /**
@@ -11412,7 +12996,6 @@ export function serializeApiCancelKnowledgeBaseIndexingJobInputPublic(writer, ap
 export function serializeApiCancelKnowledgeBaseIndexingJobOutput(writer, apiCancelKnowledgeBaseIndexingJobOutput = {}) {
     if (apiCancelKnowledgeBaseIndexingJobOutput) {
         writer.writeObjectValue("job", apiCancelKnowledgeBaseIndexingJobOutput.job, serializeApiIndexingJob);
-        writer.writeAdditionalData(apiCancelKnowledgeBaseIndexingJobOutput.additionalData);
     }
 }
 /**
@@ -11428,7 +13011,6 @@ export function serializeApiChatbot(writer, apiChatbot = {}) {
         writer.writeStringValue("primary_color", apiChatbot.primaryColor);
         writer.writeStringValue("secondary_color", apiChatbot.secondaryColor);
         writer.writeStringValue("starting_message", apiChatbot.startingMessage);
-        writer.writeAdditionalData(apiChatbot.additionalData);
     }
 }
 /**
@@ -11440,7 +13022,6 @@ export function serializeApiCreateAgentAPIKeyInputPublic(writer, apiCreateAgentA
     if (apiCreateAgentAPIKeyInputPublic) {
         writer.writeStringValue("agent_uuid", apiCreateAgentAPIKeyInputPublic.agentUuid);
         writer.writeStringValue("name", apiCreateAgentAPIKeyInputPublic.name);
-        writer.writeAdditionalData(apiCreateAgentAPIKeyInputPublic.additionalData);
     }
 }
 /**
@@ -11451,7 +13032,6 @@ export function serializeApiCreateAgentAPIKeyInputPublic(writer, apiCreateAgentA
 export function serializeApiCreateAgentAPIKeyOutput(writer, apiCreateAgentAPIKeyOutput = {}) {
     if (apiCreateAgentAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiCreateAgentAPIKeyOutput.apiKeyInfo, serializeApiAgentAPIKeyInfo);
-        writer.writeAdditionalData(apiCreateAgentAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -11467,10 +13047,10 @@ export function serializeApiCreateAgentInputPublic(writer, apiCreateAgentInputPu
         writer.writeCollectionOfPrimitiveValues("knowledge_base_uuid", apiCreateAgentInputPublic.knowledgeBaseUuid);
         writer.writeStringValue("model_uuid", apiCreateAgentInputPublic.modelUuid);
         writer.writeStringValue("name", apiCreateAgentInputPublic.name);
+        writer.writeStringValue("open_ai_key_uuid", apiCreateAgentInputPublic.openAiKeyUuid);
         writer.writeStringValue("project_id", apiCreateAgentInputPublic.projectId);
         writer.writeStringValue("region", apiCreateAgentInputPublic.region);
         writer.writeCollectionOfPrimitiveValues("tags", apiCreateAgentInputPublic.tags);
-        writer.writeAdditionalData(apiCreateAgentInputPublic.additionalData);
     }
 }
 /**
@@ -11481,7 +13061,6 @@ export function serializeApiCreateAgentInputPublic(writer, apiCreateAgentInputPu
 export function serializeApiCreateAgentOutput(writer, apiCreateAgentOutput = {}) {
     if (apiCreateAgentOutput) {
         writer.writeObjectValue("agent", apiCreateAgentOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiCreateAgentOutput.additionalData);
     }
 }
 /**
@@ -11493,7 +13072,6 @@ export function serializeApiCreateAnthropicAPIKeyInputPublic(writer, apiCreateAn
     if (apiCreateAnthropicAPIKeyInputPublic) {
         writer.writeStringValue("api_key", apiCreateAnthropicAPIKeyInputPublic.apiKey);
         writer.writeStringValue("name", apiCreateAnthropicAPIKeyInputPublic.name);
-        writer.writeAdditionalData(apiCreateAnthropicAPIKeyInputPublic.additionalData);
     }
 }
 /**
@@ -11504,7 +13082,6 @@ export function serializeApiCreateAnthropicAPIKeyInputPublic(writer, apiCreateAn
 export function serializeApiCreateAnthropicAPIKeyOutput(writer, apiCreateAnthropicAPIKeyOutput = {}) {
     if (apiCreateAnthropicAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiCreateAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
-        writer.writeAdditionalData(apiCreateAnthropicAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -11514,10 +13091,10 @@ export function serializeApiCreateAnthropicAPIKeyOutput(writer, apiCreateAnthrop
 // @ts-ignore
 export function serializeApiCreateKnowledgeBaseDataSourceInputPublic(writer, apiCreateKnowledgeBaseDataSourceInputPublic = {}) {
     if (apiCreateKnowledgeBaseDataSourceInputPublic) {
-        writer.writeObjectValue("file_upload_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.fileUploadDataSource, serializeApiFileUploadDataSource);
+        writer.writeObjectValue("aws_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource, serializeApiAWSDataSource);
         writer.writeStringValue("knowledge_base_uuid", apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid);
         writer.writeObjectValue("spaces_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource, serializeApiSpacesDataSource);
-        writer.writeAdditionalData(apiCreateKnowledgeBaseDataSourceInputPublic.additionalData);
+        writer.writeObjectValue("web_crawler_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.webCrawlerDataSource, serializeApiWebCrawlerDataSource);
     }
 }
 /**
@@ -11528,7 +13105,6 @@ export function serializeApiCreateKnowledgeBaseDataSourceInputPublic(writer, api
 export function serializeApiCreateKnowledgeBaseDataSourceOutput(writer, apiCreateKnowledgeBaseDataSourceOutput = {}) {
     if (apiCreateKnowledgeBaseDataSourceOutput) {
         writer.writeObjectValue("knowledge_base_data_source", apiCreateKnowledgeBaseDataSourceOutput.knowledgeBaseDataSource, serializeApiKnowledgeBaseDataSource);
-        writer.writeAdditionalData(apiCreateKnowledgeBaseDataSourceOutput.additionalData);
     }
 }
 /**
@@ -11546,7 +13122,6 @@ export function serializeApiCreateKnowledgeBaseInputPublic(writer, apiCreateKnow
         writer.writeStringValue("region", apiCreateKnowledgeBaseInputPublic.region);
         writer.writeCollectionOfPrimitiveValues("tags", apiCreateKnowledgeBaseInputPublic.tags);
         writer.writeStringValue("vpc_uuid", apiCreateKnowledgeBaseInputPublic.vpcUuid);
-        writer.writeAdditionalData(apiCreateKnowledgeBaseInputPublic.additionalData);
     }
 }
 /**
@@ -11557,7 +13132,47 @@ export function serializeApiCreateKnowledgeBaseInputPublic(writer, apiCreateKnow
 export function serializeApiCreateKnowledgeBaseOutput(writer, apiCreateKnowledgeBaseOutput = {}) {
     if (apiCreateKnowledgeBaseOutput) {
         writer.writeObjectValue("knowledge_base", apiCreateKnowledgeBaseOutput.knowledgeBase, serializeApiKnowledgeBase);
-        writer.writeAdditionalData(apiCreateKnowledgeBaseOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateModelAPIKeyInputPublic(writer, apiCreateModelAPIKeyInputPublic = {}) {
+    if (apiCreateModelAPIKeyInputPublic) {
+        writer.writeStringValue("name", apiCreateModelAPIKeyInputPublic.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateModelAPIKeyOutput(writer, apiCreateModelAPIKeyOutput = {}) {
+    if (apiCreateModelAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiCreateModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateOpenAIAPIKeyInputPublic(writer, apiCreateOpenAIAPIKeyInputPublic = {}) {
+    if (apiCreateOpenAIAPIKeyInputPublic) {
+        writer.writeStringValue("api_key", apiCreateOpenAIAPIKeyInputPublic.apiKey);
+        writer.writeStringValue("name", apiCreateOpenAIAPIKeyInputPublic.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateOpenAIAPIKeyOutput(writer, apiCreateOpenAIAPIKeyOutput = {}) {
+    if (apiCreateOpenAIAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiCreateOpenAIAPIKeyOutput.apiKeyInfo, serializeApiOpenAIAPIKeyInfo);
     }
 }
 /**
@@ -11568,7 +13183,6 @@ export function serializeApiCreateKnowledgeBaseOutput(writer, apiCreateKnowledge
 export function serializeApiDeleteAgentAPIKeyOutput(writer, apiDeleteAgentAPIKeyOutput = {}) {
     if (apiDeleteAgentAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiDeleteAgentAPIKeyOutput.apiKeyInfo, serializeApiAgentAPIKeyInfo);
-        writer.writeAdditionalData(apiDeleteAgentAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -11579,7 +13193,6 @@ export function serializeApiDeleteAgentAPIKeyOutput(writer, apiDeleteAgentAPIKey
 export function serializeApiDeleteAgentOutput(writer, apiDeleteAgentOutput = {}) {
     if (apiDeleteAgentOutput) {
         writer.writeObjectValue("agent", apiDeleteAgentOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiDeleteAgentOutput.additionalData);
     }
 }
 /**
@@ -11590,7 +13203,6 @@ export function serializeApiDeleteAgentOutput(writer, apiDeleteAgentOutput = {})
 export function serializeApiDeleteAnthropicAPIKeyOutput(writer, apiDeleteAnthropicAPIKeyOutput = {}) {
     if (apiDeleteAnthropicAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiDeleteAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
-        writer.writeAdditionalData(apiDeleteAnthropicAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -11602,7 +13214,6 @@ export function serializeApiDeleteKnowledgeBaseDataSourceOutput(writer, apiDelet
     if (apiDeleteKnowledgeBaseDataSourceOutput) {
         writer.writeStringValue("data_source_uuid", apiDeleteKnowledgeBaseDataSourceOutput.dataSourceUuid);
         writer.writeStringValue("knowledge_base_uuid", apiDeleteKnowledgeBaseDataSourceOutput.knowledgeBaseUuid);
-        writer.writeAdditionalData(apiDeleteKnowledgeBaseDataSourceOutput.additionalData);
     }
 }
 /**
@@ -11613,7 +13224,26 @@ export function serializeApiDeleteKnowledgeBaseDataSourceOutput(writer, apiDelet
 export function serializeApiDeleteKnowledgeBaseOutput(writer, apiDeleteKnowledgeBaseOutput = {}) {
     if (apiDeleteKnowledgeBaseOutput) {
         writer.writeStringValue("uuid", apiDeleteKnowledgeBaseOutput.uuid);
-        writer.writeAdditionalData(apiDeleteKnowledgeBaseOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteModelAPIKeyOutput(writer, apiDeleteModelAPIKeyOutput = {}) {
+    if (apiDeleteModelAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiDeleteModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteOpenAIAPIKeyOutput(writer, apiDeleteOpenAIAPIKeyOutput = {}) {
+    if (apiDeleteOpenAIAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiDeleteOpenAIAPIKeyOutput.apiKeyInfo, serializeApiOpenAIAPIKeyInfo);
     }
 }
 /**
@@ -11630,7 +13260,46 @@ export function serializeApiDeployment(writer, apiDeployment = {}) {
         writer.writeStringValue("url", apiDeployment.url);
         writer.writeStringValue("uuid", apiDeployment.uuid);
         writer.writeEnumValue("visibility", apiDeployment.visibility ?? ApiDeploymentVisibilityObject.VISIBILITY_UNKNOWN);
-        writer.writeAdditionalData(apiDeployment.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiEvaluationMetric(writer, apiEvaluationMetric = {}) {
+    if (apiEvaluationMetric) {
+        writer.writeStringValue("description", apiEvaluationMetric.description);
+        writer.writeStringValue("metric_name", apiEvaluationMetric.metricName);
+        writer.writeEnumValue("metric_type", apiEvaluationMetric.metricType ?? ApiEvaluationMetricTypeObject.METRIC_TYPE_UNSPECIFIED);
+        writer.writeStringValue("metric_uuid", apiEvaluationMetric.metricUuid);
+        writer.writeEnumValue("metric_value_type", apiEvaluationMetric.metricValueType ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiEvaluationTestCase(writer, apiEvaluationTestCase = {}) {
+    if (apiEvaluationTestCase) {
+        writer.writeDateValue("archived_at", apiEvaluationTestCase.archivedAt);
+        writer.writeDateValue("created_at", apiEvaluationTestCase.createdAt);
+        writer.writeStringValue("created_by_user_email", apiEvaluationTestCase.createdByUserEmail);
+        writer.writeStringValue("created_by_user_id", apiEvaluationTestCase.createdByUserId);
+        writer.writeStringValue("dataset_name", apiEvaluationTestCase.datasetName);
+        writer.writeStringValue("dataset_uuid", apiEvaluationTestCase.datasetUuid);
+        writer.writeStringValue("description", apiEvaluationTestCase.description);
+        writer.writeNumberValue("latest_version_number_of_runs", apiEvaluationTestCase.latestVersionNumberOfRuns);
+        writer.writeCollectionOfObjectValues("metrics", apiEvaluationTestCase.metrics, serializeApiEvaluationMetric);
+        writer.writeStringValue("name", apiEvaluationTestCase.name);
+        writer.writeObjectValue("star_metric", apiEvaluationTestCase.starMetric, serializeApiStarMetric);
+        writer.writeStringValue("test_case_uuid", apiEvaluationTestCase.testCaseUuid);
+        writer.writeNumberValue("total_runs", apiEvaluationTestCase.totalRuns);
+        writer.writeDateValue("updated_at", apiEvaluationTestCase.updatedAt);
+        writer.writeStringValue("updated_by_user_email", apiEvaluationTestCase.updatedByUserEmail);
+        writer.writeStringValue("updated_by_user_id", apiEvaluationTestCase.updatedByUserId);
+        writer.writeNumberValue("version", apiEvaluationTestCase.version);
     }
 }
 /**
@@ -11643,7 +13312,6 @@ export function serializeApiFileUploadDataSource(writer, apiFileUploadDataSource
         writer.writeStringValue("original_file_name", apiFileUploadDataSource.originalFileName);
         writer.writeStringValue("size_in_bytes", apiFileUploadDataSource.sizeInBytes);
         writer.writeStringValue("stored_object_key", apiFileUploadDataSource.storedObjectKey);
-        writer.writeAdditionalData(apiFileUploadDataSource.additionalData);
     }
 }
 /**
@@ -11654,7 +13322,6 @@ export function serializeApiFileUploadDataSource(writer, apiFileUploadDataSource
 export function serializeApiGetAgentOutput(writer, apiGetAgentOutput = {}) {
     if (apiGetAgentOutput) {
         writer.writeObjectValue("agent", apiGetAgentOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiGetAgentOutput.additionalData);
     }
 }
 /**
@@ -11665,7 +13332,6 @@ export function serializeApiGetAgentOutput(writer, apiGetAgentOutput = {}) {
 export function serializeApiGetAnthropicAPIKeyOutput(writer, apiGetAnthropicAPIKeyOutput = {}) {
     if (apiGetAnthropicAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiGetAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
-        writer.writeAdditionalData(apiGetAnthropicAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -11676,7 +13342,6 @@ export function serializeApiGetAnthropicAPIKeyOutput(writer, apiGetAnthropicAPIK
 export function serializeApiGetChildrenOutput(writer, apiGetChildrenOutput = {}) {
     if (apiGetChildrenOutput) {
         writer.writeCollectionOfObjectValues("children", apiGetChildrenOutput.children, serializeApiAgent);
-        writer.writeAdditionalData(apiGetChildrenOutput.additionalData);
     }
 }
 /**
@@ -11687,7 +13352,6 @@ export function serializeApiGetChildrenOutput(writer, apiGetChildrenOutput = {})
 export function serializeApiGetKnowledgeBaseIndexingJobOutput(writer, apiGetKnowledgeBaseIndexingJobOutput = {}) {
     if (apiGetKnowledgeBaseIndexingJobOutput) {
         writer.writeObjectValue("job", apiGetKnowledgeBaseIndexingJobOutput.job, serializeApiIndexingJob);
-        writer.writeAdditionalData(apiGetKnowledgeBaseIndexingJobOutput.additionalData);
     }
 }
 /**
@@ -11699,7 +13363,16 @@ export function serializeApiGetKnowledgeBaseOutput(writer, apiGetKnowledgeBaseOu
     if (apiGetKnowledgeBaseOutput) {
         writer.writeEnumValue("database_status", apiGetKnowledgeBaseOutput.databaseStatus ?? DbaasClusterStatusObject.CREATING);
         writer.writeObjectValue("knowledge_base", apiGetKnowledgeBaseOutput.knowledgeBase, serializeApiKnowledgeBase);
-        writer.writeAdditionalData(apiGetKnowledgeBaseOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetOpenAIAPIKeyOutput(writer, apiGetOpenAIAPIKeyOutput = {}) {
+    if (apiGetOpenAIAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiGetOpenAIAPIKeyOutput.apiKeyInfo, serializeApiOpenAIAPIKeyInfo);
     }
 }
 /**
@@ -11711,12 +13384,18 @@ export function serializeApiIndexedDataSource(writer, apiIndexedDataSource = {})
     if (apiIndexedDataSource) {
         writer.writeDateValue("completed_at", apiIndexedDataSource.completedAt);
         writer.writeStringValue("data_source_uuid", apiIndexedDataSource.dataSourceUuid);
+        writer.writeStringValue("error_details", apiIndexedDataSource.errorDetails);
+        writer.writeStringValue("error_msg", apiIndexedDataSource.errorMsg);
+        writer.writeStringValue("failed_item_count", apiIndexedDataSource.failedItemCount);
         writer.writeStringValue("indexed_file_count", apiIndexedDataSource.indexedFileCount);
+        writer.writeStringValue("indexed_item_count", apiIndexedDataSource.indexedItemCount);
+        writer.writeStringValue("removed_item_count", apiIndexedDataSource.removedItemCount);
+        writer.writeStringValue("skipped_item_count", apiIndexedDataSource.skippedItemCount);
         writer.writeDateValue("started_at", apiIndexedDataSource.startedAt);
+        writer.writeEnumValue("status", apiIndexedDataSource.status ?? ApiIndexedDataSourceStatusObject.DATA_SOURCE_STATUS_UNKNOWN);
         writer.writeStringValue("total_bytes", apiIndexedDataSource.totalBytes);
         writer.writeStringValue("total_bytes_indexed", apiIndexedDataSource.totalBytesIndexed);
         writer.writeStringValue("total_file_count", apiIndexedDataSource.totalFileCount);
-        writer.writeAdditionalData(apiIndexedDataSource.additionalData);
     }
 }
 /**
@@ -11737,7 +13416,6 @@ export function serializeApiIndexingJob(writer, apiIndexingJob = {}) {
         writer.writeNumberValue("total_datasources", apiIndexingJob.totalDatasources);
         writer.writeDateValue("updated_at", apiIndexingJob.updatedAt);
         writer.writeStringValue("uuid", apiIndexingJob.uuid);
-        writer.writeAdditionalData(apiIndexingJob.additionalData);
     }
 }
 /**
@@ -11747,13 +13425,13 @@ export function serializeApiIndexingJob(writer, apiIndexingJob = {}) {
 // @ts-ignore
 export function serializeApiKBDataSource(writer, apiKBDataSource = {}) {
     if (apiKBDataSource) {
+        writer.writeObjectValue("aws_data_source", apiKBDataSource.awsDataSource, serializeApiAWSDataSource);
         writer.writeStringValue("bucket_name", apiKBDataSource.bucketName);
         writer.writeStringValue("bucket_region", apiKBDataSource.bucketRegion);
         writer.writeObjectValue("file_upload_data_source", apiKBDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
         writer.writeStringValue("item_path", apiKBDataSource.itemPath);
         writer.writeObjectValue("spaces_data_source", apiKBDataSource.spacesDataSource, serializeApiSpacesDataSource);
         writer.writeObjectValue("web_crawler_data_source", apiKBDataSource.webCrawlerDataSource, serializeApiWebCrawlerDataSource);
-        writer.writeAdditionalData(apiKBDataSource.additionalData);
     }
 }
 /**
@@ -11776,7 +13454,6 @@ export function serializeApiKnowledgeBase(writer, apiKnowledgeBase = {}) {
         writer.writeDateValue("updated_at", apiKnowledgeBase.updatedAt);
         writer.writeStringValue("user_id", apiKnowledgeBase.userId);
         writer.writeStringValue("uuid", apiKnowledgeBase.uuid);
-        writer.writeAdditionalData(apiKnowledgeBase.additionalData);
     }
 }
 /**
@@ -11786,6 +13463,7 @@ export function serializeApiKnowledgeBase(writer, apiKnowledgeBase = {}) {
 // @ts-ignore
 export function serializeApiKnowledgeBaseDataSource(writer, apiKnowledgeBaseDataSource = {}) {
     if (apiKnowledgeBaseDataSource) {
+        writer.writeObjectValue("aws_data_source", apiKnowledgeBaseDataSource.awsDataSource, serializeApiAWSDataSourceDisplay);
         writer.writeStringValue("bucket_name", apiKnowledgeBaseDataSource.bucketName);
         writer.writeDateValue("created_at", apiKnowledgeBaseDataSource.createdAt);
         writer.writeObjectValue("file_upload_data_source", apiKnowledgeBaseDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
@@ -11796,7 +13474,6 @@ export function serializeApiKnowledgeBaseDataSource(writer, apiKnowledgeBaseData
         writer.writeDateValue("updated_at", apiKnowledgeBaseDataSource.updatedAt);
         writer.writeStringValue("uuid", apiKnowledgeBaseDataSource.uuid);
         writer.writeObjectValue("web_crawler_data_source", apiKnowledgeBaseDataSource.webCrawlerDataSource, serializeApiWebCrawlerDataSource);
-        writer.writeAdditionalData(apiKnowledgeBaseDataSource.additionalData);
     }
 }
 /**
@@ -11813,7 +13490,6 @@ export function serializeApiLinkAgentFunctionInputPublic(writer, apiLinkAgentFun
         writer.writeStringValue("function_name", apiLinkAgentFunctionInputPublic.functionName);
         writer.writeObjectValue("input_schema", apiLinkAgentFunctionInputPublic.inputSchema, serializeApiLinkAgentFunctionInputPublic_input_schema);
         writer.writeObjectValue("output_schema", apiLinkAgentFunctionInputPublic.outputSchema, serializeApiLinkAgentFunctionInputPublic_output_schema);
-        writer.writeAdditionalData(apiLinkAgentFunctionInputPublic.additionalData);
     }
 }
 /**
@@ -11823,7 +13499,6 @@ export function serializeApiLinkAgentFunctionInputPublic(writer, apiLinkAgentFun
 // @ts-ignore
 export function serializeApiLinkAgentFunctionInputPublic_input_schema(writer, apiLinkAgentFunctionInputPublic_input_schema = {}) {
     if (apiLinkAgentFunctionInputPublic_input_schema) {
-        writer.writeAdditionalData(apiLinkAgentFunctionInputPublic_input_schema.additionalData);
     }
 }
 /**
@@ -11833,7 +13508,6 @@ export function serializeApiLinkAgentFunctionInputPublic_input_schema(writer, ap
 // @ts-ignore
 export function serializeApiLinkAgentFunctionInputPublic_output_schema(writer, apiLinkAgentFunctionInputPublic_output_schema = {}) {
     if (apiLinkAgentFunctionInputPublic_output_schema) {
-        writer.writeAdditionalData(apiLinkAgentFunctionInputPublic_output_schema.additionalData);
     }
 }
 /**
@@ -11844,7 +13518,6 @@ export function serializeApiLinkAgentFunctionInputPublic_output_schema(writer, a
 export function serializeApiLinkAgentFunctionOutput(writer, apiLinkAgentFunctionOutput = {}) {
     if (apiLinkAgentFunctionOutput) {
         writer.writeObjectValue("agent", apiLinkAgentFunctionOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiLinkAgentFunctionOutput.additionalData);
     }
 }
 /**
@@ -11858,7 +13531,6 @@ export function serializeApiLinkAgentInputPublic(writer, apiLinkAgentInputPublic
         writer.writeStringValue("if_case", apiLinkAgentInputPublic.ifCase);
         writer.writeStringValue("parent_agent_uuid", apiLinkAgentInputPublic.parentAgentUuid);
         writer.writeStringValue("route_name", apiLinkAgentInputPublic.routeName);
-        writer.writeAdditionalData(apiLinkAgentInputPublic.additionalData);
     }
 }
 /**
@@ -11870,7 +13542,6 @@ export function serializeApiLinkAgentOutput(writer, apiLinkAgentOutput = {}) {
     if (apiLinkAgentOutput) {
         writer.writeStringValue("child_agent_uuid", apiLinkAgentOutput.childAgentUuid);
         writer.writeStringValue("parent_agent_uuid", apiLinkAgentOutput.parentAgentUuid);
-        writer.writeAdditionalData(apiLinkAgentOutput.additionalData);
     }
 }
 /**
@@ -11881,7 +13552,6 @@ export function serializeApiLinkAgentOutput(writer, apiLinkAgentOutput = {}) {
 export function serializeApiLinkKnowledgeBaseOutput(writer, apiLinkKnowledgeBaseOutput = {}) {
     if (apiLinkKnowledgeBaseOutput) {
         writer.writeObjectValue("agent", apiLinkKnowledgeBaseOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiLinkKnowledgeBaseOutput.additionalData);
     }
 }
 /**
@@ -11892,7 +13562,6 @@ export function serializeApiLinkKnowledgeBaseOutput(writer, apiLinkKnowledgeBase
 export function serializeApiLinks(writer, apiLinks = {}) {
     if (apiLinks) {
         writer.writeObjectValue("pages", apiLinks.pages, serializeApiPages);
-        writer.writeAdditionalData(apiLinks.additionalData);
     }
 }
 /**
@@ -11905,7 +13574,6 @@ export function serializeApiListAgentAPIKeysOutput(writer, apiListAgentAPIKeysOu
         writer.writeCollectionOfObjectValues("api_key_infos", apiListAgentAPIKeysOutput.apiKeyInfos, serializeApiAgentAPIKeyInfo);
         writer.writeObjectValue("links", apiListAgentAPIKeysOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListAgentAPIKeysOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListAgentAPIKeysOutput.additionalData);
     }
 }
 /**
@@ -11918,7 +13586,18 @@ export function serializeApiListAgentsByAnthropicKeyOutput(writer, apiListAgents
         writer.writeCollectionOfObjectValues("agents", apiListAgentsByAnthropicKeyOutput.agents, serializeApiAgent);
         writer.writeObjectValue("links", apiListAgentsByAnthropicKeyOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListAgentsByAnthropicKeyOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListAgentsByAnthropicKeyOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListAgentsByOpenAIKeyOutput(writer, apiListAgentsByOpenAIKeyOutput = {}) {
+    if (apiListAgentsByOpenAIKeyOutput) {
+        writer.writeCollectionOfObjectValues("agents", apiListAgentsByOpenAIKeyOutput.agents, serializeApiAgent);
+        writer.writeObjectValue("links", apiListAgentsByOpenAIKeyOutput.links, serializeApiLinks);
+        writer.writeObjectValue("meta", apiListAgentsByOpenAIKeyOutput.meta, serializeApiMeta);
     }
 }
 /**
@@ -11931,7 +13610,18 @@ export function serializeApiListAgentsOutputPublic(writer, apiListAgentsOutputPu
         writer.writeCollectionOfObjectValues("agents", apiListAgentsOutputPublic.agents, serializeApiAgentPublic);
         writer.writeObjectValue("links", apiListAgentsOutputPublic.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListAgentsOutputPublic.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListAgentsOutputPublic.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListAgentVersionsOutput(writer, apiListAgentVersionsOutput = {}) {
+    if (apiListAgentVersionsOutput) {
+        writer.writeCollectionOfObjectValues("agent_versions", apiListAgentVersionsOutput.agentVersions, serializeApiAgentVersion);
+        writer.writeObjectValue("links", apiListAgentVersionsOutput.links, serializeApiLinks);
+        writer.writeObjectValue("meta", apiListAgentVersionsOutput.meta, serializeApiMeta);
     }
 }
 /**
@@ -11944,7 +13634,6 @@ export function serializeApiListAnthropicAPIKeysOutput(writer, apiListAnthropicA
         writer.writeCollectionOfObjectValues("api_key_infos", apiListAnthropicAPIKeysOutput.apiKeyInfos, serializeApiAnthropicAPIKeyInfo);
         writer.writeObjectValue("links", apiListAnthropicAPIKeysOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListAnthropicAPIKeysOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListAnthropicAPIKeysOutput.additionalData);
     }
 }
 /**
@@ -11955,7 +13644,6 @@ export function serializeApiListAnthropicAPIKeysOutput(writer, apiListAnthropicA
 export function serializeApiListIndexingJobDataSourcesOutput(writer, apiListIndexingJobDataSourcesOutput = {}) {
     if (apiListIndexingJobDataSourcesOutput) {
         writer.writeCollectionOfObjectValues("indexed_data_sources", apiListIndexingJobDataSourcesOutput.indexedDataSources, serializeApiIndexedDataSource);
-        writer.writeAdditionalData(apiListIndexingJobDataSourcesOutput.additionalData);
     }
 }
 /**
@@ -11968,7 +13656,6 @@ export function serializeApiListKnowledgeBaseDataSourcesOutput(writer, apiListKn
         writer.writeCollectionOfObjectValues("knowledge_base_data_sources", apiListKnowledgeBaseDataSourcesOutput.knowledgeBaseDataSources, serializeApiKnowledgeBaseDataSource);
         writer.writeObjectValue("links", apiListKnowledgeBaseDataSourcesOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListKnowledgeBaseDataSourcesOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListKnowledgeBaseDataSourcesOutput.additionalData);
     }
 }
 /**
@@ -11981,7 +13668,6 @@ export function serializeApiListKnowledgeBaseIndexingJobsOutput(writer, apiListK
         writer.writeCollectionOfObjectValues("jobs", apiListKnowledgeBaseIndexingJobsOutput.jobs, serializeApiIndexingJob);
         writer.writeObjectValue("links", apiListKnowledgeBaseIndexingJobsOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListKnowledgeBaseIndexingJobsOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListKnowledgeBaseIndexingJobsOutput.additionalData);
     }
 }
 /**
@@ -11994,7 +13680,18 @@ export function serializeApiListKnowledgeBasesOutput(writer, apiListKnowledgeBas
         writer.writeCollectionOfObjectValues("knowledge_bases", apiListKnowledgeBasesOutput.knowledgeBases, serializeApiKnowledgeBase);
         writer.writeObjectValue("links", apiListKnowledgeBasesOutput.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListKnowledgeBasesOutput.meta, serializeApiMeta);
-        writer.writeAdditionalData(apiListKnowledgeBasesOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelAPIKeysOutput(writer, apiListModelAPIKeysOutput = {}) {
+    if (apiListModelAPIKeysOutput) {
+        writer.writeCollectionOfObjectValues("api_key_infos", apiListModelAPIKeysOutput.apiKeyInfos, serializeApiModelAPIKeyInfo);
+        writer.writeObjectValue("links", apiListModelAPIKeysOutput.links, serializeApiLinks);
+        writer.writeObjectValue("meta", apiListModelAPIKeysOutput.meta, serializeApiMeta);
     }
 }
 /**
@@ -12007,7 +13704,18 @@ export function serializeApiListModelsOutputPublic(writer, apiListModelsOutputPu
         writer.writeObjectValue("links", apiListModelsOutputPublic.links, serializeApiLinks);
         writer.writeObjectValue("meta", apiListModelsOutputPublic.meta, serializeApiMeta);
         writer.writeCollectionOfObjectValues("models", apiListModelsOutputPublic.models, serializeApiModelPublic);
-        writer.writeAdditionalData(apiListModelsOutputPublic.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListOpenAIAPIKeysOutput(writer, apiListOpenAIAPIKeysOutput = {}) {
+    if (apiListOpenAIAPIKeysOutput) {
+        writer.writeCollectionOfObjectValues("api_key_infos", apiListOpenAIAPIKeysOutput.apiKeyInfos, serializeApiOpenAIAPIKeyInfo);
+        writer.writeObjectValue("links", apiListOpenAIAPIKeysOutput.links, serializeApiLinks);
+        writer.writeObjectValue("meta", apiListOpenAIAPIKeysOutput.meta, serializeApiMeta);
     }
 }
 /**
@@ -12018,7 +13726,6 @@ export function serializeApiListModelsOutputPublic(writer, apiListModelsOutputPu
 export function serializeApiListRegionsOutput(writer, apiListRegionsOutput = {}) {
     if (apiListRegionsOutput) {
         writer.writeCollectionOfObjectValues("regions", apiListRegionsOutput.regions, serializeGenaiapiRegion);
-        writer.writeAdditionalData(apiListRegionsOutput.additionalData);
     }
 }
 /**
@@ -12031,7 +13738,6 @@ export function serializeApiMeta(writer, apiMeta = {}) {
         writer.writeNumberValue("page", apiMeta.page);
         writer.writeNumberValue("pages", apiMeta.pages);
         writer.writeNumberValue("total", apiMeta.total);
-        writer.writeAdditionalData(apiMeta.additionalData);
     }
 }
 /**
@@ -12053,9 +13759,10 @@ export function serializeApiModel(writer, apiModel = {}) {
         writer.writeDateValue("updated_at", apiModel.updatedAt);
         writer.writeBooleanValue("upload_complete", apiModel.uploadComplete);
         writer.writeStringValue("url", apiModel.url);
+        if (apiModel.usecases)
+            writer.writeCollectionOfEnumValues("usecases", apiModel.usecases);
         writer.writeStringValue("uuid", apiModel.uuid);
         writer.writeObjectValue("version", apiModel.version, serializeApiModelVersion);
-        writer.writeAdditionalData(apiModel.additionalData);
     }
 }
 /**
@@ -12065,7 +13772,21 @@ export function serializeApiModel(writer, apiModel = {}) {
 // @ts-ignore
 export function serializeApiModel_metadata(writer, apiModel_metadata = {}) {
     if (apiModel_metadata) {
-        writer.writeAdditionalData(apiModel_metadata.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelAPIKeyInfo(writer, apiModelAPIKeyInfo = {}) {
+    if (apiModelAPIKeyInfo) {
+        writer.writeDateValue("created_at", apiModelAPIKeyInfo.createdAt);
+        writer.writeStringValue("created_by", apiModelAPIKeyInfo.createdBy);
+        writer.writeDateValue("deleted_at", apiModelAPIKeyInfo.deletedAt);
+        writer.writeStringValue("name", apiModelAPIKeyInfo.name);
+        writer.writeStringValue("secret_key", apiModelAPIKeyInfo.secretKey);
+        writer.writeStringValue("uuid", apiModelAPIKeyInfo.uuid);
     }
 }
 /**
@@ -12085,7 +13806,6 @@ export function serializeApiModelPublic(writer, apiModelPublic = {}) {
         writer.writeStringValue("url", apiModelPublic.url);
         writer.writeStringValue("uuid", apiModelPublic.uuid);
         writer.writeObjectValue("version", apiModelPublic.version, serializeApiModelVersion);
-        writer.writeAdditionalData(apiModelPublic.additionalData);
     }
 }
 /**
@@ -12098,7 +13818,22 @@ export function serializeApiModelVersion(writer, apiModelVersion = {}) {
         writer.writeNumberValue("major", apiModelVersion.major);
         writer.writeNumberValue("minor", apiModelVersion.minor);
         writer.writeNumberValue("patch", apiModelVersion.patch);
-        writer.writeAdditionalData(apiModelVersion.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiOpenAIAPIKeyInfo(writer, apiOpenAIAPIKeyInfo = {}) {
+    if (apiOpenAIAPIKeyInfo) {
+        writer.writeDateValue("created_at", apiOpenAIAPIKeyInfo.createdAt);
+        writer.writeStringValue("created_by", apiOpenAIAPIKeyInfo.createdBy);
+        writer.writeDateValue("deleted_at", apiOpenAIAPIKeyInfo.deletedAt);
+        writer.writeCollectionOfObjectValues("models", apiOpenAIAPIKeyInfo.models, serializeApiModel);
+        writer.writeStringValue("name", apiOpenAIAPIKeyInfo.name);
+        writer.writeDateValue("updated_at", apiOpenAIAPIKeyInfo.updatedAt);
+        writer.writeStringValue("uuid", apiOpenAIAPIKeyInfo.uuid);
     }
 }
 /**
@@ -12112,7 +13847,6 @@ export function serializeApiPages(writer, apiPages = {}) {
         writer.writeStringValue("last", apiPages.last);
         writer.writeStringValue("next", apiPages.next);
         writer.writeStringValue("previous", apiPages.previous);
-        writer.writeAdditionalData(apiPages.additionalData);
     }
 }
 /**
@@ -12123,7 +13857,38 @@ export function serializeApiPages(writer, apiPages = {}) {
 export function serializeApiRegenerateAgentAPIKeyOutput(writer, apiRegenerateAgentAPIKeyOutput = {}) {
     if (apiRegenerateAgentAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiRegenerateAgentAPIKeyOutput.apiKeyInfo, serializeApiAgentAPIKeyInfo);
-        writer.writeAdditionalData(apiRegenerateAgentAPIKeyOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiRegenerateModelAPIKeyOutput(writer, apiRegenerateModelAPIKeyOutput = {}) {
+    if (apiRegenerateModelAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiRegenerateModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiRollbackToAgentVersionInputPublic(writer, apiRollbackToAgentVersionInputPublic = {}) {
+    if (apiRollbackToAgentVersionInputPublic) {
+        writer.writeStringValue("uuid", apiRollbackToAgentVersionInputPublic.uuid);
+        writer.writeStringValue("version_hash", apiRollbackToAgentVersionInputPublic.versionHash);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiRollbackToAgentVersionOutput(writer, apiRollbackToAgentVersionOutput = {}) {
+    if (apiRollbackToAgentVersionOutput) {
+        writer.writeObjectValue("audit_header", apiRollbackToAgentVersionOutput.auditHeader, serializeApiAuditHeader);
+        writer.writeStringValue("version_hash", apiRollbackToAgentVersionOutput.versionHash);
     }
 }
 /**
@@ -12136,7 +13901,18 @@ export function serializeApiSpacesDataSource(writer, apiSpacesDataSource = {}) {
         writer.writeStringValue("bucket_name", apiSpacesDataSource.bucketName);
         writer.writeStringValue("item_path", apiSpacesDataSource.itemPath);
         writer.writeStringValue("region", apiSpacesDataSource.region);
-        writer.writeAdditionalData(apiSpacesDataSource.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiStarMetric(writer, apiStarMetric = {}) {
+    if (apiStarMetric) {
+        writer.writeStringValue("metric_uuid", apiStarMetric.metricUuid);
+        writer.writeStringValue("name", apiStarMetric.name);
+        writer.writeNumberValue("success_threshold_pct", apiStarMetric.successThresholdPct);
     }
 }
 /**
@@ -12148,7 +13924,6 @@ export function serializeApiStartKnowledgeBaseIndexingJobInputPublic(writer, api
     if (apiStartKnowledgeBaseIndexingJobInputPublic) {
         writer.writeCollectionOfPrimitiveValues("data_source_uuids", apiStartKnowledgeBaseIndexingJobInputPublic.dataSourceUuids);
         writer.writeStringValue("knowledge_base_uuid", apiStartKnowledgeBaseIndexingJobInputPublic.knowledgeBaseUuid);
-        writer.writeAdditionalData(apiStartKnowledgeBaseIndexingJobInputPublic.additionalData);
     }
 }
 /**
@@ -12159,7 +13934,6 @@ export function serializeApiStartKnowledgeBaseIndexingJobInputPublic(writer, api
 export function serializeApiStartKnowledgeBaseIndexingJobOutput(writer, apiStartKnowledgeBaseIndexingJobOutput = {}) {
     if (apiStartKnowledgeBaseIndexingJobOutput) {
         writer.writeObjectValue("job", apiStartKnowledgeBaseIndexingJobOutput.job, serializeApiIndexingJob);
-        writer.writeAdditionalData(apiStartKnowledgeBaseIndexingJobOutput.additionalData);
     }
 }
 /**
@@ -12170,7 +13944,6 @@ export function serializeApiStartKnowledgeBaseIndexingJobOutput(writer, apiStart
 export function serializeApiUnlinkAgentFunctionOutput(writer, apiUnlinkAgentFunctionOutput = {}) {
     if (apiUnlinkAgentFunctionOutput) {
         writer.writeObjectValue("agent", apiUnlinkAgentFunctionOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiUnlinkAgentFunctionOutput.additionalData);
     }
 }
 /**
@@ -12182,7 +13955,6 @@ export function serializeApiUnlinkAgentOutput(writer, apiUnlinkAgentOutput = {})
     if (apiUnlinkAgentOutput) {
         writer.writeStringValue("child_agent_uuid", apiUnlinkAgentOutput.childAgentUuid);
         writer.writeStringValue("parent_agent_uuid", apiUnlinkAgentOutput.parentAgentUuid);
-        writer.writeAdditionalData(apiUnlinkAgentOutput.additionalData);
     }
 }
 /**
@@ -12193,7 +13965,6 @@ export function serializeApiUnlinkAgentOutput(writer, apiUnlinkAgentOutput = {})
 export function serializeApiUnlinkKnowledgeBaseOutput(writer, apiUnlinkKnowledgeBaseOutput = {}) {
     if (apiUnlinkKnowledgeBaseOutput) {
         writer.writeObjectValue("agent", apiUnlinkKnowledgeBaseOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiUnlinkKnowledgeBaseOutput.additionalData);
     }
 }
 /**
@@ -12206,7 +13977,6 @@ export function serializeApiUpdateAgentAPIKeyInputPublic(writer, apiUpdateAgentA
         writer.writeStringValue("agent_uuid", apiUpdateAgentAPIKeyInputPublic.agentUuid);
         writer.writeStringValue("api_key_uuid", apiUpdateAgentAPIKeyInputPublic.apiKeyUuid);
         writer.writeStringValue("name", apiUpdateAgentAPIKeyInputPublic.name);
-        writer.writeAdditionalData(apiUpdateAgentAPIKeyInputPublic.additionalData);
     }
 }
 /**
@@ -12217,7 +13987,6 @@ export function serializeApiUpdateAgentAPIKeyInputPublic(writer, apiUpdateAgentA
 export function serializeApiUpdateAgentAPIKeyOutput(writer, apiUpdateAgentAPIKeyOutput = {}) {
     if (apiUpdateAgentAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiUpdateAgentAPIKeyOutput.apiKeyInfo, serializeApiAgentAPIKeyInfo);
-        writer.writeAdditionalData(apiUpdateAgentAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -12228,7 +13997,6 @@ export function serializeApiUpdateAgentAPIKeyOutput(writer, apiUpdateAgentAPIKey
 export function serializeApiUpdateAgentDeploymentVisbilityOutput(writer, apiUpdateAgentDeploymentVisbilityOutput = {}) {
     if (apiUpdateAgentDeploymentVisbilityOutput) {
         writer.writeObjectValue("agent", apiUpdateAgentDeploymentVisbilityOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiUpdateAgentDeploymentVisbilityOutput.additionalData);
     }
 }
 /**
@@ -12240,7 +14008,6 @@ export function serializeApiUpdateAgentDeploymentVisibilityInputPublic(writer, a
     if (apiUpdateAgentDeploymentVisibilityInputPublic) {
         writer.writeStringValue("uuid", apiUpdateAgentDeploymentVisibilityInputPublic.uuid);
         writer.writeEnumValue("visibility", apiUpdateAgentDeploymentVisibilityInputPublic.visibility ?? ApiDeploymentVisibilityObject.VISIBILITY_UNKNOWN);
-        writer.writeAdditionalData(apiUpdateAgentDeploymentVisibilityInputPublic.additionalData);
     }
 }
 /**
@@ -12258,7 +14025,6 @@ export function serializeApiUpdateAgentFunctionInputPublic(writer, apiUpdateAgen
         writer.writeStringValue("function_uuid", apiUpdateAgentFunctionInputPublic.functionUuid);
         writer.writeObjectValue("input_schema", apiUpdateAgentFunctionInputPublic.inputSchema, serializeApiUpdateAgentFunctionInputPublic_input_schema);
         writer.writeObjectValue("output_schema", apiUpdateAgentFunctionInputPublic.outputSchema, serializeApiUpdateAgentFunctionInputPublic_output_schema);
-        writer.writeAdditionalData(apiUpdateAgentFunctionInputPublic.additionalData);
     }
 }
 /**
@@ -12268,7 +14034,6 @@ export function serializeApiUpdateAgentFunctionInputPublic(writer, apiUpdateAgen
 // @ts-ignore
 export function serializeApiUpdateAgentFunctionInputPublic_input_schema(writer, apiUpdateAgentFunctionInputPublic_input_schema = {}) {
     if (apiUpdateAgentFunctionInputPublic_input_schema) {
-        writer.writeAdditionalData(apiUpdateAgentFunctionInputPublic_input_schema.additionalData);
     }
 }
 /**
@@ -12278,7 +14043,6 @@ export function serializeApiUpdateAgentFunctionInputPublic_input_schema(writer, 
 // @ts-ignore
 export function serializeApiUpdateAgentFunctionInputPublic_output_schema(writer, apiUpdateAgentFunctionInputPublic_output_schema = {}) {
     if (apiUpdateAgentFunctionInputPublic_output_schema) {
-        writer.writeAdditionalData(apiUpdateAgentFunctionInputPublic_output_schema.additionalData);
     }
 }
 /**
@@ -12289,7 +14053,6 @@ export function serializeApiUpdateAgentFunctionInputPublic_output_schema(writer,
 export function serializeApiUpdateAgentFunctionOutput(writer, apiUpdateAgentFunctionOutput = {}) {
     if (apiUpdateAgentFunctionOutput) {
         writer.writeObjectValue("agent", apiUpdateAgentFunctionOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiUpdateAgentFunctionOutput.additionalData);
     }
 }
 /**
@@ -12306,12 +14069,14 @@ export function serializeApiUpdateAgentInputPublic(writer, apiUpdateAgentInputPu
         writer.writeNumberValue("max_tokens", apiUpdateAgentInputPublic.maxTokens);
         writer.writeStringValue("model_uuid", apiUpdateAgentInputPublic.modelUuid);
         writer.writeStringValue("name", apiUpdateAgentInputPublic.name);
+        writer.writeStringValue("open_ai_key_uuid", apiUpdateAgentInputPublic.openAiKeyUuid);
         writer.writeStringValue("project_id", apiUpdateAgentInputPublic.projectId);
+        writer.writeBooleanValue("provide_citations", apiUpdateAgentInputPublic.provideCitations);
+        writer.writeEnumValue("retrieval_method", apiUpdateAgentInputPublic.retrievalMethod ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN);
         writer.writeCollectionOfPrimitiveValues("tags", apiUpdateAgentInputPublic.tags);
         writer.writeNumberValue("temperature", apiUpdateAgentInputPublic.temperature);
         writer.writeNumberValue("top_p", apiUpdateAgentInputPublic.topP);
         writer.writeStringValue("uuid", apiUpdateAgentInputPublic.uuid);
-        writer.writeAdditionalData(apiUpdateAgentInputPublic.additionalData);
     }
 }
 /**
@@ -12322,7 +14087,6 @@ export function serializeApiUpdateAgentInputPublic(writer, apiUpdateAgentInputPu
 export function serializeApiUpdateAgentOutput(writer, apiUpdateAgentOutput = {}) {
     if (apiUpdateAgentOutput) {
         writer.writeObjectValue("agent", apiUpdateAgentOutput.agent, serializeApiAgent);
-        writer.writeAdditionalData(apiUpdateAgentOutput.additionalData);
     }
 }
 /**
@@ -12335,7 +14099,6 @@ export function serializeApiUpdateAnthropicAPIKeyInputPublic(writer, apiUpdateAn
         writer.writeStringValue("api_key", apiUpdateAnthropicAPIKeyInputPublic.apiKey);
         writer.writeStringValue("api_key_uuid", apiUpdateAnthropicAPIKeyInputPublic.apiKeyUuid);
         writer.writeStringValue("name", apiUpdateAnthropicAPIKeyInputPublic.name);
-        writer.writeAdditionalData(apiUpdateAnthropicAPIKeyInputPublic.additionalData);
     }
 }
 /**
@@ -12346,7 +14109,6 @@ export function serializeApiUpdateAnthropicAPIKeyInputPublic(writer, apiUpdateAn
 export function serializeApiUpdateAnthropicAPIKeyOutput(writer, apiUpdateAnthropicAPIKeyOutput = {}) {
     if (apiUpdateAnthropicAPIKeyOutput) {
         writer.writeObjectValue("api_key_info", apiUpdateAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
-        writer.writeAdditionalData(apiUpdateAnthropicAPIKeyOutput.additionalData);
     }
 }
 /**
@@ -12362,7 +14124,6 @@ export function serializeApiUpdateKnowledgeBaseInputPublic(writer, apiUpdateKnow
         writer.writeStringValue("project_id", apiUpdateKnowledgeBaseInputPublic.projectId);
         writer.writeCollectionOfPrimitiveValues("tags", apiUpdateKnowledgeBaseInputPublic.tags);
         writer.writeStringValue("uuid", apiUpdateKnowledgeBaseInputPublic.uuid);
-        writer.writeAdditionalData(apiUpdateKnowledgeBaseInputPublic.additionalData);
     }
 }
 /**
@@ -12373,7 +14134,6 @@ export function serializeApiUpdateKnowledgeBaseInputPublic(writer, apiUpdateKnow
 export function serializeApiUpdateKnowledgeBaseOutput(writer, apiUpdateKnowledgeBaseOutput = {}) {
     if (apiUpdateKnowledgeBaseOutput) {
         writer.writeObjectValue("knowledge_base", apiUpdateKnowledgeBaseOutput.knowledgeBase, serializeApiKnowledgeBase);
-        writer.writeAdditionalData(apiUpdateKnowledgeBaseOutput.additionalData);
     }
 }
 /**
@@ -12388,7 +14148,6 @@ export function serializeApiUpdateLinkedAgentInputPublic(writer, apiUpdateLinked
         writer.writeStringValue("parent_agent_uuid", apiUpdateLinkedAgentInputPublic.parentAgentUuid);
         writer.writeStringValue("route_name", apiUpdateLinkedAgentInputPublic.routeName);
         writer.writeStringValue("uuid", apiUpdateLinkedAgentInputPublic.uuid);
-        writer.writeAdditionalData(apiUpdateLinkedAgentInputPublic.additionalData);
     }
 }
 /**
@@ -12400,8 +14159,51 @@ export function serializeApiUpdateLinkedAgentOutput(writer, apiUpdateLinkedAgent
     if (apiUpdateLinkedAgentOutput) {
         writer.writeStringValue("child_agent_uuid", apiUpdateLinkedAgentOutput.childAgentUuid);
         writer.writeStringValue("parent_agent_uuid", apiUpdateLinkedAgentOutput.parentAgentUuid);
+        writer.writeBooleanValue("rollback", apiUpdateLinkedAgentOutput.rollback);
         writer.writeStringValue("uuid", apiUpdateLinkedAgentOutput.uuid);
-        writer.writeAdditionalData(apiUpdateLinkedAgentOutput.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateModelAPIKeyInputPublic(writer, apiUpdateModelAPIKeyInputPublic = {}) {
+    if (apiUpdateModelAPIKeyInputPublic) {
+        writer.writeStringValue("api_key_uuid", apiUpdateModelAPIKeyInputPublic.apiKeyUuid);
+        writer.writeStringValue("name", apiUpdateModelAPIKeyInputPublic.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateModelAPIKeyOutput(writer, apiUpdateModelAPIKeyOutput = {}) {
+    if (apiUpdateModelAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiUpdateModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateOpenAIAPIKeyInputPublic(writer, apiUpdateOpenAIAPIKeyInputPublic = {}) {
+    if (apiUpdateOpenAIAPIKeyInputPublic) {
+        writer.writeStringValue("api_key", apiUpdateOpenAIAPIKeyInputPublic.apiKey);
+        writer.writeStringValue("api_key_uuid", apiUpdateOpenAIAPIKeyInputPublic.apiKeyUuid);
+        writer.writeStringValue("name", apiUpdateOpenAIAPIKeyInputPublic.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateOpenAIAPIKeyOutput(writer, apiUpdateOpenAIAPIKeyOutput = {}) {
+    if (apiUpdateOpenAIAPIKeyOutput) {
+        writer.writeObjectValue("api_key_info", apiUpdateOpenAIAPIKeyOutput.apiKeyInfo, serializeApiOpenAIAPIKeyInfo);
     }
 }
 /**
@@ -12414,7 +14216,25 @@ export function serializeApiWebCrawlerDataSource(writer, apiWebCrawlerDataSource
         writer.writeStringValue("base_url", apiWebCrawlerDataSource.baseUrl);
         writer.writeEnumValue("crawling_option", apiWebCrawlerDataSource.crawlingOption ?? ApiCrawlingOptionObject.UNKNOWN);
         writer.writeBooleanValue("embed_media", apiWebCrawlerDataSource.embedMedia);
-        writer.writeAdditionalData(apiWebCrawlerDataSource.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiWorkspace(writer, apiWorkspace = {}) {
+    if (apiWorkspace) {
+        writer.writeCollectionOfObjectValues("agents", apiWorkspace.agents, serializeApiAgent);
+        writer.writeDateValue("created_at", apiWorkspace.createdAt);
+        writer.writeStringValue("created_by", apiWorkspace.createdBy);
+        writer.writeStringValue("created_by_email", apiWorkspace.createdByEmail);
+        writer.writeDateValue("deleted_at", apiWorkspace.deletedAt);
+        writer.writeStringValue("description", apiWorkspace.description);
+        writer.writeCollectionOfObjectValues("evaluation_test_cases", apiWorkspace.evaluationTestCases, serializeApiEvaluationTestCase);
+        writer.writeStringValue("name", apiWorkspace.name);
+        writer.writeDateValue("updated_at", apiWorkspace.updatedAt);
+        writer.writeStringValue("uuid", apiWorkspace.uuid);
     }
 }
 /**
@@ -12430,7 +14250,6 @@ export function serializeApp(writer, app = {}) {
         writer.writeObjectValue("pinned_deployment", app.pinnedDeployment, serializeApps_deployment);
         writer.writeObjectValue("region", app.region, serializeApps_region);
         writer.writeObjectValue("spec", app.spec, serializeApp_spec);
-        writer.writeAdditionalData(app.additionalData);
     }
 }
 /**
@@ -12446,7 +14265,6 @@ export function serializeApp_alert(writer, app_alert = {}) {
         writer.writeObjectValue("progress", app_alert.progress, serializeApp_alert_progress);
         writer.writeCollectionOfObjectValues("slack_webhooks", app_alert.slackWebhooks, serializeApp_alert_slack_webhook);
         writer.writeObjectValue("spec", app_alert.spec, serializeApp_alert_spec);
-        writer.writeAdditionalData(app_alert.additionalData);
     }
 }
 /**
@@ -12457,7 +14275,6 @@ export function serializeApp_alert(writer, app_alert = {}) {
 export function serializeApp_alert_progress(writer, app_alert_progress = {}) {
     if (app_alert_progress) {
         writer.writeCollectionOfObjectValues("steps", app_alert_progress.steps, serializeApp_alert_progress_step);
-        writer.writeAdditionalData(app_alert_progress.additionalData);
     }
 }
 /**
@@ -12472,7 +14289,6 @@ export function serializeApp_alert_progress_step(writer, app_alert_progress_step
         writer.writeObjectValue("reason", app_alert_progress_step.reason, serializeApp_alert_progress_step_reason);
         writer.writeDateValue("started_at", app_alert_progress_step.startedAt);
         writer.writeEnumValue("status", app_alert_progress_step.status ?? App_alert_progress_step_statusObject.UNKNOWN);
-        writer.writeAdditionalData(app_alert_progress_step.additionalData);
     }
 }
 /**
@@ -12484,7 +14300,6 @@ export function serializeApp_alert_progress_step_reason(writer, app_alert_progre
     if (app_alert_progress_step_reason) {
         writer.writeStringValue("code", app_alert_progress_step_reason.code);
         writer.writeStringValue("message", app_alert_progress_step_reason.message);
-        writer.writeAdditionalData(app_alert_progress_step_reason.additionalData);
     }
 }
 /**
@@ -12496,7 +14311,6 @@ export function serializeApp_alert_slack_webhook(writer, app_alert_slack_webhook
     if (app_alert_slack_webhook) {
         writer.writeStringValue("channel", app_alert_slack_webhook.channel);
         writer.writeStringValue("url", app_alert_slack_webhook.url);
-        writer.writeAdditionalData(app_alert_slack_webhook.additionalData);
     }
 }
 /**
@@ -12511,7 +14325,6 @@ export function serializeApp_alert_spec(writer, app_alert_spec = {}) {
         writer.writeEnumValue("rule", app_alert_spec.rule ?? App_alert_spec_ruleObject.UNSPECIFIED_RULE);
         writer.writeNumberValue("value", app_alert_spec.value);
         writer.writeEnumValue("window", app_alert_spec.window ?? App_alert_spec_windowObject.UNSPECIFIED_WINDOW);
-        writer.writeAdditionalData(app_alert_spec.additionalData);
     }
 }
 /**
@@ -12534,7 +14347,21 @@ export function serializeApp_component_base(writer, app_component_base = {}) {
         writer.writeStringValue("name", app_component_base.name);
         writer.writeStringValue("run_command", app_component_base.runCommand);
         writer.writeStringValue("source_dir", app_component_base.sourceDir);
-        writer.writeAdditionalData(app_component_base.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_component_health(writer, app_component_health = {}) {
+    if (app_component_health) {
+        writer.writeNumberValue("cpu_usage_percent", app_component_health.cpuUsagePercent);
+        writer.writeNumberValue("memory_usage_percent", app_component_health.memoryUsagePercent);
+        writer.writeStringValue("name", app_component_health.name);
+        writer.writeNumberValue("replicas_desired", app_component_health.replicasDesired);
+        writer.writeNumberValue("replicas_ready", app_component_health.replicasReady);
+        writer.writeEnumValue("state", app_component_health.state ?? App_component_health_stateObject.UNKNOWN);
     }
 }
 /**
@@ -12551,7 +14378,6 @@ export function serializeApp_database_spec(writer, app_database_spec = {}) {
         writer.writeStringValue("name", app_database_spec.name);
         writer.writeBooleanValue("production", app_database_spec.production);
         writer.writeStringValue("version", app_database_spec.version);
-        writer.writeAdditionalData(app_database_spec.additionalData);
     }
 }
 /**
@@ -12566,7 +14392,6 @@ export function serializeApp_domain_spec(writer, app_domain_spec = {}) {
         writer.writeEnumValue("type", app_domain_spec.type ?? App_domain_spec_typeObject.UNSPECIFIED);
         writer.writeBooleanValue("wildcard", app_domain_spec.wildcard);
         writer.writeStringValue("zone", app_domain_spec.zone);
-        writer.writeAdditionalData(app_domain_spec.additionalData);
     }
 }
 /**
@@ -12576,7 +14401,6 @@ export function serializeApp_domain_spec(writer, app_domain_spec = {}) {
 // @ts-ignore
 export function serializeApp_domain_validation(writer, app_domain_validation = {}) {
     if (app_domain_validation) {
-        writer.writeAdditionalData(app_domain_validation.additionalData);
     }
 }
 /**
@@ -12587,7 +14411,29 @@ export function serializeApp_domain_validation(writer, app_domain_validation = {
 export function serializeApp_egress_spec(writer, app_egress_spec = {}) {
     if (app_egress_spec) {
         writer.writeEnumValue("type", app_egress_spec.type ?? App_egress_type_specObject.AUTOASSIGN);
-        writer.writeAdditionalData(app_egress_spec.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_functions_component_health(writer, app_functions_component_health = {}) {
+    if (app_functions_component_health) {
+        writer.writeCollectionOfObjectValues("functions_component_health_metrics", app_functions_component_health.functionsComponentHealthMetrics, serializeApp_functions_component_health_functions_component_health_metrics);
+        writer.writeStringValue("name", app_functions_component_health.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_functions_component_health_functions_component_health_metrics(writer, app_functions_component_health_functions_component_health_metrics = {}) {
+    if (app_functions_component_health_functions_component_health_metrics) {
+        writer.writeStringValue("metric_label", app_functions_component_health_functions_component_health_metrics.metricLabel);
+        writer.writeNumberValue("metric_value", app_functions_component_health_functions_component_health_metrics.metricValue);
+        writer.writeStringValue("time_window", app_functions_component_health_functions_component_health_metrics.timeWindow);
     }
 }
 /**
@@ -12608,7 +14454,43 @@ export function serializeApp_functions_spec(writer, app_functions_spec = {}) {
         writer.writeStringValue("name", app_functions_spec.name);
         writer.writeCollectionOfObjectValues("routes", app_functions_spec.routes, serializeApp_route_spec);
         writer.writeStringValue("source_dir", app_functions_spec.sourceDir);
-        writer.writeAdditionalData(app_functions_spec.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_health(writer, app_health = {}) {
+    if (app_health) {
+        writer.writeCollectionOfObjectValues("components", app_health.components, serializeApp_component_health);
+        writer.writeCollectionOfObjectValues("functions_components", app_health.functionsComponents, serializeApp_functions_component_health);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_health_check_spec(writer, app_health_check_spec = {}) {
+    if (app_health_check_spec) {
+        writer.writeNumberValue("failure_threshold", app_health_check_spec.failureThreshold);
+        writer.writeStringValue("http_path", app_health_check_spec.httpPath);
+        writer.writeNumberValue("initial_delay_seconds", app_health_check_spec.initialDelaySeconds);
+        writer.writeNumberValue("period_seconds", app_health_check_spec.periodSeconds);
+        writer.writeNumberValue("port", app_health_check_spec.port);
+        writer.writeNumberValue("success_threshold", app_health_check_spec.successThreshold);
+        writer.writeNumberValue("timeout_seconds", app_health_check_spec.timeoutSeconds);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_health_response(writer, app_health_response = {}) {
+    if (app_health_response) {
+        writer.writeObjectValue("app_health", app_health_response.appHealth, serializeApp_health);
     }
 }
 /**
@@ -12619,7 +14501,6 @@ export function serializeApp_functions_spec(writer, app_functions_spec = {}) {
 export function serializeApp_ingress_spec(writer, app_ingress_spec = {}) {
     if (app_ingress_spec) {
         writer.writeCollectionOfObjectValues("rules", app_ingress_spec.rules, serializeApp_ingress_spec_rule);
-        writer.writeAdditionalData(app_ingress_spec.additionalData);
     }
 }
 /**
@@ -12633,7 +14514,6 @@ export function serializeApp_ingress_spec_rule(writer, app_ingress_spec_rule = {
         writer.writeObjectValue("cors", app_ingress_spec_rule.cors, serializeApps_cors_policy);
         writer.writeObjectValue("match", app_ingress_spec_rule.match, serializeApp_ingress_spec_rule_match);
         writer.writeObjectValue("redirect", app_ingress_spec_rule.redirect, serializeApp_ingress_spec_rule_routing_redirect);
-        writer.writeAdditionalData(app_ingress_spec_rule.additionalData);
     }
 }
 /**
@@ -12643,8 +14523,8 @@ export function serializeApp_ingress_spec_rule(writer, app_ingress_spec_rule = {
 // @ts-ignore
 export function serializeApp_ingress_spec_rule_match(writer, app_ingress_spec_rule_match = {}) {
     if (app_ingress_spec_rule_match) {
-        writer.writeObjectValue("path", app_ingress_spec_rule_match.path, serializeApp_ingress_spec_rule_string_match);
-        writer.writeAdditionalData(app_ingress_spec_rule_match.additionalData);
+        writer.writeObjectValue("authority", app_ingress_spec_rule_match.authority, serializeApp_ingress_spec_rule_string_match_exact);
+        writer.writeObjectValue("path", app_ingress_spec_rule_match.path, serializeApp_ingress_spec_rule_string_match_prefix);
     }
 }
 /**
@@ -12657,7 +14537,6 @@ export function serializeApp_ingress_spec_rule_routing_component(writer, app_ing
         writer.writeStringValue("name", app_ingress_spec_rule_routing_component.name);
         writer.writeStringValue("preserve_path_prefix", app_ingress_spec_rule_routing_component.preservePathPrefix);
         writer.writeStringValue("rewrite", app_ingress_spec_rule_routing_component.rewrite);
-        writer.writeAdditionalData(app_ingress_spec_rule_routing_component.additionalData);
     }
 }
 /**
@@ -12672,7 +14551,6 @@ export function serializeApp_ingress_spec_rule_routing_redirect(writer, app_ingr
         writer.writeNumberValue("redirect_code", app_ingress_spec_rule_routing_redirect.redirectCode);
         writer.writeStringValue("scheme", app_ingress_spec_rule_routing_redirect.scheme);
         writer.writeStringValue("uri", app_ingress_spec_rule_routing_redirect.uri);
-        writer.writeAdditionalData(app_ingress_spec_rule_routing_redirect.additionalData);
     }
 }
 /**
@@ -12680,10 +14558,42 @@ export function serializeApp_ingress_spec_rule_routing_redirect(writer, app_ingr
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApp_ingress_spec_rule_string_match(writer, app_ingress_spec_rule_string_match = {}) {
-    if (app_ingress_spec_rule_string_match) {
-        writer.writeStringValue("prefix", app_ingress_spec_rule_string_match.prefix);
-        writer.writeAdditionalData(app_ingress_spec_rule_string_match.additionalData);
+export function serializeApp_ingress_spec_rule_string_match_exact(writer, app_ingress_spec_rule_string_match_exact = {}) {
+    if (app_ingress_spec_rule_string_match_exact) {
+        writer.writeStringValue("exact", app_ingress_spec_rule_string_match_exact.exact);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_ingress_spec_rule_string_match_prefix(writer, app_ingress_spec_rule_string_match_prefix = {}) {
+    if (app_ingress_spec_rule_string_match_prefix) {
+        writer.writeStringValue("prefix", app_ingress_spec_rule_string_match_prefix.prefix);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_instance(writer, app_instance = {}) {
+    if (app_instance) {
+        writer.writeStringValue("component_name", app_instance.componentName);
+        writer.writeEnumValue("component_type", app_instance.componentType);
+        writer.writeStringValue("instance_alias", app_instance.instanceAlias);
+        writer.writeStringValue("instance_name", app_instance.instanceName);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_instances(writer, app_instances = {}) {
+    if (app_instances) {
+        writer.writeCollectionOfObjectValues("instances", app_instances.instances, serializeApp_instance);
     }
 }
 /**
@@ -12713,7 +14623,6 @@ export function serializeApp_job_spec(writer, app_job_spec = {}) {
         writer.writeStringValue("run_command", app_job_spec.runCommand);
         writer.writeStringValue("source_dir", app_job_spec.sourceDir);
         writer.writeObjectValue("termination", app_job_spec.termination, serializeApp_job_spec_termination);
-        writer.writeAdditionalData(app_job_spec.additionalData);
     }
 }
 /**
@@ -12726,7 +14635,6 @@ export function serializeApp_job_spec_autoscaling(writer, app_job_spec_autoscali
         writer.writeNumberValue("max_instance_count", app_job_spec_autoscaling.maxInstanceCount);
         writer.writeObjectValue("metrics", app_job_spec_autoscaling.metrics, serializeApp_job_spec_autoscaling_metrics);
         writer.writeNumberValue("min_instance_count", app_job_spec_autoscaling.minInstanceCount);
-        writer.writeAdditionalData(app_job_spec_autoscaling.additionalData);
     }
 }
 /**
@@ -12737,7 +14645,6 @@ export function serializeApp_job_spec_autoscaling(writer, app_job_spec_autoscali
 export function serializeApp_job_spec_autoscaling_metrics(writer, app_job_spec_autoscaling_metrics = {}) {
     if (app_job_spec_autoscaling_metrics) {
         writer.writeObjectValue("cpu", app_job_spec_autoscaling_metrics.cpu, serializeApp_job_spec_autoscaling_metrics_cpu);
-        writer.writeAdditionalData(app_job_spec_autoscaling_metrics.additionalData);
     }
 }
 /**
@@ -12748,7 +14655,6 @@ export function serializeApp_job_spec_autoscaling_metrics(writer, app_job_spec_a
 export function serializeApp_job_spec_autoscaling_metrics_cpu(writer, app_job_spec_autoscaling_metrics_cpu = {}) {
     if (app_job_spec_autoscaling_metrics_cpu) {
         writer.writeNumberValue("percent", app_job_spec_autoscaling_metrics_cpu.percent);
-        writer.writeAdditionalData(app_job_spec_autoscaling_metrics_cpu.additionalData);
     }
 }
 /**
@@ -12772,7 +14678,6 @@ export function serializeApp_job_spec_instance_size_slug(writer, key, app_job_sp
 export function serializeApp_job_spec_termination(writer, app_job_spec_termination = {}) {
     if (app_job_spec_termination) {
         writer.writeNumberValue("grace_period_seconds", app_job_spec_termination.gracePeriodSeconds);
-        writer.writeAdditionalData(app_job_spec_termination.additionalData);
     }
 }
 /**
@@ -12784,7 +14689,6 @@ export function serializeApp_log_destination_datadog_spec(writer, app_log_destin
     if (app_log_destination_datadog_spec) {
         writer.writeStringValue("api_key", app_log_destination_datadog_spec.apiKey);
         writer.writeStringValue("endpoint", app_log_destination_datadog_spec.endpoint);
-        writer.writeAdditionalData(app_log_destination_datadog_spec.additionalData);
     }
 }
 /**
@@ -12799,7 +14703,6 @@ export function serializeApp_log_destination_definition(writer, app_log_destinat
         writer.writeStringValue("name", app_log_destination_definition.name);
         writer.writeObjectValue("open_search", app_log_destination_definition.openSearch, serializeApp_log_destination_open_search_spec);
         writer.writeObjectValue("papertrail", app_log_destination_definition.papertrail, serializeApp_log_destination_papertrail_spec);
-        writer.writeAdditionalData(app_log_destination_definition.additionalData);
     }
 }
 /**
@@ -12810,7 +14713,6 @@ export function serializeApp_log_destination_definition(writer, app_log_destinat
 export function serializeApp_log_destination_logtail_spec(writer, app_log_destination_logtail_spec = {}) {
     if (app_log_destination_logtail_spec) {
         writer.writeStringValue("token", app_log_destination_logtail_spec.token);
-        writer.writeAdditionalData(app_log_destination_logtail_spec.additionalData);
     }
 }
 /**
@@ -12824,7 +14726,6 @@ export function serializeApp_log_destination_open_search_spec(writer, app_log_de
         writer.writeStringValue("cluster_name", app_log_destination_open_search_spec.clusterName);
         writer.writeStringValue("endpoint", app_log_destination_open_search_spec.endpoint);
         writer.writeStringValue("index_name", app_log_destination_open_search_spec.indexName ?? "logs");
-        writer.writeAdditionalData(app_log_destination_open_search_spec.additionalData);
     }
 }
 /**
@@ -12836,7 +14737,6 @@ export function serializeApp_log_destination_open_search_spec_basic_auth(writer,
     if (app_log_destination_open_search_spec_basic_auth) {
         writer.writeObjectValue("password", app_log_destination_open_search_spec_basic_auth.password);
         writer.writeStringValue("user", app_log_destination_open_search_spec_basic_auth.user);
-        writer.writeAdditionalData(app_log_destination_open_search_spec_basic_auth.additionalData);
     }
 }
 /**
@@ -12847,7 +14747,6 @@ export function serializeApp_log_destination_open_search_spec_basic_auth(writer,
 export function serializeApp_log_destination_papertrail_spec(writer, app_log_destination_papertrail_spec = {}) {
     if (app_log_destination_papertrail_spec) {
         writer.writeStringValue("endpoint", app_log_destination_papertrail_spec.endpoint);
-        writer.writeAdditionalData(app_log_destination_papertrail_spec.additionalData);
     }
 }
 /**
@@ -12860,7 +14759,6 @@ export function serializeApp_maintenance_spec(writer, app_maintenance_spec = {})
         writer.writeBooleanValue("archive", app_maintenance_spec.archive);
         writer.writeBooleanValue("enabled", app_maintenance_spec.enabled);
         writer.writeStringValue("offline_page_url", app_maintenance_spec.offlinePageUrl);
-        writer.writeAdditionalData(app_maintenance_spec.additionalData);
     }
 }
 /**
@@ -12872,7 +14770,6 @@ export function serializeApp_metrics_bandwidth_usage(writer, app_metrics_bandwid
     if (app_metrics_bandwidth_usage) {
         writer.writeCollectionOfObjectValues("app_bandwidth_usage", app_metrics_bandwidth_usage.appBandwidthUsage, serializeApp_metrics_bandwidth_usage_details);
         writer.writeDateValue("date", app_metrics_bandwidth_usage.date);
-        writer.writeAdditionalData(app_metrics_bandwidth_usage.additionalData);
     }
 }
 /**
@@ -12884,7 +14781,6 @@ export function serializeApp_metrics_bandwidth_usage_details(writer, app_metrics
     if (app_metrics_bandwidth_usage_details) {
         writer.writeStringValue("app_id", app_metrics_bandwidth_usage_details.appId);
         writer.writeStringValue("bandwidth_bytes", app_metrics_bandwidth_usage_details.bandwidthBytes);
-        writer.writeAdditionalData(app_metrics_bandwidth_usage_details.additionalData);
     }
 }
 /**
@@ -12896,7 +14792,6 @@ export function serializeApp_metrics_bandwidth_usage_request(writer, app_metrics
     if (app_metrics_bandwidth_usage_request) {
         writer.writeCollectionOfPrimitiveValues("app_ids", app_metrics_bandwidth_usage_request.appIds);
         writer.writeDateValue("date", app_metrics_bandwidth_usage_request.date);
-        writer.writeAdditionalData(app_metrics_bandwidth_usage_request.additionalData);
     }
 }
 /**
@@ -12908,7 +14803,6 @@ export function serializeApp_propose(writer, app_propose = {}) {
     if (app_propose) {
         writer.writeStringValue("app_id", app_propose.appId);
         writer.writeObjectValue("spec", app_propose.spec, serializeApp_spec);
-        writer.writeAdditionalData(app_propose.additionalData);
     }
 }
 /**
@@ -12925,7 +14819,6 @@ export function serializeApp_propose_response(writer, app_propose_response = {})
         writer.writeNumberValue("app_tier_downgrade_cost", app_propose_response.appTierDowngradeCost);
         writer.writeStringValue("existing_static_apps", app_propose_response.existingStaticApps);
         writer.writeObjectValue("spec", app_propose_response.spec, serializeApp_spec);
-        writer.writeAdditionalData(app_propose_response.additionalData);
     }
 }
 /**
@@ -12936,7 +14829,6 @@ export function serializeApp_propose_response(writer, app_propose_response = {})
 export function serializeApp_response(writer, app_response = {}) {
     if (app_response) {
         writer.writeObjectValue("app", app_response.app, serializeApp);
-        writer.writeAdditionalData(app_response.additionalData);
     }
 }
 /**
@@ -12949,7 +14841,6 @@ export function serializeApp_rollback_validation_condition(writer, app_rollback_
         writer.writeEnumValue("code", app_rollback_validation_condition.code);
         writer.writeCollectionOfPrimitiveValues("components", app_rollback_validation_condition.components);
         writer.writeStringValue("message", app_rollback_validation_condition.message);
-        writer.writeAdditionalData(app_rollback_validation_condition.additionalData);
     }
 }
 /**
@@ -12961,7 +14852,6 @@ export function serializeApp_route_spec(writer, app_route_spec = {}) {
     if (app_route_spec) {
         writer.writeStringValue("path", app_route_spec.path);
         writer.writeBooleanValue("preserve_path_prefix", app_route_spec.preservePathPrefix);
-        writer.writeAdditionalData(app_route_spec.additionalData);
     }
 }
 /**
@@ -12989,6 +14879,7 @@ export function serializeApp_service_spec(writer, app_service_spec = {}) {
             writer.writeStringValue("instance_size_slug", app_service_spec.instanceSizeSlug);
         }
         writer.writeCollectionOfPrimitiveValues("internal_ports", app_service_spec.internalPorts);
+        writer.writeObjectValue("liveness_health_check", app_service_spec.livenessHealthCheck, serializeApp_health_check_spec);
         writer.writeCollectionOfObjectValues("log_destinations", app_service_spec.logDestinations, serializeApp_log_destination_definition);
         writer.writeStringValue("name", app_service_spec.name);
         writer.writeEnumValue("protocol", app_service_spec.protocol);
@@ -12996,7 +14887,6 @@ export function serializeApp_service_spec(writer, app_service_spec = {}) {
         writer.writeStringValue("run_command", app_service_spec.runCommand);
         writer.writeStringValue("source_dir", app_service_spec.sourceDir);
         writer.writeObjectValue("termination", app_service_spec.termination, serializeApp_service_spec_termination);
-        writer.writeAdditionalData(app_service_spec.additionalData);
     }
 }
 /**
@@ -13009,7 +14899,6 @@ export function serializeApp_service_spec_autoscaling(writer, app_service_spec_a
         writer.writeNumberValue("max_instance_count", app_service_spec_autoscaling.maxInstanceCount);
         writer.writeObjectValue("metrics", app_service_spec_autoscaling.metrics, serializeApp_service_spec_autoscaling_metrics);
         writer.writeNumberValue("min_instance_count", app_service_spec_autoscaling.minInstanceCount);
-        writer.writeAdditionalData(app_service_spec_autoscaling.additionalData);
     }
 }
 /**
@@ -13020,7 +14909,6 @@ export function serializeApp_service_spec_autoscaling(writer, app_service_spec_a
 export function serializeApp_service_spec_autoscaling_metrics(writer, app_service_spec_autoscaling_metrics = {}) {
     if (app_service_spec_autoscaling_metrics) {
         writer.writeObjectValue("cpu", app_service_spec_autoscaling_metrics.cpu, serializeApp_service_spec_autoscaling_metrics_cpu);
-        writer.writeAdditionalData(app_service_spec_autoscaling_metrics.additionalData);
     }
 }
 /**
@@ -13031,7 +14919,6 @@ export function serializeApp_service_spec_autoscaling_metrics(writer, app_servic
 export function serializeApp_service_spec_autoscaling_metrics_cpu(writer, app_service_spec_autoscaling_metrics_cpu = {}) {
     if (app_service_spec_autoscaling_metrics_cpu) {
         writer.writeNumberValue("percent", app_service_spec_autoscaling_metrics_cpu.percent);
-        writer.writeAdditionalData(app_service_spec_autoscaling_metrics_cpu.additionalData);
     }
 }
 /**
@@ -13048,7 +14935,6 @@ export function serializeApp_service_spec_health_check(writer, app_service_spec_
         writer.writeNumberValue("port", app_service_spec_health_check.port);
         writer.writeNumberValue("success_threshold", app_service_spec_health_check.successThreshold);
         writer.writeNumberValue("timeout_seconds", app_service_spec_health_check.timeoutSeconds);
-        writer.writeAdditionalData(app_service_spec_health_check.additionalData);
     }
 }
 /**
@@ -13073,7 +14959,6 @@ export function serializeApp_service_spec_termination(writer, app_service_spec_t
     if (app_service_spec_termination) {
         writer.writeNumberValue("drain_seconds", app_service_spec_termination.drainSeconds);
         writer.writeNumberValue("grace_period_seconds", app_service_spec_termination.gracePeriodSeconds);
-        writer.writeAdditionalData(app_service_spec_termination.additionalData);
     }
 }
 /**
@@ -13095,7 +14980,6 @@ export function serializeApp_spec(writer, app_spec = {}) {
         writer.writeCollectionOfObjectValues("services", app_spec.services, serializeApp_service_spec);
         writer.writeCollectionOfObjectValues("static_sites", app_spec.staticSites, serializeApp_static_site_spec);
         writer.writeCollectionOfObjectValues("workers", app_spec.workers, serializeApp_worker_spec);
-        writer.writeAdditionalData(app_spec.additionalData);
     }
 }
 /**
@@ -13125,7 +15009,6 @@ export function serializeApp_variable_definition(writer, app_variable_definition
         writer.writeEnumValue("scope", app_variable_definition.scope ?? App_variable_definition_scopeObject.RUN_AND_BUILD_TIME);
         writer.writeEnumValue("type", app_variable_definition.type ?? App_variable_definition_typeObject.GENERAL);
         writer.writeStringValue("value", app_variable_definition.value);
-        writer.writeAdditionalData(app_variable_definition.additionalData);
     }
 }
 /**
@@ -13149,12 +15032,12 @@ export function serializeApp_worker_spec(writer, app_worker_spec = {}) {
         if (typeof app_worker_spec.instanceSizeSlug === "string") {
             writer.writeStringValue("instance_size_slug", app_worker_spec.instanceSizeSlug);
         }
+        writer.writeObjectValue("liveness_health_check", app_worker_spec.livenessHealthCheck, serializeApp_health_check_spec);
         writer.writeCollectionOfObjectValues("log_destinations", app_worker_spec.logDestinations, serializeApp_log_destination_definition);
         writer.writeStringValue("name", app_worker_spec.name);
         writer.writeStringValue("run_command", app_worker_spec.runCommand);
         writer.writeStringValue("source_dir", app_worker_spec.sourceDir);
         writer.writeObjectValue("termination", app_worker_spec.termination, serializeApp_worker_spec_termination);
-        writer.writeAdditionalData(app_worker_spec.additionalData);
     }
 }
 /**
@@ -13167,7 +15050,6 @@ export function serializeApp_worker_spec_autoscaling(writer, app_worker_spec_aut
         writer.writeNumberValue("max_instance_count", app_worker_spec_autoscaling.maxInstanceCount);
         writer.writeObjectValue("metrics", app_worker_spec_autoscaling.metrics, serializeApp_worker_spec_autoscaling_metrics);
         writer.writeNumberValue("min_instance_count", app_worker_spec_autoscaling.minInstanceCount);
-        writer.writeAdditionalData(app_worker_spec_autoscaling.additionalData);
     }
 }
 /**
@@ -13178,7 +15060,6 @@ export function serializeApp_worker_spec_autoscaling(writer, app_worker_spec_aut
 export function serializeApp_worker_spec_autoscaling_metrics(writer, app_worker_spec_autoscaling_metrics = {}) {
     if (app_worker_spec_autoscaling_metrics) {
         writer.writeObjectValue("cpu", app_worker_spec_autoscaling_metrics.cpu, serializeApp_worker_spec_autoscaling_metrics_cpu);
-        writer.writeAdditionalData(app_worker_spec_autoscaling_metrics.additionalData);
     }
 }
 /**
@@ -13189,7 +15070,6 @@ export function serializeApp_worker_spec_autoscaling_metrics(writer, app_worker_
 export function serializeApp_worker_spec_autoscaling_metrics_cpu(writer, app_worker_spec_autoscaling_metrics_cpu = {}) {
     if (app_worker_spec_autoscaling_metrics_cpu) {
         writer.writeNumberValue("percent", app_worker_spec_autoscaling_metrics_cpu.percent);
-        writer.writeAdditionalData(app_worker_spec_autoscaling_metrics_cpu.additionalData);
     }
 }
 /**
@@ -13213,7 +15093,6 @@ export function serializeApp_worker_spec_instance_size_slug(writer, key, app_wor
 export function serializeApp_worker_spec_termination(writer, app_worker_spec_termination = {}) {
     if (app_worker_spec_termination) {
         writer.writeNumberValue("grace_period_seconds", app_worker_spec_termination.gracePeriodSeconds);
-        writer.writeAdditionalData(app_worker_spec_termination.additionalData);
     }
 }
 /**
@@ -13224,7 +15103,6 @@ export function serializeApp_worker_spec_termination(writer, app_worker_spec_ter
 export function serializeApps_alert_response(writer, apps_alert_response = {}) {
     if (apps_alert_response) {
         writer.writeObjectValue("alert", apps_alert_response.alert, serializeApp_alert);
-        writer.writeAdditionalData(apps_alert_response.additionalData);
     }
 }
 /**
@@ -13236,7 +15114,6 @@ export function serializeApps_assign_app_alert_destinations_request(writer, apps
     if (apps_assign_app_alert_destinations_request) {
         writer.writeCollectionOfPrimitiveValues("emails", apps_assign_app_alert_destinations_request.emails);
         writer.writeCollectionOfObjectValues("slack_webhooks", apps_assign_app_alert_destinations_request.slackWebhooks, serializeApp_alert_slack_webhook);
-        writer.writeAdditionalData(apps_assign_app_alert_destinations_request.additionalData);
     }
 }
 /**
@@ -13249,7 +15126,6 @@ export function serializeApps_bitbucket_source_spec(writer, apps_bitbucket_sourc
         writer.writeStringValue("branch", apps_bitbucket_source_spec.branch);
         writer.writeBooleanValue("deploy_on_push", apps_bitbucket_source_spec.deployOnPush);
         writer.writeStringValue("repo", apps_bitbucket_source_spec.repo);
-        writer.writeAdditionalData(apps_bitbucket_source_spec.additionalData);
     }
 }
 /**
@@ -13265,7 +15141,6 @@ export function serializeApps_cors_policy(writer, apps_cors_policy = {}) {
         writer.writeCollectionOfObjectValues("allow_origins", apps_cors_policy.allowOrigins, serializeApps_string_match);
         writer.writeCollectionOfPrimitiveValues("expose_headers", apps_cors_policy.exposeHeaders);
         writer.writeStringValue("max_age", apps_cors_policy.maxAge);
-        writer.writeAdditionalData(apps_cors_policy.additionalData);
     }
 }
 /**
@@ -13277,7 +15152,6 @@ export function serializeApps_create_app_request(writer, apps_create_app_request
     if (apps_create_app_request) {
         writer.writeStringValue("project_id", apps_create_app_request.projectId);
         writer.writeObjectValue("spec", apps_create_app_request.spec, serializeApp_spec);
-        writer.writeAdditionalData(apps_create_app_request.additionalData);
     }
 }
 /**
@@ -13288,7 +15162,6 @@ export function serializeApps_create_app_request(writer, apps_create_app_request
 export function serializeApps_create_deployment_request(writer, apps_create_deployment_request = {}) {
     if (apps_create_deployment_request) {
         writer.writeBooleanValue("force_build", apps_create_deployment_request.forceBuild);
-        writer.writeAdditionalData(apps_create_deployment_request.additionalData);
     }
 }
 /**
@@ -13300,7 +15173,6 @@ export function serializeApps_dedicated_egress_ip(writer, apps_dedicated_egress_
     if (apps_dedicated_egress_ip) {
         writer.writeStringValue("id", apps_dedicated_egress_ip.id);
         writer.writeStringValue("ip", apps_dedicated_egress_ip.ip);
-        writer.writeAdditionalData(apps_dedicated_egress_ip.additionalData);
     }
 }
 /**
@@ -13311,7 +15183,6 @@ export function serializeApps_dedicated_egress_ip(writer, apps_dedicated_egress_
 export function serializeApps_delete_app_response(writer, apps_delete_app_response = {}) {
     if (apps_delete_app_response) {
         writer.writeStringValue("id", apps_delete_app_response.id);
-        writer.writeAdditionalData(apps_delete_app_response.additionalData);
     }
 }
 /**
@@ -13335,7 +15206,6 @@ export function serializeApps_deployment(writer, apps_deployment = {}) {
         writer.writeCollectionOfObjectValues("static_sites", apps_deployment.staticSites, serializeApps_deployment_static_site);
         writer.writeDateValue("updated_at", apps_deployment.updatedAt);
         writer.writeCollectionOfObjectValues("workers", apps_deployment.workers, serializeApps_deployment_worker);
-        writer.writeAdditionalData(apps_deployment.additionalData);
     }
 }
 /**
@@ -13348,7 +15218,6 @@ export function serializeApps_deployment_functions(writer, apps_deployment_funct
         writer.writeStringValue("name", apps_deployment_functions.name);
         writer.writeStringValue("namespace", apps_deployment_functions.namespace);
         writer.writeStringValue("source_commit_hash", apps_deployment_functions.sourceCommitHash);
-        writer.writeAdditionalData(apps_deployment_functions.additionalData);
     }
 }
 /**
@@ -13360,7 +15229,6 @@ export function serializeApps_deployment_job(writer, apps_deployment_job = {}) {
     if (apps_deployment_job) {
         writer.writeStringValue("name", apps_deployment_job.name);
         writer.writeStringValue("source_commit_hash", apps_deployment_job.sourceCommitHash);
-        writer.writeAdditionalData(apps_deployment_job.additionalData);
     }
 }
 /**
@@ -13377,7 +15245,6 @@ export function serializeApps_deployment_progress(writer, apps_deployment_progre
         writer.writeNumberValue("success_steps", apps_deployment_progress.successSteps);
         writer.writeCollectionOfObjectValues("summary_steps", apps_deployment_progress.summarySteps, serializeApps_deployment_progress_step);
         writer.writeNumberValue("total_steps", apps_deployment_progress.totalSteps);
-        writer.writeAdditionalData(apps_deployment_progress.additionalData);
     }
 }
 /**
@@ -13395,7 +15262,6 @@ export function serializeApps_deployment_progress_step(writer, apps_deployment_p
         writer.writeDateValue("started_at", apps_deployment_progress_step.startedAt);
         writer.writeEnumValue("status", apps_deployment_progress_step.status ?? Apps_deployment_progress_step_statusObject.UNKNOWN);
         writer.writeCollectionOfObjectValues("steps", apps_deployment_progress_step.steps, serializeApps_deployment_progress_step_steps);
-        writer.writeAdditionalData(apps_deployment_progress_step.additionalData);
     }
 }
 /**
@@ -13407,7 +15273,6 @@ export function serializeApps_deployment_progress_step_reason(writer, apps_deplo
     if (apps_deployment_progress_step_reason) {
         writer.writeStringValue("code", apps_deployment_progress_step_reason.code);
         writer.writeStringValue("message", apps_deployment_progress_step_reason.message);
-        writer.writeAdditionalData(apps_deployment_progress_step_reason.additionalData);
     }
 }
 /**
@@ -13417,7 +15282,6 @@ export function serializeApps_deployment_progress_step_reason(writer, apps_deplo
 // @ts-ignore
 export function serializeApps_deployment_progress_step_steps(writer, apps_deployment_progress_step_steps = {}) {
     if (apps_deployment_progress_step_steps) {
-        writer.writeAdditionalData(apps_deployment_progress_step_steps.additionalData);
     }
 }
 /**
@@ -13428,7 +15292,6 @@ export function serializeApps_deployment_progress_step_steps(writer, apps_deploy
 export function serializeApps_deployment_response(writer, apps_deployment_response = {}) {
     if (apps_deployment_response) {
         writer.writeObjectValue("deployment", apps_deployment_response.deployment, serializeApps_deployment);
-        writer.writeAdditionalData(apps_deployment_response.additionalData);
     }
 }
 /**
@@ -13440,7 +15303,6 @@ export function serializeApps_deployment_service(writer, apps_deployment_service
     if (apps_deployment_service) {
         writer.writeStringValue("name", apps_deployment_service.name);
         writer.writeStringValue("source_commit_hash", apps_deployment_service.sourceCommitHash);
-        writer.writeAdditionalData(apps_deployment_service.additionalData);
     }
 }
 /**
@@ -13452,7 +15314,6 @@ export function serializeApps_deployment_static_site(writer, apps_deployment_sta
     if (apps_deployment_static_site) {
         writer.writeStringValue("name", apps_deployment_static_site.name);
         writer.writeStringValue("source_commit_hash", apps_deployment_static_site.sourceCommitHash);
-        writer.writeAdditionalData(apps_deployment_static_site.additionalData);
     }
 }
 /**
@@ -13464,7 +15325,6 @@ export function serializeApps_deployment_worker(writer, apps_deployment_worker =
     if (apps_deployment_worker) {
         writer.writeStringValue("name", apps_deployment_worker.name);
         writer.writeStringValue("source_commit_hash", apps_deployment_worker.sourceCommitHash);
-        writer.writeAdditionalData(apps_deployment_worker.additionalData);
     }
 }
 /**
@@ -13477,7 +15337,6 @@ export function serializeApps_deployments_response(writer, apps_deployments_resp
         writer.writeCollectionOfObjectValues("deployments", apps_deployments_response.deployments, serializeApps_deployment);
         writer.writeObjectValue("links", apps_deployments_response.links, serializePage_links);
         writer.writeObjectValue("meta", apps_deployments_response.meta, serializeMeta_properties);
-        writer.writeAdditionalData(apps_deployments_response.additionalData);
     }
 }
 /**
@@ -13492,7 +15351,6 @@ export function serializeApps_domain(writer, apps_domain = {}) {
         writer.writeObjectValue("progress", apps_domain.progress, serializeApps_domain_progress);
         writer.writeObjectValue("spec", apps_domain.spec, serializeApp_domain_spec);
         writer.writeCollectionOfObjectValues("validations", apps_domain.validations, serializeApp_domain_validation);
-        writer.writeAdditionalData(apps_domain.additionalData);
     }
 }
 /**
@@ -13503,7 +15361,6 @@ export function serializeApps_domain(writer, apps_domain = {}) {
 export function serializeApps_domain_progress(writer, apps_domain_progress = {}) {
     if (apps_domain_progress) {
         writer.writeCollectionOfObjectValues("steps", apps_domain_progress.steps, serializeApps_domain_progress_steps);
-        writer.writeAdditionalData(apps_domain_progress.additionalData);
     }
 }
 /**
@@ -13513,7 +15370,6 @@ export function serializeApps_domain_progress(writer, apps_domain_progress = {})
 // @ts-ignore
 export function serializeApps_domain_progress_steps(writer, apps_domain_progress_steps = {}) {
     if (apps_domain_progress_steps) {
-        writer.writeAdditionalData(apps_domain_progress_steps.additionalData);
     }
 }
 /**
@@ -13524,7 +15380,6 @@ export function serializeApps_domain_progress_steps(writer, apps_domain_progress
 export function serializeApps_get_exec_response(writer, apps_get_exec_response = {}) {
     if (apps_get_exec_response) {
         writer.writeStringValue("url", apps_get_exec_response.url);
-        writer.writeAdditionalData(apps_get_exec_response.additionalData);
     }
 }
 /**
@@ -13535,7 +15390,6 @@ export function serializeApps_get_exec_response(writer, apps_get_exec_response =
 export function serializeApps_get_instance_size_response(writer, apps_get_instance_size_response = {}) {
     if (apps_get_instance_size_response) {
         writer.writeObjectValue("instance_size", apps_get_instance_size_response.instanceSize, serializeApps_instance_size);
-        writer.writeAdditionalData(apps_get_instance_size_response.additionalData);
     }
 }
 /**
@@ -13547,7 +15401,6 @@ export function serializeApps_get_logs_response(writer, apps_get_logs_response =
     if (apps_get_logs_response) {
         writer.writeCollectionOfPrimitiveValues("historic_urls", apps_get_logs_response.historicUrls);
         writer.writeStringValue("live_url", apps_get_logs_response.liveUrl);
-        writer.writeAdditionalData(apps_get_logs_response.additionalData);
     }
 }
 /**
@@ -13559,7 +15412,6 @@ export function serializeApps_git_source_spec(writer, apps_git_source_spec = {})
     if (apps_git_source_spec) {
         writer.writeStringValue("branch", apps_git_source_spec.branch);
         writer.writeStringValue("repo_clone_url", apps_git_source_spec.repoCloneUrl);
-        writer.writeAdditionalData(apps_git_source_spec.additionalData);
     }
 }
 /**
@@ -13572,7 +15424,6 @@ export function serializeApps_github_source_spec(writer, apps_github_source_spec
         writer.writeStringValue("branch", apps_github_source_spec.branch);
         writer.writeBooleanValue("deploy_on_push", apps_github_source_spec.deployOnPush);
         writer.writeStringValue("repo", apps_github_source_spec.repo);
-        writer.writeAdditionalData(apps_github_source_spec.additionalData);
     }
 }
 /**
@@ -13585,7 +15436,6 @@ export function serializeApps_gitlab_source_spec(writer, apps_gitlab_source_spec
         writer.writeStringValue("branch", apps_gitlab_source_spec.branch);
         writer.writeBooleanValue("deploy_on_push", apps_gitlab_source_spec.deployOnPush);
         writer.writeStringValue("repo", apps_gitlab_source_spec.repo);
-        writer.writeAdditionalData(apps_gitlab_source_spec.additionalData);
     }
 }
 /**
@@ -13602,7 +15452,6 @@ export function serializeApps_image_source_spec(writer, apps_image_source_spec =
         writer.writeEnumValue("registry_type", apps_image_source_spec.registryType);
         writer.writeStringValue("repository", apps_image_source_spec.repository);
         writer.writeStringValue("tag", apps_image_source_spec.tag ?? "latest");
-        writer.writeAdditionalData(apps_image_source_spec.additionalData);
     }
 }
 /**
@@ -13613,7 +15462,6 @@ export function serializeApps_image_source_spec(writer, apps_image_source_spec =
 export function serializeApps_image_source_spec_deploy_on_push(writer, apps_image_source_spec_deploy_on_push = {}) {
     if (apps_image_source_spec_deploy_on_push) {
         writer.writeBooleanValue("enabled", apps_image_source_spec_deploy_on_push.enabled);
-        writer.writeAdditionalData(apps_image_source_spec_deploy_on_push.additionalData);
     }
 }
 /**
@@ -13637,7 +15485,6 @@ export function serializeApps_instance_size(writer, apps_instance_size = {}) {
         writer.writeStringValue("tier_upgrade_to", apps_instance_size.tierUpgradeTo);
         writer.writeStringValue("usd_per_month", apps_instance_size.usdPerMonth);
         writer.writeStringValue("usd_per_second", apps_instance_size.usdPerSecond);
-        writer.writeAdditionalData(apps_instance_size.additionalData);
     }
 }
 /**
@@ -13648,7 +15495,6 @@ export function serializeApps_instance_size(writer, apps_instance_size = {}) {
 export function serializeApps_list_alerts_response(writer, apps_list_alerts_response = {}) {
     if (apps_list_alerts_response) {
         writer.writeCollectionOfObjectValues("alerts", apps_list_alerts_response.alerts, serializeApp_alert);
-        writer.writeAdditionalData(apps_list_alerts_response.additionalData);
     }
 }
 /**
@@ -13660,7 +15506,6 @@ export function serializeApps_list_instance_sizes_response(writer, apps_list_ins
     if (apps_list_instance_sizes_response) {
         writer.writeNumberValue("discount_percent", apps_list_instance_sizes_response.discountPercent);
         writer.writeCollectionOfObjectValues("instance_sizes", apps_list_instance_sizes_response.instanceSizes, serializeApps_instance_size);
-        writer.writeAdditionalData(apps_list_instance_sizes_response.additionalData);
     }
 }
 /**
@@ -13671,7 +15516,6 @@ export function serializeApps_list_instance_sizes_response(writer, apps_list_ins
 export function serializeApps_list_regions_response(writer, apps_list_regions_response = {}) {
     if (apps_list_regions_response) {
         writer.writeCollectionOfObjectValues("regions", apps_list_regions_response.regions, serializeApps_region);
-        writer.writeAdditionalData(apps_list_regions_response.additionalData);
     }
 }
 /**
@@ -13681,7 +15525,6 @@ export function serializeApps_list_regions_response(writer, apps_list_regions_re
 // @ts-ignore
 export function serializeApps_region(writer, apps_region = {}) {
     if (apps_region) {
-        writer.writeAdditionalData(apps_region.additionalData);
     }
 }
 /**
@@ -13694,7 +15537,6 @@ export function serializeApps_response(writer, apps_response = {}) {
         writer.writeCollectionOfObjectValues("apps", apps_response.apps, serializeApp);
         writer.writeObjectValue("links", apps_response.links, serializePage_links);
         writer.writeObjectValue("meta", apps_response.meta, serializeMeta_properties);
-        writer.writeAdditionalData(apps_response.additionalData);
     }
 }
 /**
@@ -13705,7 +15547,6 @@ export function serializeApps_response(writer, apps_response = {}) {
 export function serializeApps_restart_request(writer, apps_restart_request = {}) {
     if (apps_restart_request) {
         writer.writeCollectionOfPrimitiveValues("components", apps_restart_request.components);
-        writer.writeAdditionalData(apps_restart_request.additionalData);
     }
 }
 /**
@@ -13717,7 +15558,6 @@ export function serializeApps_rollback_app_request(writer, apps_rollback_app_req
     if (apps_rollback_app_request) {
         writer.writeStringValue("deployment_id", apps_rollback_app_request.deploymentId);
         writer.writeBooleanValue("skip_pin", apps_rollback_app_request.skipPin);
-        writer.writeAdditionalData(apps_rollback_app_request.additionalData);
     }
 }
 /**
@@ -13730,7 +15570,6 @@ export function serializeApps_string_match(writer, apps_string_match = {}) {
         writer.writeStringValue("exact", apps_string_match.exact);
         writer.writeStringValue("prefix", apps_string_match.prefix);
         writer.writeStringValue("regex", apps_string_match.regex);
-        writer.writeAdditionalData(apps_string_match.additionalData);
     }
 }
 /**
@@ -13742,7 +15581,6 @@ export function serializeApps_update_app_request(writer, apps_update_app_request
     if (apps_update_app_request) {
         writer.writeObjectValue("spec", apps_update_app_request.spec, serializeApp_spec);
         writer.writeBooleanValue("update_all_source_versions", apps_update_app_request.updateAllSourceVersions);
-        writer.writeAdditionalData(apps_update_app_request.additionalData);
     }
 }
 /**
@@ -13754,7 +15592,6 @@ export function serializeAssociated_kubernetes_resource(writer, associated_kuber
     if (associated_kubernetes_resource) {
         writer.writeStringValue("id", associated_kubernetes_resource.id);
         writer.writeStringValue("name", associated_kubernetes_resource.name);
-        writer.writeAdditionalData(associated_kubernetes_resource.additionalData);
     }
 }
 /**
@@ -13767,7 +15604,6 @@ export function serializeAssociated_kubernetes_resources(writer, associated_kube
         writer.writeCollectionOfObjectValues("load_balancers", associated_kubernetes_resources.loadBalancers, serializeAssociated_kubernetes_resource);
         writer.writeCollectionOfObjectValues("volumes", associated_kubernetes_resources.volumes, serializeAssociated_kubernetes_resource);
         writer.writeCollectionOfObjectValues("volume_snapshots", associated_kubernetes_resources.volumeSnapshots, serializeAssociated_kubernetes_resource);
-        writer.writeAdditionalData(associated_kubernetes_resources.additionalData);
     }
 }
 /**
@@ -13780,7 +15616,6 @@ export function serializeAssociated_resource(writer, associated_resource = {}) {
         writer.writeStringValue("cost", associated_resource.cost);
         writer.writeStringValue("id", associated_resource.id);
         writer.writeStringValue("name", associated_resource.name);
-        writer.writeAdditionalData(associated_resource.additionalData);
     }
 }
 /**
@@ -13794,7 +15629,6 @@ export function serializeAssociated_resource_status(writer, associated_resource_
         writer.writeObjectValue("droplet", associated_resource_status.droplet, serializeDestroyed_associated_resource);
         writer.writeNumberValue("failures", associated_resource_status.failures);
         writer.writeObjectValue("resources", associated_resource_status.resources, serializeAssociated_resource_status_resources);
-        writer.writeAdditionalData(associated_resource_status.additionalData);
     }
 }
 /**
@@ -13809,7 +15643,6 @@ export function serializeAssociated_resource_status_resources(writer, associated
         writer.writeCollectionOfObjectValues("snapshots", associated_resource_status_resources.snapshots, serializeDestroyed_associated_resource);
         writer.writeCollectionOfObjectValues("volumes", associated_resource_status_resources.volumes, serializeDestroyed_associated_resource);
         writer.writeCollectionOfObjectValues("volume_snapshots", associated_resource_status_resources.volumeSnapshots, serializeDestroyed_associated_resource);
-        writer.writeAdditionalData(associated_resource_status_resources.additionalData);
     }
 }
 /**
@@ -13828,7 +15661,6 @@ export function serializeAutoscale_pool(writer, autoscale_pool = {}) {
         writer.writeStringValue("name", autoscale_pool.name);
         writer.writeEnumValue("status", autoscale_pool.status);
         writer.writeDateValue("updated_at", autoscale_pool.updatedAt);
-        writer.writeAdditionalData(autoscale_pool.additionalData);
     }
 }
 /**
@@ -13850,7 +15682,6 @@ export function serializeAutoscale_pool_create(writer, autoscale_pool_create = {
         writer.writeObjectValue("config", autoscale_pool_create.config, serializeAutoscale_pool_create_config);
         writer.writeObjectValue("droplet_template", autoscale_pool_create.dropletTemplate, serializeAutoscale_pool_droplet_template);
         writer.writeStringValue("name", autoscale_pool_create.name);
-        writer.writeAdditionalData(autoscale_pool_create.additionalData);
     }
 }
 /**
@@ -13880,7 +15711,6 @@ export function serializeAutoscale_pool_droplet_template(writer, autoscale_pool_
         writer.writeStringValue("user_data", autoscale_pool_droplet_template.userData);
         writer.writeStringValue("vpc_uuid", autoscale_pool_droplet_template.vpcUuid);
         writer.writeBooleanValue("with_droplet_agent", autoscale_pool_droplet_template.withDropletAgent);
-        writer.writeAdditionalData(autoscale_pool_droplet_template.additionalData);
     }
 }
 /**
@@ -13895,7 +15725,6 @@ export function serializeAutoscale_pool_dynamic_config(writer, autoscale_pool_dy
         writer.writeNumberValue("min_instances", autoscale_pool_dynamic_config.minInstances);
         writer.writeNumberValue("target_cpu_utilization", autoscale_pool_dynamic_config.targetCpuUtilization);
         writer.writeNumberValue("target_memory_utilization", autoscale_pool_dynamic_config.targetMemoryUtilization);
-        writer.writeAdditionalData(autoscale_pool_dynamic_config.additionalData);
     }
 }
 /**
@@ -13906,7 +15735,6 @@ export function serializeAutoscale_pool_dynamic_config(writer, autoscale_pool_dy
 export function serializeAutoscale_pool_static_config(writer, autoscale_pool_static_config = {}) {
     if (autoscale_pool_static_config) {
         writer.writeNumberValue("target_number_instances", autoscale_pool_static_config.targetNumberInstances);
-        writer.writeAdditionalData(autoscale_pool_static_config.additionalData);
     }
 }
 /**
@@ -13918,7 +15746,6 @@ export function serializeBackup(writer, backup = {}) {
     if (backup) {
         writer.writeDateValue("created_at", backup.createdAt);
         writer.writeNumberValue("size_gigabytes", backup.sizeGigabytes);
-        writer.writeAdditionalData(backup.additionalData);
     }
 }
 /**
@@ -13930,7 +15757,6 @@ export function serializeBackward_links(writer, backward_links = {}) {
     if (backward_links) {
         writer.writeStringValue("first", backward_links.first);
         writer.writeStringValue("prev", backward_links.prev);
-        writer.writeAdditionalData(backward_links.additionalData);
     }
 }
 /**
@@ -13944,7 +15770,6 @@ export function serializeBalance(writer, balance = {}) {
         writer.writeDateValue("generated_at", balance.generatedAt);
         writer.writeStringValue("month_to_date_balance", balance.monthToDateBalance);
         writer.writeStringValue("month_to_date_usage", balance.monthToDateUsage);
-        writer.writeAdditionalData(balance.additionalData);
     }
 }
 /**
@@ -13962,7 +15787,6 @@ export function serializeBilling_address(writer, billing_address = {}) {
         writer.writeStringValue("postal_code", billing_address.postalCode);
         writer.writeStringValue("region", billing_address.region);
         writer.writeStringValue("updated_at", billing_address.updatedAt);
-        writer.writeAdditionalData(billing_address.additionalData);
     }
 }
 /**
@@ -13978,7 +15802,60 @@ export function serializeBilling_history(writer, billing_history = {}) {
         writer.writeStringValue("invoice_id", billing_history.invoiceId);
         writer.writeStringValue("invoice_uuid", billing_history.invoiceUuid);
         writer.writeEnumValue("type", billing_history.type);
-        writer.writeAdditionalData(billing_history.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeByoip_prefix(writer, byoip_prefix = {}) {
+    if (byoip_prefix) {
+        writer.writeStringValue("failure_reason", byoip_prefix.failureReason);
+        writer.writeStringValue("name", byoip_prefix.name);
+        writer.writeStringValue("prefix", byoip_prefix.prefix);
+        writer.writeStringValue("region", byoip_prefix.region);
+        writer.writeStringValue("status", byoip_prefix.status);
+        writer.writeStringValue("uuid", byoip_prefix.uuid);
+        writer.writeCollectionOfObjectValues("validations", byoip_prefix.validations, serializeByoip_prefix_validations);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeByoip_prefix_create(writer, byoip_prefix_create = {}) {
+    if (byoip_prefix_create) {
+        writer.writeStringValue("prefix", byoip_prefix_create.prefix);
+        writer.writeStringValue("region", byoip_prefix_create.region);
+        writer.writeStringValue("signature", byoip_prefix_create.signature);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeByoip_prefix_resource(writer, byoip_prefix_resource = {}) {
+    if (byoip_prefix_resource) {
+        writer.writeDateValue("assigned_at", byoip_prefix_resource.assignedAt);
+        writer.writeStringValue("byoip", byoip_prefix_resource.byoip);
+        writer.writeNumberValue("id", byoip_prefix_resource.id);
+        writer.writeStringValue("region", byoip_prefix_resource.region);
+        writer.writeStringValue("resource", byoip_prefix_resource.resource);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeByoip_prefix_validations(writer, byoip_prefix_validations = {}) {
+    if (byoip_prefix_validations) {
+        writer.writeStringValue("name", byoip_prefix_validations.name);
+        writer.writeStringValue("note", byoip_prefix_validations.note);
+        writer.writeStringValue("status", byoip_prefix_validations.status);
     }
 }
 /**
@@ -13988,7 +15865,6 @@ export function serializeBilling_history(writer, billing_history = {}) {
 // @ts-ignore
 export function serializeCa(writer, ca = {}) {
     if (ca) {
-        writer.writeAdditionalData(ca.additionalData);
     }
 }
 /**
@@ -14002,7 +15878,6 @@ export function serializeCdn_endpoint(writer, cdn_endpoint = {}) {
         writer.writeStringValue("custom_domain", cdn_endpoint.customDomain);
         writer.writeStringValue("origin", cdn_endpoint.origin);
         writer.writeNumberValue("ttl", cdn_endpoint.ttl);
-        writer.writeAdditionalData(cdn_endpoint.additionalData);
     }
 }
 /**
@@ -14015,7 +15890,6 @@ export function serializeCertificate(writer, certificate = {}) {
         writer.writeCollectionOfPrimitiveValues("dns_names", certificate.dnsNames);
         writer.writeStringValue("name", certificate.name);
         writer.writeEnumValue("type", certificate.type);
-        writer.writeAdditionalData(certificate.additionalData);
     }
 }
 /**
@@ -14027,7 +15901,6 @@ export function serializeCertificate_create_base(writer, certificate_create_base
     if (certificate_create_base) {
         writer.writeStringValue("name", certificate_create_base.name);
         writer.writeEnumValue("type", certificate_create_base.type);
-        writer.writeAdditionalData(certificate_create_base.additionalData);
     }
 }
 /**
@@ -14067,7 +15940,6 @@ export function serializeCheck(writer, check = {}) {
             writer.writeCollectionOfEnumValues("regions", check.regions);
         writer.writeStringValue("target", check.target);
         writer.writeEnumValue("type", check.type);
-        writer.writeAdditionalData(check.additionalData);
     }
 }
 /**
@@ -14083,7 +15955,6 @@ export function serializeCheck_updatable(writer, check_updatable = {}) {
             writer.writeCollectionOfEnumValues("regions", check_updatable.regions);
         writer.writeStringValue("target", check_updatable.target);
         writer.writeEnumValue("type", check_updatable.type);
-        writer.writeAdditionalData(check_updatable.additionalData);
     }
 }
 /**
@@ -14108,7 +15979,6 @@ export function serializeCluster(writer, cluster = {}) {
         writer.writeCollectionOfPrimitiveValues("tags", cluster.tags);
         writer.writeStringValue("version", cluster.version);
         writer.writeGuidValue("vpc_uuid", cluster.vpcUuid);
-        writer.writeAdditionalData(cluster.additionalData);
     }
 }
 /**
@@ -14118,9 +15988,10 @@ export function serializeCluster(writer, cluster = {}) {
 // @ts-ignore
 export function serializeCluster_autoscaler_configuration(writer, cluster_autoscaler_configuration = {}) {
     if (cluster_autoscaler_configuration) {
+        if (cluster_autoscaler_configuration.expanders)
+            writer.writeCollectionOfEnumValues("expanders", cluster_autoscaler_configuration.expanders);
         writer.writeStringValue("scale_down_unneeded_time", cluster_autoscaler_configuration.scaleDownUnneededTime);
         writer.writeNumberValue("scale_down_utilization_threshold", cluster_autoscaler_configuration.scaleDownUtilizationThreshold);
-        writer.writeAdditionalData(cluster_autoscaler_configuration.additionalData);
     }
 }
 /**
@@ -14131,7 +16002,6 @@ export function serializeCluster_autoscaler_configuration(writer, cluster_autosc
 export function serializeCluster_registries(writer, cluster_registries = {}) {
     if (cluster_registries) {
         writer.writeCollectionOfPrimitiveValues("cluster_uuids", cluster_registries.clusterUuids);
-        writer.writeAdditionalData(cluster_registries.additionalData);
     }
 }
 /**
@@ -14143,7 +16013,6 @@ export function serializeCluster_status(writer, cluster_status = {}) {
     if (cluster_status) {
         writer.writeStringValue("message", cluster_status.message);
         writer.writeEnumValue("state", cluster_status.state);
-        writer.writeAdditionalData(cluster_status.additionalData);
     }
 }
 /**
@@ -14162,7 +16031,6 @@ export function serializeCluster_update(writer, cluster_update = {}) {
         writer.writeObjectValue("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
         writer.writeBooleanValue("surge_upgrade", cluster_update.surgeUpgrade);
         writer.writeCollectionOfPrimitiveValues("tags", cluster_update.tags);
-        writer.writeAdditionalData(cluster_update.additionalData);
     }
 }
 /**
@@ -14176,7 +16044,6 @@ export function serializeClusterlint_request(writer, clusterlint_request = {}) {
         writer.writeCollectionOfPrimitiveValues("exclude_groups", clusterlint_request.excludeGroups);
         writer.writeCollectionOfPrimitiveValues("include_checks", clusterlint_request.includeChecks);
         writer.writeCollectionOfPrimitiveValues("include_groups", clusterlint_request.includeGroups);
-        writer.writeAdditionalData(clusterlint_request.additionalData);
     }
 }
 /**
@@ -14190,7 +16057,6 @@ export function serializeClusterlint_results(writer, clusterlint_results = {}) {
         writer.writeCollectionOfObjectValues("diagnostics", clusterlint_results.diagnostics, serializeClusterlint_results_diagnostics);
         writer.writeDateValue("requested_at", clusterlint_results.requestedAt);
         writer.writeStringValue("run_id", clusterlint_results.runId);
-        writer.writeAdditionalData(clusterlint_results.additionalData);
     }
 }
 /**
@@ -14204,7 +16070,6 @@ export function serializeClusterlint_results_diagnostics(writer, clusterlint_res
         writer.writeStringValue("message", clusterlint_results_diagnostics.message);
         writer.writeObjectValue("object", clusterlint_results_diagnostics.object, serializeClusterlint_results_diagnostics_object);
         writer.writeStringValue("severity", clusterlint_results_diagnostics.severity);
-        writer.writeAdditionalData(clusterlint_results_diagnostics.additionalData);
     }
 }
 /**
@@ -14217,7 +16082,6 @@ export function serializeClusterlint_results_diagnostics_object(writer, clusterl
         writer.writeStringValue("kind", clusterlint_results_diagnostics_object.kind);
         writer.writeStringValue("name", clusterlint_results_diagnostics_object.name);
         writer.writeStringValue("namespace", clusterlint_results_diagnostics_object.namespace);
-        writer.writeAdditionalData(clusterlint_results_diagnostics_object.additionalData);
     }
 }
 /**
@@ -14236,7 +16100,6 @@ export function serializeConnection_pool(writer, connection_pool = {}) {
         writer.writeObjectValue("standby_connection", connection_pool.standbyConnection, serializeDatabase_connection);
         writer.writeObjectValue("standby_private_connection", connection_pool.standbyPrivateConnection, serializeDatabase_connection);
         writer.writeStringValue("user", connection_pool.user);
-        writer.writeAdditionalData(connection_pool.additionalData);
     }
 }
 /**
@@ -14250,7 +16113,6 @@ export function serializeConnection_pool_update(writer, connection_pool_update =
         writer.writeStringValue("mode", connection_pool_update.mode);
         writer.writeNumberValue("size", connection_pool_update.size);
         writer.writeStringValue("user", connection_pool_update.user);
-        writer.writeAdditionalData(connection_pool_update.additionalData);
     }
 }
 /**
@@ -14260,7 +16122,6 @@ export function serializeConnection_pool_update(writer, connection_pool_update =
 // @ts-ignore
 export function serializeConnection_pools(writer, connection_pools = {}) {
     if (connection_pools) {
-        writer.writeAdditionalData(connection_pools.additionalData);
     }
 }
 /**
@@ -14272,7 +16133,6 @@ export function serializeControl_plane_firewall(writer, control_plane_firewall =
     if (control_plane_firewall) {
         writer.writeCollectionOfPrimitiveValues("allowed_addresses", control_plane_firewall.allowedAddresses);
         writer.writeBooleanValue("enabled", control_plane_firewall.enabled);
-        writer.writeAdditionalData(control_plane_firewall.additionalData);
     }
 }
 /**
@@ -14284,7 +16144,6 @@ export function serializeCreate_namespace(writer, create_namespace = {}) {
     if (create_namespace) {
         writer.writeStringValue("label", create_namespace.label);
         writer.writeStringValue("region", create_namespace.region);
-        writer.writeAdditionalData(create_namespace.additionalData);
     }
 }
 /**
@@ -14299,7 +16158,6 @@ export function serializeCreate_trigger(writer, create_trigger = {}) {
         writer.writeStringValue("name", create_trigger.name);
         writer.writeObjectValue("scheduled_details", create_trigger.scheduledDetails, serializeScheduled_details);
         writer.writeStringValue("type", create_trigger.type);
-        writer.writeAdditionalData(create_trigger.additionalData);
     }
 }
 /**
@@ -14315,7 +16173,6 @@ export function serializeCredentials(writer, credentials = {}) {
         writer.writeDateValue("expires_at", credentials.expiresAt);
         writer.writeStringValue("server", credentials.server);
         writer.writeStringValue("token", credentials.token);
-        writer.writeAdditionalData(credentials.additionalData);
     }
 }
 /**
@@ -14327,7 +16184,6 @@ export function serializeCurrent_utilization(writer, current_utilization = {}) {
     if (current_utilization) {
         writer.writeNumberValue("cpu", current_utilization.cpu);
         writer.writeNumberValue("memory", current_utilization.memory);
-        writer.writeAdditionalData(current_utilization.additionalData);
     }
 }
 /**
@@ -14338,7 +16194,6 @@ export function serializeCurrent_utilization(writer, current_utilization = {}) {
 export function serializeDatabase(writer, database = {}) {
     if (database) {
         writer.writeStringValue("name", database.name);
-        writer.writeAdditionalData(database.additionalData);
     }
 }
 /**
@@ -14350,7 +16205,6 @@ export function serializeDatabase_backup(writer, database_backup = {}) {
     if (database_backup) {
         writer.writeDateValue("backup_created_at", database_backup.backupCreatedAt);
         writer.writeStringValue("database_name", database_backup.databaseName);
-        writer.writeAdditionalData(database_backup.additionalData);
     }
 }
 /**
@@ -14377,7 +16231,6 @@ export function serializeDatabase_cluster(writer, database_cluster = {}) {
         writer.writeCollectionOfPrimitiveValues("tags", database_cluster.tags);
         writer.writeObjectValue("ui_connection", database_cluster.uiConnection, serializeOpensearch_connection);
         writer.writeStringValue("version", database_cluster.version);
-        writer.writeAdditionalData(database_cluster.additionalData);
     }
 }
 /**
@@ -14390,7 +16243,6 @@ export function serializeDatabase_cluster_resize(writer, database_cluster_resize
         writer.writeNumberValue("num_nodes", database_cluster_resize.numNodes);
         writer.writeStringValue("size", database_cluster_resize.size);
         writer.writeNumberValue("storage_size_mib", database_cluster_resize.storageSizeMib);
-        writer.writeAdditionalData(database_cluster_resize.additionalData);
     }
 }
 /**
@@ -14401,7 +16253,6 @@ export function serializeDatabase_cluster_resize(writer, database_cluster_resize
 export function serializeDatabase_config(writer, database_config = {}) {
     if (database_config) {
         writer.writeObjectValue("config", database_config.config, serializeDatabase_config_config);
-        writer.writeAdditionalData(database_config.additionalData);
     }
 }
 /**
@@ -14416,6 +16267,7 @@ export function serializeDatabase_config_config(writer, database_config_config =
     serializeOpensearch_advanced_config(writer, database_config_config);
     serializePostgres_advanced_config(writer, database_config_config);
     serializeRedis_advanced_config(writer, database_config_config);
+    serializeValkey_advanced_config(writer, database_config_config);
 }
 /**
  * Serializes information the current object
@@ -14424,7 +16276,6 @@ export function serializeDatabase_config_config(writer, database_config_config =
 // @ts-ignore
 export function serializeDatabase_connection(writer, database_connection = {}) {
     if (database_connection) {
-        writer.writeAdditionalData(database_connection.additionalData);
     }
 }
 /**
@@ -14435,7 +16286,6 @@ export function serializeDatabase_connection(writer, database_connection = {}) {
 export function serializeDatabase_layout_option(writer, database_layout_option = {}) {
     if (database_layout_option) {
         writer.writeNumberValue("num_nodes", database_layout_option.numNodes);
-        writer.writeAdditionalData(database_layout_option.additionalData);
     }
 }
 /**
@@ -14447,7 +16297,6 @@ export function serializeDatabase_maintenance_window(writer, database_maintenanc
     if (database_maintenance_window) {
         writer.writeStringValue("day", database_maintenance_window.day);
         writer.writeStringValue("hour", database_maintenance_window.hour);
-        writer.writeAdditionalData(database_maintenance_window.additionalData);
     }
 }
 /**
@@ -14458,7 +16307,6 @@ export function serializeDatabase_maintenance_window(writer, database_maintenanc
 export function serializeDatabase_metrics_credentials(writer, database_metrics_credentials = {}) {
     if (database_metrics_credentials) {
         writer.writeObjectValue("credentials", database_metrics_credentials.credentials, serializeDatabases_basic_auth_credentials);
-        writer.writeAdditionalData(database_metrics_credentials.additionalData);
     }
 }
 /**
@@ -14476,7 +16324,6 @@ export function serializeDatabase_replica(writer, database_replica = {}) {
         writer.writeStringValue("size", database_replica.size);
         writer.writeNumberValue("storage_size_mib", database_replica.storageSizeMib);
         writer.writeCollectionOfPrimitiveValues("tags", database_replica.tags);
-        writer.writeAdditionalData(database_replica.additionalData);
     }
 }
 /**
@@ -14486,7 +16333,6 @@ export function serializeDatabase_replica(writer, database_replica = {}) {
 // @ts-ignore
 export function serializeDatabase_service_endpoint(writer, database_service_endpoint = {}) {
     if (database_service_endpoint) {
-        writer.writeAdditionalData(database_service_endpoint.additionalData);
     }
 }
 /**
@@ -14499,7 +16345,6 @@ export function serializeDatabase_user(writer, database_user = {}) {
         writer.writeObjectValue("mysql_settings", database_user.mysqlSettings, serializeMysql_settings);
         writer.writeStringValue("name", database_user.name);
         writer.writeObjectValue("settings", database_user.settings, serializeUser_settings);
-        writer.writeAdditionalData(database_user.additionalData);
     }
 }
 /**
@@ -14512,7 +16357,6 @@ export function serializeDatabase_version_availability(writer, database_version_
         writer.writeStringValue("end_of_availability", database_version_availability.endOfAvailability);
         writer.writeStringValue("end_of_life", database_version_availability.endOfLife);
         writer.writeStringValue("version", database_version_availability.version);
-        writer.writeAdditionalData(database_version_availability.additionalData);
     }
 }
 /**
@@ -14524,7 +16368,17 @@ export function serializeDatabases_basic_auth_credentials(writer, databases_basi
     if (databases_basic_auth_credentials) {
         writer.writeStringValue("basic_auth_password", databases_basic_auth_credentials.basicAuthPassword);
         writer.writeStringValue("basic_auth_username", databases_basic_auth_credentials.basicAuthUsername);
-        writer.writeAdditionalData(databases_basic_auth_credentials.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDatadog_logsink(writer, datadog_logsink = {}) {
+    if (datadog_logsink) {
+        writer.writeStringValue("datadog_api_key", datadog_logsink.datadogApiKey);
+        writer.writeStringValue("site", datadog_logsink.site);
     }
 }
 /**
@@ -14538,7 +16392,6 @@ export function serializeDestination(writer, destination = {}) {
         writer.writeStringValue("id", destination.id);
         writer.writeStringValue("name", destination.name);
         writer.writeEnumValue("type", destination.type);
-        writer.writeAdditionalData(destination.additionalData);
     }
 }
 /**
@@ -14552,7 +16405,6 @@ export function serializeDestination_omit_credentials(writer, destination_omit_c
         writer.writeStringValue("id", destination_omit_credentials.id);
         writer.writeStringValue("name", destination_omit_credentials.name);
         writer.writeEnumValue("type", destination_omit_credentials.type);
-        writer.writeAdditionalData(destination_omit_credentials.additionalData);
     }
 }
 /**
@@ -14565,7 +16417,6 @@ export function serializeDestination_request(writer, destination_request = {}) {
         writer.writeObjectValue("config", destination_request.config, serializeOpensearch_config_request);
         writer.writeStringValue("name", destination_request.name);
         writer.writeEnumValue("type", destination_request.type);
-        writer.writeAdditionalData(destination_request.additionalData);
     }
 }
 /**
@@ -14578,7 +16429,6 @@ export function serializeDestroy_associated_kubernetes_resources(writer, destroy
         writer.writeCollectionOfPrimitiveValues("load_balancers", destroy_associated_kubernetes_resources.loadBalancers);
         writer.writeCollectionOfPrimitiveValues("volumes", destroy_associated_kubernetes_resources.volumes);
         writer.writeCollectionOfPrimitiveValues("volume_snapshots", destroy_associated_kubernetes_resources.volumeSnapshots);
-        writer.writeAdditionalData(destroy_associated_kubernetes_resources.additionalData);
     }
 }
 /**
@@ -14592,7 +16442,6 @@ export function serializeDestroyed_associated_resource(writer, destroyed_associa
         writer.writeStringValue("error_message", destroyed_associated_resource.errorMessage);
         writer.writeStringValue("id", destroyed_associated_resource.id);
         writer.writeStringValue("name", destroyed_associated_resource.name);
-        writer.writeAdditionalData(destroyed_associated_resource.additionalData);
     }
 }
 /**
@@ -14604,7 +16453,6 @@ export function serializeDisk_info(writer, disk_info = {}) {
     if (disk_info) {
         writer.writeObjectValue("size", disk_info.size, serializeDisk_info_size);
         writer.writeEnumValue("type", disk_info.type);
-        writer.writeAdditionalData(disk_info.additionalData);
     }
 }
 /**
@@ -14616,7 +16464,6 @@ export function serializeDisk_info_size(writer, disk_info_size = {}) {
     if (disk_info_size) {
         writer.writeNumberValue("amount", disk_info_size.amount);
         writer.writeStringValue("unit", disk_info_size.unit);
-        writer.writeAdditionalData(disk_info_size.additionalData);
     }
 }
 /**
@@ -14627,7 +16474,6 @@ export function serializeDisk_info_size(writer, disk_info_size = {}) {
 export function serializeDocker_credentials(writer, docker_credentials = {}) {
     if (docker_credentials) {
         writer.writeObjectValue("auths", docker_credentials.auths, serializeDocker_credentials_auths);
-        writer.writeAdditionalData(docker_credentials.additionalData);
     }
 }
 /**
@@ -14638,7 +16484,6 @@ export function serializeDocker_credentials(writer, docker_credentials = {}) {
 export function serializeDocker_credentials_auths(writer, docker_credentials_auths = {}) {
     if (docker_credentials_auths) {
         writer.writeObjectValue("registry.digitalocean.com", docker_credentials_auths.registryDigitaloceanCom, serializeDocker_credentials_auths_registryDigitaloceanCom);
-        writer.writeAdditionalData(docker_credentials_auths.additionalData);
     }
 }
 /**
@@ -14649,7 +16494,6 @@ export function serializeDocker_credentials_auths(writer, docker_credentials_aut
 export function serializeDocker_credentials_auths_registryDigitaloceanCom(writer, docker_credentials_auths_registryDigitaloceanCom = {}) {
     if (docker_credentials_auths_registryDigitaloceanCom) {
         writer.writeStringValue("auth", docker_credentials_auths_registryDigitaloceanCom.auth);
-        writer.writeAdditionalData(docker_credentials_auths_registryDigitaloceanCom.additionalData);
     }
 }
 /**
@@ -14661,7 +16505,6 @@ export function serializeDomain(writer, domain = {}) {
     if (domain) {
         writer.writeStringValue("ip_address", domain.ipAddress);
         writer.writeStringValue("name", domain.name);
-        writer.writeAdditionalData(domain.additionalData);
     }
 }
 /**
@@ -14680,7 +16523,6 @@ export function serializeDomain_record(writer, domain_record = {}) {
         writer.writeNumberValue("ttl", domain_record.ttl);
         writer.writeStringValue("type", domain_record.type);
         writer.writeNumberValue("weight", domain_record.weight);
-        writer.writeAdditionalData(domain_record.additionalData);
     }
 }
 /**
@@ -14783,7 +16625,6 @@ export function serializeDomains(writer, domains = {}) {
         writer.writeStringValue("certificate_id", domains.certificateId);
         writer.writeBooleanValue("is_managed", domains.isManaged);
         writer.writeStringValue("name", domains.name);
-        writer.writeAdditionalData(domains.additionalData);
     }
 }
 /**
@@ -14816,7 +16657,6 @@ export function serializeDroplet(writer, droplet = {}) {
         writer.writeNumberValue("vcpus", droplet.vcpus);
         writer.writeCollectionOfPrimitiveValues("volume_ids", droplet.volumeIds);
         writer.writeStringValue("vpc_uuid", droplet.vpcUuid);
-        writer.writeAdditionalData(droplet.additionalData);
     }
 }
 /**
@@ -14827,7 +16667,6 @@ export function serializeDroplet(writer, droplet = {}) {
 export function serializeDroplet_action(writer, droplet_action = {}) {
     if (droplet_action) {
         writer.writeEnumValue("type", droplet_action.type);
-        writer.writeAdditionalData(droplet_action.additionalData);
     }
 }
 /**
@@ -14950,7 +16789,6 @@ export function serializeDroplet_backup_policy(writer, droplet_backup_policy = {
         writer.writeNumberValue("hour", droplet_backup_policy.hour);
         writer.writeEnumValue("plan", droplet_backup_policy.plan);
         writer.writeEnumValue("weekday", droplet_backup_policy.weekday);
-        writer.writeAdditionalData(droplet_backup_policy.additionalData);
     }
 }
 /**
@@ -14964,7 +16802,6 @@ export function serializeDroplet_backup_policy_record(writer, droplet_backup_pol
         writer.writeObjectValue("backup_policy", droplet_backup_policy_record.backupPolicy, serializeDroplet_backup_policy);
         writer.writeNumberValue("droplet_id", droplet_backup_policy_record.dropletId);
         writer.writeObjectValue("next_backup_window", droplet_backup_policy_record.nextBackupWindow, serializeDroplet_next_backup_window);
-        writer.writeAdditionalData(droplet_backup_policy_record.additionalData);
     }
 }
 /**
@@ -14993,7 +16830,6 @@ export function serializeDroplet_create(writer, droplet_create = {}) {
         writer.writeCollectionOfPrimitiveValues("volumes", droplet_create.volumes);
         writer.writeStringValue("vpc_uuid", droplet_create.vpcUuid);
         writer.writeBooleanValue("with_droplet_agent", droplet_create.withDropletAgent);
-        writer.writeAdditionalData(droplet_create.additionalData);
     }
 }
 /**
@@ -15032,7 +16868,6 @@ export function serializeDroplet_networks(writer, droplet_networks = {}) {
     if (droplet_networks) {
         writer.writeCollectionOfObjectValues("v4", droplet_networks.v4, serializeNetwork_v4);
         writer.writeCollectionOfObjectValues("v6", droplet_networks.v6, serializeNetwork_v6);
-        writer.writeAdditionalData(droplet_networks.additionalData);
     }
 }
 /**
@@ -15044,7 +16879,6 @@ export function serializeDroplet_next_backup_window(writer, droplet_next_backup_
     if (droplet_next_backup_window) {
         writer.writeDateValue("end", droplet_next_backup_window.end);
         writer.writeDateValue("start", droplet_next_backup_window.start);
-        writer.writeAdditionalData(droplet_next_backup_window.additionalData);
     }
 }
 /**
@@ -15082,7 +16916,6 @@ export function serializeElasticsearch_logsink(writer, elasticsearch_logsink = {
         writer.writeStringValue("index_prefix", elasticsearch_logsink.indexPrefix);
         writer.writeNumberValue("timeout", elasticsearch_logsink.timeout);
         writer.writeStringValue("url", elasticsearch_logsink.url);
-        writer.writeAdditionalData(elasticsearch_logsink.additionalData);
     }
 }
 /**
@@ -15095,7 +16928,6 @@ export function serializeError_with_root_causes(writer, error_with_root_causes =
         writer.writeStringValue("error", error_with_root_causes.errorEscaped);
         writer.writeCollectionOfPrimitiveValues("messages", error_with_root_causes.messages);
         writer.writeCollectionOfPrimitiveValues("root_causes", error_with_root_causes.rootCauses);
-        writer.writeAdditionalData(error_with_root_causes.additionalData);
     }
 }
 /**
@@ -15108,7 +16940,6 @@ export function serializeErrorEscaped(writer, errorEscaped = {}) {
         writer.writeStringValue("id", errorEscaped.id);
         writer.writeStringValue("message", errorEscaped.messageEscaped);
         writer.writeStringValue("request_id", errorEscaped.requestId);
-        writer.writeAdditionalData(errorEscaped.additionalData);
     }
 }
 /**
@@ -15122,7 +16953,6 @@ export function serializeEvents_logs(writer, events_logs = {}) {
         writer.writeStringValue("create_time", events_logs.createTime);
         writer.writeEnumValue("event_type", events_logs.eventType);
         writer.writeStringValue("id", events_logs.id);
-        writer.writeAdditionalData(events_logs.additionalData);
     }
 }
 /**
@@ -15148,7 +16978,6 @@ export function serializeFirewall_pending_changes(writer, firewall_pending_chang
         writer.writeNumberValue("droplet_id", firewall_pending_changes.dropletId);
         writer.writeBooleanValue("removing", firewall_pending_changes.removing);
         writer.writeStringValue("status", firewall_pending_changes.status);
-        writer.writeAdditionalData(firewall_pending_changes.additionalData);
     }
 }
 /**
@@ -15161,7 +16990,6 @@ export function serializeFirewall_rule(writer, firewall_rule = {}) {
         writer.writeEnumValue("type", firewall_rule.type);
         writer.writeStringValue("uuid", firewall_rule.uuid);
         writer.writeStringValue("value", firewall_rule.value);
-        writer.writeAdditionalData(firewall_rule.additionalData);
     }
 }
 /**
@@ -15173,7 +17001,6 @@ export function serializeFirewall_rule_base(writer, firewall_rule_base = {}) {
     if (firewall_rule_base) {
         writer.writeStringValue("ports", firewall_rule_base.ports);
         writer.writeEnumValue("protocol", firewall_rule_base.protocol);
-        writer.writeAdditionalData(firewall_rule_base.additionalData);
     }
 }
 /**
@@ -15188,7 +17015,6 @@ export function serializeFirewall_rule_target(writer, firewall_rule_target = {})
         writer.writeCollectionOfPrimitiveValues("kubernetes_ids", firewall_rule_target.kubernetesIds);
         writer.writeCollectionOfPrimitiveValues("load_balancer_uids", firewall_rule_target.loadBalancerUids);
         writer.writeCollectionOfPrimitiveValues("tags", firewall_rule_target.tags);
-        writer.writeAdditionalData(firewall_rule_target.additionalData);
     }
 }
 /**
@@ -15200,7 +17026,6 @@ export function serializeFirewall_rules(writer, firewall_rules = {}) {
     if (firewall_rules) {
         writer.writeCollectionOfObjectValues("inbound_rules", firewall_rules.inboundRules, serializeFirewall_rules_inbound_rules);
         writer.writeCollectionOfObjectValues("outbound_rules", firewall_rules.outboundRules, serializeFirewall_rules_outbound_rules);
-        writer.writeAdditionalData(firewall_rules.additionalData);
     }
 }
 /**
@@ -15237,7 +17062,6 @@ export function serializeFloating_ip(writer, floating_ip = {}) {
         writer.writeBooleanValue("locked", floating_ip.locked);
         writer.writeGuidValue("project_id", floating_ip.projectId);
         writer.writeObjectValue("region", floating_ip.region, serializeRegion);
-        writer.writeAdditionalData(floating_ip.additionalData);
     }
 }
 /**
@@ -15269,7 +17093,6 @@ export function serializeFloating_ip_action_unassign(writer, floating_ip_action_
 export function serializeFloating_ip_createMember1(writer, floating_ip_createMember1 = {}) {
     if (floating_ip_createMember1) {
         writer.writeNumberValue("droplet_id", floating_ip_createMember1.dropletId);
-        writer.writeAdditionalData(floating_ip_createMember1.additionalData);
     }
 }
 /**
@@ -15281,7 +17104,6 @@ export function serializeFloating_ip_createMember2(writer, floating_ip_createMem
     if (floating_ip_createMember2) {
         writer.writeGuidValue("project_id", floating_ip_createMember2.projectId);
         writer.writeStringValue("region", floating_ip_createMember2.region);
-        writer.writeAdditionalData(floating_ip_createMember2.additionalData);
     }
 }
 /**
@@ -15292,7 +17114,6 @@ export function serializeFloating_ip_createMember2(writer, floating_ip_createMem
 export function serializeFloatingIPsAction(writer, floatingIPsAction = {}) {
     if (floatingIPsAction) {
         writer.writeEnumValue("type", floatingIPsAction.type);
-        writer.writeAdditionalData(floatingIPsAction.additionalData);
     }
 }
 /**
@@ -15304,7 +17125,6 @@ export function serializeForward_links(writer, forward_links = {}) {
     if (forward_links) {
         writer.writeStringValue("last", forward_links.last);
         writer.writeStringValue("next", forward_links.next);
-        writer.writeAdditionalData(forward_links.additionalData);
     }
 }
 /**
@@ -15320,7 +17140,6 @@ export function serializeForwarding_rule(writer, forwarding_rule = {}) {
         writer.writeNumberValue("target_port", forwarding_rule.targetPort);
         writer.writeEnumValue("target_protocol", forwarding_rule.targetProtocol);
         writer.writeBooleanValue("tls_passthrough", forwarding_rule.tlsPassthrough);
-        writer.writeAdditionalData(forwarding_rule.additionalData);
     }
 }
 /**
@@ -15337,7 +17156,6 @@ export function serializeGarbage_collection(writer, garbage_collection = {}) {
         writer.writeEnumValue("status", garbage_collection.status);
         writer.writeDateValue("updated_at", garbage_collection.updatedAt);
         writer.writeStringValue("uuid", garbage_collection.uuid);
-        writer.writeAdditionalData(garbage_collection.additionalData);
     }
 }
 /**
@@ -15352,7 +17170,6 @@ export function serializeGenaiapiRegion(writer, genaiapiRegion = {}) {
         writer.writeBooleanValue("serves_batch", genaiapiRegion.servesBatch);
         writer.writeBooleanValue("serves_inference", genaiapiRegion.servesInference);
         writer.writeStringValue("stream_inference_url", genaiapiRegion.streamInferenceUrl);
-        writer.writeAdditionalData(genaiapiRegion.additionalData);
     }
 }
 /**
@@ -15367,7 +17184,6 @@ export function serializeGlb_settings(writer, glb_settings = {}) {
         writer.writeObjectValue("region_priorities", glb_settings.regionPriorities, serializeGlb_settings_region_priorities);
         writer.writeNumberValue("target_port", glb_settings.targetPort);
         writer.writeEnumValue("target_protocol", glb_settings.targetProtocol);
-        writer.writeAdditionalData(glb_settings.additionalData);
     }
 }
 /**
@@ -15378,7 +17194,6 @@ export function serializeGlb_settings(writer, glb_settings = {}) {
 export function serializeGlb_settings_cdn(writer, glb_settings_cdn = {}) {
     if (glb_settings_cdn) {
         writer.writeBooleanValue("is_enabled", glb_settings_cdn.isEnabled);
-        writer.writeAdditionalData(glb_settings_cdn.additionalData);
     }
 }
 /**
@@ -15388,7 +17203,6 @@ export function serializeGlb_settings_cdn(writer, glb_settings_cdn = {}) {
 // @ts-ignore
 export function serializeGlb_settings_region_priorities(writer, glb_settings_region_priorities = {}) {
     if (glb_settings_region_priorities) {
-        writer.writeAdditionalData(glb_settings_region_priorities.additionalData);
     }
 }
 /**
@@ -15401,7 +17215,6 @@ export function serializeGpu_info(writer, gpu_info = {}) {
         writer.writeNumberValue("count", gpu_info.count);
         writer.writeStringValue("model", gpu_info.model);
         writer.writeObjectValue("vram", gpu_info.vram, serializeGpu_info_vram);
-        writer.writeAdditionalData(gpu_info.additionalData);
     }
 }
 /**
@@ -15413,7 +17226,6 @@ export function serializeGpu_info_vram(writer, gpu_info_vram = {}) {
     if (gpu_info_vram) {
         writer.writeNumberValue("amount", gpu_info_vram.amount);
         writer.writeStringValue("unit", gpu_info_vram.unit);
-        writer.writeAdditionalData(gpu_info_vram.additionalData);
     }
 }
 /**
@@ -15425,7 +17237,6 @@ export function serializeGrant(writer, grant = {}) {
     if (grant) {
         writer.writeStringValue("bucket", grant.bucket);
         writer.writeStringValue("permission", grant.permission);
-        writer.writeAdditionalData(grant.additionalData);
     }
 }
 /**
@@ -15442,7 +17253,6 @@ export function serializeHealth_check(writer, health_check = {}) {
         writer.writeEnumValue("protocol", health_check.protocol ?? Health_check_protocolObject.Http);
         writer.writeNumberValue("response_timeout_seconds", health_check.responseTimeoutSeconds);
         writer.writeNumberValue("unhealthy_threshold", health_check.unhealthyThreshold);
-        writer.writeAdditionalData(health_check.additionalData);
     }
 }
 /**
@@ -15459,7 +17269,6 @@ export function serializeHistory(writer, history = {}) {
         writer.writeEnumValue("reason", history.reason);
         writer.writeEnumValue("status", history.status);
         writer.writeDateValue("updated_at", history.updatedAt);
-        writer.writeAdditionalData(history.additionalData);
     }
 }
 /**
@@ -15483,7 +17292,6 @@ export function serializeImage(writer, image = {}) {
         writer.writeEnumValue("status", image.status);
         writer.writeCollectionOfPrimitiveValues("tags", image.tags);
         writer.writeEnumValue("type", image.type);
-        writer.writeAdditionalData(image.additionalData);
     }
 }
 /**
@@ -15494,7 +17302,6 @@ export function serializeImage(writer, image = {}) {
 export function serializeImage_action_base(writer, image_action_base = {}) {
     if (image_action_base) {
         writer.writeEnumValue("type", image_action_base.type);
-        writer.writeAdditionalData(image_action_base.additionalData);
     }
 }
 /**
@@ -15531,7 +17338,6 @@ export function serializeImage_update(writer, image_update = {}) {
         writer.writeStringValue("description", image_update.description);
         writer.writeEnumValue("distribution", image_update.distribution);
         writer.writeStringValue("name", image_update.name);
-        writer.writeAdditionalData(image_update.additionalData);
     }
 }
 /**
@@ -15552,7 +17358,6 @@ export function serializeInvoice_item(writer, invoice_item = {}) {
         writer.writeStringValue("resource_id", invoice_item.resourceId);
         writer.writeStringValue("resource_uuid", invoice_item.resourceUuid);
         writer.writeStringValue("start_time", invoice_item.startTime);
-        writer.writeAdditionalData(invoice_item.additionalData);
     }
 }
 /**
@@ -15567,7 +17372,6 @@ export function serializeInvoice_preview(writer, invoice_preview = {}) {
         writer.writeStringValue("invoice_period", invoice_preview.invoicePeriod);
         writer.writeStringValue("invoice_uuid", invoice_preview.invoiceUuid);
         writer.writeStringValue("updated_at", invoice_preview.updatedAt);
-        writer.writeAdditionalData(invoice_preview.additionalData);
     }
 }
 /**
@@ -15589,7 +17393,6 @@ export function serializeInvoice_summary(writer, invoice_summary = {}) {
         writer.writeStringValue("user_company", invoice_summary.userCompany);
         writer.writeStringValue("user_email", invoice_summary.userEmail);
         writer.writeStringValue("user_name", invoice_summary.userName);
-        writer.writeAdditionalData(invoice_summary.additionalData);
     }
 }
 /**
@@ -15638,7 +17441,6 @@ export function serializeKafka_advanced_config(writer, kafka_advanced_config = {
         writer.writeNumberValue("socket_request_max_bytes", kafka_advanced_config.socketRequestMaxBytes);
         writer.writeNumberValue("transaction_remove_expired_transaction_cleanup_interval_ms", kafka_advanced_config.transactionRemoveExpiredTransactionCleanupIntervalMs);
         writer.writeNumberValue("transaction_state_log_segment_bytes", kafka_advanced_config.transactionStateLogSegmentBytes);
-        writer.writeAdditionalData(kafka_advanced_config.additionalData);
     }
 }
 /**
@@ -15662,7 +17464,6 @@ export function serializeKafka_topic_base(writer, kafka_topic_base = {}) {
         writer.writeStringValue("name", kafka_topic_base.name);
         writer.writeNumberValue("partition_count", kafka_topic_base.partitionCount);
         writer.writeNumberValue("replication_factor", kafka_topic_base.replicationFactor);
-        writer.writeAdditionalData(kafka_topic_base.additionalData);
     }
 }
 /**
@@ -15693,7 +17494,6 @@ export function serializeKafka_topic_config(writer, kafka_topic_config = {}) {
         writer.writeNumberValue("segment_bytes", kafka_topic_config.segmentBytes);
         writer.writeNumberValue("segment_jitter_ms", kafka_topic_config.segmentJitterMs);
         writer.writeNumberValue("segment_ms", kafka_topic_config.segmentMs);
-        writer.writeAdditionalData(kafka_topic_config.additionalData);
     }
 }
 /**
@@ -15719,7 +17519,6 @@ export function serializeKafka_topic_partition(writer, kafka_topic_partition = {
         writer.writeNumberValue("id", kafka_topic_partition.id);
         writer.writeNumberValue("in_sync_replicas", kafka_topic_partition.inSyncReplicas);
         writer.writeNumberValue("size", kafka_topic_partition.size);
-        writer.writeAdditionalData(kafka_topic_partition.additionalData);
     }
 }
 /**
@@ -15731,7 +17530,6 @@ export function serializeKafka_topic_partition_consumer_groups(writer, kafka_top
     if (kafka_topic_partition_consumer_groups) {
         writer.writeStringValue("group_name", kafka_topic_partition_consumer_groups.groupName);
         writer.writeNumberValue("offset", kafka_topic_partition_consumer_groups.offset);
-        writer.writeAdditionalData(kafka_topic_partition_consumer_groups.additionalData);
     }
 }
 /**
@@ -15744,7 +17542,6 @@ export function serializeKafka_topic_update(writer, kafka_topic_update = {}) {
         writer.writeObjectValue("config", kafka_topic_update.config, serializeKafka_topic_config);
         writer.writeNumberValue("partition_count", kafka_topic_update.partitionCount);
         writer.writeNumberValue("replication_factor", kafka_topic_update.replicationFactor);
-        writer.writeAdditionalData(kafka_topic_update.additionalData);
     }
 }
 /**
@@ -15759,7 +17556,6 @@ export function serializeKafka_topic_verbose(writer, kafka_topic_verbose = {}) {
         writer.writeCollectionOfObjectValues("partitions", kafka_topic_verbose.partitions, serializeKafka_topic_partition);
         writer.writeNumberValue("replication_factor", kafka_topic_verbose.replicationFactor);
         writer.writeEnumValue("state", kafka_topic_verbose.state);
-        writer.writeAdditionalData(kafka_topic_verbose.additionalData);
     }
 }
 /**
@@ -15772,7 +17568,6 @@ export function serializeKernel(writer, kernel = {}) {
         writer.writeNumberValue("id", kernel.id);
         writer.writeStringValue("name", kernel.name);
         writer.writeStringValue("version", kernel.version);
-        writer.writeAdditionalData(kernel.additionalData);
     }
 }
 /**
@@ -15784,7 +17579,6 @@ export function serializeKey(writer, key = {}) {
     if (key) {
         writer.writeCollectionOfObjectValues("grants", key.grants, serializeGrant);
         writer.writeStringValue("name", key.name);
-        writer.writeAdditionalData(key.additionalData);
     }
 }
 /**
@@ -15813,7 +17607,6 @@ export function serializeKubernetes_node_pool(writer, kubernetes_node_pool = {})
         writer.writeStringValue("size", kubernetes_node_pool.size);
         writer.writeCollectionOfPrimitiveValues("tags", kubernetes_node_pool.tags);
         writer.writeCollectionOfObjectValues("taints", kubernetes_node_pool.taints, serializeKubernetes_node_pool_taint);
-        writer.writeAdditionalData(kubernetes_node_pool.additionalData);
     }
 }
 /**
@@ -15823,7 +17616,6 @@ export function serializeKubernetes_node_pool(writer, kubernetes_node_pool = {})
 // @ts-ignore
 export function serializeKubernetes_node_pool_labels(writer, kubernetes_node_pool_labels = {}) {
     if (kubernetes_node_pool_labels) {
-        writer.writeAdditionalData(kubernetes_node_pool_labels.additionalData);
     }
 }
 /**
@@ -15836,7 +17628,6 @@ export function serializeKubernetes_node_pool_taint(writer, kubernetes_node_pool
         writer.writeEnumValue("effect", kubernetes_node_pool_taint.effect);
         writer.writeStringValue("key", kubernetes_node_pool_taint.key);
         writer.writeStringValue("value", kubernetes_node_pool_taint.value);
-        writer.writeAdditionalData(kubernetes_node_pool_taint.additionalData);
     }
 }
 /**
@@ -15854,7 +17645,6 @@ export function serializeKubernetes_node_pool_update(writer, kubernetes_node_poo
         writer.writeStringValue("name", kubernetes_node_pool_update.name);
         writer.writeCollectionOfPrimitiveValues("tags", kubernetes_node_pool_update.tags);
         writer.writeCollectionOfObjectValues("taints", kubernetes_node_pool_update.taints, serializeKubernetes_node_pool_taint);
-        writer.writeAdditionalData(kubernetes_node_pool_update.additionalData);
     }
 }
 /**
@@ -15864,7 +17654,6 @@ export function serializeKubernetes_node_pool_update(writer, kubernetes_node_poo
 // @ts-ignore
 export function serializeKubernetes_node_pool_update_labels(writer, kubernetes_node_pool_update_labels = {}) {
     if (kubernetes_node_pool_update_labels) {
-        writer.writeAdditionalData(kubernetes_node_pool_update_labels.additionalData);
     }
 }
 /**
@@ -15875,7 +17664,6 @@ export function serializeKubernetes_node_pool_update_labels(writer, kubernetes_n
 export function serializeKubernetes_options(writer, kubernetes_options = {}) {
     if (kubernetes_options) {
         writer.writeObjectValue("options", kubernetes_options.options, serializeKubernetes_options_options);
-        writer.writeAdditionalData(kubernetes_options.additionalData);
     }
 }
 /**
@@ -15888,7 +17676,6 @@ export function serializeKubernetes_options_options(writer, kubernetes_options_o
         writer.writeCollectionOfObjectValues("regions", kubernetes_options_options.regions, serializeKubernetes_region);
         writer.writeCollectionOfObjectValues("sizes", kubernetes_options_options.sizes, serializeKubernetes_size);
         writer.writeCollectionOfObjectValues("versions", kubernetes_options_options.versions, serializeKubernetes_version);
-        writer.writeAdditionalData(kubernetes_options_options.additionalData);
     }
 }
 /**
@@ -15900,7 +17687,6 @@ export function serializeKubernetes_region(writer, kubernetes_region = {}) {
     if (kubernetes_region) {
         writer.writeStringValue("name", kubernetes_region.name);
         writer.writeStringValue("slug", kubernetes_region.slug);
-        writer.writeAdditionalData(kubernetes_region.additionalData);
     }
 }
 /**
@@ -15912,7 +17698,6 @@ export function serializeKubernetes_size(writer, kubernetes_size = {}) {
     if (kubernetes_size) {
         writer.writeStringValue("name", kubernetes_size.name);
         writer.writeStringValue("slug", kubernetes_size.slug);
-        writer.writeAdditionalData(kubernetes_size.additionalData);
     }
 }
 /**
@@ -15925,7 +17710,6 @@ export function serializeKubernetes_version(writer, kubernetes_version = {}) {
         writer.writeStringValue("kubernetes_version", kubernetes_version.kubernetesVersion);
         writer.writeStringValue("slug", kubernetes_version.slug);
         writer.writeCollectionOfPrimitiveValues("supported_features", kubernetes_version.supportedFeatures);
-        writer.writeAdditionalData(kubernetes_version.additionalData);
     }
 }
 /**
@@ -15937,7 +17721,6 @@ export function serializeLb_firewall(writer, lb_firewall = {}) {
     if (lb_firewall) {
         writer.writeCollectionOfPrimitiveValues("allow", lb_firewall.allow);
         writer.writeCollectionOfPrimitiveValues("deny", lb_firewall.deny);
-        writer.writeAdditionalData(lb_firewall.additionalData);
     }
 }
 /**
@@ -15979,9 +17762,9 @@ export function serializeLoad_balancer_base(writer, load_balancer_base = {}) {
         writer.writeNumberValue("size_unit", load_balancer_base.sizeUnit);
         writer.writeObjectValue("sticky_sessions", load_balancer_base.stickySessions, serializeSticky_sessions);
         writer.writeCollectionOfPrimitiveValues("target_load_balancer_ids", load_balancer_base.targetLoadBalancerIds);
+        writer.writeEnumValue("tls_cipher_policy", load_balancer_base.tlsCipherPolicy ?? Load_balancer_base_tls_cipher_policyObject.DEFAULTEscaped);
         writer.writeEnumValue("type", load_balancer_base.type ?? Load_balancer_base_typeObject.REGIONAL);
         writer.writeGuidValue("vpc_uuid", load_balancer_base.vpcUuid);
-        writer.writeAdditionalData(load_balancer_base.additionalData);
     }
 }
 /**
@@ -16003,7 +17786,6 @@ export function serializeLogsink_base(writer, logsink_base = {}) {
     if (logsink_base) {
         writer.writeStringValue("sink_name", logsink_base.sinkName);
         writer.writeEnumValue("sink_type", logsink_base.sinkType);
-        writer.writeAdditionalData(logsink_base.additionalData);
     }
 }
 /**
@@ -16016,7 +17798,6 @@ export function serializeLogsink_base_verbose(writer, logsink_base_verbose = {})
         writer.writeStringValue("sink_id", logsink_base_verbose.sinkId);
         writer.writeStringValue("sink_name", logsink_base_verbose.sinkName);
         writer.writeEnumValue("sink_type", logsink_base_verbose.sinkType);
-        writer.writeAdditionalData(logsink_base_verbose.additionalData);
     }
 }
 /**
@@ -16036,6 +17817,7 @@ export function serializeLogsink_create(writer, logsink_create = {}) {
  */
 // @ts-ignore
 export function serializeLogsink_create_config(writer, logsink_create_config = {}) {
+    serializeDatadog_logsink(writer, logsink_create_config);
     serializeElasticsearch_logsink(writer, logsink_create_config);
     serializeOpensearch_logsink(writer, logsink_create_config);
     serializeRsyslog_logsink(writer, logsink_create_config);
@@ -16048,7 +17830,6 @@ export function serializeLogsink_create_config(writer, logsink_create_config = {
 export function serializeLogsink_update(writer, logsink_update = {}) {
     if (logsink_update) {
         writer.writeObjectValue("config", logsink_update.config, serializeLogsink_update_config);
-        writer.writeAdditionalData(logsink_update.additionalData);
     }
 }
 /**
@@ -16057,6 +17838,7 @@ export function serializeLogsink_update(writer, logsink_update = {}) {
  */
 // @ts-ignore
 export function serializeLogsink_update_config(writer, logsink_update_config = {}) {
+    serializeDatadog_logsink(writer, logsink_update_config);
     serializeElasticsearch_logsink(writer, logsink_update_config);
     serializeOpensearch_logsink(writer, logsink_update_config);
     serializeRsyslog_logsink(writer, logsink_update_config);
@@ -16078,6 +17860,7 @@ export function serializeLogsink_verbose(writer, logsink_verbose = {}) {
  */
 // @ts-ignore
 export function serializeLogsink_verbose_config(writer, logsink_verbose_config = {}) {
+    serializeDatadog_logsink(writer, logsink_verbose_config);
     serializeElasticsearch_logsink(writer, logsink_verbose_config);
     serializeOpensearch_logsink(writer, logsink_verbose_config);
     serializeRsyslog_logsink(writer, logsink_verbose_config);
@@ -16091,7 +17874,6 @@ export function serializeMaintenance_policy(writer, maintenance_policy = {}) {
     if (maintenance_policy) {
         writer.writeEnumValue("day", maintenance_policy.day);
         writer.writeStringValue("start_time", maintenance_policy.startTime);
-        writer.writeAdditionalData(maintenance_policy.additionalData);
     }
 }
 /**
@@ -16107,7 +17889,6 @@ export function serializeMember(writer, member = {}) {
         writer.writeStringValue("health_status", member.healthStatus);
         writer.writeEnumValue("status", member.status);
         writer.writeDateValue("updated_at", member.updatedAt);
-        writer.writeAdditionalData(member.additionalData);
     }
 }
 /**
@@ -16119,7 +17900,6 @@ export function serializeMember_current_utilization(writer, member_current_utili
     if (member_current_utilization) {
         writer.writeNumberValue("cpu", member_current_utilization.cpu);
         writer.writeNumberValue("memory", member_current_utilization.memory);
-        writer.writeAdditionalData(member_current_utilization.additionalData);
     }
 }
 /**
@@ -16130,7 +17910,6 @@ export function serializeMember_current_utilization(writer, member_current_utili
 export function serializeMeta_properties(writer, meta_properties = {}) {
     if (meta_properties) {
         writer.writeNumberValue("total", meta_properties.total);
-        writer.writeAdditionalData(meta_properties.additionalData);
     }
 }
 /**
@@ -16142,7 +17921,6 @@ export function serializeMetrics(writer, metrics = {}) {
     if (metrics) {
         writer.writeObjectValue("data", metrics.data, serializeMetrics_data);
         writer.writeEnumValue("status", metrics.status);
-        writer.writeAdditionalData(metrics.additionalData);
     }
 }
 /**
@@ -16154,7 +17932,6 @@ export function serializeMetrics_data(writer, metrics_data = {}) {
     if (metrics_data) {
         writer.writeCollectionOfObjectValues("result", metrics_data.result, serializeMetrics_result);
         writer.writeEnumValue("resultType", metrics_data.resultType);
-        writer.writeAdditionalData(metrics_data.additionalData);
     }
 }
 /**
@@ -16166,7 +17943,6 @@ export function serializeMetrics_result(writer, metrics_result = {}) {
     if (metrics_result) {
         writer.writeObjectValue("metric", metrics_result.metric, serializeMetrics_result_metric);
         writer.writeObjectValue("values", metrics_result.values);
-        writer.writeAdditionalData(metrics_result.additionalData);
     }
 }
 /**
@@ -16176,7 +17952,6 @@ export function serializeMetrics_result(writer, metrics_result = {}) {
 // @ts-ignore
 export function serializeMetrics_result_metric(writer, metrics_result_metric = {}) {
     if (metrics_result_metric) {
-        writer.writeAdditionalData(metrics_result_metric.additionalData);
     }
 }
 /**
@@ -16191,7 +17966,27 @@ export function serializeMongo_advanced_config(writer, mongo_advanced_config = {
         writer.writeNumberValue("slow_op_threshold_ms", mongo_advanced_config.slowOpThresholdMs);
         writer.writeNumberValue("transaction_lifetime_limit_seconds", mongo_advanced_config.transactionLifetimeLimitSeconds);
         writer.writeNumberValue("verbosity", mongo_advanced_config.verbosity);
-        writer.writeAdditionalData(mongo_advanced_config.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMultiregistry(writer, multiregistry = {}) {
+    if (multiregistry) {
+        serializeRegistry_base(writer, multiregistry);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMultiregistry_create(writer, multiregistry_create = {}) {
+    if (multiregistry_create) {
+        writer.writeStringValue("name", multiregistry_create.name);
+        writer.writeEnumValue("region", multiregistry_create.region);
     }
 }
 /**
@@ -16235,7 +18030,6 @@ export function serializeMysql_advanced_config(writer, mysql_advanced_config = {
         writer.writeBooleanValue("sql_require_primary_key", mysql_advanced_config.sqlRequirePrimaryKey);
         writer.writeNumberValue("tmp_table_size", mysql_advanced_config.tmpTableSize);
         writer.writeNumberValue("wait_timeout", mysql_advanced_config.waitTimeout);
-        writer.writeAdditionalData(mysql_advanced_config.additionalData);
     }
 }
 /**
@@ -16246,7 +18040,6 @@ export function serializeMysql_advanced_config(writer, mysql_advanced_config = {
 export function serializeMysql_settings(writer, mysql_settings = {}) {
     if (mysql_settings) {
         writer.writeEnumValue("auth_plugin", mysql_settings.authPlugin);
-        writer.writeAdditionalData(mysql_settings.additionalData);
     }
 }
 /**
@@ -16264,7 +18057,6 @@ export function serializeNamespace_info(writer, namespace_info = {}) {
         writer.writeStringValue("region", namespace_info.region);
         writer.writeStringValue("updated_at", namespace_info.updatedAt);
         writer.writeStringValue("uuid", namespace_info.uuid);
-        writer.writeAdditionalData(namespace_info.additionalData);
     }
 }
 /**
@@ -16275,7 +18067,6 @@ export function serializeNamespace_info(writer, namespace_info = {}) {
 export function serializeNeighbor_ids(writer, neighbor_ids = {}) {
     if (neighbor_ids) {
         writer.writeObjectValue("neighbor_ids", neighbor_ids.neighborIds);
-        writer.writeAdditionalData(neighbor_ids.additionalData);
     }
 }
 /**
@@ -16289,7 +18080,6 @@ export function serializeNetwork_v4(writer, network_v4 = {}) {
         writer.writeStringValue("ip_address", network_v4.ipAddress);
         writer.writeStringValue("netmask", network_v4.netmask);
         writer.writeEnumValue("type", network_v4.type);
-        writer.writeAdditionalData(network_v4.additionalData);
     }
 }
 /**
@@ -16303,7 +18093,6 @@ export function serializeNetwork_v6(writer, network_v6 = {}) {
         writer.writeStringValue("ip_address", network_v6.ipAddress);
         writer.writeNumberValue("netmask", network_v6.netmask);
         writer.writeEnumValue("type", network_v6.type);
-        writer.writeAdditionalData(network_v6.additionalData);
     }
 }
 /**
@@ -16319,7 +18108,6 @@ export function serializeNode(writer, node = {}) {
         writer.writeStringValue("name", node.name);
         writer.writeObjectValue("status", node.status, serializeNode_status);
         writer.writeDateValue("updated_at", node.updatedAt);
-        writer.writeAdditionalData(node.additionalData);
     }
 }
 /**
@@ -16330,7 +18118,6 @@ export function serializeNode(writer, node = {}) {
 export function serializeNode_status(writer, node_status = {}) {
     if (node_status) {
         writer.writeEnumValue("state", node_status.state);
-        writer.writeAdditionalData(node_status.additionalData);
     }
 }
 /**
@@ -16342,7 +18129,6 @@ export function serializeNotification(writer, notification = {}) {
     if (notification) {
         writer.writeCollectionOfPrimitiveValues("email", notification.email);
         writer.writeCollectionOfObjectValues("slack", notification.slack, serializeNotification_slack);
-        writer.writeAdditionalData(notification.additionalData);
     }
 }
 /**
@@ -16354,7 +18140,6 @@ export function serializeNotification_slack(writer, notification_slack = {}) {
     if (notification_slack) {
         writer.writeStringValue("channel", notification_slack.channel);
         writer.writeStringValue("url", notification_slack.url);
-        writer.writeAdditionalData(notification_slack.additionalData);
     }
 }
 /**
@@ -16366,7 +18151,6 @@ export function serializeOneClicks(writer, oneClicks = {}) {
     if (oneClicks) {
         writer.writeStringValue("slug", oneClicks.slug);
         writer.writeStringValue("type", oneClicks.type);
-        writer.writeAdditionalData(oneClicks.additionalData);
     }
 }
 /**
@@ -16378,7 +18162,6 @@ export function serializeOneClicks_create(writer, oneClicks_create = {}) {
     if (oneClicks_create) {
         writer.writeCollectionOfPrimitiveValues("addon_slugs", oneClicks_create.addonSlugs);
         writer.writeStringValue("cluster_uuid", oneClicks_create.clusterUuid);
-        writer.writeAdditionalData(oneClicks_create.additionalData);
     }
 }
 /**
@@ -16391,7 +18174,6 @@ export function serializeOnline_migration(writer, online_migration = {}) {
         writer.writeStringValue("created_at", online_migration.createdAt);
         writer.writeStringValue("id", online_migration.id);
         writer.writeEnumValue("status", online_migration.status);
-        writer.writeAdditionalData(online_migration.additionalData);
     }
 }
 /**
@@ -16423,6 +18205,8 @@ export function serializeOpensearch_advanced_config(writer, opensearch_advanced_
         writer.writeNumberValue("ism_history_max_docs", opensearch_advanced_config.ismHistoryMaxDocs);
         writer.writeNumberValue("ism_history_rollover_check_period_hours", opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours);
         writer.writeNumberValue("ism_history_rollover_retention_period_days", opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays);
+        writer.writeBooleanValue("knn_memory_circuit_breaker_enabled", opensearch_advanced_config.knnMemoryCircuitBreakerEnabled);
+        writer.writeNumberValue("knn_memory_circuit_breaker_limit", opensearch_advanced_config.knnMemoryCircuitBreakerLimit);
         writer.writeBooleanValue("override_main_response_version", opensearch_advanced_config.overrideMainResponseVersion);
         writer.writeBooleanValue("plugins_alerting_filter_by_backend_roles_enabled", opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled);
         writer.writeCollectionOfPrimitiveValues("reindex_remote_whitelist", opensearch_advanced_config.reindexRemoteWhitelist);
@@ -16439,7 +18223,6 @@ export function serializeOpensearch_advanced_config(writer, opensearch_advanced_
         writer.writeNumberValue("thread_pool_search_throttled_size", opensearch_advanced_config.threadPoolSearchThrottledSize);
         writer.writeNumberValue("thread_pool_write_queue_size", opensearch_advanced_config.threadPoolWriteQueueSize);
         writer.writeNumberValue("thread_pool_write_size", opensearch_advanced_config.threadPoolWriteSize);
-        writer.writeAdditionalData(opensearch_advanced_config.additionalData);
     }
 }
 /**
@@ -16456,7 +18239,6 @@ export function serializeOpensearch_config(writer, opensearch_config = {}) {
         writer.writeStringValue("id", opensearch_config.id);
         writer.writeStringValue("index_name", opensearch_config.indexName);
         writer.writeNumberValue("retention_days", opensearch_config.retentionDays);
-        writer.writeAdditionalData(opensearch_config.additionalData);
     }
 }
 /**
@@ -16468,7 +18250,6 @@ export function serializeOpensearch_config_credentials(writer, opensearch_config
     if (opensearch_config_credentials) {
         writer.writeStringValue("password", opensearch_config_credentials.password);
         writer.writeStringValue("username", opensearch_config_credentials.username);
-        writer.writeAdditionalData(opensearch_config_credentials.additionalData);
     }
 }
 /**
@@ -16484,7 +18265,6 @@ export function serializeOpensearch_config_omit_credentials(writer, opensearch_c
         writer.writeStringValue("id", opensearch_config_omit_credentials.id);
         writer.writeStringValue("index_name", opensearch_config_omit_credentials.indexName);
         writer.writeNumberValue("retention_days", opensearch_config_omit_credentials.retentionDays);
-        writer.writeAdditionalData(opensearch_config_omit_credentials.additionalData);
     }
 }
 /**
@@ -16500,7 +18280,6 @@ export function serializeOpensearch_config_request(writer, opensearch_config_req
         writer.writeStringValue("endpoint", opensearch_config_request.endpoint);
         writer.writeStringValue("index_name", opensearch_config_request.indexName);
         writer.writeNumberValue("retention_days", opensearch_config_request.retentionDays);
-        writer.writeAdditionalData(opensearch_config_request.additionalData);
     }
 }
 /**
@@ -16512,7 +18291,6 @@ export function serializeOpensearch_config_request_credentials(writer, opensearc
     if (opensearch_config_request_credentials) {
         writer.writeStringValue("password", opensearch_config_request_credentials.password);
         writer.writeStringValue("username", opensearch_config_request_credentials.username);
-        writer.writeAdditionalData(opensearch_config_request_credentials.additionalData);
     }
 }
 /**
@@ -16522,7 +18300,6 @@ export function serializeOpensearch_config_request_credentials(writer, opensearc
 // @ts-ignore
 export function serializeOpensearch_connection(writer, opensearch_connection = {}) {
     if (opensearch_connection) {
-        writer.writeAdditionalData(opensearch_connection.additionalData);
     }
 }
 /**
@@ -16549,7 +18326,6 @@ export function serializeOpensearch_index_base(writer, opensearch_index_base = {
         writer.writeNumberValue("number_of_replicas", opensearch_index_base.numberOfReplicas);
         writer.writeNumberValue("number_of_shards", opensearch_index_base.numberOfShards);
         writer.writeNumberValue("size", opensearch_index_base.size);
-        writer.writeAdditionalData(opensearch_index_base.additionalData);
     }
 }
 /**
@@ -16564,7 +18340,6 @@ export function serializeOpensearch_logsink(writer, opensearch_logsink = {}) {
         writer.writeStringValue("index_prefix", opensearch_logsink.indexPrefix);
         writer.writeNumberValue("timeout", opensearch_logsink.timeout);
         writer.writeStringValue("url", opensearch_logsink.url);
-        writer.writeAdditionalData(opensearch_logsink.additionalData);
     }
 }
 /**
@@ -16576,7 +18351,6 @@ export function serializeOptions(writer, options = {}) {
     if (options) {
         writer.writeObjectValue("options", options.options, serializeOptions_options);
         writer.writeObjectValue("version_availability", options.versionAvailability, serializeOptions_version_availability);
-        writer.writeAdditionalData(options.additionalData);
     }
 }
 /**
@@ -16592,7 +18366,7 @@ export function serializeOptions_options(writer, options_options = {}) {
         writer.writeObjectValue("opensearch", options_options.opensearch, serializeOptions_options_opensearch);
         writer.writeObjectValue("pg", options_options.pg, serializeOptions_options_pg);
         writer.writeObjectValue("redis", options_options.redis, serializeOptions_options_redis);
-        writer.writeAdditionalData(options_options.additionalData);
+        writer.writeObjectValue("valkey", options_options.valkey, serializeOptions_options_valkey);
     }
 }
 /**
@@ -16602,7 +18376,6 @@ export function serializeOptions_options(writer, options_options = {}) {
 // @ts-ignore
 export function serializeOptions_options_kafka(writer, options_options_kafka = {}) {
     if (options_options_kafka) {
-        writer.writeAdditionalData(options_options_kafka.additionalData);
     }
 }
 /**
@@ -16612,7 +18385,6 @@ export function serializeOptions_options_kafka(writer, options_options_kafka = {
 // @ts-ignore
 export function serializeOptions_options_mongodb(writer, options_options_mongodb = {}) {
     if (options_options_mongodb) {
-        writer.writeAdditionalData(options_options_mongodb.additionalData);
     }
 }
 /**
@@ -16622,7 +18394,6 @@ export function serializeOptions_options_mongodb(writer, options_options_mongodb
 // @ts-ignore
 export function serializeOptions_options_mysql(writer, options_options_mysql = {}) {
     if (options_options_mysql) {
-        writer.writeAdditionalData(options_options_mysql.additionalData);
     }
 }
 /**
@@ -16632,7 +18403,6 @@ export function serializeOptions_options_mysql(writer, options_options_mysql = {
 // @ts-ignore
 export function serializeOptions_options_opensearch(writer, options_options_opensearch = {}) {
     if (options_options_opensearch) {
-        writer.writeAdditionalData(options_options_opensearch.additionalData);
     }
 }
 /**
@@ -16642,7 +18412,6 @@ export function serializeOptions_options_opensearch(writer, options_options_open
 // @ts-ignore
 export function serializeOptions_options_pg(writer, options_options_pg = {}) {
     if (options_options_pg) {
-        writer.writeAdditionalData(options_options_pg.additionalData);
     }
 }
 /**
@@ -16652,7 +18421,15 @@ export function serializeOptions_options_pg(writer, options_options_pg = {}) {
 // @ts-ignore
 export function serializeOptions_options_redis(writer, options_options_redis = {}) {
     if (options_options_redis) {
-        writer.writeAdditionalData(options_options_redis.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOptions_options_valkey(writer, options_options_valkey = {}) {
+    if (options_options_valkey) {
     }
 }
 /**
@@ -16668,7 +18445,7 @@ export function serializeOptions_version_availability(writer, options_version_av
         writer.writeCollectionOfObjectValues("opensearch", options_version_availability.opensearch, serializeDatabase_version_availability);
         writer.writeCollectionOfObjectValues("pg", options_version_availability.pg, serializeDatabase_version_availability);
         writer.writeCollectionOfObjectValues("redis", options_version_availability.redis, serializeDatabase_version_availability);
-        writer.writeAdditionalData(options_version_availability.additionalData);
+        writer.writeCollectionOfObjectValues("valkey", options_version_availability.valkey, serializeDatabase_version_availability);
     }
 }
 /**
@@ -16679,7 +18456,6 @@ export function serializeOptions_version_availability(writer, options_version_av
 export function serializePage_links(writer, page_links = {}) {
     if (page_links) {
         writer.writeObjectValue("pages", page_links.pages, serializePage_links_pages);
-        writer.writeAdditionalData(page_links.additionalData);
     }
 }
 /**
@@ -16699,7 +18475,126 @@ export function serializePage_links_pages(writer, page_links_pages = {}) {
 // @ts-ignore
 export function serializePage_links_pagesMember1(writer, page_links_pagesMember1 = {}) {
     if (page_links_pagesMember1) {
-        writer.writeAdditionalData(page_links_pagesMember1.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment(writer, partner_attachment = {}) {
+    if (partner_attachment) {
+        writer.writeObjectValue("bgp", partner_attachment.bgp, serializePartner_attachment_bgp);
+        writer.writeNumberValue("connection_bandwidth_in_mbps", partner_attachment.connectionBandwidthInMbps);
+        writer.writeStringValue("naas_provider", partner_attachment.naasProvider);
+        writer.writeStringValue("name", partner_attachment.name);
+        writer.writeStringValue("region", partner_attachment.region);
+        writer.writeCollectionOfPrimitiveValues("vpc_ids", partner_attachment.vpcIds);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_bgp(writer, partner_attachment_bgp = {}) {
+    if (partner_attachment_bgp) {
+        writer.writeNumberValue("local_asn", partner_attachment_bgp.localAsn);
+        writer.writeStringValue("local_router_ip", partner_attachment_bgp.localRouterIp);
+        writer.writeNumberValue("peer_asn", partner_attachment_bgp.peerAsn);
+        writer.writeStringValue("peer_router_ip", partner_attachment_bgp.peerRouterIp);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_remote_route(writer, partner_attachment_remote_route = {}) {
+    if (partner_attachment_remote_route) {
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_remote_route_writable(writer, partner_attachment_remote_route_writable = {}) {
+    if (partner_attachment_remote_route_writable) {
+        writer.writeStringValue("cidr", partner_attachment_remote_route_writable.cidr);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_updatableMember1(writer, partner_attachment_updatableMember1 = {}) {
+    if (partner_attachment_updatableMember1) {
+        writer.writeStringValue("name", partner_attachment_updatableMember1.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_updatableMember2(writer, partner_attachment_updatableMember2 = {}) {
+    if (partner_attachment_updatableMember2) {
+        writer.writeCollectionOfPrimitiveValues("vpc_ids", partner_attachment_updatableMember2.vpcIds);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_updatableMember3(writer, partner_attachment_updatableMember3 = {}) {
+    if (partner_attachment_updatableMember3) {
+        writer.writeObjectValue("bgp", partner_attachment_updatableMember3.bgp, serializePartner_attachment_updatableMember3_bgp);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_updatableMember3_bgp(writer, partner_attachment_updatableMember3_bgp = {}) {
+    if (partner_attachment_updatableMember3_bgp) {
+        writer.writeStringValue("auth_key", partner_attachment_updatableMember3_bgp.authKey);
+        writer.writeStringValue("local_router_ip", partner_attachment_updatableMember3_bgp.localRouterIp);
+        writer.writeNumberValue("peer_router_asn", partner_attachment_updatableMember3_bgp.peerRouterAsn);
+        writer.writeStringValue("peer_router_ip", partner_attachment_updatableMember3_bgp.peerRouterIp);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_writable(writer, partner_attachment_writable = {}) {
+    if (partner_attachment_writable) {
+        writer.writeObjectValue("bgp", partner_attachment_writable.bgp, serializePartner_attachment_writable_bgp);
+        writer.writeNumberValue("connection_bandwidth_in_mbps", partner_attachment_writable.connectionBandwidthInMbps);
+        writer.writeStringValue("naas_provider", partner_attachment_writable.naasProvider);
+        writer.writeStringValue("name", partner_attachment_writable.name);
+        writer.writeStringValue("parent_uuid", partner_attachment_writable.parentUuid);
+        writer.writeEnumValue("redundancy_zone", partner_attachment_writable.redundancyZone);
+        writer.writeStringValue("region", partner_attachment_writable.region);
+        writer.writeCollectionOfPrimitiveValues("vpc_ids", partner_attachment_writable.vpcIds);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePartner_attachment_writable_bgp(writer, partner_attachment_writable_bgp = {}) {
+    if (partner_attachment_writable_bgp) {
+        writer.writeStringValue("auth_key", partner_attachment_writable_bgp.authKey);
+        writer.writeStringValue("local_router_ip", partner_attachment_writable_bgp.localRouterIp);
+        writer.writeNumberValue("peer_router_asn", partner_attachment_writable_bgp.peerRouterAsn);
+        writer.writeStringValue("peer_router_ip", partner_attachment_writable_bgp.peerRouterIp);
     }
 }
 /**
@@ -16719,7 +18614,6 @@ export function serializePgbouncer_advanced_config(writer, pgbouncer_advanced_co
         writer.writeNumberValue("server_idle_timeout", pgbouncer_advanced_config.serverIdleTimeout);
         writer.writeNumberValue("server_lifetime", pgbouncer_advanced_config.serverLifetime);
         writer.writeBooleanValue("server_reset_query_always", pgbouncer_advanced_config.serverResetQueryAlways);
-        writer.writeAdditionalData(pgbouncer_advanced_config.additionalData);
     }
 }
 /**
@@ -16783,7 +18677,6 @@ export function serializePostgres_advanced_config(writer, postgres_advanced_conf
         writer.writeNumberValue("wal_sender_timeout", postgres_advanced_config.walSenderTimeout);
         writer.writeNumberValue("wal_writer_delay", postgres_advanced_config.walWriterDelay);
         writer.writeNumberValue("work_mem", postgres_advanced_config.workMem);
-        writer.writeAdditionalData(postgres_advanced_config.additionalData);
     }
 }
 /**
@@ -16797,7 +18690,6 @@ export function serializePrevious_outage(writer, previous_outage = {}) {
         writer.writeStringValue("ended_at", previous_outage.endedAt);
         writer.writeStringValue("region", previous_outage.region);
         writer.writeStringValue("started_at", previous_outage.startedAt);
-        writer.writeAdditionalData(previous_outage.additionalData);
     }
 }
 /**
@@ -16810,7 +18702,6 @@ export function serializeProduct_charge_item(writer, product_charge_item = {}) {
         writer.writeStringValue("amount", product_charge_item.amount);
         writer.writeStringValue("count", product_charge_item.count);
         writer.writeStringValue("name", product_charge_item.name);
-        writer.writeAdditionalData(product_charge_item.additionalData);
     }
 }
 /**
@@ -16823,7 +18714,6 @@ export function serializeProduct_usage_charges(writer, product_usage_charges = {
         writer.writeStringValue("amount", product_usage_charges.amount);
         writer.writeCollectionOfObjectValues("items", product_usage_charges.items, serializeProduct_charge_item);
         writer.writeStringValue("name", product_usage_charges.name);
-        writer.writeAdditionalData(product_usage_charges.additionalData);
     }
 }
 /**
@@ -16845,7 +18735,6 @@ export function serializeProject(writer, project = {}) {
 export function serializeProject_assignment(writer, project_assignment = {}) {
     if (project_assignment) {
         writer.writeCollectionOfPrimitiveValues("resources", project_assignment.resources);
-        writer.writeAdditionalData(project_assignment.additionalData);
     }
 }
 /**
@@ -16859,7 +18748,6 @@ export function serializeProject_base(writer, project_base = {}) {
         writer.writeEnumValue("environment", project_base.environment);
         writer.writeStringValue("name", project_base.name);
         writer.writeStringValue("purpose", project_base.purpose);
-        writer.writeAdditionalData(project_base.additionalData);
     }
 }
 /**
@@ -16870,7 +18758,6 @@ export function serializeProject_base(writer, project_base = {}) {
 export function serializePurge_cache(writer, purge_cache = {}) {
     if (purge_cache) {
         writer.writeCollectionOfPrimitiveValues("files", purge_cache.files);
-        writer.writeAdditionalData(purge_cache.additionalData);
     }
 }
 /**
@@ -16891,7 +18778,6 @@ export function serializeRedis_advanced_config(writer, redis_advanced_config = {
         writer.writeNumberValue("redis_pubsub_client_output_buffer_limit", redis_advanced_config.redisPubsubClientOutputBufferLimit);
         writer.writeBooleanValue("redis_ssl", redis_advanced_config.redisSsl);
         writer.writeNumberValue("redis_timeout", redis_advanced_config.redisTimeout);
-        writer.writeAdditionalData(redis_advanced_config.additionalData);
     }
 }
 /**
@@ -16906,7 +18792,6 @@ export function serializeRegion(writer, region = {}) {
         writer.writeStringValue("name", region.name);
         writer.writeObjectValue("sizes", region.sizes);
         writer.writeStringValue("slug", region.slug);
-        writer.writeAdditionalData(region.additionalData);
     }
 }
 /**
@@ -16919,7 +18804,6 @@ export function serializeRegion_state(writer, region_state = {}) {
         writer.writeEnumValue("status", region_state.status);
         writer.writeStringValue("status_changed_at", region_state.statusChangedAt);
         writer.writeNumberValue("thirty_day_uptime_percentage", region_state.thirtyDayUptimePercentage);
-        writer.writeAdditionalData(region_state.additionalData);
     }
 }
 /**
@@ -16931,7 +18815,6 @@ export function serializeRegional_state(writer, regional_state = {}) {
     if (regional_state) {
         writer.writeObjectValue("eu_west", regional_state.euWest, serializeRegion_state);
         writer.writeObjectValue("us_east", regional_state.usEast, serializeRegion_state);
-        writer.writeAdditionalData(regional_state.additionalData);
     }
 }
 /**
@@ -16941,10 +18824,19 @@ export function serializeRegional_state(writer, regional_state = {}) {
 // @ts-ignore
 export function serializeRegistry(writer, registry = {}) {
     if (registry) {
-        writer.writeStringValue("name", registry.name);
-        writer.writeStringValue("region", registry.region);
+        serializeRegistry_base(writer, registry);
         writer.writeObjectValue("subscription", registry.subscription, serializeSubscription);
-        writer.writeAdditionalData(registry.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeRegistry_base(writer, registry_base = {}) {
+    if (registry_base) {
+        writer.writeStringValue("name", registry_base.name);
+        writer.writeStringValue("region", registry_base.region);
     }
 }
 /**
@@ -16957,7 +18849,16 @@ export function serializeRegistry_create(writer, registry_create = {}) {
         writer.writeStringValue("name", registry_create.name);
         writer.writeEnumValue("region", registry_create.region);
         writer.writeEnumValue("subscription_tier_slug", registry_create.subscriptionTierSlug);
-        writer.writeAdditionalData(registry_create.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeRegistry_run_gc(writer, registry_run_gc = {}) {
+    if (registry_run_gc) {
+        writer.writeEnumValue("type", registry_run_gc.type);
     }
 }
 /**
@@ -16971,7 +18872,6 @@ export function serializeRepository(writer, repository = {}) {
         writer.writeStringValue("name", repository.name);
         writer.writeStringValue("registry_name", repository.registryName);
         writer.writeNumberValue("tag_count", repository.tagCount);
-        writer.writeAdditionalData(repository.additionalData);
     }
 }
 /**
@@ -16983,7 +18883,6 @@ export function serializeRepository_blob(writer, repository_blob = {}) {
     if (repository_blob) {
         writer.writeNumberValue("compressed_size_bytes", repository_blob.compressedSizeBytes);
         writer.writeStringValue("digest", repository_blob.digest);
-        writer.writeAdditionalData(repository_blob.additionalData);
     }
 }
 /**
@@ -17001,7 +18900,6 @@ export function serializeRepository_manifest(writer, repository_manifest = {}) {
         writer.writeNumberValue("size_bytes", repository_manifest.sizeBytes);
         writer.writeCollectionOfPrimitiveValues("tags", repository_manifest.tags);
         writer.writeDateValue("updated_at", repository_manifest.updatedAt);
-        writer.writeAdditionalData(repository_manifest.additionalData);
     }
 }
 /**
@@ -17018,7 +18916,6 @@ export function serializeRepository_tag(writer, repository_tag = {}) {
         writer.writeNumberValue("size_bytes", repository_tag.sizeBytes);
         writer.writeStringValue("tag", repository_tag.tag);
         writer.writeDateValue("updated_at", repository_tag.updatedAt);
-        writer.writeAdditionalData(repository_tag.additionalData);
     }
 }
 /**
@@ -17033,7 +18930,6 @@ export function serializeRepository_v2(writer, repository_v2 = {}) {
         writer.writeStringValue("name", repository_v2.name);
         writer.writeStringValue("registry_name", repository_v2.registryName);
         writer.writeNumberValue("tag_count", repository_v2.tagCount);
-        writer.writeAdditionalData(repository_v2.additionalData);
     }
 }
 /**
@@ -17048,7 +18944,6 @@ export function serializeReserved_ip(writer, reserved_ip = {}) {
         writer.writeBooleanValue("locked", reserved_ip.locked);
         writer.writeGuidValue("project_id", reserved_ip.projectId);
         writer.writeObjectValue("region", reserved_ip.region, serializeRegion);
-        writer.writeAdditionalData(reserved_ip.additionalData);
     }
 }
 /**
@@ -17070,7 +18965,6 @@ export function serializeReserved_ip_action_assign(writer, reserved_ip_action_as
 export function serializeReserved_ip_action_type(writer, reserved_ip_action_type = {}) {
     if (reserved_ip_action_type) {
         writer.writeEnumValue("type", reserved_ip_action_type.type);
-        writer.writeAdditionalData(reserved_ip_action_type.additionalData);
     }
 }
 /**
@@ -17091,7 +18985,6 @@ export function serializeReserved_ip_action_unassign(writer, reserved_ip_action_
 export function serializeReserved_ip_createMember1(writer, reserved_ip_createMember1 = {}) {
     if (reserved_ip_createMember1) {
         writer.writeNumberValue("droplet_id", reserved_ip_createMember1.dropletId);
-        writer.writeAdditionalData(reserved_ip_createMember1.additionalData);
     }
 }
 /**
@@ -17103,7 +18996,6 @@ export function serializeReserved_ip_createMember2(writer, reserved_ip_createMem
     if (reserved_ip_createMember2) {
         writer.writeGuidValue("project_id", reserved_ip_createMember2.projectId);
         writer.writeStringValue("region", reserved_ip_createMember2.region);
-        writer.writeAdditionalData(reserved_ip_createMember2.additionalData);
     }
 }
 /**
@@ -17117,7 +19009,6 @@ export function serializeReserved_ipv6(writer, reserved_ipv6 = {}) {
         writer.writeStringValue("ip", reserved_ipv6.ip);
         writer.writeStringValue("region_slug", reserved_ipv6.regionSlug);
         writer.writeDateValue("reserved_at", reserved_ipv6.reservedAt);
-        writer.writeAdditionalData(reserved_ipv6.additionalData);
     }
 }
 /**
@@ -17139,7 +19030,6 @@ export function serializeReserved_ipv6_action_assign(writer, reserved_ipv6_actio
 export function serializeReserved_ipv6_action_type(writer, reserved_ipv6_action_type = {}) {
     if (reserved_ipv6_action_type) {
         writer.writeEnumValue("type", reserved_ipv6_action_type.type);
-        writer.writeAdditionalData(reserved_ipv6_action_type.additionalData);
     }
 }
 /**
@@ -17160,7 +19050,6 @@ export function serializeReserved_ipv6_action_unassign(writer, reserved_ipv6_act
 export function serializeReserved_ipv6_create(writer, reserved_ipv6_create = {}) {
     if (reserved_ipv6_create) {
         writer.writeStringValue("region_slug", reserved_ipv6_create.regionSlug);
-        writer.writeAdditionalData(reserved_ipv6_create.additionalData);
     }
 }
 /**
@@ -17174,7 +19063,6 @@ export function serializeResource(writer, resource = {}) {
         writer.writeObjectValue("links", resource.links, serializeResource_links);
         writer.writeEnumValue("status", resource.status);
         writer.writeStringValue("urn", resource.urn);
-        writer.writeAdditionalData(resource.additionalData);
     }
 }
 /**
@@ -17185,7 +19073,6 @@ export function serializeResource(writer, resource = {}) {
 export function serializeResource_links(writer, resource_links = {}) {
     if (resource_links) {
         writer.writeStringValue("self", resource_links.self);
-        writer.writeAdditionalData(resource_links.additionalData);
     }
 }
 /**
@@ -17196,7 +19083,6 @@ export function serializeResource_links(writer, resource_links = {}) {
 export function serializeRouting_agent(writer, routing_agent = {}) {
     if (routing_agent) {
         writer.writeBooleanValue("enabled", routing_agent.enabled);
-        writer.writeAdditionalData(routing_agent.additionalData);
     }
 }
 /**
@@ -17215,7 +19101,6 @@ export function serializeRsyslog_logsink(writer, rsyslog_logsink = {}) {
         writer.writeStringValue("sd", rsyslog_logsink.sd);
         writer.writeStringValue("server", rsyslog_logsink.server);
         writer.writeBooleanValue("tls", rsyslog_logsink.tls);
-        writer.writeAdditionalData(rsyslog_logsink.additionalData);
     }
 }
 /**
@@ -17227,7 +19112,6 @@ export function serializeScheduled_details(writer, scheduled_details = {}) {
     if (scheduled_details) {
         writer.writeObjectValue("body", scheduled_details.body, serializeScheduled_details_body);
         writer.writeStringValue("cron", scheduled_details.cron);
-        writer.writeAdditionalData(scheduled_details.additionalData);
     }
 }
 /**
@@ -17238,7 +19122,6 @@ export function serializeScheduled_details(writer, scheduled_details = {}) {
 export function serializeScheduled_details_body(writer, scheduled_details_body = {}) {
     if (scheduled_details_body) {
         writer.writeStringValue("name", scheduled_details_body.name);
-        writer.writeAdditionalData(scheduled_details_body.additionalData);
     }
 }
 /**
@@ -17253,7 +19136,6 @@ export function serializeSelective_destroy_associated_resource(writer, selective
         writer.writeCollectionOfPrimitiveValues("snapshots", selective_destroy_associated_resource.snapshots);
         writer.writeCollectionOfPrimitiveValues("volumes", selective_destroy_associated_resource.volumes);
         writer.writeCollectionOfPrimitiveValues("volume_snapshots", selective_destroy_associated_resource.volumeSnapshots);
-        writer.writeAdditionalData(selective_destroy_associated_resource.additionalData);
     }
 }
 /**
@@ -17265,7 +19147,6 @@ export function serializeSimple_charge(writer, simple_charge = {}) {
     if (simple_charge) {
         writer.writeStringValue("amount", simple_charge.amount);
         writer.writeStringValue("name", simple_charge.name);
-        writer.writeAdditionalData(simple_charge.additionalData);
     }
 }
 /**
@@ -17277,7 +19158,6 @@ export function serializeSink_resource(writer, sink_resource = {}) {
     if (sink_resource) {
         writer.writeStringValue("name", sink_resource.name);
         writer.writeStringValue("urn", sink_resource.urn);
-        writer.writeAdditionalData(sink_resource.additionalData);
     }
 }
 /**
@@ -17289,7 +19169,6 @@ export function serializeSinks_response(writer, sinks_response = {}) {
     if (sinks_response) {
         writer.writeObjectValue("destination", sinks_response.destination, serializeDestination);
         writer.writeCollectionOfObjectValues("resources", sinks_response.resources, serializeSink_resource);
-        writer.writeAdditionalData(sinks_response.additionalData);
     }
 }
 /**
@@ -17311,7 +19190,6 @@ export function serializeSize(writer, size = {}) {
         writer.writeStringValue("slug", size.slug);
         writer.writeNumberValue("transfer", size.transfer);
         writer.writeNumberValue("vcpus", size.vcpus);
-        writer.writeAdditionalData(size.additionalData);
     }
 }
 /**
@@ -17323,7 +19201,6 @@ export function serializeSlack_details(writer, slack_details = {}) {
     if (slack_details) {
         writer.writeStringValue("channel", slack_details.channel);
         writer.writeStringValue("url", slack_details.url);
-        writer.writeAdditionalData(slack_details.additionalData);
     }
 }
 /**
@@ -17352,7 +19229,6 @@ export function serializeSnapshots_base(writer, snapshots_base = {}) {
         writer.writeStringValue("name", snapshots_base.name);
         writer.writeCollectionOfPrimitiveValues("regions", snapshots_base.regions);
         writer.writeNumberValue("size_gigabytes", snapshots_base.sizeGigabytes);
-        writer.writeAdditionalData(snapshots_base.additionalData);
     }
 }
 /**
@@ -17365,7 +19241,6 @@ export function serializeSource_database(writer, source_database = {}) {
         writer.writeBooleanValue("disable_ssl", source_database.disableSsl);
         writer.writeCollectionOfPrimitiveValues("ignore_dbs", source_database.ignoreDbs);
         writer.writeObjectValue("source", source_database.source, serializeSource_database_source);
-        writer.writeAdditionalData(source_database.additionalData);
     }
 }
 /**
@@ -17380,7 +19255,6 @@ export function serializeSource_database_source(writer, source_database_source =
         writer.writeStringValue("password", source_database_source.password);
         writer.writeNumberValue("port", source_database_source.port);
         writer.writeStringValue("username", source_database_source.username);
-        writer.writeAdditionalData(source_database_source.additionalData);
     }
 }
 /**
@@ -17391,7 +19265,6 @@ export function serializeSource_database_source(writer, source_database_source =
 export function serializeSql_mode(writer, sql_mode = {}) {
     if (sql_mode) {
         writer.writeStringValue("sql_mode", sql_mode.sqlMode);
-        writer.writeAdditionalData(sql_mode.additionalData);
     }
 }
 /**
@@ -17403,7 +19276,6 @@ export function serializeSshKeys(writer, sshKeys = {}) {
     if (sshKeys) {
         writer.writeStringValue("name", sshKeys.name);
         writer.writeStringValue("public_key", sshKeys.publicKey);
-        writer.writeAdditionalData(sshKeys.additionalData);
     }
 }
 /**
@@ -17415,7 +19287,15 @@ export function serializeState(writer, state = {}) {
     if (state) {
         writer.writeObjectValue("previous_outage", state.previousOutage, serializePrevious_outage);
         writer.writeObjectValue("regions", state.regions, serializeRegional_state);
-        writer.writeAdditionalData(state.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeStatus_messages(writer, status_messages = {}) {
+    if (status_messages) {
     }
 }
 /**
@@ -17428,7 +19308,6 @@ export function serializeSticky_sessions(writer, sticky_sessions = {}) {
         writer.writeStringValue("cookie_name", sticky_sessions.cookieName);
         writer.writeNumberValue("cookie_ttl_seconds", sticky_sessions.cookieTtlSeconds);
         writer.writeEnumValue("type", sticky_sessions.type ?? Sticky_sessions_typeObject.None);
-        writer.writeAdditionalData(sticky_sessions.additionalData);
     }
 }
 /**
@@ -17439,7 +19318,6 @@ export function serializeSticky_sessions(writer, sticky_sessions = {}) {
 export function serializeSubscription(writer, subscription = {}) {
     if (subscription) {
         writer.writeObjectValue("tier", subscription.tier, serializeSubscription_tier_base);
-        writer.writeAdditionalData(subscription.additionalData);
     }
 }
 /**
@@ -17457,7 +19335,6 @@ export function serializeSubscription_tier_base(writer, subscription_tier_base =
         writer.writeStringValue("name", subscription_tier_base.name);
         writer.writeStringValue("slug", subscription_tier_base.slug);
         writer.writeNumberValue("storage_overage_price_in_cents", subscription_tier_base.storageOveragePriceInCents);
-        writer.writeAdditionalData(subscription_tier_base.additionalData);
     }
 }
 /**
@@ -17472,7 +19349,6 @@ export function serializeSupported_droplet_backup_policy(writer, supported_dropl
         writer.writeCollectionOfPrimitiveValues("possible_window_starts", supported_droplet_backup_policy.possibleWindowStarts);
         writer.writeNumberValue("retention_period_days", supported_droplet_backup_policy.retentionPeriodDays);
         writer.writeNumberValue("window_length_hours", supported_droplet_backup_policy.windowLengthHours);
-        writer.writeAdditionalData(supported_droplet_backup_policy.additionalData);
     }
 }
 /**
@@ -17483,7 +19359,6 @@ export function serializeSupported_droplet_backup_policy(writer, supported_dropl
 export function serializeTags(writer, tags = {}) {
     if (tags) {
         writer.writeStringValue("name", tags.name);
-        writer.writeAdditionalData(tags.additionalData);
     }
 }
 /**
@@ -17495,7 +19370,6 @@ export function serializeTags_metadata(writer, tags_metadata = {}) {
     if (tags_metadata) {
         writer.writeNumberValue("count", tags_metadata.count);
         writer.writeStringValue("last_tagged_uri", tags_metadata.lastTaggedUri);
-        writer.writeAdditionalData(tags_metadata.additionalData);
     }
 }
 /**
@@ -17506,7 +19380,6 @@ export function serializeTags_metadata(writer, tags_metadata = {}) {
 export function serializeTags_resource(writer, tags_resource = {}) {
     if (tags_resource) {
         writer.writeCollectionOfObjectValues("resources", tags_resource.resources, serializeTags_resource_resources);
-        writer.writeAdditionalData(tags_resource.additionalData);
     }
 }
 /**
@@ -17518,7 +19391,6 @@ export function serializeTags_resource_resources(writer, tags_resource_resources
     if (tags_resource_resources) {
         writer.writeStringValue("resource_id", tags_resource_resources.resourceId);
         writer.writeEnumValue("resource_type", tags_resource_resources.resourceType);
-        writer.writeAdditionalData(tags_resource_resources.additionalData);
     }
 }
 /**
@@ -17544,7 +19416,6 @@ export function serializeTags_resources(writer, tags_resources = {}) {
 export function serializeTimescaledb_advanced_config(writer, timescaledb_advanced_config = {}) {
     if (timescaledb_advanced_config) {
         writer.writeNumberValue("max_background_workers", timescaledb_advanced_config.maxBackgroundWorkers);
-        writer.writeAdditionalData(timescaledb_advanced_config.additionalData);
     }
 }
 /**
@@ -17563,7 +19434,6 @@ export function serializeTrigger_info(writer, trigger_info = {}) {
         writer.writeObjectValue("scheduled_runs", trigger_info.scheduledRuns, serializeTrigger_info_scheduled_runs);
         writer.writeStringValue("type", trigger_info.type);
         writer.writeStringValue("updated_at", trigger_info.updatedAt);
-        writer.writeAdditionalData(trigger_info.additionalData);
     }
 }
 /**
@@ -17575,7 +19445,6 @@ export function serializeTrigger_info_scheduled_runs(writer, trigger_info_schedu
     if (trigger_info_scheduled_runs) {
         writer.writeStringValue("last_run_at", trigger_info_scheduled_runs.lastRunAt);
         writer.writeStringValue("next_run_at", trigger_info_scheduled_runs.nextRunAt);
-        writer.writeAdditionalData(trigger_info_scheduled_runs.additionalData);
     }
 }
 /**
@@ -17588,7 +19457,6 @@ export function serializeUpdate_endpoint(writer, update_endpoint = {}) {
         writer.writeGuidValue("certificate_id", update_endpoint.certificateId);
         writer.writeStringValue("custom_domain", update_endpoint.customDomain);
         writer.writeNumberValue("ttl", update_endpoint.ttl);
-        writer.writeAdditionalData(update_endpoint.additionalData);
     }
 }
 /**
@@ -17599,7 +19467,6 @@ export function serializeUpdate_endpoint(writer, update_endpoint = {}) {
 export function serializeUpdate_registry(writer, update_registry = {}) {
     if (update_registry) {
         writer.writeBooleanValue("cancel", update_registry.cancel);
-        writer.writeAdditionalData(update_registry.additionalData);
     }
 }
 /**
@@ -17611,7 +19478,6 @@ export function serializeUpdate_trigger(writer, update_trigger = {}) {
     if (update_trigger) {
         writer.writeBooleanValue("is_enabled", update_trigger.isEnabled);
         writer.writeObjectValue("scheduled_details", update_trigger.scheduledDetails, serializeScheduled_details);
-        writer.writeAdditionalData(update_trigger.additionalData);
     }
 }
 /**
@@ -17622,7 +19488,6 @@ export function serializeUpdate_trigger(writer, update_trigger = {}) {
 export function serializeUser(writer, user = {}) {
     if (user) {
         writer.writeObjectValue("kubernetes_cluster_user", user.kubernetesClusterUser, serializeUser_kubernetes_cluster_user);
-        writer.writeAdditionalData(user.additionalData);
     }
 }
 /**
@@ -17634,7 +19499,6 @@ export function serializeUser_kubernetes_cluster_user(writer, user_kubernetes_cl
     if (user_kubernetes_cluster_user) {
         writer.writeCollectionOfPrimitiveValues("groups", user_kubernetes_cluster_user.groups);
         writer.writeStringValue("username", user_kubernetes_cluster_user.username);
-        writer.writeAdditionalData(user_kubernetes_cluster_user.additionalData);
     }
 }
 /**
@@ -17645,9 +19509,9 @@ export function serializeUser_kubernetes_cluster_user(writer, user_kubernetes_cl
 export function serializeUser_settings(writer, user_settings = {}) {
     if (user_settings) {
         writer.writeCollectionOfObjectValues("acl", user_settings.acl, serializeUser_settings_acl);
+        writer.writeObjectValue("mongo_user_settings", user_settings.mongoUserSettings, serializeUser_settings_mongo_user_settings);
         writer.writeCollectionOfObjectValues("opensearch_acl", user_settings.opensearchAcl, serializeUser_settings_opensearch_acl);
         writer.writeBooleanValue("pg_allow_replication", user_settings.pgAllowReplication);
-        writer.writeAdditionalData(user_settings.additionalData);
     }
 }
 /**
@@ -17660,7 +19524,17 @@ export function serializeUser_settings_acl(writer, user_settings_acl = {}) {
         writer.writeStringValue("id", user_settings_acl.id);
         writer.writeEnumValue("permission", user_settings_acl.permission);
         writer.writeStringValue("topic", user_settings_acl.topic);
-        writer.writeAdditionalData(user_settings_acl.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUser_settings_mongo_user_settings(writer, user_settings_mongo_user_settings = {}) {
+    if (user_settings_mongo_user_settings) {
+        writer.writeCollectionOfPrimitiveValues("databases", user_settings_mongo_user_settings.databases);
+        writer.writeEnumValue("role", user_settings_mongo_user_settings.role);
     }
 }
 /**
@@ -17672,7 +19546,6 @@ export function serializeUser_settings_opensearch_acl(writer, user_settings_open
     if (user_settings_opensearch_acl) {
         writer.writeStringValue("index", user_settings_opensearch_acl.index);
         writer.writeEnumValue("permission", user_settings_opensearch_acl.permission);
-        writer.writeAdditionalData(user_settings_opensearch_acl.additionalData);
     }
 }
 /**
@@ -17683,7 +19556,26 @@ export function serializeUser_settings_opensearch_acl(writer, user_settings_open
 export function serializeValidate_registry(writer, validate_registry = {}) {
     if (validate_registry) {
         writer.writeStringValue("name", validate_registry.name);
-        writer.writeAdditionalData(validate_registry.additionalData);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeValkey_advanced_config(writer, valkey_advanced_config = {}) {
+    if (valkey_advanced_config) {
+        writer.writeEnumValue("valkey_acl_channels_default", valkey_advanced_config.valkeyAclChannelsDefault);
+        writer.writeNumberValue("valkey_io_threads", valkey_advanced_config.valkeyIoThreads);
+        writer.writeNumberValue("valkey_lfu_decay_time", valkey_advanced_config.valkeyLfuDecayTime);
+        writer.writeNumberValue("valkey_lfu_log_factor", valkey_advanced_config.valkeyLfuLogFactor);
+        writer.writeEnumValue("valkey_maxmemory_policy", valkey_advanced_config.valkeyMaxmemoryPolicy);
+        writer.writeStringValue("valkey_notify_keyspace_events", valkey_advanced_config.valkeyNotifyKeyspaceEvents);
+        writer.writeNumberValue("valkey_number_of_databases", valkey_advanced_config.valkeyNumberOfDatabases);
+        writer.writeEnumValue("valkey_persistence", valkey_advanced_config.valkeyPersistence);
+        writer.writeNumberValue("valkey_pubsub_client_output_buffer_limit", valkey_advanced_config.valkeyPubsubClientOutputBufferLimit);
+        writer.writeBooleanValue("valkey_ssl", valkey_advanced_config.valkeySsl);
+        writer.writeNumberValue("valkey_timeout", valkey_advanced_config.valkeyTimeout);
     }
 }
 /**
@@ -17694,7 +19586,6 @@ export function serializeValidate_registry(writer, validate_registry = {}) {
 export function serializeVersion2(writer, version2 = {}) {
     if (version2) {
         writer.writeStringValue("version", version2.version);
-        writer.writeAdditionalData(version2.additionalData);
     }
 }
 /**
@@ -17718,7 +19609,6 @@ export function serializeVolume_action_post_base(writer, volume_action_post_base
     if (volume_action_post_base) {
         writer.writeEnumValue("region", volume_action_post_base.region);
         writer.writeEnumValue("type", volume_action_post_base.type);
-        writer.writeAdditionalData(volume_action_post_base.additionalData);
     }
 }
 /**
@@ -17754,7 +19644,6 @@ export function serializeVolume_base(writer, volume_base = {}) {
         writer.writeStringValue("name", volume_base.name);
         writer.writeNumberValue("size_gigabytes", volume_base.sizeGigabytes);
         writer.writeCollectionOfPrimitiveValues("tags", volume_base.tags);
-        writer.writeAdditionalData(volume_base.additionalData);
     }
 }
 /**
@@ -17794,7 +19683,6 @@ export function serializeVolumes_ext4(writer, volumes_ext4 = {}) {
         writer.writeNumberValue("size_gigabytes", volumes_ext4.sizeGigabytes);
         writer.writeStringValue("snapshot_id", volumes_ext4.snapshotId);
         writer.writeCollectionOfPrimitiveValues("tags", volumes_ext4.tags);
-        writer.writeAdditionalData(volumes_ext4.additionalData);
     }
 }
 /**
@@ -17812,7 +19700,6 @@ export function serializeVolumes_xfs(writer, volumes_xfs = {}) {
         writer.writeNumberValue("size_gigabytes", volumes_xfs.sizeGigabytes);
         writer.writeStringValue("snapshot_id", volumes_xfs.snapshotId);
         writer.writeCollectionOfPrimitiveValues("tags", volumes_xfs.tags);
-        writer.writeAdditionalData(volumes_xfs.additionalData);
     }
 }
 /**
@@ -17828,7 +19715,6 @@ export function serializeVpc(writer, vpc = {}) {
         writer.writeStringValue("name", vpc.name);
         writer.writeStringValue("region", vpc.region);
         writer.writeStringValue("urn", vpc.urn);
-        writer.writeAdditionalData(vpc.additionalData);
     }
 }
 /**
@@ -17841,7 +19727,6 @@ export function serializeVpc_member(writer, vpc_member = {}) {
         writer.writeStringValue("created_at", vpc_member.createdAt);
         writer.writeStringValue("name", vpc_member.name);
         writer.writeStringValue("urn", vpc_member.urn);
-        writer.writeAdditionalData(vpc_member.additionalData);
     }
 }
 /**
@@ -17853,7 +19738,6 @@ export function serializeVpc_peering(writer, vpc_peering = {}) {
     if (vpc_peering) {
         writer.writeStringValue("name", vpc_peering.name);
         writer.writeCollectionOfPrimitiveValues("vpc_ids", vpc_peering.vpcIds);
-        writer.writeAdditionalData(vpc_peering.additionalData);
     }
 }
 /**
@@ -17864,7 +19748,6 @@ export function serializeVpc_peering(writer, vpc_peering = {}) {
 export function serializeVpc_peering_updatable(writer, vpc_peering_updatable = {}) {
     if (vpc_peering_updatable) {
         writer.writeStringValue("name", vpc_peering_updatable.name);
-        writer.writeAdditionalData(vpc_peering_updatable.additionalData);
     }
 }
 /**
@@ -18035,6 +19918,13 @@ export const Alert_updatable_typeObject = {
     Down_global: "down_global",
     Ssl_expiry: "ssl_expiry",
 };
+/**
+ * - AGENT_TEMPLATE_TYPE_STANDARD: The standard agent template - AGENT_TEMPLATE_TYPE_ONE_CLICK: The one click agent template
+ */
+export const ApiAgentTemplateTypeObject = {
+    AGENT_TEMPLATE_TYPE_STANDARD: "AGENT_TEMPLATE_TYPE_STANDARD",
+    AGENT_TEMPLATE_TYPE_ONE_CLICK: "AGENT_TEMPLATE_TYPE_ONE_CLICK",
+};
 export const ApiBatchJobPhaseObject = {
     BATCH_JOB_PHASE_UNKNOWN: "BATCH_JOB_PHASE_UNKNOWN",
     BATCH_JOB_PHASE_PENDING: "BATCH_JOB_PHASE_PENDING",
@@ -18075,15 +19965,56 @@ export const ApiDeploymentVisibilityObject = {
     VISIBILITY_PUBLIC: "VISIBILITY_PUBLIC",
     VISIBILITY_PRIVATE: "VISIBILITY_PRIVATE",
 };
+export const ApiEvaluationMetricTypeObject = {
+    METRIC_TYPE_UNSPECIFIED: "METRIC_TYPE_UNSPECIFIED",
+    METRIC_TYPE_GENERAL_QUALITY: "METRIC_TYPE_GENERAL_QUALITY",
+    METRIC_TYPE_RAG_AND_TOOL: "METRIC_TYPE_RAG_AND_TOOL",
+};
+export const ApiEvaluationMetricValueTypeObject = {
+    METRIC_VALUE_TYPE_UNSPECIFIED: "METRIC_VALUE_TYPE_UNSPECIFIED",
+    METRIC_VALUE_TYPE_NUMBER: "METRIC_VALUE_TYPE_NUMBER",
+    METRIC_VALUE_TYPE_STRING: "METRIC_VALUE_TYPE_STRING",
+};
 export const ApiGuardrailTypeObject = {
     GUARDRAIL_TYPE_UNKNOWN: "GUARDRAIL_TYPE_UNKNOWN",
     GUARDRAIL_TYPE_JAILBREAK: "GUARDRAIL_TYPE_JAILBREAK",
     GUARDRAIL_TYPE_SENSITIVE_DATA: "GUARDRAIL_TYPE_SENSITIVE_DATA",
     GUARDRAIL_TYPE_CONTENT_MODERATION: "GUARDRAIL_TYPE_CONTENT_MODERATION",
 };
+export const ApiIndexedDataSourceStatusObject = {
+    DATA_SOURCE_STATUS_UNKNOWN: "DATA_SOURCE_STATUS_UNKNOWN",
+    DATA_SOURCE_STATUS_IN_PROGRESS: "DATA_SOURCE_STATUS_IN_PROGRESS",
+    DATA_SOURCE_STATUS_UPDATED: "DATA_SOURCE_STATUS_UPDATED",
+    DATA_SOURCE_STATUS_PARTIALLY_UPDATED: "DATA_SOURCE_STATUS_PARTIALLY_UPDATED",
+    DATA_SOURCE_STATUS_NOT_UPDATED: "DATA_SOURCE_STATUS_NOT_UPDATED",
+    DATA_SOURCE_STATUS_FAILED: "DATA_SOURCE_STATUS_FAILED",
+};
 export const ApiModelProviderObject = {
     MODEL_PROVIDER_DIGITALOCEAN: "MODEL_PROVIDER_DIGITALOCEAN",
     MODEL_PROVIDER_ANTHROPIC: "MODEL_PROVIDER_ANTHROPIC",
+    MODEL_PROVIDER_OPENAI: "MODEL_PROVIDER_OPENAI",
+};
+/**
+ * - MODEL_USECASE_UNKNOWN: The use case of the model is unknown - MODEL_USECASE_AGENT: The model maybe used in an agent - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models) - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails - MODEL_USECASE_REASONING: The model usecase for reasoning - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference
+ */
+export const ApiModelUsecaseObject = {
+    MODEL_USECASE_UNKNOWN: "MODEL_USECASE_UNKNOWN",
+    MODEL_USECASE_AGENT: "MODEL_USECASE_AGENT",
+    MODEL_USECASE_FINETUNED: "MODEL_USECASE_FINETUNED",
+    MODEL_USECASE_KNOWLEDGEBASE: "MODEL_USECASE_KNOWLEDGEBASE",
+    MODEL_USECASE_GUARDRAIL: "MODEL_USECASE_GUARDRAIL",
+    MODEL_USECASE_REASONING: "MODEL_USECASE_REASONING",
+    MODEL_USECASE_SERVERLESS: "MODEL_USECASE_SERVERLESS",
+};
+/**
+ * - RETRIEVAL_METHOD_UNKNOWN: The retrieval method is unknown - RETRIEVAL_METHOD_REWRITE: The retrieval method is rewrite - RETRIEVAL_METHOD_STEP_BACK: The retrieval method is step back - RETRIEVAL_METHOD_SUB_QUERIES: The retrieval method is sub queries - RETRIEVAL_METHOD_NONE: The retrieval method is none
+ */
+export const ApiRetrievalMethodObject = {
+    RETRIEVAL_METHOD_UNKNOWN: "RETRIEVAL_METHOD_UNKNOWN",
+    RETRIEVAL_METHOD_REWRITE: "RETRIEVAL_METHOD_REWRITE",
+    RETRIEVAL_METHOD_STEP_BACK: "RETRIEVAL_METHOD_STEP_BACK",
+    RETRIEVAL_METHOD_SUB_QUERIES: "RETRIEVAL_METHOD_SUB_QUERIES",
+    RETRIEVAL_METHOD_NONE: "RETRIEVAL_METHOD_NONE",
 };
 export const App_alert_phaseObject = {
     UNKNOWN: "UNKNOWN",
@@ -18113,6 +20044,7 @@ export const App_alert_spec_ruleObject = {
     DEPLOYMENT_LIVE: "DEPLOYMENT_LIVE",
     DOMAIN_FAILED: "DOMAIN_FAILED",
     DOMAIN_LIVE: "DOMAIN_LIVE",
+    AUTOSCALE_FAILED: "AUTOSCALE_FAILED",
     FUNCTIONS_ACTIVATION_COUNT: "FUNCTIONS_ACTIVATION_COUNT",
     FUNCTIONS_AVERAGE_DURATION_MS: "FUNCTIONS_AVERAGE_DURATION_MS",
     FUNCTIONS_ERROR_RATE_PER_MINUTE: "FUNCTIONS_ERROR_RATE_PER_MINUTE",
@@ -18127,8 +20059,13 @@ export const App_alert_spec_windowObject = {
     THIRTY_MINUTES: "THIRTY_MINUTES",
     ONE_HOUR: "ONE_HOUR",
 };
+export const App_component_health_stateObject = {
+    UNKNOWN: "UNKNOWN",
+    HEALTHY: "HEALTHY",
+    UNHEALTHY: "UNHEALTHY",
+};
 /**
- * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Redis- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch
+ * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Redis- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch- VALKEY: ValKey
  */
 export const App_database_spec_engineObject = {
     UNSET: "UNSET",
@@ -18138,6 +20075,7 @@ export const App_database_spec_engineObject = {
     MONGODB: "MONGODB",
     KAFKA: "KAFKA",
     OPENSEARCH: "OPENSEARCH",
+    VALKEY: "VALKEY",
 };
 /**
  * The minimum version of TLS a client application can use to access resources for the domain.  Must be one of the following values wrapped within quotations: `"1.2"` or `"1.3"`.
@@ -18158,6 +20096,14 @@ export const App_domain_spec_typeObject = {
 export const App_egress_type_specObject = {
     AUTOASSIGN: "AUTOASSIGN",
     DEDICATED_IP: "DEDICATED_IP",
+};
+/**
+ * Supported compute component by DigitalOcean App Platform.
+ */
+export const App_instance_component_typeObject = {
+    SERVICE: "SERVICE",
+    WORKER: "WORKER",
+    JOB: "JOB",
 };
 /**
  * - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.- PRE_DEPLOY: Indicates a job that runs before an app deployment.- POST_DEPLOY: Indicates a job that runs after an app deployment.- FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy.
@@ -18192,14 +20138,15 @@ export const App_service_spec_protocolObject = {
  * The slug form of the geographical origin of the app. Default: `nearest available`
  */
 export const App_spec_regionObject = {
-    Ams: "ams",
+    Atl: "atl",
     Nyc: "nyc",
-    Fra: "fra",
     Sfo: "sfo",
-    Sgp: "sgp",
-    Blr: "blr",
     Tor: "tor",
+    Ams: "ams",
+    Fra: "fra",
     Lon: "lon",
+    Blr: "blr",
+    Sgp: "sgp",
     Syd: "syd",
 };
 /**
@@ -18349,6 +20296,11 @@ export const Check_updatable_typeObject = {
     Http: "http",
     Https: "https",
 };
+export const Cluster_autoscaler_configuration_expandersObject = {
+    Random: "random",
+    Priority: "priority",
+    Least_waste: "least_waste",
+};
 /**
  * A string indicating the current status of the cluster.
  */
@@ -18362,12 +20314,13 @@ export const Cluster_status_stateObject = {
     Deleting: "deleting",
 };
 /**
- * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, and "opensearch" for OpenSearch.
+ * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
  */
 export const Database_cluster_engineObject = {
     Pg: "pg",
     Mysql: "mysql",
     Redis: "redis",
+    Valkey: "valkey",
     Mongodb: "mongodb",
     Kafka: "kafka",
     Opensearch: "opensearch",
@@ -18527,7 +20480,7 @@ export const Events_logs_event_typeObject = {
     Cluster_poweroff: "cluster_poweroff",
 };
 /**
- * A string specifying the desired eviction policy for the Redis cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+ * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
  */
 export const Eviction_policy_modelObject = {
     Noeviction: "noeviction",
@@ -18801,7 +20754,7 @@ export const Load_balancer_base_algorithmObject = {
     Least_connections: "least_connections",
 };
 /**
- * A string indicating whether the load balancer will support IPv4 or both IPv4 and IPv6 networking. This property cannot be updated after creating the load balancer. Note that this feature is in private preview.
+ * A string indicating whether the load balancer will support IPv4 or both IPv4 and IPv6 networking. This property cannot be updated after creating the load balancer.
  */
 export const Load_balancer_base_network_stackObject = {
     IPV4: "IPV4",
@@ -18832,6 +20785,13 @@ export const Load_balancer_base_statusObject = {
     Errored: "errored",
 };
 /**
+ * A string indicating the policy for the TLS cipher suites used by the load balancer. The possible values are `DEFAULT` or `STRONG`. The default value is `DEFAULT`.
+ */
+export const Load_balancer_base_tls_cipher_policyObject = {
+    DEFAULTEscaped: "DEFAULT",
+    STRONG: "STRONG",
+};
+/**
  * A string indicating whether the load balancer should be a standard regional HTTP load balancer, a regional network load balancer that routes traffic at the TCP/UDP transport layer, or a global load balancer.
  */
 export const Load_balancer_base_typeObject = {
@@ -18839,10 +20799,14 @@ export const Load_balancer_base_typeObject = {
     REGIONAL_NETWORK: "REGIONAL_NETWORK",
     GLOBAL: "GLOBAL",
 };
+/**
+ * Type of logsink integration.- Use `datadog` for Datadog integration **only with MongoDB clusters**.- For non-MongoDB clusters, use `rsyslog` for general syslog forwarding.- Other supported types include `elasticsearch` and `opensearch`.More details about the configuration can be found in the `config` property.
+ */
 export const Logsink_base_sink_typeObject = {
     Rsyslog: "rsyslog",
     Elasticsearch: "elasticsearch",
     Opensearch: "opensearch",
+    Datadog: "datadog",
 };
 export const Logsink_base_verbose_sink_typeObject = {
     Rsyslog: "rsyslog",
@@ -18885,6 +20849,19 @@ export const Mongo_advanced_config_default_read_concernObject = {
     Local: "local",
     Available: "available",
     Majority: "majority",
+};
+/**
+ * Slug of the region where registry data is stored. When not provided, a region will be selected.
+ */
+export const Multiregistry_create_regionObject = {
+    Nyc3: "nyc3",
+    Sfo3: "sfo3",
+    Sfo2: "sfo2",
+    Ams3: "ams3",
+    Sgp1: "sgp1",
+    Fra1: "fra1",
+    Blr1: "blr1",
+    Syd1: "syd1",
 };
 /**
  * The storage engine for in-memory internal temporary tables.
@@ -18958,6 +20935,14 @@ export const Opensearch_index_statusObject = {
     Open: "open",
     Close: "close",
     None: "none",
+};
+/**
+ * Optional redundancy zone for the partner attachment.
+ */
+export const Partner_attachment_writable_redundancy_zoneObject = {
+    UNSPECIFIED: "UNSPECIFIED",
+    MEGAPORT_BLUE: "MEGAPORT_BLUE",
+    MEGAPORT_RED: "MEGAPORT_RED",
 };
 /**
  * PGBouncer pool mode
@@ -19111,6 +21096,14 @@ export const Registry_create_subscription_tier_slugObject = {
     Professional: "professional",
 };
 /**
+ * Type of the garbage collection to run against this registry
+ */
+export const Registry_run_gc_typeObject = {
+    UntaggedManifestsOnly: "untagged manifests only",
+    UnreferencedBlobsOnly: "unreferenced blobs only",
+    UntaggedManifestsAndUnreferencedBlobs: "untagged manifests and unreferenced blobs",
+};
+/**
  * The type of action to initiate for the reserved IP.
  */
 export const Reserved_ip_action_type_typeObject = {
@@ -19175,6 +21168,14 @@ export const User_settings_acl_permissionObject = {
     Produceconsume: "produceconsume",
 };
 /**
+ * The role to assign to the user with each role mapping to a MongoDB built-in role.  `readOnly` maps to a [read](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-read) role. `readWrite` maps to a [readWrite](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-readWrite) role. `dbAdmin` maps to a [dbAdmin](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-dbAdmin) role.
+ */
+export const User_settings_mongo_user_settings_roleObject = {
+    ReadOnly: "readOnly",
+    ReadWrite: "readWrite",
+    DbAdmin: "dbAdmin",
+};
+/**
  * Permission set applied to the ACL. 'read' allows user to read from the index. 'write' allows for user to write to the index. 'readwrite' allows for both 'read' and 'write' permission. 'deny'(default) restricts user from performing any operation over an index. 'admin' allows for 'readwrite' as well as any operations to administer the index.
  */
 export const User_settings_opensearch_acl_permissionObject = {
@@ -19183,6 +21184,20 @@ export const User_settings_opensearch_acl_permissionObject = {
     Read: "read",
     Readwrite: "readwrite",
     Write: "write",
+};
+/**
+ * Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Valkey configuration acl-pubsub-default.
+ */
+export const Valkey_advanced_config_valkey_acl_channels_defaultObject = {
+    Allchannels: "allchannels",
+    Resetchannels: "resetchannels",
+};
+/**
+ * When persistence is 'rdb', Valkey does RDB dumps each 10 minutes if any key is changed. Also RDB dumps are done according to backup schedule for backup purposes. When persistence is 'off', no RDB dumps and backups are done, so data can be lost at any moment if service is restarted for any reason, or if service is powered off. Also service can't be forked.
+ */
+export const Valkey_advanced_config_valkey_persistenceObject = {
+    Off: "off",
+    Rdb: "rdb",
 };
 /**
  * The volume action to initiate.

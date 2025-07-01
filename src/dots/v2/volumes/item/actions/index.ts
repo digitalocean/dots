@@ -6,17 +6,13 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithAction_ItemRequestBuilder, WithAction_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsGetResponse extends Parsable {
     /**
      * The actions property
      */
     actions?: VolumeAction[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -27,22 +23,18 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export type ActionsPostRequestBody = Volume_action_post_attach | Volume_action_post_detach | Volume_action_post_resize;
-export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsPostResponse extends Parsable {
     /**
      * The action property
      */
     action?: VolumeAction | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/volumes/{volume_id}/actions
  */
 export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.volumes.item.actions.item collection
+     * Gets an item from the dots.v2.volumes.item.actions.item collection
      * @param action_id A unique numeric ID that can be used to identify and reference an action.
      * @returns {WithAction_ItemRequestBuilder}
      */
@@ -181,7 +173,6 @@ export function serializeActionsGetResponse(writer: SerializationWriter, actions
         writer.writeCollectionOfObjectValues<VolumeAction>("actions", actionsGetResponse.actions, serializeVolumeAction);
         writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(actionsGetResponse.additionalData);
     }
 }
 /**
@@ -202,7 +193,6 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
     if (actionsPostResponse) {
         writer.writeObjectValue<VolumeAction>("action", actionsPostResponse.action, serializeVolumeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
     }
 }
 /**

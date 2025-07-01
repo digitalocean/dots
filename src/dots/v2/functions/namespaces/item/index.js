@@ -32,7 +32,6 @@ export function deserializeIntoWithNamespace_GetResponse(withNamespace_GetRespon
 export function serializeWithNamespace_GetResponse(writer, withNamespace_GetResponse = {}) {
     if (withNamespace_GetResponse) {
         writer.writeObjectValue("namespace", withNamespace_GetResponse.namespace, serializeNamespace_info);
-        writer.writeAdditionalData(withNamespace_GetResponse.additionalData);
     }
 }
 /**

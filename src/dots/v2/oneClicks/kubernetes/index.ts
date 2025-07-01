@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, serializeOneClicks_create, type ErrorEscaped, type OneClicks_create } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoKubernetesPostResponse(kubernetesPostResponse: Pa
         "message": n => { kubernetesPostResponse.message = n.getStringValue(); },
     }
 }
-export interface KubernetesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface KubernetesPostResponse extends Parsable {
     /**
      * A message about the result of the request.
      */
@@ -66,7 +62,6 @@ export interface KubernetesRequestBuilder extends BaseRequestBuilder<KubernetesR
 export function serializeKubernetesPostResponse(writer: SerializationWriter, kubernetesPostResponse: Partial<KubernetesPostResponse> | undefined | null = {}) : void {
     if (kubernetesPostResponse) {
         writer.writeStringValue("message", kubernetesPostResponse.message);
-        writer.writeAdditionalData(kubernetesPostResponse.additionalData);
     }
 }
 /**

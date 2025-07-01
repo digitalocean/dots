@@ -70,7 +70,6 @@ export function deserializeIntoWithProject_PutResponse(withProject_PutResponse =
 export function serializeWithProject_GetResponse(writer, withProject_GetResponse = {}) {
     if (withProject_GetResponse) {
         writer.writeObjectValue("project", withProject_GetResponse.project, serializeProject);
-        writer.writeAdditionalData(withProject_GetResponse.additionalData);
     }
 }
 /**
@@ -81,7 +80,6 @@ export function serializeWithProject_GetResponse(writer, withProject_GetResponse
 export function serializeWithProject_PatchResponse(writer, withProject_PatchResponse = {}) {
     if (withProject_PatchResponse) {
         writer.writeObjectValue("project", withProject_PatchResponse.project, serializeProject);
-        writer.writeAdditionalData(withProject_PatchResponse.additionalData);
     }
 }
 /**
@@ -92,7 +90,6 @@ export function serializeWithProject_PatchResponse(writer, withProject_PatchResp
 export function serializeWithProject_PutResponse(writer, withProject_PutResponse = {}) {
     if (withProject_PutResponse) {
         writer.writeObjectValue("project", withProject_PutResponse.project, serializeProject);
-        writer.writeAdditionalData(withProject_PutResponse.additionalData);
     }
 }
 /**

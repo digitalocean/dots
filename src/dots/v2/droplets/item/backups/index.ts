@@ -6,13 +6,9 @@ import { createDroplet_snapshotFromDiscriminatorValue, createErrorEscapedFromDis
 // @ts-ignore
 import { PolicyRequestBuilderRequestsMetadata, type PolicyRequestBuilder } from './policy/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface BackupsGetResponse extends Parsable {
     /**
      * The backups property
      */
@@ -96,7 +92,6 @@ export function serializeBackupsGetResponse(writer: SerializationWriter, backups
         writer.writeCollectionOfObjectValues<Droplet_snapshot>("backups", backupsGetResponse.backups, serializeDroplet_snapshot);
         writer.writeObjectValue<Page_links>("links", backupsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", backupsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(backupsGetResponse.additionalData);
     }
 }
 /**

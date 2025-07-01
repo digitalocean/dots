@@ -6,7 +6,7 @@ import { createDomainFromDiscriminatorValue, createErrorEscapedFromDiscriminator
 // @ts-ignore
 import { type WithDomain_nameItemRequestBuilder, WithDomain_nameItemRequestBuilderNavigationMetadata, WithDomain_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -48,11 +48,7 @@ export function deserializeIntoDomainsPostResponse(domainsPostResponse: Partial<
         "domain": n => { domainsPostResponse.domain = n.getObjectValue<Domain>(createDomainFromDiscriminatorValue); },
     }
 }
-export interface DomainsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DomainsGetResponse extends Parsable {
     /**
      * Array of volumes.
      */
@@ -66,11 +62,7 @@ export interface DomainsGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
 }
-export interface DomainsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DomainsPostResponse extends Parsable {
     /**
      * The domain property
      */
@@ -81,7 +73,7 @@ export interface DomainsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface DomainsRequestBuilder extends BaseRequestBuilder<DomainsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.domains.item collection
+     * Gets an item from the dots.v2.domains.item collection
      * @param domain_name The name of the domain itself.
      * @returns {WithDomain_nameItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeDomainsGetResponse(writer: SerializationWriter, domains
         writer.writeCollectionOfObjectValues<Domain>("domains", domainsGetResponse.domains, serializeDomain);
         writer.writeObjectValue<Page_links>("links", domainsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", domainsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(domainsGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeDomainsGetResponse(writer: SerializationWriter, domains
 export function serializeDomainsPostResponse(writer: SerializationWriter, domainsPostResponse: Partial<DomainsPostResponse> | undefined | null = {}) : void {
     if (domainsPostResponse) {
         writer.writeObjectValue<Domain>("domain", domainsPostResponse.domain, serializeDomain);
-        writer.writeAdditionalData(domainsPostResponse.additionalData);
     }
 }
 /**

@@ -6,17 +6,13 @@ import { createAccountFromDiscriminatorValue, createErrorEscapedFromDiscriminato
 // @ts-ignore
 import { KeysRequestBuilderNavigationMetadata, KeysRequestBuilderRequestsMetadata, type KeysRequestBuilder } from './keys/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface AccountGetResponse extends AdditionalDataHolder, Parsable {
+export interface AccountGetResponse extends Parsable {
     /**
      * The account property
      */
     account?: Account | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/account
@@ -70,7 +66,6 @@ export function deserializeIntoAccountGetResponse(accountGetResponse: Partial<Ac
 export function serializeAccountGetResponse(writer: SerializationWriter, accountGetResponse: Partial<AccountGetResponse> | undefined | null = {}) : void {
     if (accountGetResponse) {
         writer.writeObjectValue<Account>("account", accountGetResponse.account, serializeAccount);
-        writer.writeAdditionalData(accountGetResponse.additionalData);
     }
 }
 /**

@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createReserved_ipv6FromDiscri
 // @ts-ignore
 import { ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithReserved_ipv6GetResponse(withReserved_ipv6Get
 export function serializeWithReserved_ipv6GetResponse(writer: SerializationWriter, withReserved_ipv6GetResponse: Partial<WithReserved_ipv6GetResponse> | undefined | null = {}) : void {
     if (withReserved_ipv6GetResponse) {
         writer.writeObjectValue<Reserved_ipv6>("reserved_ipv6", withReserved_ipv6GetResponse.reservedIpv6, serializeReserved_ipv6);
-        writer.writeAdditionalData(withReserved_ipv6GetResponse.additionalData);
     }
 }
-export interface WithReserved_ipv6GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithReserved_ipv6GetResponse extends Parsable {
     /**
      * The reserved_ipv6 property
      */

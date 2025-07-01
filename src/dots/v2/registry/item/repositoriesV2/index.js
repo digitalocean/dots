@@ -34,7 +34,6 @@ export function serializeRepositoriesV2GetResponse(writer, repositoriesV2GetResp
         writer.writeObjectValue("links", repositoriesV2GetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", repositoriesV2GetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("repositories", repositoriesV2GetResponse.repositories, serializeRepository_v2);
-        writer.writeAdditionalData(repositoriesV2GetResponse.additionalData);
     }
 }
 /**

@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createResourceFromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeProject_assignment, serializeResource, type ErrorEscaped, type Meta_properties, type Page_links, type Project_assignment, type Resource } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,11 +46,7 @@ export function deserializeIntoResourcesPostResponse(resourcesPostResponse: Part
         "resources": n => { resourcesPostResponse.resources = n.getCollectionOfObjectValues<Resource>(createResourceFromDiscriminatorValue); },
     }
 }
-export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ResourcesGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -64,11 +60,7 @@ export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
      */
     resources?: Resource[] | null;
 }
-export interface ResourcesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ResourcesPostResponse extends Parsable {
     /**
      * The resources property
      */
@@ -125,7 +117,6 @@ export function serializeResourcesGetResponse(writer: SerializationWriter, resou
         writer.writeObjectValue<Page_links>("links", resourcesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", resourcesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Resource>("resources", resourcesGetResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesGetResponse.additionalData);
     }
 }
 /**
@@ -136,7 +127,6 @@ export function serializeResourcesGetResponse(writer: SerializationWriter, resou
 export function serializeResourcesPostResponse(writer: SerializationWriter, resourcesPostResponse: Partial<ResourcesPostResponse> | undefined | null = {}) : void {
     if (resourcesPostResponse) {
         writer.writeCollectionOfObjectValues<Resource>("resources", resourcesPostResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesPostResponse.additionalData);
     }
 }
 /**

@@ -6,13 +6,9 @@ import { createAutoscale_poolFromDiscriminatorValue, createErrorEscapedFromDiscr
 // @ts-ignore
 import { type WithAutoscale_pool_ItemRequestBuilder, WithAutoscale_pool_ItemRequestBuilderNavigationMetadata, WithAutoscale_pool_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface AutoscaleGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AutoscaleGetResponse extends Parsable {
     /**
      * The autoscale_pools property
      */
@@ -26,11 +22,7 @@ export interface AutoscaleGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
 }
-export interface AutoscalePostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface AutoscalePostResponse extends Parsable {
     /**
      * The autoscale_pool property
      */
@@ -41,7 +33,7 @@ export interface AutoscalePostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface AutoscaleRequestBuilder extends BaseRequestBuilder<AutoscaleRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.droplets.autoscale.item collection
+     * Gets an item from the dots.v2.droplets.autoscale.item collection
      * @param autoscale_pool_id A unique identifier for an autoscale pool.
      * @returns {WithAutoscale_pool_ItemRequestBuilder}
      */
@@ -148,7 +140,6 @@ export function serializeAutoscaleGetResponse(writer: SerializationWriter, autos
         writer.writeCollectionOfObjectValues<Autoscale_pool>("autoscale_pools", autoscaleGetResponse.autoscalePools, serializeAutoscale_pool);
         writer.writeObjectValue<Page_links>("links", autoscaleGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", autoscaleGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(autoscaleGetResponse.additionalData);
     }
 }
 /**
@@ -159,7 +150,6 @@ export function serializeAutoscaleGetResponse(writer: SerializationWriter, autos
 export function serializeAutoscalePostResponse(writer: SerializationWriter, autoscalePostResponse: Partial<AutoscalePostResponse> | undefined | null = {}) : void {
     if (autoscalePostResponse) {
         writer.writeObjectValue<Autoscale_pool>("autoscale_pool", autoscalePostResponse.autoscalePool, serializeAutoscale_pool);
-        writer.writeAdditionalData(autoscalePostResponse.additionalData);
     }
 }
 /**

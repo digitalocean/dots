@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createConnection_poolFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeConnection_pool, serializeConnection_pool_update, type Connection_pool, type Connection_pool_update, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoWithPool_nameGetResponse(withPool_nameGetResponse
 export function serializeWithPool_nameGetResponse(writer: SerializationWriter, withPool_nameGetResponse: Partial<WithPool_nameGetResponse> | undefined | null = {}) : void {
     if (withPool_nameGetResponse) {
         writer.writeObjectValue<Connection_pool>("pool", withPool_nameGetResponse.pool, serializeConnection_pool);
-        writer.writeAdditionalData(withPool_nameGetResponse.additionalData);
     }
 }
-export interface WithPool_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithPool_nameGetResponse extends Parsable {
     /**
      * The pool property
      */

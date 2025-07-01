@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface AgentsRequestBuilder extends BaseRequestBuilder<AgentsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.agents.item collection
+     * Gets an item from the dots.v2.genAi.agents.item collection
      * @param agent_uuId Unique agent id
      * @returns {Agent_uuItemRequestBuilder}
      */

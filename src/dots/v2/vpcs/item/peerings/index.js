@@ -75,7 +75,6 @@ export function serializePeeringsGetResponse(writer, peeringsGetResponse = {}) {
         writer.writeObjectValue("links", peeringsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", peeringsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("peerings", peeringsGetResponse.peerings, serializeVpc_peering);
-        writer.writeAdditionalData(peeringsGetResponse.additionalData);
     }
 }
 /**
@@ -87,7 +86,6 @@ export function serializePeeringsPostRequestBody(writer, peeringsPostRequestBody
     if (peeringsPostRequestBody) {
         writer.writeStringValue("name", peeringsPostRequestBody.name);
         writer.writeGuidValue("vpc_id", peeringsPostRequestBody.vpcId);
-        writer.writeAdditionalData(peeringsPostRequestBody.additionalData);
     }
 }
 /**
@@ -98,7 +96,6 @@ export function serializePeeringsPostRequestBody(writer, peeringsPostRequestBody
 export function serializePeeringsPostResponse(writer, peeringsPostResponse = {}) {
     if (peeringsPostResponse) {
         writer.writeObjectValue("peering", peeringsPostResponse.peering, serializeVpc_peering);
-        writer.writeAdditionalData(peeringsPostResponse.additionalData);
     }
 }
 /**

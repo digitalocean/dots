@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface Data_sourcesRequestBuilder extends BaseRequestBuilder<Data_sourcesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.knowledge_bases.item.data_sources.item collection
+     * Gets an item from the dots.v2.genAi.knowledge_bases.item.data_sources.item collection
      * @param data_source_uuid Data source id
      * @returns {WithData_source_uuItemRequestBuilder}
      */

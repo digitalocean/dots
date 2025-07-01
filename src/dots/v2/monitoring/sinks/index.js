@@ -54,7 +54,6 @@ export function deserializeIntoSinksPostRequestBody(sinksPostRequestBody = {}) {
 export function serializeSinksGetResponse(writer, sinksGetResponse = {}) {
     if (sinksGetResponse) {
         writer.writeCollectionOfObjectValues("sinks", sinksGetResponse.sinks, serializeSinks_response);
-        writer.writeAdditionalData(sinksGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeSinksPostRequestBody(writer, sinksPostRequestBody = {})
     if (sinksPostRequestBody) {
         writer.writeStringValue("destination_uuid", sinksPostRequestBody.destinationUuid);
         writer.writeCollectionOfObjectValues("resources", sinksPostRequestBody.resources, serializeSink_resource);
-        writer.writeAdditionalData(sinksPostRequestBody.additionalData);
     }
 }
 /**

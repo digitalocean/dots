@@ -4,18 +4,14 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createReserved_ipv6_action_assignFromDiscriminatorValue, createReserved_ipv6_action_unassignFromDiscriminatorValue, deserializeIntoAction, deserializeIntoReserved_ipv6_action_assign, deserializeIntoReserved_ipv6_action_unassign, serializeAction, serializeReserved_ipv6_action_assign, serializeReserved_ipv6_action_unassign, type Action, type ErrorEscaped, type Reserved_ipv6_action_assign, type Reserved_ipv6_action_unassign } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 export type ActionsPostRequestBody = Reserved_ipv6_action_assign | Reserved_ipv6_action_unassign;
-export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsPostResponse extends Parsable {
     /**
      * The action property
      */
     action?: ActionsPostResponse_action | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 export interface ActionsPostResponse_action extends Action, Parsable {
 }
@@ -118,7 +114,6 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
     if (actionsPostResponse) {
         writer.writeObjectValue<ActionsPostResponse_action>("action", actionsPostResponse.action, serializeActionsPostResponse_action);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
     }
 }
 /**

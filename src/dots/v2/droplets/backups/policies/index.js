@@ -51,7 +51,6 @@ export function serializePoliciesGetResponse(writer, policiesGetResponse = {}) {
         writer.writeObjectValue("links", policiesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", policiesGetResponse.meta, serializeMeta_properties);
         writer.writeObjectValue("policies", policiesGetResponse.policies, serializePoliciesGetResponse_policies);
-        writer.writeAdditionalData(policiesGetResponse.additionalData);
     }
 }
 /**
@@ -61,7 +60,6 @@ export function serializePoliciesGetResponse(writer, policiesGetResponse = {}) {
 // @ts-ignore
 export function serializePoliciesGetResponse_policies(writer, policiesGetResponse_policies = {}) {
     if (policiesGetResponse_policies) {
-        writer.writeAdditionalData(policiesGetResponse_policies.additionalData);
     }
 }
 /**

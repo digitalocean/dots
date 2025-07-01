@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface DeploymentsRequestBuilder extends BaseRequestBuilder<DeploymentsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.apps.item.deployments.item collection
+     * Gets an item from the dots.v2.apps.item.deployments.item collection
      * @param deployment_id The deployment ID
      * @returns {WithDeployment_ItemRequestBuilder}
      */

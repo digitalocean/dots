@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMeta
  */
 export interface NodesRequestBuilder extends BaseRequestBuilder<NodesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.kubernetes.clusters.item.node_pools.item.nodes.item collection
+     * Gets an item from the dots.v2.kubernetes.clusters.item.node_pools.item.nodes.item collection
      * @param node_id A unique ID that can be used to reference a node in a Kubernetes node pool.
      * @returns {WithNode_ItemRequestBuilder}
      */

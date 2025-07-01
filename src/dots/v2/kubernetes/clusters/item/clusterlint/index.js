@@ -30,7 +30,6 @@ export function deserializeIntoClusterlintPostResponse(clusterlintPostResponse =
 export function serializeClusterlintPostResponse(writer, clusterlintPostResponse = {}) {
     if (clusterlintPostResponse) {
         writer.writeStringValue("run_id", clusterlintPostResponse.runId);
-        writer.writeAdditionalData(clusterlintPostResponse.additionalData);
     }
 }
 /**

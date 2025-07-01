@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createFloating_ipFromDiscrimi
 // @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithFloating_ipGetResponse(withFloating_ipGetResp
 export function serializeWithFloating_ipGetResponse(writer: SerializationWriter, withFloating_ipGetResponse: Partial<WithFloating_ipGetResponse> | undefined | null = {}) : void {
     if (withFloating_ipGetResponse) {
         writer.writeObjectValue<Floating_ip>("floating_ip", withFloating_ipGetResponse.floatingIp, serializeFloating_ip);
-        writer.writeAdditionalData(withFloating_ipGetResponse.additionalData);
     }
 }
-export interface WithFloating_ipGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithFloating_ipGetResponse extends Parsable {
     /**
      * The floating_ip property
      */

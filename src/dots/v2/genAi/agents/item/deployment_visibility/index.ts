@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface Deployment_visibilityRequestBuilder extends BaseRequestBuilder<Deployment_visibilityRequestBuilder> {
     /**
-     * Check whether an agent is public or private. To get the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
+     * Check whether an agent is public or private. To update the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
      * @param body UpdateAgentDeploymentVisibilityInputPublic description
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ApiUpdateAgentDeploymentVisbilityOutput>}
@@ -23,7 +23,7 @@ export interface Deployment_visibilityRequestBuilder extends BaseRequestBuilder<
      */
      put(body: ApiUpdateAgentDeploymentVisibilityInputPublic, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ApiUpdateAgentDeploymentVisbilityOutput | undefined>;
     /**
-     * Check whether an agent is public or private. To get the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
+     * Check whether an agent is public or private. To update the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
      * @param body UpdateAgentDeploymentVisibilityInputPublic description
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

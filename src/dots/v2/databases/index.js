@@ -75,7 +75,6 @@ export function deserializeIntoDatabasesPostResponse(databasesPostResponse = {})
 export function serializeDatabasesGetResponse(writer, databasesGetResponse = {}) {
     if (databasesGetResponse) {
         writer.writeCollectionOfObjectValues("databases", databasesGetResponse.databases, serializeDatabase_cluster);
-        writer.writeAdditionalData(databasesGetResponse.additionalData);
     }
 }
 /**
@@ -97,7 +96,6 @@ export function serializeDatabasesPostRequestBody(writer, databasesPostRequestBo
 export function serializeDatabasesPostResponse(writer, databasesPostResponse = {}) {
     if (databasesPostResponse) {
         writer.writeObjectValue("database", databasesPostResponse.database, serializeDatabase_cluster);
-        writer.writeAdditionalData(databasesPostResponse.additionalData);
     }
 }
 /**

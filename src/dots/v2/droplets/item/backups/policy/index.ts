@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDroplet_backup_policy_recordFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDroplet_backup_policy_record, type Droplet_backup_policy_record, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoPolicyGetResponse(policyGetResponse: Partial<Poli
         "policy": n => { policyGetResponse.policy = n.getObjectValue<Droplet_backup_policy_record>(createDroplet_backup_policy_recordFromDiscriminatorValue); },
     }
 }
-export interface PolicyGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PolicyGetResponse extends Parsable {
     /**
      * The policy property
      */
@@ -65,7 +61,6 @@ export interface PolicyRequestBuilder extends BaseRequestBuilder<PolicyRequestBu
 export function serializePolicyGetResponse(writer: SerializationWriter, policyGetResponse: Partial<PolicyGetResponse> | undefined | null = {}) : void {
     if (policyGetResponse) {
         writer.writeObjectValue<Droplet_backup_policy_record>("policy", policyGetResponse.policy, serializeDroplet_backup_policy_record);
-        writer.writeAdditionalData(policyGetResponse.additionalData);
     }
 }
 /**

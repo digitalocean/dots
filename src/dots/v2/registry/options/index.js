@@ -78,7 +78,6 @@ export function deserializeIntoOptionsGetResponse_options_subscription_tiers(opt
 export function serializeOptionsGetResponse(writer, optionsGetResponse = {}) {
     if (optionsGetResponse) {
         writer.writeObjectValue("options", optionsGetResponse.options, serializeOptionsGetResponse_options);
-        writer.writeAdditionalData(optionsGetResponse.additionalData);
     }
 }
 /**
@@ -90,7 +89,6 @@ export function serializeOptionsGetResponse_options(writer, optionsGetResponse_o
     if (optionsGetResponse_options) {
         writer.writeCollectionOfPrimitiveValues("available_regions", optionsGetResponse_options.availableRegions);
         writer.writeCollectionOfObjectValues("subscription_tiers", optionsGetResponse_options.subscriptionTiers, serializeOptionsGetResponse_options_subscription_tiers);
-        writer.writeAdditionalData(optionsGetResponse_options.additionalData);
     }
 }
 /**
@@ -111,7 +109,6 @@ export function serializeOptionsGetResponse_options_subscription_tiers(writer, o
         writer.writeStringValue("name", optionsGetResponse_options_subscription_tiers.name);
         writer.writeStringValue("slug", optionsGetResponse_options_subscription_tiers.slug);
         writer.writeNumberValue("storage_overage_price_in_cents", optionsGetResponse_options_subscription_tiers.storageOveragePriceInCents);
-        writer.writeAdditionalData(optionsGetResponse_options_subscription_tiers.additionalData);
     }
 }
 /**

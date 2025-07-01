@@ -46,7 +46,6 @@ export function serializeDestroy_with_associated_resourcesGetResponse(writer, de
         writer.writeCollectionOfObjectValues("snapshots", destroy_with_associated_resourcesGetResponse.snapshots, serializeAssociated_resource);
         writer.writeCollectionOfObjectValues("volumes", destroy_with_associated_resourcesGetResponse.volumes, serializeAssociated_resource);
         writer.writeCollectionOfObjectValues("volume_snapshots", destroy_with_associated_resourcesGetResponse.volumeSnapshots, serializeAssociated_resource);
-        writer.writeAdditionalData(destroy_with_associated_resourcesGetResponse.additionalData);
     }
 }
 /**

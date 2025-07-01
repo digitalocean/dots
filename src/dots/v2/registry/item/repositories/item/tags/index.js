@@ -36,7 +36,6 @@ export function serializeTagsGetResponse(writer, tagsGetResponse = {}) {
         writer.writeObjectValue("links", tagsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", tagsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("tags", tagsGetResponse.tags, serializeRepository_tag);
-        writer.writeAdditionalData(tagsGetResponse.additionalData);
     }
 }
 /**

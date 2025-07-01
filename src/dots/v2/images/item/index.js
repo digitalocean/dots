@@ -51,7 +51,6 @@ export function deserializeIntoWithImage_PutResponse(withImage_PutResponse = {})
 export function serializeWithImage_GetResponse(writer, withImage_GetResponse = {}) {
     if (withImage_GetResponse) {
         writer.writeObjectValue("image", withImage_GetResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_GetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeWithImage_GetResponse(writer, withImage_GetResponse = {
 export function serializeWithImage_PutResponse(writer, withImage_PutResponse = {}) {
     if (withImage_PutResponse) {
         writer.writeObjectValue("image", withImage_PutResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_PutResponse.additionalData);
     }
 }
 /**

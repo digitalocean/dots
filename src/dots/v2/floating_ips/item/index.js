@@ -32,7 +32,6 @@ export function deserializeIntoWithFloating_ipGetResponse(withFloating_ipGetResp
 export function serializeWithFloating_ipGetResponse(writer, withFloating_ipGetResponse = {}) {
     if (withFloating_ipGetResponse) {
         writer.writeObjectValue("floating_ip", withFloating_ipGetResponse.floatingIp, serializeFloating_ip);
-        writer.writeAdditionalData(withFloating_ipGetResponse.additionalData);
     }
 }
 /**

@@ -8,7 +8,7 @@ import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsM
 // @ts-ignore
 import { SnapshotsRequestBuilderRequestsMetadata, type SnapshotsRequestBuilder } from './snapshots/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -37,14 +37,9 @@ export function deserializeIntoWithVolume_GetResponse(withVolume_GetResponse: Pa
 export function serializeWithVolume_GetResponse(writer: SerializationWriter, withVolume_GetResponse: Partial<WithVolume_GetResponse> | undefined | null = {}) : void {
     if (withVolume_GetResponse) {
         writer.writeObjectValue<Volume_full>("volume", withVolume_GetResponse.volume, serializeVolume_full);
-        writer.writeAdditionalData(withVolume_GetResponse.additionalData);
     }
 }
-export interface WithVolume_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVolume_GetResponse extends Parsable {
     /**
      * The volume property
      */

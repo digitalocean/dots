@@ -30,7 +30,6 @@ export function deserializeIntoCredentialsGetResponse(credentialsGetResponse = {
 export function serializeCredentialsGetResponse(writer, credentialsGetResponse = {}) {
     if (credentialsGetResponse) {
         writer.writeObjectValue("credentials", credentialsGetResponse.credentials, serializeDatabase_metrics_credentials);
-        writer.writeAdditionalData(credentialsGetResponse.additionalData);
     }
 }
 /**

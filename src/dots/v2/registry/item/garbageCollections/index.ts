@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createGarbage_collectionFromDiscriminatorValue, serializeGarbage_collection, type ErrorEscaped, type Garbage_collection } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoGarbageCollectionsGetResponse(garbageCollectionsG
         "garbage_collections": n => { garbageCollectionsGetResponse.garbageCollections = n.getCollectionOfObjectValues<Garbage_collection>(createGarbage_collectionFromDiscriminatorValue); },
     }
 }
-export interface GarbageCollectionsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface GarbageCollectionsGetResponse extends Parsable {
     /**
      * The garbage_collections property
      */
@@ -78,7 +74,6 @@ export interface GarbageCollectionsRequestBuilderGetQueryParameters {
 export function serializeGarbageCollectionsGetResponse(writer: SerializationWriter, garbageCollectionsGetResponse: Partial<GarbageCollectionsGetResponse> | undefined | null = {}) : void {
     if (garbageCollectionsGetResponse) {
         writer.writeCollectionOfObjectValues<Garbage_collection>("garbage_collections", garbageCollectionsGetResponse.garbageCollections, serializeGarbage_collection);
-        writer.writeAdditionalData(garbageCollectionsGetResponse.additionalData);
     }
 }
 /**

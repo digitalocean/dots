@@ -55,7 +55,6 @@ export function serializeTagsGetResponse(writer, tagsGetResponse = {}) {
         writer.writeObjectValue("links", tagsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", tagsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("tags", tagsGetResponse.tags, serializeTags);
-        writer.writeAdditionalData(tagsGetResponse.additionalData);
     }
 }
 /**
@@ -66,7 +65,6 @@ export function serializeTagsGetResponse(writer, tagsGetResponse = {}) {
 export function serializeTagsPostResponse(writer, tagsPostResponse = {}) {
     if (tagsPostResponse) {
         writer.writeObjectValue("tag", tagsPostResponse.tag, serializeTags);
-        writer.writeAdditionalData(tagsPostResponse.additionalData);
     }
 }
 /**

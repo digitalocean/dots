@@ -51,7 +51,6 @@ export function deserializeIntoTriggersPostResponse(triggersPostResponse = {}) {
 export function serializeTriggersGetResponse(writer, triggersGetResponse = {}) {
     if (triggersGetResponse) {
         writer.writeCollectionOfObjectValues("triggers", triggersGetResponse.triggers, serializeTrigger_info);
-        writer.writeAdditionalData(triggersGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeTriggersGetResponse(writer, triggersGetResponse = {}) {
 export function serializeTriggersPostResponse(writer, triggersPostResponse = {}) {
     if (triggersPostResponse) {
         writer.writeObjectValue("trigger", triggersPostResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(triggersPostResponse.additionalData);
     }
 }
 /**

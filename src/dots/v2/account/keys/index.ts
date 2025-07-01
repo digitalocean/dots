@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithSsh_key_identifierItemRequestBuilder, WithSsh_key_identifierItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -48,11 +48,7 @@ export function deserializeIntoKeysPostResponse(keysPostResponse: Partial<KeysPo
         "ssh_key": n => { keysPostResponse.sshKey = n.getObjectValue<SshKeys>(createSshKeysFromDiscriminatorValue); },
     }
 }
-export interface KeysGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface KeysGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -66,11 +62,7 @@ export interface KeysGetResponse extends AdditionalDataHolder, Parsable {
      */
     sshKeys?: SshKeys[] | null;
 }
-export interface KeysPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface KeysPostResponse extends Parsable {
     /**
      * The ssh_key property
      */
@@ -81,7 +73,7 @@ export interface KeysPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface KeysRequestBuilder extends BaseRequestBuilder<KeysRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.account.keys.item collection
+     * Gets an item from the dots.v2.account.keys.item collection
      * @param ssh_key_identifier Either the ID or the fingerprint of an existing SSH key.
      * @returns {WithSsh_key_identifierItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeKeysGetResponse(writer: SerializationWriter, keysGetRes
         writer.writeObjectValue<Page_links>("links", keysGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", keysGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<SshKeys>("ssh_keys", keysGetResponse.sshKeys, serializeSshKeys);
-        writer.writeAdditionalData(keysGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeKeysGetResponse(writer: SerializationWriter, keysGetRes
 export function serializeKeysPostResponse(writer: SerializationWriter, keysPostResponse: Partial<KeysPostResponse> | undefined | null = {}) : void {
     if (keysPostResponse) {
         writer.writeObjectValue<SshKeys>("ssh_key", keysPostResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(keysPostResponse.additionalData);
     }
 }
 /**

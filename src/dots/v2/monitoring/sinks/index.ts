@@ -8,7 +8,7 @@ import { DestinationsRequestBuilderNavigationMetadata, DestinationsRequestBuilde
 // @ts-ignore
 import { type WithSink_uuItemRequestBuilder, WithSink_uuItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -57,7 +57,6 @@ export function deserializeIntoSinksPostRequestBody(sinksPostRequestBody: Partia
 export function serializeSinksGetResponse(writer: SerializationWriter, sinksGetResponse: Partial<SinksGetResponse> | undefined | null = {}) : void {
     if (sinksGetResponse) {
         writer.writeCollectionOfObjectValues<Sinks_response>("sinks", sinksGetResponse.sinks, serializeSinks_response);
-        writer.writeAdditionalData(sinksGetResponse.additionalData);
     }
 }
 /**
@@ -69,24 +68,15 @@ export function serializeSinksPostRequestBody(writer: SerializationWriter, sinks
     if (sinksPostRequestBody) {
         writer.writeStringValue("destination_uuid", sinksPostRequestBody.destinationUuid);
         writer.writeCollectionOfObjectValues<Sink_resource>("resources", sinksPostRequestBody.resources, serializeSink_resource);
-        writer.writeAdditionalData(sinksPostRequestBody.additionalData);
     }
 }
-export interface SinksGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SinksGetResponse extends Parsable {
     /**
      * List of sinks identified by their URNs.
      */
     sinks?: Sinks_response[] | null;
 }
-export interface SinksPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SinksPostRequestBody extends Parsable {
     /**
      * A unique identifier for an already-existing destination.
      */
@@ -105,7 +95,7 @@ export interface SinksRequestBuilder extends BaseRequestBuilder<SinksRequestBuil
      */
     get destinations(): DestinationsRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.monitoring.sinks.item collection
+     * Gets an item from the dots.v2.monitoring.sinks.item collection
      * @param sink_uuid A unique identifier for a sink.
      * @returns {WithSink_uuItemRequestBuilder}
      */

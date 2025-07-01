@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDropletFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDroplet, type Droplet, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoNeighborsGetResponse(neighborsGetResponse: Partia
         "droplets": n => { neighborsGetResponse.droplets = n.getCollectionOfObjectValues<Droplet>(createDropletFromDiscriminatorValue); },
     }
 }
-export interface NeighborsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface NeighborsGetResponse extends Parsable {
     /**
      * The droplets property
      */
@@ -65,7 +61,6 @@ export interface NeighborsRequestBuilder extends BaseRequestBuilder<NeighborsReq
 export function serializeNeighborsGetResponse(writer: SerializationWriter, neighborsGetResponse: Partial<NeighborsGetResponse> | undefined | null = {}) : void {
     if (neighborsGetResponse) {
         writer.writeCollectionOfObjectValues<Droplet>("droplets", neighborsGetResponse.droplets, serializeDroplet);
-        writer.writeAdditionalData(neighborsGetResponse.additionalData);
     }
 }
 /**

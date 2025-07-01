@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createKubernetes_versionFromDiscriminatorValue, serializeKubernetes_version, type ErrorEscaped, type Kubernetes_version } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoUpgradesGetResponse(upgradesGetResponse: Partial<
 export function serializeUpgradesGetResponse(writer: SerializationWriter, upgradesGetResponse: Partial<UpgradesGetResponse> | undefined | null = {}) : void {
     if (upgradesGetResponse) {
         writer.writeCollectionOfObjectValues<Kubernetes_version>("available_upgrade_versions", upgradesGetResponse.availableUpgradeVersions, serializeKubernetes_version);
-        writer.writeAdditionalData(upgradesGetResponse.additionalData);
     }
 }
-export interface UpgradesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface UpgradesGetResponse extends Parsable {
     /**
      * The available_upgrade_versions property
      */

@@ -70,7 +70,6 @@ export function deserializeIntoWithDatabase_cluster_uuGetResponse(withDatabase_c
 export function serializeWithDatabase_cluster_uuGetResponse(writer, withDatabase_cluster_uuGetResponse = {}) {
     if (withDatabase_cluster_uuGetResponse) {
         writer.writeObjectValue("database", withDatabase_cluster_uuGetResponse.database, serializeDatabase_cluster);
-        writer.writeAdditionalData(withDatabase_cluster_uuGetResponse.additionalData);
     }
 }
 /**

@@ -53,7 +53,6 @@ export function serializeResourcesGetResponse(writer, resourcesGetResponse = {})
         writer.writeObjectValue("links", resourcesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", resourcesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("resources", resourcesGetResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesGetResponse.additionalData);
     }
 }
 /**
@@ -64,7 +63,6 @@ export function serializeResourcesGetResponse(writer, resourcesGetResponse = {})
 export function serializeResourcesPostResponse(writer, resourcesPostResponse = {}) {
     if (resourcesPostResponse) {
         writer.writeCollectionOfObjectValues("resources", resourcesPostResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesPostResponse.additionalData);
     }
 }
 /**

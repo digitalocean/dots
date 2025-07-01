@@ -30,7 +30,6 @@ export function deserializeIntoWithLogsink_GetResponse(withLogsink_GetResponse =
 export function serializeWithLogsink_GetResponse(writer, withLogsink_GetResponse = {}) {
     if (withLogsink_GetResponse) {
         writer.writeObjectValue("sink", withLogsink_GetResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(withLogsink_GetResponse.additionalData);
     }
 }
 /**

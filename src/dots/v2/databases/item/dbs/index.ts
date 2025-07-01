@@ -6,7 +6,7 @@ import { createDatabaseFromDiscriminatorValue, createErrorEscapedFromDiscriminat
 // @ts-ignore
 import { type WithDatabase_nameItemRequestBuilder, WithDatabase_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -26,21 +26,13 @@ export function createDbsGetResponseFromDiscriminatorValue(parseNode: ParseNode 
 export function createDbsPostResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDbsPostResponse;
 }
-export interface DbsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DbsGetResponse extends Parsable {
     /**
      * The dbs property
      */
     dbs?: Database[] | null;
 }
-export interface DbsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DbsPostResponse extends Parsable {
     /**
      * The db property
      */
@@ -51,13 +43,13 @@ export interface DbsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.dbs.item collection
+     * Gets an item from the dots.v2.databases.item.dbs.item collection
      * @param database_name The name of the database.
      * @returns {WithDatabase_nameItemRequestBuilder}
      */
      byDatabase_name(database_name: string) : WithDatabase_nameItemRequestBuilder;
     /**
-     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis clusters.
+     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DbsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -68,7 +60,7 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<DbsGetResponse | undefined>;
     /**
-     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
+     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis or Valkey clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DbsPostResponse>}
@@ -80,13 +72,13 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
      */
      post(body: Database, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<DbsPostResponse | undefined>;
     /**
-     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis clusters.
+     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
+     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis or Valkey clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -121,7 +113,6 @@ export function deserializeIntoDbsPostResponse(dbsPostResponse: Partial<DbsPostR
 export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetResponse: Partial<DbsGetResponse> | undefined | null = {}) : void {
     if (dbsGetResponse) {
         writer.writeCollectionOfObjectValues<Database>("dbs", dbsGetResponse.dbs, serializeDatabase);
-        writer.writeAdditionalData(dbsGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetRespo
 export function serializeDbsPostResponse(writer: SerializationWriter, dbsPostResponse: Partial<DbsPostResponse> | undefined | null = {}) : void {
     if (dbsPostResponse) {
         writer.writeObjectValue<Database>("db", dbsPostResponse.db, serializeDatabase);
-        writer.writeAdditionalData(dbsPostResponse.additionalData);
     }
 }
 /**

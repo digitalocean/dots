@@ -6,7 +6,7 @@ import { createDatabase_userFromDiscriminatorValue, createErrorEscapedFromDiscri
 // @ts-ignore
 import { type WithUsernameItemRequestBuilder, WithUsernameItemRequestBuilderNavigationMetadata, WithUsernameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -74,7 +74,6 @@ export function deserializeIntoUsersPostResponse(usersPostResponse: Partial<User
 export function serializeUsersGetResponse(writer: SerializationWriter, usersGetResponse: Partial<UsersGetResponse> | undefined | null = {}) : void {
     if (usersGetResponse) {
         writer.writeCollectionOfObjectValues<Database_user>("users", usersGetResponse.users, serializeDatabase_user);
-        writer.writeAdditionalData(usersGetResponse.additionalData);
     }
 }
 /**
@@ -96,14 +95,9 @@ export function serializeUsersPostRequestBody(writer: SerializationWriter, users
 export function serializeUsersPostResponse(writer: SerializationWriter, usersPostResponse: Partial<UsersPostResponse> | undefined | null = {}) : void {
     if (usersPostResponse) {
         writer.writeObjectValue<Database_user>("user", usersPostResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(usersPostResponse.additionalData);
     }
 }
-export interface UsersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface UsersGetResponse extends Parsable {
     /**
      * The users property
      */
@@ -111,15 +105,11 @@ export interface UsersGetResponse extends AdditionalDataHolder, Parsable {
 }
 export interface UsersPostRequestBody extends Database_user, Parsable {
     /**
-     * For MongoDB clusters, set to `true` to create a read-only user.This option is not currently supported for other database engines.             
+     * (To be deprecated: use settings.mongo_user_settings.role instead for access controls to MongoDB databases). For MongoDB clusters, set to `true` to create a read-only user.This option is not currently supported for other database engines.           
      */
     readonly?: boolean | null;
 }
-export interface UsersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface UsersPostResponse extends Parsable {
     /**
      * The user property
      */
@@ -130,13 +120,13 @@ export interface UsersPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface UsersRequestBuilder extends BaseRequestBuilder<UsersRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.users.item collection
+     * Gets an item from the dots.v2.databases.item.users.item collection
      * @param username The name of the database user.
      * @returns {WithUsernameItemRequestBuilder}
      */
      byUsername(username: string) : WithUsernameItemRequestBuilder;
     /**
-     * To list all of the users for your database cluster, send a GET request to`/v2/databases/$DATABASE_ID/users`.Note: User management is not supported for Redis clusters.The result will be a JSON object with a `users` key. This will be set to an arrayof database user objects, each of which will contain the standard database user attributes.For MySQL clusters, additional options will be contained in the mysql_settings object.
+     * To list all of the users for your database cluster, send a GET request to`/v2/databases/$DATABASE_ID/users`.Note: User management is not supported for Redis or Valkey clusters.The result will be a JSON object with a `users` key. This will be set to an arrayof database user objects, each of which will contain the standard database user attributes.For MySQL clusters, additional options will be contained in the mysql_settings object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<UsersGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -147,7 +137,7 @@ export interface UsersRequestBuilder extends BaseRequestBuilder<UsersRequestBuil
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<UsersGetResponse | undefined>;
     /**
-     * To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`with the desired username.Note: User management is not supported for Redis clusters.When adding a user to a MySQL cluster, additional options can be configured in the`mysql_settings` object.When adding a user to a Kafka cluster, additional options can be configured inthe `settings` object.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the standard attributes associated with a database user includingits randomly generated password.
+     * To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`with the desired username.Note: User management is not supported for Redis or Valkey clusters.When adding a user to a MySQL cluster, additional options can be configured in the`mysql_settings` object.When adding a user to a Kafka cluster, additional options can be configured inthe `settings` object. When adding a user to a MongoDB cluster, additional options can be configured inthe `settings.mongo_user_settings` object.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the standard attributes associated with a database user includingits randomly generated password.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<UsersPostResponse>}
@@ -159,13 +149,13 @@ export interface UsersRequestBuilder extends BaseRequestBuilder<UsersRequestBuil
      */
      post(body: UsersPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<UsersPostResponse | undefined>;
     /**
-     * To list all of the users for your database cluster, send a GET request to`/v2/databases/$DATABASE_ID/users`.Note: User management is not supported for Redis clusters.The result will be a JSON object with a `users` key. This will be set to an arrayof database user objects, each of which will contain the standard database user attributes.For MySQL clusters, additional options will be contained in the mysql_settings object.
+     * To list all of the users for your database cluster, send a GET request to`/v2/databases/$DATABASE_ID/users`.Note: User management is not supported for Redis or Valkey clusters.The result will be a JSON object with a `users` key. This will be set to an arrayof database user objects, each of which will contain the standard database user attributes.For MySQL clusters, additional options will be contained in the mysql_settings object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`with the desired username.Note: User management is not supported for Redis clusters.When adding a user to a MySQL cluster, additional options can be configured in the`mysql_settings` object.When adding a user to a Kafka cluster, additional options can be configured inthe `settings` object.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the standard attributes associated with a database user includingits randomly generated password.
+     * To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`with the desired username.Note: User management is not supported for Redis or Valkey clusters.When adding a user to a MySQL cluster, additional options can be configured in the`mysql_settings` object.When adding a user to a Kafka cluster, additional options can be configured inthe `settings` object. When adding a user to a MongoDB cluster, additional options can be configured inthe `settings.mongo_user_settings` object.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the standard attributes associated with a database user includingits randomly generated password.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

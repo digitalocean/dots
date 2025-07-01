@@ -53,7 +53,6 @@ export function deserializeIntoWithNode_pool_PutResponse(withNode_pool_PutRespon
 export function serializeWithNode_pool_GetResponse(writer, withNode_pool_GetResponse = {}) {
     if (withNode_pool_GetResponse) {
         writer.writeObjectValue("node_pool", withNode_pool_GetResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(withNode_pool_GetResponse.additionalData);
     }
 }
 /**
@@ -64,7 +63,6 @@ export function serializeWithNode_pool_GetResponse(writer, withNode_pool_GetResp
 export function serializeWithNode_pool_PutResponse(writer, withNode_pool_PutResponse = {}) {
     if (withNode_pool_PutResponse) {
         writer.writeObjectValue("node_pool", withNode_pool_PutResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(withNode_pool_PutResponse.additionalData);
     }
 }
 /**

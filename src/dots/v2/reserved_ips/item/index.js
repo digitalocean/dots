@@ -32,7 +32,6 @@ export function deserializeIntoWithReserved_ipGetResponse(withReserved_ipGetResp
 export function serializeWithReserved_ipGetResponse(writer, withReserved_ipGetResponse = {}) {
     if (withReserved_ipGetResponse) {
         writer.writeObjectValue("reserved_ip", withReserved_ipGetResponse.reservedIp, serializeReserved_ip);
-        writer.writeAdditionalData(withReserved_ipGetResponse.additionalData);
     }
 }
 /**

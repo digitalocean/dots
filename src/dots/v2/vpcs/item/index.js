@@ -114,7 +114,6 @@ export function deserializeIntoWithVpc_PutResponse(withVpc_PutResponse = {}) {
 export function serializeWithVpc_GetResponse(writer, withVpc_GetResponse = {}) {
     if (withVpc_GetResponse) {
         writer.writeObjectValue("vpc", withVpc_GetResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_GetResponse.additionalData);
     }
 }
 /**
@@ -127,7 +126,6 @@ export function serializeWithVpc_PatchRequestBody(writer, withVpc_PatchRequestBo
         writer.writeBooleanValue("default", withVpc_PatchRequestBody.defaultEscaped);
         writer.writeStringValue("description", withVpc_PatchRequestBody.description);
         writer.writeStringValue("name", withVpc_PatchRequestBody.name);
-        writer.writeAdditionalData(withVpc_PatchRequestBody.additionalData);
     }
 }
 /**
@@ -138,7 +136,6 @@ export function serializeWithVpc_PatchRequestBody(writer, withVpc_PatchRequestBo
 export function serializeWithVpc_PatchResponse(writer, withVpc_PatchResponse = {}) {
     if (withVpc_PatchResponse) {
         writer.writeObjectValue("vpc", withVpc_PatchResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_PatchResponse.additionalData);
     }
 }
 /**
@@ -151,7 +148,6 @@ export function serializeWithVpc_PutRequestBody(writer, withVpc_PutRequestBody =
         writer.writeBooleanValue("default", withVpc_PutRequestBody.defaultEscaped);
         writer.writeStringValue("description", withVpc_PutRequestBody.description);
         writer.writeStringValue("name", withVpc_PutRequestBody.name);
-        writer.writeAdditionalData(withVpc_PutRequestBody.additionalData);
     }
 }
 /**
@@ -162,7 +158,6 @@ export function serializeWithVpc_PutRequestBody(writer, withVpc_PutRequestBody =
 export function serializeWithVpc_PutResponse(writer, withVpc_PutResponse = {}) {
     if (withVpc_PutResponse) {
         writer.writeObjectValue("vpc", withVpc_PutResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_PutResponse.additionalData);
     }
 }
 /**

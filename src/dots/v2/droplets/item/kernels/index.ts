@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createKernelFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeKernel, serializeMeta_properties, serializePage_links, type ErrorEscaped, type Kernel, type Meta_properties, type Page_links } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoKernelsGetResponse(kernelsGetResponse: Partial<Ke
         "meta": n => { kernelsGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface KernelsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface KernelsGetResponse extends Parsable {
     /**
      * The kernels property
      */
@@ -90,7 +86,6 @@ export function serializeKernelsGetResponse(writer: SerializationWriter, kernels
         writer.writeCollectionOfObjectValues<Kernel>("kernels", kernelsGetResponse.kernels, serializeKernel);
         writer.writeObjectValue<Page_links>("links", kernelsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", kernelsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(kernelsGetResponse.additionalData);
     }
 }
 /**

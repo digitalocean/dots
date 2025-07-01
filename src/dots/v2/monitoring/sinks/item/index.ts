@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSinks_responseFromDiscriminatorValue, serializeSinks_response, type ErrorEscaped, type Sinks_response } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoWithSink_uuGetResponse(withSink_uuGetResponse: Pa
 export function serializeWithSink_uuGetResponse(writer: SerializationWriter, withSink_uuGetResponse: Partial<WithSink_uuGetResponse> | undefined | null = {}) : void {
     if (withSink_uuGetResponse) {
         writer.writeObjectValue<Sinks_response>("sink", withSink_uuGetResponse.sink, serializeSinks_response);
-        writer.writeAdditionalData(withSink_uuGetResponse.additionalData);
     }
 }
-export interface WithSink_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithSink_uuGetResponse extends Parsable {
     /**
      * The sink property
      */

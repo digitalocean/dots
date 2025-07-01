@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMemberFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, serializeMember, serializeMeta_properties, serializePage_links, type ErrorEscaped, type Member, type Meta_properties, type Page_links } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoMembersGetResponse(membersGetResponse: Partial<Me
         "meta": n => { membersGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface MembersGetResponse extends Parsable {
     /**
      * The droplets property
      */
@@ -90,7 +86,6 @@ export function serializeMembersGetResponse(writer: SerializationWriter, members
         writer.writeCollectionOfObjectValues<Member>("droplets", membersGetResponse.droplets, serializeMember);
         writer.writeObjectValue<Page_links>("links", membersGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", membersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(membersGetResponse.additionalData);
     }
 }
 /**

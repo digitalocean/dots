@@ -8,7 +8,7 @@ import { AlertsRequestBuilderNavigationMetadata, AlertsRequestBuilderRequestsMet
 // @ts-ignore
 import { StateRequestBuilderRequestsMetadata, type StateRequestBuilder } from './state/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -75,7 +75,6 @@ export function deserializeIntoWithCheck_PutResponse(withCheck_PutResponse: Part
 export function serializeWithCheck_GetResponse(writer: SerializationWriter, withCheck_GetResponse: Partial<WithCheck_GetResponse> | undefined | null = {}) : void {
     if (withCheck_GetResponse) {
         writer.writeObjectValue<Check>("check", withCheck_GetResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_GetResponse.additionalData);
     }
 }
 /**
@@ -96,14 +95,9 @@ export function serializeWithCheck_PutRequestBody(writer: SerializationWriter, w
 export function serializeWithCheck_PutResponse(writer: SerializationWriter, withCheck_PutResponse: Partial<WithCheck_PutResponse> | undefined | null = {}) : void {
     if (withCheck_PutResponse) {
         writer.writeObjectValue<Check>("check", withCheck_PutResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_PutResponse.additionalData);
     }
 }
-export interface WithCheck_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCheck_GetResponse extends Parsable {
     /**
      * The check property
      */
@@ -176,11 +170,7 @@ export interface WithCheck_ItemRequestBuilder extends BaseRequestBuilder<WithChe
 }
 export interface WithCheck_PutRequestBody extends Check_updatable, Parsable {
 }
-export interface WithCheck_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCheck_PutResponse extends Parsable {
     /**
      * The check property
      */

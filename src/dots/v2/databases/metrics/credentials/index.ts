@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createDatabase_metrics_credentialsFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDatabase_metrics_credentials, type Database_metrics_credentials, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -15,11 +15,7 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 export function createCredentialsGetResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCredentialsGetResponse;
 }
-export interface CredentialsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface CredentialsGetResponse extends Parsable {
     /**
      * The credentials property
      */
@@ -82,7 +78,6 @@ export function deserializeIntoCredentialsGetResponse(credentialsGetResponse: Pa
 export function serializeCredentialsGetResponse(writer: SerializationWriter, credentialsGetResponse: Partial<CredentialsGetResponse> | undefined | null = {}) : void {
     if (credentialsGetResponse) {
         writer.writeObjectValue<Database_metrics_credentials>("credentials", credentialsGetResponse.credentials, serializeDatabase_metrics_credentials);
-        writer.writeAdditionalData(credentialsGetResponse.additionalData);
     }
 }
 /**

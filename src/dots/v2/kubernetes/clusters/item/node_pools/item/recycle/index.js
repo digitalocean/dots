@@ -30,7 +30,6 @@ export function deserializeIntoRecyclePostRequestBody(recyclePostRequestBody = {
 export function serializeRecyclePostRequestBody(writer, recyclePostRequestBody = {}) {
     if (recyclePostRequestBody) {
         writer.writeCollectionOfPrimitiveValues("nodes", recyclePostRequestBody.nodes);
-        writer.writeAdditionalData(recyclePostRequestBody.additionalData);
     }
 }
 /**

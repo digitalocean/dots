@@ -6,7 +6,7 @@ import { createConnection_poolFromDiscriminatorValue, createConnection_poolsFrom
 // @ts-ignore
 import { type WithPool_nameItemRequestBuilder, WithPool_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoPoolsPostResponse(poolsPostResponse: Partial<Pool
         "pool": n => { poolsPostResponse.pool = n.getObjectValue<Connection_pool>(createConnection_poolFromDiscriminatorValue); },
     }
 }
-export interface PoolsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface PoolsPostResponse extends Parsable {
     /**
      * The pool property
      */
@@ -42,7 +38,7 @@ export interface PoolsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface PoolsRequestBuilder extends BaseRequestBuilder<PoolsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.pools.item collection
+     * Gets an item from the dots.v2.databases.item.pools.item collection
      * @param pool_name The name used to identify the connection pool.
      * @returns {WithPool_nameItemRequestBuilder}
      */
@@ -92,7 +88,6 @@ export interface PoolsRequestBuilder extends BaseRequestBuilder<PoolsRequestBuil
 export function serializePoolsPostResponse(writer: SerializationWriter, poolsPostResponse: Partial<PoolsPostResponse> | undefined | null = {}) : void {
     if (poolsPostResponse) {
         writer.writeObjectValue<Connection_pool>("pool", poolsPostResponse.pool, serializeConnection_pool);
-        writer.writeAdditionalData(poolsPostResponse.additionalData);
     }
 }
 /**

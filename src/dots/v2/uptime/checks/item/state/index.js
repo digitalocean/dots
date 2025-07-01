@@ -30,7 +30,6 @@ export function deserializeIntoStateGetResponse(stateGetResponse = {}) {
 export function serializeStateGetResponse(writer, stateGetResponse = {}) {
     if (stateGetResponse) {
         writer.writeObjectValue("state", stateGetResponse.state, serializeState);
-        writer.writeAdditionalData(stateGetResponse.additionalData);
     }
 }
 /**

@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createVpc_peeringFromDiscriminatorValue, deserializeIntoVpc_peering_updatable, serializeVpc_peering, serializeVpc_peering_updatable, type ErrorEscaped, type Vpc_peering, type Vpc_peering_updatable } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -90,7 +90,6 @@ export function deserializeIntoWithVpc_peering_PatchResponse(withVpc_peering_Pat
 export function serializeWithVpc_peering_DeleteResponse(writer: SerializationWriter, withVpc_peering_DeleteResponse: Partial<WithVpc_peering_DeleteResponse> | undefined | null = {}) : void {
     if (withVpc_peering_DeleteResponse) {
         writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_DeleteResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_DeleteResponse.additionalData);
     }
 }
 /**
@@ -101,7 +100,6 @@ export function serializeWithVpc_peering_DeleteResponse(writer: SerializationWri
 export function serializeWithVpc_peering_GetResponse(writer: SerializationWriter, withVpc_peering_GetResponse: Partial<WithVpc_peering_GetResponse> | undefined | null = {}) : void {
     if (withVpc_peering_GetResponse) {
         writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_GetResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_GetResponse.additionalData);
     }
 }
 /**
@@ -122,24 +120,15 @@ export function serializeWithVpc_peering_PatchRequestBody(writer: SerializationW
 export function serializeWithVpc_peering_PatchResponse(writer: SerializationWriter, withVpc_peering_PatchResponse: Partial<WithVpc_peering_PatchResponse> | undefined | null = {}) : void {
     if (withVpc_peering_PatchResponse) {
         writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_PatchResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
     }
 }
-export interface WithVpc_peering_DeleteResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_peering_DeleteResponse extends Parsable {
     /**
      * The vpc_peering property
      */
     vpcPeering?: Vpc_peering | null;
 }
-export interface WithVpc_peering_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_peering_GetResponse extends Parsable {
     /**
      * The vpc_peering property
      */
@@ -205,11 +194,7 @@ export interface WithVpc_peering_ItemRequestBuilder extends BaseRequestBuilder<W
 }
 export interface WithVpc_peering_PatchRequestBody extends Parsable, Vpc_peering_updatable {
 }
-export interface WithVpc_peering_PatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_peering_PatchResponse extends Parsable {
     /**
      * The vpc_peering property
      */

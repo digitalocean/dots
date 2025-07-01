@@ -68,7 +68,6 @@ export function deserializeIntoWithAccess_keyPutResponse(withAccess_keyPutRespon
 export function serializeWithAccess_keyGetResponse(writer, withAccess_keyGetResponse = {}) {
     if (withAccess_keyGetResponse) {
         writer.writeCollectionOfObjectValues("keys", withAccess_keyGetResponse.keys, serializeKey);
-        writer.writeAdditionalData(withAccess_keyGetResponse.additionalData);
     }
 }
 /**
@@ -79,7 +78,6 @@ export function serializeWithAccess_keyGetResponse(writer, withAccess_keyGetResp
 export function serializeWithAccess_keyPatchResponse(writer, withAccess_keyPatchResponse = {}) {
     if (withAccess_keyPatchResponse) {
         writer.writeObjectValue("key", withAccess_keyPatchResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPatchResponse.additionalData);
     }
 }
 /**
@@ -90,7 +88,6 @@ export function serializeWithAccess_keyPatchResponse(writer, withAccess_keyPatch
 export function serializeWithAccess_keyPutResponse(writer, withAccess_keyPutResponse = {}) {
     if (withAccess_keyPutResponse) {
         writer.writeObjectValue("key", withAccess_keyPutResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPutResponse.additionalData);
     }
 }
 /**

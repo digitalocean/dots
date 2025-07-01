@@ -10,7 +10,9 @@ import { Indexing_jobsRequestBuilderNavigationMetadata, Indexing_jobsRequestBuil
 // @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
 // @ts-ignore
-import { ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
+import { ModelsRequestBuilderNavigationMetadata, ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
+// @ts-ignore
+import { OpenaiRequestBuilderNavigationMetadata, type OpenaiRequestBuilder } from './openai/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
 // @ts-ignore
@@ -41,6 +43,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get models(): ModelsRequestBuilder;
     /**
+     * The openai property
+     */
+    get openai(): OpenaiRequestBuilder;
+    /**
      * The regions property
      */
     get regions(): RegionsRequestBuilder;
@@ -70,6 +76,10 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     },
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,
+        navigationMetadata: ModelsRequestBuilderNavigationMetadata,
+    },
+    openai: {
+        navigationMetadata: OpenaiRequestBuilderNavigationMetadata,
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,

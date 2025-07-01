@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createSizeFromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeSize, type ErrorEscaped, type Meta_properties, type Page_links, type Size } from '../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -37,14 +37,9 @@ export function serializeSizesGetResponse(writer: SerializationWriter, sizesGetR
         writer.writeObjectValue<Page_links>("links", sizesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", sizesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Size>("sizes", sizesGetResponse.sizes, serializeSize);
-        writer.writeAdditionalData(sizesGetResponse.additionalData);
     }
 }
-export interface SizesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface SizesGetResponse extends Parsable {
     /**
      * The links property
      */

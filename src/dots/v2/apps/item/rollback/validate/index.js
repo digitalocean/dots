@@ -34,7 +34,6 @@ export function serializeValidatePostResponse(writer, validatePostResponse = {})
         writer.writeObjectValue("error", validatePostResponse.errorEscaped, serializeApp_rollback_validation_condition);
         writer.writeBooleanValue("valid", validatePostResponse.valid);
         writer.writeCollectionOfObjectValues("warnings", validatePostResponse.warnings, serializeApp_rollback_validation_condition);
-        writer.writeAdditionalData(validatePostResponse.additionalData);
     }
 }
 /**

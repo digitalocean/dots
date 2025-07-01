@@ -70,7 +70,6 @@ export function deserializeIntoWithUsernamePutResponse(withUsernamePutResponse =
 export function serializeWithUsernameGetResponse(writer, withUsernameGetResponse = {}) {
     if (withUsernameGetResponse) {
         writer.writeObjectValue("user", withUsernameGetResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(withUsernameGetResponse.additionalData);
     }
 }
 /**
@@ -81,7 +80,6 @@ export function serializeWithUsernameGetResponse(writer, withUsernameGetResponse
 export function serializeWithUsernamePutRequestBody(writer, withUsernamePutRequestBody = {}) {
     if (withUsernamePutRequestBody) {
         writer.writeObjectValue("settings", withUsernamePutRequestBody.settings, serializeUser_settings);
-        writer.writeAdditionalData(withUsernamePutRequestBody.additionalData);
     }
 }
 /**
@@ -92,7 +90,6 @@ export function serializeWithUsernamePutRequestBody(writer, withUsernamePutReque
 export function serializeWithUsernamePutResponse(writer, withUsernamePutResponse = {}) {
     if (withUsernamePutResponse) {
         writer.writeObjectValue("user", withUsernamePutResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(withUsernamePutResponse.additionalData);
     }
 }
 /**

@@ -12,7 +12,7 @@ import { SelectiveRequestBuilderRequestsMetadata, type SelectiveRequestBuilder }
 // @ts-ignore
 import { StatusRequestBuilderRequestsMetadata, type StatusRequestBuilder } from './status/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -37,11 +37,7 @@ export function deserializeIntoDestroy_with_associated_resourcesGetResponse(dest
         "volume_snapshots": n => { destroy_with_associated_resourcesGetResponse.volumeSnapshots = n.getCollectionOfObjectValues<Associated_resource>(createAssociated_resourceFromDiscriminatorValue); },
     }
 }
-export interface Destroy_with_associated_resourcesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface Destroy_with_associated_resourcesGetResponse extends Parsable {
     /**
      * The floating_ips property
      */
@@ -113,7 +109,6 @@ export function serializeDestroy_with_associated_resourcesGetResponse(writer: Se
         writer.writeCollectionOfObjectValues<Associated_resource>("snapshots", destroy_with_associated_resourcesGetResponse.snapshots, serializeAssociated_resource);
         writer.writeCollectionOfObjectValues<Associated_resource>("volumes", destroy_with_associated_resourcesGetResponse.volumes, serializeAssociated_resource);
         writer.writeCollectionOfObjectValues<Associated_resource>("volume_snapshots", destroy_with_associated_resourcesGetResponse.volumeSnapshots, serializeAssociated_resource);
-        writer.writeAdditionalData(destroy_with_associated_resourcesGetResponse.additionalData);
     }
 }
 /**

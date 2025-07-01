@@ -14,13 +14,15 @@ import { KubeconfigRequestBuilderRequestsMetadata, type KubeconfigRequestBuilder
 // @ts-ignore
 import { Node_poolsRequestBuilderNavigationMetadata, Node_poolsRequestBuilderRequestsMetadata, type Node_poolsRequestBuilder } from './node_pools/index.js';
 // @ts-ignore
+import { Status_messagesRequestBuilderRequestsMetadata, type Status_messagesRequestBuilder } from './status_messages/index.js';
+// @ts-ignore
 import { type UpgradeRequestBuilder, UpgradeRequestBuilderRequestsMetadata } from './upgrade/index.js';
 // @ts-ignore
 import { type UpgradesRequestBuilder, UpgradesRequestBuilderRequestsMetadata } from './upgrades/index.js';
 // @ts-ignore
 import { type UserRequestBuilder, UserRequestBuilderRequestsMetadata } from './user/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -68,7 +70,6 @@ export function deserializeIntoWithCluster_PutResponse(withCluster_PutResponse: 
 export function serializeWithCluster_GetResponse(writer: SerializationWriter, withCluster_GetResponse: Partial<WithCluster_GetResponse> | undefined | null = {}) : void {
     if (withCluster_GetResponse) {
         writer.writeObjectValue<Cluster>("kubernetes_cluster", withCluster_GetResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(withCluster_GetResponse.additionalData);
     }
 }
 /**
@@ -79,14 +80,9 @@ export function serializeWithCluster_GetResponse(writer: SerializationWriter, wi
 export function serializeWithCluster_PutResponse(writer: SerializationWriter, withCluster_PutResponse: Partial<WithCluster_PutResponse> | undefined | null = {}) : void {
     if (withCluster_PutResponse) {
         writer.writeObjectValue<Cluster>("kubernetes_cluster", withCluster_PutResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(withCluster_PutResponse.additionalData);
     }
 }
-export interface WithCluster_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCluster_GetResponse extends Parsable {
     /**
      * The kubernetes_cluster property
      */
@@ -116,6 +112,10 @@ export interface WithCluster_ItemRequestBuilder extends BaseRequestBuilder<WithC
      * The node_pools property
      */
     get node_pools(): Node_poolsRequestBuilder;
+    /**
+     * The status_messages property
+     */
+    get status_messages(): Status_messagesRequestBuilder;
     /**
      * The upgrade property
      */
@@ -181,11 +181,7 @@ export interface WithCluster_ItemRequestBuilder extends BaseRequestBuilder<WithC
      */
      toPutRequestInformation(body: Cluster_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithCluster_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithCluster_PutResponse extends Parsable {
     /**
      * The kubernetes_cluster property
      */
@@ -215,6 +211,9 @@ export const WithCluster_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     node_pools: {
         requestsMetadata: Node_poolsRequestBuilderRequestsMetadata,
         navigationMetadata: Node_poolsRequestBuilderNavigationMetadata,
+    },
+    status_messages: {
+        requestsMetadata: Status_messagesRequestBuilderRequestsMetadata,
     },
     upgrade: {
         requestsMetadata: UpgradeRequestBuilderRequestsMetadata,

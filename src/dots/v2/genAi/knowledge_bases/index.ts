@@ -13,13 +13,13 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface Knowledge_basesRequestBuilder extends BaseRequestBuilder<Knowledge_basesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.genAi.knowledge_bases.item collection
+     * Gets an item from the dots.v2.genAi.knowledge_bases.item collection
      * @param knowledge_base_uuId Knowledge base id
      * @returns {Knowledge_base_uuItemRequestBuilder}
      */
      byKnowledge_base_uuId(knowledge_base_uuId: string) : Knowledge_base_uuItemRequestBuilder;
     /**
-     * To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+     * To list all knowledge bases, send a GET request to `/v2/gen-ai/knowledge_bases`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ApiListKnowledgeBasesOutput>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -42,7 +42,7 @@ export interface Knowledge_basesRequestBuilder extends BaseRequestBuilder<Knowle
      */
      post(body: ApiCreateKnowledgeBaseInputPublic, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ApiCreateKnowledgeBaseOutput | undefined>;
     /**
-     * To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+     * To list all knowledge bases, send a GET request to `/v2/gen-ai/knowledge_bases`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -56,7 +56,7 @@ export interface Knowledge_basesRequestBuilder extends BaseRequestBuilder<Knowle
      toPostRequestInformation(body: ApiCreateKnowledgeBaseInputPublic, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 /**
- * To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+ * To list all knowledge bases, send a GET request to `/v2/gen-ai/knowledge_bases`.
  */
 export interface Knowledge_basesRequestBuilderGetQueryParameters {
     /**

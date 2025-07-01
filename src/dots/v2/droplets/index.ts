@@ -12,7 +12,7 @@ import { BackupsRequestBuilderNavigationMetadata, type BackupsRequestBuilder } f
 // @ts-ignore
 import { type WithDroplet_ItemRequestBuilder, WithDroplet_ItemRequestBuilderNavigationMetadata, WithDroplet_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -153,11 +153,7 @@ export function deserializeIntoDropletsPostResponseMember2_links(dropletsPostRes
         "actions": n => { dropletsPostResponseMember2_links.actions = n.getCollectionOfObjectValues<Action_link>(createAction_linkFromDiscriminatorValue); },
     }
 }
-export interface DropletsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DropletsGetResponse extends Parsable {
     /**
      * The droplets property
      */
@@ -173,11 +169,7 @@ export interface DropletsGetResponse extends AdditionalDataHolder, Parsable {
 }
 export type DropletsPostRequestBody = Droplet_multi_create | Droplet_single_create;
 export type DropletsPostResponse = DropletsPostResponseMember1 | DropletsPostResponseMember2;
-export interface DropletsPostResponseMember1 extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DropletsPostResponseMember1 extends Parsable {
     /**
      * The droplet property
      */
@@ -187,21 +179,13 @@ export interface DropletsPostResponseMember1 extends AdditionalDataHolder, Parsa
      */
     links?: DropletsPostResponseMember1_links | null;
 }
-export interface DropletsPostResponseMember1_links extends AdditionalDataHolder, Parsable {
+export interface DropletsPostResponseMember1_links extends Parsable {
     /**
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
-export interface DropletsPostResponseMember2 extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DropletsPostResponseMember2 extends Parsable {
     /**
      * The droplets property
      */
@@ -211,15 +195,11 @@ export interface DropletsPostResponseMember2 extends AdditionalDataHolder, Parsa
      */
     links?: DropletsPostResponseMember2_links | null;
 }
-export interface DropletsPostResponseMember2_links extends AdditionalDataHolder, Parsable {
+export interface DropletsPostResponseMember2_links extends Parsable {
     /**
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets
@@ -238,7 +218,7 @@ export interface DropletsRequestBuilder extends BaseRequestBuilder<DropletsReque
      */
     get backups(): BackupsRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.droplets.item collection
+     * Gets an item from the dots.v2.droplets.item collection
      * @param droplet_id A unique identifier for a Droplet instance.
      * @returns {WithDroplet_ItemRequestBuilder}
      */
@@ -339,7 +319,6 @@ export function serializeDropletsGetResponse(writer: SerializationWriter, drople
         writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsGetResponse.droplets, serializeDroplet);
         writer.writeObjectValue<Page_links>("links", dropletsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", dropletsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(dropletsGetResponse.additionalData);
     }
 }
 /**
@@ -369,7 +348,6 @@ export function serializeDropletsPostResponseMember1(writer: SerializationWriter
     if (dropletsPostResponseMember1) {
         writer.writeObjectValue<Droplet>("droplet", dropletsPostResponseMember1.droplet, serializeDroplet);
         writer.writeObjectValue<DropletsPostResponseMember1_links>("links", dropletsPostResponseMember1.links, serializeDropletsPostResponseMember1_links);
-        writer.writeAdditionalData(dropletsPostResponseMember1.additionalData);
     }
 }
 /**
@@ -380,7 +358,6 @@ export function serializeDropletsPostResponseMember1(writer: SerializationWriter
 export function serializeDropletsPostResponseMember1_links(writer: SerializationWriter, dropletsPostResponseMember1_links: Partial<DropletsPostResponseMember1_links> | undefined | null = {}) : void {
     if (dropletsPostResponseMember1_links) {
         writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember1_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember1_links.additionalData);
     }
 }
 /**
@@ -392,7 +369,6 @@ export function serializeDropletsPostResponseMember2(writer: SerializationWriter
     if (dropletsPostResponseMember2) {
         writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsPostResponseMember2.droplets, serializeDroplet);
         writer.writeObjectValue<DropletsPostResponseMember2_links>("links", dropletsPostResponseMember2.links, serializeDropletsPostResponseMember2_links);
-        writer.writeAdditionalData(dropletsPostResponseMember2.additionalData);
     }
 }
 /**
@@ -403,7 +379,6 @@ export function serializeDropletsPostResponseMember2(writer: SerializationWriter
 export function serializeDropletsPostResponseMember2_links(writer: SerializationWriter, dropletsPostResponseMember2_links: Partial<DropletsPostResponseMember2_links> | undefined | null = {}) : void {
     if (dropletsPostResponseMember2_links) {
         writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember2_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember2_links.additionalData);
     }
 }
 /**

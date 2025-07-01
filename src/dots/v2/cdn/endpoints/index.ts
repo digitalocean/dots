@@ -6,7 +6,7 @@ import { createCdn_endpointFromDiscriminatorValue, createErrorEscapedFromDiscrim
 // @ts-ignore
 import { type WithCdn_ItemRequestBuilder, WithCdn_ItemRequestBuilderNavigationMetadata, WithCdn_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -48,11 +48,7 @@ export function deserializeIntoEndpointsPostResponse(endpointsPostResponse: Part
         "endpoint": n => { endpointsPostResponse.endpoint = n.getObjectValue<Cdn_endpoint>(createCdn_endpointFromDiscriminatorValue); },
     }
 }
-export interface EndpointsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface EndpointsGetResponse extends Parsable {
     /**
      * The endpoints property
      */
@@ -66,11 +62,7 @@ export interface EndpointsGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
 }
-export interface EndpointsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface EndpointsPostResponse extends Parsable {
     /**
      * The endpoint property
      */
@@ -81,7 +73,7 @@ export interface EndpointsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface EndpointsRequestBuilder extends BaseRequestBuilder<EndpointsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.cdn.endpoints.item collection
+     * Gets an item from the dots.v2.cdn.endpoints.item collection
      * @param cdn_id A unique identifier for a CDN endpoint.
      * @returns {WithCdn_ItemRequestBuilder}
      */
@@ -144,7 +136,6 @@ export function serializeEndpointsGetResponse(writer: SerializationWriter, endpo
         writer.writeCollectionOfObjectValues<Cdn_endpoint>("endpoints", endpointsGetResponse.endpoints, serializeCdn_endpoint);
         writer.writeObjectValue<Page_links>("links", endpointsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", endpointsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(endpointsGetResponse.additionalData);
     }
 }
 /**
@@ -155,7 +146,6 @@ export function serializeEndpointsGetResponse(writer: SerializationWriter, endpo
 export function serializeEndpointsPostResponse(writer: SerializationWriter, endpointsPostResponse: Partial<EndpointsPostResponse> | undefined | null = {}) : void {
     if (endpointsPostResponse) {
         writer.writeObjectValue<Cdn_endpoint>("endpoint", endpointsPostResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(endpointsPostResponse.additionalData);
     }
 }
 /**

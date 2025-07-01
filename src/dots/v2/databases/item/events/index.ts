@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createEvents_logsFromDiscriminatorValue, serializeEvents_logs, type ErrorEscaped, type Events_logs } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25,11 +25,7 @@ export function deserializeIntoEventsGetResponse(eventsGetResponse: Partial<Even
         "events": n => { eventsGetResponse.events = n.getCollectionOfObjectValues<Events_logs>(createEvents_logsFromDiscriminatorValue); },
     }
 }
-export interface EventsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface EventsGetResponse extends Parsable {
     /**
      * The events property
      */
@@ -65,7 +61,6 @@ export interface EventsRequestBuilder extends BaseRequestBuilder<EventsRequestBu
 export function serializeEventsGetResponse(writer: SerializationWriter, eventsGetResponse: Partial<EventsGetResponse> | undefined | null = {}) : void {
     if (eventsGetResponse) {
         writer.writeCollectionOfObjectValues<Events_logs>("events", eventsGetResponse.events, serializeEvents_logs);
-        writer.writeAdditionalData(eventsGetResponse.additionalData);
     }
 }
 /**

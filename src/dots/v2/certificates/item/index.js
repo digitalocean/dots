@@ -30,7 +30,6 @@ export function deserializeIntoWithCertificate_GetResponse(withCertificate_GetRe
 export function serializeWithCertificate_GetResponse(writer, withCertificate_GetResponse = {}) {
     if (withCertificate_GetResponse) {
         writer.writeObjectValue("certificate", withCertificate_GetResponse.certificate, serializeCertificate);
-        writer.writeAdditionalData(withCertificate_GetResponse.additionalData);
     }
 }
 /**

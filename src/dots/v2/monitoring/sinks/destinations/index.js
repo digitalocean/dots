@@ -51,7 +51,6 @@ export function deserializeIntoDestinationsPostResponse(destinationsPostResponse
 export function serializeDestinationsGetResponse(writer, destinationsGetResponse = {}) {
     if (destinationsGetResponse) {
         writer.writeCollectionOfObjectValues("destinations", destinationsGetResponse.destinations, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(destinationsGetResponse.additionalData);
     }
 }
 /**
@@ -62,7 +61,6 @@ export function serializeDestinationsGetResponse(writer, destinationsGetResponse
 export function serializeDestinationsPostResponse(writer, destinationsPostResponse = {}) {
     if (destinationsPostResponse) {
         writer.writeObjectValue("destination", destinationsPostResponse.destination, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(destinationsPostResponse.additionalData);
     }
 }
 /**

@@ -4,18 +4,14 @@
 // @ts-ignore
 import { createActionFromDiscriminatorValue, createDroplet_action_snapshotFromDiscriminatorValue, createDroplet_actionFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, deserializeIntoDroplet_action, deserializeIntoDroplet_action_snapshot, serializeAction, serializeDroplet_action, serializeDroplet_action_snapshot, type Action, type Droplet_action, type Droplet_action_snapshot, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 export type ActionsPostRequestBody = Droplet_action | Droplet_action_snapshot;
-export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
+export interface ActionsPostResponse extends Parsable {
     /**
      * The actions property
      */
     actions?: Action[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/actions
@@ -154,7 +150,6 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
     if (actionsPostResponse) {
         writer.writeCollectionOfObjectValues<Action>("actions", actionsPostResponse.actions, serializeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
     }
 }
 /**

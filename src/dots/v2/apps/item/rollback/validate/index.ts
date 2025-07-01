@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createApp_rollback_validation_conditionFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeApp_rollback_validation_condition, serializeApps_rollback_app_request, type App_rollback_validation_condition, type Apps_rollback_app_request, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -37,14 +37,9 @@ export function serializeValidatePostResponse(writer: SerializationWriter, valid
         writer.writeObjectValue<App_rollback_validation_condition>("error", validatePostResponse.errorEscaped, serializeApp_rollback_validation_condition);
         writer.writeBooleanValue("valid", validatePostResponse.valid);
         writer.writeCollectionOfObjectValues<App_rollback_validation_condition>("warnings", validatePostResponse.warnings, serializeApp_rollback_validation_condition);
-        writer.writeAdditionalData(validatePostResponse.additionalData);
     }
 }
-export interface ValidatePostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface ValidatePostResponse extends Parsable {
     /**
      * The error property
      */

@@ -6,7 +6,13 @@ import { createApps_get_exec_responseFromDiscriminatorValue, createErrorEscapedF
 /**
  * Uri template for the request builder.
  */
-export const ExecRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/components/{component_name}/exec";
+export const ExecRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/components/{component_name}/exec{?instance_name*}";
+/**
+ * Mapper for query parameters from symbol name to serialization name represented as a constant.
+ */
+const ExecRequestBuilderGetQueryParametersMapper = {
+    "instanceName": "instance_name",
+};
 /**
  * Metadata for all the requests in the request builder.
  */
@@ -23,6 +29,7 @@ export const ExecRequestBuilderRequestsMetadata = {
         },
         adapterMethodName: "send",
         responseBodyFactory: createApps_get_exec_responseFromDiscriminatorValue,
+        queryParametersMapper: ExecRequestBuilderGetQueryParametersMapper,
     },
 };
 /* tslint:enable */

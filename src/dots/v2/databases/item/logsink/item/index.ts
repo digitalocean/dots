@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createLogsink_verboseFromDiscriminatorValue, serializeLogsink_update, serializeLogsink_verbose, type ErrorEscaped, type Logsink_update, type Logsink_verbose } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoWithLogsink_GetResponse(withLogsink_GetResponse: 
 export function serializeWithLogsink_GetResponse(writer: SerializationWriter, withLogsink_GetResponse: Partial<WithLogsink_GetResponse> | undefined | null = {}) : void {
     if (withLogsink_GetResponse) {
         writer.writeObjectValue<Logsink_verbose>("sink", withLogsink_GetResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(withLogsink_GetResponse.additionalData);
     }
 }
-export interface WithLogsink_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithLogsink_GetResponse extends Parsable {
     /**
      * The sink property
      */

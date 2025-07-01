@@ -72,7 +72,6 @@ export function deserializeIntoWithCheck_PutResponse(withCheck_PutResponse = {})
 export function serializeWithCheck_GetResponse(writer, withCheck_GetResponse = {}) {
     if (withCheck_GetResponse) {
         writer.writeObjectValue("check", withCheck_GetResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_GetResponse.additionalData);
     }
 }
 /**
@@ -93,7 +92,6 @@ export function serializeWithCheck_PutRequestBody(writer, withCheck_PutRequestBo
 export function serializeWithCheck_PutResponse(writer, withCheck_PutResponse = {}) {
     if (withCheck_PutResponse) {
         writer.writeObjectValue("check", withCheck_PutResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_PutResponse.additionalData);
     }
 }
 /**

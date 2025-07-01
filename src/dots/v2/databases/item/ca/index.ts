@@ -4,13 +4,9 @@
 // @ts-ignore
 import { createCaFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeCa, type Ca, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
-export interface CaGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface CaGetResponse extends Parsable {
     /**
      * The ca property
      */
@@ -65,7 +61,6 @@ export function deserializeIntoCaGetResponse(caGetResponse: Partial<CaGetRespons
 export function serializeCaGetResponse(writer: SerializationWriter, caGetResponse: Partial<CaGetResponse> | undefined | null = {}) : void {
     if (caGetResponse) {
         writer.writeObjectValue<Ca>("ca", caGetResponse.ca, serializeCa);
-        writer.writeAdditionalData(caGetResponse.additionalData);
     }
 }
 /**

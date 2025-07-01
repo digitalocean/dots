@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithVpc_ItemRequestBuilder, WithVpc_ItemRequestBuilderNavigationMetadata, WithVpc_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -80,7 +80,6 @@ export function serializeVpcsGetResponse(writer: SerializationWriter, vpcsGetRes
         writer.writeObjectValue<Page_links>("links", vpcsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", vpcsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Vpc>("vpcs", vpcsGetResponse.vpcs, serializeVpc);
-        writer.writeAdditionalData(vpcsGetResponse.additionalData);
     }
 }
 /**
@@ -94,7 +93,6 @@ export function serializeVpcsPostRequestBody(writer: SerializationWriter, vpcsPo
         writer.writeStringValue("ip_range", vpcsPostRequestBody.ipRange);
         writer.writeStringValue("name", vpcsPostRequestBody.name);
         writer.writeStringValue("region", vpcsPostRequestBody.region);
-        writer.writeAdditionalData(vpcsPostRequestBody.additionalData);
     }
 }
 /**
@@ -105,14 +103,9 @@ export function serializeVpcsPostRequestBody(writer: SerializationWriter, vpcsPo
 export function serializeVpcsPostResponse(writer: SerializationWriter, vpcsPostResponse: Partial<VpcsPostResponse> | undefined | null = {}) : void {
     if (vpcsPostResponse) {
         writer.writeObjectValue<Vpc>("vpc", vpcsPostResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(vpcsPostResponse.additionalData);
     }
 }
-export interface VpcsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface VpcsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -126,11 +119,7 @@ export interface VpcsGetResponse extends AdditionalDataHolder, Parsable {
      */
     vpcs?: Vpc[] | null;
 }
-export interface VpcsPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface VpcsPostRequestBody extends Parsable {
     /**
      * A free-form text field for describing the VPC's purpose. It may be a maximum of 255 characters.
      */
@@ -148,11 +137,7 @@ export interface VpcsPostRequestBody extends AdditionalDataHolder, Parsable {
      */
     region?: string | null;
 }
-export interface VpcsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface VpcsPostResponse extends Parsable {
     /**
      * The vpc property
      */
@@ -163,7 +148,7 @@ export interface VpcsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface VpcsRequestBuilder extends BaseRequestBuilder<VpcsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.vpcs.item collection
+     * Gets an item from the dots.v2.vpcs.item collection
      * @param vpc_id A unique identifier for a VPC.
      * @returns {WithVpc_ItemRequestBuilder}
      */

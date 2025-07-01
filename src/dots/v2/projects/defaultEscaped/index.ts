@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createProjectFromDiscriminato
 // @ts-ignore
 import { ResourcesRequestBuilderRequestsMetadata, type ResourcesRequestBuilder } from './resources/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,31 +35,19 @@ export function createDefaultPatchResponseFromDiscriminatorValue(parseNode: Pars
 export function createDefaultPutResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDefaultPutResponse;
 }
-export interface DefaultGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DefaultGetResponse extends Parsable {
     /**
      * The project property
      */
     project?: Project | null;
 }
-export interface DefaultPatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DefaultPatchResponse extends Parsable {
     /**
      * The project property
      */
     project?: Project | null;
 }
-export interface DefaultPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DefaultPutResponse extends Parsable {
     /**
      * The project property
      */
@@ -167,7 +155,6 @@ export function deserializeIntoDefaultPutResponse(defaultPutResponse: Partial<De
 export function serializeDefaultGetResponse(writer: SerializationWriter, defaultGetResponse: Partial<DefaultGetResponse> | undefined | null = {}) : void {
     if (defaultGetResponse) {
         writer.writeObjectValue<Project>("project", defaultGetResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultGetResponse.additionalData);
     }
 }
 /**
@@ -178,7 +165,6 @@ export function serializeDefaultGetResponse(writer: SerializationWriter, default
 export function serializeDefaultPatchResponse(writer: SerializationWriter, defaultPatchResponse: Partial<DefaultPatchResponse> | undefined | null = {}) : void {
     if (defaultPatchResponse) {
         writer.writeObjectValue<Project>("project", defaultPatchResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultPatchResponse.additionalData);
     }
 }
 /**
@@ -189,7 +175,6 @@ export function serializeDefaultPatchResponse(writer: SerializationWriter, defau
 export function serializeDefaultPutResponse(writer: SerializationWriter, defaultPutResponse: Partial<DefaultPutResponse> | undefined | null = {}) : void {
     if (defaultPutResponse) {
         writer.writeObjectValue<Project>("project", defaultPutResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultPutResponse.additionalData);
     }
 }
 /**

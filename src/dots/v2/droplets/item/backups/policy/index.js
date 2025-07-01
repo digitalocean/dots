@@ -30,7 +30,6 @@ export function deserializeIntoPolicyGetResponse(policyGetResponse = {}) {
 export function serializePolicyGetResponse(writer, policyGetResponse = {}) {
     if (policyGetResponse) {
         writer.writeObjectValue("policy", policyGetResponse.policy, serializeDroplet_backup_policy_record);
-        writer.writeAdditionalData(policyGetResponse.additionalData);
     }
 }
 /**

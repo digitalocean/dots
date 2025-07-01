@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createNamespace_infoFromDiscr
 // @ts-ignore
 import { TriggersRequestBuilderNavigationMetadata, TriggersRequestBuilderRequestsMetadata, type TriggersRequestBuilder } from './triggers/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithNamespace_GetResponse(withNamespace_GetRespon
 export function serializeWithNamespace_GetResponse(writer: SerializationWriter, withNamespace_GetResponse: Partial<WithNamespace_GetResponse> | undefined | null = {}) : void {
     if (withNamespace_GetResponse) {
         writer.writeObjectValue<Namespace_info>("namespace", withNamespace_GetResponse.namespace, serializeNamespace_info);
-        writer.writeAdditionalData(withNamespace_GetResponse.additionalData);
     }
 }
-export interface WithNamespace_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithNamespace_GetResponse extends Parsable {
     /**
      * The namespace property
      */

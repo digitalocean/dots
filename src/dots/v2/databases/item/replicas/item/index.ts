@@ -6,7 +6,7 @@ import { createDatabase_replicaFromDiscriminatorValue, createErrorEscapedFromDis
 // @ts-ignore
 import { PromoteRequestBuilderRequestsMetadata, type PromoteRequestBuilder } from './promote/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithReplica_nameGetResponse(withReplica_nameGetRe
 export function serializeWithReplica_nameGetResponse(writer: SerializationWriter, withReplica_nameGetResponse: Partial<WithReplica_nameGetResponse> | undefined | null = {}) : void {
     if (withReplica_nameGetResponse) {
         writer.writeObjectValue<Database_replica>("replica", withReplica_nameGetResponse.replica, serializeDatabase_replica);
-        writer.writeAdditionalData(withReplica_nameGetResponse.additionalData);
     }
 }
-export interface WithReplica_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithReplica_nameGetResponse extends Parsable {
     /**
      * The replica property
      */
@@ -57,7 +52,7 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
     get promote(): PromoteRequestBuilder;
     /**
-     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -67,7 +62,7 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
+     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithReplica_nameGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -78,13 +73,13 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithReplica_nameGetResponse | undefined>;
     /**
-     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
+     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

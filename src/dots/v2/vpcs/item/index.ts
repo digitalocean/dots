@@ -8,7 +8,7 @@ import { MembersRequestBuilderRequestsMetadata, type MembersRequestBuilder } fro
 // @ts-ignore
 import { PeeringsRequestBuilderNavigationMetadata, PeeringsRequestBuilderRequestsMetadata, type PeeringsRequestBuilder } from './peerings/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -117,7 +117,6 @@ export function deserializeIntoWithVpc_PutResponse(withVpc_PutResponse: Partial<
 export function serializeWithVpc_GetResponse(writer: SerializationWriter, withVpc_GetResponse: Partial<WithVpc_GetResponse> | undefined | null = {}) : void {
     if (withVpc_GetResponse) {
         writer.writeObjectValue<Vpc>("vpc", withVpc_GetResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_GetResponse.additionalData);
     }
 }
 /**
@@ -130,7 +129,6 @@ export function serializeWithVpc_PatchRequestBody(writer: SerializationWriter, w
         writer.writeBooleanValue("default", withVpc_PatchRequestBody.defaultEscaped);
         writer.writeStringValue("description", withVpc_PatchRequestBody.description);
         writer.writeStringValue("name", withVpc_PatchRequestBody.name);
-        writer.writeAdditionalData(withVpc_PatchRequestBody.additionalData);
     }
 }
 /**
@@ -141,7 +139,6 @@ export function serializeWithVpc_PatchRequestBody(writer: SerializationWriter, w
 export function serializeWithVpc_PatchResponse(writer: SerializationWriter, withVpc_PatchResponse: Partial<WithVpc_PatchResponse> | undefined | null = {}) : void {
     if (withVpc_PatchResponse) {
         writer.writeObjectValue<Vpc>("vpc", withVpc_PatchResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_PatchResponse.additionalData);
     }
 }
 /**
@@ -154,7 +151,6 @@ export function serializeWithVpc_PutRequestBody(writer: SerializationWriter, wit
         writer.writeBooleanValue("default", withVpc_PutRequestBody.defaultEscaped);
         writer.writeStringValue("description", withVpc_PutRequestBody.description);
         writer.writeStringValue("name", withVpc_PutRequestBody.name);
-        writer.writeAdditionalData(withVpc_PutRequestBody.additionalData);
     }
 }
 /**
@@ -165,14 +161,9 @@ export function serializeWithVpc_PutRequestBody(writer: SerializationWriter, wit
 export function serializeWithVpc_PutResponse(writer: SerializationWriter, withVpc_PutResponse: Partial<WithVpc_PutResponse> | undefined | null = {}) : void {
     if (withVpc_PutResponse) {
         writer.writeObjectValue<Vpc>("vpc", withVpc_PutResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(withVpc_PutResponse.additionalData);
     }
 }
-export interface WithVpc_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_GetResponse extends Parsable {
     /**
      * The vpc property
      */
@@ -262,11 +253,7 @@ export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_I
      */
      toPutRequestInformation(body: WithVpc_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_PatchRequestBody extends Parsable {
     /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
@@ -280,21 +267,13 @@ export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable
      */
     name?: string | null;
 }
-export interface WithVpc_PatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_PatchResponse extends Parsable {
     /**
      * The vpc property
      */
     vpc?: Vpc | null;
 }
-export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_PutRequestBody extends Parsable {
     /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
@@ -308,11 +287,7 @@ export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
 }
-export interface WithVpc_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithVpc_PutResponse extends Parsable {
     /**
      * The vpc property
      */

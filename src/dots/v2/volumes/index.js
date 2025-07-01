@@ -79,7 +79,6 @@ export function serializeVolumesGetResponse(writer, volumesGetResponse = {}) {
         writer.writeObjectValue("links", volumesGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", volumesGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("volumes", volumesGetResponse.volumes, serializeVolume_full);
-        writer.writeAdditionalData(volumesGetResponse.additionalData);
     }
 }
 /**
@@ -99,7 +98,6 @@ export function serializeVolumesPostRequestBody(writer, volumesPostRequestBody =
 export function serializeVolumesPostResponse(writer, volumesPostResponse = {}) {
     if (volumesPostResponse) {
         writer.writeObjectValue("volume", volumesPostResponse.volume, serializeVolume_full);
-        writer.writeAdditionalData(volumesPostResponse.additionalData);
     }
 }
 /**

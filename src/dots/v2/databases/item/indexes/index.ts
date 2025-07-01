@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createOpensearch_indexFromDis
 // @ts-ignore
 import { type WithIndex_nameItemRequestBuilder, WithIndex_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27,11 +27,7 @@ export function deserializeIntoIndexesGetResponse(indexesGetResponse: Partial<In
         "indexes": n => { indexesGetResponse.indexes = n.getCollectionOfObjectValues<Opensearch_index>(createOpensearch_indexFromDiscriminatorValue); },
     }
 }
-export interface IndexesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface IndexesGetResponse extends Parsable {
     /**
      * The indexes property
      */
@@ -42,7 +38,7 @@ export interface IndexesGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface IndexesRequestBuilder extends BaseRequestBuilder<IndexesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.indexes.item collection
+     * Gets an item from the dots.v2.databases.item.indexes.item collection
      * @param index_name The name of the OpenSearch index.
      * @returns {WithIndex_nameItemRequestBuilder}
      */
@@ -73,7 +69,6 @@ export interface IndexesRequestBuilder extends BaseRequestBuilder<IndexesRequest
 export function serializeIndexesGetResponse(writer: SerializationWriter, indexesGetResponse: Partial<IndexesGetResponse> | undefined | null = {}) : void {
     if (indexesGetResponse) {
         writer.writeCollectionOfObjectValues<Opensearch_index>("indexes", indexesGetResponse.indexes, serializeOpensearch_index);
-        writer.writeAdditionalData(indexesGetResponse.additionalData);
     }
 }
 /**

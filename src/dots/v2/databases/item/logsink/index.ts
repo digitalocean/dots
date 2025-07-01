@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createLogsink_verboseFromDisc
 // @ts-ignore
 import { type WithLogsink_ItemRequestBuilder, WithLogsink_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,21 +46,13 @@ export function deserializeIntoLogsinkPostResponse(logsinkPostResponse: Partial<
         "sink": n => { logsinkPostResponse.sink = n.getObjectValue<Logsink_verbose>(createLogsink_verboseFromDiscriminatorValue); },
     }
 }
-export interface LogsinkGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface LogsinkGetResponse extends Parsable {
     /**
      * The sinks property
      */
     sinks?: Logsink_verbose[] | null;
 }
-export interface LogsinkPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface LogsinkPostResponse extends Parsable {
     /**
      * The sink property
      */
@@ -71,7 +63,7 @@ export interface LogsinkPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface LogsinkRequestBuilder extends BaseRequestBuilder<LogsinkRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.databases.item.logsink.item collection
+     * Gets an item from the dots.v2.databases.item.logsink.item collection
      * @param logsink_id A unique identifier for a logsink of a database cluster
      * @returns {WithLogsink_ItemRequestBuilder}
      */
@@ -121,7 +113,6 @@ export interface LogsinkRequestBuilder extends BaseRequestBuilder<LogsinkRequest
 export function serializeLogsinkGetResponse(writer: SerializationWriter, logsinkGetResponse: Partial<LogsinkGetResponse> | undefined | null = {}) : void {
     if (logsinkGetResponse) {
         writer.writeCollectionOfObjectValues<Logsink_verbose>("sinks", logsinkGetResponse.sinks, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeLogsinkGetResponse(writer: SerializationWriter, logsink
 export function serializeLogsinkPostResponse(writer: SerializationWriter, logsinkPostResponse: Partial<LogsinkPostResponse> | undefined | null = {}) : void {
     if (logsinkPostResponse) {
         writer.writeObjectValue<Logsink_verbose>("sink", logsinkPostResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkPostResponse.additionalData);
     }
 }
 /**

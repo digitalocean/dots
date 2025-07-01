@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createStateFromDiscriminatorValue, serializeState, type ErrorEscaped, type State } from '../../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -33,14 +33,9 @@ export function deserializeIntoStateGetResponse(stateGetResponse: Partial<StateG
 export function serializeStateGetResponse(writer: SerializationWriter, stateGetResponse: Partial<StateGetResponse> | undefined | null = {}) : void {
     if (stateGetResponse) {
         writer.writeObjectValue<State>("state", stateGetResponse.state, serializeState);
-        writer.writeAdditionalData(stateGetResponse.additionalData);
     }
 }
-export interface StateGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface StateGetResponse extends Parsable {
     /**
      * The state property
      */

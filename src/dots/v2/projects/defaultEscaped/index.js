@@ -70,7 +70,6 @@ export function deserializeIntoDefaultPutResponse(defaultPutResponse = {}) {
 export function serializeDefaultGetResponse(writer, defaultGetResponse = {}) {
     if (defaultGetResponse) {
         writer.writeObjectValue("project", defaultGetResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultGetResponse.additionalData);
     }
 }
 /**
@@ -81,7 +80,6 @@ export function serializeDefaultGetResponse(writer, defaultGetResponse = {}) {
 export function serializeDefaultPatchResponse(writer, defaultPatchResponse = {}) {
     if (defaultPatchResponse) {
         writer.writeObjectValue("project", defaultPatchResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultPatchResponse.additionalData);
     }
 }
 /**
@@ -92,7 +90,6 @@ export function serializeDefaultPatchResponse(writer, defaultPatchResponse = {})
 export function serializeDefaultPutResponse(writer, defaultPutResponse = {}) {
     if (defaultPutResponse) {
         writer.writeObjectValue("project", defaultPutResponse.project, serializeProject);
-        writer.writeAdditionalData(defaultPutResponse.additionalData);
     }
 }
 /**

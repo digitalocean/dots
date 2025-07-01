@@ -37,7 +37,7 @@ export interface AppsRequestBuilder extends BaseRequestBuilder<AppsRequestBuilde
      */
     get tiers(): TiersRequestBuilder;
     /**
-     * Gets an item from the ApiSdk.v2.apps.item collection
+     * Gets an item from the dots.v2.apps.item collection
      * @param app_Id The ID of the app
      * @returns {App_ItemRequestBuilder}
      */

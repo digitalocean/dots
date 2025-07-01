@@ -30,7 +30,6 @@ export function deserializeIntoKubernetesPostResponse(kubernetesPostResponse = {
 export function serializeKubernetesPostResponse(writer, kubernetesPostResponse = {}) {
     if (kubernetesPostResponse) {
         writer.writeStringValue("message", kubernetesPostResponse.message);
-        writer.writeAdditionalData(kubernetesPostResponse.additionalData);
     }
 }
 /**

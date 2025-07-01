@@ -34,7 +34,6 @@ export function serializeKernelsGetResponse(writer, kernelsGetResponse = {}) {
         writer.writeCollectionOfObjectValues("kernels", kernelsGetResponse.kernels, serializeKernel);
         writer.writeObjectValue("links", kernelsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", kernelsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(kernelsGetResponse.additionalData);
     }
 }
 /**

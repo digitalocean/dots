@@ -59,7 +59,6 @@ export function deserializeIntoRegistryPostResponse(registryPostResponse = {}) {
 export function serializeRegistryGetResponse(writer, registryGetResponse = {}) {
     if (registryGetResponse) {
         writer.writeObjectValue("registry", registryGetResponse.registry, serializeRegistry);
-        writer.writeAdditionalData(registryGetResponse.additionalData);
     }
 }
 /**
@@ -70,7 +69,6 @@ export function serializeRegistryGetResponse(writer, registryGetResponse = {}) {
 export function serializeRegistryPostResponse(writer, registryPostResponse = {}) {
     if (registryPostResponse) {
         writer.writeObjectValue("registry", registryPostResponse.registry, serializeRegistry);
-        writer.writeAdditionalData(registryPostResponse.additionalData);
     }
 }
 /**
@@ -108,6 +106,7 @@ export const RegistryRequestBuilderRequestsMetadata = {
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue,
             404: createErrorEscapedFromDiscriminatorValue,
+            412: createErrorEscapedFromDiscriminatorValue,
             429: createErrorEscapedFromDiscriminatorValue,
             500: createErrorEscapedFromDiscriminatorValue,
             XXX: createErrorEscapedFromDiscriminatorValue,
@@ -119,6 +118,7 @@ export const RegistryRequestBuilderRequestsMetadata = {
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue,
+            412: createErrorEscapedFromDiscriminatorValue,
             429: createErrorEscapedFromDiscriminatorValue,
             500: createErrorEscapedFromDiscriminatorValue,
             XXX: createErrorEscapedFromDiscriminatorValue,

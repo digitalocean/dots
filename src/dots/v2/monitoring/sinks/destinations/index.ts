@@ -6,7 +6,7 @@ import { createDestination_omit_credentialsFromDiscriminatorValue, createErrorEs
 // @ts-ignore
 import { type WithDestination_uuItemRequestBuilder, WithDestination_uuItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -46,21 +46,13 @@ export function deserializeIntoDestinationsPostResponse(destinationsPostResponse
         "destination": n => { destinationsPostResponse.destination = n.getObjectValue<Destination_omit_credentials>(createDestination_omit_credentialsFromDiscriminatorValue); },
     }
 }
-export interface DestinationsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DestinationsGetResponse extends Parsable {
     /**
      * The destinations property
      */
     destinations?: Destination_omit_credentials[] | null;
 }
-export interface DestinationsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface DestinationsPostResponse extends Parsable {
     /**
      * The destination property
      */
@@ -71,7 +63,7 @@ export interface DestinationsPostResponse extends AdditionalDataHolder, Parsable
  */
 export interface DestinationsRequestBuilder extends BaseRequestBuilder<DestinationsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.monitoring.sinks.destinations.item collection
+     * Gets an item from the dots.v2.monitoring.sinks.destinations.item collection
      * @param destination_uuid A unique identifier for a destination.
      * @returns {WithDestination_uuItemRequestBuilder}
      */
@@ -121,7 +113,6 @@ export interface DestinationsRequestBuilder extends BaseRequestBuilder<Destinati
 export function serializeDestinationsGetResponse(writer: SerializationWriter, destinationsGetResponse: Partial<DestinationsGetResponse> | undefined | null = {}) : void {
     if (destinationsGetResponse) {
         writer.writeCollectionOfObjectValues<Destination_omit_credentials>("destinations", destinationsGetResponse.destinations, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(destinationsGetResponse.additionalData);
     }
 }
 /**
@@ -132,7 +123,6 @@ export function serializeDestinationsGetResponse(writer: SerializationWriter, de
 export function serializeDestinationsPostResponse(writer: SerializationWriter, destinationsPostResponse: Partial<DestinationsPostResponse> | undefined | null = {}) : void {
     if (destinationsPostResponse) {
         writer.writeObjectValue<Destination_omit_credentials>("destination", destinationsPostResponse.destination, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(destinationsPostResponse.additionalData);
     }
 }
 /**

@@ -77,7 +77,6 @@ export function serializeVpcsGetResponse(writer, vpcsGetResponse = {}) {
         writer.writeObjectValue("links", vpcsGetResponse.links, serializePage_links);
         writer.writeObjectValue("meta", vpcsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues("vpcs", vpcsGetResponse.vpcs, serializeVpc);
-        writer.writeAdditionalData(vpcsGetResponse.additionalData);
     }
 }
 /**
@@ -91,7 +90,6 @@ export function serializeVpcsPostRequestBody(writer, vpcsPostRequestBody = {}) {
         writer.writeStringValue("ip_range", vpcsPostRequestBody.ipRange);
         writer.writeStringValue("name", vpcsPostRequestBody.name);
         writer.writeStringValue("region", vpcsPostRequestBody.region);
-        writer.writeAdditionalData(vpcsPostRequestBody.additionalData);
     }
 }
 /**
@@ -102,7 +100,6 @@ export function serializeVpcsPostRequestBody(writer, vpcsPostRequestBody = {}) {
 export function serializeVpcsPostResponse(writer, vpcsPostResponse = {}) {
     if (vpcsPostResponse) {
         writer.writeObjectValue("vpc", vpcsPostResponse.vpc, serializeVpc);
-        writer.writeAdditionalData(vpcsPostResponse.additionalData);
     }
 }
 /**

@@ -32,7 +32,6 @@ export function deserializeIntoPoolsPostResponse(poolsPostResponse = {}) {
 export function serializePoolsPostResponse(writer, poolsPostResponse = {}) {
     if (poolsPostResponse) {
         writer.writeObjectValue("pool", poolsPostResponse.pool, serializeConnection_pool);
-        writer.writeAdditionalData(poolsPostResponse.additionalData);
     }
 }
 /**

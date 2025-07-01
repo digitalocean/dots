@@ -14,6 +14,8 @@ import { KubeconfigRequestBuilderRequestsMetadata } from './kubeconfig/index.js'
 // @ts-ignore
 import { Node_poolsRequestBuilderNavigationMetadata, Node_poolsRequestBuilderRequestsMetadata } from './node_pools/index.js';
 // @ts-ignore
+import { Status_messagesRequestBuilderRequestsMetadata } from './status_messages/index.js';
+// @ts-ignore
 import { UpgradeRequestBuilderRequestsMetadata } from './upgrade/index.js';
 // @ts-ignore
 import { UpgradesRequestBuilderRequestsMetadata } from './upgrades/index.js';
@@ -65,7 +67,6 @@ export function deserializeIntoWithCluster_PutResponse(withCluster_PutResponse =
 export function serializeWithCluster_GetResponse(writer, withCluster_GetResponse = {}) {
     if (withCluster_GetResponse) {
         writer.writeObjectValue("kubernetes_cluster", withCluster_GetResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(withCluster_GetResponse.additionalData);
     }
 }
 /**
@@ -76,7 +77,6 @@ export function serializeWithCluster_GetResponse(writer, withCluster_GetResponse
 export function serializeWithCluster_PutResponse(writer, withCluster_PutResponse = {}) {
     if (withCluster_PutResponse) {
         writer.writeObjectValue("kubernetes_cluster", withCluster_PutResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(withCluster_PutResponse.additionalData);
     }
 }
 /**
@@ -103,6 +103,9 @@ export const WithCluster_ItemRequestBuilderNavigationMetadata = {
     node_pools: {
         requestsMetadata: Node_poolsRequestBuilderRequestsMetadata,
         navigationMetadata: Node_poolsRequestBuilderNavigationMetadata,
+    },
+    status_messages: {
+        requestsMetadata: Status_messagesRequestBuilderRequestsMetadata,
     },
     upgrade: {
         requestsMetadata: UpgradeRequestBuilderRequestsMetadata,

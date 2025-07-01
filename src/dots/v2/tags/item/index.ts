@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createTagsFromDiscriminatorVa
 // @ts-ignore
 import { ResourcesRequestBuilderRequestsMetadata, type ResourcesRequestBuilder } from './resources/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -35,14 +35,9 @@ export function deserializeIntoWithTag_GetResponse(withTag_GetResponse: Partial<
 export function serializeWithTag_GetResponse(writer: SerializationWriter, withTag_GetResponse: Partial<WithTag_GetResponse> | undefined | null = {}) : void {
     if (withTag_GetResponse) {
         writer.writeObjectValue<Tags>("tag", withTag_GetResponse.tag, serializeTags);
-        writer.writeAdditionalData(withTag_GetResponse.additionalData);
     }
 }
-export interface WithTag_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithTag_GetResponse extends Parsable {
     /**
      * A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged.
      */

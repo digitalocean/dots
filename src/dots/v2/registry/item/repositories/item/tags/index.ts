@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDisc
 // @ts-ignore
 import { type WithRepository_tagItemRequestBuilder, WithRepository_tagItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -39,14 +39,9 @@ export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetRes
         writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
         writer.writeCollectionOfObjectValues<Repository_tag>("tags", tagsGetResponse.tags, serializeRepository_tag);
-        writer.writeAdditionalData(tagsGetResponse.additionalData);
     }
 }
-export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface TagsGetResponse extends Parsable {
     /**
      * The links property
      */
@@ -65,7 +60,7 @@ export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.registry.item.repositories.item.tags.item collection
+     * Gets an item from the dots.v2.registry.item.repositories.item.tags.item collection
      * @param repository_tag The name of a container registry repository tag.
      * @returns {WithRepository_tagItemRequestBuilder}
      */

@@ -87,7 +87,6 @@ export function deserializeIntoWithVpc_peering_PatchResponse(withVpc_peering_Pat
 export function serializeWithVpc_peering_DeleteResponse(writer, withVpc_peering_DeleteResponse = {}) {
     if (withVpc_peering_DeleteResponse) {
         writer.writeObjectValue("vpc_peering", withVpc_peering_DeleteResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_DeleteResponse.additionalData);
     }
 }
 /**
@@ -98,7 +97,6 @@ export function serializeWithVpc_peering_DeleteResponse(writer, withVpc_peering_
 export function serializeWithVpc_peering_GetResponse(writer, withVpc_peering_GetResponse = {}) {
     if (withVpc_peering_GetResponse) {
         writer.writeObjectValue("vpc_peering", withVpc_peering_GetResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_GetResponse.additionalData);
     }
 }
 /**
@@ -119,7 +117,6 @@ export function serializeWithVpc_peering_PatchRequestBody(writer, withVpc_peerin
 export function serializeWithVpc_peering_PatchResponse(writer, withVpc_peering_PatchResponse = {}) {
     if (withVpc_peering_PatchResponse) {
         writer.writeObjectValue("vpc_peering", withVpc_peering_PatchResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
     }
 }
 /**

@@ -10,7 +10,7 @@ import { RulesRequestBuilderRequestsMetadata, type RulesRequestBuilder } from '.
 // @ts-ignore
 import { TagsRequestBuilderRequestsMetadata, type TagsRequestBuilder } from './tags/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -58,7 +58,6 @@ export function deserializeIntoWithFirewall_PutResponse(withFirewall_PutResponse
 export function serializeWithFirewall_GetResponse(writer: SerializationWriter, withFirewall_GetResponse: Partial<WithFirewall_GetResponse> | undefined | null = {}) : void {
     if (withFirewall_GetResponse) {
         writer.writeObjectValue<Firewall>("firewall", withFirewall_GetResponse.firewall, serializeFirewall);
-        writer.writeAdditionalData(withFirewall_GetResponse.additionalData);
     }
 }
 /**
@@ -69,14 +68,9 @@ export function serializeWithFirewall_GetResponse(writer: SerializationWriter, w
 export function serializeWithFirewall_PutResponse(writer: SerializationWriter, withFirewall_PutResponse: Partial<WithFirewall_PutResponse> | undefined | null = {}) : void {
     if (withFirewall_PutResponse) {
         writer.writeObjectValue<Firewall>("firewall", withFirewall_PutResponse.firewall, serializeFirewall);
-        writer.writeAdditionalData(withFirewall_PutResponse.additionalData);
     }
 }
-export interface WithFirewall_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithFirewall_GetResponse extends Parsable {
     /**
      * The firewall property
      */
@@ -152,11 +146,7 @@ export interface WithFirewall_ItemRequestBuilder extends BaseRequestBuilder<With
      */
      toPutRequestInformation(body: Firewall, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithFirewall_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithFirewall_PutResponse extends Parsable {
     /**
      * The firewall property
      */

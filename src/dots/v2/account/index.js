@@ -32,7 +32,6 @@ export function deserializeIntoAccountGetResponse(accountGetResponse = {}) {
 export function serializeAccountGetResponse(writer, accountGetResponse = {}) {
     if (accountGetResponse) {
         writer.writeObjectValue("account", accountGetResponse.account, serializeAccount);
-        writer.writeAdditionalData(accountGetResponse.additionalData);
     }
 }
 /**

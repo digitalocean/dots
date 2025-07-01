@@ -6,7 +6,7 @@ import { createErrorEscapedFromDiscriminatorValue, createInvoice_previewFromDisc
 // @ts-ignore
 import { type WithInvoice_uuItemRequestBuilder, WithInvoice_uuItemRequestBuilderNavigationMetadata, WithInvoice_uuItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -30,11 +30,7 @@ export function deserializeIntoInvoicesGetResponse(invoicesGetResponse: Partial<
         "meta": n => { invoicesGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
-export interface InvoicesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface InvoicesGetResponse extends Parsable {
     /**
      * The invoice preview.
      */
@@ -57,7 +53,7 @@ export interface InvoicesGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface InvoicesRequestBuilder extends BaseRequestBuilder<InvoicesRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.customers.my.invoices.item collection
+     * Gets an item from the dots.v2.customers.my.invoices.item collection
      * @param invoice_uuid UUID of the invoice
      * @returns {WithInvoice_uuItemRequestBuilder}
      */
@@ -103,7 +99,6 @@ export function serializeInvoicesGetResponse(writer: SerializationWriter, invoic
         writer.writeCollectionOfObjectValues<Invoice_preview>("invoices", invoicesGetResponse.invoices, serializeInvoice_preview);
         writer.writeObjectValue<Page_links>("links", invoicesGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", invoicesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(invoicesGetResponse.additionalData);
     }
 }
 /**

@@ -10,7 +10,7 @@ import { PdfRequestBuilderRequestsMetadata, type PdfRequestBuilder } from './pdf
 // @ts-ignore
 import { SummaryRequestBuilderRequestsMetadata, type SummaryRequestBuilder } from './summary/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -43,14 +43,9 @@ export function serializeWithInvoice_uuGetResponse(writer: SerializationWriter, 
         writer.writeCollectionOfObjectValues<Invoice_item>("invoice_items", withInvoice_uuGetResponse.invoiceItems, serializeInvoice_item);
         writer.writeObjectValue<Page_links>("links", withInvoice_uuGetResponse.links, serializePage_links);
         writer.writeObjectValue<Meta_properties>("meta", withInvoice_uuGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(withInvoice_uuGetResponse.additionalData);
     }
 }
-export interface WithInvoice_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithInvoice_uuGetResponse extends Parsable {
     /**
      * The invoice_items property
      */

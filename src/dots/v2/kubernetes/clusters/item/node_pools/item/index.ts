@@ -8,7 +8,7 @@ import { NodesRequestBuilderNavigationMetadata, type NodesRequestBuilder } from 
 // @ts-ignore
 import { RecycleRequestBuilderRequestsMetadata, type RecycleRequestBuilder } from './recycle/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -56,7 +56,6 @@ export function deserializeIntoWithNode_pool_PutResponse(withNode_pool_PutRespon
 export function serializeWithNode_pool_GetResponse(writer: SerializationWriter, withNode_pool_GetResponse: Partial<WithNode_pool_GetResponse> | undefined | null = {}) : void {
     if (withNode_pool_GetResponse) {
         writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_GetResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(withNode_pool_GetResponse.additionalData);
     }
 }
 /**
@@ -67,14 +66,9 @@ export function serializeWithNode_pool_GetResponse(writer: SerializationWriter, 
 export function serializeWithNode_pool_PutResponse(writer: SerializationWriter, withNode_pool_PutResponse: Partial<WithNode_pool_PutResponse> | undefined | null = {}) : void {
     if (withNode_pool_PutResponse) {
         writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_PutResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(withNode_pool_PutResponse.additionalData);
     }
 }
-export interface WithNode_pool_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithNode_pool_GetResponse extends Parsable {
     /**
      * The node_pool property
      */
@@ -145,11 +139,7 @@ export interface WithNode_pool_ItemRequestBuilder extends BaseRequestBuilder<Wit
      */
      toPutRequestInformation(body: Kubernetes_node_pool_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithNode_pool_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithNode_pool_PutResponse extends Parsable {
     /**
      * The node_pool property
      */

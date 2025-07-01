@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createAlert_policyFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeAlert_policy, serializeAlert_policy_request, type Alert_policy, type Alert_policy_request, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -52,7 +52,6 @@ export function deserializeIntoWithAlert_uuPutResponse(withAlert_uuPutResponse: 
 export function serializeWithAlert_uuGetResponse(writer: SerializationWriter, withAlert_uuGetResponse: Partial<WithAlert_uuGetResponse> | undefined | null = {}) : void {
     if (withAlert_uuGetResponse) {
         writer.writeObjectValue<Alert_policy>("policy", withAlert_uuGetResponse.policy, serializeAlert_policy);
-        writer.writeAdditionalData(withAlert_uuGetResponse.additionalData);
     }
 }
 /**
@@ -63,14 +62,9 @@ export function serializeWithAlert_uuGetResponse(writer: SerializationWriter, wi
 export function serializeWithAlert_uuPutResponse(writer: SerializationWriter, withAlert_uuPutResponse: Partial<WithAlert_uuPutResponse> | undefined | null = {}) : void {
     if (withAlert_uuPutResponse) {
         writer.writeObjectValue<Alert_policy>("policy", withAlert_uuPutResponse.policy, serializeAlert_policy);
-        writer.writeAdditionalData(withAlert_uuPutResponse.additionalData);
     }
 }
-export interface WithAlert_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAlert_uuGetResponse extends Parsable {
     /**
      * The policy property
      */
@@ -133,11 +127,7 @@ export interface WithAlert_uuItemRequestBuilder extends BaseRequestBuilder<WithA
      */
      toPutRequestInformation(body: Alert_policy_request, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithAlert_uuPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithAlert_uuPutResponse extends Parsable {
     /**
      * The policy property
      */

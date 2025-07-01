@@ -10,7 +10,7 @@ import { DropletsRequestBuilderRequestsMetadata, type DropletsRequestBuilder } f
 // @ts-ignore
 import { Forwarding_rulesRequestBuilderRequestsMetadata, type Forwarding_rulesRequestBuilder } from './forwarding_rules/index.js';
 // @ts-ignore
-import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter, type UntypedNode } from '@microsoft/kiota-abstractions';
+import { createUntypedNodeFromDiscriminatorValue, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter, type UntypedNode } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -58,7 +58,6 @@ export function deserializeIntoWithLb_PutResponse(withLb_PutResponse: Partial<Wi
 export function serializeWithLb_GetResponse(writer: SerializationWriter, withLb_GetResponse: Partial<WithLb_GetResponse> | undefined | null = {}) : void {
     if (withLb_GetResponse) {
         writer.writeObjectValue<Load_balancer>("load_balancer", withLb_GetResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(withLb_GetResponse.additionalData);
     }
 }
 /**
@@ -69,14 +68,9 @@ export function serializeWithLb_GetResponse(writer: SerializationWriter, withLb_
 export function serializeWithLb_PutResponse(writer: SerializationWriter, withLb_PutResponse: Partial<WithLb_PutResponse> | undefined | null = {}) : void {
     if (withLb_PutResponse) {
         writer.writeObjectValue<Load_balancer>("load_balancer", withLb_PutResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(withLb_PutResponse.additionalData);
     }
 }
-export interface WithLb_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithLb_GetResponse extends Parsable {
     /**
      * The load_balancer property
      */
@@ -151,11 +145,7 @@ export interface WithLb_ItemRequestBuilder extends BaseRequestBuilder<WithLb_Ite
      */
      toPutRequestInformation(body: UntypedNode, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithLb_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
+export interface WithLb_PutResponse extends Parsable {
     /**
      * The load_balancer property
      */
