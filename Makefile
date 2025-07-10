@@ -10,6 +10,17 @@ download-spec: ## Download Latest DO Spec
 dev-dependencies: ## Install development tooling
 	npm install --only=dev
 
+.PHONY: clean
+clean: ## Remove  kiota generated files and directories
+	@echo Cleaning up generated files and directories; \
+	rm -rf src/dots/digitalOceanClient.ts src/dots/digitalOceanClient.js src/dots/models src/dots/v2 src/dots/.kiota.log src/dots/kiota-lock.json
+
+
+.PHONY: doc_clean
+doc_clean: ## Remove  kiota generated files and directories
+	@echo Cleaning up generated document; \
+	rm -rf docs
+
 .PHONY: generate
 ifndef SPEC_FILE
 generate: SPEC_FILE = $(LOCAL_SPEC_FILE)
@@ -18,3 +29,4 @@ endif
 generate: dev-dependencies
 	@printf "=== Generating client with spec: $(SPEC_FILE)\n\n"; \
 	kiota generate -l typescript -d $(SPEC_FILE) -c DigitalOceanClient -o ./src/dots
+
