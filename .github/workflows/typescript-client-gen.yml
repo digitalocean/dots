@@ -16,6 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Make openapi_changelist.sh executable
         run: chmod +x scripts/openapi_changelist.sh
       - name: OpenAPI Changelist
         env:
