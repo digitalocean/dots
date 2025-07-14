@@ -20,7 +20,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         run: 
-          current_sha = $( DO_OPENAPI-COMMIT-SHA.txt)
+          current_sha = $(cat DO_OPENAPI-COMMIT-SHA.txt)
           echo "current_sha=$current_sha" >> $GITHUB_ENV
           target_sha=${{ github.event.inputs.openapi_short_sha }}
           scripts/openapi_changelist.sh $current_sha $target_sha > changelist.md
