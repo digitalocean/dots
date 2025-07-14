@@ -6,6 +6,12 @@ download-spec: ## Download Latest DO Spec
 	touch DigitalOcean-public.v2.yaml && \
 	curl https://api-engineering.nyc3.digitaloceanspaces.com/spec-ci/DigitalOcean-public.v2.yaml -o $(LOCAL_SPEC_FILE)
 
+
+.PHONY: clean
+clean: ## Remove  kiota generated files and directories
+	@echo Cleaning up generated files and directories; \
+	rm -rf src/dots/digitalOceanClient.ts src/dots/digitalOceanClient.js src/dots/models src/dots/v2 src/dots/.kiota.log src/dots/kiota-lock.json
+
 .PHONY: dev-dependencies
 dev-dependencies: ## Install development tooling
 	npm install --only=dev
