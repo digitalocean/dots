@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# set -x # Uncomment to debug
+set -x # Uncomment to debug
 set -e
 
 if [ "$#" -ne 2 ]; then
