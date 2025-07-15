@@ -69,8 +69,8 @@ jobs:
         id: add-commit-changes
         continue-on-error: true
         run: |
-          git config --global user.email "api-engineering@digitalocean.com"
-          git config --global user.name "API Engineering"
+          git config --global user.email "mchittupolu@digitalocean.com "
+          git config --global user.name "Mahendra_Chittupolu"
           git add .
           git commit -m "[bot] Updated client based on ${{ env.NEW_BRANCH }}"
           git push --set-upstream origin ${{ env.NEW_BRANCH }}
@@ -78,6 +78,7 @@ jobs:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: GH token
         run: echo ${{ secrets.WORKFLOW_TOKEN }}
+
       - name: Check if branch existed
         # If steps.create-pr was anything but successful, it's possible that
         # the branch was created in previous pipeline runs so it should be manually deleted.
