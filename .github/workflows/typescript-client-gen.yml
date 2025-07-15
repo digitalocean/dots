@@ -52,11 +52,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Clear npm cache
-        run: |
-          npm cache clean --force
-          rm package-lock.json
-
 
       - name: Install Dependencies
         run: npm install
@@ -69,6 +64,8 @@ jobs:
       - name: Install Kiota
         run: |
           dotnet tool install --global Kiota --version 1.0.0-preview.9
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          source ~/.zshrc
 
       - name: Check Kiota Version
         run: kiota --version
