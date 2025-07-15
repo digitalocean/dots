@@ -66,9 +66,9 @@ jobs:
         with:
           dotnet-version: '7.x' # Ensure the correct .NET version is installed
 
-      # - name: Install Kiota
-      #   run: |
-      #     dotnet tool install --global Kiota --version 1.0.0-preview.9
+      - name: Install Kiota
+        run: |
+          dotnet tool install --global Kiota --version 1.0.0-preview.9
 
       - name: Check Kiota Version
         run: kiota --version
