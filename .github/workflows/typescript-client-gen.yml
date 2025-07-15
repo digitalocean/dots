@@ -54,7 +54,7 @@ jobs:
           node-version: 18
       - name: Clear npm cache
         run: |
-          npm cache clean 
+          npm cache clean --force
           rm package-lock.json
 
 
