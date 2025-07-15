@@ -76,7 +76,8 @@ jobs:
           git push --set-upstream origin ${{ env.NEW_BRANCH }}
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-
+      - name: GH token
+        run: echo ${{ secrets.WORKFLOW_TOKEN }}
       - name: Check if branch existed
         # If steps.create-pr was anything but successful, it's possible that
         # the branch was created in previous pipeline runs so it should be manually deleted.
