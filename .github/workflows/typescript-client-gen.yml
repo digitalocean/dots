@@ -61,11 +61,10 @@ jobs:
         with:
           dotnet-version: '7.x' # Ensure the correct .NET version is installed
 
-      - name: Install Kiota
+      - name: Install Kiota CLI
         run: |
           dotnet tool install --global Kiota --version 1.0.0-preview.9
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          source ~/.zshrc
+          echo "::add-path::$HOME/.dotnet/tools"
 
       - name: Check Kiota Version
         run: kiota --version
