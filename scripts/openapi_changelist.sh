@@ -13,17 +13,35 @@ target_sha=$2
 
 # get_commit_date <sha>
 # Returns the date the given sha was merged.
-function get_commit_date(){
+# function get_commit_date(){
    
+#     if [ -z $1 ]; then
+#         echo "get_commit_date() requires 1 argument: <sha>"
+#         exit 1
+#     fi
+
+#     gh pr --repo digitalocean/openapi list \
+#         -s merged --json number,title,mergedAt,labels,mergeCommit | \
+#             jq -r --arg sha $1 \
+#             '.[] | select(.mergeCommit.oid | startswith($sha)) | .mergedAt'
+# }
+
+function get_commit_date(){
     if [ -z $1 ]; then
         echo "get_commit_date() requires 1 argument: <sha>"
         exit 1
     fi
 
-    gh pr --repo digitalocean/openapi list \
+    date=$(gh pr --repo digitalocean/openapi list \
         -s merged --json number,title,mergedAt,labels,mergeCommit | \
-            jq -r --arg sha $1 \
-            '.[] | select(.mergeCommit.oid | startswith($sha)) | .mergedAt'
+        jq -r --arg sha $1 \
+        '.[] | select(.mergeCommit.oid | startswith($sha)) | .mergedAt')
+
+    if [ -z "$date" ]; then
+        echo "1970-01-01T00:00:00Z" # Default date for the first commit
+    else
+        echo "$date"
+    fi
 }
 
 current_commit_date=$(get_commit_date $1)
