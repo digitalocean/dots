@@ -63,7 +63,7 @@ jobs:
 
       - name: Install Kiota
         run: |
-          dotnet tool install --global Kiota
+          dotnet tool install --global Kiota --version 1.0.0-preview.9
 
       - name: Check Kiota Version
         run: kiota --version
