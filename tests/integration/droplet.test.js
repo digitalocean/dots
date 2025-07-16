@@ -36,15 +36,15 @@ describe("Integration Tests", () => {
         // Mock volume creation
         nock("https://api.digitalocean.com")
             .post("/v2/volumes")
-            .reply(200, { volume: { id: 456, name: "test-volume", test: 'hi' } });
+            .reply(200, { volume: { id: '456', name: "test-volume" } });
         // Mock volume attachment
         nock("https://api.digitalocean.com")
             .post("/v2/volumes/456/actions")
-            .reply(200, { action: { id: 789, status: "in-progress" } });
+            .reply(200, { action: { id: 789, status: "in-progress", type: "attach" } });
         // Mock action status retrieval
         nock("https://api.digitalocean.com")
             .get("/v2/actions/789")
-            .reply(200, { action: { id: 789, status: "completed" } });
+            .reply(200, { action: { id: "789", status: "completed" } });
         // Run the test workflow
         const keyName = "test-key";
         const sshKey = await findSshKey(keyName);
@@ -65,12 +65,11 @@ describe("Integration Tests", () => {
             filesystemType: "ext4",
         };
         const volume = await createVolume(volumeReq);
-        expect(volume.id).toBe(456);
+        expect(volume.id).toBe("456");
         const volumeActionReq = {
             dropletId: droplet.id,
             type: "attach",
         };
-        const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
         console.log(`Attaching volume ${volume.id} to Droplet ${droplet.id}...`);
         try {
             const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
@@ -95,7 +94,6 @@ describe("Integration Tests", () => {
     // Helper functions
     async function findSshKey(name) {
         console.log(`Looking for SSH key named ${name}...`);
-        let page = 1;
         let paginated = true;
         while (paginated) {
             try {
@@ -150,7 +148,7 @@ describe("Integration Tests", () => {
                         const getResp = await client.v2.droplets.byDroplet_id(dropletId).get();
                         if (getResp && 'droplet' in getResp) {
                             droplet = getResp.droplet;
-                            if (droplet.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
+                            if (droplet?.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
                                 break;
                             }
                         }
@@ -160,7 +158,7 @@ describe("Integration Tests", () => {
                     if (droplet && droplet.networks && droplet.networks.v4) {
                         let ipAddress = "";
                         for (const net of droplet.networks.v4) {
-                            if (net.type === "public") {
+                            if (net?.type === "public" && net.ipAddress) {
                                 ipAddress = net.ipAddress;
                             }
                         }
@@ -174,6 +172,9 @@ describe("Integration Tests", () => {
                 else {
                     throw new Error("Droplet ID is undefined");
                 }
+            }
+            else {
+                throw new Error("Failed to create droplet");
             }
         }
         catch (err) {

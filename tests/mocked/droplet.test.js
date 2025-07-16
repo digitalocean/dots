@@ -852,7 +852,7 @@ describe("Droplets API", () => {
             },
         };
         nock(baseUrl).get("/v2/droplets").reply(200, expected);
-        let resp = await client.v2.droplets.get();
+        const resp = await client.v2.droplets.get();
         expect(resp).toEqual(typeExpected);
     });
     it('should create a droplet', async () => {
@@ -2102,24 +2102,24 @@ describe("Droplets API", () => {
             .post();
         expect(resp).toBeUndefined();
     });
-    // it('mocks the droplets list all neighbors operation', async () => {
-    //     const expected = {
-    // 			neighbor_ids: [
-    // 				[168671828, 168663509, 168671815],
-    // 				[168671883, 168671750],
-    // 			],
-    // 		};
-    //     const typeExpected = {
-    //       neighborIds: [
-    //         [168671828, 168663509, 168671815],
-    //         [168671883, 168671750],
-    //       ],
-    //     };
-    //     nock(baseUrl)
-    //         .get('/v2/reports/droplet_neighbors_ids')
-    //         .reply(200, expected);
-    //     const resp = await client.v2.reports.droplet_neighbors_ids.get();
-    //     console.log(JSON.stringify(resp));
-    //     expect(resp).toEqual(typeExpected);
-    // });
+    it('mocks the droplets list all neighbors operation', async () => {
+        const expected = {
+            neighbor_ids: [
+                [168671828, 168663509, 168671815],
+                [168671883, 168671750],
+            ],
+        };
+        const typeExpected = {
+            neighborIds: [
+                [168671828, 168663509, 168671815],
+                [168671883, 168671750],
+            ],
+        };
+        nock(baseUrl)
+            .get('/v2/reports/droplet_neighbors_ids')
+            .reply(200, expected);
+        const resp = await client.v2.reports.droplet_neighbors_ids.get();
+        console.log(JSON.stringify(resp));
+        expect(resp).toEqual(typeExpected);
+    });
 });
