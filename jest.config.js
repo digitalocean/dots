@@ -1,11 +1,8 @@
-import type { Config } from 'jest';
-
-const config: Config = {
-  // verbose: true,
+export default {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
-    transformIgnorePatterns : [
+  transformIgnorePatterns: [
     '/node_modules/(?!@microsoft/kiota-http-fetchlibrary).+\\.js$',
   ],
   globals: {
@@ -14,7 +11,4 @@ const config: Config = {
     },
   },
   testMatch: ['**/**/*.test.ts'],
-
 };
-
-export default config;
