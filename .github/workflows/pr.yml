@@ -46,6 +46,6 @@ jobs:
         run: make dev-dependencies
         
       - name: Run tests
-        run: npm test
+        run: make test
 
        

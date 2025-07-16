@@ -20,6 +20,11 @@ dev-dependencies: ## Install development tooling
 lint: ##Run linter on code base
 	@echo Running typescript linter
 	npm run lint
+	
+.PHONY: test
+test: ##Running test cases
+	@echo Running all test cases
+	npm test
 
 .PHONY: generate
 ifndef SPEC_FILE
