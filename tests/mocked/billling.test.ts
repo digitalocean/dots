@@ -6,10 +6,7 @@ import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
-import { App_metrics_bandwidth_usage_request, App_propose, Apps_assign_app_alert_destinations_request, Apps_create_deployment_request, Apps_rollback_app_request } from "../../src/dots/models/index.js";
-import { Apps_create_app_request } from "../../src/dots/models/index.js";
-import { Apps_update_app_request } from "../../src/dots/models/index.js";
-import { App_log_destination_definition } from "../../src/dots/models/index.js";
+
 
 const baseUrl = "https://api.digitalocean.com";
 const token = "test-token";

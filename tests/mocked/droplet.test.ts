@@ -1,7 +1,5 @@
 // droplets.test.ts
 import nock from "nock";
-import { JsonSerializationWriterFactory } from "@microsoft/kiota-serialization-json";
-import { serializeDropletsGetResponse } from "../../src/dots/v2/droplets/index.js";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
@@ -860,7 +858,7 @@ describe("Droplets API", () => {
 					},
 				};
 		nock(baseUrl).get("/v2/droplets").reply(200, expected);
-		let resp = await client.v2.droplets.get();
+		const resp = await client.v2.droplets.get();
 		expect(resp).toEqual(typeExpected);
 	});
 

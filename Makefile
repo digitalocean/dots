@@ -16,6 +16,11 @@ clean: ## Remove  kiota generated files and directories
 dev-dependencies: ## Install development tooling
 	npm install --only=dev
 
+.PHONY: lint
+lint: ##Run linter on code base
+	@echo Running typescript linter
+	npm run lint
+
 .PHONY: generate
 ifndef SPEC_FILE
 generate: SPEC_FILE = $(LOCAL_SPEC_FILE)

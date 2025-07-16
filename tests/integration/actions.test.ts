@@ -2,8 +2,6 @@ import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
-import { v4 as uuidv4 } from "uuid";
-import { Volumes_ext4, Volume_action_post_attach } from "../../src/dots/models/index.js";
 const token = "mock-token";
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);

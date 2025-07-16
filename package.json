@@ -5,18 +5,23 @@
   "description": "",
   "main": "examples/index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "lint": "npx eslint ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@types/jest": "^30.0.0",
     "@types/nock": "^10.0.3",
     "@types/node": "^22.13.13",
+    "eslint": "^9.31.0",
+    "globals": "^16.3.0",
     "jest": "^30.0.3",
     "nock": "^14.0.5",
     "ts-jest": "^29.4.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0"
   },
   "dependencies": {
     "@azure/core-http": "^3.0.5",

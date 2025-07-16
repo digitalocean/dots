@@ -67,7 +67,7 @@ describe("Integration Tests", () => {
         };
 
         const droplet = await createDroplet(dropletReq);
-        expect(droplet.id).toBe(123);
+        expect((droplet as { id: number }).id).toBe(123);
 
         const volumeReq :Volumes_ext4 = {
             sizeGigabytes: 10,
@@ -78,16 +78,16 @@ describe("Integration Tests", () => {
         };
 
         const volume = await createVolume(volumeReq);
-        expect(volume.id).toBe("456");
+        expect((volume as { id: string }).id).toBe("456");
 
         const volumeActionReq : Volume_action_post_attach = {
-            dropletId: droplet.id,
+            dropletId: (droplet as { id: number }).id,
             type: "attach",
         };
 
-        console.log(`Attaching volume ${volume.id} to Droplet ${droplet.id}...`);
+        console.log(`Attaching volume ${(volume as { id: string }).id} to Droplet ${(droplet as { id: number }).id}...`);
         try {
-            const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
+            const actionResp = await client.v2.volumes.byVolume_id((volume as { id: string }).id).actions.post(volumeActionReq);
             if (actionResp?.action?.id !== undefined && actionResp.action.id !== null) {
                 await waitForAction(actionResp.action.id);
                 expect(actionResp.action.id).toBe(789);
@@ -97,7 +97,10 @@ describe("Integration Tests", () => {
             }
         } catch (err) {
             if (err instanceof Error && 'statusCode' in err) {
-                const httpError = err as any;
+                const httpError = err as Error & { 
+                    statusCode: number; 
+                    response?: { bodyAsText?: string } 
+                };
                 throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
             } else {
                 throw err;
@@ -107,9 +110,8 @@ describe("Integration Tests", () => {
     });
 
     // Helper functions
-async function findSshKey(name: string): Promise<any> {
+async function findSshKey(name: string): Promise<{ name?: string | null; fingerprint?: string | null }> {
     console.log(`Looking for SSH key named ${name}...`);
-    let page = 1;
     let paginated = true;
     while (paginated) {
         try {
@@ -147,7 +149,7 @@ async function findSshKey(name: string): Promise<any> {
 }
 
 
-async function createDroplet(req: any = {}): Promise<any> {
+async function createDroplet(req: Record<string, unknown> = {}): Promise<Record<string, unknown>> {
     console.log(`Creating Droplet using: ${JSON.stringify(req)}`);
     try {
         const resp = await client.v2.droplets.post(req);
@@ -163,8 +165,8 @@ async function createDroplet(req: any = {}): Promise<any> {
                 while (attempts < maxAttempts) {
                     const getResp = await client.v2.droplets.byDroplet_id(dropletId).get();
                     if (getResp && 'droplet' in getResp) {
-                        droplet = getResp.droplet as any;
-                        if (droplet.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
+                        droplet = getResp.droplet;
+                        if (droplet?.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
                             break;
                         }
                     }
@@ -175,23 +177,28 @@ async function createDroplet(req: any = {}): Promise<any> {
                 if (droplet && droplet.networks && droplet.networks.v4) {
                     let ipAddress = "";
                     for (const net of droplet.networks.v4) {
-                        if (net.type === "public") {
+                        if (net?.type === "public" && net.ipAddress) {
                             ipAddress = net.ipAddress;
                         }
                     }
                     console.log(`Droplet ID: ${dropletId} Name: ${droplet.name} IP: ${ipAddress}`);
-                    return droplet;
+                    return droplet as Record<string, unknown>;
                 } else {
                     throw new Error("Failed to retrieve droplet details or networks information");
                 }
             } else {
                 throw new Error("Droplet ID is undefined");
             }
+        } else {
+            throw new Error("Failed to create droplet");
         }
 
     } catch (err) {
         if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
+            const httpError = err as Error & { 
+                statusCode: number; 
+                response?: { bodyAsText?: string } 
+            };
             throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
         } else {
             throw err;
@@ -200,20 +207,23 @@ async function createDroplet(req: any = {}): Promise<any> {
 }
 
 
-async function createVolume(req: any): Promise<any> {
+async function createVolume(req: Volumes_ext4 | Record<string, unknown>): Promise<Record<string, unknown>> {
     console.log(`Creating volume using: ${JSON.stringify(req)}`);
     try {
         const resp = await client.v2.volumes.post(req);
         if (resp && resp.volume) {
             const volume = resp.volume;
             console.log(`Created volume ${volume.name} <ID: ${volume.id}>`);
-            return volume;
+            return volume as Record<string, unknown>;
         } else {
             throw new Error("Failed to create volume or volume is undefined");
         }
     } catch (err) {
         if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
+            const httpError = err as Error & { 
+                statusCode: number; 
+                response?: { bodyAsText?: string } 
+            };
             throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
         } else {
             throw err;
@@ -241,7 +251,10 @@ async function waitForAction(id: number, wait: number = 5): Promise<void> {
         }
     } catch (err) {
         if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
+            const httpError = err as Error & { 
+                statusCode: number; 
+                response?: { bodyAsText?: string } 
+            };
             throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
         } else {
             throw err;
