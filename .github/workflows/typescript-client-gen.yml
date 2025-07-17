@@ -33,7 +33,7 @@ jobs:
 
       - name: Removes generated documentation
         run: make docs_clean
-        
+
       - name: Download spec file and update DO_OPENAPI_COMMIT_SHA.txt
         run: |
           curl --fail https://api-engineering.nyc3.digitaloceanspaces.com/spec-ci/DigitalOcean-public-${{ github.event.inputs.openapi_short_sha }}.v2.yaml -o DigitalOcean-public.v2.yaml
@@ -67,7 +67,10 @@ jobs:
 
       - name: Generate TypeScript client
         run: make generate
-
+        
+      - name: Generate TypeScript client documentation
+        run: make generate-docs
+        
       - name: Add and commit changes
         id: add-commit-changes
         continue-on-error: true
