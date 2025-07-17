@@ -70,7 +70,7 @@ jobs:
         
       - name: Generate TypeScript client documentation
         run: make generate-docs
-        
+
       - name: Add and commit changes
         id: add-commit-changes
         continue-on-error: true
@@ -119,4 +119,4 @@ jobs:
             --head "${{ env.NEW_BRANCH }}" \
             -r digitalocean/api-cli
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
