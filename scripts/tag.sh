@@ -12,8 +12,9 @@ elif [[ $(git status --porcelain -b | grep -e "ahead" -e "behind") != "" ]]; the
   exit 1
 fi  
 
-poetry_version=$(poetry version)
-tag="v${poetry_version:5}"
+# Get current version from package.json
+current_version=$(node -p "require('./package.json').version")
+tag="v${current_version}"
 
 git tag -m "release $tag" -a "$tag" $COMMIT && git push "$ORIGIN" tag "$tag"
 
