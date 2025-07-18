@@ -8,9 +8,9 @@ ORIGIN=${ORIGIN:-origin}
 # for patch, minor and major
 BUMP=${BUMP:-patch}
 
-poetry_version=$(poetry version)
-version="${poetry_version:5}"
-IFS='.' read -r major minor patch <<< "$version"
+# Get current version from package.json
+current_version=$(node -p "require('./package.json').version")
+IFS='.' read -r major minor patch <<< "$current_version"
 
 case "$BUMP" in
   feature | minor)
@@ -36,6 +36,6 @@ elif [[ $(git status --porcelain -b | grep -e "ahead" -e "behind") != "" ]]; the
 fi  
 
 new_version="$major.$minor.$patch"
-poetry version "${new_version#v}"
+npm version "${new_version}" --no-git-tag-version
 
-echo ""
+echo "Version bumped to $new_version"
