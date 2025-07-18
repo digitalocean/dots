@@ -44,7 +44,10 @@ jobs:
         
       - name: Install dependencies
         run: make dev-dependencies
-        
+      
+      - name: Compile all TypeScript Files
+        run: tsc
+
       - name: Run tests
         run: make test
 
