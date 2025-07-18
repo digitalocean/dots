@@ -117,6 +117,6 @@ jobs:
             --title "[bot] $TITLE: Re-Generated From digitalocean/openapi@$TARGET" \
             --body-file pr_body.md \
             --head "${{ env.NEW_BRANCH }}" \
-            -r Mahendra-Chittupolu/dots
+            --base prep-0-1-0
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
