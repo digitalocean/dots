@@ -36,6 +36,12 @@ generate-docs: ##generate typescript client documentation
 	@echo Running typescript linter
 	npm run docs
 
+.PHONY: bump_version
+bump_version: ## Bumps the version
+	@echo "==> BUMP=${BUMP} bump_version"
+	@echo ""
+	@ORIGIN=${ORIGIN} scripts/bumpversion.sh
+
 .PHONY: generate
 ifndef SPEC_FILE
 generate: SPEC_FILE = $(LOCAL_SPEC_FILE)
@@ -44,3 +50,9 @@ endif
 generate: dev-dependencies
 	@printf "=== Generating client with spec: $(SPEC_FILE)\n\n"; \
 	kiota generate -l typescript -d $(SPEC_FILE) -c DigitalOceanClient -o ./src/dots
+
+.PHONY: tag
+tag: ## Tags a release
+	@echo "==> ORIGIN=${ORIGIN} COMMIT=${COMMIT} tag"
+	@echo ""
+	@ORIGIN=${ORIGIN} scripts/tag.sh
