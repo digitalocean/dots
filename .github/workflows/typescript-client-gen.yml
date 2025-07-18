@@ -8,7 +8,7 @@ on:
         type: string
 
 env:
-  NEW_BRANCH: openapi-${{ github.event.inputs.openapi_short_sha }}/clientgen
+  NEW_BRANCH: openapi-typescript-${{ github.event.inputs.openapi_short_sha }}/clientgen
 
 jobs:
   Generate-TypeScript-Client:
