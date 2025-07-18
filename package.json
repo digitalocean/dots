@@ -6,7 +6,7 @@
   "main": "examples/index.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "lint": "npx eslint .",
+    "lint": "npx eslint . --ignore-pattern docs/",
     "docs": "typedoc"
   },
   "author": "",
