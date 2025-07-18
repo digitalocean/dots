@@ -35,6 +35,7 @@ export function createWithDomain_record_PutResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
+ * @param WithDomain_record_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -45,6 +46,7 @@ export function deserializeIntoWithDomain_record_GetResponse(withDomain_record_G
 }
 /**
  * The deserialization information for the current model
+ * @param WithDomain_record_PatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -55,6 +57,7 @@ export function deserializeIntoWithDomain_record_PatchResponse(withDomain_record
 }
 /**
  * The deserialization information for the current model
+ * @param WithDomain_record_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -65,42 +68,41 @@ export function deserializeIntoWithDomain_record_PutResponse(withDomain_record_P
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDomain_record_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDomain_record_GetResponse(writer: SerializationWriter, withDomain_record_GetResponse: Partial<WithDomain_record_GetResponse> | undefined | null = {}) : void {
-    if (withDomain_record_GetResponse) {
-        writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_GetResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_GetResponse.additionalData);
-    }
+export function serializeWithDomain_record_GetResponse(writer: SerializationWriter, withDomain_record_GetResponse: Partial<WithDomain_record_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDomain_record_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_GetResponse.domainRecord, serializeDomain_record);
+    writer.writeAdditionalData(withDomain_record_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDomain_record_PatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDomain_record_PatchResponse(writer: SerializationWriter, withDomain_record_PatchResponse: Partial<WithDomain_record_PatchResponse> | undefined | null = {}) : void {
-    if (withDomain_record_PatchResponse) {
-        writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PatchResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PatchResponse.additionalData);
-    }
+export function serializeWithDomain_record_PatchResponse(writer: SerializationWriter, withDomain_record_PatchResponse: Partial<WithDomain_record_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDomain_record_PatchResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PatchResponse.domainRecord, serializeDomain_record);
+    writer.writeAdditionalData(withDomain_record_PatchResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDomain_record_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDomain_record_PutResponse(writer: SerializationWriter, withDomain_record_PutResponse: Partial<WithDomain_record_PutResponse> | undefined | null = {}) : void {
-    if (withDomain_record_PutResponse) {
-        writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PutResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(withDomain_record_PutResponse.additionalData);
-    }
+export function serializeWithDomain_record_PutResponse(writer: SerializationWriter, withDomain_record_PutResponse: Partial<WithDomain_record_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDomain_record_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Domain_record>("domain_record", withDomain_record_PutResponse.domainRecord, serializeDomain_record);
+    writer.writeAdditionalData(withDomain_record_PutResponse.additionalData);
 }
 export interface WithDomain_record_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The domain_record property
      */
@@ -184,19 +186,11 @@ export interface WithDomain_record_ItemRequestBuilder extends BaseRequestBuilder
 }
 export interface WithDomain_record_PatchResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The domain_record property
      */
     domainRecord?: Domain_record | null;
 }
 export interface WithDomain_record_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The domain_record property
      */

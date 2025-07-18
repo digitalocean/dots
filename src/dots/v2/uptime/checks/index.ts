@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Key
 
 export interface ChecksGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The checks property
      */
     checks?: Check[] | null;
@@ -29,10 +25,6 @@ export interface ChecksGetResponse extends AdditionalDataHolder, Parsable {
 export interface ChecksPostRequestBody extends Check_updatable, Parsable {
 }
 export interface ChecksPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The check property
      */
@@ -126,6 +118,7 @@ export function createChecksPostResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param ChecksGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -138,6 +131,7 @@ export function deserializeIntoChecksGetResponse(checksGetResponse: Partial<Chec
 }
 /**
  * The deserialization information for the current model
+ * @param ChecksPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -148,6 +142,7 @@ export function deserializeIntoChecksPostRequestBody(checksPostRequestBody: Part
 }
 /**
  * The deserialization information for the current model
+ * @param ChecksPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -158,37 +153,40 @@ export function deserializeIntoChecksPostResponse(checksPostResponse: Partial<Ch
 }
 /**
  * Serializes information the current object
+ * @param ChecksGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChecksGetResponse(writer: SerializationWriter, checksGetResponse: Partial<ChecksGetResponse> | undefined | null = {}) : void {
-    if (checksGetResponse) {
-        writer.writeCollectionOfObjectValues<Check>("checks", checksGetResponse.checks, serializeCheck);
-        writer.writeObjectValue<Page_links>("links", checksGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", checksGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(checksGetResponse.additionalData);
-    }
+export function serializeChecksGetResponse(writer: SerializationWriter, checksGetResponse: Partial<ChecksGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!checksGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Check>("checks", checksGetResponse.checks, serializeCheck);
+    writer.writeObjectValue<Page_links>("links", checksGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", checksGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(checksGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param ChecksPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChecksPostRequestBody(writer: SerializationWriter, checksPostRequestBody: Partial<ChecksPostRequestBody> | undefined | null = {}) : void {
-    if (checksPostRequestBody) {
-        serializeCheck_updatable(writer, checksPostRequestBody)
-    }
+export function serializeChecksPostRequestBody(writer: SerializationWriter, checksPostRequestBody: Partial<ChecksPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!checksPostRequestBody || isSerializingDerivedType) { return; }
+    serializeCheck_updatable(writer, checksPostRequestBody, isSerializingDerivedType)
 }
 /**
  * Serializes information the current object
+ * @param ChecksPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChecksPostResponse(writer: SerializationWriter, checksPostResponse: Partial<ChecksPostResponse> | undefined | null = {}) : void {
-    if (checksPostResponse) {
-        writer.writeObjectValue<Check>("check", checksPostResponse.check, serializeCheck);
-        writer.writeAdditionalData(checksPostResponse.additionalData);
-    }
+export function serializeChecksPostResponse(writer: SerializationWriter, checksPostResponse: Partial<ChecksPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!checksPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Check>("check", checksPostResponse.check, serializeCheck);
+    writer.writeAdditionalData(checksPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

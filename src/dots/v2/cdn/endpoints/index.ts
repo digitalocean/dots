@@ -28,6 +28,7 @@ export function createEndpointsPostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param EndpointsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoEndpointsGetResponse(endpointsGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param EndpointsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,10 +51,6 @@ export function deserializeIntoEndpointsPostResponse(endpointsPostResponse: Part
     }
 }
 export interface EndpointsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The endpoints property
      */
@@ -67,10 +65,6 @@ export interface EndpointsGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface EndpointsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The endpoint property
      */
@@ -136,27 +130,29 @@ export interface EndpointsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param EndpointsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEndpointsGetResponse(writer: SerializationWriter, endpointsGetResponse: Partial<EndpointsGetResponse> | undefined | null = {}) : void {
-    if (endpointsGetResponse) {
-        writer.writeCollectionOfObjectValues<Cdn_endpoint>("endpoints", endpointsGetResponse.endpoints, serializeCdn_endpoint);
-        writer.writeObjectValue<Page_links>("links", endpointsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", endpointsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(endpointsGetResponse.additionalData);
-    }
+export function serializeEndpointsGetResponse(writer: SerializationWriter, endpointsGetResponse: Partial<EndpointsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpointsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Cdn_endpoint>("endpoints", endpointsGetResponse.endpoints, serializeCdn_endpoint);
+    writer.writeObjectValue<Page_links>("links", endpointsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", endpointsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(endpointsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param EndpointsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEndpointsPostResponse(writer: SerializationWriter, endpointsPostResponse: Partial<EndpointsPostResponse> | undefined | null = {}) : void {
-    if (endpointsPostResponse) {
-        writer.writeObjectValue<Cdn_endpoint>("endpoint", endpointsPostResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(endpointsPostResponse.additionalData);
-    }
+export function serializeEndpointsPostResponse(writer: SerializationWriter, endpointsPostResponse: Partial<EndpointsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpointsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cdn_endpoint>("endpoint", endpointsPostResponse.endpoint, serializeCdn_endpoint);
+    writer.writeAdditionalData(endpointsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

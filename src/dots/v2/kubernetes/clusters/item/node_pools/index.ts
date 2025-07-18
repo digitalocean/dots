@@ -28,6 +28,7 @@ export function createNode_poolsPostResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param Node_poolsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoNode_poolsGetResponse(node_poolsGetResponse: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Node_poolsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,19 +50,11 @@ export function deserializeIntoNode_poolsPostResponse(node_poolsPostResponse: Pa
 }
 export interface Node_poolsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The node_pools property
      */
     nodePools?: Kubernetes_node_pool[] | null;
 }
 export interface Node_poolsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The node_pool property
      */
@@ -115,25 +109,27 @@ export interface Node_poolsRequestBuilder extends BaseRequestBuilder<Node_poolsR
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Node_poolsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNode_poolsGetResponse(writer: SerializationWriter, node_poolsGetResponse: Partial<Node_poolsGetResponse> | undefined | null = {}) : void {
-    if (node_poolsGetResponse) {
-        writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", node_poolsGetResponse.nodePools, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(node_poolsGetResponse.additionalData);
-    }
+export function serializeNode_poolsGetResponse(writer: SerializationWriter, node_poolsGetResponse: Partial<Node_poolsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!node_poolsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", node_poolsGetResponse.nodePools, serializeKubernetes_node_pool);
+    writer.writeAdditionalData(node_poolsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Node_poolsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNode_poolsPostResponse(writer: SerializationWriter, node_poolsPostResponse: Partial<Node_poolsPostResponse> | undefined | null = {}) : void {
-    if (node_poolsPostResponse) {
-        writer.writeObjectValue<Kubernetes_node_pool>("node_pool", node_poolsPostResponse.nodePool, serializeKubernetes_node_pool);
-        writer.writeAdditionalData(node_poolsPostResponse.additionalData);
-    }
+export function serializeNode_poolsPostResponse(writer: SerializationWriter, node_poolsPostResponse: Partial<Node_poolsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!node_poolsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Kubernetes_node_pool>("node_pool", node_poolsPostResponse.nodePool, serializeKubernetes_node_pool);
+    writer.writeAdditionalData(node_poolsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

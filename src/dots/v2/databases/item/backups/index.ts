@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The backups property
      */
     backups?: Backup[] | null;
@@ -21,7 +17,7 @@ export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface BackupsRequestBuilder extends BaseRequestBuilder<BackupsRequestBuilder> {
     /**
-     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
+     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<BackupsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -32,7 +28,7 @@ export interface BackupsRequestBuilder extends BaseRequestBuilder<BackupsRequest
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<BackupsGetResponse | undefined>;
     /**
-     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
+     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -49,6 +45,7 @@ export function createBackupsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param BackupsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoBackupsGetResponse(backupsGetResponse: Partial<Ba
 }
 /**
  * Serializes information the current object
+ * @param BackupsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBackupsGetResponse(writer: SerializationWriter, backupsGetResponse: Partial<BackupsGetResponse> | undefined | null = {}) : void {
-    if (backupsGetResponse) {
-        writer.writeCollectionOfObjectValues<Backup>("backups", backupsGetResponse.backups, serializeBackup);
-        writer.writeAdditionalData(backupsGetResponse.additionalData);
-    }
+export function serializeBackupsGetResponse(writer: SerializationWriter, backupsGetResponse: Partial<BackupsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!backupsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Backup>("backups", backupsGetResponse.backups, serializeBackup);
+    writer.writeAdditionalData(backupsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface ExecRequestBuilder extends BaseRequestBuilder<ExecRequestBuilder> {
     /**
-     * Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists.
+     * Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists. Optionally, the instance_name parameter can be provided to retrieve the exec URL for a specific instance. Note that instances are ephemeral; therefore, we recommended to avoid making persistent changes or such scripting around them.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Apps_get_exec_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -20,18 +20,33 @@ export interface ExecRequestBuilder extends BaseRequestBuilder<ExecRequestBuilde
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Apps_get_exec_response | undefined>;
+     get(requestConfiguration?: RequestConfiguration<ExecRequestBuilderGetQueryParameters> | undefined) : Promise<Apps_get_exec_response | undefined>;
     /**
-     * Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists.
+     * Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists. Optionally, the instance_name parameter can be provided to retrieve the exec URL for a specific instance. Note that instances are ephemeral; therefore, we recommended to avoid making persistent changes or such scripting around them.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
-     toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
+     toGetRequestInformation(requestConfiguration?: RequestConfiguration<ExecRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
+}
+/**
+ * Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists. Optionally, the instance_name parameter can be provided to retrieve the exec URL for a specific instance. Note that instances are ephemeral; therefore, we recommended to avoid making persistent changes or such scripting around them.
+ */
+export interface ExecRequestBuilderGetQueryParameters {
+    /**
+     * The name of the actively running ephemeral compute instance
+     */
+    instanceName?: string;
 }
 /**
  * Uri template for the request builder.
  */
-export const ExecRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/deployments/{deployment_id}/components/{component_name}/exec";
+export const ExecRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/deployments/{deployment_id}/components/{component_name}/exec{?instance_name*}";
+/**
+ * Mapper for query parameters from symbol name to serialization name represented as a constant.
+ */
+const ExecRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "instanceName": "instance_name",
+};
 /**
  * Metadata for all the requests in the request builder.
  */
@@ -48,6 +63,7 @@ export const ExecRequestBuilderRequestsMetadata: RequestsMetadata = {
         },
         adapterMethodName: "send",
         responseBodyFactory:  createApps_get_exec_responseFromDiscriminatorValue,
+        queryParametersMapper: ExecRequestBuilderGetQueryParametersMapper,
     },
 };
 /* tslint:enable */

@@ -26,6 +26,7 @@ export function createWithTopic_namePutResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
+ * @param WithTopic_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,6 +37,7 @@ export function deserializeIntoWithTopic_nameGetResponse(withTopic_nameGetRespon
 }
 /**
  * The deserialization information for the current model
+ * @param WithTopic_namePutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,31 +48,29 @@ export function deserializeIntoWithTopic_namePutResponse(withTopic_namePutRespon
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithTopic_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithTopic_nameGetResponse(writer: SerializationWriter, withTopic_nameGetResponse: Partial<WithTopic_nameGetResponse> | undefined | null = {}) : void {
-    if (withTopic_nameGetResponse) {
-        writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_nameGetResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(withTopic_nameGetResponse.additionalData);
-    }
+export function serializeWithTopic_nameGetResponse(writer: SerializationWriter, withTopic_nameGetResponse: Partial<WithTopic_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withTopic_nameGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_nameGetResponse.topic, serializeKafka_topic_verbose);
+    writer.writeAdditionalData(withTopic_nameGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithTopic_namePutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithTopic_namePutResponse(writer: SerializationWriter, withTopic_namePutResponse: Partial<WithTopic_namePutResponse> | undefined | null = {}) : void {
-    if (withTopic_namePutResponse) {
-        writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_namePutResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(withTopic_namePutResponse.additionalData);
-    }
+export function serializeWithTopic_namePutResponse(writer: SerializationWriter, withTopic_namePutResponse: Partial<WithTopic_namePutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withTopic_namePutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Kafka_topic_verbose>("topic", withTopic_namePutResponse.topic, serializeKafka_topic_verbose);
+    writer.writeAdditionalData(withTopic_namePutResponse.additionalData);
 }
 export interface WithTopic_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The topic property
      */
@@ -134,10 +134,6 @@ export interface WithTopic_nameItemRequestBuilder extends BaseRequestBuilder<Wit
      toPutRequestInformation(body: Kafka_topic_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithTopic_namePutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The topic property
      */
