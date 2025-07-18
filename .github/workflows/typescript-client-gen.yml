@@ -75,8 +75,8 @@ jobs:
         id: add-commit-changes
         continue-on-error: true
         run: |
-          git config --global user.email "api-engineering@digitalocean.com"
-          git config --global user.name "API Engineering"
+          git config --global user.email "mchittupolu@digitalocean.com"
+          git config --global user.name "Mahendra-Chittupolu"
           git add .
           git commit -m "[bot] Updated client based on ${{ env.NEW_BRANCH }}"
           git push --set-upstream origin ${{ env.NEW_BRANCH }}
