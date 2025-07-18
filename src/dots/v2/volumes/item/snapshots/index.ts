@@ -35,6 +35,7 @@ export function createSnapshotsPostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param SnapshotsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -47,6 +48,7 @@ export function deserializeIntoSnapshotsGetResponse(snapshotsGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param SnapshotsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -58,6 +60,7 @@ export function deserializeIntoSnapshotsPostRequestBody(snapshotsPostRequestBody
 }
 /**
  * The deserialization information for the current model
+ * @param SnapshotsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -68,45 +71,44 @@ export function deserializeIntoSnapshotsPostResponse(snapshotsPostResponse: Part
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SnapshotsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSnapshotsGetResponse(writer: SerializationWriter, snapshotsGetResponse: Partial<SnapshotsGetResponse> | undefined | null = {}) : void {
-    if (snapshotsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Snapshots>("snapshots", snapshotsGetResponse.snapshots, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
-    }
+export function serializeSnapshotsGetResponse(writer: SerializationWriter, snapshotsGetResponse: Partial<SnapshotsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!snapshotsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Snapshots>("snapshots", snapshotsGetResponse.snapshots, serializeSnapshots);
+    writer.writeAdditionalData(snapshotsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SnapshotsPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSnapshotsPostRequestBody(writer: SerializationWriter, snapshotsPostRequestBody: Partial<SnapshotsPostRequestBody> | undefined | null = {}) : void {
-    if (snapshotsPostRequestBody) {
-        writer.writeStringValue("name", snapshotsPostRequestBody.name);
-        writer.writeCollectionOfPrimitiveValues<string>("tags", snapshotsPostRequestBody.tags);
-        writer.writeAdditionalData(snapshotsPostRequestBody.additionalData);
-    }
+export function serializeSnapshotsPostRequestBody(writer: SerializationWriter, snapshotsPostRequestBody: Partial<SnapshotsPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!snapshotsPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", snapshotsPostRequestBody.name);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", snapshotsPostRequestBody.tags);
+    writer.writeAdditionalData(snapshotsPostRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SnapshotsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSnapshotsPostResponse(writer: SerializationWriter, snapshotsPostResponse: Partial<SnapshotsPostResponse> | undefined | null = {}) : void {
-    if (snapshotsPostResponse) {
-        writer.writeObjectValue<Snapshots>("snapshot", snapshotsPostResponse.snapshot, serializeSnapshots);
-        writer.writeAdditionalData(snapshotsPostResponse.additionalData);
-    }
+export function serializeSnapshotsPostResponse(writer: SerializationWriter, snapshotsPostResponse: Partial<SnapshotsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!snapshotsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Snapshots>("snapshot", snapshotsPostResponse.snapshot, serializeSnapshots);
+    writer.writeAdditionalData(snapshotsPostResponse.additionalData);
 }
 export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -122,23 +124,15 @@ export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
 }
 export interface SnapshotsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * A human-readable name for the volume snapshot.
      */
     name?: string | null;
     /**
-     * A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags.
+     * A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags. <br><br>Requires `tag:create` scope.
      */
     tags?: string[] | null;
 }
 export interface SnapshotsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The snapshot property
      */

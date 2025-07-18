@@ -17,6 +17,7 @@ export function createMembersGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param MembersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoMembersGetResponse(membersGetResponse: Partial<Me
     }
 }
 export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -50,7 +47,7 @@ export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface MembersRequestBuilder extends BaseRequestBuilder<MembersRequestBuilder> {
     /**
-     * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
+     * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.Only resources that you are authorized to see will be returned (e.g. to see Droplets,you must have `droplet:read`).
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<MembersGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -61,14 +58,14 @@ export interface MembersRequestBuilder extends BaseRequestBuilder<MembersRequest
      */
      get(requestConfiguration?: RequestConfiguration<MembersRequestBuilderGetQueryParameters> | undefined) : Promise<MembersGetResponse | undefined>;
     /**
-     * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
+     * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.Only resources that you are authorized to see will be returned (e.g. to see Droplets,you must have `droplet:read`).
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<MembersRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
+ * To list all of the resources that are members of a VPC, send a GET request to`/v2/vpcs/$VPC_ID/members`.To only list resources of a specific type that are members of the VPC,included a `resource_type` query parameter. For example, to only list Dropletsin the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.Only resources that you are authorized to see will be returned (e.g. to see Droplets,you must have `droplet:read`).
  */
 export interface MembersRequestBuilderGetQueryParameters {
     /**
@@ -86,16 +83,17 @@ export interface MembersRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param MembersGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMembersGetResponse(writer: SerializationWriter, membersGetResponse: Partial<MembersGetResponse> | undefined | null = {}) : void {
-    if (membersGetResponse) {
-        writer.writeObjectValue<Page_links>("links", membersGetResponse.links, serializePage_links);
-        writer.writeCollectionOfObjectValues<Vpc_member>("members", membersGetResponse.members, serializeVpc_member);
-        writer.writeObjectValue<Meta_properties>("meta", membersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(membersGetResponse.additionalData);
-    }
+export function serializeMembersGetResponse(writer: SerializationWriter, membersGetResponse: Partial<MembersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!membersGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", membersGetResponse.links, serializePage_links);
+    writer.writeCollectionOfObjectValues<Vpc_member>("members", membersGetResponse.members, serializeVpc_member);
+    writer.writeObjectValue<Meta_properties>("meta", membersGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(membersGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

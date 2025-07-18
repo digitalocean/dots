@@ -8,6 +8,8 @@ import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsM
 // @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
+import { Byoip_prefixesRequestBuilderNavigationMetadata, Byoip_prefixesRequestBuilderRequestsMetadata, type Byoip_prefixesRequestBuilder } from './byoip_prefixes/index.js';
+// @ts-ignore
 import { CdnRequestBuilderNavigationMetadata, type CdnRequestBuilder } from './cdn/index.js';
 // @ts-ignore
 import { CertificatesRequestBuilderNavigationMetadata, CertificatesRequestBuilderRequestsMetadata, type CertificatesRequestBuilder } from './certificates/index.js';
@@ -38,9 +40,13 @@ import { MonitoringRequestBuilderNavigationMetadata, type MonitoringRequestBuild
 // @ts-ignore
 import { OneClicksRequestBuilderNavigationMetadata, OneClicksRequestBuilderRequestsMetadata, type OneClicksRequestBuilder } from './oneClicks/index.js';
 // @ts-ignore
+import { Partner_network_connectRequestBuilderNavigationMetadata, type Partner_network_connectRequestBuilder } from './partner_network_connect/index.js';
+// @ts-ignore
 import { ProjectsRequestBuilderNavigationMetadata, ProjectsRequestBuilderRequestsMetadata, type ProjectsRequestBuilder } from './projects/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
+// @ts-ignore
+import { RegistriesRequestBuilderNavigationMetadata, RegistriesRequestBuilderRequestsMetadata, type RegistriesRequestBuilder } from './registries/index.js';
 // @ts-ignore
 import { RegistryRequestBuilderNavigationMetadata, RegistryRequestBuilderRequestsMetadata, type RegistryRequestBuilder } from './registry/index.js';
 // @ts-ignore
@@ -84,6 +90,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The apps property
      */
     get apps(): AppsRequestBuilder;
+    /**
+     * The byoip_prefixes property
+     */
+    get byoip_prefixes(): Byoip_prefixesRequestBuilder;
     /**
      * The cdn property
      */
@@ -145,6 +155,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get oneClicks(): OneClicksRequestBuilder;
     /**
+     * The partner_network_connect property
+     */
+    get partner_network_connect(): Partner_network_connectRequestBuilder;
+    /**
      * The projects property
      */
     get projects(): ProjectsRequestBuilder;
@@ -152,6 +166,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The regions property
      */
     get regions(): RegionsRequestBuilder;
+    /**
+     * The registries property
+     */
+    get registries(): RegistriesRequestBuilder;
     /**
      * The registry property
      */
@@ -221,6 +239,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: AppsRequestBuilderRequestsMetadata,
         navigationMetadata: AppsRequestBuilderNavigationMetadata,
     },
+    byoip_prefixes: {
+        requestsMetadata: Byoip_prefixesRequestBuilderRequestsMetadata,
+        navigationMetadata: Byoip_prefixesRequestBuilderNavigationMetadata,
+    },
     cdn: {
         navigationMetadata: CdnRequestBuilderNavigationMetadata,
     },
@@ -275,12 +297,19 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: OneClicksRequestBuilderRequestsMetadata,
         navigationMetadata: OneClicksRequestBuilderNavigationMetadata,
     },
+    partner_network_connect: {
+        navigationMetadata: Partner_network_connectRequestBuilderNavigationMetadata,
+    },
     projects: {
         requestsMetadata: ProjectsRequestBuilderRequestsMetadata,
         navigationMetadata: ProjectsRequestBuilderNavigationMetadata,
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,
+    },
+    registries: {
+        requestsMetadata: RegistriesRequestBuilderRequestsMetadata,
+        navigationMetadata: RegistriesRequestBuilderNavigationMetadata,
     },
     registry: {
         requestsMetadata: RegistryRequestBuilderRequestsMetadata,

@@ -19,6 +19,7 @@ export function createInvoicesGetResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param InvoicesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -31,10 +32,6 @@ export function deserializeIntoInvoicesGetResponse(invoicesGetResponse: Partial<
     }
 }
 export interface InvoicesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The invoice preview.
      */
@@ -94,17 +91,18 @@ export interface InvoicesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param InvoicesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInvoicesGetResponse(writer: SerializationWriter, invoicesGetResponse: Partial<InvoicesGetResponse> | undefined | null = {}) : void {
-    if (invoicesGetResponse) {
-        writer.writeObjectValue<Invoice_preview>("invoice_preview", invoicesGetResponse.invoicePreview, serializeInvoice_preview);
-        writer.writeCollectionOfObjectValues<Invoice_preview>("invoices", invoicesGetResponse.invoices, serializeInvoice_preview);
-        writer.writeObjectValue<Page_links>("links", invoicesGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", invoicesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(invoicesGetResponse.additionalData);
-    }
+export function serializeInvoicesGetResponse(writer: SerializationWriter, invoicesGetResponse: Partial<InvoicesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!invoicesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Invoice_preview>("invoice_preview", invoicesGetResponse.invoicePreview, serializeInvoice_preview);
+    writer.writeCollectionOfObjectValues<Invoice_preview>("invoices", invoicesGetResponse.invoices, serializeInvoice_preview);
+    writer.writeObjectValue<Page_links>("links", invoicesGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", invoicesGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(invoicesGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

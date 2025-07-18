@@ -17,6 +17,7 @@ export function createWithGarbage_collection_uuPutResponseFromDiscriminatorValue
 }
 /**
  * The deserialization information for the current model
+ * @param WithGarbage_collection_uuPutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,14 +28,15 @@ export function deserializeIntoWithGarbage_collection_uuPutResponse(withGarbage_
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithGarbage_collection_uuPutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithGarbage_collection_uuPutResponse(writer: SerializationWriter, withGarbage_collection_uuPutResponse: Partial<WithGarbage_collection_uuPutResponse> | undefined | null = {}) : void {
-    if (withGarbage_collection_uuPutResponse) {
-        writer.writeObjectValue<Garbage_collection>("garbage_collection", withGarbage_collection_uuPutResponse.garbageCollection, serializeGarbage_collection);
-        writer.writeAdditionalData(withGarbage_collection_uuPutResponse.additionalData);
-    }
+export function serializeWithGarbage_collection_uuPutResponse(writer: SerializationWriter, withGarbage_collection_uuPutResponse: Partial<WithGarbage_collection_uuPutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withGarbage_collection_uuPutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Garbage_collection>("garbage_collection", withGarbage_collection_uuPutResponse.garbageCollection, serializeGarbage_collection);
+    writer.writeAdditionalData(withGarbage_collection_uuPutResponse.additionalData);
 }
 /**
  * Builds and executes requests for operations under /v2/registry/{registry_name}/garbage-collection/{garbage_collection_uuid}
@@ -61,10 +63,6 @@ export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequest
      toPutRequestInformation(body: Update_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithGarbage_collection_uuPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The garbage_collection property
      */

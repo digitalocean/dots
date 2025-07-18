@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Key
 
 export interface CertificatesGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The certificates property
      */
     certificates?: Certificate[] | null;
@@ -28,10 +24,6 @@ export interface CertificatesGetResponse extends AdditionalDataHolder, Parsable 
 }
 export type CertificatesPostRequestBody = Certificate_request_custom | Certificate_request_lets_encrypt;
 export interface CertificatesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The certificate property
      */
@@ -128,6 +120,7 @@ export function createCertificatesPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param CertificatesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -140,6 +133,7 @@ export function deserializeIntoCertificatesGetResponse(certificatesGetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param CertificatesPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -151,6 +145,7 @@ export function deserializeIntoCertificatesPostRequestBody(certificatesPostReque
 }
 /**
  * The deserialization information for the current model
+ * @param CertificatesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -161,36 +156,40 @@ export function deserializeIntoCertificatesPostResponse(certificatesPostResponse
 }
 /**
  * Serializes information the current object
+ * @param CertificatesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCertificatesGetResponse(writer: SerializationWriter, certificatesGetResponse: Partial<CertificatesGetResponse> | undefined | null = {}) : void {
-    if (certificatesGetResponse) {
-        writer.writeCollectionOfObjectValues<Certificate>("certificates", certificatesGetResponse.certificates, serializeCertificate);
-        writer.writeObjectValue<Page_links>("links", certificatesGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", certificatesGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(certificatesGetResponse.additionalData);
-    }
+export function serializeCertificatesGetResponse(writer: SerializationWriter, certificatesGetResponse: Partial<CertificatesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!certificatesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Certificate>("certificates", certificatesGetResponse.certificates, serializeCertificate);
+    writer.writeObjectValue<Page_links>("links", certificatesGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", certificatesGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(certificatesGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param CertificatesPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCertificatesPostRequestBody(writer: SerializationWriter, certificatesPostRequestBody: Partial<Certificate_request_custom | Certificate_request_lets_encrypt> | undefined | null = {}) : void {
+export function serializeCertificatesPostRequestBody(writer: SerializationWriter, certificatesPostRequestBody: Partial<Certificate_request_custom | Certificate_request_lets_encrypt> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeCertificate_request_custom(writer, certificatesPostRequestBody as Certificate_request_custom);
     serializeCertificate_request_lets_encrypt(writer, certificatesPostRequestBody as Certificate_request_lets_encrypt);
 }
 /**
  * Serializes information the current object
+ * @param CertificatesPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCertificatesPostResponse(writer: SerializationWriter, certificatesPostResponse: Partial<CertificatesPostResponse> | undefined | null = {}) : void {
-    if (certificatesPostResponse) {
-        writer.writeObjectValue<Certificate>("certificate", certificatesPostResponse.certificate, serializeCertificate);
-        writer.writeAdditionalData(certificatesPostResponse.additionalData);
-    }
+export function serializeCertificatesPostResponse(writer: SerializationWriter, certificatesPostResponse: Partial<CertificatesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!certificatesPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Certificate>("certificate", certificatesPostResponse.certificate, serializeCertificate);
+    writer.writeAdditionalData(certificatesPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

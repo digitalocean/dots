@@ -28,6 +28,7 @@ export function createTopicsPostResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param TopicsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoTopicsGetResponse(topicsGetResponse: Partial<Topi
 }
 /**
  * The deserialization information for the current model
+ * @param TopicsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,41 +50,35 @@ export function deserializeIntoTopicsPostResponse(topicsPostResponse: Partial<To
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TopicsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTopicsGetResponse(writer: SerializationWriter, topicsGetResponse: Partial<TopicsGetResponse> | undefined | null = {}) : void {
-    if (topicsGetResponse) {
-        writer.writeCollectionOfObjectValues<Kafka_topic>("topics", topicsGetResponse.topics, serializeKafka_topic);
-        writer.writeAdditionalData(topicsGetResponse.additionalData);
-    }
+export function serializeTopicsGetResponse(writer: SerializationWriter, topicsGetResponse: Partial<TopicsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!topicsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Kafka_topic>("topics", topicsGetResponse.topics, serializeKafka_topic);
+    writer.writeAdditionalData(topicsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TopicsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTopicsPostResponse(writer: SerializationWriter, topicsPostResponse: Partial<TopicsPostResponse> | undefined | null = {}) : void {
-    if (topicsPostResponse) {
-        writer.writeObjectValue<Kafka_topic_verbose>("topic", topicsPostResponse.topic, serializeKafka_topic_verbose);
-        writer.writeAdditionalData(topicsPostResponse.additionalData);
-    }
+export function serializeTopicsPostResponse(writer: SerializationWriter, topicsPostResponse: Partial<TopicsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!topicsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Kafka_topic_verbose>("topic", topicsPostResponse.topic, serializeKafka_topic_verbose);
+    writer.writeAdditionalData(topicsPostResponse.additionalData);
 }
 export interface TopicsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The topics property
      */
     topics?: Kafka_topic[] | null;
 }
 export interface TopicsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The topic property
      */

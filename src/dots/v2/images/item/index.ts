@@ -28,6 +28,7 @@ export function createWithImage_PutResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param WithImage_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoWithImage_GetResponse(withImage_GetResponse: Part
 }
 /**
  * The deserialization information for the current model
+ * @param WithImage_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,31 +50,29 @@ export function deserializeIntoWithImage_PutResponse(withImage_PutResponse: Part
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithImage_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithImage_GetResponse(writer: SerializationWriter, withImage_GetResponse: Partial<WithImage_GetResponse> | undefined | null = {}) : void {
-    if (withImage_GetResponse) {
-        writer.writeObjectValue<Image>("image", withImage_GetResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_GetResponse.additionalData);
-    }
+export function serializeWithImage_GetResponse(writer: SerializationWriter, withImage_GetResponse: Partial<WithImage_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withImage_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Image>("image", withImage_GetResponse.image, serializeImage);
+    writer.writeAdditionalData(withImage_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithImage_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithImage_PutResponse(writer: SerializationWriter, withImage_PutResponse: Partial<WithImage_PutResponse> | undefined | null = {}) : void {
-    if (withImage_PutResponse) {
-        writer.writeObjectValue<Image>("image", withImage_PutResponse.image, serializeImage);
-        writer.writeAdditionalData(withImage_PutResponse.additionalData);
-    }
+export function serializeWithImage_PutResponse(writer: SerializationWriter, withImage_PutResponse: Partial<WithImage_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withImage_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Image>("image", withImage_PutResponse.image, serializeImage);
+    writer.writeAdditionalData(withImage_PutResponse.additionalData);
 }
 export interface WithImage_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The image property
      */
@@ -140,10 +140,6 @@ export interface WithImage_ItemRequestBuilder extends BaseRequestBuilder<WithIma
      toPutRequestInformation(body: Image_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithImage_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The image property
      */

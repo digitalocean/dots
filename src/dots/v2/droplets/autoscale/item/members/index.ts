@@ -17,6 +17,7 @@ export function createMembersGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param MembersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoMembersGetResponse(membersGetResponse: Partial<Me
     }
 }
 export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -82,16 +79,17 @@ export interface MembersRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param MembersGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMembersGetResponse(writer: SerializationWriter, membersGetResponse: Partial<MembersGetResponse> | undefined | null = {}) : void {
-    if (membersGetResponse) {
-        writer.writeCollectionOfObjectValues<Member>("droplets", membersGetResponse.droplets, serializeMember);
-        writer.writeObjectValue<Page_links>("links", membersGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", membersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(membersGetResponse.additionalData);
-    }
+export function serializeMembersGetResponse(writer: SerializationWriter, membersGetResponse: Partial<MembersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!membersGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Member>("droplets", membersGetResponse.droplets, serializeMember);
+    writer.writeObjectValue<Page_links>("links", membersGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", membersGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(membersGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

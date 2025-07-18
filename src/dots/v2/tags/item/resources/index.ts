@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesRequestBuilder> {
     /**
-     * Resources can be untagged by sending a DELETE request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+     * Resources can be untagged by sending a DELETE request to`/v2/tags/$TAG_NAME/resources` with an array of json objects containing`resource_id` and `resource_type` attributes.Currently only untagging of Droplets, Databases, Images, Volumes, and VolumeSnapshots is supported. `resource_type` is expected to be the string `droplet`,`database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expectedto be the ID of the resource as a string.In order to untag a resource, you must have both `tag:delete` and `<resource type>:update` scopes. For example, to untag a Droplet, you must have `tag:delete` and `droplet:update`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -22,7 +22,7 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      delete(body: Tags_resource, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+     * Resources can be tagged by sending a POST request to`/v2/tags/$TAG_NAME/resources` with an array of json objects containing`resource_id` and `resource_type` attributes.Currently only tagging of Droplets, Databases, Images, Volumes, and VolumeSnapshots is supported. `resource_type` is expected to be the string `droplet`,`database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expectedto be the ID of the resource as a string.In order to tag a resource, you must have both `tag:create` and `<resource type>:update` scopes. For example, to tag a Droplet, you must have `tag:create` and `droplet:update`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -33,14 +33,14 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      post(body: Tags_resource, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * Resources can be untagged by sending a DELETE request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+     * Resources can be untagged by sending a DELETE request to`/v2/tags/$TAG_NAME/resources` with an array of json objects containing`resource_id` and `resource_type` attributes.Currently only untagging of Droplets, Databases, Images, Volumes, and VolumeSnapshots is supported. `resource_type` is expected to be the string `droplet`,`database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expectedto be the ID of the resource as a string.In order to untag a resource, you must have both `tag:delete` and `<resource type>:update` scopes. For example, to untag a Droplet, you must have `tag:delete` and `droplet:update`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(body: Tags_resource, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+     * Resources can be tagged by sending a POST request to`/v2/tags/$TAG_NAME/resources` with an array of json objects containing`resource_id` and `resource_type` attributes.Currently only tagging of Droplets, Databases, Images, Volumes, and VolumeSnapshots is supported. `resource_type` is expected to be the string `droplet`,`database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expectedto be the ID of the resource as a string.In order to tag a resource, you must have both `tag:create` and `<resource type>:update` scopes. For example, to tag a Droplet, you must have `tag:create` and `droplet:update`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
