@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface CaGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The ca property
      */
     ca?: Ca | null;
@@ -49,6 +45,7 @@ export function createCaGetResponseFromDiscriminatorValue(parseNode: ParseNode |
 }
 /**
  * The deserialization information for the current model
+ * @param CaGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoCaGetResponse(caGetResponse: Partial<CaGetRespons
 }
 /**
  * Serializes information the current object
+ * @param CaGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCaGetResponse(writer: SerializationWriter, caGetResponse: Partial<CaGetResponse> | undefined | null = {}) : void {
-    if (caGetResponse) {
-        writer.writeObjectValue<Ca>("ca", caGetResponse.ca, serializeCa);
-        writer.writeAdditionalData(caGetResponse.additionalData);
-    }
+export function serializeCaGetResponse(writer: SerializationWriter, caGetResponse: Partial<CaGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!caGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Ca>("ca", caGetResponse.ca, serializeCa);
+    writer.writeAdditionalData(caGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

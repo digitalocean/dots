@@ -39,6 +39,7 @@ export function createWithCheck_PutResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param WithCheck_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,6 +50,7 @@ export function deserializeIntoWithCheck_GetResponse(withCheck_GetResponse: Part
 }
 /**
  * The deserialization information for the current model
+ * @param WithCheck_PutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,6 +61,7 @@ export function deserializeIntoWithCheck_PutRequestBody(withCheck_PutRequestBody
 }
 /**
  * The deserialization information for the current model
+ * @param WithCheck_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -69,41 +72,40 @@ export function deserializeIntoWithCheck_PutResponse(withCheck_PutResponse: Part
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCheck_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCheck_GetResponse(writer: SerializationWriter, withCheck_GetResponse: Partial<WithCheck_GetResponse> | undefined | null = {}) : void {
-    if (withCheck_GetResponse) {
-        writer.writeObjectValue<Check>("check", withCheck_GetResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_GetResponse.additionalData);
-    }
+export function serializeWithCheck_GetResponse(writer: SerializationWriter, withCheck_GetResponse: Partial<WithCheck_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCheck_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Check>("check", withCheck_GetResponse.check, serializeCheck);
+    writer.writeAdditionalData(withCheck_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCheck_PutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCheck_PutRequestBody(writer: SerializationWriter, withCheck_PutRequestBody: Partial<WithCheck_PutRequestBody> | undefined | null = {}) : void {
-    if (withCheck_PutRequestBody) {
-        serializeCheck_updatable(writer, withCheck_PutRequestBody)
-    }
+export function serializeWithCheck_PutRequestBody(writer: SerializationWriter, withCheck_PutRequestBody: Partial<WithCheck_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCheck_PutRequestBody || isSerializingDerivedType) { return; }
+    serializeCheck_updatable(writer, withCheck_PutRequestBody, isSerializingDerivedType)
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCheck_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCheck_PutResponse(writer: SerializationWriter, withCheck_PutResponse: Partial<WithCheck_PutResponse> | undefined | null = {}) : void {
-    if (withCheck_PutResponse) {
-        writer.writeObjectValue<Check>("check", withCheck_PutResponse.check, serializeCheck);
-        writer.writeAdditionalData(withCheck_PutResponse.additionalData);
-    }
+export function serializeWithCheck_PutResponse(writer: SerializationWriter, withCheck_PutResponse: Partial<WithCheck_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCheck_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Check>("check", withCheck_PutResponse.check, serializeCheck);
+    writer.writeAdditionalData(withCheck_PutResponse.additionalData);
 }
 export interface WithCheck_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The check property
      */
@@ -177,10 +179,6 @@ export interface WithCheck_ItemRequestBuilder extends BaseRequestBuilder<WithChe
 export interface WithCheck_PutRequestBody extends Check_updatable, Parsable {
 }
 export interface WithCheck_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The check property
      */

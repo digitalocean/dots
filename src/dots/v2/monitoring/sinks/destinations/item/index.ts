@@ -17,6 +17,7 @@ export function createWithDestination_uuGetResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
+ * @param WithDestination_uuGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,20 +28,17 @@ export function deserializeIntoWithDestination_uuGetResponse(withDestination_uuG
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDestination_uuGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDestination_uuGetResponse(writer: SerializationWriter, withDestination_uuGetResponse: Partial<WithDestination_uuGetResponse> | undefined | null = {}) : void {
-    if (withDestination_uuGetResponse) {
-        writer.writeObjectValue<Destination_omit_credentials>("destination", withDestination_uuGetResponse.destination, serializeDestination_omit_credentials);
-        writer.writeAdditionalData(withDestination_uuGetResponse.additionalData);
-    }
+export function serializeWithDestination_uuGetResponse(writer: SerializationWriter, withDestination_uuGetResponse: Partial<WithDestination_uuGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDestination_uuGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Destination_omit_credentials>("destination", withDestination_uuGetResponse.destination, serializeDestination_omit_credentials);
+    writer.writeAdditionalData(withDestination_uuGetResponse.additionalData);
 }
 export interface WithDestination_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The destination property
      */

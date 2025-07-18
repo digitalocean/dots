@@ -28,6 +28,7 @@ export function createKeysPostResponseFromDiscriminatorValue(parseNode: ParseNod
 }
 /**
  * The deserialization information for the current model
+ * @param KeysGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoKeysGetResponse(keysGetResponse: Partial<KeysGetR
 }
 /**
  * The deserialization information for the current model
+ * @param KeysPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,10 +51,6 @@ export function deserializeIntoKeysPostResponse(keysPostResponse: Partial<KeysPo
     }
 }
 export interface KeysGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -67,10 +65,6 @@ export interface KeysGetResponse extends AdditionalDataHolder, Parsable {
     sshKeys?: SshKeys[] | null;
 }
 export interface KeysPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The ssh_key property
      */
@@ -136,27 +130,29 @@ export interface KeysRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param KeysGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeKeysGetResponse(writer: SerializationWriter, keysGetResponse: Partial<KeysGetResponse> | undefined | null = {}) : void {
-    if (keysGetResponse) {
-        writer.writeObjectValue<Page_links>("links", keysGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", keysGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<SshKeys>("ssh_keys", keysGetResponse.sshKeys, serializeSshKeys);
-        writer.writeAdditionalData(keysGetResponse.additionalData);
-    }
+export function serializeKeysGetResponse(writer: SerializationWriter, keysGetResponse: Partial<KeysGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!keysGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", keysGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", keysGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<SshKeys>("ssh_keys", keysGetResponse.sshKeys, serializeSshKeys);
+    writer.writeAdditionalData(keysGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param KeysPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeKeysPostResponse(writer: SerializationWriter, keysPostResponse: Partial<KeysPostResponse> | undefined | null = {}) : void {
-    if (keysPostResponse) {
-        writer.writeObjectValue<SshKeys>("ssh_key", keysPostResponse.sshKey, serializeSshKeys);
-        writer.writeAdditionalData(keysPostResponse.additionalData);
-    }
+export function serializeKeysPostResponse(writer: SerializationWriter, keysPostResponse: Partial<KeysPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!keysPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<SshKeys>("ssh_key", keysPostResponse.sshKey, serializeSshKeys);
+    writer.writeAdditionalData(keysPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

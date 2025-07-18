@@ -28,6 +28,7 @@ export function createWithCdn_PutResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param WithCdn_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoWithCdn_GetResponse(withCdn_GetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param WithCdn_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,31 +50,29 @@ export function deserializeIntoWithCdn_PutResponse(withCdn_PutResponse: Partial<
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCdn_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCdn_GetResponse(writer: SerializationWriter, withCdn_GetResponse: Partial<WithCdn_GetResponse> | undefined | null = {}) : void {
-    if (withCdn_GetResponse) {
-        writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_GetResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_GetResponse.additionalData);
-    }
+export function serializeWithCdn_GetResponse(writer: SerializationWriter, withCdn_GetResponse: Partial<WithCdn_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCdn_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_GetResponse.endpoint, serializeCdn_endpoint);
+    writer.writeAdditionalData(withCdn_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCdn_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCdn_PutResponse(writer: SerializationWriter, withCdn_PutResponse: Partial<WithCdn_PutResponse> | undefined | null = {}) : void {
-    if (withCdn_PutResponse) {
-        writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_PutResponse.endpoint, serializeCdn_endpoint);
-        writer.writeAdditionalData(withCdn_PutResponse.additionalData);
-    }
+export function serializeWithCdn_PutResponse(writer: SerializationWriter, withCdn_PutResponse: Partial<WithCdn_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCdn_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cdn_endpoint>("endpoint", withCdn_PutResponse.endpoint, serializeCdn_endpoint);
+    writer.writeAdditionalData(withCdn_PutResponse.additionalData);
 }
 export interface WithCdn_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The endpoint property
      */
@@ -140,10 +140,6 @@ export interface WithCdn_ItemRequestBuilder extends BaseRequestBuilder<WithCdn_I
      toPutRequestInformation(body: Update_endpoint, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithCdn_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The endpoint property
      */

@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Par
 
 export interface ClusterlintPostResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * ID of the clusterlint run that can be used later to fetch the diagnostics.
      */
     runId?: string | null;
@@ -77,6 +73,7 @@ export function createClusterlintPostResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param ClusterlintPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -87,14 +84,15 @@ export function deserializeIntoClusterlintPostResponse(clusterlintPostResponse: 
 }
 /**
  * Serializes information the current object
+ * @param ClusterlintPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeClusterlintPostResponse(writer: SerializationWriter, clusterlintPostResponse: Partial<ClusterlintPostResponse> | undefined | null = {}) : void {
-    if (clusterlintPostResponse) {
-        writer.writeStringValue("run_id", clusterlintPostResponse.runId);
-        writer.writeAdditionalData(clusterlintPostResponse.additionalData);
-    }
+export function serializeClusterlintPostResponse(writer: SerializationWriter, clusterlintPostResponse: Partial<ClusterlintPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!clusterlintPostResponse || isSerializingDerivedType) { return; }
+    writer.writeStringValue("run_id", clusterlintPostResponse.runId);
+    writer.writeAdditionalData(clusterlintPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -14,10 +14,6 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
      */
     actions?: Action[] | null;
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The links property
      */
     links?: Page_links | null;
@@ -32,10 +28,6 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
      * The action property
      */
     action?: Action | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/{droplet_id}/actions
@@ -59,7 +51,7 @@ export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequest
      */
      get(requestConfiguration?: RequestConfiguration<ActionsRequestBuilderGetQueryParameters> | undefined) : Promise<ActionsGetResponse | undefined>;
     /**
-     * To initiate an action on a Droplet send a POST request to`/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,set the `type` attribute to on of the supported action types:| Action                                   | Details || ---------------------------------------- | ----------- || <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet || <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet || <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet || <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. || <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. || <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. || <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. || <nobr>`power_on`</nobr>                  | Powers on a Droplet. || <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. || <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. || <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. || <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. || <nobr>`rename`</nobr>                    | Renames a Droplet. || <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. || <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. || <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
+     * To initiate an action on a Droplet send a POST request to`/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,set the `type` attribute to on of the supported action types:| Action                                   | Details | Additionally Required Permission || ---------------------------------------- | ----------- | ----------- || <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet | || <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet | || <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet | || <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. | || <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. | || <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. | || <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. | || <nobr>`power_on`</nobr>                  | Powers on a Droplet. | || <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. | droplet:admin || <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. | droplet:admin || <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. | droplet:create || <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. | droplet:admin || <nobr>`rename`</nobr>                    | Renames a Droplet. | || <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. | || <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. | || <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. | image:create |
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ActionsPostResponse>}
@@ -77,7 +69,7 @@ export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequest
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<ActionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * To initiate an action on a Droplet send a POST request to`/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,set the `type` attribute to on of the supported action types:| Action                                   | Details || ---------------------------------------- | ----------- || <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet || <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet || <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet || <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. || <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. || <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. || <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. || <nobr>`power_on`</nobr>                  | Powers on a Droplet. || <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. || <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. || <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. || <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. || <nobr>`rename`</nobr>                    | Renames a Droplet. || <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. || <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. || <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
+     * To initiate an action on a Droplet send a POST request to`/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,set the `type` attribute to on of the supported action types:| Action                                   | Details | Additionally Required Permission || ---------------------------------------- | ----------- | ----------- || <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet | || <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet | || <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet | || <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. | || <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. | || <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. | || <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. | || <nobr>`power_on`</nobr>                  | Powers on a Droplet. | || <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. | droplet:admin || <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. | droplet:admin || <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. | droplet:create || <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. | droplet:admin || <nobr>`rename`</nobr>                    | Renames a Droplet. | || <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. | || <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. | || <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. | image:create |
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -126,6 +118,7 @@ export function createActionsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -138,6 +131,7 @@ export function deserializeIntoActionsGetResponse(actionsGetResponse: Partial<Ac
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -156,6 +150,7 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -166,23 +161,26 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 }
 /**
  * Serializes information the current object
+ * @param ActionsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}) : void {
-    if (actionsGetResponse) {
-        writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
-        writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(actionsGetResponse.additionalData);
-    }
+export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!actionsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
+    writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(actionsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action_change_backup_policy | Droplet_action_change_kernel | Droplet_action_enable_backups | Droplet_action | Droplet_action_rebuild | Droplet_action_rename | Droplet_action_resize | Droplet_action_restore | Droplet_action_snapshot> | undefined | null = {}) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action_change_backup_policy | Droplet_action_change_kernel | Droplet_action_enable_backups | Droplet_action | Droplet_action_rebuild | Droplet_action_rename | Droplet_action_resize | Droplet_action_restore | Droplet_action_snapshot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeDroplet_action_change_backup_policy(writer, actionsPostRequestBody as Droplet_action_change_backup_policy);
     serializeDroplet_action_change_kernel(writer, actionsPostRequestBody as Droplet_action_change_kernel);
     serializeDroplet_action_enable_backups(writer, actionsPostRequestBody as Droplet_action_enable_backups);
@@ -195,14 +193,15 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
-    if (actionsPostResponse) {
-        writer.writeObjectValue<Action>("action", actionsPostResponse.action, serializeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
-    }
+export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!actionsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Action>("action", actionsPostResponse.action, serializeAction);
+    writer.writeAdditionalData(actionsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

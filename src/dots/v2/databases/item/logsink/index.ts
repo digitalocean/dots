@@ -28,6 +28,7 @@ export function createLogsinkPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param LogsinkGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoLogsinkGetResponse(logsinkGetResponse: Partial<Lo
 }
 /**
  * The deserialization information for the current model
+ * @param LogsinkPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,19 +50,11 @@ export function deserializeIntoLogsinkPostResponse(logsinkPostResponse: Partial<
 }
 export interface LogsinkGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The sinks property
      */
     sinks?: Logsink_verbose[] | null;
 }
 export interface LogsinkPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The sink property
      */
@@ -115,25 +109,27 @@ export interface LogsinkRequestBuilder extends BaseRequestBuilder<LogsinkRequest
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param LogsinkGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLogsinkGetResponse(writer: SerializationWriter, logsinkGetResponse: Partial<LogsinkGetResponse> | undefined | null = {}) : void {
-    if (logsinkGetResponse) {
-        writer.writeCollectionOfObjectValues<Logsink_verbose>("sinks", logsinkGetResponse.sinks, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkGetResponse.additionalData);
-    }
+export function serializeLogsinkGetResponse(writer: SerializationWriter, logsinkGetResponse: Partial<LogsinkGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!logsinkGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Logsink_verbose>("sinks", logsinkGetResponse.sinks, serializeLogsink_verbose);
+    writer.writeAdditionalData(logsinkGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param LogsinkPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLogsinkPostResponse(writer: SerializationWriter, logsinkPostResponse: Partial<LogsinkPostResponse> | undefined | null = {}) : void {
-    if (logsinkPostResponse) {
-        writer.writeObjectValue<Logsink_verbose>("sink", logsinkPostResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(logsinkPostResponse.additionalData);
-    }
+export function serializeLogsinkPostResponse(writer: SerializationWriter, logsinkPostResponse: Partial<LogsinkPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!logsinkPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Logsink_verbose>("sink", logsinkPostResponse.sink, serializeLogsink_verbose);
+    writer.writeAdditionalData(logsinkPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.
