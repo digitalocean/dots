@@ -12,7 +12,9 @@ import { Deployment_visibilityRequestBuilderRequestsMetadata, type Deployment_vi
 // @ts-ignore
 import { FunctionsRequestBuilderNavigationMetadata, FunctionsRequestBuilderRequestsMetadata, type FunctionsRequestBuilder } from './functions/index.js';
 // @ts-ignore
-import { Knowledge_basesRequestBuilderNavigationMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
+import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
+// @ts-ignore
+import { type VersionsRequestBuilder, VersionsRequestBuilderRequestsMetadata } from './versions/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -40,6 +42,10 @@ export interface Agent_uuItemRequestBuilder extends BaseRequestBuilder<Agent_uuI
      * The knowledge_bases property
      */
     get knowledge_bases(): Knowledge_basesRequestBuilder;
+    /**
+     * The versions property
+     */
+    get versions(): VersionsRequestBuilder;
     /**
      * To delete an agent, send a DELETE request to `/v2/gen-ai/agents/{uuid}`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -118,7 +124,11 @@ export const Agent_uuItemRequestBuilderNavigationMetadata: Record<Exclude<keyof 
         navigationMetadata: FunctionsRequestBuilderNavigationMetadata,
     },
     knowledge_bases: {
+        requestsMetadata: Knowledge_basesRequestBuilderRequestsMetadata,
         navigationMetadata: Knowledge_basesRequestBuilderNavigationMetadata,
+    },
+    versions: {
+        requestsMetadata: VersionsRequestBuilderRequestsMetadata,
     },
 };
 /**

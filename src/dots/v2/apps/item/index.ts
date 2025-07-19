@@ -10,6 +10,10 @@ import { ComponentsRequestBuilderNavigationMetadata, type ComponentsRequestBuild
 // @ts-ignore
 import { DeploymentsRequestBuilderNavigationMetadata, DeploymentsRequestBuilderRequestsMetadata, type DeploymentsRequestBuilder } from './deployments/index.js';
 // @ts-ignore
+import { HealthRequestBuilderRequestsMetadata, type HealthRequestBuilder } from './health/index.js';
+// @ts-ignore
+import { InstancesRequestBuilderRequestsMetadata, type InstancesRequestBuilder } from './instances/index.js';
+// @ts-ignore
 import { LogsRequestBuilderRequestsMetadata, type LogsRequestBuilder } from './logs/index.js';
 // @ts-ignore
 import { MetricsRequestBuilderNavigationMetadata, type MetricsRequestBuilder } from './metrics/index.js';
@@ -36,6 +40,14 @@ export interface App_ItemRequestBuilder extends BaseRequestBuilder<App_ItemReque
      * The deployments property
      */
     get deployments(): DeploymentsRequestBuilder;
+    /**
+     * The health property
+     */
+    get health(): HealthRequestBuilder;
+    /**
+     * The instances property
+     */
+    get instances(): InstancesRequestBuilder;
     /**
      * The logs property
      */
@@ -133,6 +145,12 @@ export const App_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof App_
     deployments: {
         requestsMetadata: DeploymentsRequestBuilderRequestsMetadata,
         navigationMetadata: DeploymentsRequestBuilderNavigationMetadata,
+    },
+    health: {
+        requestsMetadata: HealthRequestBuilderRequestsMetadata,
+    },
+    instances: {
+        requestsMetadata: InstancesRequestBuilderRequestsMetadata,
     },
     logs: {
         requestsMetadata: LogsRequestBuilderRequestsMetadata,

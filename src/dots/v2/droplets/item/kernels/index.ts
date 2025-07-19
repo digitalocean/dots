@@ -17,6 +17,7 @@ export function createKernelsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param KernelsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoKernelsGetResponse(kernelsGetResponse: Partial<Ke
     }
 }
 export interface KernelsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The kernels property
      */
@@ -82,16 +79,17 @@ export interface KernelsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param KernelsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeKernelsGetResponse(writer: SerializationWriter, kernelsGetResponse: Partial<KernelsGetResponse> | undefined | null = {}) : void {
-    if (kernelsGetResponse) {
-        writer.writeCollectionOfObjectValues<Kernel>("kernels", kernelsGetResponse.kernels, serializeKernel);
-        writer.writeObjectValue<Page_links>("links", kernelsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", kernelsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(kernelsGetResponse.additionalData);
-    }
+export function serializeKernelsGetResponse(writer: SerializationWriter, kernelsGetResponse: Partial<KernelsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!kernelsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Kernel>("kernels", kernelsGetResponse.kernels, serializeKernel);
+    writer.writeObjectValue<Page_links>("links", kernelsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", kernelsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(kernelsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

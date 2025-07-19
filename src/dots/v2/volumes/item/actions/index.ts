@@ -14,10 +14,6 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
      */
     actions?: VolumeAction[] | null;
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The links property
      */
     links?: Page_links | null;
@@ -32,10 +28,6 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
      * The action property
      */
     action?: VolumeAction | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/volumes/{volume_id}/actions
@@ -139,6 +131,7 @@ export function createActionsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -151,6 +144,7 @@ export function deserializeIntoActionsGetResponse(actionsGetResponse: Partial<Ac
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -163,6 +157,7 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -173,37 +168,41 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 }
 /**
  * Serializes information the current object
+ * @param ActionsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}) : void {
-    if (actionsGetResponse) {
-        writer.writeCollectionOfObjectValues<VolumeAction>("actions", actionsGetResponse.actions, serializeVolumeAction);
-        writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(actionsGetResponse.additionalData);
-    }
+export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!actionsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<VolumeAction>("actions", actionsGetResponse.actions, serializeVolumeAction);
+    writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(actionsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Volume_action_post_attach | Volume_action_post_detach | Volume_action_post_resize> | undefined | null = {}) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Volume_action_post_attach | Volume_action_post_detach | Volume_action_post_resize> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeVolume_action_post_attach(writer, actionsPostRequestBody as Volume_action_post_attach);
     serializeVolume_action_post_detach(writer, actionsPostRequestBody as Volume_action_post_detach);
     serializeVolume_action_post_resize(writer, actionsPostRequestBody as Volume_action_post_resize);
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
-    if (actionsPostResponse) {
-        writer.writeObjectValue<VolumeAction>("action", actionsPostResponse.action, serializeVolumeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
-    }
+export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!actionsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VolumeAction>("action", actionsPostResponse.action, serializeVolumeAction);
+    writer.writeAdditionalData(actionsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

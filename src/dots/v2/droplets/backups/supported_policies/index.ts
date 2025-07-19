@@ -17,6 +17,7 @@ export function createSupported_policiesGetResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
+ * @param Supported_policiesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,20 +28,17 @@ export function deserializeIntoSupported_policiesGetResponse(supported_policiesG
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Supported_policiesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSupported_policiesGetResponse(writer: SerializationWriter, supported_policiesGetResponse: Partial<Supported_policiesGetResponse> | undefined | null = {}) : void {
-    if (supported_policiesGetResponse) {
-        writer.writeCollectionOfObjectValues<Supported_droplet_backup_policy>("supported_policies", supported_policiesGetResponse.supportedPolicies, serializeSupported_droplet_backup_policy);
-        writer.writeAdditionalData(supported_policiesGetResponse.additionalData);
-    }
+export function serializeSupported_policiesGetResponse(writer: SerializationWriter, supported_policiesGetResponse: Partial<Supported_policiesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!supported_policiesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Supported_droplet_backup_policy>("supported_policies", supported_policiesGetResponse.supportedPolicies, serializeSupported_droplet_backup_policy);
+    writer.writeAdditionalData(supported_policiesGetResponse.additionalData);
 }
 export interface Supported_policiesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The supported_policies property
      */

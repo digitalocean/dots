@@ -26,6 +26,7 @@ export function createForwarding_rulesPostRequestBodyFromDiscriminatorValue(pars
 }
 /**
  * The deserialization information for the current model
+ * @param Forwarding_rulesDeleteRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,6 +37,7 @@ export function deserializeIntoForwarding_rulesDeleteRequestBody(forwarding_rule
 }
 /**
  * The deserialization information for the current model
+ * @param Forwarding_rulesPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,19 +48,11 @@ export function deserializeIntoForwarding_rulesPostRequestBody(forwarding_rulesP
 }
 export interface Forwarding_rulesDeleteRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The forwarding_rules property
      */
     forwardingRules?: Forwarding_rule[] | null;
 }
 export interface Forwarding_rulesPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The forwarding_rules property
      */
@@ -107,25 +101,27 @@ export interface Forwarding_rulesRequestBuilder extends BaseRequestBuilder<Forwa
 }
 /**
  * Serializes information the current object
+ * @param Forwarding_rulesDeleteRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeForwarding_rulesDeleteRequestBody(writer: SerializationWriter, forwarding_rulesDeleteRequestBody: Partial<Forwarding_rulesDeleteRequestBody> | undefined | null = {}) : void {
-    if (forwarding_rulesDeleteRequestBody) {
-        writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesDeleteRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesDeleteRequestBody.additionalData);
-    }
+export function serializeForwarding_rulesDeleteRequestBody(writer: SerializationWriter, forwarding_rulesDeleteRequestBody: Partial<Forwarding_rulesDeleteRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!forwarding_rulesDeleteRequestBody || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesDeleteRequestBody.forwardingRules, serializeForwarding_rule);
+    writer.writeAdditionalData(forwarding_rulesDeleteRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param Forwarding_rulesPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeForwarding_rulesPostRequestBody(writer: SerializationWriter, forwarding_rulesPostRequestBody: Partial<Forwarding_rulesPostRequestBody> | undefined | null = {}) : void {
-    if (forwarding_rulesPostRequestBody) {
-        writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesPostRequestBody.forwardingRules, serializeForwarding_rule);
-        writer.writeAdditionalData(forwarding_rulesPostRequestBody.additionalData);
-    }
+export function serializeForwarding_rulesPostRequestBody(writer: SerializationWriter, forwarding_rulesPostRequestBody: Partial<Forwarding_rulesPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!forwarding_rulesPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", forwarding_rulesPostRequestBody.forwardingRules, serializeForwarding_rule);
+    writer.writeAdditionalData(forwarding_rulesPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

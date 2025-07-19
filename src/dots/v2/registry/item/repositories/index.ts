@@ -19,6 +19,7 @@ export function createRepositoriesGetResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param RepositoriesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,10 +31,6 @@ export function deserializeIntoRepositoriesGetResponse(repositoriesGetResponse: 
     }
 }
 export interface RepositoriesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -92,16 +89,17 @@ export interface RepositoriesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RepositoriesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRepositoriesGetResponse(writer: SerializationWriter, repositoriesGetResponse: Partial<RepositoriesGetResponse> | undefined | null = {}) : void {
-    if (repositoriesGetResponse) {
-        writer.writeObjectValue<Page_links>("links", repositoriesGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", repositoriesGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Repository>("repositories", repositoriesGetResponse.repositories, serializeRepository);
-        writer.writeAdditionalData(repositoriesGetResponse.additionalData);
-    }
+export function serializeRepositoriesGetResponse(writer: SerializationWriter, repositoriesGetResponse: Partial<RepositoriesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!repositoriesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", repositoriesGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", repositoriesGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Repository>("repositories", repositoriesGetResponse.repositories, serializeRepository);
+    writer.writeAdditionalData(repositoriesGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

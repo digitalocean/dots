@@ -17,6 +17,7 @@ export function createWithSink_uuGetResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param WithSink_uuGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,20 +28,17 @@ export function deserializeIntoWithSink_uuGetResponse(withSink_uuGetResponse: Pa
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithSink_uuGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithSink_uuGetResponse(writer: SerializationWriter, withSink_uuGetResponse: Partial<WithSink_uuGetResponse> | undefined | null = {}) : void {
-    if (withSink_uuGetResponse) {
-        writer.writeObjectValue<Sinks_response>("sink", withSink_uuGetResponse.sink, serializeSinks_response);
-        writer.writeAdditionalData(withSink_uuGetResponse.additionalData);
-    }
+export function serializeWithSink_uuGetResponse(writer: SerializationWriter, withSink_uuGetResponse: Partial<WithSink_uuGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withSink_uuGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Sinks_response>("sink", withSink_uuGetResponse.sink, serializeSinks_response);
+    writer.writeAdditionalData(withSink_uuGetResponse.additionalData);
 }
 export interface WithSink_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The sink property
      */

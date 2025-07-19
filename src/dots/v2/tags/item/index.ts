@@ -19,6 +19,7 @@ export function createWithTag_GetResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param WithTag_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoWithTag_GetResponse(withTag_GetResponse: Partial<
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithTag_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithTag_GetResponse(writer: SerializationWriter, withTag_GetResponse: Partial<WithTag_GetResponse> | undefined | null = {}) : void {
-    if (withTag_GetResponse) {
-        writer.writeObjectValue<Tags>("tag", withTag_GetResponse.tag, serializeTags);
-        writer.writeAdditionalData(withTag_GetResponse.additionalData);
-    }
+export function serializeWithTag_GetResponse(writer: SerializationWriter, withTag_GetResponse: Partial<WithTag_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withTag_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Tags>("tag", withTag_GetResponse.tag, serializeTags);
+    writer.writeAdditionalData(withTag_GetResponse.additionalData);
 }
 export interface WithTag_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged.
      */
@@ -67,7 +65,7 @@ export interface WithTag_ItemRequestBuilder extends BaseRequestBuilder<WithTag_I
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
+     * To retrieve an individual tag, you can send a `GET` request to`/v2/tags/$TAG_NAME`.This endpoint will only return tagged resources that you are authorized to see.For example, to see tagged Droplets, include the `droplet:read` scope.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithTag_GetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -84,7 +82,7 @@ export interface WithTag_ItemRequestBuilder extends BaseRequestBuilder<WithTag_I
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
+     * To retrieve an individual tag, you can send a `GET` request to`/v2/tags/$TAG_NAME`.This endpoint will only return tagged resources that you are authorized to see.For example, to see tagged Droplets, include the `droplet:read` scope.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

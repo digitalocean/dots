@@ -37,6 +37,7 @@ export function createRecordsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param RecordsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,6 +50,7 @@ export function deserializeIntoRecordsGetResponse(recordsGetResponse: Partial<Re
 }
 /**
  * The deserialization information for the current model
+ * @param RecordsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -67,6 +69,7 @@ export function deserializeIntoRecordsPostRequestBody(recordsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param RecordsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -77,10 +80,6 @@ export function deserializeIntoRecordsPostResponse(recordsPostResponse: Partial<
 }
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
 export interface RecordsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The domain_records property
      */
@@ -96,10 +95,6 @@ export interface RecordsGetResponse extends AdditionalDataHolder, Parsable {
 }
 export type RecordsPostRequestBody = Domain_record_aaaa | Domain_record_a | Domain_record_caa | Domain_record_cname | Domain_record_mx | Domain_record_ns | Domain_record_soa | Domain_record_srv | Domain_record_txt;
 export interface RecordsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The domain_record property
      */
@@ -175,23 +170,26 @@ export interface RecordsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RecordsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRecordsGetResponse(writer: SerializationWriter, recordsGetResponse: Partial<RecordsGetResponse> | undefined | null = {}) : void {
-    if (recordsGetResponse) {
-        writer.writeCollectionOfObjectValues<Domain_record>("domain_records", recordsGetResponse.domainRecords, serializeDomain_record);
-        writer.writeObjectValue<Page_links>("links", recordsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", recordsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(recordsGetResponse.additionalData);
-    }
+export function serializeRecordsGetResponse(writer: SerializationWriter, recordsGetResponse: Partial<RecordsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!recordsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Domain_record>("domain_records", recordsGetResponse.domainRecords, serializeDomain_record);
+    writer.writeObjectValue<Page_links>("links", recordsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", recordsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(recordsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RecordsPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRecordsPostRequestBody(writer: SerializationWriter, recordsPostRequestBody: Partial<Domain_record_aaaa | Domain_record_a | Domain_record_caa | Domain_record_cname | Domain_record_mx | Domain_record_ns | Domain_record_soa | Domain_record_srv | Domain_record_txt> | undefined | null = {}) : void {
+export function serializeRecordsPostRequestBody(writer: SerializationWriter, recordsPostRequestBody: Partial<Domain_record_aaaa | Domain_record_a | Domain_record_caa | Domain_record_cname | Domain_record_mx | Domain_record_ns | Domain_record_soa | Domain_record_srv | Domain_record_txt> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeDomain_record_aaaa(writer, recordsPostRequestBody as Domain_record_aaaa);
     serializeDomain_record_a(writer, recordsPostRequestBody as Domain_record_a);
     serializeDomain_record_caa(writer, recordsPostRequestBody as Domain_record_caa);
@@ -204,14 +202,15 @@ export function serializeRecordsPostRequestBody(writer: SerializationWriter, rec
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RecordsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRecordsPostResponse(writer: SerializationWriter, recordsPostResponse: Partial<RecordsPostResponse> | undefined | null = {}) : void {
-    if (recordsPostResponse) {
-        writer.writeObjectValue<Domain_record>("domain_record", recordsPostResponse.domainRecord, serializeDomain_record);
-        writer.writeAdditionalData(recordsPostResponse.additionalData);
-    }
+export function serializeRecordsPostResponse(writer: SerializationWriter, recordsPostResponse: Partial<RecordsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!recordsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Domain_record>("domain_record", recordsPostResponse.domainRecord, serializeDomain_record);
+    writer.writeAdditionalData(recordsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

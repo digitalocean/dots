@@ -4,13 +4,19 @@
 // @ts-ignore
 import { createApiListModelsOutputPublicFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, type ApiListModelsOutputPublic, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
-import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
+import { Api_keysRequestBuilderNavigationMetadata, Api_keysRequestBuilderRequestsMetadata, type Api_keysRequestBuilder } from './api_keys/index.js';
+// @ts-ignore
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 export type GetUsecasesQueryParameterType = (typeof GetUsecasesQueryParameterTypeObject)[keyof typeof GetUsecasesQueryParameterTypeObject];
 /**
  * Builds and executes requests for operations under /v2/gen-ai/models
  */
 export interface ModelsRequestBuilder extends BaseRequestBuilder<ModelsRequestBuilder> {
+    /**
+     * The api_keys property
+     */
+    get api_keys(): Api_keysRequestBuilder;
     /**
      * To list all models, send a GET request to `/v2/gen-ai/models`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -46,7 +52,7 @@ export interface ModelsRequestBuilderGetQueryParameters {
      */
     publicOnly?: boolean;
     /**
-     * Include only models defined for the listed usecases. - MODEL_USECASE_UNKNOWN: The use case of the model is unknown - MODEL_USECASE_AGENT: The model maybe used in an agent - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models) - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails
+     * Include only models defined for the listed usecases. - MODEL_USECASE_UNKNOWN: The use case of the model is unknown - MODEL_USECASE_AGENT: The model maybe used in an agent - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models) - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails - MODEL_USECASE_REASONING: The model usecase for reasoning - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference
      */
     usecases?: GetUsecasesQueryParameterType[];
 }
@@ -60,6 +66,8 @@ export const GetUsecasesQueryParameterTypeObject = {
     MODEL_USECASE_FINETUNED: "MODEL_USECASE_FINETUNED",
     MODEL_USECASE_KNOWLEDGEBASE: "MODEL_USECASE_KNOWLEDGEBASE",
     MODEL_USECASE_GUARDRAIL: "MODEL_USECASE_GUARDRAIL",
+    MODEL_USECASE_REASONING: "MODEL_USECASE_REASONING",
+    MODEL_USECASE_SERVERLESS: "MODEL_USECASE_SERVERLESS",
 } as const;
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
@@ -67,6 +75,15 @@ export const GetUsecasesQueryParameterTypeObject = {
 const ModelsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
     "perPage": "per_page",
     "publicOnly": "public_only",
+};
+/**
+ * Metadata for all the navigation properties in the request builder.
+ */
+export const ModelsRequestBuilderNavigationMetadata: Record<Exclude<keyof ModelsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    api_keys: {
+        requestsMetadata: Api_keysRequestBuilderRequestsMetadata,
+        navigationMetadata: Api_keysRequestBuilderNavigationMetadata,
+    },
 };
 /**
  * Metadata for all the requests in the request builder.

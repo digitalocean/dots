@@ -26,6 +26,7 @@ export function createFirewallPutRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param FirewallGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,6 +37,7 @@ export function deserializeIntoFirewallGetResponse(firewallGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param FirewallPutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,19 +48,11 @@ export function deserializeIntoFirewallPutRequestBody(firewallPutRequestBody: Pa
 }
 export interface FirewallGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The rules property
      */
     rules?: Firewall_rule[] | null;
 }
 export interface FirewallPutRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The rules property
      */
@@ -106,25 +100,27 @@ export interface FirewallRequestBuilder extends BaseRequestBuilder<FirewallReque
 }
 /**
  * Serializes information the current object
+ * @param FirewallGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFirewallGetResponse(writer: SerializationWriter, firewallGetResponse: Partial<FirewallGetResponse> | undefined | null = {}) : void {
-    if (firewallGetResponse) {
-        writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallGetResponse.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallGetResponse.additionalData);
-    }
+export function serializeFirewallGetResponse(writer: SerializationWriter, firewallGetResponse: Partial<FirewallGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!firewallGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallGetResponse.rules, serializeFirewall_rule);
+    writer.writeAdditionalData(firewallGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param FirewallPutRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFirewallPutRequestBody(writer: SerializationWriter, firewallPutRequestBody: Partial<FirewallPutRequestBody> | undefined | null = {}) : void {
-    if (firewallPutRequestBody) {
-        writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallPutRequestBody.rules, serializeFirewall_rule);
-        writer.writeAdditionalData(firewallPutRequestBody.additionalData);
-    }
+export function serializeFirewallPutRequestBody(writer: SerializationWriter, firewallPutRequestBody: Partial<FirewallPutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!firewallPutRequestBody || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Firewall_rule>("rules", firewallPutRequestBody.rules, serializeFirewall_rule);
+    writer.writeAdditionalData(firewallPutRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.
