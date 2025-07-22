@@ -1,16 +1,36 @@
 {
-  "name": "dots",
+  "name": "@digitalocean/dots",
   "type": "module",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
   "main": "examples/index.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",
+    "test:integration": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=integration",
+    "test:single": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "npx eslint . --ignore-pattern docs/",
     "docs": "typedoc"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "DigitalOcean",
+  "license": "MIT",
+  "keywords": [
+    "digitalocean",
+    "typescript",
+    "dots",
+    "OpenAPI"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:digitalocean/dots.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalocean/dots/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/digitalocean/dots",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@types/jest": "^30.0.0",
@@ -21,8 +41,8 @@
     "jest": "^30.0.3",
     "nock": "^14.0.5",
     "ts-jest": "^29.4.0",
-    "typedoc": "^0.28.7",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.28.7",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.37.0"
   },
@@ -30,7 +50,7 @@
     "@azure/core-http": "^3.0.5",
     "@microsoft/kiota-authentication-azure": "^1.0.0-preview.61",
     "@microsoft/kiota-bundle": "^1.0.0-preview.9",
-    "dotenv": "^17.0.0",
+    "dotenv": "^17.2.0",
     "uuid": "^11.1.0"
   }
 }

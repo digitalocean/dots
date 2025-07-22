@@ -3,13 +3,20 @@ import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import * as fs from "fs";
-const token = "mock-token";
+const invoiceUuid = "mock-invoice-uuid";
+const baseUrl = 'https://api.digitalocean.com'
+import dotenv from "dotenv";
+dotenv.config();
+const token =  process.env.DIGITALOCEAN_TOKEN;
+if (!token) {
+    throw new Error("DIGITALOCEAN_TOKEN is not set. Please check your .env file.");
+}
+
+const REGION = "nyc3";
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
-const invoiceUuid = "mock-invoice-uuid";
-const baseUrl = 'https://api.digitalocean.com'
-
+const INVOICE_UUID_PARM = 'something'
 describe("Integration Test for Billing", () => {
     beforeEach(() => {
         nock.cleanAll();

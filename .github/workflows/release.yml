@@ -25,7 +25,7 @@ jobs:
         run: tsc
         
       - name: Run tests
-        run: npm test
+        run: make test-mocked
 
       - name: Publish to npm
         run: npm publish

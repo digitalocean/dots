@@ -22,9 +22,24 @@ lint: ##Run linter on code base
 	npm run lint
 
 .PHONY: test
-test: ##Running test cases
+test: ##Running all test cases
 	@echo Running all test cases
 	npm test
+
+.PHONY: test-mocked
+test-mocked: ##Running mocked test cases
+	@echo Running all mocked test cases
+	npm run test:mock
+
+.PHONY: test-integration
+test-integration: ##Running mocked test cases
+	@echo Running all integration test cases
+	npm run test:integration
+
+.PHONY: test-single
+test-single: ##Running single integration test case
+	@echo Running tests/integration/$(file) test cases
+	npm run test:single tests/integration/$(file)
 
 .PHONY: docs_clean
 docs_clean: ## Remove generated documents
