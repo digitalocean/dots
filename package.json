@@ -10,7 +10,8 @@
     "test:integration": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=integration",
     "test:single": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "npx eslint . --ignore-pattern docs/",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "build": "tsc"
   },
   "author": "DigitalOcean",
   "license": "MIT",
