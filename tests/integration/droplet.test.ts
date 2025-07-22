@@ -43,8 +43,6 @@ interface Volume {
 }
 
 describe("Integration Tests", () => {
-    let dropletId :number, volumeId :string;
-
     it("should create a droplet and attach a volume", async () => {
         const keyName = process.env.SSH_KEY_NAME;
         if (!keyName) {
@@ -61,7 +59,6 @@ describe("Integration Tests", () => {
         };
 
         const droplet: Droplet = await createDroplet(dropletReq);
-        dropletId = droplet.id;
         expect(droplet.id).toBeDefined();
 
         const volumeReq :Volumes_ext4 = {
@@ -73,7 +70,6 @@ describe("Integration Tests", () => {
         };
 
         const volume: Volume = await createVolume(volumeReq);
-        volumeId = volume.id;
         expect(volume.id).toBeDefined();
 
         const volumeActionReq : Volume_action_post_attach = {

@@ -12,11 +12,10 @@ if (!token) {
     throw new Error("DIGITALOCEAN_TOKEN is not set. Please check your .env file.");
 }
 
-const REGION = "nyc3";
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
-const INVOICE_UUID_PARM = 'something'
+
 describe("Integration Test for Billing", () => {
     beforeEach(() => {
         nock.cleanAll();
