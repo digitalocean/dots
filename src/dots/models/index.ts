@@ -271,6 +271,24 @@ export interface Alerts extends AdditionalDataHolder, Parsable {
     slack?: Slack_details[] | null;
 }
 /**
+ * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+ */
+export interface Amd_gpu_device_metrics_exporter_plugin extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the AMD Device Metrics Exporter is enabled.
+     */
+    enabled?: boolean | null;
+}
+/**
+ * An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+ */
+export interface Amd_gpu_device_plugin extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the AMD GPU Device Plugin is enabled.
+     */
+    enabled?: boolean | null;
+}
+/**
  * An Agent
  */
 export interface ApiAgent extends AdditionalDataHolder, Parsable {
@@ -5983,6 +6001,14 @@ export type Check_updatable_regions = (typeof Check_updatable_regionsObject)[key
 export type Check_updatable_type = (typeof Check_updatable_typeObject)[keyof typeof Check_updatable_typeObject];
 export interface Cluster extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+     */
+    amdGpuDeviceMetricsExporterPlugin?: Amd_gpu_device_metrics_exporter_plugin | null;
+    /**
+     * An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+     */
+    amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
+    /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
     autoUpgrade?: boolean | null;
@@ -6090,6 +6116,14 @@ export interface Cluster_autoscaler_configuration extends AdditionalDataHolder, 
 }
 export type Cluster_autoscaler_configuration_expanders = (typeof Cluster_autoscaler_configuration_expandersObject)[keyof typeof Cluster_autoscaler_configuration_expandersObject];
 export interface Cluster_read extends AdditionalDataHolder, Parsable {
+    /**
+     * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+     */
+    amdGpuDeviceMetricsExporterPlugin?: Amd_gpu_device_metrics_exporter_plugin | null;
+    /**
+     * An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+     */
+    amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
     /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
@@ -6214,6 +6248,14 @@ export interface Cluster_status extends AdditionalDataHolder, Parsable {
 }
 export type Cluster_status_state = (typeof Cluster_status_stateObject)[keyof typeof Cluster_status_stateObject];
 export interface Cluster_update extends AdditionalDataHolder, Parsable {
+    /**
+     * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+     */
+    amdGpuDeviceMetricsExporterPlugin?: Amd_gpu_device_metrics_exporter_plugin | null;
+    /**
+     * An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+     */
+    amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
     /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
@@ -6509,6 +6551,24 @@ export function createAlertFromDiscriminatorValue(parseNode: ParseNode | undefin
 // @ts-ignore
 export function createAlertsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAlerts;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Amd_gpu_device_metrics_exporter_plugin}
+ */
+// @ts-ignore
+export function createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAmd_gpu_device_metrics_exporter_plugin;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Amd_gpu_device_plugin}
+ */
+// @ts-ignore
+export function createAmd_gpu_device_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAmd_gpu_device_plugin;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -12614,6 +12674,28 @@ export function deserializeIntoAlerts(alerts: Partial<Alerts> | undefined = {}) 
 }
 /**
  * The deserialization information for the current model
+ * @param Amd_gpu_device_metrics_exporter_plugin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAmd_gpu_device_metrics_exporter_plugin(amd_gpu_device_metrics_exporter_plugin: Partial<Amd_gpu_device_metrics_exporter_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { amd_gpu_device_metrics_exporter_plugin.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Amd_gpu_device_plugin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAmd_gpu_device_plugin(amd_gpu_device_plugin: Partial<Amd_gpu_device_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { amd_gpu_device_plugin.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiAgent The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -16725,6 +16807,8 @@ export function deserializeIntoCheck_updatable(check_updatable: Partial<Check_up
 // @ts-ignore
 export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "amd_gpu_device_metrics_exporter_plugin": n => { cluster.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
+        "amd_gpu_device_plugin": n => { cluster.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster.clusterSubnet = n.getStringValue(); },
@@ -16770,6 +16854,8 @@ export function deserializeIntoCluster_autoscaler_configuration(cluster_autoscal
 // @ts-ignore
 export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "amd_gpu_device_metrics_exporter_plugin": n => { cluster_read.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
+        "amd_gpu_device_plugin": n => { cluster_read.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster_read.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_read.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster_read.clusterSubnet = n.getStringValue(); },
@@ -16837,6 +16923,8 @@ export function deserializeIntoCluster_status(cluster_status: Partial<Cluster_st
 // @ts-ignore
 export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "amd_gpu_device_metrics_exporter_plugin": n => { cluster_update.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
+        "amd_gpu_device_plugin": n => { cluster_update.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster_update.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_update.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "control_plane_firewall": n => { cluster_update.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
@@ -25263,6 +25351,30 @@ export function serializeAlerts(writer: SerializationWriter, alerts: Partial<Ale
 }
 /**
  * Serializes information the current object
+ * @param Amd_gpu_device_metrics_exporter_plugin The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAmd_gpu_device_metrics_exporter_plugin(writer: SerializationWriter, amd_gpu_device_metrics_exporter_plugin: Partial<Amd_gpu_device_metrics_exporter_plugin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!amd_gpu_device_metrics_exporter_plugin || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", amd_gpu_device_metrics_exporter_plugin.enabled);
+    writer.writeAdditionalData(amd_gpu_device_metrics_exporter_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Amd_gpu_device_plugin The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAmd_gpu_device_plugin(writer: SerializationWriter, amd_gpu_device_plugin: Partial<Amd_gpu_device_plugin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!amd_gpu_device_plugin || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", amd_gpu_device_plugin.enabled);
+    writer.writeAdditionalData(amd_gpu_device_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiAgent The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -29674,6 +29786,8 @@ export function serializeCheck_updatable(writer: SerializationWriter, check_upda
 // @ts-ignore
 export function serializeCluster(writer: SerializationWriter, cluster: Partial<Cluster> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!cluster || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
+    writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeBooleanValue("auto_upgrade", cluster.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster.clusterSubnet);
@@ -29715,6 +29829,8 @@ export function serializeCluster_autoscaler_configuration(writer: SerializationW
 // @ts-ignore
 export function serializeCluster_read(writer: SerializationWriter, cluster_read: Partial<Cluster_read> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!cluster_read || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_read.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
+    writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_read.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeBooleanValue("auto_upgrade", cluster_read.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_read.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster_read.clusterSubnet);
@@ -29779,6 +29895,8 @@ export function serializeCluster_status(writer: SerializationWriter, cluster_sta
 // @ts-ignore
 export function serializeCluster_update(writer: SerializationWriter, cluster_update: Partial<Cluster_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!cluster_update || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_update.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
+    writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_update.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeBooleanValue("auto_upgrade", cluster_update.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_update.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_update.controlPlaneFirewall, serializeControl_plane_firewall);
