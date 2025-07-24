@@ -11,9 +11,8 @@ build:
     nodejs: "16"
   commands:
     - npm install
-    - make generate-docs
-  html:
-    directory: ./docs
+    -  - npx typedoc --out $READTHEDOCS_OUTPUT/html src
+
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
   configuration: sphinxconfig.py
