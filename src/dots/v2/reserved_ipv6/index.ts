@@ -46,7 +46,6 @@ export function createReserved_ipv6PostResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipv6GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,7 +58,6 @@ export function deserializeIntoReserved_ipv6GetResponse(reserved_ipv6GetResponse
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipv6GetResponse_reserved_ipv6s The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -73,7 +71,6 @@ export function deserializeIntoReserved_ipv6GetResponse_reserved_ipv6s(reserved_
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipv6PostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -84,7 +81,6 @@ export function deserializeIntoReserved_ipv6PostResponse(reserved_ipv6PostRespon
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipv6PostResponse_reserved_ipv6 The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -96,6 +92,10 @@ export function deserializeIntoReserved_ipv6PostResponse_reserved_ipv6(reserved_
     }
 }
 export interface Reserved_ipv6GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -110,6 +110,10 @@ export interface Reserved_ipv6GetResponse extends AdditionalDataHolder, Parsable
     reservedIpv6s?: Reserved_ipv6GetResponse_reserved_ipv6s[] | null;
 }
 export interface Reserved_ipv6GetResponse_reserved_ipv6s extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * Requires `droplet:read` scope.
      */
@@ -129,11 +133,19 @@ export interface Reserved_ipv6GetResponse_reserved_ipv6s extends AdditionalDataH
 }
 export interface Reserved_ipv6PostResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The reserved_ipv6 property
      */
     reservedIpv6?: Reserved_ipv6PostResponse_reserved_ipv6 | null;
 }
 export interface Reserved_ipv6PostResponse_reserved_ipv6 extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The public IP address of the reserved IPv6. It also serves as its identifier.
      */
@@ -207,58 +219,54 @@ export interface Reserved_ipv6RequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipv6GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipv6GetResponse(writer: SerializationWriter, reserved_ipv6GetResponse: Partial<Reserved_ipv6GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipv6GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", reserved_ipv6GetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", reserved_ipv6GetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Reserved_ipv6GetResponse_reserved_ipv6s>("reserved_ipv6s", reserved_ipv6GetResponse.reservedIpv6s, serializeReserved_ipv6GetResponse_reserved_ipv6s);
-    writer.writeAdditionalData(reserved_ipv6GetResponse.additionalData);
+export function serializeReserved_ipv6GetResponse(writer: SerializationWriter, reserved_ipv6GetResponse: Partial<Reserved_ipv6GetResponse> | undefined | null = {}) : void {
+    if (reserved_ipv6GetResponse) {
+        writer.writeObjectValue<Page_links>("links", reserved_ipv6GetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", reserved_ipv6GetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Reserved_ipv6GetResponse_reserved_ipv6s>("reserved_ipv6s", reserved_ipv6GetResponse.reservedIpv6s, serializeReserved_ipv6GetResponse_reserved_ipv6s);
+        writer.writeAdditionalData(reserved_ipv6GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipv6GetResponse_reserved_ipv6s The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer: SerializationWriter, reserved_ipv6GetResponse_reserved_ipv6s: Partial<Reserved_ipv6GetResponse_reserved_ipv6s> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipv6GetResponse_reserved_ipv6s || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Droplet>("droplet", reserved_ipv6GetResponse_reserved_ipv6s.droplet, serializeDroplet);
-    writer.writeStringValue("ip", reserved_ipv6GetResponse_reserved_ipv6s.ip);
-    writer.writeStringValue("region_slug", reserved_ipv6GetResponse_reserved_ipv6s.regionSlug);
-    writer.writeDateValue("reserved_at", reserved_ipv6GetResponse_reserved_ipv6s.reservedAt);
-    writer.writeAdditionalData(reserved_ipv6GetResponse_reserved_ipv6s.additionalData);
+export function serializeReserved_ipv6GetResponse_reserved_ipv6s(writer: SerializationWriter, reserved_ipv6GetResponse_reserved_ipv6s: Partial<Reserved_ipv6GetResponse_reserved_ipv6s> | undefined | null = {}) : void {
+    if (reserved_ipv6GetResponse_reserved_ipv6s) {
+        writer.writeObjectValue<Droplet>("droplet", reserved_ipv6GetResponse_reserved_ipv6s.droplet, serializeDroplet);
+        writer.writeStringValue("ip", reserved_ipv6GetResponse_reserved_ipv6s.ip);
+        writer.writeStringValue("region_slug", reserved_ipv6GetResponse_reserved_ipv6s.regionSlug);
+        writer.writeDateValue("reserved_at", reserved_ipv6GetResponse_reserved_ipv6s.reservedAt);
+        writer.writeAdditionalData(reserved_ipv6GetResponse_reserved_ipv6s.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipv6PostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipv6PostResponse(writer: SerializationWriter, reserved_ipv6PostResponse: Partial<Reserved_ipv6PostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipv6PostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Reserved_ipv6PostResponse_reserved_ipv6>("reserved_ipv6", reserved_ipv6PostResponse.reservedIpv6, serializeReserved_ipv6PostResponse_reserved_ipv6);
-    writer.writeAdditionalData(reserved_ipv6PostResponse.additionalData);
+export function serializeReserved_ipv6PostResponse(writer: SerializationWriter, reserved_ipv6PostResponse: Partial<Reserved_ipv6PostResponse> | undefined | null = {}) : void {
+    if (reserved_ipv6PostResponse) {
+        writer.writeObjectValue<Reserved_ipv6PostResponse_reserved_ipv6>("reserved_ipv6", reserved_ipv6PostResponse.reservedIpv6, serializeReserved_ipv6PostResponse_reserved_ipv6);
+        writer.writeAdditionalData(reserved_ipv6PostResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipv6PostResponse_reserved_ipv6 The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipv6PostResponse_reserved_ipv6(writer: SerializationWriter, reserved_ipv6PostResponse_reserved_ipv6: Partial<Reserved_ipv6PostResponse_reserved_ipv6> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipv6PostResponse_reserved_ipv6 || isSerializingDerivedType) { return; }
-    writer.writeStringValue("ip", reserved_ipv6PostResponse_reserved_ipv6.ip);
-    writer.writeStringValue("region_slug", reserved_ipv6PostResponse_reserved_ipv6.regionSlug);
-    writer.writeDateValue("reserved_at", reserved_ipv6PostResponse_reserved_ipv6.reservedAt);
-    writer.writeAdditionalData(reserved_ipv6PostResponse_reserved_ipv6.additionalData);
+export function serializeReserved_ipv6PostResponse_reserved_ipv6(writer: SerializationWriter, reserved_ipv6PostResponse_reserved_ipv6: Partial<Reserved_ipv6PostResponse_reserved_ipv6> | undefined | null = {}) : void {
+    if (reserved_ipv6PostResponse_reserved_ipv6) {
+        writer.writeStringValue("ip", reserved_ipv6PostResponse_reserved_ipv6.ip);
+        writer.writeStringValue("region_slug", reserved_ipv6PostResponse_reserved_ipv6.regionSlug);
+        writer.writeDateValue("reserved_at", reserved_ipv6PostResponse_reserved_ipv6.reservedAt);
+        writer.writeAdditionalData(reserved_ipv6PostResponse_reserved_ipv6.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

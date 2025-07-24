@@ -17,7 +17,6 @@ export function createGarbageCollectionsGetResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
- * @param GarbageCollectionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,6 +26,10 @@ export function deserializeIntoGarbageCollectionsGetResponse(garbageCollectionsG
     }
 }
 export interface GarbageCollectionsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The garbage_collections property
      */
@@ -69,15 +72,14 @@ export interface GarbageCollectionsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param GarbageCollectionsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGarbageCollectionsGetResponse(writer: SerializationWriter, garbageCollectionsGetResponse: Partial<GarbageCollectionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!garbageCollectionsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Garbage_collection>("garbage_collections", garbageCollectionsGetResponse.garbageCollections, serializeGarbage_collection);
-    writer.writeAdditionalData(garbageCollectionsGetResponse.additionalData);
+export function serializeGarbageCollectionsGetResponse(writer: SerializationWriter, garbageCollectionsGetResponse: Partial<GarbageCollectionsGetResponse> | undefined | null = {}) : void {
+    if (garbageCollectionsGetResponse) {
+        writer.writeCollectionOfObjectValues<Garbage_collection>("garbage_collections", garbageCollectionsGetResponse.garbageCollections, serializeGarbage_collection);
+        writer.writeAdditionalData(garbageCollectionsGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

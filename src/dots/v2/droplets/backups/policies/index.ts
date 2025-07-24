@@ -26,7 +26,6 @@ export function createPoliciesGetResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param PoliciesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -39,7 +38,6 @@ export function deserializeIntoPoliciesGetResponse(policiesGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
- * @param PoliciesGetResponse_policies The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,6 +46,10 @@ export function deserializeIntoPoliciesGetResponse_policies(policiesGetResponse_
     }
 }
 export interface PoliciesGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -65,6 +67,10 @@ export interface PoliciesGetResponse extends AdditionalDataHolder, Parsable {
  * A map where the keys are the Droplet IDs and the values areobjects containing the backup policy information for each Droplet.
  */
 export interface PoliciesGetResponse_policies extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/backups/policies
@@ -103,28 +109,26 @@ export interface PoliciesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param PoliciesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePoliciesGetResponse(writer: SerializationWriter, policiesGetResponse: Partial<PoliciesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!policiesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", policiesGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", policiesGetResponse.meta, serializeMeta_properties);
-    writer.writeObjectValue<PoliciesGetResponse_policies>("policies", policiesGetResponse.policies, serializePoliciesGetResponse_policies);
-    writer.writeAdditionalData(policiesGetResponse.additionalData);
+export function serializePoliciesGetResponse(writer: SerializationWriter, policiesGetResponse: Partial<PoliciesGetResponse> | undefined | null = {}) : void {
+    if (policiesGetResponse) {
+        writer.writeObjectValue<Page_links>("links", policiesGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", policiesGetResponse.meta, serializeMeta_properties);
+        writer.writeObjectValue<PoliciesGetResponse_policies>("policies", policiesGetResponse.policies, serializePoliciesGetResponse_policies);
+        writer.writeAdditionalData(policiesGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param PoliciesGetResponse_policies The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePoliciesGetResponse_policies(writer: SerializationWriter, policiesGetResponse_policies: Partial<PoliciesGetResponse_policies> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!policiesGetResponse_policies || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(policiesGetResponse_policies.additionalData);
+export function serializePoliciesGetResponse_policies(writer: SerializationWriter, policiesGetResponse_policies: Partial<PoliciesGetResponse_policies> | undefined | null = {}) : void {
+    if (policiesGetResponse_policies) {
+        writer.writeAdditionalData(policiesGetResponse_policies.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

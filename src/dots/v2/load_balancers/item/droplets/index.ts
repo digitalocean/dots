@@ -26,7 +26,6 @@ export function createDropletsPostRequestBodyFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
- * @param DropletsDeleteRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -37,7 +36,6 @@ export function deserializeIntoDropletsDeleteRequestBody(dropletsDeleteRequestBo
 }
 /**
  * The deserialization information for the current model
- * @param DropletsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,11 +46,19 @@ export function deserializeIntoDropletsPostRequestBody(dropletsPostRequestBody: 
 }
 export interface DropletsDeleteRequestBody extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * An array containing the IDs of the Droplets assigned to the load balancer.
      */
     dropletIds?: number[] | null;
 }
 export interface DropletsPostRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * An array containing the IDs of the Droplets assigned to the load balancer.
      */
@@ -101,27 +107,25 @@ export interface DropletsRequestBuilder extends BaseRequestBuilder<DropletsReque
 }
 /**
  * Serializes information the current object
- * @param DropletsDeleteRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsDeleteRequestBody(writer: SerializationWriter, dropletsDeleteRequestBody: Partial<DropletsDeleteRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!dropletsDeleteRequestBody || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsDeleteRequestBody.dropletIds);
-    writer.writeAdditionalData(dropletsDeleteRequestBody.additionalData);
+export function serializeDropletsDeleteRequestBody(writer: SerializationWriter, dropletsDeleteRequestBody: Partial<DropletsDeleteRequestBody> | undefined | null = {}) : void {
+    if (dropletsDeleteRequestBody) {
+        writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsDeleteRequestBody.dropletIds);
+        writer.writeAdditionalData(dropletsDeleteRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param DropletsPostRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostRequestBody(writer: SerializationWriter, dropletsPostRequestBody: Partial<DropletsPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!dropletsPostRequestBody || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsPostRequestBody.dropletIds);
-    writer.writeAdditionalData(dropletsPostRequestBody.additionalData);
+export function serializeDropletsPostRequestBody(writer: SerializationWriter, dropletsPostRequestBody: Partial<DropletsPostRequestBody> | undefined | null = {}) : void {
+    if (dropletsPostRequestBody) {
+        writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", dropletsPostRequestBody.dropletIds);
+        writer.writeAdditionalData(dropletsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

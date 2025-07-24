@@ -26,7 +26,6 @@ export function createTagsPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param TagsDeleteRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -37,7 +36,6 @@ export function deserializeIntoTagsDeleteRequestBody(tagsDeleteRequestBody: Part
 }
 /**
  * The deserialization information for the current model
- * @param TagsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,35 +46,41 @@ export function deserializeIntoTagsPostRequestBody(tagsPostRequestBody: Partial<
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param TagsDeleteRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTagsDeleteRequestBody(writer: SerializationWriter, tagsDeleteRequestBody: Partial<TagsDeleteRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!tagsDeleteRequestBody || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<string>("tags", tagsDeleteRequestBody.tags);
-    writer.writeAdditionalData(tagsDeleteRequestBody.additionalData);
+export function serializeTagsDeleteRequestBody(writer: SerializationWriter, tagsDeleteRequestBody: Partial<TagsDeleteRequestBody> | undefined | null = {}) : void {
+    if (tagsDeleteRequestBody) {
+        writer.writeCollectionOfPrimitiveValues<string>("tags", tagsDeleteRequestBody.tags);
+        writer.writeAdditionalData(tagsDeleteRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param TagsPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTagsPostRequestBody(writer: SerializationWriter, tagsPostRequestBody: Partial<TagsPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!tagsPostRequestBody || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<string>("tags", tagsPostRequestBody.tags);
-    writer.writeAdditionalData(tagsPostRequestBody.additionalData);
+export function serializeTagsPostRequestBody(writer: SerializationWriter, tagsPostRequestBody: Partial<TagsPostRequestBody> | undefined | null = {}) : void {
+    if (tagsPostRequestBody) {
+        writer.writeCollectionOfPrimitiveValues<string>("tags", tagsPostRequestBody.tags);
+        writer.writeAdditionalData(tagsPostRequestBody.additionalData);
+    }
 }
 export interface TagsDeleteRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The tags property
      */
     tags?: string[] | null;
 }
 export interface TagsPostRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The tags property
      */

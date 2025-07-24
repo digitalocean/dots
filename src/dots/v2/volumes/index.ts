@@ -41,7 +41,6 @@ export function createVolumesPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param VolumesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,7 +53,6 @@ export function deserializeIntoVolumesGetResponse(volumesGetResponse: Partial<Vo
 }
 /**
  * The deserialization information for the current model
- * @param VolumesPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -66,7 +64,6 @@ export function deserializeIntoVolumesPostRequestBody(volumesPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
- * @param VolumesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -77,42 +74,42 @@ export function deserializeIntoVolumesPostResponse(volumesPostResponse: Partial<
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param VolumesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVolumesGetResponse(writer: SerializationWriter, volumesGetResponse: Partial<VolumesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!volumesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", volumesGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", volumesGetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Volume_full>("volumes", volumesGetResponse.volumes, serializeVolume_full);
-    writer.writeAdditionalData(volumesGetResponse.additionalData);
+export function serializeVolumesGetResponse(writer: SerializationWriter, volumesGetResponse: Partial<VolumesGetResponse> | undefined | null = {}) : void {
+    if (volumesGetResponse) {
+        writer.writeObjectValue<Page_links>("links", volumesGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", volumesGetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Volume_full>("volumes", volumesGetResponse.volumes, serializeVolume_full);
+        writer.writeAdditionalData(volumesGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param VolumesPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVolumesPostRequestBody(writer: SerializationWriter, volumesPostRequestBody: Partial<Volumes_ext4 | Volumes_xfs> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeVolumesPostRequestBody(writer: SerializationWriter, volumesPostRequestBody: Partial<Volumes_ext4 | Volumes_xfs> | undefined | null = {}) : void {
     serializeVolumes_ext4(writer, volumesPostRequestBody as Volumes_ext4);
     serializeVolumes_xfs(writer, volumesPostRequestBody as Volumes_xfs);
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param VolumesPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVolumesPostResponse(writer: SerializationWriter, volumesPostResponse: Partial<VolumesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!volumesPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Volume_full>("volume", volumesPostResponse.volume, serializeVolume_full);
-    writer.writeAdditionalData(volumesPostResponse.additionalData);
+export function serializeVolumesPostResponse(writer: SerializationWriter, volumesPostResponse: Partial<VolumesPostResponse> | undefined | null = {}) : void {
+    if (volumesPostResponse) {
+        writer.writeObjectValue<Volume_full>("volume", volumesPostResponse.volume, serializeVolume_full);
+        writer.writeAdditionalData(volumesPostResponse.additionalData);
+    }
 }
 export interface VolumesGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -128,6 +125,10 @@ export interface VolumesGetResponse extends AdditionalDataHolder, Parsable {
 }
 export type VolumesPostRequestBody = Volumes_ext4 | Volumes_xfs;
 export interface VolumesPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The volume property
      */

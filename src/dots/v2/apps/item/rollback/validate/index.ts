@@ -17,7 +17,6 @@ export function createValidatePostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param ValidatePostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,19 +29,22 @@ export function deserializeIntoValidatePostResponse(validatePostResponse: Partia
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param ValidatePostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeValidatePostResponse(writer: SerializationWriter, validatePostResponse: Partial<ValidatePostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!validatePostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_rollback_validation_condition>("error", validatePostResponse.errorEscaped, serializeApp_rollback_validation_condition);
-    writer.writeBooleanValue("valid", validatePostResponse.valid);
-    writer.writeCollectionOfObjectValues<App_rollback_validation_condition>("warnings", validatePostResponse.warnings, serializeApp_rollback_validation_condition);
-    writer.writeAdditionalData(validatePostResponse.additionalData);
+export function serializeValidatePostResponse(writer: SerializationWriter, validatePostResponse: Partial<ValidatePostResponse> | undefined | null = {}) : void {
+    if (validatePostResponse) {
+        writer.writeObjectValue<App_rollback_validation_condition>("error", validatePostResponse.errorEscaped, serializeApp_rollback_validation_condition);
+        writer.writeBooleanValue("valid", validatePostResponse.valid);
+        writer.writeCollectionOfObjectValues<App_rollback_validation_condition>("warnings", validatePostResponse.warnings, serializeApp_rollback_validation_condition);
+        writer.writeAdditionalData(validatePostResponse.additionalData);
+    }
 }
 export interface ValidatePostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The error property
      */

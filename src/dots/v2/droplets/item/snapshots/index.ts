@@ -17,7 +17,6 @@ export function createSnapshotsGetResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param SnapshotsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,19 +29,22 @@ export function deserializeIntoSnapshotsGetResponse(snapshotsGetResponse: Partia
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param SnapshotsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSnapshotsGetResponse(writer: SerializationWriter, snapshotsGetResponse: Partial<SnapshotsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!snapshotsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Droplet_snapshot>("snapshots", snapshotsGetResponse.snapshots, serializeDroplet_snapshot);
-    writer.writeAdditionalData(snapshotsGetResponse.additionalData);
+export function serializeSnapshotsGetResponse(writer: SerializationWriter, snapshotsGetResponse: Partial<SnapshotsGetResponse> | undefined | null = {}) : void {
+    if (snapshotsGetResponse) {
+        writer.writeObjectValue<Page_links>("links", snapshotsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", snapshotsGetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Droplet_snapshot>("snapshots", snapshotsGetResponse.snapshots, serializeDroplet_snapshot);
+        writer.writeAdditionalData(snapshotsGetResponse.additionalData);
+    }
 }
 export interface SnapshotsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */

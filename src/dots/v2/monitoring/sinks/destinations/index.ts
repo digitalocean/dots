@@ -28,7 +28,6 @@ export function createDestinationsPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param DestinationsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -39,7 +38,6 @@ export function deserializeIntoDestinationsGetResponse(destinationsGetResponse: 
 }
 /**
  * The deserialization information for the current model
- * @param DestinationsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -50,11 +48,19 @@ export function deserializeIntoDestinationsPostResponse(destinationsPostResponse
 }
 export interface DestinationsGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The destinations property
      */
     destinations?: Destination_omit_credentials[] | null;
 }
 export interface DestinationsPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The destination property
      */
@@ -109,27 +115,25 @@ export interface DestinationsRequestBuilder extends BaseRequestBuilder<Destinati
 }
 /**
  * Serializes information the current object
- * @param DestinationsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDestinationsGetResponse(writer: SerializationWriter, destinationsGetResponse: Partial<DestinationsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!destinationsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Destination_omit_credentials>("destinations", destinationsGetResponse.destinations, serializeDestination_omit_credentials);
-    writer.writeAdditionalData(destinationsGetResponse.additionalData);
+export function serializeDestinationsGetResponse(writer: SerializationWriter, destinationsGetResponse: Partial<DestinationsGetResponse> | undefined | null = {}) : void {
+    if (destinationsGetResponse) {
+        writer.writeCollectionOfObjectValues<Destination_omit_credentials>("destinations", destinationsGetResponse.destinations, serializeDestination_omit_credentials);
+        writer.writeAdditionalData(destinationsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param DestinationsPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDestinationsPostResponse(writer: SerializationWriter, destinationsPostResponse: Partial<DestinationsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!destinationsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Destination_omit_credentials>("destination", destinationsPostResponse.destination, serializeDestination_omit_credentials);
-    writer.writeAdditionalData(destinationsPostResponse.additionalData);
+export function serializeDestinationsPostResponse(writer: SerializationWriter, destinationsPostResponse: Partial<DestinationsPostResponse> | undefined | null = {}) : void {
+    if (destinationsPostResponse) {
+        writer.writeObjectValue<Destination_omit_credentials>("destination", destinationsPostResponse.destination, serializeDestination_omit_credentials);
+        writer.writeAdditionalData(destinationsPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

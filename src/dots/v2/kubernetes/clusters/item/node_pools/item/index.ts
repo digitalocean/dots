@@ -30,7 +30,6 @@ export function createWithNode_pool_PutResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
- * @param WithNode_pool_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -41,7 +40,6 @@ export function deserializeIntoWithNode_pool_GetResponse(withNode_pool_GetRespon
 }
 /**
  * The deserialization information for the current model
- * @param WithNode_pool_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -52,29 +50,31 @@ export function deserializeIntoWithNode_pool_PutResponse(withNode_pool_PutRespon
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithNode_pool_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithNode_pool_GetResponse(writer: SerializationWriter, withNode_pool_GetResponse: Partial<WithNode_pool_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withNode_pool_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_GetResponse.nodePool, serializeKubernetes_node_pool);
-    writer.writeAdditionalData(withNode_pool_GetResponse.additionalData);
+export function serializeWithNode_pool_GetResponse(writer: SerializationWriter, withNode_pool_GetResponse: Partial<WithNode_pool_GetResponse> | undefined | null = {}) : void {
+    if (withNode_pool_GetResponse) {
+        writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_GetResponse.nodePool, serializeKubernetes_node_pool);
+        writer.writeAdditionalData(withNode_pool_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithNode_pool_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithNode_pool_PutResponse(writer: SerializationWriter, withNode_pool_PutResponse: Partial<WithNode_pool_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withNode_pool_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_PutResponse.nodePool, serializeKubernetes_node_pool);
-    writer.writeAdditionalData(withNode_pool_PutResponse.additionalData);
+export function serializeWithNode_pool_PutResponse(writer: SerializationWriter, withNode_pool_PutResponse: Partial<WithNode_pool_PutResponse> | undefined | null = {}) : void {
+    if (withNode_pool_PutResponse) {
+        writer.writeObjectValue<Kubernetes_node_pool>("node_pool", withNode_pool_PutResponse.nodePool, serializeKubernetes_node_pool);
+        writer.writeAdditionalData(withNode_pool_PutResponse.additionalData);
+    }
 }
 export interface WithNode_pool_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The node_pool property
      */
@@ -146,6 +146,10 @@ export interface WithNode_pool_ItemRequestBuilder extends BaseRequestBuilder<Wit
      toPutRequestInformation(body: Kubernetes_node_pool_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithNode_pool_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The node_pool property
      */

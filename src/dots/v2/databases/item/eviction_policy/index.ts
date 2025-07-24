@@ -26,7 +26,6 @@ export function createEviction_policyPutRequestBodyFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
- * @param Eviction_policyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -37,7 +36,6 @@ export function deserializeIntoEviction_policyGetResponse(eviction_policyGetResp
 }
 /**
  * The deserialization information for the current model
- * @param Eviction_policyPutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,11 +46,19 @@ export function deserializeIntoEviction_policyPutRequestBody(eviction_policyPutR
 }
 export interface Eviction_policyGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     evictionPolicy?: Eviction_policy_model | null;
 }
 export interface Eviction_policyPutRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
@@ -100,27 +106,25 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
 }
 /**
  * Serializes information the current object
- * @param Eviction_policyGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEviction_policyGetResponse(writer: SerializationWriter, eviction_policyGetResponse: Partial<Eviction_policyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!eviction_policyGetResponse || isSerializingDerivedType) { return; }
-    writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyGetResponse.evictionPolicy);
-    writer.writeAdditionalData(eviction_policyGetResponse.additionalData);
+export function serializeEviction_policyGetResponse(writer: SerializationWriter, eviction_policyGetResponse: Partial<Eviction_policyGetResponse> | undefined | null = {}) : void {
+    if (eviction_policyGetResponse) {
+        writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyGetResponse.evictionPolicy);
+        writer.writeAdditionalData(eviction_policyGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param Eviction_policyPutRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEviction_policyPutRequestBody(writer: SerializationWriter, eviction_policyPutRequestBody: Partial<Eviction_policyPutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!eviction_policyPutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyPutRequestBody.evictionPolicy);
-    writer.writeAdditionalData(eviction_policyPutRequestBody.additionalData);
+export function serializeEviction_policyPutRequestBody(writer: SerializationWriter, eviction_policyPutRequestBody: Partial<Eviction_policyPutRequestBody> | undefined | null = {}) : void {
+    if (eviction_policyPutRequestBody) {
+        writer.writeEnumValue<Eviction_policy_model>("eviction_policy", eviction_policyPutRequestBody.evictionPolicy);
+        writer.writeAdditionalData(eviction_policyPutRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -19,7 +19,6 @@ export function createDigestsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
- * @param DigestsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -31,6 +30,10 @@ export function deserializeIntoDigestsGetResponse(digestsGetResponse: Partial<Di
     }
 }
 export interface DigestsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -87,17 +90,16 @@ export interface DigestsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param DigestsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDigestsGetResponse(writer: SerializationWriter, digestsGetResponse: Partial<DigestsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!digestsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", digestsGetResponse.links, serializePage_links);
-    writer.writeCollectionOfObjectValues<Repository_manifest>("manifests", digestsGetResponse.manifests, serializeRepository_manifest);
-    writer.writeObjectValue<Meta_properties>("meta", digestsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(digestsGetResponse.additionalData);
+export function serializeDigestsGetResponse(writer: SerializationWriter, digestsGetResponse: Partial<DigestsGetResponse> | undefined | null = {}) : void {
+    if (digestsGetResponse) {
+        writer.writeObjectValue<Page_links>("links", digestsGetResponse.links, serializePage_links);
+        writer.writeCollectionOfObjectValues<Repository_manifest>("manifests", digestsGetResponse.manifests, serializeRepository_manifest);
+        writer.writeObjectValue<Meta_properties>("meta", digestsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(digestsGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -28,7 +28,6 @@ export function createFirewallsPostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
- * @param FirewallsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -41,7 +40,6 @@ export function deserializeIntoFirewallsGetResponse(firewallsGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
- * @param FirewallsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -51,6 +49,10 @@ export function deserializeIntoFirewallsPostResponse(firewallsPostResponse: Part
     }
 }
 export interface FirewallsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The firewalls property
      */
@@ -65,6 +67,10 @@ export interface FirewallsGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface FirewallsPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The firewall property
      */
@@ -131,29 +137,27 @@ export interface FirewallsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param FirewallsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFirewallsGetResponse(writer: SerializationWriter, firewallsGetResponse: Partial<FirewallsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!firewallsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Firewall>("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
-    writer.writeObjectValue<Page_links>("links", firewallsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", firewallsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(firewallsGetResponse.additionalData);
+export function serializeFirewallsGetResponse(writer: SerializationWriter, firewallsGetResponse: Partial<FirewallsGetResponse> | undefined | null = {}) : void {
+    if (firewallsGetResponse) {
+        writer.writeCollectionOfObjectValues<Firewall>("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
+        writer.writeObjectValue<Page_links>("links", firewallsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", firewallsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(firewallsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param FirewallsPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFirewallsPostResponse(writer: SerializationWriter, firewallsPostResponse: Partial<FirewallsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!firewallsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Firewall>("firewall", firewallsPostResponse.firewall, serializeFirewall);
-    writer.writeAdditionalData(firewallsPostResponse.additionalData);
+export function serializeFirewallsPostResponse(writer: SerializationWriter, firewallsPostResponse: Partial<FirewallsPostResponse> | undefined | null = {}) : void {
+    if (firewallsPostResponse) {
+        writer.writeObjectValue<Firewall>("firewall", firewallsPostResponse.firewall, serializeFirewall);
+        writer.writeAdditionalData(firewallsPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

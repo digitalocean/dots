@@ -17,7 +17,6 @@ export function createWithSnapshot_GetResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param WithSnapshot_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,17 +27,20 @@ export function deserializeIntoWithSnapshot_GetResponse(withSnapshot_GetResponse
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithSnapshot_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithSnapshot_GetResponse(writer: SerializationWriter, withSnapshot_GetResponse: Partial<WithSnapshot_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withSnapshot_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Snapshots>("snapshot", withSnapshot_GetResponse.snapshot, serializeSnapshots);
-    writer.writeAdditionalData(withSnapshot_GetResponse.additionalData);
+export function serializeWithSnapshot_GetResponse(writer: SerializationWriter, withSnapshot_GetResponse: Partial<WithSnapshot_GetResponse> | undefined | null = {}) : void {
+    if (withSnapshot_GetResponse) {
+        writer.writeObjectValue<Snapshots>("snapshot", withSnapshot_GetResponse.snapshot, serializeSnapshots);
+        writer.writeAdditionalData(withSnapshot_GetResponse.additionalData);
+    }
 }
 export interface WithSnapshot_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The snapshot property
      */

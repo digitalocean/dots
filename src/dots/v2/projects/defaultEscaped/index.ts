@@ -37,17 +37,29 @@ export function createDefaultPutResponseFromDiscriminatorValue(parseNode: ParseN
 }
 export interface DefaultGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The project property
      */
     project?: Project | null;
 }
 export interface DefaultPatchResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The project property
      */
     project?: Project | null;
 }
 export interface DefaultPutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The project property
      */
@@ -119,7 +131,6 @@ export interface DefaultRequestBuilder extends BaseRequestBuilder<DefaultRequest
 }
 /**
  * The deserialization information for the current model
- * @param DefaultGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -130,7 +141,6 @@ export function deserializeIntoDefaultGetResponse(defaultGetResponse: Partial<De
 }
 /**
  * The deserialization information for the current model
- * @param DefaultPatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -141,7 +151,6 @@ export function deserializeIntoDefaultPatchResponse(defaultPatchResponse: Partia
 }
 /**
  * The deserialization information for the current model
- * @param DefaultPutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -152,39 +161,36 @@ export function deserializeIntoDefaultPutResponse(defaultPutResponse: Partial<De
 }
 /**
  * Serializes information the current object
- * @param DefaultGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDefaultGetResponse(writer: SerializationWriter, defaultGetResponse: Partial<DefaultGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!defaultGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Project>("project", defaultGetResponse.project, serializeProject);
-    writer.writeAdditionalData(defaultGetResponse.additionalData);
+export function serializeDefaultGetResponse(writer: SerializationWriter, defaultGetResponse: Partial<DefaultGetResponse> | undefined | null = {}) : void {
+    if (defaultGetResponse) {
+        writer.writeObjectValue<Project>("project", defaultGetResponse.project, serializeProject);
+        writer.writeAdditionalData(defaultGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param DefaultPatchResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDefaultPatchResponse(writer: SerializationWriter, defaultPatchResponse: Partial<DefaultPatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!defaultPatchResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Project>("project", defaultPatchResponse.project, serializeProject);
-    writer.writeAdditionalData(defaultPatchResponse.additionalData);
+export function serializeDefaultPatchResponse(writer: SerializationWriter, defaultPatchResponse: Partial<DefaultPatchResponse> | undefined | null = {}) : void {
+    if (defaultPatchResponse) {
+        writer.writeObjectValue<Project>("project", defaultPatchResponse.project, serializeProject);
+        writer.writeAdditionalData(defaultPatchResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param DefaultPutResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDefaultPutResponse(writer: SerializationWriter, defaultPutResponse: Partial<DefaultPutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!defaultPutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Project>("project", defaultPutResponse.project, serializeProject);
-    writer.writeAdditionalData(defaultPutResponse.additionalData);
+export function serializeDefaultPutResponse(writer: SerializationWriter, defaultPutResponse: Partial<DefaultPutResponse> | undefined | null = {}) : void {
+    if (defaultPutResponse) {
+        writer.writeObjectValue<Project>("project", defaultPutResponse.project, serializeProject);
+        writer.writeAdditionalData(defaultPutResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

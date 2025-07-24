@@ -13,6 +13,10 @@ export interface AccountGetResponse extends AdditionalDataHolder, Parsable {
      * The account property
      */
     account?: Account | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/account
@@ -50,7 +54,6 @@ export function createAccountGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
- * @param AccountGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -61,15 +64,14 @@ export function deserializeIntoAccountGetResponse(accountGetResponse: Partial<Ac
 }
 /**
  * Serializes information the current object
- * @param AccountGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAccountGetResponse(writer: SerializationWriter, accountGetResponse: Partial<AccountGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!accountGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Account>("account", accountGetResponse.account, serializeAccount);
-    writer.writeAdditionalData(accountGetResponse.additionalData);
+export function serializeAccountGetResponse(writer: SerializationWriter, accountGetResponse: Partial<AccountGetResponse> | undefined | null = {}) : void {
+    if (accountGetResponse) {
+        writer.writeObjectValue<Account>("account", accountGetResponse.account, serializeAccount);
+        writer.writeAdditionalData(accountGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

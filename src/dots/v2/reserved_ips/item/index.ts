@@ -19,7 +19,6 @@ export function createWithReserved_ipGetResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
- * @param WithReserved_ipGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,17 +29,20 @@ export function deserializeIntoWithReserved_ipGetResponse(withReserved_ipGetResp
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithReserved_ipGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithReserved_ipGetResponse(writer: SerializationWriter, withReserved_ipGetResponse: Partial<WithReserved_ipGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withReserved_ipGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Reserved_ip>("reserved_ip", withReserved_ipGetResponse.reservedIp, serializeReserved_ip);
-    writer.writeAdditionalData(withReserved_ipGetResponse.additionalData);
+export function serializeWithReserved_ipGetResponse(writer: SerializationWriter, withReserved_ipGetResponse: Partial<WithReserved_ipGetResponse> | undefined | null = {}) : void {
+    if (withReserved_ipGetResponse) {
+        writer.writeObjectValue<Reserved_ip>("reserved_ip", withReserved_ipGetResponse.reservedIp, serializeReserved_ip);
+        writer.writeAdditionalData(withReserved_ipGetResponse.additionalData);
+    }
 }
 export interface WithReserved_ipGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The reserved_ip property
      */

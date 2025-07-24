@@ -19,7 +19,6 @@ export function createWithNamespace_GetResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
- * @param WithNamespace_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,17 +29,20 @@ export function deserializeIntoWithNamespace_GetResponse(withNamespace_GetRespon
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithNamespace_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithNamespace_GetResponse(writer: SerializationWriter, withNamespace_GetResponse: Partial<WithNamespace_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withNamespace_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Namespace_info>("namespace", withNamespace_GetResponse.namespace, serializeNamespace_info);
-    writer.writeAdditionalData(withNamespace_GetResponse.additionalData);
+export function serializeWithNamespace_GetResponse(writer: SerializationWriter, withNamespace_GetResponse: Partial<WithNamespace_GetResponse> | undefined | null = {}) : void {
+    if (withNamespace_GetResponse) {
+        writer.writeObjectValue<Namespace_info>("namespace", withNamespace_GetResponse.namespace, serializeNamespace_info);
+        writer.writeAdditionalData(withNamespace_GetResponse.additionalData);
+    }
 }
 export interface WithNamespace_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The namespace property
      */

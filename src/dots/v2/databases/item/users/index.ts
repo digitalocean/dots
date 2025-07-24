@@ -37,7 +37,6 @@ export function createUsersPostResponseFromDiscriminatorValue(parseNode: ParseNo
 }
 /**
  * The deserialization information for the current model
- * @param UsersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,7 +47,6 @@ export function deserializeIntoUsersGetResponse(usersGetResponse: Partial<UsersG
 }
 /**
  * The deserialization information for the current model
- * @param UsersPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -60,7 +58,6 @@ export function deserializeIntoUsersPostRequestBody(usersPostRequestBody: Partia
 }
 /**
  * The deserialization information for the current model
- * @param UsersPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -71,41 +68,42 @@ export function deserializeIntoUsersPostResponse(usersPostResponse: Partial<User
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param UsersGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUsersGetResponse(writer: SerializationWriter, usersGetResponse: Partial<UsersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!usersGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Database_user>("users", usersGetResponse.users, serializeDatabase_user);
-    writer.writeAdditionalData(usersGetResponse.additionalData);
+export function serializeUsersGetResponse(writer: SerializationWriter, usersGetResponse: Partial<UsersGetResponse> | undefined | null = {}) : void {
+    if (usersGetResponse) {
+        writer.writeCollectionOfObjectValues<Database_user>("users", usersGetResponse.users, serializeDatabase_user);
+        writer.writeAdditionalData(usersGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param UsersPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUsersPostRequestBody(writer: SerializationWriter, usersPostRequestBody: Partial<UsersPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!usersPostRequestBody || isSerializingDerivedType) { return; }
-    serializeDatabase_user(writer, usersPostRequestBody, isSerializingDerivedType)
-    writer.writeBooleanValue("readonly", usersPostRequestBody.readonly);
+export function serializeUsersPostRequestBody(writer: SerializationWriter, usersPostRequestBody: Partial<UsersPostRequestBody> | undefined | null = {}) : void {
+    if (usersPostRequestBody) {
+        serializeDatabase_user(writer, usersPostRequestBody)
+        writer.writeBooleanValue("readonly", usersPostRequestBody.readonly);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param UsersPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUsersPostResponse(writer: SerializationWriter, usersPostResponse: Partial<UsersPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!usersPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Database_user>("user", usersPostResponse.user, serializeDatabase_user);
-    writer.writeAdditionalData(usersPostResponse.additionalData);
+export function serializeUsersPostResponse(writer: SerializationWriter, usersPostResponse: Partial<UsersPostResponse> | undefined | null = {}) : void {
+    if (usersPostResponse) {
+        writer.writeObjectValue<Database_user>("user", usersPostResponse.user, serializeDatabase_user);
+        writer.writeAdditionalData(usersPostResponse.additionalData);
+    }
 }
 export interface UsersGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The users property
      */
@@ -118,6 +116,10 @@ export interface UsersPostRequestBody extends Database_user, Parsable {
     readonly?: boolean | null;
 }
 export interface UsersPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The user property
      */

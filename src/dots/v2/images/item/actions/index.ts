@@ -14,6 +14,10 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
      */
     actions?: Action[] | null;
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The links property
      */
     links?: Page_links | null;
@@ -90,7 +94,6 @@ export function createActionsPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
- * @param ActionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -103,7 +106,6 @@ export function deserializeIntoActionsGetResponse(actionsGetResponse: Partial<Ac
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -115,26 +117,23 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * Serializes information the current object
- * @param ActionsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
-    writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(actionsGetResponse.additionalData);
+export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}) : void {
+    if (actionsGetResponse) {
+        writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
+        writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(actionsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ActionsPostRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Image_action_base | Image_action_transfer> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Image_action_base | Image_action_transfer> | undefined | null = {}) : void {
     serializeImage_action_base(writer, actionsPostRequestBody as Image_action_base);
     serializeImage_action_transfer(writer, actionsPostRequestBody as Image_action_transfer);
 }

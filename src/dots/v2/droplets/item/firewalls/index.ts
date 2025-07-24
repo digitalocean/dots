@@ -17,7 +17,6 @@ export function createFirewallsGetResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param FirewallsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,6 +28,10 @@ export function deserializeIntoFirewallsGetResponse(firewallsGetResponse: Partia
     }
 }
 export interface FirewallsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The firewalls property
      */
@@ -79,17 +82,16 @@ export interface FirewallsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param FirewallsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFirewallsGetResponse(writer: SerializationWriter, firewallsGetResponse: Partial<FirewallsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!firewallsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Firewall>("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
-    writer.writeObjectValue<Page_links>("links", firewallsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", firewallsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(firewallsGetResponse.additionalData);
+export function serializeFirewallsGetResponse(writer: SerializationWriter, firewallsGetResponse: Partial<FirewallsGetResponse> | undefined | null = {}) : void {
+    if (firewallsGetResponse) {
+        writer.writeCollectionOfObjectValues<Firewall>("firewalls", firewallsGetResponse.firewalls, serializeFirewall);
+        writer.writeObjectValue<Page_links>("links", firewallsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", firewallsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(firewallsGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.
