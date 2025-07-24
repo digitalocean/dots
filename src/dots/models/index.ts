@@ -6117,6 +6117,14 @@ export interface Cluster_autoscaler_configuration extends AdditionalDataHolder, 
 export type Cluster_autoscaler_configuration_expanders = (typeof Cluster_autoscaler_configuration_expandersObject)[keyof typeof Cluster_autoscaler_configuration_expandersObject];
 export interface Cluster_read extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+     */
+    amdGpuDeviceMetricsExporterPlugin?: Amd_gpu_device_metrics_exporter_plugin | null;
+    /**
+     * An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+     */
+    amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
+    /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
     autoUpgrade?: boolean | null;
@@ -16846,6 +16854,8 @@ export function deserializeIntoCluster_autoscaler_configuration(cluster_autoscal
 // @ts-ignore
 export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "amd_gpu_device_metrics_exporter_plugin": n => { cluster_read.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
+        "amd_gpu_device_plugin": n => { cluster_read.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster_read.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_read.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster_read.clusterSubnet = n.getStringValue(); },
@@ -29819,6 +29829,8 @@ export function serializeCluster_autoscaler_configuration(writer: SerializationW
 // @ts-ignore
 export function serializeCluster_read(writer: SerializationWriter, cluster_read: Partial<Cluster_read> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!cluster_read || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_read.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
+    writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_read.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeBooleanValue("auto_upgrade", cluster_read.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_read.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster_read.clusterSubnet);
