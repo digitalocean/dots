@@ -122,5 +122,5 @@ make test-mocked
 
 # **A Full Documentation can be found here**
 
->  https://didactic-spoon-vmgg6zw.pages.github.io/  (Should change the link with some good domain name)
+> https://digitaloceandots.readthedocs.io/en/latest/
 
