@@ -17,7 +17,6 @@ export function createWithDatabase_nameGetResponseFromDiscriminatorValue(parseNo
 }
 /**
  * The deserialization information for the current model
- * @param WithDatabase_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,17 +27,20 @@ export function deserializeIntoWithDatabase_nameGetResponse(withDatabase_nameGet
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithDatabase_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDatabase_nameGetResponse(writer: SerializationWriter, withDatabase_nameGetResponse: Partial<WithDatabase_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withDatabase_nameGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Database>("db", withDatabase_nameGetResponse.db, serializeDatabase);
-    writer.writeAdditionalData(withDatabase_nameGetResponse.additionalData);
+export function serializeWithDatabase_nameGetResponse(writer: SerializationWriter, withDatabase_nameGetResponse: Partial<WithDatabase_nameGetResponse> | undefined | null = {}) : void {
+    if (withDatabase_nameGetResponse) {
+        writer.writeObjectValue<Database>("db", withDatabase_nameGetResponse.db, serializeDatabase);
+        writer.writeAdditionalData(withDatabase_nameGetResponse.additionalData);
+    }
 }
 export interface WithDatabase_nameGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The db property
      */

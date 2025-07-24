@@ -57,7 +57,6 @@ export function createWithVpc_PutResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -68,7 +67,6 @@ export function deserializeIntoWithVpc_GetResponse(withVpc_GetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PatchRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -81,7 +79,6 @@ export function deserializeIntoWithVpc_PatchRequestBody(withVpc_PatchRequestBody
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -92,7 +89,6 @@ export function deserializeIntoWithVpc_PatchResponse(withVpc_PatchResponse: Part
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -105,7 +101,6 @@ export function deserializeIntoWithVpc_PutRequestBody(withVpc_PutRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -116,69 +111,68 @@ export function deserializeIntoWithVpc_PutResponse(withVpc_PutResponse: Partial<
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_GetResponse(writer: SerializationWriter, withVpc_GetResponse: Partial<WithVpc_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_GetResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_GetResponse.additionalData);
+export function serializeWithVpc_GetResponse(writer: SerializationWriter, withVpc_GetResponse: Partial<WithVpc_GetResponse> | undefined | null = {}) : void {
+    if (withVpc_GetResponse) {
+        writer.writeObjectValue<Vpc>("vpc", withVpc_GetResponse.vpc, serializeVpc);
+        writer.writeAdditionalData(withVpc_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PatchRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PatchRequestBody(writer: SerializationWriter, withVpc_PatchRequestBody: Partial<WithVpc_PatchRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PatchRequestBody || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("default", withVpc_PatchRequestBody.defaultEscaped);
-    writer.writeStringValue("description", withVpc_PatchRequestBody.description);
-    writer.writeStringValue("name", withVpc_PatchRequestBody.name);
-    writer.writeAdditionalData(withVpc_PatchRequestBody.additionalData);
+export function serializeWithVpc_PatchRequestBody(writer: SerializationWriter, withVpc_PatchRequestBody: Partial<WithVpc_PatchRequestBody> | undefined | null = {}) : void {
+    if (withVpc_PatchRequestBody) {
+        writer.writeBooleanValue("default", withVpc_PatchRequestBody.defaultEscaped);
+        writer.writeStringValue("description", withVpc_PatchRequestBody.description);
+        writer.writeStringValue("name", withVpc_PatchRequestBody.name);
+        writer.writeAdditionalData(withVpc_PatchRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PatchResponse(writer: SerializationWriter, withVpc_PatchResponse: Partial<WithVpc_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PatchResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_PatchResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_PatchResponse.additionalData);
+export function serializeWithVpc_PatchResponse(writer: SerializationWriter, withVpc_PatchResponse: Partial<WithVpc_PatchResponse> | undefined | null = {}) : void {
+    if (withVpc_PatchResponse) {
+        writer.writeObjectValue<Vpc>("vpc", withVpc_PatchResponse.vpc, serializeVpc);
+        writer.writeAdditionalData(withVpc_PatchResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PutRequestBody(writer: SerializationWriter, withVpc_PutRequestBody: Partial<WithVpc_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("default", withVpc_PutRequestBody.defaultEscaped);
-    writer.writeStringValue("description", withVpc_PutRequestBody.description);
-    writer.writeStringValue("name", withVpc_PutRequestBody.name);
-    writer.writeAdditionalData(withVpc_PutRequestBody.additionalData);
+export function serializeWithVpc_PutRequestBody(writer: SerializationWriter, withVpc_PutRequestBody: Partial<WithVpc_PutRequestBody> | undefined | null = {}) : void {
+    if (withVpc_PutRequestBody) {
+        writer.writeBooleanValue("default", withVpc_PutRequestBody.defaultEscaped);
+        writer.writeStringValue("description", withVpc_PutRequestBody.description);
+        writer.writeStringValue("name", withVpc_PutRequestBody.name);
+        writer.writeAdditionalData(withVpc_PutRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PutResponse(writer: SerializationWriter, withVpc_PutResponse: Partial<WithVpc_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_PutResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_PutResponse.additionalData);
+export function serializeWithVpc_PutResponse(writer: SerializationWriter, withVpc_PutResponse: Partial<WithVpc_PutResponse> | undefined | null = {}) : void {
+    if (withVpc_PutResponse) {
+        writer.writeObjectValue<Vpc>("vpc", withVpc_PutResponse.vpc, serializeVpc);
+        writer.writeAdditionalData(withVpc_PutResponse.additionalData);
+    }
 }
 export interface WithVpc_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The vpc property
      */
@@ -270,6 +264,10 @@ export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_I
 }
 export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
     defaultEscaped?: boolean | null;
@@ -284,11 +282,19 @@ export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable
 }
 export interface WithVpc_PatchResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The vpc property
      */
     vpc?: Vpc | null;
 }
 export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
@@ -303,6 +309,10 @@ export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
     name?: string | null;
 }
 export interface WithVpc_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The vpc property
      */

@@ -19,7 +19,6 @@ export function createWithReserved_ipv6GetResponseFromDiscriminatorValue(parseNo
 }
 /**
  * The deserialization information for the current model
- * @param WithReserved_ipv6GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,17 +29,20 @@ export function deserializeIntoWithReserved_ipv6GetResponse(withReserved_ipv6Get
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithReserved_ipv6GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithReserved_ipv6GetResponse(writer: SerializationWriter, withReserved_ipv6GetResponse: Partial<WithReserved_ipv6GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withReserved_ipv6GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Reserved_ipv6>("reserved_ipv6", withReserved_ipv6GetResponse.reservedIpv6, serializeReserved_ipv6);
-    writer.writeAdditionalData(withReserved_ipv6GetResponse.additionalData);
+export function serializeWithReserved_ipv6GetResponse(writer: SerializationWriter, withReserved_ipv6GetResponse: Partial<WithReserved_ipv6GetResponse> | undefined | null = {}) : void {
+    if (withReserved_ipv6GetResponse) {
+        writer.writeObjectValue<Reserved_ipv6>("reserved_ipv6", withReserved_ipv6GetResponse.reservedIpv6, serializeReserved_ipv6);
+        writer.writeAdditionalData(withReserved_ipv6GetResponse.additionalData);
+    }
 }
 export interface WithReserved_ipv6GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The reserved_ipv6 property
      */

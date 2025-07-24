@@ -27,7 +27,6 @@ export function createWithRegistry_nameGetResponseFromDiscriminatorValue(parseNo
 }
 /**
  * The deserialization information for the current model
- * @param WithRegistry_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,17 +37,20 @@ export function deserializeIntoWithRegistry_nameGetResponse(withRegistry_nameGet
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithRegistry_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithRegistry_nameGetResponse(writer: SerializationWriter, withRegistry_nameGetResponse: Partial<WithRegistry_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withRegistry_nameGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Multiregistry>("registry", withRegistry_nameGetResponse.registry, serializeMultiregistry);
-    writer.writeAdditionalData(withRegistry_nameGetResponse.additionalData);
+export function serializeWithRegistry_nameGetResponse(writer: SerializationWriter, withRegistry_nameGetResponse: Partial<WithRegistry_nameGetResponse> | undefined | null = {}) : void {
+    if (withRegistry_nameGetResponse) {
+        writer.writeObjectValue<Multiregistry>("registry", withRegistry_nameGetResponse.registry, serializeMultiregistry);
+        writer.writeAdditionalData(withRegistry_nameGetResponse.additionalData);
+    }
 }
 export interface WithRegistry_nameGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The registry property
      */

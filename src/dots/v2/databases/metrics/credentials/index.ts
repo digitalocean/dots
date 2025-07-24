@@ -17,6 +17,10 @@ export function createCredentialsGetResponseFromDiscriminatorValue(parseNode: Pa
 }
 export interface CredentialsGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The credentials property
      */
     credentials?: Database_metrics_credentials | null;
@@ -62,7 +66,6 @@ export interface CredentialsRequestBuilder extends BaseRequestBuilder<Credential
 }
 /**
  * The deserialization information for the current model
- * @param CredentialsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -73,15 +76,14 @@ export function deserializeIntoCredentialsGetResponse(credentialsGetResponse: Pa
 }
 /**
  * Serializes information the current object
- * @param CredentialsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCredentialsGetResponse(writer: SerializationWriter, credentialsGetResponse: Partial<CredentialsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!credentialsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Database_metrics_credentials>("credentials", credentialsGetResponse.credentials, serializeDatabase_metrics_credentials);
-    writer.writeAdditionalData(credentialsGetResponse.additionalData);
+export function serializeCredentialsGetResponse(writer: SerializationWriter, credentialsGetResponse: Partial<CredentialsGetResponse> | undefined | null = {}) : void {
+    if (credentialsGetResponse) {
+        writer.writeObjectValue<Database_metrics_credentials>("credentials", credentialsGetResponse.credentials, serializeDatabase_metrics_credentials);
+        writer.writeAdditionalData(credentialsGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,6 @@ export function createRemote_routesPutResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param Remote_routesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,7 +47,6 @@ export function deserializeIntoRemote_routesGetResponse(remote_routesGetResponse
 }
 /**
  * The deserialization information for the current model
- * @param Remote_routesPutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,7 +57,6 @@ export function deserializeIntoRemote_routesPutRequestBody(remote_routesPutReque
 }
 /**
  * The deserialization information for the current model
- * @param Remote_routesPutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -71,6 +68,10 @@ export function deserializeIntoRemote_routesPutResponse(remote_routesPutResponse
     }
 }
 export interface Remote_routesGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -86,11 +87,19 @@ export interface Remote_routesGetResponse extends AdditionalDataHolder, Parsable
 }
 export interface Remote_routesPutRequestBody extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The remote_routes property
      */
     remoteRoutes?: Partner_attachment_remote_route_writable[] | null;
 }
 export interface Remote_routesPutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -160,43 +169,40 @@ export interface Remote_routesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Remote_routesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRemote_routesGetResponse(writer: SerializationWriter, remote_routesGetResponse: Partial<Remote_routesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!remote_routesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", remote_routesGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", remote_routesGetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Partner_attachment_remote_route>("remote_routes", remote_routesGetResponse.remoteRoutes, serializePartner_attachment_remote_route);
-    writer.writeAdditionalData(remote_routesGetResponse.additionalData);
+export function serializeRemote_routesGetResponse(writer: SerializationWriter, remote_routesGetResponse: Partial<Remote_routesGetResponse> | undefined | null = {}) : void {
+    if (remote_routesGetResponse) {
+        writer.writeObjectValue<Page_links>("links", remote_routesGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", remote_routesGetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Partner_attachment_remote_route>("remote_routes", remote_routesGetResponse.remoteRoutes, serializePartner_attachment_remote_route);
+        writer.writeAdditionalData(remote_routesGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Remote_routesPutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRemote_routesPutRequestBody(writer: SerializationWriter, remote_routesPutRequestBody: Partial<Remote_routesPutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!remote_routesPutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Partner_attachment_remote_route_writable>("remote_routes", remote_routesPutRequestBody.remoteRoutes, serializePartner_attachment_remote_route_writable);
-    writer.writeAdditionalData(remote_routesPutRequestBody.additionalData);
+export function serializeRemote_routesPutRequestBody(writer: SerializationWriter, remote_routesPutRequestBody: Partial<Remote_routesPutRequestBody> | undefined | null = {}) : void {
+    if (remote_routesPutRequestBody) {
+        writer.writeCollectionOfObjectValues<Partner_attachment_remote_route_writable>("remote_routes", remote_routesPutRequestBody.remoteRoutes, serializePartner_attachment_remote_route_writable);
+        writer.writeAdditionalData(remote_routesPutRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Remote_routesPutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRemote_routesPutResponse(writer: SerializationWriter, remote_routesPutResponse: Partial<Remote_routesPutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!remote_routesPutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", remote_routesPutResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", remote_routesPutResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Partner_attachment_remote_route>("remote_routes", remote_routesPutResponse.remoteRoutes, serializePartner_attachment_remote_route);
-    writer.writeAdditionalData(remote_routesPutResponse.additionalData);
+export function serializeRemote_routesPutResponse(writer: SerializationWriter, remote_routesPutResponse: Partial<Remote_routesPutResponse> | undefined | null = {}) : void {
+    if (remote_routesPutResponse) {
+        writer.writeObjectValue<Page_links>("links", remote_routesPutResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", remote_routesPutResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Partner_attachment_remote_route>("remote_routes", remote_routesPutResponse.remoteRoutes, serializePartner_attachment_remote_route);
+        writer.writeAdditionalData(remote_routesPutResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

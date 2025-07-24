@@ -35,7 +35,6 @@ export function createService_keyPostResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
- * @param Service_keyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,7 +45,6 @@ export function deserializeIntoService_keyGetResponse(service_keyGetResponse: Pa
 }
 /**
  * The deserialization information for the current model
- * @param Service_keyGetResponse_service_key The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,7 +54,6 @@ export function deserializeIntoService_keyGetResponse_service_key(service_keyGet
 }
 /**
  * The deserialization information for the current model
- * @param Service_keyPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -66,47 +63,56 @@ export function deserializeIntoService_keyPostResponse(service_keyPostResponse: 
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Service_keyGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeService_keyGetResponse(writer: SerializationWriter, service_keyGetResponse: Partial<Service_keyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!service_keyGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Service_keyGetResponse_service_key>("service_key", service_keyGetResponse.serviceKey, serializeService_keyGetResponse_service_key);
-    writer.writeAdditionalData(service_keyGetResponse.additionalData);
+export function serializeService_keyGetResponse(writer: SerializationWriter, service_keyGetResponse: Partial<Service_keyGetResponse> | undefined | null = {}) : void {
+    if (service_keyGetResponse) {
+        writer.writeObjectValue<Service_keyGetResponse_service_key>("service_key", service_keyGetResponse.serviceKey, serializeService_keyGetResponse_service_key);
+        writer.writeAdditionalData(service_keyGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Service_keyGetResponse_service_key The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeService_keyGetResponse_service_key(writer: SerializationWriter, service_keyGetResponse_service_key: Partial<Service_keyGetResponse_service_key> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!service_keyGetResponse_service_key || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(service_keyGetResponse_service_key.additionalData);
+export function serializeService_keyGetResponse_service_key(writer: SerializationWriter, service_keyGetResponse_service_key: Partial<Service_keyGetResponse_service_key> | undefined | null = {}) : void {
+    if (service_keyGetResponse_service_key) {
+        writer.writeAdditionalData(service_keyGetResponse_service_key.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Service_keyPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeService_keyPostResponse(writer: SerializationWriter, service_keyPostResponse: Partial<Service_keyPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!service_keyPostResponse || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(service_keyPostResponse.additionalData);
+export function serializeService_keyPostResponse(writer: SerializationWriter, service_keyPostResponse: Partial<Service_keyPostResponse> | undefined | null = {}) : void {
+    if (service_keyPostResponse) {
+        writer.writeAdditionalData(service_keyPostResponse.additionalData);
+    }
 }
 export interface Service_keyGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The service_key property
      */
     serviceKey?: Service_keyGetResponse_service_key | null;
 }
 export interface Service_keyGetResponse_service_key extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 export interface Service_keyPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/partner_network_connect/attachments/{pa_id}/service_key

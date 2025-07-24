@@ -28,7 +28,6 @@ export function createImagesPostResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
- * @param ImagesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -41,7 +40,6 @@ export function deserializeIntoImagesGetResponse(imagesGetResponse: Partial<Imag
 }
 /**
  * The deserialization information for the current model
- * @param ImagesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -52,6 +50,10 @@ export function deserializeIntoImagesPostResponse(imagesPostResponse: Partial<Im
 }
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
 export interface ImagesGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The images property
      */
@@ -66,6 +68,10 @@ export interface ImagesGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface ImagesPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The image property
      */
@@ -143,29 +149,27 @@ export interface ImagesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param ImagesGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImagesGetResponse(writer: SerializationWriter, imagesGetResponse: Partial<ImagesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!imagesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Image>("images", imagesGetResponse.images, serializeImage);
-    writer.writeObjectValue<Page_links>("links", imagesGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", imagesGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(imagesGetResponse.additionalData);
+export function serializeImagesGetResponse(writer: SerializationWriter, imagesGetResponse: Partial<ImagesGetResponse> | undefined | null = {}) : void {
+    if (imagesGetResponse) {
+        writer.writeCollectionOfObjectValues<Image>("images", imagesGetResponse.images, serializeImage);
+        writer.writeObjectValue<Page_links>("links", imagesGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", imagesGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(imagesGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ImagesPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImagesPostResponse(writer: SerializationWriter, imagesPostResponse: Partial<ImagesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!imagesPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Image>("image", imagesPostResponse.image, serializeImage);
-    writer.writeAdditionalData(imagesPostResponse.additionalData);
+export function serializeImagesPostResponse(writer: SerializationWriter, imagesPostResponse: Partial<ImagesPostResponse> | undefined | null = {}) : void {
+    if (imagesPostResponse) {
+        writer.writeObjectValue<Image>("image", imagesPostResponse.image, serializeImage);
+        writer.writeAdditionalData(imagesPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

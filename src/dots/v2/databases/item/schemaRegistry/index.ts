@@ -19,7 +19,6 @@ export function createSchemaRegistryGetResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
- * @param SchemaRegistryGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,6 +28,10 @@ export function deserializeIntoSchemaRegistryGetResponse(schemaRegistryGetRespon
     }
 }
 export interface SchemaRegistryGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The subjects property
      */
@@ -83,15 +86,14 @@ export interface SchemaRegistryRequestBuilder extends BaseRequestBuilder<SchemaR
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param SchemaRegistryGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSchemaRegistryGetResponse(writer: SerializationWriter, schemaRegistryGetResponse: Partial<SchemaRegistryGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!schemaRegistryGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Kafka_schema_verbose>("subjects", schemaRegistryGetResponse.subjects, serializeKafka_schema_verbose);
-    writer.writeAdditionalData(schemaRegistryGetResponse.additionalData);
+export function serializeSchemaRegistryGetResponse(writer: SerializationWriter, schemaRegistryGetResponse: Partial<SchemaRegistryGetResponse> | undefined | null = {}) : void {
+    if (schemaRegistryGetResponse) {
+        writer.writeCollectionOfObjectValues<Kafka_schema_verbose>("subjects", schemaRegistryGetResponse.subjects, serializeKafka_schema_verbose);
+        writer.writeAdditionalData(schemaRegistryGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

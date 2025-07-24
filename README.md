@@ -82,3 +82,45 @@ Done!
 ```
 
 More working examples can be found in `dots/examples`. 
+
+# **Contributing**
+
+>Visit our [Contribuing Guide](CONTRIBUTING.md) for more information on getting
+involved in developing this client.
+
+# **Tests**
+
+>The tests included in this repo are used to validate the generated client.
+We use `jest` to define and run the tests.
+
+There are two types of test suites in the `tests/` directory.
+
+#### Mocked Tests: `tests/mocked/`
+
+Tests in the `mocked` directory include:
+
+- tests that validate the generated client has all the expected classes and
+  methods for the respective API resources and operations.
+- tests that exercise individual operations against mocked responses.
+
+These tests do not act against the real API so no real resources are created.
+
+To run mocked tests, run:
+
+```shell
+make test-mocked
+```
+# **Known Issues**
+
+>This selection lists the known issues of the client generator.
+
+## Generates nested value fields for nested arrays
+
+- This is an existing issue with Kiota
+- Converts fields which have `default` key to `defaultEscaped` 
+
+
+# **A Full Documentation can be found here**
+
+>  https://didactic-spoon-vmgg6zw.pages.github.io/  (Should change the link with some good domain name)
+

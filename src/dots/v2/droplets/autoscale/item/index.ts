@@ -32,7 +32,6 @@ export function createWithAutoscale_pool_PutResponseFromDiscriminatorValue(parse
 }
 /**
  * The deserialization information for the current model
- * @param WithAutoscale_pool_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -43,7 +42,6 @@ export function deserializeIntoWithAutoscale_pool_GetResponse(withAutoscale_pool
 }
 /**
  * The deserialization information for the current model
- * @param WithAutoscale_pool_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,29 +52,31 @@ export function deserializeIntoWithAutoscale_pool_PutResponse(withAutoscale_pool
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAutoscale_pool_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAutoscale_pool_GetResponse(writer: SerializationWriter, withAutoscale_pool_GetResponse: Partial<WithAutoscale_pool_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAutoscale_pool_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_GetResponse.autoscalePool, serializeAutoscale_pool);
-    writer.writeAdditionalData(withAutoscale_pool_GetResponse.additionalData);
+export function serializeWithAutoscale_pool_GetResponse(writer: SerializationWriter, withAutoscale_pool_GetResponse: Partial<WithAutoscale_pool_GetResponse> | undefined | null = {}) : void {
+    if (withAutoscale_pool_GetResponse) {
+        writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_GetResponse.autoscalePool, serializeAutoscale_pool);
+        writer.writeAdditionalData(withAutoscale_pool_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAutoscale_pool_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAutoscale_pool_PutResponse(writer: SerializationWriter, withAutoscale_pool_PutResponse: Partial<WithAutoscale_pool_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAutoscale_pool_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_PutResponse.autoscalePool, serializeAutoscale_pool);
-    writer.writeAdditionalData(withAutoscale_pool_PutResponse.additionalData);
+export function serializeWithAutoscale_pool_PutResponse(writer: SerializationWriter, withAutoscale_pool_PutResponse: Partial<WithAutoscale_pool_PutResponse> | undefined | null = {}) : void {
+    if (withAutoscale_pool_PutResponse) {
+        writer.writeObjectValue<Autoscale_pool>("autoscale_pool", withAutoscale_pool_PutResponse.autoscalePool, serializeAutoscale_pool);
+        writer.writeAdditionalData(withAutoscale_pool_PutResponse.additionalData);
+    }
 }
 export interface WithAutoscale_pool_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The autoscale_pool property
      */
@@ -152,6 +152,10 @@ export interface WithAutoscale_pool_ItemRequestBuilder extends BaseRequestBuilde
      toPutRequestInformation(body: Autoscale_pool_create, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithAutoscale_pool_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The autoscale_pool property
      */

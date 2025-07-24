@@ -10,6 +10,10 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Key
 
 export interface Byoip_prefixesGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The byoip_prefixes property
      */
     byoipPrefixes?: Byoip_prefix[] | null;
@@ -23,6 +27,10 @@ export interface Byoip_prefixesGetResponse extends AdditionalDataHolder, Parsabl
     meta?: Meta_properties | null;
 }
 export interface Byoip_prefixesPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The region where the prefix is created
      */
@@ -115,7 +123,6 @@ export function createByoip_prefixesPostResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
- * @param Byoip_prefixesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -128,7 +135,6 @@ export function deserializeIntoByoip_prefixesGetResponse(byoip_prefixesGetRespon
 }
 /**
  * The deserialization information for the current model
- * @param Byoip_prefixesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -141,31 +147,29 @@ export function deserializeIntoByoip_prefixesPostResponse(byoip_prefixesPostResp
 }
 /**
  * Serializes information the current object
- * @param Byoip_prefixesGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeByoip_prefixesGetResponse(writer: SerializationWriter, byoip_prefixesGetResponse: Partial<Byoip_prefixesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!byoip_prefixesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Byoip_prefix>("byoip_prefixes", byoip_prefixesGetResponse.byoipPrefixes, serializeByoip_prefix);
-    writer.writeObjectValue<Page_links>("links", byoip_prefixesGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", byoip_prefixesGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(byoip_prefixesGetResponse.additionalData);
+export function serializeByoip_prefixesGetResponse(writer: SerializationWriter, byoip_prefixesGetResponse: Partial<Byoip_prefixesGetResponse> | undefined | null = {}) : void {
+    if (byoip_prefixesGetResponse) {
+        writer.writeCollectionOfObjectValues<Byoip_prefix>("byoip_prefixes", byoip_prefixesGetResponse.byoipPrefixes, serializeByoip_prefix);
+        writer.writeObjectValue<Page_links>("links", byoip_prefixesGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", byoip_prefixesGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(byoip_prefixesGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param Byoip_prefixesPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeByoip_prefixesPostResponse(writer: SerializationWriter, byoip_prefixesPostResponse: Partial<Byoip_prefixesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!byoip_prefixesPostResponse || isSerializingDerivedType) { return; }
-    writer.writeStringValue("region", byoip_prefixesPostResponse.region);
-    writer.writeStringValue("status", byoip_prefixesPostResponse.status);
-    writer.writeStringValue("uuid", byoip_prefixesPostResponse.uuid);
-    writer.writeAdditionalData(byoip_prefixesPostResponse.additionalData);
+export function serializeByoip_prefixesPostResponse(writer: SerializationWriter, byoip_prefixesPostResponse: Partial<Byoip_prefixesPostResponse> | undefined | null = {}) : void {
+    if (byoip_prefixesPostResponse) {
+        writer.writeStringValue("region", byoip_prefixesPostResponse.region);
+        writer.writeStringValue("status", byoip_prefixesPostResponse.status);
+        writer.writeStringValue("uuid", byoip_prefixesPostResponse.uuid);
+        writer.writeAdditionalData(byoip_prefixesPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

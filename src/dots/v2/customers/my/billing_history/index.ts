@@ -8,6 +8,10 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface Billing_historyGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The billing_history property
      */
     billingHistory?: Billing_history[] | null;
@@ -53,7 +57,6 @@ export function createBilling_historyGetResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
- * @param Billing_historyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -66,17 +69,16 @@ export function deserializeIntoBilling_historyGetResponse(billing_historyGetResp
 }
 /**
  * Serializes information the current object
- * @param Billing_historyGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBilling_historyGetResponse(writer: SerializationWriter, billing_historyGetResponse: Partial<Billing_historyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!billing_historyGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Billing_history>("billing_history", billing_historyGetResponse.billingHistory, serializeBilling_history);
-    writer.writeObjectValue<Page_links>("links", billing_historyGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", billing_historyGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(billing_historyGetResponse.additionalData);
+export function serializeBilling_historyGetResponse(writer: SerializationWriter, billing_historyGetResponse: Partial<Billing_historyGetResponse> | undefined | null = {}) : void {
+    if (billing_historyGetResponse) {
+        writer.writeCollectionOfObjectValues<Billing_history>("billing_history", billing_historyGetResponse.billingHistory, serializeBilling_history);
+        writer.writeObjectValue<Page_links>("links", billing_historyGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", billing_historyGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(billing_historyGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

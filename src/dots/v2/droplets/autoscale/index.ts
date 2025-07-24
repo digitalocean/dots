@@ -10,6 +10,10 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeF
 
 export interface AutoscaleGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The autoscale_pools property
      */
     autoscalePools?: Autoscale_pool[] | null;
@@ -23,6 +27,10 @@ export interface AutoscaleGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface AutoscalePostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The autoscale_pool property
      */
@@ -110,7 +118,6 @@ export function createAutoscalePostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
- * @param AutoscaleGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -123,7 +130,6 @@ export function deserializeIntoAutoscaleGetResponse(autoscaleGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
- * @param AutoscalePostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -134,29 +140,27 @@ export function deserializeIntoAutoscalePostResponse(autoscalePostResponse: Part
 }
 /**
  * Serializes information the current object
- * @param AutoscaleGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAutoscaleGetResponse(writer: SerializationWriter, autoscaleGetResponse: Partial<AutoscaleGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!autoscaleGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Autoscale_pool>("autoscale_pools", autoscaleGetResponse.autoscalePools, serializeAutoscale_pool);
-    writer.writeObjectValue<Page_links>("links", autoscaleGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", autoscaleGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(autoscaleGetResponse.additionalData);
+export function serializeAutoscaleGetResponse(writer: SerializationWriter, autoscaleGetResponse: Partial<AutoscaleGetResponse> | undefined | null = {}) : void {
+    if (autoscaleGetResponse) {
+        writer.writeCollectionOfObjectValues<Autoscale_pool>("autoscale_pools", autoscaleGetResponse.autoscalePools, serializeAutoscale_pool);
+        writer.writeObjectValue<Page_links>("links", autoscaleGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", autoscaleGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(autoscaleGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param AutoscalePostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAutoscalePostResponse(writer: SerializationWriter, autoscalePostResponse: Partial<AutoscalePostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!autoscalePostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Autoscale_pool>("autoscale_pool", autoscalePostResponse.autoscalePool, serializeAutoscale_pool);
-    writer.writeAdditionalData(autoscalePostResponse.additionalData);
+export function serializeAutoscalePostResponse(writer: SerializationWriter, autoscalePostResponse: Partial<AutoscalePostResponse> | undefined | null = {}) : void {
+    if (autoscalePostResponse) {
+        writer.writeObjectValue<Autoscale_pool>("autoscale_pool", autoscalePostResponse.autoscalePool, serializeAutoscale_pool);
+        writer.writeAdditionalData(autoscalePostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

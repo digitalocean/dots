@@ -17,7 +17,6 @@ export function createWithAction_GetResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
- * @param WithAction_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,21 +27,24 @@ export function deserializeIntoWithAction_GetResponse(withAction_GetResponse: Pa
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAction_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAction_GetResponse(writer: SerializationWriter, withAction_GetResponse: Partial<WithAction_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAction_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Action>("action", withAction_GetResponse.action, serializeAction);
-    writer.writeAdditionalData(withAction_GetResponse.additionalData);
+export function serializeWithAction_GetResponse(writer: SerializationWriter, withAction_GetResponse: Partial<WithAction_GetResponse> | undefined | null = {}) : void {
+    if (withAction_GetResponse) {
+        writer.writeObjectValue<Action>("action", withAction_GetResponse.action, serializeAction);
+        writer.writeAdditionalData(withAction_GetResponse.additionalData);
+    }
 }
 export interface WithAction_GetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The action property
      */
     action?: Action | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/actions/{action_id}

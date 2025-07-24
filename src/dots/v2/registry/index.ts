@@ -36,7 +36,6 @@ export function createRegistryPostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param RegistryGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -47,7 +46,6 @@ export function deserializeIntoRegistryGetResponse(registryGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
- * @param RegistryPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -58,11 +56,19 @@ export function deserializeIntoRegistryPostResponse(registryPostResponse: Partia
 }
 export interface RegistryGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The registry property
      */
     registry?: Registry | null;
 }
 export interface RegistryPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The registry property
      */
@@ -149,27 +155,25 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param RegistryGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRegistryGetResponse(writer: SerializationWriter, registryGetResponse: Partial<RegistryGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!registryGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Registry>("registry", registryGetResponse.registry, serializeRegistry);
-    writer.writeAdditionalData(registryGetResponse.additionalData);
+export function serializeRegistryGetResponse(writer: SerializationWriter, registryGetResponse: Partial<RegistryGetResponse> | undefined | null = {}) : void {
+    if (registryGetResponse) {
+        writer.writeObjectValue<Registry>("registry", registryGetResponse.registry, serializeRegistry);
+        writer.writeAdditionalData(registryGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param RegistryPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRegistryPostResponse(writer: SerializationWriter, registryPostResponse: Partial<RegistryPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!registryPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Registry>("registry", registryPostResponse.registry, serializeRegistry);
-    writer.writeAdditionalData(registryPostResponse.additionalData);
+export function serializeRegistryPostResponse(writer: SerializationWriter, registryPostResponse: Partial<RegistryPostResponse> | undefined | null = {}) : void {
+    if (registryPostResponse) {
+        writer.writeObjectValue<Registry>("registry", registryPostResponse.registry, serializeRegistry);
+        writer.writeAdditionalData(registryPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

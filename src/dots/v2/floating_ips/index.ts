@@ -46,7 +46,6 @@ export function createFloating_ipsPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param Floating_ip_create The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -58,7 +57,6 @@ export function deserializeIntoFloating_ip_create(floating_ip_create: Partial<Fl
 }
 /**
  * The deserialization information for the current model
- * @param Floating_ipsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -71,7 +69,6 @@ export function deserializeIntoFloating_ipsGetResponse(floating_ipsGetResponse: 
 }
 /**
  * The deserialization information for the current model
- * @param Floating_ipsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -83,7 +80,6 @@ export function deserializeIntoFloating_ipsPostResponse(floating_ipsPostResponse
 }
 /**
  * The deserialization information for the current model
- * @param Floating_ipsPostResponse_links The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -95,6 +91,10 @@ export function deserializeIntoFloating_ipsPostResponse_links(floating_ipsPostRe
 }
 export type Floating_ip_create = Floating_ip_createMember1 | Floating_ip_createMember2;
 export interface Floating_ipsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The floating_ips property
      */
@@ -110,6 +110,10 @@ export interface Floating_ipsGetResponse extends AdditionalDataHolder, Parsable 
 }
 export interface Floating_ipsPostResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The floating_ip property
      */
     floatingIp?: Floating_ip | null;
@@ -123,6 +127,10 @@ export interface Floating_ipsPostResponse_links extends AdditionalDataHolder, Pa
      * The actions property
      */
     actions?: Action_link[] | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -188,54 +196,49 @@ export interface Floating_ipsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param Floating_ip_create The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloating_ip_create(writer: SerializationWriter, floating_ip_create: Partial<Floating_ip_createMember1 | Floating_ip_createMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeFloating_ip_create(writer: SerializationWriter, floating_ip_create: Partial<Floating_ip_createMember1 | Floating_ip_createMember2> | undefined | null = {}) : void {
     serializeFloating_ip_createMember1(writer, floating_ip_create as Floating_ip_createMember1);
     serializeFloating_ip_createMember2(writer, floating_ip_create as Floating_ip_createMember2);
 }
 /**
  * Serializes information the current object
- * @param Floating_ipsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloating_ipsGetResponse(writer: SerializationWriter, floating_ipsGetResponse: Partial<Floating_ipsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!floating_ipsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Floating_ip>("floating_ips", floating_ipsGetResponse.floatingIps, serializeFloating_ip);
-    writer.writeObjectValue<Page_links>("links", floating_ipsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", floating_ipsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(floating_ipsGetResponse.additionalData);
+export function serializeFloating_ipsGetResponse(writer: SerializationWriter, floating_ipsGetResponse: Partial<Floating_ipsGetResponse> | undefined | null = {}) : void {
+    if (floating_ipsGetResponse) {
+        writer.writeCollectionOfObjectValues<Floating_ip>("floating_ips", floating_ipsGetResponse.floatingIps, serializeFloating_ip);
+        writer.writeObjectValue<Page_links>("links", floating_ipsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", floating_ipsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(floating_ipsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param Floating_ipsPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloating_ipsPostResponse(writer: SerializationWriter, floating_ipsPostResponse: Partial<Floating_ipsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!floating_ipsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Floating_ip>("floating_ip", floating_ipsPostResponse.floatingIp, serializeFloating_ip);
-    writer.writeObjectValue<Floating_ipsPostResponse_links>("links", floating_ipsPostResponse.links, serializeFloating_ipsPostResponse_links);
-    writer.writeAdditionalData(floating_ipsPostResponse.additionalData);
+export function serializeFloating_ipsPostResponse(writer: SerializationWriter, floating_ipsPostResponse: Partial<Floating_ipsPostResponse> | undefined | null = {}) : void {
+    if (floating_ipsPostResponse) {
+        writer.writeObjectValue<Floating_ip>("floating_ip", floating_ipsPostResponse.floatingIp, serializeFloating_ip);
+        writer.writeObjectValue<Floating_ipsPostResponse_links>("links", floating_ipsPostResponse.links, serializeFloating_ipsPostResponse_links);
+        writer.writeAdditionalData(floating_ipsPostResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param Floating_ipsPostResponse_links The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloating_ipsPostResponse_links(writer: SerializationWriter, floating_ipsPostResponse_links: Partial<Floating_ipsPostResponse_links> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!floating_ipsPostResponse_links || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Action_link>("actions", floating_ipsPostResponse_links.actions, serializeAction_link);
-    writer.writeCollectionOfObjectValues<Action_link>("droplets", floating_ipsPostResponse_links.droplets, serializeAction_link);
-    writer.writeAdditionalData(floating_ipsPostResponse_links.additionalData);
+export function serializeFloating_ipsPostResponse_links(writer: SerializationWriter, floating_ipsPostResponse_links: Partial<Floating_ipsPostResponse_links> | undefined | null = {}) : void {
+    if (floating_ipsPostResponse_links) {
+        writer.writeCollectionOfObjectValues<Action_link>("actions", floating_ipsPostResponse_links.actions, serializeAction_link);
+        writer.writeCollectionOfObjectValues<Action_link>("droplets", floating_ipsPostResponse_links.droplets, serializeAction_link);
+        writer.writeAdditionalData(floating_ipsPostResponse_links.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

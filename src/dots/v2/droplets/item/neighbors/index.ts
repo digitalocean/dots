@@ -17,7 +17,6 @@ export function createNeighborsGetResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param NeighborsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,6 +26,10 @@ export function deserializeIntoNeighborsGetResponse(neighborsGetResponse: Partia
     }
 }
 export interface NeighborsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -56,15 +59,14 @@ export interface NeighborsRequestBuilder extends BaseRequestBuilder<NeighborsReq
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param NeighborsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNeighborsGetResponse(writer: SerializationWriter, neighborsGetResponse: Partial<NeighborsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!neighborsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Droplet>("droplets", neighborsGetResponse.droplets, serializeDroplet);
-    writer.writeAdditionalData(neighborsGetResponse.additionalData);
+export function serializeNeighborsGetResponse(writer: SerializationWriter, neighborsGetResponse: Partial<NeighborsGetResponse> | undefined | null = {}) : void {
+    if (neighborsGetResponse) {
+        writer.writeCollectionOfObjectValues<Droplet>("droplets", neighborsGetResponse.droplets, serializeDroplet);
+        writer.writeAdditionalData(neighborsGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

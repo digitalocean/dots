@@ -35,7 +35,6 @@ export function createWithSsh_key_identifierPutResponseFromDiscriminatorValue(pa
 }
 /**
  * The deserialization information for the current model
- * @param WithSsh_key_identifierGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,7 +45,6 @@ export function deserializeIntoWithSsh_key_identifierGetResponse(withSsh_key_ide
 }
 /**
  * The deserialization information for the current model
- * @param WithSsh_key_identifierPutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -57,7 +55,6 @@ export function deserializeIntoWithSsh_key_identifierPutRequestBody(withSsh_key_
 }
 /**
  * The deserialization information for the current model
- * @param WithSsh_key_identifierPutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -68,41 +65,42 @@ export function deserializeIntoWithSsh_key_identifierPutResponse(withSsh_key_ide
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithSsh_key_identifierGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithSsh_key_identifierGetResponse(writer: SerializationWriter, withSsh_key_identifierGetResponse: Partial<WithSsh_key_identifierGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withSsh_key_identifierGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierGetResponse.sshKey, serializeSshKeys);
-    writer.writeAdditionalData(withSsh_key_identifierGetResponse.additionalData);
+export function serializeWithSsh_key_identifierGetResponse(writer: SerializationWriter, withSsh_key_identifierGetResponse: Partial<WithSsh_key_identifierGetResponse> | undefined | null = {}) : void {
+    if (withSsh_key_identifierGetResponse) {
+        writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierGetResponse.sshKey, serializeSshKeys);
+        writer.writeAdditionalData(withSsh_key_identifierGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithSsh_key_identifierPutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithSsh_key_identifierPutRequestBody(writer: SerializationWriter, withSsh_key_identifierPutRequestBody: Partial<WithSsh_key_identifierPutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withSsh_key_identifierPutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeStringValue("name", withSsh_key_identifierPutRequestBody.name);
-    writer.writeAdditionalData(withSsh_key_identifierPutRequestBody.additionalData);
+export function serializeWithSsh_key_identifierPutRequestBody(writer: SerializationWriter, withSsh_key_identifierPutRequestBody: Partial<WithSsh_key_identifierPutRequestBody> | undefined | null = {}) : void {
+    if (withSsh_key_identifierPutRequestBody) {
+        writer.writeStringValue("name", withSsh_key_identifierPutRequestBody.name);
+        writer.writeAdditionalData(withSsh_key_identifierPutRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithSsh_key_identifierPutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithSsh_key_identifierPutResponse(writer: SerializationWriter, withSsh_key_identifierPutResponse: Partial<WithSsh_key_identifierPutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withSsh_key_identifierPutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierPutResponse.sshKey, serializeSshKeys);
-    writer.writeAdditionalData(withSsh_key_identifierPutResponse.additionalData);
+export function serializeWithSsh_key_identifierPutResponse(writer: SerializationWriter, withSsh_key_identifierPutResponse: Partial<WithSsh_key_identifierPutResponse> | undefined | null = {}) : void {
+    if (withSsh_key_identifierPutResponse) {
+        writer.writeObjectValue<SshKeys>("ssh_key", withSsh_key_identifierPutResponse.sshKey, serializeSshKeys);
+        writer.writeAdditionalData(withSsh_key_identifierPutResponse.additionalData);
+    }
 }
 export interface WithSsh_key_identifierGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The ssh_key property
      */
@@ -167,11 +165,19 @@ export interface WithSsh_key_identifierItemRequestBuilder extends BaseRequestBui
 }
 export interface WithSsh_key_identifierPutRequestBody extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.
      */
     name?: string | null;
 }
 export interface WithSsh_key_identifierPutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The ssh_key property
      */

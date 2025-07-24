@@ -28,7 +28,6 @@ export function createReplicasPostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param ReplicasGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -39,7 +38,6 @@ export function deserializeIntoReplicasGetResponse(replicasGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
- * @param ReplicasPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -50,11 +48,19 @@ export function deserializeIntoReplicasPostResponse(replicasPostResponse: Partia
 }
 export interface ReplicasGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The replicas property
      */
     replicas?: Database_replica_read[] | null;
 }
 export interface ReplicasPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The replica property
      */
@@ -109,27 +115,25 @@ export interface ReplicasRequestBuilder extends BaseRequestBuilder<ReplicasReque
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param ReplicasGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReplicasGetResponse(writer: SerializationWriter, replicasGetResponse: Partial<ReplicasGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!replicasGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Database_replica_read>("replicas", replicasGetResponse.replicas, serializeDatabase_replica_read);
-    writer.writeAdditionalData(replicasGetResponse.additionalData);
+export function serializeReplicasGetResponse(writer: SerializationWriter, replicasGetResponse: Partial<ReplicasGetResponse> | undefined | null = {}) : void {
+    if (replicasGetResponse) {
+        writer.writeCollectionOfObjectValues<Database_replica_read>("replicas", replicasGetResponse.replicas, serializeDatabase_replica_read);
+        writer.writeAdditionalData(replicasGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param ReplicasPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReplicasPostResponse(writer: SerializationWriter, replicasPostResponse: Partial<ReplicasPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!replicasPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Database_replica_read>("replica", replicasPostResponse.replica, serializeDatabase_replica_read);
-    writer.writeAdditionalData(replicasPostResponse.additionalData);
+export function serializeReplicasPostResponse(writer: SerializationWriter, replicasPostResponse: Partial<ReplicasPostResponse> | undefined | null = {}) : void {
+    if (replicasPostResponse) {
+        writer.writeObjectValue<Database_replica_read>("replica", replicasPostResponse.replica, serializeDatabase_replica_read);
+        writer.writeAdditionalData(replicasPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

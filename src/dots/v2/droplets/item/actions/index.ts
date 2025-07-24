@@ -14,6 +14,10 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
      */
     actions?: Action[] | null;
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The links property
      */
     links?: Page_links | null;
@@ -28,6 +32,10 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
      * The action property
      */
     action?: Action | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/{droplet_id}/actions
@@ -118,7 +126,6 @@ export function createActionsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param ActionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -131,7 +138,6 @@ export function deserializeIntoActionsGetResponse(actionsGetResponse: Partial<Ac
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -150,7 +156,6 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -161,26 +166,23 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 }
 /**
  * Serializes information the current object
- * @param ActionsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
-    writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(actionsGetResponse.additionalData);
+export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}) : void {
+    if (actionsGetResponse) {
+        writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
+        writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(actionsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ActionsPostRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action_change_backup_policy | Droplet_action_change_kernel | Droplet_action_enable_backups | Droplet_action | Droplet_action_rebuild | Droplet_action_rename | Droplet_action_resize | Droplet_action_restore | Droplet_action_snapshot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action_change_backup_policy | Droplet_action_change_kernel | Droplet_action_enable_backups | Droplet_action | Droplet_action_rebuild | Droplet_action_rename | Droplet_action_resize | Droplet_action_restore | Droplet_action_snapshot> | undefined | null = {}) : void {
     serializeDroplet_action_change_backup_policy(writer, actionsPostRequestBody as Droplet_action_change_backup_policy);
     serializeDroplet_action_change_kernel(writer, actionsPostRequestBody as Droplet_action_change_kernel);
     serializeDroplet_action_enable_backups(writer, actionsPostRequestBody as Droplet_action_enable_backups);
@@ -193,15 +195,14 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 }
 /**
  * Serializes information the current object
- * @param ActionsPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Action>("action", actionsPostResponse.action, serializeAction);
-    writer.writeAdditionalData(actionsPostResponse.additionalData);
+export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
+    if (actionsPostResponse) {
+        writer.writeObjectValue<Action>("action", actionsPostResponse.action, serializeAction);
+        writer.writeAdditionalData(actionsPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

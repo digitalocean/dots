@@ -23,7 +23,6 @@ export function createWithInvoice_uuGetResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
- * @param WithInvoice_uuGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,19 +35,22 @@ export function deserializeIntoWithInvoice_uuGetResponse(withInvoice_uuGetRespon
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithInvoice_uuGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithInvoice_uuGetResponse(writer: SerializationWriter, withInvoice_uuGetResponse: Partial<WithInvoice_uuGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withInvoice_uuGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Invoice_item>("invoice_items", withInvoice_uuGetResponse.invoiceItems, serializeInvoice_item);
-    writer.writeObjectValue<Page_links>("links", withInvoice_uuGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", withInvoice_uuGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(withInvoice_uuGetResponse.additionalData);
+export function serializeWithInvoice_uuGetResponse(writer: SerializationWriter, withInvoice_uuGetResponse: Partial<WithInvoice_uuGetResponse> | undefined | null = {}) : void {
+    if (withInvoice_uuGetResponse) {
+        writer.writeCollectionOfObjectValues<Invoice_item>("invoice_items", withInvoice_uuGetResponse.invoiceItems, serializeInvoice_item);
+        writer.writeObjectValue<Page_links>("links", withInvoice_uuGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", withInvoice_uuGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(withInvoice_uuGetResponse.additionalData);
+    }
 }
 export interface WithInvoice_uuGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The invoice_items property
      */

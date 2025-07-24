@@ -14,6 +14,10 @@ export interface ActionsGetResponse extends AdditionalDataHolder, Parsable {
      */
     actions?: Action[] | null;
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The links property
      */
     links?: Page_links | null;
@@ -28,6 +32,10 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
      * The action property
      */
     action?: ActionsPostResponse_action | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 export interface ActionsPostResponse_action extends Action, Parsable {
     /**
@@ -120,7 +128,6 @@ export function createActionsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param ActionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -133,7 +140,6 @@ export function deserializeIntoActionsGetResponse(actionsGetResponse: Partial<Ac
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -145,7 +151,6 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -156,7 +161,6 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 }
 /**
  * The deserialization information for the current model
- * @param ActionsPostResponse_action The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -168,52 +172,47 @@ export function deserializeIntoActionsPostResponse_action(actionsPostResponse_ac
 }
 /**
  * Serializes information the current object
- * @param ActionsGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
-    writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
-    writer.writeAdditionalData(actionsGetResponse.additionalData);
+export function serializeActionsGetResponse(writer: SerializationWriter, actionsGetResponse: Partial<ActionsGetResponse> | undefined | null = {}) : void {
+    if (actionsGetResponse) {
+        writer.writeCollectionOfObjectValues<Action>("actions", actionsGetResponse.actions, serializeAction);
+        writer.writeObjectValue<Page_links>("links", actionsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", actionsGetResponse.meta, serializeMeta_properties);
+        writer.writeAdditionalData(actionsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ActionsPostRequestBody The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Reserved_ip_action_assign | Reserved_ip_action_unassign> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Reserved_ip_action_assign | Reserved_ip_action_unassign> | undefined | null = {}) : void {
     serializeReserved_ip_action_assign(writer, actionsPostRequestBody as Reserved_ip_action_assign);
     serializeReserved_ip_action_unassign(writer, actionsPostRequestBody as Reserved_ip_action_unassign);
 }
 /**
  * Serializes information the current object
- * @param ActionsPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<ActionsPostResponse_action>("action", actionsPostResponse.action, serializeActionsPostResponse_action);
-    writer.writeAdditionalData(actionsPostResponse.additionalData);
+export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
+    if (actionsPostResponse) {
+        writer.writeObjectValue<ActionsPostResponse_action>("action", actionsPostResponse.action, serializeActionsPostResponse_action);
+        writer.writeAdditionalData(actionsPostResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ActionsPostResponse_action The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse_action(writer: SerializationWriter, actionsPostResponse_action: Partial<ActionsPostResponse_action> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!actionsPostResponse_action || isSerializingDerivedType) { return; }
-    serializeAction(writer, actionsPostResponse_action, isSerializingDerivedType)
-    writer.writeGuidValue("project_id", actionsPostResponse_action.projectId);
+export function serializeActionsPostResponse_action(writer: SerializationWriter, actionsPostResponse_action: Partial<ActionsPostResponse_action> | undefined | null = {}) : void {
+    if (actionsPostResponse_action) {
+        serializeAction(writer, actionsPostResponse_action)
+        writer.writeGuidValue("project_id", actionsPostResponse_action.projectId);
+    }
 }
 /**
  * Uri template for the request builder.

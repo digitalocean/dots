@@ -50,7 +50,6 @@ export function createWithPa_PatchResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
- * @param Partner_attachment_updatable The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -63,7 +62,6 @@ export function deserializeIntoPartner_attachment_updatable(partner_attachment_u
 }
 /**
  * The deserialization information for the current model
- * @param WithPa_DeleteResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -74,7 +72,6 @@ export function deserializeIntoWithPa_DeleteResponse(withPa_DeleteResponse: Part
 }
 /**
  * The deserialization information for the current model
- * @param WithPa_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -85,7 +82,6 @@ export function deserializeIntoWithPa_GetResponse(withPa_GetResponse: Partial<Wi
 }
 /**
  * The deserialization information for the current model
- * @param WithPa_PatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -97,59 +93,62 @@ export function deserializeIntoWithPa_PatchResponse(withPa_PatchResponse: Partia
 export type Partner_attachment_updatable = Partner_attachment_updatableMember1 | Partner_attachment_updatableMember2 | Partner_attachment_updatableMember3;
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Partner_attachment_updatable The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePartner_attachment_updatable(writer: SerializationWriter, partner_attachment_updatable: Partial<Partner_attachment_updatableMember1 | Partner_attachment_updatableMember2 | Partner_attachment_updatableMember3> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializePartner_attachment_updatable(writer: SerializationWriter, partner_attachment_updatable: Partial<Partner_attachment_updatableMember1 | Partner_attachment_updatableMember2 | Partner_attachment_updatableMember3> | undefined | null = {}) : void {
     serializePartner_attachment_updatableMember1(writer, partner_attachment_updatable as Partner_attachment_updatableMember1);
     serializePartner_attachment_updatableMember2(writer, partner_attachment_updatable as Partner_attachment_updatableMember2);
     serializePartner_attachment_updatableMember3(writer, partner_attachment_updatable as Partner_attachment_updatableMember3);
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithPa_DeleteResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithPa_DeleteResponse(writer: SerializationWriter, withPa_DeleteResponse: Partial<WithPa_DeleteResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withPa_DeleteResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_DeleteResponse.partnerAttachment, serializePartner_attachment);
-    writer.writeAdditionalData(withPa_DeleteResponse.additionalData);
+export function serializeWithPa_DeleteResponse(writer: SerializationWriter, withPa_DeleteResponse: Partial<WithPa_DeleteResponse> | undefined | null = {}) : void {
+    if (withPa_DeleteResponse) {
+        writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_DeleteResponse.partnerAttachment, serializePartner_attachment);
+        writer.writeAdditionalData(withPa_DeleteResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithPa_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithPa_GetResponse(writer: SerializationWriter, withPa_GetResponse: Partial<WithPa_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withPa_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_GetResponse.partnerAttachment, serializePartner_attachment);
-    writer.writeAdditionalData(withPa_GetResponse.additionalData);
+export function serializeWithPa_GetResponse(writer: SerializationWriter, withPa_GetResponse: Partial<WithPa_GetResponse> | undefined | null = {}) : void {
+    if (withPa_GetResponse) {
+        writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_GetResponse.partnerAttachment, serializePartner_attachment);
+        writer.writeAdditionalData(withPa_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithPa_PatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithPa_PatchResponse(writer: SerializationWriter, withPa_PatchResponse: Partial<WithPa_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withPa_PatchResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_PatchResponse.partnerAttachment, serializePartner_attachment);
-    writer.writeAdditionalData(withPa_PatchResponse.additionalData);
+export function serializeWithPa_PatchResponse(writer: SerializationWriter, withPa_PatchResponse: Partial<WithPa_PatchResponse> | undefined | null = {}) : void {
+    if (withPa_PatchResponse) {
+        writer.writeObjectValue<Partner_attachment>("partner_attachment", withPa_PatchResponse.partnerAttachment, serializePartner_attachment);
+        writer.writeAdditionalData(withPa_PatchResponse.additionalData);
+    }
 }
 export interface WithPa_DeleteResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The partner_attachment property
      */
     partnerAttachment?: Partner_attachment | null;
 }
 export interface WithPa_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The partner_attachment property
      */
@@ -226,6 +225,10 @@ export interface WithPa_ItemRequestBuilder extends BaseRequestBuilder<WithPa_Ite
      toPatchRequestInformation(body: Partner_attachment_updatableMember1 | Partner_attachment_updatableMember2 | Partner_attachment_updatableMember3, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithPa_PatchResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The partner_attachment property
      */

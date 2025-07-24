@@ -31,7 +31,6 @@ export function createWithDroplet_GetResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
- * @param WithDroplet_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -42,17 +41,20 @@ export function deserializeIntoWithDroplet_GetResponse(withDroplet_GetResponse: 
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithDroplet_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDroplet_GetResponse(writer: SerializationWriter, withDroplet_GetResponse: Partial<WithDroplet_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withDroplet_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Droplet>("droplet", withDroplet_GetResponse.droplet, serializeDroplet);
-    writer.writeAdditionalData(withDroplet_GetResponse.additionalData);
+export function serializeWithDroplet_GetResponse(writer: SerializationWriter, withDroplet_GetResponse: Partial<WithDroplet_GetResponse> | undefined | null = {}) : void {
+    if (withDroplet_GetResponse) {
+        writer.writeObjectValue<Droplet>("droplet", withDroplet_GetResponse.droplet, serializeDroplet);
+        writer.writeAdditionalData(withDroplet_GetResponse.additionalData);
+    }
 }
 export interface WithDroplet_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The droplet property
      */

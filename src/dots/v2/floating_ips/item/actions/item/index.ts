@@ -26,7 +26,6 @@ export function createWithAction_GetResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
- * @param WithAction_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -37,7 +36,6 @@ export function deserializeIntoWithAction_GetResponse(withAction_GetResponse: Pa
 }
 /**
  * The deserialization information for the current model
- * @param WithAction_GetResponse_action The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,33 +47,35 @@ export function deserializeIntoWithAction_GetResponse_action(withAction_GetRespo
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAction_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAction_GetResponse(writer: SerializationWriter, withAction_GetResponse: Partial<WithAction_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAction_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<WithAction_GetResponse_action>("action", withAction_GetResponse.action, serializeWithAction_GetResponse_action);
-    writer.writeAdditionalData(withAction_GetResponse.additionalData);
+export function serializeWithAction_GetResponse(writer: SerializationWriter, withAction_GetResponse: Partial<WithAction_GetResponse> | undefined | null = {}) : void {
+    if (withAction_GetResponse) {
+        writer.writeObjectValue<WithAction_GetResponse_action>("action", withAction_GetResponse.action, serializeWithAction_GetResponse_action);
+        writer.writeAdditionalData(withAction_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAction_GetResponse_action The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAction_GetResponse_action(writer: SerializationWriter, withAction_GetResponse_action: Partial<WithAction_GetResponse_action> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAction_GetResponse_action || isSerializingDerivedType) { return; }
-    serializeAction(writer, withAction_GetResponse_action, isSerializingDerivedType)
-    writer.writeGuidValue("project_id", withAction_GetResponse_action.projectId);
+export function serializeWithAction_GetResponse_action(writer: SerializationWriter, withAction_GetResponse_action: Partial<WithAction_GetResponse_action> | undefined | null = {}) : void {
+    if (withAction_GetResponse_action) {
+        serializeAction(writer, withAction_GetResponse_action)
+        writer.writeGuidValue("project_id", withAction_GetResponse_action.projectId);
+    }
 }
 export interface WithAction_GetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The action property
      */
     action?: WithAction_GetResponse_action | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
 }
 export interface WithAction_GetResponse_action extends Action, Parsable {
     /**

@@ -35,7 +35,6 @@ export function createWithAlert_PutResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
- * @param WithAlert_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,7 +45,6 @@ export function deserializeIntoWithAlert_GetResponse(withAlert_GetResponse: Part
 }
 /**
  * The deserialization information for the current model
- * @param WithAlert_PutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -57,7 +55,6 @@ export function deserializeIntoWithAlert_PutRequestBody(withAlert_PutRequestBody
 }
 /**
  * The deserialization information for the current model
- * @param WithAlert_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -68,40 +65,41 @@ export function deserializeIntoWithAlert_PutResponse(withAlert_PutResponse: Part
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAlert_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAlert_GetResponse(writer: SerializationWriter, withAlert_GetResponse: Partial<WithAlert_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAlert_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Alert>("alert", withAlert_GetResponse.alert, serializeAlert);
-    writer.writeAdditionalData(withAlert_GetResponse.additionalData);
+export function serializeWithAlert_GetResponse(writer: SerializationWriter, withAlert_GetResponse: Partial<WithAlert_GetResponse> | undefined | null = {}) : void {
+    if (withAlert_GetResponse) {
+        writer.writeObjectValue<Alert>("alert", withAlert_GetResponse.alert, serializeAlert);
+        writer.writeAdditionalData(withAlert_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAlert_PutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAlert_PutRequestBody(writer: SerializationWriter, withAlert_PutRequestBody: Partial<WithAlert_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAlert_PutRequestBody || isSerializingDerivedType) { return; }
-    serializeAlert_updatable(writer, withAlert_PutRequestBody, isSerializingDerivedType)
+export function serializeWithAlert_PutRequestBody(writer: SerializationWriter, withAlert_PutRequestBody: Partial<WithAlert_PutRequestBody> | undefined | null = {}) : void {
+    if (withAlert_PutRequestBody) {
+        serializeAlert_updatable(writer, withAlert_PutRequestBody)
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAlert_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAlert_PutResponse(writer: SerializationWriter, withAlert_PutResponse: Partial<WithAlert_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAlert_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Alert>("alert", withAlert_PutResponse.alert, serializeAlert);
-    writer.writeAdditionalData(withAlert_PutResponse.additionalData);
+export function serializeWithAlert_PutResponse(writer: SerializationWriter, withAlert_PutResponse: Partial<WithAlert_PutResponse> | undefined | null = {}) : void {
+    if (withAlert_PutResponse) {
+        writer.writeObjectValue<Alert>("alert", withAlert_PutResponse.alert, serializeAlert);
+        writer.writeAdditionalData(withAlert_PutResponse.additionalData);
+    }
 }
 export interface WithAlert_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The alert property
      */
@@ -167,6 +165,10 @@ export interface WithAlert_ItemRequestBuilder extends BaseRequestBuilder<WithAle
 export interface WithAlert_PutRequestBody extends Alert_updatable, Parsable {
 }
 export interface WithAlert_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The alert property
      */

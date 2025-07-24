@@ -17,7 +17,6 @@ export function createMigratePutRequestBodyFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
- * @param MigratePutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,6 +26,10 @@ export function deserializeIntoMigratePutRequestBody(migratePutRequestBody: Part
     }
 }
 export interface MigratePutRequestBody extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * A slug identifier for the region to which the database cluster will be migrated.
      */
@@ -57,15 +60,14 @@ export interface MigrateRequestBuilder extends BaseRequestBuilder<MigrateRequest
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param MigratePutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMigratePutRequestBody(writer: SerializationWriter, migratePutRequestBody: Partial<MigratePutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!migratePutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeStringValue("region", migratePutRequestBody.region);
-    writer.writeAdditionalData(migratePutRequestBody.additionalData);
+export function serializeMigratePutRequestBody(writer: SerializationWriter, migratePutRequestBody: Partial<MigratePutRequestBody> | undefined | null = {}) : void {
+    if (migratePutRequestBody) {
+        writer.writeStringValue("region", migratePutRequestBody.region);
+        writer.writeAdditionalData(migratePutRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

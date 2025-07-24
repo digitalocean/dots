@@ -28,7 +28,6 @@ export function createGarbageCollectionPostResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
- * @param GarbageCollectionGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -39,7 +38,6 @@ export function deserializeIntoGarbageCollectionGetResponse(garbageCollectionGet
 }
 /**
  * The deserialization information for the current model
- * @param GarbageCollectionPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -50,11 +48,19 @@ export function deserializeIntoGarbageCollectionPostResponse(garbageCollectionPo
 }
 export interface GarbageCollectionGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The garbage_collection property
      */
     garbageCollection?: Garbage_collection | null;
 }
 export interface GarbageCollectionPostResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The garbage_collection property
      */
@@ -107,27 +113,25 @@ export interface GarbageCollectionRequestBuilder extends BaseRequestBuilder<Garb
 }
 /**
  * Serializes information the current object
- * @param GarbageCollectionGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGarbageCollectionGetResponse(writer: SerializationWriter, garbageCollectionGetResponse: Partial<GarbageCollectionGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!garbageCollectionGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Garbage_collection>("garbage_collection", garbageCollectionGetResponse.garbageCollection, serializeGarbage_collection);
-    writer.writeAdditionalData(garbageCollectionGetResponse.additionalData);
+export function serializeGarbageCollectionGetResponse(writer: SerializationWriter, garbageCollectionGetResponse: Partial<GarbageCollectionGetResponse> | undefined | null = {}) : void {
+    if (garbageCollectionGetResponse) {
+        writer.writeObjectValue<Garbage_collection>("garbage_collection", garbageCollectionGetResponse.garbageCollection, serializeGarbage_collection);
+        writer.writeAdditionalData(garbageCollectionGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param GarbageCollectionPostResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGarbageCollectionPostResponse(writer: SerializationWriter, garbageCollectionPostResponse: Partial<GarbageCollectionPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!garbageCollectionPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Garbage_collection>("garbage_collection", garbageCollectionPostResponse.garbageCollection, serializeGarbage_collection);
-    writer.writeAdditionalData(garbageCollectionPostResponse.additionalData);
+export function serializeGarbageCollectionPostResponse(writer: SerializationWriter, garbageCollectionPostResponse: Partial<GarbageCollectionPostResponse> | undefined | null = {}) : void {
+    if (garbageCollectionPostResponse) {
+        writer.writeObjectValue<Garbage_collection>("garbage_collection", garbageCollectionPostResponse.garbageCollection, serializeGarbage_collection);
+        writer.writeAdditionalData(garbageCollectionPostResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

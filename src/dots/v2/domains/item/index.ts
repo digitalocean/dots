@@ -19,7 +19,6 @@ export function createWithDomain_nameGetResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
- * @param WithDomain_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,17 +29,20 @@ export function deserializeIntoWithDomain_nameGetResponse(withDomain_nameGetResp
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithDomain_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDomain_nameGetResponse(writer: SerializationWriter, withDomain_nameGetResponse: Partial<WithDomain_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withDomain_nameGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Domain>("domain", withDomain_nameGetResponse.domain, serializeDomain);
-    writer.writeAdditionalData(withDomain_nameGetResponse.additionalData);
+export function serializeWithDomain_nameGetResponse(writer: SerializationWriter, withDomain_nameGetResponse: Partial<WithDomain_nameGetResponse> | undefined | null = {}) : void {
+    if (withDomain_nameGetResponse) {
+        writer.writeObjectValue<Domain>("domain", withDomain_nameGetResponse.domain, serializeDomain);
+        writer.writeAdditionalData(withDomain_nameGetResponse.additionalData);
+    }
 }
 export interface WithDomain_nameGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The domain property
      */

@@ -17,7 +17,6 @@ export function createUpgradesGetResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
- * @param UpgradesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,17 +27,20 @@ export function deserializeIntoUpgradesGetResponse(upgradesGetResponse: Partial<
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param UpgradesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUpgradesGetResponse(writer: SerializationWriter, upgradesGetResponse: Partial<UpgradesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!upgradesGetResponse || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Kubernetes_version>("available_upgrade_versions", upgradesGetResponse.availableUpgradeVersions, serializeKubernetes_version);
-    writer.writeAdditionalData(upgradesGetResponse.additionalData);
+export function serializeUpgradesGetResponse(writer: SerializationWriter, upgradesGetResponse: Partial<UpgradesGetResponse> | undefined | null = {}) : void {
+    if (upgradesGetResponse) {
+        writer.writeCollectionOfObjectValues<Kubernetes_version>("available_upgrade_versions", upgradesGetResponse.availableUpgradeVersions, serializeKubernetes_version);
+        writer.writeAdditionalData(upgradesGetResponse.additionalData);
+    }
 }
 export interface UpgradesGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The available_upgrade_versions property
      */

@@ -46,7 +46,6 @@ export function createReserved_ipsPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ip_create The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -58,7 +57,6 @@ export function deserializeIntoReserved_ip_create(reserved_ip_create: Partial<Re
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -71,7 +69,6 @@ export function deserializeIntoReserved_ipsGetResponse(reserved_ipsGetResponse: 
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -83,7 +80,6 @@ export function deserializeIntoReserved_ipsPostResponse(reserved_ipsPostResponse
 }
 /**
  * The deserialization information for the current model
- * @param Reserved_ipsPostResponse_links The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -95,6 +91,10 @@ export function deserializeIntoReserved_ipsPostResponse_links(reserved_ipsPostRe
 }
 export type Reserved_ip_create = Reserved_ip_createMember1 | Reserved_ip_createMember2;
 export interface Reserved_ipsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -110,6 +110,10 @@ export interface Reserved_ipsGetResponse extends AdditionalDataHolder, Parsable 
 }
 export interface Reserved_ipsPostResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The links property
      */
     links?: Reserved_ipsPostResponse_links | null;
@@ -123,6 +127,10 @@ export interface Reserved_ipsPostResponse_links extends AdditionalDataHolder, Pa
      * The actions property
      */
     actions?: Action_link[] | null;
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -188,54 +196,49 @@ export interface Reserved_ipsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ip_create The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ip_create(writer: SerializationWriter, reserved_ip_create: Partial<Reserved_ip_createMember1 | Reserved_ip_createMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeReserved_ip_create(writer: SerializationWriter, reserved_ip_create: Partial<Reserved_ip_createMember1 | Reserved_ip_createMember2> | undefined | null = {}) : void {
     serializeReserved_ip_createMember1(writer, reserved_ip_create as Reserved_ip_createMember1);
     serializeReserved_ip_createMember2(writer, reserved_ip_create as Reserved_ip_createMember2);
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipsGetResponse(writer: SerializationWriter, reserved_ipsGetResponse: Partial<Reserved_ipsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", reserved_ipsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", reserved_ipsGetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Reserved_ip>("reserved_ips", reserved_ipsGetResponse.reservedIps, serializeReserved_ip);
-    writer.writeAdditionalData(reserved_ipsGetResponse.additionalData);
+export function serializeReserved_ipsGetResponse(writer: SerializationWriter, reserved_ipsGetResponse: Partial<Reserved_ipsGetResponse> | undefined | null = {}) : void {
+    if (reserved_ipsGetResponse) {
+        writer.writeObjectValue<Page_links>("links", reserved_ipsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", reserved_ipsGetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Reserved_ip>("reserved_ips", reserved_ipsGetResponse.reservedIps, serializeReserved_ip);
+        writer.writeAdditionalData(reserved_ipsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipsPostResponse(writer: SerializationWriter, reserved_ipsPostResponse: Partial<Reserved_ipsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipsPostResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Reserved_ipsPostResponse_links>("links", reserved_ipsPostResponse.links, serializeReserved_ipsPostResponse_links);
-    writer.writeObjectValue<Reserved_ip>("reserved_ip", reserved_ipsPostResponse.reservedIp, serializeReserved_ip);
-    writer.writeAdditionalData(reserved_ipsPostResponse.additionalData);
+export function serializeReserved_ipsPostResponse(writer: SerializationWriter, reserved_ipsPostResponse: Partial<Reserved_ipsPostResponse> | undefined | null = {}) : void {
+    if (reserved_ipsPostResponse) {
+        writer.writeObjectValue<Reserved_ipsPostResponse_links>("links", reserved_ipsPostResponse.links, serializeReserved_ipsPostResponse_links);
+        writer.writeObjectValue<Reserved_ip>("reserved_ip", reserved_ipsPostResponse.reservedIp, serializeReserved_ip);
+        writer.writeAdditionalData(reserved_ipsPostResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Reserved_ipsPostResponse_links The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReserved_ipsPostResponse_links(writer: SerializationWriter, reserved_ipsPostResponse_links: Partial<Reserved_ipsPostResponse_links> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!reserved_ipsPostResponse_links || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfObjectValues<Action_link>("actions", reserved_ipsPostResponse_links.actions, serializeAction_link);
-    writer.writeCollectionOfObjectValues<Action_link>("droplets", reserved_ipsPostResponse_links.droplets, serializeAction_link);
-    writer.writeAdditionalData(reserved_ipsPostResponse_links.additionalData);
+export function serializeReserved_ipsPostResponse_links(writer: SerializationWriter, reserved_ipsPostResponse_links: Partial<Reserved_ipsPostResponse_links> | undefined | null = {}) : void {
+    if (reserved_ipsPostResponse_links) {
+        writer.writeCollectionOfObjectValues<Action_link>("actions", reserved_ipsPostResponse_links.actions, serializeAction_link);
+        writer.writeCollectionOfObjectValues<Action_link>("droplets", reserved_ipsPostResponse_links.droplets, serializeAction_link);
+        writer.writeAdditionalData(reserved_ipsPostResponse_links.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

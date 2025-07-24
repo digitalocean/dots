@@ -19,7 +19,6 @@ export function createTagsGetResponseFromDiscriminatorValue(parseNode: ParseNode
 }
 /**
  * The deserialization information for the current model
- * @param TagsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -32,19 +31,22 @@ export function deserializeIntoTagsGetResponse(tagsGetResponse: Partial<TagsGetR
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param TagsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetResponse: Partial<TagsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!tagsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
-    writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
-    writer.writeCollectionOfObjectValues<Repository_tag>("tags", tagsGetResponse.tags, serializeRepository_tag);
-    writer.writeAdditionalData(tagsGetResponse.additionalData);
+export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetResponse: Partial<TagsGetResponse> | undefined | null = {}) : void {
+    if (tagsGetResponse) {
+        writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
+        writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
+        writer.writeCollectionOfObjectValues<Repository_tag>("tags", tagsGetResponse.tags, serializeRepository_tag);
+        writer.writeAdditionalData(tagsGetResponse.additionalData);
+    }
 }
 export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */

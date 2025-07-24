@@ -17,7 +17,6 @@ export function createWithPool_nameGetResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param WithPool_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,17 +27,20 @@ export function deserializeIntoWithPool_nameGetResponse(withPool_nameGetResponse
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithPool_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithPool_nameGetResponse(writer: SerializationWriter, withPool_nameGetResponse: Partial<WithPool_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withPool_nameGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Connection_pool>("pool", withPool_nameGetResponse.pool, serializeConnection_pool);
-    writer.writeAdditionalData(withPool_nameGetResponse.additionalData);
+export function serializeWithPool_nameGetResponse(writer: SerializationWriter, withPool_nameGetResponse: Partial<WithPool_nameGetResponse> | undefined | null = {}) : void {
+    if (withPool_nameGetResponse) {
+        writer.writeObjectValue<Connection_pool>("pool", withPool_nameGetResponse.pool, serializeConnection_pool);
+        writer.writeAdditionalData(withPool_nameGetResponse.additionalData);
+    }
 }
 export interface WithPool_nameGetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The pool property
      */

@@ -8,6 +8,10 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ConfigGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The config property
      */
     config?: Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config | null;
@@ -74,7 +78,6 @@ export function createConfigGetResponseFromDiscriminatorValue(parseNode: ParseNo
 }
 /**
  * The deserialization information for the current model
- * @param ConfigGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -85,7 +88,6 @@ export function deserializeIntoConfigGetResponse(configGetResponse: Partial<Conf
 }
 /**
  * The deserialization information for the current model
- * @param ConfigGetResponse_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -102,24 +104,21 @@ export function deserializeIntoConfigGetResponse_config(configGetResponse_config
 }
 /**
  * Serializes information the current object
- * @param ConfigGetResponse The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConfigGetResponse(writer: SerializationWriter, configGetResponse: Partial<ConfigGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!configGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config>("config", configGetResponse.config, serializeConfigGetResponse_config);
-    writer.writeAdditionalData(configGetResponse.additionalData);
+export function serializeConfigGetResponse(writer: SerializationWriter, configGetResponse: Partial<ConfigGetResponse> | undefined | null = {}) : void {
+    if (configGetResponse) {
+        writer.writeObjectValue<Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config>("config", configGetResponse.config, serializeConfigGetResponse_config);
+        writer.writeAdditionalData(configGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param ConfigGetResponse_config The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConfigGetResponse_config(writer: SerializationWriter, configGetResponse_config: Partial<Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+export function serializeConfigGetResponse_config(writer: SerializationWriter, configGetResponse_config: Partial<Kafka_advanced_config | Mongo_advanced_config | Mysql_advanced_config | Opensearch_advanced_config | Postgres_advanced_config | Redis_advanced_config | Valkey_advanced_config> | undefined | null = {}) : void {
     serializeKafka_advanced_config(writer, configGetResponse_config as Kafka_advanced_config);
     serializeMongo_advanced_config(writer, configGetResponse_config as Mongo_advanced_config);
     serializeMysql_advanced_config(writer, configGetResponse_config as Mysql_advanced_config);

@@ -32,7 +32,6 @@ export function createWithLb_PutResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
- * @param WithLb_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -43,7 +42,6 @@ export function deserializeIntoWithLb_GetResponse(withLb_GetResponse: Partial<Wi
 }
 /**
  * The deserialization information for the current model
- * @param WithLb_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,29 +52,31 @@ export function deserializeIntoWithLb_PutResponse(withLb_PutResponse: Partial<Wi
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithLb_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithLb_GetResponse(writer: SerializationWriter, withLb_GetResponse: Partial<WithLb_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withLb_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Load_balancer>("load_balancer", withLb_GetResponse.loadBalancer, serializeLoad_balancer);
-    writer.writeAdditionalData(withLb_GetResponse.additionalData);
+export function serializeWithLb_GetResponse(writer: SerializationWriter, withLb_GetResponse: Partial<WithLb_GetResponse> | undefined | null = {}) : void {
+    if (withLb_GetResponse) {
+        writer.writeObjectValue<Load_balancer>("load_balancer", withLb_GetResponse.loadBalancer, serializeLoad_balancer);
+        writer.writeAdditionalData(withLb_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithLb_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithLb_PutResponse(writer: SerializationWriter, withLb_PutResponse: Partial<WithLb_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withLb_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Load_balancer>("load_balancer", withLb_PutResponse.loadBalancer, serializeLoad_balancer);
-    writer.writeAdditionalData(withLb_PutResponse.additionalData);
+export function serializeWithLb_PutResponse(writer: SerializationWriter, withLb_PutResponse: Partial<WithLb_PutResponse> | undefined | null = {}) : void {
+    if (withLb_PutResponse) {
+        writer.writeObjectValue<Load_balancer>("load_balancer", withLb_PutResponse.loadBalancer, serializeLoad_balancer);
+        writer.writeAdditionalData(withLb_PutResponse.additionalData);
+    }
 }
 export interface WithLb_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The load_balancer property
      */
@@ -152,6 +152,10 @@ export interface WithLb_ItemRequestBuilder extends BaseRequestBuilder<WithLb_Ite
      toPutRequestInformation(body: UntypedNode, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithLb_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The load_balancer property
      */

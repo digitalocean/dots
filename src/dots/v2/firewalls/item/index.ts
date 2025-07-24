@@ -32,7 +32,6 @@ export function createWithFirewall_PutResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
- * @param WithFirewall_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -43,7 +42,6 @@ export function deserializeIntoWithFirewall_GetResponse(withFirewall_GetResponse
 }
 /**
  * The deserialization information for the current model
- * @param WithFirewall_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,29 +52,31 @@ export function deserializeIntoWithFirewall_PutResponse(withFirewall_PutResponse
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithFirewall_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithFirewall_GetResponse(writer: SerializationWriter, withFirewall_GetResponse: Partial<WithFirewall_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withFirewall_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Firewall>("firewall", withFirewall_GetResponse.firewall, serializeFirewall);
-    writer.writeAdditionalData(withFirewall_GetResponse.additionalData);
+export function serializeWithFirewall_GetResponse(writer: SerializationWriter, withFirewall_GetResponse: Partial<WithFirewall_GetResponse> | undefined | null = {}) : void {
+    if (withFirewall_GetResponse) {
+        writer.writeObjectValue<Firewall>("firewall", withFirewall_GetResponse.firewall, serializeFirewall);
+        writer.writeAdditionalData(withFirewall_GetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithFirewall_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithFirewall_PutResponse(writer: SerializationWriter, withFirewall_PutResponse: Partial<WithFirewall_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withFirewall_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Firewall>("firewall", withFirewall_PutResponse.firewall, serializeFirewall);
-    writer.writeAdditionalData(withFirewall_PutResponse.additionalData);
+export function serializeWithFirewall_PutResponse(writer: SerializationWriter, withFirewall_PutResponse: Partial<WithFirewall_PutResponse> | undefined | null = {}) : void {
+    if (withFirewall_PutResponse) {
+        writer.writeObjectValue<Firewall>("firewall", withFirewall_PutResponse.firewall, serializeFirewall);
+        writer.writeAdditionalData(withFirewall_PutResponse.additionalData);
+    }
 }
 export interface WithFirewall_GetResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The firewall property
      */
@@ -153,6 +153,10 @@ export interface WithFirewall_ItemRequestBuilder extends BaseRequestBuilder<With
      toPutRequestInformation(body: Firewall, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithFirewall_PutResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The firewall property
      */

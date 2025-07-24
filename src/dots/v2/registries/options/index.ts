@@ -35,7 +35,6 @@ export function createOptionsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
- * @param OptionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,7 +45,6 @@ export function deserializeIntoOptionsGetResponse(optionsGetResponse: Partial<Op
 }
 /**
  * The deserialization information for the current model
- * @param OptionsGetResponse_options The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -58,7 +56,6 @@ export function deserializeIntoOptionsGetResponse_options(optionsGetResponse_opt
 }
 /**
  * The deserialization information for the current model
- * @param OptionsGetResponse_options_subscription_tiers The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -78,11 +75,19 @@ export function deserializeIntoOptionsGetResponse_options_subscription_tiers(opt
 }
 export interface OptionsGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
      * The options property
      */
     options?: OptionsGetResponse_options | null;
 }
 export interface OptionsGetResponse_options extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * The available_regions property
      */
@@ -93,6 +98,10 @@ export interface OptionsGetResponse_options extends AdditionalDataHolder, Parsab
     subscriptionTiers?: OptionsGetResponse_options_subscription_tiers[] | null;
 }
 export interface OptionsGetResponse_options_subscription_tiers extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
     /**
      * A boolean indicating whether the subscription tier supports additional storage above what is included in the base plan at an additional cost per GiB used.
      */
@@ -158,50 +167,47 @@ export interface OptionsRequestBuilder extends BaseRequestBuilder<OptionsRequest
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param OptionsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOptionsGetResponse(writer: SerializationWriter, optionsGetResponse: Partial<OptionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!optionsGetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<OptionsGetResponse_options>("options", optionsGetResponse.options, serializeOptionsGetResponse_options);
-    writer.writeAdditionalData(optionsGetResponse.additionalData);
+export function serializeOptionsGetResponse(writer: SerializationWriter, optionsGetResponse: Partial<OptionsGetResponse> | undefined | null = {}) : void {
+    if (optionsGetResponse) {
+        writer.writeObjectValue<OptionsGetResponse_options>("options", optionsGetResponse.options, serializeOptionsGetResponse_options);
+        writer.writeAdditionalData(optionsGetResponse.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param OptionsGetResponse_options The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOptionsGetResponse_options(writer: SerializationWriter, optionsGetResponse_options: Partial<OptionsGetResponse_options> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!optionsGetResponse_options || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<string>("available_regions", optionsGetResponse_options.availableRegions);
-    writer.writeCollectionOfObjectValues<OptionsGetResponse_options_subscription_tiers>("subscription_tiers", optionsGetResponse_options.subscriptionTiers, serializeOptionsGetResponse_options_subscription_tiers);
-    writer.writeAdditionalData(optionsGetResponse_options.additionalData);
+export function serializeOptionsGetResponse_options(writer: SerializationWriter, optionsGetResponse_options: Partial<OptionsGetResponse_options> | undefined | null = {}) : void {
+    if (optionsGetResponse_options) {
+        writer.writeCollectionOfPrimitiveValues<string>("available_regions", optionsGetResponse_options.availableRegions);
+        writer.writeCollectionOfObjectValues<OptionsGetResponse_options_subscription_tiers>("subscription_tiers", optionsGetResponse_options.subscriptionTiers, serializeOptionsGetResponse_options_subscription_tiers);
+        writer.writeAdditionalData(optionsGetResponse_options.additionalData);
+    }
 }
 /**
  * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param OptionsGetResponse_options_subscription_tiers The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOptionsGetResponse_options_subscription_tiers(writer: SerializationWriter, optionsGetResponse_options_subscription_tiers: Partial<OptionsGetResponse_options_subscription_tiers> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!optionsGetResponse_options_subscription_tiers || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("allow_storage_overage", optionsGetResponse_options_subscription_tiers.allowStorageOverage);
-    if(optionsGetResponse_options_subscription_tiers.eligibilityReasons)
-    writer.writeCollectionOfEnumValues<OptionsGetResponse_options_subscription_tiers_eligibility_reasons>("eligibility_reasons", optionsGetResponse_options_subscription_tiers.eligibilityReasons);
-    writer.writeBooleanValue("eligible", optionsGetResponse_options_subscription_tiers.eligible);
-    writer.writeNumberValue("included_bandwidth_bytes", optionsGetResponse_options_subscription_tiers.includedBandwidthBytes);
-    writer.writeNumberValue("included_repositories", optionsGetResponse_options_subscription_tiers.includedRepositories);
-    writer.writeNumberValue("included_storage_bytes", optionsGetResponse_options_subscription_tiers.includedStorageBytes);
-    writer.writeNumberValue("monthly_price_in_cents", optionsGetResponse_options_subscription_tiers.monthlyPriceInCents);
-    writer.writeStringValue("name", optionsGetResponse_options_subscription_tiers.name);
-    writer.writeStringValue("slug", optionsGetResponse_options_subscription_tiers.slug);
-    writer.writeNumberValue("storage_overage_price_in_cents", optionsGetResponse_options_subscription_tiers.storageOveragePriceInCents);
-    writer.writeAdditionalData(optionsGetResponse_options_subscription_tiers.additionalData);
+export function serializeOptionsGetResponse_options_subscription_tiers(writer: SerializationWriter, optionsGetResponse_options_subscription_tiers: Partial<OptionsGetResponse_options_subscription_tiers> | undefined | null = {}) : void {
+    if (optionsGetResponse_options_subscription_tiers) {
+        writer.writeBooleanValue("allow_storage_overage", optionsGetResponse_options_subscription_tiers.allowStorageOverage);
+        if(optionsGetResponse_options_subscription_tiers.eligibilityReasons)
+        writer.writeCollectionOfEnumValues<OptionsGetResponse_options_subscription_tiers_eligibility_reasons>("eligibility_reasons", optionsGetResponse_options_subscription_tiers.eligibilityReasons);
+        writer.writeBooleanValue("eligible", optionsGetResponse_options_subscription_tiers.eligible);
+        writer.writeNumberValue("included_bandwidth_bytes", optionsGetResponse_options_subscription_tiers.includedBandwidthBytes);
+        writer.writeNumberValue("included_repositories", optionsGetResponse_options_subscription_tiers.includedRepositories);
+        writer.writeNumberValue("included_storage_bytes", optionsGetResponse_options_subscription_tiers.includedStorageBytes);
+        writer.writeNumberValue("monthly_price_in_cents", optionsGetResponse_options_subscription_tiers.monthlyPriceInCents);
+        writer.writeStringValue("name", optionsGetResponse_options_subscription_tiers.name);
+        writer.writeStringValue("slug", optionsGetResponse_options_subscription_tiers.slug);
+        writer.writeNumberValue("storage_overage_price_in_cents", optionsGetResponse_options_subscription_tiers.storageOveragePriceInCents);
+        writer.writeAdditionalData(optionsGetResponse_options_subscription_tiers.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.
