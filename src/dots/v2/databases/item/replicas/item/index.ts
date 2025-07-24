@@ -19,6 +19,7 @@ export function createWithReplica_nameGetResponseFromDiscriminatorValue(parseNod
 }
 /**
  * The deserialization information for the current model
+ * @param WithReplica_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoWithReplica_nameGetResponse(withReplica_nameGetRe
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithReplica_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithReplica_nameGetResponse(writer: SerializationWriter, withReplica_nameGetResponse: Partial<WithReplica_nameGetResponse> | undefined | null = {}) : void {
-    if (withReplica_nameGetResponse) {
-        writer.writeObjectValue<Database_replica_read>("replica", withReplica_nameGetResponse.replica, serializeDatabase_replica_read);
-        writer.writeAdditionalData(withReplica_nameGetResponse.additionalData);
-    }
+export function serializeWithReplica_nameGetResponse(writer: SerializationWriter, withReplica_nameGetResponse: Partial<WithReplica_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withReplica_nameGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_replica_read>("replica", withReplica_nameGetResponse.replica, serializeDatabase_replica_read);
+    writer.writeAdditionalData(withReplica_nameGetResponse.additionalData);
 }
 export interface WithReplica_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The replica property
      */

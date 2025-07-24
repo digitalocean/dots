@@ -37,6 +37,7 @@ export function createWithUsernamePutResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param WithUsernameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -47,6 +48,7 @@ export function deserializeIntoWithUsernameGetResponse(withUsernameGetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param WithUsernamePutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -57,6 +59,7 @@ export function deserializeIntoWithUsernamePutRequestBody(withUsernamePutRequest
 }
 /**
  * The deserialization information for the current model
+ * @param WithUsernamePutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -67,42 +70,41 @@ export function deserializeIntoWithUsernamePutResponse(withUsernamePutResponse: 
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithUsernameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithUsernameGetResponse(writer: SerializationWriter, withUsernameGetResponse: Partial<WithUsernameGetResponse> | undefined | null = {}) : void {
-    if (withUsernameGetResponse) {
-        writer.writeObjectValue<Database_user>("user", withUsernameGetResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(withUsernameGetResponse.additionalData);
-    }
+export function serializeWithUsernameGetResponse(writer: SerializationWriter, withUsernameGetResponse: Partial<WithUsernameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withUsernameGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_user>("user", withUsernameGetResponse.user, serializeDatabase_user);
+    writer.writeAdditionalData(withUsernameGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithUsernamePutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithUsernamePutRequestBody(writer: SerializationWriter, withUsernamePutRequestBody: Partial<WithUsernamePutRequestBody> | undefined | null = {}) : void {
-    if (withUsernamePutRequestBody) {
-        writer.writeObjectValue<User_settings>("settings", withUsernamePutRequestBody.settings, serializeUser_settings);
-        writer.writeAdditionalData(withUsernamePutRequestBody.additionalData);
-    }
+export function serializeWithUsernamePutRequestBody(writer: SerializationWriter, withUsernamePutRequestBody: Partial<WithUsernamePutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withUsernamePutRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<User_settings>("settings", withUsernamePutRequestBody.settings, serializeUser_settings);
+    writer.writeAdditionalData(withUsernamePutRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithUsernamePutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithUsernamePutResponse(writer: SerializationWriter, withUsernamePutResponse: Partial<WithUsernamePutResponse> | undefined | null = {}) : void {
-    if (withUsernamePutResponse) {
-        writer.writeObjectValue<Database_user>("user", withUsernamePutResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(withUsernamePutResponse.additionalData);
-    }
+export function serializeWithUsernamePutResponse(writer: SerializationWriter, withUsernamePutResponse: Partial<WithUsernamePutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withUsernamePutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_user>("user", withUsernamePutResponse.user, serializeDatabase_user);
+    writer.writeAdditionalData(withUsernamePutResponse.additionalData);
 }
 export interface WithUsernameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The user property
      */
@@ -171,19 +173,11 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
 }
 export interface WithUsernamePutRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The settings property
      */
     settings?: User_settings | null;
 }
 export interface WithUsernamePutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The user property
      */

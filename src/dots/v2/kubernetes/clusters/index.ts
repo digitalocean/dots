@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Key
 
 export interface ClustersGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The kubernetes_clusters property
      */
     kubernetesClusters?: Cluster_read[] | null;
@@ -27,10 +23,6 @@ export interface ClustersGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface ClustersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The kubernetes_cluster property
      */
@@ -114,6 +106,7 @@ export function createClustersPostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param ClustersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -126,6 +119,7 @@ export function deserializeIntoClustersGetResponse(clustersGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param ClustersPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -136,27 +130,29 @@ export function deserializeIntoClustersPostResponse(clustersPostResponse: Partia
 }
 /**
  * Serializes information the current object
+ * @param ClustersGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeClustersGetResponse(writer: SerializationWriter, clustersGetResponse: Partial<ClustersGetResponse> | undefined | null = {}) : void {
-    if (clustersGetResponse) {
-        writer.writeCollectionOfObjectValues<Cluster_read>("kubernetes_clusters", clustersGetResponse.kubernetesClusters, serializeCluster_read);
-        writer.writeObjectValue<Page_links>("links", clustersGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", clustersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(clustersGetResponse.additionalData);
-    }
+export function serializeClustersGetResponse(writer: SerializationWriter, clustersGetResponse: Partial<ClustersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!clustersGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Cluster_read>("kubernetes_clusters", clustersGetResponse.kubernetesClusters, serializeCluster_read);
+    writer.writeObjectValue<Page_links>("links", clustersGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", clustersGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(clustersGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param ClustersPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeClustersPostResponse(writer: SerializationWriter, clustersPostResponse: Partial<ClustersPostResponse> | undefined | null = {}) : void {
-    if (clustersPostResponse) {
-        writer.writeObjectValue<Cluster>("kubernetes_cluster", clustersPostResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(clustersPostResponse.additionalData);
-    }
+export function serializeClustersPostResponse(writer: SerializationWriter, clustersPostResponse: Partial<ClustersPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!clustersPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cluster>("kubernetes_cluster", clustersPostResponse.kubernetesCluster, serializeCluster);
+    writer.writeAdditionalData(clustersPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -25,6 +25,7 @@ export function createDestroy_with_associated_resourcesGetResponseFromDiscrimina
 }
 /**
  * The deserialization information for the current model
+ * @param Destroy_with_associated_resourcesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,10 +39,6 @@ export function deserializeIntoDestroy_with_associated_resourcesGetResponse(dest
     }
 }
 export interface Destroy_with_associated_resourcesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * Floating IPs that are associated with this Droplet.<br>Requires `reserved_ip:read` scope.
      */
@@ -103,18 +100,19 @@ export interface Destroy_with_associated_resourcesRequestBuilder extends BaseReq
 }
 /**
  * Serializes information the current object
+ * @param Destroy_with_associated_resourcesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDestroy_with_associated_resourcesGetResponse(writer: SerializationWriter, destroy_with_associated_resourcesGetResponse: Partial<Destroy_with_associated_resourcesGetResponse> | undefined | null = {}) : void {
-    if (destroy_with_associated_resourcesGetResponse) {
-        writer.writeCollectionOfObjectValues<Associated_resource>("floating_ips", destroy_with_associated_resourcesGetResponse.floatingIps, serializeAssociated_resource);
-        writer.writeCollectionOfObjectValues<Associated_resource>("reserved_ips", destroy_with_associated_resourcesGetResponse.reservedIps, serializeAssociated_resource);
-        writer.writeCollectionOfObjectValues<Associated_resource>("snapshots", destroy_with_associated_resourcesGetResponse.snapshots, serializeAssociated_resource);
-        writer.writeCollectionOfObjectValues<Associated_resource>("volumes", destroy_with_associated_resourcesGetResponse.volumes, serializeAssociated_resource);
-        writer.writeCollectionOfObjectValues<Associated_resource>("volume_snapshots", destroy_with_associated_resourcesGetResponse.volumeSnapshots, serializeAssociated_resource);
-        writer.writeAdditionalData(destroy_with_associated_resourcesGetResponse.additionalData);
-    }
+export function serializeDestroy_with_associated_resourcesGetResponse(writer: SerializationWriter, destroy_with_associated_resourcesGetResponse: Partial<Destroy_with_associated_resourcesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!destroy_with_associated_resourcesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Associated_resource>("floating_ips", destroy_with_associated_resourcesGetResponse.floatingIps, serializeAssociated_resource);
+    writer.writeCollectionOfObjectValues<Associated_resource>("reserved_ips", destroy_with_associated_resourcesGetResponse.reservedIps, serializeAssociated_resource);
+    writer.writeCollectionOfObjectValues<Associated_resource>("snapshots", destroy_with_associated_resourcesGetResponse.snapshots, serializeAssociated_resource);
+    writer.writeCollectionOfObjectValues<Associated_resource>("volumes", destroy_with_associated_resourcesGetResponse.volumes, serializeAssociated_resource);
+    writer.writeCollectionOfObjectValues<Associated_resource>("volume_snapshots", destroy_with_associated_resourcesGetResponse.volumeSnapshots, serializeAssociated_resource);
+    writer.writeAdditionalData(destroy_with_associated_resourcesGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -17,6 +17,7 @@ export function createEventsGetResponseFromDiscriminatorValue(parseNode: ParseNo
 }
 /**
  * The deserialization information for the current model
+ * @param EventsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -26,10 +27,6 @@ export function deserializeIntoEventsGetResponse(eventsGetResponse: Partial<Even
     }
 }
 export interface EventsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The events property
      */
@@ -59,14 +56,15 @@ export interface EventsRequestBuilder extends BaseRequestBuilder<EventsRequestBu
 }
 /**
  * Serializes information the current object
+ * @param EventsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEventsGetResponse(writer: SerializationWriter, eventsGetResponse: Partial<EventsGetResponse> | undefined | null = {}) : void {
-    if (eventsGetResponse) {
-        writer.writeCollectionOfObjectValues<Events_logs>("events", eventsGetResponse.events, serializeEvents_logs);
-        writer.writeAdditionalData(eventsGetResponse.additionalData);
-    }
+export function serializeEventsGetResponse(writer: SerializationWriter, eventsGetResponse: Partial<EventsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!eventsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Events_logs>("events", eventsGetResponse.events, serializeEvents_logs);
+    writer.writeAdditionalData(eventsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

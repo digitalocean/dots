@@ -28,6 +28,7 @@ export function createTagsPostResponseFromDiscriminatorValue(parseNode: ParseNod
 }
 /**
  * The deserialization information for the current model
+ * @param TagsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoTagsGetResponse(tagsGetResponse: Partial<TagsGetR
 }
 /**
  * The deserialization information for the current model
+ * @param TagsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -50,33 +52,31 @@ export function deserializeIntoTagsPostResponse(tagsPostResponse: Partial<TagsPo
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TagsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetResponse: Partial<TagsGetResponse> | undefined | null = {}) : void {
-    if (tagsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Tags>("tags", tagsGetResponse.tags, serializeTags);
-        writer.writeAdditionalData(tagsGetResponse.additionalData);
-    }
+export function serializeTagsGetResponse(writer: SerializationWriter, tagsGetResponse: Partial<TagsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tagsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", tagsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", tagsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Tags>("tags", tagsGetResponse.tags, serializeTags);
+    writer.writeAdditionalData(tagsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TagsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTagsPostResponse(writer: SerializationWriter, tagsPostResponse: Partial<TagsPostResponse> | undefined | null = {}) : void {
-    if (tagsPostResponse) {
-        writer.writeObjectValue<Tags>("tag", tagsPostResponse.tag, serializeTags);
-        writer.writeAdditionalData(tagsPostResponse.additionalData);
-    }
+export function serializeTagsPostResponse(writer: SerializationWriter, tagsPostResponse: Partial<TagsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tagsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Tags>("tag", tagsPostResponse.tag, serializeTags);
+    writer.writeAdditionalData(tagsPostResponse.additionalData);
 }
 export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -91,10 +91,6 @@ export interface TagsGetResponse extends AdditionalDataHolder, Parsable {
     tags?: Tags[] | null;
 }
 export interface TagsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged.
      */

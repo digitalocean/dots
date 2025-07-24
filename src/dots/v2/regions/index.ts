@@ -17,6 +17,7 @@ export function createRegionsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param RegionsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoRegionsGetResponse(regionsGetResponse: Partial<Re
     }
 }
 export interface RegionsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -81,16 +78,17 @@ export interface RegionsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RegionsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRegionsGetResponse(writer: SerializationWriter, regionsGetResponse: Partial<RegionsGetResponse> | undefined | null = {}) : void {
-    if (regionsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", regionsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", regionsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Region>("regions", regionsGetResponse.regions, serializeRegion);
-        writer.writeAdditionalData(regionsGetResponse.additionalData);
-    }
+export function serializeRegionsGetResponse(writer: SerializationWriter, regionsGetResponse: Partial<RegionsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!regionsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", regionsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", regionsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Region>("regions", regionsGetResponse.regions, serializeRegion);
+    writer.writeAdditionalData(regionsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

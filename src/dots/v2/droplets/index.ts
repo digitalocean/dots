@@ -79,6 +79,7 @@ export function createDropletsPostResponseMember2FromDiscriminatorValue(parseNod
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -91,6 +92,7 @@ export function deserializeIntoDropletsGetResponse(dropletsGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -102,6 +104,7 @@ export function deserializeIntoDropletsPostRequestBody(dropletsPostRequestBody: 
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -113,6 +116,7 @@ export function deserializeIntoDropletsPostResponse(dropletsPostResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostResponseMember1 The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -124,6 +128,7 @@ export function deserializeIntoDropletsPostResponseMember1(dropletsPostResponseM
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostResponseMember1_links The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -134,6 +139,7 @@ export function deserializeIntoDropletsPostResponseMember1_links(dropletsPostRes
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostResponseMember2 The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -145,6 +151,7 @@ export function deserializeIntoDropletsPostResponseMember2(dropletsPostResponseM
 }
 /**
  * The deserialization information for the current model
+ * @param DropletsPostResponseMember2_links The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -154,10 +161,6 @@ export function deserializeIntoDropletsPostResponseMember2_links(dropletsPostRes
     }
 }
 export interface DropletsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -175,10 +178,6 @@ export type DropletsPostRequestBody = Droplet_multi_create | Droplet_single_crea
 export type DropletsPostResponse = DropletsPostResponseMember1 | DropletsPostResponseMember2;
 export interface DropletsPostResponseMember1 extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The droplet property
      */
     droplet?: Droplet | null;
@@ -192,16 +191,8 @@ export interface DropletsPostResponseMember1_links extends AdditionalDataHolder,
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 export interface DropletsPostResponseMember2 extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The droplets property
      */
@@ -216,10 +207,6 @@ export interface DropletsPostResponseMember2_links extends AdditionalDataHolder,
      * The actions property
      */
     actions?: Action_link[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets
@@ -331,80 +318,89 @@ export interface DropletsRequestBuilderGetQueryParameters {
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
 /**
  * Serializes information the current object
+ * @param DropletsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsGetResponse(writer: SerializationWriter, dropletsGetResponse: Partial<DropletsGetResponse> | undefined | null = {}) : void {
-    if (dropletsGetResponse) {
-        writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsGetResponse.droplets, serializeDroplet);
-        writer.writeObjectValue<Page_links>("links", dropletsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", dropletsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(dropletsGetResponse.additionalData);
-    }
+export function serializeDropletsGetResponse(writer: SerializationWriter, dropletsGetResponse: Partial<DropletsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dropletsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsGetResponse.droplets, serializeDroplet);
+    writer.writeObjectValue<Page_links>("links", dropletsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", dropletsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(dropletsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostRequestBody(writer: SerializationWriter, dropletsPostRequestBody: Partial<Droplet_multi_create | Droplet_single_create> | undefined | null = {}) : void {
+export function serializeDropletsPostRequestBody(writer: SerializationWriter, dropletsPostRequestBody: Partial<Droplet_multi_create | Droplet_single_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeDroplet_multi_create(writer, dropletsPostRequestBody as Droplet_multi_create);
     serializeDroplet_single_create(writer, dropletsPostRequestBody as Droplet_single_create);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostResponse(writer: SerializationWriter, dropletsPostResponse: Partial<DropletsPostResponseMember1 | DropletsPostResponseMember2> | undefined | null = {}) : void {
+export function serializeDropletsPostResponse(writer: SerializationWriter, dropletsPostResponse: Partial<DropletsPostResponseMember1 | DropletsPostResponseMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     serializeDropletsPostResponseMember1(writer, dropletsPostResponse as DropletsPostResponseMember1);
     serializeDropletsPostResponseMember2(writer, dropletsPostResponse as DropletsPostResponseMember2);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostResponseMember1 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostResponseMember1(writer: SerializationWriter, dropletsPostResponseMember1: Partial<DropletsPostResponseMember1> | undefined | null = {}) : void {
-    if (dropletsPostResponseMember1) {
-        writer.writeObjectValue<Droplet>("droplet", dropletsPostResponseMember1.droplet, serializeDroplet);
-        writer.writeObjectValue<DropletsPostResponseMember1_links>("links", dropletsPostResponseMember1.links, serializeDropletsPostResponseMember1_links);
-        writer.writeAdditionalData(dropletsPostResponseMember1.additionalData);
-    }
+export function serializeDropletsPostResponseMember1(writer: SerializationWriter, dropletsPostResponseMember1: Partial<DropletsPostResponseMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dropletsPostResponseMember1 || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Droplet>("droplet", dropletsPostResponseMember1.droplet, serializeDroplet);
+    writer.writeObjectValue<DropletsPostResponseMember1_links>("links", dropletsPostResponseMember1.links, serializeDropletsPostResponseMember1_links);
+    writer.writeAdditionalData(dropletsPostResponseMember1.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostResponseMember1_links The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostResponseMember1_links(writer: SerializationWriter, dropletsPostResponseMember1_links: Partial<DropletsPostResponseMember1_links> | undefined | null = {}) : void {
-    if (dropletsPostResponseMember1_links) {
-        writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember1_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember1_links.additionalData);
-    }
+export function serializeDropletsPostResponseMember1_links(writer: SerializationWriter, dropletsPostResponseMember1_links: Partial<DropletsPostResponseMember1_links> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dropletsPostResponseMember1_links || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember1_links.actions, serializeAction_link);
+    writer.writeAdditionalData(dropletsPostResponseMember1_links.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostResponseMember2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostResponseMember2(writer: SerializationWriter, dropletsPostResponseMember2: Partial<DropletsPostResponseMember2> | undefined | null = {}) : void {
-    if (dropletsPostResponseMember2) {
-        writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsPostResponseMember2.droplets, serializeDroplet);
-        writer.writeObjectValue<DropletsPostResponseMember2_links>("links", dropletsPostResponseMember2.links, serializeDropletsPostResponseMember2_links);
-        writer.writeAdditionalData(dropletsPostResponseMember2.additionalData);
-    }
+export function serializeDropletsPostResponseMember2(writer: SerializationWriter, dropletsPostResponseMember2: Partial<DropletsPostResponseMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dropletsPostResponseMember2 || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Droplet>("droplets", dropletsPostResponseMember2.droplets, serializeDroplet);
+    writer.writeObjectValue<DropletsPostResponseMember2_links>("links", dropletsPostResponseMember2.links, serializeDropletsPostResponseMember2_links);
+    writer.writeAdditionalData(dropletsPostResponseMember2.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DropletsPostResponseMember2_links The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDropletsPostResponseMember2_links(writer: SerializationWriter, dropletsPostResponseMember2_links: Partial<DropletsPostResponseMember2_links> | undefined | null = {}) : void {
-    if (dropletsPostResponseMember2_links) {
-        writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember2_links.actions, serializeAction_link);
-        writer.writeAdditionalData(dropletsPostResponseMember2_links.additionalData);
-    }
+export function serializeDropletsPostResponseMember2_links(writer: SerializationWriter, dropletsPostResponseMember2_links: Partial<DropletsPostResponseMember2_links> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dropletsPostResponseMember2_links || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Action_link>("actions", dropletsPostResponseMember2_links.actions, serializeAction_link);
+    writer.writeAdditionalData(dropletsPostResponseMember2_links.additionalData);
 }
 /**
  * Uri template for the request builder.

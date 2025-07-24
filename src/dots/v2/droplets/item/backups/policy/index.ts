@@ -17,6 +17,7 @@ export function createPolicyGetResponseFromDiscriminatorValue(parseNode: ParseNo
 }
 /**
  * The deserialization information for the current model
+ * @param PolicyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -26,10 +27,6 @@ export function deserializeIntoPolicyGetResponse(policyGetResponse: Partial<Poli
     }
 }
 export interface PolicyGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The policy property
      */
@@ -59,14 +56,15 @@ export interface PolicyRequestBuilder extends BaseRequestBuilder<PolicyRequestBu
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param PolicyGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePolicyGetResponse(writer: SerializationWriter, policyGetResponse: Partial<PolicyGetResponse> | undefined | null = {}) : void {
-    if (policyGetResponse) {
-        writer.writeObjectValue<Droplet_backup_policy_record>("policy", policyGetResponse.policy, serializeDroplet_backup_policy_record);
-        writer.writeAdditionalData(policyGetResponse.additionalData);
-    }
+export function serializePolicyGetResponse(writer: SerializationWriter, policyGetResponse: Partial<PolicyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!policyGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Droplet_backup_policy_record>("policy", policyGetResponse.policy, serializeDroplet_backup_policy_record);
+    writer.writeAdditionalData(policyGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

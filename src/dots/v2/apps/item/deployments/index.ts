@@ -60,6 +60,10 @@ export interface DeploymentsRequestBuilder extends BaseRequestBuilder<Deployment
  */
 export interface DeploymentsRequestBuilderGetQueryParameters {
     /**
+     * Optional. Filter deployments by deployment_type  - MANUAL: manual deployment  - DEPLOY_ON_PUSH: deployment triggered by a push to the app's repository  - MAINTENANCE: deployment for maintenance purposes  - MANUAL_ROLLBACK: manual revert to a previous deployment  - AUTO_ROLLBACK: automatic revert to a previous deployment  - UPDATE_DATABASE_TRUSTED_SOURCES: update database trusted sources  - AUTOSCALED: deployment that has been autoscaled
+     */
+    deploymentTypes?: GetDeployment_typesQueryParameterType[];
+    /**
      * Which 'page' of paginated results to return.
      */
     page?: number;
@@ -68,14 +72,16 @@ export interface DeploymentsRequestBuilderGetQueryParameters {
      */
     perPage?: number;
 }
+export type GetDeployment_typesQueryParameterType = (typeof GetDeployment_typesQueryParameterTypeObject)[keyof typeof GetDeployment_typesQueryParameterTypeObject];
 /**
  * Uri template for the request builder.
  */
-export const DeploymentsRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/deployments{?page*,per_page*}";
+export const DeploymentsRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/deployments{?deployment_types*,page*,per_page*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
 const DeploymentsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "deploymentTypes": "deployment_types",
     "perPage": "per_page",
 };
 /**
@@ -123,5 +129,14 @@ export const DeploymentsRequestBuilderRequestsMetadata: RequestsMetadata = {
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
+export const GetDeployment_typesQueryParameterTypeObject = {
+    MANUAL: "MANUAL",
+    DEPLOY_ON_PUSH: "DEPLOY_ON_PUSH",
+    MAINTENANCE: "MAINTENANCE",
+    MANUAL_ROLLBACK: "MANUAL_ROLLBACK",
+    AUTO_ROLLBACK: "AUTO_ROLLBACK",
+    UPDATE_DATABASE_TRUSTED_SOURCES: "UPDATE_DATABASE_TRUSTED_SOURCES",
+    AUTOSCALED: "AUTOSCALED",
+} as const;
 /* tslint:enable */
 /* eslint-enable */

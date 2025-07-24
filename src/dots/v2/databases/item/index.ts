@@ -59,6 +59,7 @@ export function createWithDatabase_cluster_uuGetResponseFromDiscriminatorValue(p
 }
 /**
  * The deserialization information for the current model
+ * @param WithDatabase_cluster_uuGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -69,20 +70,17 @@ export function deserializeIntoWithDatabase_cluster_uuGetResponse(withDatabase_c
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDatabase_cluster_uuGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDatabase_cluster_uuGetResponse(writer: SerializationWriter, withDatabase_cluster_uuGetResponse: Partial<WithDatabase_cluster_uuGetResponse> | undefined | null = {}) : void {
-    if (withDatabase_cluster_uuGetResponse) {
-        writer.writeObjectValue<Database_cluster_read>("database", withDatabase_cluster_uuGetResponse.database, serializeDatabase_cluster_read);
-        writer.writeAdditionalData(withDatabase_cluster_uuGetResponse.additionalData);
-    }
+export function serializeWithDatabase_cluster_uuGetResponse(writer: SerializationWriter, withDatabase_cluster_uuGetResponse: Partial<WithDatabase_cluster_uuGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDatabase_cluster_uuGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_cluster_read>("database", withDatabase_cluster_uuGetResponse.database, serializeDatabase_cluster_read);
+    writer.writeAdditionalData(withDatabase_cluster_uuGetResponse.additionalData);
 }
 export interface WithDatabase_cluster_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The database property
      */

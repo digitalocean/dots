@@ -41,10 +41,6 @@ export function createDatabasesPostResponseFromDiscriminatorValue(parseNode: Par
 }
 export interface DatabasesGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The databases property
      */
     databases?: Database_cluster_read[] | null;
@@ -56,10 +52,6 @@ export interface DatabasesPostRequestBody extends Database_cluster, Parsable {
     backupRestore?: Database_backup | null;
 }
 export interface DatabasesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The database property
      */
@@ -131,6 +123,7 @@ export interface DatabasesRequestBuilderGetQueryParameters {
 }
 /**
  * The deserialization information for the current model
+ * @param DatabasesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -141,6 +134,7 @@ export function deserializeIntoDatabasesGetResponse(databasesGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param DatabasesPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -152,6 +146,7 @@ export function deserializeIntoDatabasesPostRequestBody(databasesPostRequestBody
 }
 /**
  * The deserialization information for the current model
+ * @param DatabasesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -162,36 +157,39 @@ export function deserializeIntoDatabasesPostResponse(databasesPostResponse: Part
 }
 /**
  * Serializes information the current object
+ * @param DatabasesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDatabasesGetResponse(writer: SerializationWriter, databasesGetResponse: Partial<DatabasesGetResponse> | undefined | null = {}) : void {
-    if (databasesGetResponse) {
-        writer.writeCollectionOfObjectValues<Database_cluster_read>("databases", databasesGetResponse.databases, serializeDatabase_cluster_read);
-        writer.writeAdditionalData(databasesGetResponse.additionalData);
-    }
+export function serializeDatabasesGetResponse(writer: SerializationWriter, databasesGetResponse: Partial<DatabasesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!databasesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Database_cluster_read>("databases", databasesGetResponse.databases, serializeDatabase_cluster_read);
+    writer.writeAdditionalData(databasesGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DatabasesPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDatabasesPostRequestBody(writer: SerializationWriter, databasesPostRequestBody: Partial<DatabasesPostRequestBody> | undefined | null = {}) : void {
-    if (databasesPostRequestBody) {
-        serializeDatabase_cluster(writer, databasesPostRequestBody)
-        writer.writeObjectValue<Database_backup>("backup_restore", databasesPostRequestBody.backupRestore, serializeDatabase_backup);
-    }
+export function serializeDatabasesPostRequestBody(writer: SerializationWriter, databasesPostRequestBody: Partial<DatabasesPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!databasesPostRequestBody || isSerializingDerivedType) { return; }
+    serializeDatabase_cluster(writer, databasesPostRequestBody, isSerializingDerivedType)
+    writer.writeObjectValue<Database_backup>("backup_restore", databasesPostRequestBody.backupRestore, serializeDatabase_backup);
 }
 /**
  * Serializes information the current object
+ * @param DatabasesPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDatabasesPostResponse(writer: SerializationWriter, databasesPostResponse: Partial<DatabasesPostResponse> | undefined | null = {}) : void {
-    if (databasesPostResponse) {
-        writer.writeObjectValue<Database_cluster_read>("database", databasesPostResponse.database, serializeDatabase_cluster_read);
-        writer.writeAdditionalData(databasesPostResponse.additionalData);
-    }
+export function serializeDatabasesPostResponse(writer: SerializationWriter, databasesPostResponse: Partial<DatabasesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!databasesPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_cluster_read>("database", databasesPostResponse.database, serializeDatabase_cluster_read);
+    writer.writeAdditionalData(databasesPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

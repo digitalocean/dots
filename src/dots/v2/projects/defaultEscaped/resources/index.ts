@@ -26,6 +26,7 @@ export function createResourcesPostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param ResourcesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoResourcesGetResponse(resourcesGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param ResourcesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -47,10 +49,6 @@ export function deserializeIntoResourcesPostResponse(resourcesPostResponse: Part
     }
 }
 export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -65,10 +63,6 @@ export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
     resources?: Resource[] | null;
 }
 export interface ResourcesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * All resources, including the ones added in the request, that are assigned to the project. Only resources that you are authorized to see will be returned.
      */
@@ -117,27 +111,29 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ResourcesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeResourcesGetResponse(writer: SerializationWriter, resourcesGetResponse: Partial<ResourcesGetResponse> | undefined | null = {}) : void {
-    if (resourcesGetResponse) {
-        writer.writeObjectValue<Page_links>("links", resourcesGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", resourcesGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Resource>("resources", resourcesGetResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesGetResponse.additionalData);
-    }
+export function serializeResourcesGetResponse(writer: SerializationWriter, resourcesGetResponse: Partial<ResourcesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!resourcesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", resourcesGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", resourcesGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Resource>("resources", resourcesGetResponse.resources, serializeResource);
+    writer.writeAdditionalData(resourcesGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ResourcesPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeResourcesPostResponse(writer: SerializationWriter, resourcesPostResponse: Partial<ResourcesPostResponse> | undefined | null = {}) : void {
-    if (resourcesPostResponse) {
-        writer.writeCollectionOfObjectValues<Resource>("resources", resourcesPostResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesPostResponse.additionalData);
-    }
+export function serializeResourcesPostResponse(writer: SerializationWriter, resourcesPostResponse: Partial<ResourcesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!resourcesPostResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Resource>("resources", resourcesPostResponse.resources, serializeResource);
+    writer.writeAdditionalData(resourcesPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.
