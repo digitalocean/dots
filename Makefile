@@ -76,3 +76,13 @@ tag: ## Tags a release
 	@echo "==> ORIGIN=${ORIGIN} COMMIT=${COMMIT} tag"
 	@echo ""
 	@ORIGIN=${ORIGIN} scripts/tag.sh
+
+.PHONY: _install_github_release_notes
+_install_github_release_notes:
+	@GO111MODULE=on go install github.com/digitalocean/github-changelog-generator@latest
+
+.PHONY: changes
+changes: _install_github_release_notes
+	@echo "==> Merged PRs since last release"
+	@echo ""
+	@github-changelog-generator -org digitalocean -repo dots
