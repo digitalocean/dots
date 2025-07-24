@@ -1,5 +1,5 @@
 {
-  "name": "@api-engineering-digitalocean/dots",
+  "name": "@digitalocean/dots",
   "type": "module",
   "version": "1.0.0",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
