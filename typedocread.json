@@ -1,0 +1,11 @@
+{
+    "entryPoints": [
+        "src/dots/DigitalOceanApiKeyAuthenticationProvider.ts",
+        "src/dots/digitalOceanClient.ts",
+        "src/dots/v2/index.ts",
+        "src/dots/v2/**/*.ts"
+    ], 
+    "out": "$READTHEDOCS_OUTPUT/html",
+    "includeVersion": true, 
+    "theme": "default" 
+}
