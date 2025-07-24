@@ -11,7 +11,7 @@ build:
     nodejs: "16"
   commands:
     - npm install
-    - npx typedoc --tsconfig typedocread.json
+    - npx typedoc --tsconfig typedocread.json --out $READTHEDOCS_OUTPUT/html
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
