@@ -120,7 +120,7 @@ make test-mocked
 Tests in the `integration` directory include tests that simulate specific
 scenarios a customer might use the client for to interact with the API.
 **_IMPORTANT:_** these tests require a valid API token and **_DO_** create real
-resources on the respective DigitalOcean account.
+resources on the respective DigitalOcean account. make sure you have correct access
 
 To run integration tests, run:
 
