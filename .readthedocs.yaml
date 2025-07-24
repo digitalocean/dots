@@ -10,7 +10,7 @@ build:
   tools:
     nodejs: "16"
   html:
-    directory: docs
+    directory: "docs/"
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
