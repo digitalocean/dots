@@ -10,14 +10,12 @@
 ## Installation
 
 To install the dependencies for this repository, use the following command:
-
-1. Clone this repo. The client is not published anywhere currently. 
-2. Install the dependencies for this repository. Run this command at the root of the repo:
 ```
-npm install
+npm i @digitalocean/dots
 ```
 
 ## Quick Start
+> A quick guide to getting started with client
 ### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
 ```
@@ -93,6 +91,12 @@ involved in developing this client.
 >The tests included in this repo are used to validate the generated client.
 We use `jest` to define and run the tests.
 
+**_Requirements_**
+- [NodeJS 18 or above](https://nodejs.org/en/)
+- [TypeScript 5 or above](https://www.typescriptlang.org/)
+- [Jest 30 or above](https://www.npmjs.com/package/jest) 
+- A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources (for integration testing).
+  
 There are two types of test suites in the `tests/` directory.
 
 #### Mocked Tests: `tests/mocked/`
@@ -110,14 +114,26 @@ To run mocked tests, run:
 ```shell
 make test-mocked
 ```
+
+#### Integration Tests: `tests/integration/`
+
+Tests in the `integration` directory include tests that simulate specific
+scenarios a customer might use the client for to interact with the API.
+**_IMPORTANT:_** these tests require a valid API token and **_DO_** create real
+resources on the respective DigitalOcean account.
+
+To run integration tests, run:
+
+```shell
+make test-single filename.ts
+```
+
 # **Known Issues**
 
 >This selection lists the known issues of the client generator.
-
-## Generates nested value fields for nested arrays
-
-- This is an existing issue with Kiota
-- Converts fields which have `default` key to `defaultEscaped` 
+### Generates nested value fields for nested arrays
+-  This is an existing issue with Kiota
+### Converts fields which have `default` key to `defaultEscaped` 
 
 
 # **A Full Documentation can be found here**
