@@ -1,18 +1,14 @@
 # Required
 version: 2
 
-# Set the OS, Node version, and other tools you might need
+# Set the OS, Python version, and other tools you might need
 build:
   os: ubuntu-24.04
   tools:
     nodejs: "16"
+  html:
+    directory: docs
 
-# Optionally, but recommended,
-# declare the Python requirements required to build your documentation
-# See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-# python:
-#    install:
-#    - requirements: docs/requirements.txt
-
+# Skip Sphinx build
 sphinx:
-  configuration: sphinxconfig.py
+  configuration: null
