@@ -12,6 +12,8 @@ build:
   commands:
     - npm install
     - make generate-docs
+  html:
+    directory: ./docs
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
   configuration: sphinxconfig.py
