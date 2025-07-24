@@ -12,10 +12,6 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
      * The actions property
      */
     actions?: Action[] | null;
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/droplets/actions
@@ -93,6 +89,7 @@ export function createActionsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -104,6 +101,7 @@ export function deserializeIntoActionsPostRequestBody(actionsPostRequestBody: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ActionsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -114,10 +112,12 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action | Droplet_action_snapshot> | undefined | null = {}) : void {
+export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action | Droplet_action_snapshot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (actionsPostRequestBody === undefined || actionsPostRequestBody === null) return;
     switch (actionsPostRequestBody.type) {
         case "disable_backups":
@@ -148,14 +148,15 @@ export function serializeActionsPostRequestBody(writer: SerializationWriter, act
 }
 /**
  * Serializes information the current object
+ * @param ActionsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}) : void {
-    if (actionsPostResponse) {
-        writer.writeCollectionOfObjectValues<Action>("actions", actionsPostResponse.actions, serializeAction);
-        writer.writeAdditionalData(actionsPostResponse.additionalData);
-    }
+export function serializeActionsPostResponse(writer: SerializationWriter, actionsPostResponse: Partial<ActionsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!actionsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Action>("actions", actionsPostResponse.actions, serializeAction);
+    writer.writeAdditionalData(actionsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

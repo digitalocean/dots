@@ -17,6 +17,7 @@ export function createIpsGetResponseFromDiscriminatorValue(parseNode: ParseNode 
 }
 /**
  * The deserialization information for the current model
+ * @param IpsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoIpsGetResponse(ipsGetResponse: Partial<IpsGetResp
     }
 }
 export interface IpsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The ips property
      */
@@ -82,16 +79,17 @@ export interface IpsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param IpsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIpsGetResponse(writer: SerializationWriter, ipsGetResponse: Partial<IpsGetResponse> | undefined | null = {}) : void {
-    if (ipsGetResponse) {
-        writer.writeCollectionOfObjectValues<Byoip_prefix_resource>("ips", ipsGetResponse.ips, serializeByoip_prefix_resource);
-        writer.writeObjectValue<Page_links>("links", ipsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", ipsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(ipsGetResponse.additionalData);
-    }
+export function serializeIpsGetResponse(writer: SerializationWriter, ipsGetResponse: Partial<IpsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!ipsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Byoip_prefix_resource>("ips", ipsGetResponse.ips, serializeByoip_prefix_resource);
+    writer.writeObjectValue<Page_links>("links", ipsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", ipsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(ipsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -19,6 +19,7 @@ export function createWithFloating_ipGetResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
+ * @param WithFloating_ipGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoWithFloating_ipGetResponse(withFloating_ipGetResp
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithFloating_ipGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithFloating_ipGetResponse(writer: SerializationWriter, withFloating_ipGetResponse: Partial<WithFloating_ipGetResponse> | undefined | null = {}) : void {
-    if (withFloating_ipGetResponse) {
-        writer.writeObjectValue<Floating_ip>("floating_ip", withFloating_ipGetResponse.floatingIp, serializeFloating_ip);
-        writer.writeAdditionalData(withFloating_ipGetResponse.additionalData);
-    }
+export function serializeWithFloating_ipGetResponse(writer: SerializationWriter, withFloating_ipGetResponse: Partial<WithFloating_ipGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withFloating_ipGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Floating_ip>("floating_ip", withFloating_ipGetResponse.floatingIp, serializeFloating_ip);
+    writer.writeAdditionalData(withFloating_ipGetResponse.additionalData);
 }
 export interface WithFloating_ipGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The floating_ip property
      */

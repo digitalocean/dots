@@ -30,6 +30,7 @@ export function createProjectsPostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param ProjectsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -42,6 +43,7 @@ export function deserializeIntoProjectsGetResponse(projectsGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param ProjectsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -51,10 +53,6 @@ export function deserializeIntoProjectsPostResponse(projectsPostResponse: Partia
     }
 }
 export interface ProjectsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -69,10 +67,6 @@ export interface ProjectsGetResponse extends AdditionalDataHolder, Parsable {
     projects?: Project[] | null;
 }
 export interface ProjectsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The project property
      */
@@ -142,27 +136,29 @@ export interface ProjectsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ProjectsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProjectsGetResponse(writer: SerializationWriter, projectsGetResponse: Partial<ProjectsGetResponse> | undefined | null = {}) : void {
-    if (projectsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", projectsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", projectsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Project>("projects", projectsGetResponse.projects, serializeProject);
-        writer.writeAdditionalData(projectsGetResponse.additionalData);
-    }
+export function serializeProjectsGetResponse(writer: SerializationWriter, projectsGetResponse: Partial<ProjectsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!projectsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", projectsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", projectsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Project>("projects", projectsGetResponse.projects, serializeProject);
+    writer.writeAdditionalData(projectsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ProjectsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProjectsPostResponse(writer: SerializationWriter, projectsPostResponse: Partial<ProjectsPostResponse> | undefined | null = {}) : void {
-    if (projectsPostResponse) {
-        writer.writeObjectValue<Project>("project", projectsPostResponse.project, serializeProject);
-        writer.writeAdditionalData(projectsPostResponse.additionalData);
-    }
+export function serializeProjectsPostResponse(writer: SerializationWriter, projectsPostResponse: Partial<ProjectsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!projectsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Project>("project", projectsPostResponse.project, serializeProject);
+    writer.writeAdditionalData(projectsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

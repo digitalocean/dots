@@ -8,19 +8,11 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface Bgp_auth_keyGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The bgp_auth_key property
      */
     bgpAuthKey?: Bgp_auth_keyGetResponse_bgp_auth_key | null;
 }
 export interface Bgp_auth_keyGetResponse_bgp_auth_key extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
 }
 /**
  * Builds and executes requests for operations under /v2/partner_network_connect/attachments/{pa_id}/bgp_auth_key
@@ -64,6 +56,7 @@ export function createBgp_auth_keyGetResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param Bgp_auth_keyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -74,6 +67,7 @@ export function deserializeIntoBgp_auth_keyGetResponse(bgp_auth_keyGetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param Bgp_auth_keyGetResponse_bgp_auth_key The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -83,24 +77,26 @@ export function deserializeIntoBgp_auth_keyGetResponse_bgp_auth_key(bgp_auth_key
 }
 /**
  * Serializes information the current object
+ * @param Bgp_auth_keyGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBgp_auth_keyGetResponse(writer: SerializationWriter, bgp_auth_keyGetResponse: Partial<Bgp_auth_keyGetResponse> | undefined | null = {}) : void {
-    if (bgp_auth_keyGetResponse) {
-        writer.writeObjectValue<Bgp_auth_keyGetResponse_bgp_auth_key>("bgp_auth_key", bgp_auth_keyGetResponse.bgpAuthKey, serializeBgp_auth_keyGetResponse_bgp_auth_key);
-        writer.writeAdditionalData(bgp_auth_keyGetResponse.additionalData);
-    }
+export function serializeBgp_auth_keyGetResponse(writer: SerializationWriter, bgp_auth_keyGetResponse: Partial<Bgp_auth_keyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!bgp_auth_keyGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Bgp_auth_keyGetResponse_bgp_auth_key>("bgp_auth_key", bgp_auth_keyGetResponse.bgpAuthKey, serializeBgp_auth_keyGetResponse_bgp_auth_key);
+    writer.writeAdditionalData(bgp_auth_keyGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param Bgp_auth_keyGetResponse_bgp_auth_key The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBgp_auth_keyGetResponse_bgp_auth_key(writer: SerializationWriter, bgp_auth_keyGetResponse_bgp_auth_key: Partial<Bgp_auth_keyGetResponse_bgp_auth_key> | undefined | null = {}) : void {
-    if (bgp_auth_keyGetResponse_bgp_auth_key) {
-        writer.writeAdditionalData(bgp_auth_keyGetResponse_bgp_auth_key.additionalData);
-    }
+export function serializeBgp_auth_keyGetResponse_bgp_auth_key(writer: SerializationWriter, bgp_auth_keyGetResponse_bgp_auth_key: Partial<Bgp_auth_keyGetResponse_bgp_auth_key> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!bgp_auth_keyGetResponse_bgp_auth_key || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(bgp_auth_keyGetResponse_bgp_auth_key.additionalData);
 }
 /**
  * Uri template for the request builder.

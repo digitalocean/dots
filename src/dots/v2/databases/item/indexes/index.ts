@@ -19,6 +19,7 @@ export function createIndexesGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param IndexesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoIndexesGetResponse(indexesGetResponse: Partial<In
     }
 }
 export interface IndexesGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The indexes property
      */
@@ -67,14 +64,15 @@ export interface IndexesRequestBuilder extends BaseRequestBuilder<IndexesRequest
 }
 /**
  * Serializes information the current object
+ * @param IndexesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIndexesGetResponse(writer: SerializationWriter, indexesGetResponse: Partial<IndexesGetResponse> | undefined | null = {}) : void {
-    if (indexesGetResponse) {
-        writer.writeCollectionOfObjectValues<Opensearch_index>("indexes", indexesGetResponse.indexes, serializeOpensearch_index);
-        writer.writeAdditionalData(indexesGetResponse.additionalData);
-    }
+export function serializeIndexesGetResponse(writer: SerializationWriter, indexesGetResponse: Partial<IndexesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!indexesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Opensearch_index>("indexes", indexesGetResponse.indexes, serializeOpensearch_index);
+    writer.writeAdditionalData(indexesGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

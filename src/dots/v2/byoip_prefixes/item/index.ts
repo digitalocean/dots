@@ -19,6 +19,7 @@ export function createWithByoip_prefix_uuGetResponseFromDiscriminatorValue(parse
 }
 /**
  * The deserialization information for the current model
+ * @param WithByoip_prefix_uuGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoWithByoip_prefix_uuGetResponse(withByoip_prefix_u
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithByoip_prefix_uuGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithByoip_prefix_uuGetResponse(writer: SerializationWriter, withByoip_prefix_uuGetResponse: Partial<WithByoip_prefix_uuGetResponse> | undefined | null = {}) : void {
-    if (withByoip_prefix_uuGetResponse) {
-        writer.writeObjectValue<Byoip_prefix>("byoip_prefix", withByoip_prefix_uuGetResponse.byoipPrefix, serializeByoip_prefix);
-        writer.writeAdditionalData(withByoip_prefix_uuGetResponse.additionalData);
-    }
+export function serializeWithByoip_prefix_uuGetResponse(writer: SerializationWriter, withByoip_prefix_uuGetResponse: Partial<WithByoip_prefix_uuGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withByoip_prefix_uuGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Byoip_prefix>("byoip_prefix", withByoip_prefix_uuGetResponse.byoipPrefix, serializeByoip_prefix);
+    writer.writeAdditionalData(withByoip_prefix_uuGetResponse.additionalData);
 }
 export interface WithByoip_prefix_uuGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The byoip_prefix property
      */

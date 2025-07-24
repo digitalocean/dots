@@ -44,6 +44,7 @@ export function createWithVpc_peering_PatchResponseFromDiscriminatorValue(parseN
 }
 /**
  * The deserialization information for the current model
+ * @param WithVpc_peering_DeleteResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,6 +55,7 @@ export function deserializeIntoWithVpc_peering_DeleteResponse(withVpc_peering_De
 }
 /**
  * The deserialization information for the current model
+ * @param WithVpc_peering_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -64,6 +66,7 @@ export function deserializeIntoWithVpc_peering_GetResponse(withVpc_peering_GetRe
 }
 /**
  * The deserialization information for the current model
+ * @param WithVpc_peering_PatchRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -74,6 +77,7 @@ export function deserializeIntoWithVpc_peering_PatchRequestBody(withVpc_peering_
 }
 /**
  * The deserialization information for the current model
+ * @param WithVpc_peering_PatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -84,62 +88,58 @@ export function deserializeIntoWithVpc_peering_PatchResponse(withVpc_peering_Pat
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithVpc_peering_DeleteResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_peering_DeleteResponse(writer: SerializationWriter, withVpc_peering_DeleteResponse: Partial<WithVpc_peering_DeleteResponse> | undefined | null = {}) : void {
-    if (withVpc_peering_DeleteResponse) {
-        writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_DeleteResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_DeleteResponse.additionalData);
-    }
+export function serializeWithVpc_peering_DeleteResponse(writer: SerializationWriter, withVpc_peering_DeleteResponse: Partial<WithVpc_peering_DeleteResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withVpc_peering_DeleteResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_DeleteResponse.vpcPeering, serializeVpc_peering);
+    writer.writeAdditionalData(withVpc_peering_DeleteResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithVpc_peering_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_peering_GetResponse(writer: SerializationWriter, withVpc_peering_GetResponse: Partial<WithVpc_peering_GetResponse> | undefined | null = {}) : void {
-    if (withVpc_peering_GetResponse) {
-        writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_GetResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_GetResponse.additionalData);
-    }
+export function serializeWithVpc_peering_GetResponse(writer: SerializationWriter, withVpc_peering_GetResponse: Partial<WithVpc_peering_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withVpc_peering_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_GetResponse.vpcPeering, serializeVpc_peering);
+    writer.writeAdditionalData(withVpc_peering_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithVpc_peering_PatchRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_peering_PatchRequestBody(writer: SerializationWriter, withVpc_peering_PatchRequestBody: Partial<WithVpc_peering_PatchRequestBody> | undefined | null = {}) : void {
-    if (withVpc_peering_PatchRequestBody) {
-        serializeVpc_peering_updatable(writer, withVpc_peering_PatchRequestBody)
-    }
+export function serializeWithVpc_peering_PatchRequestBody(writer: SerializationWriter, withVpc_peering_PatchRequestBody: Partial<WithVpc_peering_PatchRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withVpc_peering_PatchRequestBody || isSerializingDerivedType) { return; }
+    serializeVpc_peering_updatable(writer, withVpc_peering_PatchRequestBody, isSerializingDerivedType)
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithVpc_peering_PatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_peering_PatchResponse(writer: SerializationWriter, withVpc_peering_PatchResponse: Partial<WithVpc_peering_PatchResponse> | undefined | null = {}) : void {
-    if (withVpc_peering_PatchResponse) {
-        writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_PatchResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
-    }
+export function serializeWithVpc_peering_PatchResponse(writer: SerializationWriter, withVpc_peering_PatchResponse: Partial<WithVpc_peering_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withVpc_peering_PatchResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc_peering>("vpc_peering", withVpc_peering_PatchResponse.vpcPeering, serializeVpc_peering);
+    writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
 }
 export interface WithVpc_peering_DeleteResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The vpc_peering property
      */
     vpcPeering?: Vpc_peering | null;
 }
 export interface WithVpc_peering_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The vpc_peering property
      */
@@ -206,10 +206,6 @@ export interface WithVpc_peering_ItemRequestBuilder extends BaseRequestBuilder<W
 export interface WithVpc_peering_PatchRequestBody extends Parsable, Vpc_peering_updatable {
 }
 export interface WithVpc_peering_PatchResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The vpc_peering property
      */

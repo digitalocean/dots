@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The backups property
      */
     backups?: Backup[] | null;
@@ -49,6 +45,7 @@ export function createBackupsGetResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param BackupsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoBackupsGetResponse(backupsGetResponse: Partial<Ba
 }
 /**
  * Serializes information the current object
+ * @param BackupsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBackupsGetResponse(writer: SerializationWriter, backupsGetResponse: Partial<BackupsGetResponse> | undefined | null = {}) : void {
-    if (backupsGetResponse) {
-        writer.writeCollectionOfObjectValues<Backup>("backups", backupsGetResponse.backups, serializeBackup);
-        writer.writeAdditionalData(backupsGetResponse.additionalData);
-    }
+export function serializeBackupsGetResponse(writer: SerializationWriter, backupsGetResponse: Partial<BackupsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!backupsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Backup>("backups", backupsGetResponse.backups, serializeBackup);
+    writer.writeAdditionalData(backupsGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

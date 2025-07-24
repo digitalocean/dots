@@ -44,6 +44,7 @@ export function createWithCluster_PutResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param WithCluster_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -54,6 +55,7 @@ export function deserializeIntoWithCluster_GetResponse(withCluster_GetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param WithCluster_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -64,31 +66,29 @@ export function deserializeIntoWithCluster_PutResponse(withCluster_PutResponse: 
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCluster_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCluster_GetResponse(writer: SerializationWriter, withCluster_GetResponse: Partial<WithCluster_GetResponse> | undefined | null = {}) : void {
-    if (withCluster_GetResponse) {
-        writer.writeObjectValue<Cluster_read>("kubernetes_cluster", withCluster_GetResponse.kubernetesCluster, serializeCluster_read);
-        writer.writeAdditionalData(withCluster_GetResponse.additionalData);
-    }
+export function serializeWithCluster_GetResponse(writer: SerializationWriter, withCluster_GetResponse: Partial<WithCluster_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCluster_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cluster_read>("kubernetes_cluster", withCluster_GetResponse.kubernetesCluster, serializeCluster_read);
+    writer.writeAdditionalData(withCluster_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithCluster_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithCluster_PutResponse(writer: SerializationWriter, withCluster_PutResponse: Partial<WithCluster_PutResponse> | undefined | null = {}) : void {
-    if (withCluster_PutResponse) {
-        writer.writeObjectValue<Cluster>("kubernetes_cluster", withCluster_PutResponse.kubernetesCluster, serializeCluster);
-        writer.writeAdditionalData(withCluster_PutResponse.additionalData);
-    }
+export function serializeWithCluster_PutResponse(writer: SerializationWriter, withCluster_PutResponse: Partial<WithCluster_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withCluster_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cluster>("kubernetes_cluster", withCluster_PutResponse.kubernetesCluster, serializeCluster);
+    writer.writeAdditionalData(withCluster_PutResponse.additionalData);
 }
 export interface WithCluster_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The kubernetes_cluster property
      */
@@ -188,10 +188,6 @@ export interface WithCluster_ItemRequestBuilder extends BaseRequestBuilder<WithC
      toPutRequestInformation(body: Cluster_update, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithCluster_PutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The kubernetes_cluster property
      */

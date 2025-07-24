@@ -26,6 +26,7 @@ export function createReset_authPostResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param Reset_authPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,6 +37,7 @@ export function deserializeIntoReset_authPostRequestBody(reset_authPostRequestBo
 }
 /**
  * The deserialization information for the current model
+ * @param Reset_authPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,19 +48,11 @@ export function deserializeIntoReset_authPostResponse(reset_authPostResponse: Pa
 }
 export interface Reset_authPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The mysql_settings property
      */
     mysqlSettings?: Mysql_settings | null;
 }
 export interface Reset_authPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The user property
      */
@@ -90,25 +84,27 @@ export interface Reset_authRequestBuilder extends BaseRequestBuilder<Reset_authR
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Reset_authPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReset_authPostRequestBody(writer: SerializationWriter, reset_authPostRequestBody: Partial<Reset_authPostRequestBody> | undefined | null = {}) : void {
-    if (reset_authPostRequestBody) {
-        writer.writeObjectValue<Mysql_settings>("mysql_settings", reset_authPostRequestBody.mysqlSettings, serializeMysql_settings);
-        writer.writeAdditionalData(reset_authPostRequestBody.additionalData);
-    }
+export function serializeReset_authPostRequestBody(writer: SerializationWriter, reset_authPostRequestBody: Partial<Reset_authPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!reset_authPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Mysql_settings>("mysql_settings", reset_authPostRequestBody.mysqlSettings, serializeMysql_settings);
+    writer.writeAdditionalData(reset_authPostRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Reset_authPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReset_authPostResponse(writer: SerializationWriter, reset_authPostResponse: Partial<Reset_authPostResponse> | undefined | null = {}) : void {
-    if (reset_authPostResponse) {
-        writer.writeObjectValue<Database_user>("user", reset_authPostResponse.user, serializeDatabase_user);
-        writer.writeAdditionalData(reset_authPostResponse.additionalData);
-    }
+export function serializeReset_authPostResponse(writer: SerializationWriter, reset_authPostResponse: Partial<Reset_authPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!reset_authPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_user>("user", reset_authPostResponse.user, serializeDatabase_user);
+    writer.writeAdditionalData(reset_authPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

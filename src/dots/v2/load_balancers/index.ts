@@ -28,6 +28,7 @@ export function createLoad_balancersPostResponseFromDiscriminatorValue(parseNode
 }
 /**
  * The deserialization information for the current model
+ * @param Load_balancersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoLoad_balancersGetResponse(load_balancersGetRespon
 }
 /**
  * The deserialization information for the current model
+ * @param Load_balancersPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,10 +51,6 @@ export function deserializeIntoLoad_balancersPostResponse(load_balancersPostResp
     }
 }
 export interface Load_balancersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -67,10 +65,6 @@ export interface Load_balancersGetResponse extends AdditionalDataHolder, Parsabl
     meta?: Meta_properties | null;
 }
 export interface Load_balancersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The load_balancer property
      */
@@ -136,27 +130,29 @@ export interface Load_balancersRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Load_balancersGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLoad_balancersGetResponse(writer: SerializationWriter, load_balancersGetResponse: Partial<Load_balancersGetResponse> | undefined | null = {}) : void {
-    if (load_balancersGetResponse) {
-        writer.writeObjectValue<Page_links>("links", load_balancersGetResponse.links, serializePage_links);
-        writer.writeCollectionOfObjectValues<Load_balancer>("load_balancers", load_balancersGetResponse.loadBalancers, serializeLoad_balancer);
-        writer.writeObjectValue<Meta_properties>("meta", load_balancersGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(load_balancersGetResponse.additionalData);
-    }
+export function serializeLoad_balancersGetResponse(writer: SerializationWriter, load_balancersGetResponse: Partial<Load_balancersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!load_balancersGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", load_balancersGetResponse.links, serializePage_links);
+    writer.writeCollectionOfObjectValues<Load_balancer>("load_balancers", load_balancersGetResponse.loadBalancers, serializeLoad_balancer);
+    writer.writeObjectValue<Meta_properties>("meta", load_balancersGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(load_balancersGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Load_balancersPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLoad_balancersPostResponse(writer: SerializationWriter, load_balancersPostResponse: Partial<Load_balancersPostResponse> | undefined | null = {}) : void {
-    if (load_balancersPostResponse) {
-        writer.writeObjectValue<Load_balancer>("load_balancer", load_balancersPostResponse.loadBalancer, serializeLoad_balancer);
-        writer.writeAdditionalData(load_balancersPostResponse.additionalData);
-    }
+export function serializeLoad_balancersPostResponse(writer: SerializationWriter, load_balancersPostResponse: Partial<Load_balancersPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!load_balancersPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Load_balancer>("load_balancer", load_balancersPostResponse.loadBalancer, serializeLoad_balancer);
+    writer.writeAdditionalData(load_balancersPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeF
 
 export interface AttachmentsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The links property
      */
     links?: Page_links | null;
@@ -27,10 +23,6 @@ export interface AttachmentsGetResponse extends AdditionalDataHolder, Parsable {
     partnerAttachments?: Partner_attachment[] | null;
 }
 export interface AttachmentsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The partner_attachment property
      */
@@ -117,6 +109,7 @@ export function createAttachmentsPostResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param AttachmentsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -129,6 +122,7 @@ export function deserializeIntoAttachmentsGetResponse(attachmentsGetResponse: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param AttachmentsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -139,27 +133,29 @@ export function deserializeIntoAttachmentsPostResponse(attachmentsPostResponse: 
 }
 /**
  * Serializes information the current object
+ * @param AttachmentsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAttachmentsGetResponse(writer: SerializationWriter, attachmentsGetResponse: Partial<AttachmentsGetResponse> | undefined | null = {}) : void {
-    if (attachmentsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", attachmentsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", attachmentsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Partner_attachment>("partner_attachments", attachmentsGetResponse.partnerAttachments, serializePartner_attachment);
-        writer.writeAdditionalData(attachmentsGetResponse.additionalData);
-    }
+export function serializeAttachmentsGetResponse(writer: SerializationWriter, attachmentsGetResponse: Partial<AttachmentsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!attachmentsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", attachmentsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", attachmentsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Partner_attachment>("partner_attachments", attachmentsGetResponse.partnerAttachments, serializePartner_attachment);
+    writer.writeAdditionalData(attachmentsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param AttachmentsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAttachmentsPostResponse(writer: SerializationWriter, attachmentsPostResponse: Partial<AttachmentsPostResponse> | undefined | null = {}) : void {
-    if (attachmentsPostResponse) {
-        writer.writeObjectValue<Partner_attachment>("partner_attachment", attachmentsPostResponse.partnerAttachment, serializePartner_attachment);
-        writer.writeAdditionalData(attachmentsPostResponse.additionalData);
-    }
+export function serializeAttachmentsPostResponse(writer: SerializationWriter, attachmentsPostResponse: Partial<AttachmentsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!attachmentsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Partner_attachment>("partner_attachment", attachmentsPostResponse.partnerAttachment, serializePartner_attachment);
+    writer.writeAdditionalData(attachmentsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

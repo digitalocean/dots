@@ -28,19 +28,11 @@ export function createDbsPostResponseFromDiscriminatorValue(parseNode: ParseNode
 }
 export interface DbsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The dbs property
      */
     dbs?: Database[] | null;
 }
 export interface DbsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The db property
      */
@@ -95,6 +87,7 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
 }
 /**
  * The deserialization information for the current model
+ * @param DbsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -105,6 +98,7 @@ export function deserializeIntoDbsGetResponse(dbsGetResponse: Partial<DbsGetResp
 }
 /**
  * The deserialization information for the current model
+ * @param DbsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -115,25 +109,27 @@ export function deserializeIntoDbsPostResponse(dbsPostResponse: Partial<DbsPostR
 }
 /**
  * Serializes information the current object
+ * @param DbsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetResponse: Partial<DbsGetResponse> | undefined | null = {}) : void {
-    if (dbsGetResponse) {
-        writer.writeCollectionOfObjectValues<Database>("dbs", dbsGetResponse.dbs, serializeDatabase);
-        writer.writeAdditionalData(dbsGetResponse.additionalData);
-    }
+export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetResponse: Partial<DbsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dbsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Database>("dbs", dbsGetResponse.dbs, serializeDatabase);
+    writer.writeAdditionalData(dbsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DbsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbsPostResponse(writer: SerializationWriter, dbsPostResponse: Partial<DbsPostResponse> | undefined | null = {}) : void {
-    if (dbsPostResponse) {
-        writer.writeObjectValue<Database>("db", dbsPostResponse.db, serializeDatabase);
-        writer.writeAdditionalData(dbsPostResponse.additionalData);
-    }
+export function serializeDbsPostResponse(writer: SerializationWriter, dbsPostResponse: Partial<DbsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dbsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database>("db", dbsPostResponse.db, serializeDatabase);
+    writer.writeAdditionalData(dbsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

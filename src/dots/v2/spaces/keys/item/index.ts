@@ -35,6 +35,7 @@ export function createWithAccess_keyPutResponseFromDiscriminatorValue(parseNode:
 }
 /**
  * The deserialization information for the current model
+ * @param WithAccess_keyGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -45,6 +46,7 @@ export function deserializeIntoWithAccess_keyGetResponse(withAccess_keyGetRespon
 }
 /**
  * The deserialization information for the current model
+ * @param WithAccess_keyPatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -55,6 +57,7 @@ export function deserializeIntoWithAccess_keyPatchResponse(withAccess_keyPatchRe
 }
 /**
  * The deserialization information for the current model
+ * @param WithAccess_keyPutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -65,42 +68,41 @@ export function deserializeIntoWithAccess_keyPutResponse(withAccess_keyPutRespon
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithAccess_keyGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAccess_keyGetResponse(writer: SerializationWriter, withAccess_keyGetResponse: Partial<WithAccess_keyGetResponse> | undefined | null = {}) : void {
-    if (withAccess_keyGetResponse) {
-        writer.writeCollectionOfObjectValues<Key>("keys", withAccess_keyGetResponse.keys, serializeKey);
-        writer.writeAdditionalData(withAccess_keyGetResponse.additionalData);
-    }
+export function serializeWithAccess_keyGetResponse(writer: SerializationWriter, withAccess_keyGetResponse: Partial<WithAccess_keyGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withAccess_keyGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Key>("keys", withAccess_keyGetResponse.keys, serializeKey);
+    writer.writeAdditionalData(withAccess_keyGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithAccess_keyPatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAccess_keyPatchResponse(writer: SerializationWriter, withAccess_keyPatchResponse: Partial<WithAccess_keyPatchResponse> | undefined | null = {}) : void {
-    if (withAccess_keyPatchResponse) {
-        writer.writeObjectValue<Key>("key", withAccess_keyPatchResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPatchResponse.additionalData);
-    }
+export function serializeWithAccess_keyPatchResponse(writer: SerializationWriter, withAccess_keyPatchResponse: Partial<WithAccess_keyPatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withAccess_keyPatchResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Key>("key", withAccess_keyPatchResponse.key, serializeKey);
+    writer.writeAdditionalData(withAccess_keyPatchResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithAccess_keyPutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAccess_keyPutResponse(writer: SerializationWriter, withAccess_keyPutResponse: Partial<WithAccess_keyPutResponse> | undefined | null = {}) : void {
-    if (withAccess_keyPutResponse) {
-        writer.writeObjectValue<Key>("key", withAccess_keyPutResponse.key, serializeKey);
-        writer.writeAdditionalData(withAccess_keyPutResponse.additionalData);
-    }
+export function serializeWithAccess_keyPutResponse(writer: SerializationWriter, withAccess_keyPutResponse: Partial<WithAccess_keyPutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withAccess_keyPutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Key>("key", withAccess_keyPutResponse.key, serializeKey);
+    writer.writeAdditionalData(withAccess_keyPutResponse.additionalData);
 }
 export interface WithAccess_keyGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The keys property
      */
@@ -186,19 +188,11 @@ export interface WithAccess_keyItemRequestBuilder extends BaseRequestBuilder<Wit
 }
 export interface WithAccess_keyPatchResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The key property
      */
     key?: Key | null;
 }
 export interface WithAccess_keyPutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The key property
      */
