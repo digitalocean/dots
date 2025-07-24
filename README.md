@@ -134,7 +134,7 @@ make test-single filename.ts
 ### Generates nested value fields for nested arrays
 -  This is an existing issue with Kiota
 ### Converts fields which have `default` key to `defaultEscaped` 
-
+- For example: default : true to deaultEscaped : true.
 
 # **A Full Documentation can be found here**
 
