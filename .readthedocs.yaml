@@ -1,16 +1,11 @@
-# Read the Docs configuration file
-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-
 # Required
 version: 2
 
-# Set the OS, Python version, and other tools you might need
+# Set the OS, Node version, and other tools you might need
 build:
   os: ubuntu-24.04
   tools:
     nodejs: "16"
-
-
 
 # Optionally, but recommended,
 # declare the Python requirements required to build your documentation
@@ -21,7 +16,3 @@ build:
 
 sphinx:
   configuration: sphinxconfig.py
-
-commands:
-  - npm install
-  - npm run docs
