@@ -19,6 +19,9 @@ build:
 #    install:
 #    - requirements: docs/requirements.txt
 
+sphinx:
+  configuration: sphinxconfig.py
+
 commands:
   - npm install
   - npm run docs
