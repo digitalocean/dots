@@ -3596,6 +3596,10 @@ export interface App extends AdditionalDataHolder, Parsable {
      * The updated_at property
      */
     updatedAt?: Date | null;
+    /**
+     * The vpc property
+     */
+    vpc?: Apps_vpc | null;
 }
 export interface App_alert extends AdditionalDataHolder, Parsable {
     /**
@@ -4663,6 +4667,10 @@ export interface App_spec extends AdditionalDataHolder, Parsable {
      */
     staticSites?: App_static_site_spec[] | null;
     /**
+     * The vpc property
+     */
+    vpc?: Apps_vpc | null;
+    /**
      * Workloads which do not expose publicly-accessible HTTP services.
      */
     workers?: App_worker_spec[] | null;
@@ -5444,6 +5452,22 @@ export interface Apps_update_app_request extends AdditionalDataHolder, Parsable 
      * Whether or not to update the source versions (for example fetching a new commit or image digest) of all components. By default (when this is false) only newly added sources will be updated to avoid changes like updating the scale of a component from also updating the respective code.
      */
     updateAllSourceVersions?: boolean | null;
+}
+export interface Apps_vpc extends AdditionalDataHolder, Parsable {
+    /**
+     * The egress_ips property
+     */
+    egressIps?: Apps_vpc_egress_ip[] | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+}
+export interface Apps_vpc_egress_ip extends AdditionalDataHolder, Parsable {
+    /**
+     * The ip property
+     */
+    ip?: string | null;
 }
 export interface Associated_kubernetes_resource extends AdditionalDataHolder, Parsable {
     /**
@@ -8972,6 +8996,24 @@ export function createApps_string_matchFromDiscriminatorValue(parseNode: ParseNo
 // @ts-ignore
 export function createApps_update_app_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApps_update_app_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Apps_vpc_egress_ip}
+ */
+// @ts-ignore
+export function createApps_vpc_egress_ipFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApps_vpc_egress_ip;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Apps_vpc}
+ */
+// @ts-ignore
+export function createApps_vpcFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApps_vpc;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -14967,6 +15009,7 @@ export function deserializeIntoApp(app: Partial<App> | undefined = {}) : Record<
         "spec": n => { app.spec = n.getObjectValue<App_spec>(createApp_specFromDiscriminatorValue); },
         "tier_slug": n => { app.tierSlug = n.getStringValue(); },
         "updated_at": n => { app.updatedAt = n.getDateValue(); },
+        "vpc": n => { app.vpc = n.getObjectValue<Apps_vpc>(createApps_vpcFromDiscriminatorValue); },
     }
 }
 /**
@@ -15726,6 +15769,7 @@ export function deserializeIntoApp_spec(app_spec: Partial<App_spec> | undefined 
         "region": n => { app_spec.region = n.getEnumValue<App_spec_region>(App_spec_regionObject); },
         "services": n => { app_spec.services = n.getCollectionOfObjectValues<App_service_spec>(createApp_service_specFromDiscriminatorValue); },
         "static_sites": n => { app_spec.staticSites = n.getCollectionOfObjectValues<App_static_site_spec>(createApp_static_site_specFromDiscriminatorValue); },
+        "vpc": n => { app_spec.vpc = n.getObjectValue<Apps_vpc>(createApps_vpcFromDiscriminatorValue); },
         "workers": n => { app_spec.workers = n.getCollectionOfObjectValues<App_worker_spec>(createApp_worker_specFromDiscriminatorValue); },
     }
 }
@@ -16373,6 +16417,29 @@ export function deserializeIntoApps_update_app_request(apps_update_app_request: 
     return {
         "spec": n => { apps_update_app_request.spec = n.getObjectValue<App_spec>(createApp_specFromDiscriminatorValue); },
         "update_all_source_versions": n => { apps_update_app_request.updateAllSourceVersions = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Apps_vpc The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApps_vpc(apps_vpc: Partial<Apps_vpc> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "egress_ips": n => { apps_vpc.egressIps = n.getCollectionOfObjectValues<Apps_vpc_egress_ip>(createApps_vpc_egress_ipFromDiscriminatorValue); },
+        "id": n => { apps_vpc.id = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Apps_vpc_egress_ip The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApps_vpc_egress_ip(apps_vpc_egress_ip: Partial<Apps_vpc_egress_ip> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "ip": n => { apps_vpc_egress_ip.ip = n.getStringValue(); },
     }
 }
 /**
@@ -29320,6 +29387,31 @@ export function serializeApps_update_app_request(writer: SerializationWriter, ap
     writer.writeObjectValue<App_spec>("spec", apps_update_app_request.spec, serializeApp_spec);
     writer.writeBooleanValue("update_all_source_versions", apps_update_app_request.updateAllSourceVersions);
     writer.writeAdditionalData(apps_update_app_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Apps_vpc The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApps_vpc(writer: SerializationWriter, apps_vpc: Partial<Apps_vpc> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apps_vpc || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Apps_vpc_egress_ip>("egress_ips", apps_vpc.egressIps, serializeApps_vpc_egress_ip);
+    writer.writeStringValue("id", apps_vpc.id);
+    writer.writeAdditionalData(apps_vpc.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Apps_vpc_egress_ip The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApps_vpc_egress_ip(writer: SerializationWriter, apps_vpc_egress_ip: Partial<Apps_vpc_egress_ip> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apps_vpc_egress_ip || isSerializingDerivedType) { return; }
+    writer.writeStringValue("ip", apps_vpc_egress_ip.ip);
+    writer.writeAdditionalData(apps_vpc_egress_ip.additionalData);
 }
 /**
  * Serializes information the current object
