@@ -125,7 +125,7 @@ resources on the respective DigitalOcean account. make sure you have correct acc
 To run integration tests, run:
 
 ```shell
- make test-single file=droplet.test.ts
+ make test-integration file=droplet.test.ts
 ```
 
 # **Known Issues**
