@@ -10,7 +10,7 @@
 ## Installation
 
 To install the dependencies for this repository, use the following command:
-```
+```shell
 npm i @digitalocean/dots
 ```
 
@@ -18,7 +18,7 @@ npm i @digitalocean/dots
 > A quick guide to getting started with client
 ### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
-```
+```typescript
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token!);
 // Create request adapter using the fetch-based implementation
 const adapter = new FetchRequestAdapter(authProvider);
@@ -28,7 +28,7 @@ const client = createDigitalOceanClient(adapter);
 
 ### Managing DigitalOcean Resources via dots
 Find below a working example of creating a DigitalOcean volume via `dots`:
-```
+```typescript
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from '../src/dots/DigitalOceanApiKeyAuthenticationProvider.js';
