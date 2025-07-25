@@ -19,7 +19,9 @@
     "digitalocean",
     "typescript",
     "dots",
-    "OpenAPI"
+    "OpenAPI",
+    "Kiota",
+    "javascript"
   ],
   "repository": {
     "type": "git",
