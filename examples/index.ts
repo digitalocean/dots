@@ -21,13 +21,6 @@ const REGION = "nyc3"; // Example region, change as needed
 
 interface Droplet{
     id: number;
-    name: string;
-    region: string;
-    size: string;
-    image: string;
-    networks: {
-        v4: { ip_address: string; type: string }[];
-    };
 }
 
 interface DropletRequest {
@@ -35,7 +28,7 @@ interface DropletRequest {
     region: string;
     size: string;
     image: string;
-    ssh_keys?: string[];
+    ssh_keys?: (string | number)[]; 
 }
 
 interface Volume {
@@ -54,17 +47,17 @@ async function main(): Promise<void> {
             throw new Error("SSH_KEY_NAME not set");
         }
         const sshKey = await findSshKey(keyName);
-        const fingerprint : string[] = [sshKey.fingerprint ?? (() => { throw new Error("SSH key fingerprint is undefined or null"); })()]
-        const dropletReq : DropletRequest = {
+        if (!sshKey.fingerprint) throw new Error("SSH key fingerprint is undefined or null");
+         const dropletReq: DropletRequest = {
             name: `test-${uuidv4()}`,
             region: REGION,
             size: "s-1vcpu-1gb",
             image: "ubuntu-22-04-x64",
-            ssh_keys: fingerprint,
+            ssh_keys: [sshKey.fingerprint],
         };
 
         const droplet = await createDroplet(dropletReq);
-        console.log("Droplet created: ", (droplet as { id: number }).id);
+        console.log("Droplet created: ", droplet.id);
 
         const volumeReq: Volumes_ext4 = {
             sizeGigabytes: 10,
@@ -78,7 +71,7 @@ async function main(): Promise<void> {
         console.log("Volume created: ", (volume.id));
 
         const volumeActionReq: Volume_action_post_attach  = {
-            dropletId: (droplet as { id: number }).id,
+            dropletId: droplet.id,
             type: "attach",
         };
 
@@ -118,7 +111,6 @@ async function findSshKey(name: string): Promise<{ name?: string | null; fingerp
             if (resp && resp.sshKeys) {
                 for (const k of resp.sshKeys) {
                     if (k.name === name) {
-                        console.log(`Found SSH key: ${k.fingerprint}`);
                         return k;
                     }
                 }
@@ -186,21 +178,6 @@ async function createDroplet(req: DropletRequest): Promise<Droplet> {
                     }
                     return {
                         id: droplet.id,
-                        name: droplet.name as string,
-                        region: droplet.region as string,
-                        size: droplet.size as string,
-                        image: droplet.image as string,
-                        networks: {
-                            v4: (droplet.networks?.v4
-                                ?.filter((net: { ipAddress?: string | null; type?: string | null }) =>
-                                    typeof net.ipAddress === "string" && !!net.type
-                                )
-                                .map((net: { ipAddress?: string | null; type?: string | null }) => ({
-                                    ip_address: net.ipAddress as string,
-                                    type: net.type as string,
-                                }))
-                            ) ?? [],
-                        },
                     };
                 } else {
                     throw new Error("Failed to retrieve droplet details or networks information");
@@ -233,14 +210,17 @@ async function createVolume(req: Volumes_ext4): Promise<Volume> {
         if (resp && resp.volume) {
             const volume = resp.volume;
             console.log(`Created volume ${volume.name} <ID: ${volume.id}>`);
-            return {
-                id: volume.id as string,
-                name: volume.name as string,
-                sizeGigabytes: volume.sizeGigabytes as number,
-                description: volume.description as string,
-                region: volume.region as string,
-                filesystemType: volume.filesystemType as string,
+            
+            const volumeData: Volume = {
+                id: volume.id ?? "",
+                name: volume.name ?? "",
+                sizeGigabytes: volume.sizeGigabytes ?? 0,
+                description: volume.description ?? "",
+                region: String(volume.region) ?? "",
+                filesystemType: volume.filesystemType ?? "",
             };
+            return volumeData;
+            
         } else {
             throw new Error("Failed to create volume or volume is undefined");
         }
