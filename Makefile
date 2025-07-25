@@ -36,13 +36,13 @@ test-mocked: ## Running mocked test cases
 	@echo Running all mocked test cases
 	npm run test:mock
 
-.PHONY: test-integration
-test-integration: ## Running mocked test cases
+.PHONY: test-integration-all
+test-integration-all: ## Running mocked test cases
 	@echo Running all integration test cases
 	npm run test:integration
 
-.PHONY: test-single
-test-single: ## Running single integration test case
+.PHONY: test-integration
+test-integration: ## Running single integration test case
 	@echo Running tests/integration/$(file) test cases
 	npm run test:single tests/integration/$(file)
 
