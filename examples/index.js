@@ -21,13 +21,14 @@ async function main() {
             throw new Error("SSH_KEY_NAME not set");
         }
         const sshKey = await findSshKey(keyName);
-        const fingerprint = [sshKey.fingerprint ?? (() => { throw new Error("SSH key fingerprint is undefined or null"); })()];
+        if (!sshKey.fingerprint)
+            throw new Error("SSH key fingerprint is undefined or null");
         const dropletReq = {
             name: `test-${uuidv4()}`,
             region: REGION,
             size: "s-1vcpu-1gb",
             image: "ubuntu-22-04-x64",
-            ssh_keys: fingerprint,
+            ssh_keys: [sshKey.fingerprint],
         };
         const droplet = await createDroplet(dropletReq);
         console.log("Droplet created: ", droplet.id);
@@ -78,7 +79,6 @@ async function findSshKey(name) {
             if (resp && resp.sshKeys) {
                 for (const k of resp.sshKeys) {
                     if (k.name === name) {
-                        console.log(`Found SSH key: ${k.fingerprint}`);
                         return k;
                     }
                 }
@@ -145,18 +145,6 @@ async function createDroplet(req) {
                     }
                     return {
                         id: droplet.id,
-                        name: droplet.name,
-                        region: droplet.region,
-                        size: droplet.size,
-                        image: droplet.image,
-                        networks: {
-                            v4: (droplet.networks?.v4
-                                ?.filter((net) => typeof net.ipAddress === "string" && !!net.type)
-                                .map((net) => ({
-                                ip_address: net.ipAddress,
-                                type: net.type,
-                            }))) ?? [],
-                        },
                     };
                 }
                 else {
@@ -188,14 +176,15 @@ async function createVolume(req) {
         if (resp && resp.volume) {
             const volume = resp.volume;
             console.log(`Created volume ${volume.name} <ID: ${volume.id}>`);
-            return {
-                id: volume.id,
-                name: volume.name,
-                sizeGigabytes: volume.sizeGigabytes,
-                description: volume.description,
-                region: volume.region,
-                filesystemType: volume.filesystemType,
+            const volumeData = {
+                id: volume.id ?? "",
+                name: volume.name ?? "",
+                sizeGigabytes: volume.sizeGigabytes ?? 0,
+                description: volume.description ?? "",
+                region: String(volume.region) ?? "",
+                filesystemType: volume.filesystemType ?? "",
             };
+            return volumeData;
         }
         else {
             throw new Error("Failed to create volume or volume is undefined");
