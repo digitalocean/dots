@@ -2,7 +2,7 @@
 
 >First: if you're unsure or afraid of anything, just ask or submit the issue or pull request anyways. You won't be yelled at for giving your best effort. The worst that can happen is that you'll be politely asked to change something. We appreciate all contributions!
 
-## A Little Bit of Context
+## Here's a Quick Overview
 
 The DigitalOcean TypeScript client is generated using [Kiota](https://github.com/microsoft/kiota). The Kiota tool generates client libraries for accessing RESTful web services. Input to Kiota is a spec that describes the DigitalOcean REST API using the OpenAPI 3.0 Specification format. The spec can be found [here](https://github.com/digitalocean/openapi).
 
@@ -50,17 +50,19 @@ DoTs is a generated client. This section will walk you through generating the cl
     make generate
     ```
 
-4.  It is also good practice to run mock tests against the changes using the following make command:
+4. Compile all TypeScript Generated files
+
+   ```sh
+   tsc
+   ```
+
+5.  It is also good practice to run mock tests against the changes using the following make command:
 
     ```sh
     make test-mocked
     ```
     
-5. Compile all TypeScript Generated files
 
-   ```sh
-   tsc
-   ```
 
 
 ## Releasing `dots`
