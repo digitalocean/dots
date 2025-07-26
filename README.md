@@ -1,5 +1,5 @@
-# dots
-`dots` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
+# DoTs
+`DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
 # Getting Started
 ## Prerequisites 
@@ -9,12 +9,16 @@
 
 ## Installation
 
-To install the dependencies for this repository, use the following command:
+> The preferred way to install the DoTs for Node.js is to use the npm package manager for Node.js. \
+> Simply type the following into a terminal window:
 ```shell
 npm i @digitalocean/dots
 ```
+## **The entire documentation is available at this link.**
 
-## Quick Start
+> https://digitaloceandots.readthedocs.io/en/latest/
+
+## `DoTs` **Quick Start**
 > A quick guide to getting started with client
 ### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
@@ -81,11 +85,6 @@ Done!
 
 More working examples can be found in `dots/examples`. 
 
-# **Contributing**
-
->Visit our [Contribuing Guide](CONTRIBUTING.md) for more information on getting
-involved in developing this client.
-
 # **Tests**
 
 >The tests included in this repo are used to validate the generated client.
@@ -127,16 +126,23 @@ To run integration tests, run:
 ```shell
  make test-integration file=droplet.test.ts
 ```
-
+# **Kiota Behavior**
+> This section outlines Kiota's behaviors and transformations in API request and response handling.
+### Parameter Case Conversion
+- Kiota automatically converts parameters sent in snake_case to camelCase when generating API requests, ensuring consistency with standard naming conventions and TypeScript's camelCase practices
+### Reserved Keyword Handling
+- Kiota modifies reserved keywords to avoid conflicts and ensure compatibility.
+- For example: ``default : true`` to ``deaultEscaped : true``.
 # **Known Issues**
 
->This selection lists the known issues of the client generator.
+>This section lists the known issues of the client generator.
 ### Generates nested value fields for nested arrays
 -  This is an existing issue with Kiota
-### Converts fields which have `default` key to `defaultEscaped` 
-- For example: default : true to deaultEscaped : true.
+-  More details about this issue can be found [here](https://github.com/microsoft/kiota/issues/4549)
 
-# **A Full Documentation can be found here**
 
-> https://digitaloceandots.readthedocs.io/en/latest/
+# **Contributing**
+>We welcome contributions! Feel free to get involved in developing this client by visiting our [Contribuing Guide](CONTRIBUTING.md) for detailed information and guidelines.
+>For feature requests or bug reports, open an issue to help us improve the client.
+
 
