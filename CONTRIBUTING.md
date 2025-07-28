@@ -53,7 +53,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 4. Compile all TypeScript Generated files
 
    ```sh
-   tsc
+   npm run build
    ```
 
 5.  It is also good practice to run mock tests against the changes using the following make command:
