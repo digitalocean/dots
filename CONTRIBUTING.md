@@ -83,7 +83,7 @@ number for the tag.
 
     ```bash
     make BUMP=minor bump_version
-    ```  
+    ```   
 
 1. Create a separate PR with only version changes.
 

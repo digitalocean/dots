@@ -102,7 +102,7 @@ There are two types of test suites in the `tests/` directory.
 
 Tests in the `mocked` directory include:
 
-- tests that validate the generated client has all the expected classes and
+- tests that validate the generated client has all the expected classes and 
   methods for the respective API resources and operations.
 - tests that exercise individual operations against mocked responses.
 
