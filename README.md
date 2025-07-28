@@ -120,6 +120,6 @@ make test-mocked
 - Converts fields which have `default` key to `defaultEscaped` 
 
 
-# **A Full Documentation can be found here**
+# **A full Documentation can be found here**
 
 >  https://didactic-spoon-vmgg6zw.pages.github.io/  (Should change the link with some good domain name)
