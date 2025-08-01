@@ -708,6 +708,14 @@ export interface ApiAgentLoggingConfig extends AdditionalDataHolder, Parsable {
      */
     galileoProjectName?: string | null;
     /**
+     * Whether insights are enabled
+     */
+    insightsEnabled?: boolean | null;
+    /**
+     * Timestamp when insights were enabled
+     */
+    insightsEnabledAt?: Date | null;
+    /**
      * Identifier for the log stream
      */
     logStreamId?: string | null;
@@ -1595,6 +1603,54 @@ export interface ApiDeployment extends AdditionalDataHolder, Parsable {
 }
 export type ApiDeploymentStatus = (typeof ApiDeploymentStatusObject)[keyof typeof ApiDeploymentStatusObject];
 export type ApiDeploymentVisibility = (typeof ApiDeploymentVisibilityObject)[keyof typeof ApiDeploymentVisibilityObject];
+/**
+ * Dropbox Data Source
+ */
+export interface ApiDropboxDataSource extends AdditionalDataHolder, Parsable {
+    /**
+     * The folder property
+     */
+    folder?: string | null;
+    /**
+     * Refresh token. you can obrain a refresh token by following the oauth2 flow. see /v2/gen-ai/oauth2/dropbox/tokens for reference.
+     */
+    refreshToken?: string | null;
+}
+/**
+ * Dropbox Data Source for Display
+ */
+export interface ApiDropboxDataSourceDisplay extends AdditionalDataHolder, Parsable {
+    /**
+     * The folder property
+     */
+    folder?: string | null;
+}
+/**
+ * The oauth2 code from google
+ */
+export interface ApiDropboxOauth2GetTokensInput extends AdditionalDataHolder, Parsable {
+    /**
+     * The oauth2 code from google
+     */
+    code?: string | null;
+    /**
+     * Redirect url
+     */
+    redirectUrl?: string | null;
+}
+/**
+ * The dropbox oauth2 token and refresh token
+ */
+export interface ApiDropboxOauth2GetTokensOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The refresh token
+     */
+    refreshToken?: string | null;
+    /**
+     * The access token
+     */
+    token?: string | null;
+}
 export interface ApiEvaluationDataset extends AdditionalDataHolder, Parsable {
     /**
      * Time created at.
@@ -1893,6 +1949,15 @@ export interface ApiFileUploadDataSource extends AdditionalDataHolder, Parsable 
     storedObjectKey?: string | null;
 }
 /**
+ * The url for the oauth2 flow
+ */
+export interface ApiGenerateOauth2URLOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The oauth2 url
+     */
+    url?: string | null;
+}
+/**
  * One Agent
  */
 export interface ApiGetAgentOutput extends AdditionalDataHolder, Parsable {
@@ -1900,6 +1965,19 @@ export interface ApiGetAgentOutput extends AdditionalDataHolder, Parsable {
      * An Agent
      */
     agent?: ApiAgent | null;
+}
+/**
+ * Agent usage
+ */
+export interface ApiGetAgentUsageOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Resource Usage Description
+     */
+    logInsightsUsage?: ApiResourceUsage | null;
+    /**
+     * Resource Usage Description
+     */
+    usage?: ApiResourceUsage | null;
 }
 export interface ApiGetAnthropicAPIKeyOutput extends AdditionalDataHolder, Parsable {
     /**
@@ -2094,6 +2172,18 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      */
     totalDatasources?: number | null;
     /**
+     * Total Items Failed
+     */
+    totalItemsFailed?: string | null;
+    /**
+     * Total Items Indexed
+     */
+    totalItemsIndexed?: string | null;
+    /**
+     * Total Items Skipped
+     */
+    totalItemsSkipped?: string | null;
+    /**
      * Last modified
      */
     updatedAt?: Date | null;
@@ -2116,6 +2206,10 @@ export interface ApiKBDataSource extends AdditionalDataHolder, Parsable {
      * Deprecated, moved to data_source_details
      */
     bucketRegion?: string | null;
+    /**
+     * Dropbox Data Source
+     */
+    dropboxDataSource?: ApiDropboxDataSource | null;
     /**
      * File to upload as data source for knowledge base.
      */
@@ -2206,6 +2300,10 @@ export interface ApiKnowledgeBaseDataSource extends AdditionalDataHolder, Parsab
      * Creation date / time
      */
     createdAt?: Date | null;
+    /**
+     * Dropbox Data Source for Display
+     */
+    dropboxDataSource?: ApiDropboxDataSourceDisplay | null;
     /**
      * File to upload as data source for knowledge base.
      */
@@ -2734,11 +2832,15 @@ export interface ApiModelPublic extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * Human-readable model identifier
+     */
+    id?: string | null;
+    /**
      * True if it is a foundational model provided by do
      */
     isFoundational?: boolean | null;
     /**
-     * Name of the model
+     * Display name of the model
      */
     name?: string | null;
     /**
@@ -2937,6 +3039,27 @@ export interface ApiRegenerateModelAPIKeyOutput extends AdditionalDataHolder, Pa
      * Model API Key Info
      */
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
+}
+/**
+ * Resource Usage Description
+ */
+export interface ApiResourceUsage extends AdditionalDataHolder, Parsable {
+    /**
+     * The measurements property
+     */
+    measurements?: ApiUsageMeasurement[] | null;
+    /**
+     * The resource_uuid property
+     */
+    resourceUuid?: string | null;
+    /**
+     * The start property
+     */
+    start?: Date | null;
+    /**
+     * The stop property
+     */
+    stop?: Date | null;
 }
 export type ApiRetrievalMethod = (typeof ApiRetrievalMethodObject)[keyof typeof ApiRetrievalMethodObject];
 export interface ApiRollbackToAgentVersionInputPublic extends AdditionalDataHolder, Parsable {
@@ -3172,6 +3295,10 @@ export interface ApiUpdateAgentFunctionOutput extends AdditionalDataHolder, Pars
  * Data to modify an existing Agent
  */
 export interface ApiUpdateAgentInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * The agent_log_insights_enabled property
+     */
+    agentLogInsightsEnabled?: boolean | null;
     /**
      * Optional anthropic key uuid for use with anthropic models
      */
@@ -3456,6 +3583,19 @@ export interface ApiUpdateWorkspaceOutput extends AdditionalDataHolder, Parsable
      * The workspace property
      */
     workspace?: ApiWorkspace | null;
+}
+/**
+ * Usage Measurement Description
+ */
+export interface ApiUsageMeasurement extends AdditionalDataHolder, Parsable {
+    /**
+     * The tokens property
+     */
+    tokens?: number | null;
+    /**
+     * The usage_type property
+     */
+    usageType?: string | null;
 }
 /**
  * WebCrawlerDataSource
@@ -7110,6 +7250,42 @@ export function createApiDeploymentFromDiscriminatorValue(parseNode: ParseNode |
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDropboxDataSourceDisplay}
+ */
+// @ts-ignore
+export function createApiDropboxDataSourceDisplayFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDropboxDataSourceDisplay;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDropboxDataSource}
+ */
+// @ts-ignore
+export function createApiDropboxDataSourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDropboxDataSource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDropboxOauth2GetTokensInput}
+ */
+// @ts-ignore
+export function createApiDropboxOauth2GetTokensInputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDropboxOauth2GetTokensInput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDropboxOauth2GetTokensOutput}
+ */
+// @ts-ignore
+export function createApiDropboxOauth2GetTokensOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDropboxOauth2GetTokensOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiEvaluationDataset}
  */
 // @ts-ignore
@@ -7182,11 +7358,29 @@ export function createApiFileUploadDataSourceFromDiscriminatorValue(parseNode: P
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGenerateOauth2URLOutput}
+ */
+// @ts-ignore
+export function createApiGenerateOauth2URLOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGenerateOauth2URLOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetAgentOutput}
  */
 // @ts-ignore
 export function createApiGetAgentOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiGetAgentOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetAgentUsageOutput}
+ */
+// @ts-ignore
+export function createApiGetAgentUsageOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetAgentUsageOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -7713,6 +7907,15 @@ export function createApiRegenerateModelAPIKeyOutputFromDiscriminatorValue(parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiResourceUsage}
+ */
+// @ts-ignore
+export function createApiResourceUsageFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiResourceUsage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiRollbackToAgentVersionInputPublic}
  */
 // @ts-ignore
@@ -8024,6 +8227,15 @@ export function createApiUpdateWorkspaceInputPublicFromDiscriminatorValue(parseN
 // @ts-ignore
 export function createApiUpdateWorkspaceOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiUpdateWorkspaceOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUsageMeasurement}
+ */
+// @ts-ignore
+export function createApiUsageMeasurementFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUsageMeasurement;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -11559,6 +11771,15 @@ export function createScheduled_detailsFromDiscriminatorValue(parseNode: ParseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Schema_registry_connection}
+ */
+// @ts-ignore
+export function createSchema_registry_connectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSchema_registry_connection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Selective_destroy_associated_resource}
  */
 // @ts-ignore
@@ -12127,6 +12348,10 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     rules?: Firewall_rule[] | null;
     /**
+     * The connection details for Schema Registry.
+     */
+    schemaRegistryConnection?: Schema_registry_connection | null;
+    /**
      * A string representing the semantic version of the database engine in use for the cluster.
      */
     semanticVersion?: string | null;
@@ -12233,6 +12458,10 @@ export interface Database_cluster_read extends AdditionalDataHolder, Parsable {
      * The rules property
      */
     rules?: Firewall_rule[] | null;
+    /**
+     * The connection details for Schema Registry.
+     */
+    schemaRegistryConnection?: Schema_registry_connection | null;
     /**
      * A string representing the semantic version of the database engine in use for the cluster.
      */
@@ -12957,6 +13186,8 @@ export function deserializeIntoApiAgentLoggingConfig(apiAgentLoggingConfig: Part
     return {
         "galileo_project_id": n => { apiAgentLoggingConfig.galileoProjectId = n.getStringValue(); },
         "galileo_project_name": n => { apiAgentLoggingConfig.galileoProjectName = n.getStringValue(); },
+        "insights_enabled": n => { apiAgentLoggingConfig.insightsEnabled = n.getBooleanValue(); },
+        "insights_enabled_at": n => { apiAgentLoggingConfig.insightsEnabledAt = n.getDateValue(); },
         "log_stream_id": n => { apiAgentLoggingConfig.logStreamId = n.getStringValue(); },
         "log_stream_name": n => { apiAgentLoggingConfig.logStreamName = n.getStringValue(); },
     }
@@ -13566,6 +13797,53 @@ export function deserializeIntoApiDeployment(apiDeployment: Partial<ApiDeploymen
 }
 /**
  * The deserialization information for the current model
+ * @param ApiDropboxDataSource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDropboxDataSource(apiDropboxDataSource: Partial<ApiDropboxDataSource> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "folder": n => { apiDropboxDataSource.folder = n.getStringValue(); },
+        "refresh_token": n => { apiDropboxDataSource.refreshToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDropboxDataSourceDisplay The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDropboxDataSourceDisplay(apiDropboxDataSourceDisplay: Partial<ApiDropboxDataSourceDisplay> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "folder": n => { apiDropboxDataSourceDisplay.folder = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDropboxOauth2GetTokensInput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDropboxOauth2GetTokensInput(apiDropboxOauth2GetTokensInput: Partial<ApiDropboxOauth2GetTokensInput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "code": n => { apiDropboxOauth2GetTokensInput.code = n.getStringValue(); },
+        "redirect_url": n => { apiDropboxOauth2GetTokensInput.redirectUrl = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDropboxOauth2GetTokensOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDropboxOauth2GetTokensOutput(apiDropboxOauth2GetTokensOutput: Partial<ApiDropboxOauth2GetTokensOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "refresh_token": n => { apiDropboxOauth2GetTokensOutput.refreshToken = n.getStringValue(); },
+        "token": n => { apiDropboxOauth2GetTokensOutput.token = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiEvaluationDataset The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -13714,6 +13992,17 @@ export function deserializeIntoApiFileUploadDataSource(apiFileUploadDataSource: 
 }
 /**
  * The deserialization information for the current model
+ * @param ApiGenerateOauth2URLOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGenerateOauth2URLOutput(apiGenerateOauth2URLOutput: Partial<ApiGenerateOauth2URLOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "url": n => { apiGenerateOauth2URLOutput.url = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiGetAgentOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -13721,6 +14010,18 @@ export function deserializeIntoApiFileUploadDataSource(apiFileUploadDataSource: 
 export function deserializeIntoApiGetAgentOutput(apiGetAgentOutput: Partial<ApiGetAgentOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent": n => { apiGetAgentOutput.agent = n.getObjectValue<ApiAgent>(createApiAgentFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGetAgentUsageOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetAgentUsageOutput(apiGetAgentUsageOutput: Partial<ApiGetAgentUsageOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "log_insights_usage": n => { apiGetAgentUsageOutput.logInsightsUsage = n.getObjectValue<ApiResourceUsage>(createApiResourceUsageFromDiscriminatorValue); },
+        "usage": n => { apiGetAgentUsageOutput.usage = n.getObjectValue<ApiResourceUsage>(createApiResourceUsageFromDiscriminatorValue); },
     }
 }
 /**
@@ -13879,6 +14180,9 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob: Partial<ApiIndexin
         "status": n => { apiIndexingJob.status = n.getEnumValue<ApiIndexJobStatus>(ApiIndexJobStatusObject) ?? ApiIndexJobStatusObject.INDEX_JOB_STATUS_UNKNOWN; },
         "tokens": n => { apiIndexingJob.tokens = n.getNumberValue(); },
         "total_datasources": n => { apiIndexingJob.totalDatasources = n.getNumberValue(); },
+        "total_items_failed": n => { apiIndexingJob.totalItemsFailed = n.getStringValue(); },
+        "total_items_indexed": n => { apiIndexingJob.totalItemsIndexed = n.getStringValue(); },
+        "total_items_skipped": n => { apiIndexingJob.totalItemsSkipped = n.getStringValue(); },
         "updated_at": n => { apiIndexingJob.updatedAt = n.getDateValue(); },
         "uuid": n => { apiIndexingJob.uuid = n.getStringValue(); },
     }
@@ -13894,6 +14198,7 @@ export function deserializeIntoApiKBDataSource(apiKBDataSource: Partial<ApiKBDat
         "aws_data_source": n => { apiKBDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSource>(createApiAWSDataSourceFromDiscriminatorValue); },
         "bucket_name": n => { apiKBDataSource.bucketName = n.getStringValue(); },
         "bucket_region": n => { apiKBDataSource.bucketRegion = n.getStringValue(); },
+        "dropbox_data_source": n => { apiKBDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSource>(createApiDropboxDataSourceFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKBDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
         "item_path": n => { apiKBDataSource.itemPath = n.getStringValue(); },
         "spaces_data_source": n => { apiKBDataSource.spacesDataSource = n.getObjectValue<ApiSpacesDataSource>(createApiSpacesDataSourceFromDiscriminatorValue); },
@@ -13934,6 +14239,7 @@ export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSo
         "aws_data_source": n => { apiKnowledgeBaseDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSourceDisplay>(createApiAWSDataSourceDisplayFromDiscriminatorValue); },
         "bucket_name": n => { apiKnowledgeBaseDataSource.bucketName = n.getStringValue(); },
         "created_at": n => { apiKnowledgeBaseDataSource.createdAt = n.getDateValue(); },
+        "dropbox_data_source": n => { apiKnowledgeBaseDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSourceDisplay>(createApiDropboxDataSourceDisplayFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKnowledgeBaseDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
         "item_path": n => { apiKnowledgeBaseDataSource.itemPath = n.getStringValue(); },
         "last_datasource_indexing_job": n => { apiKnowledgeBaseDataSource.lastDatasourceIndexingJob = n.getObjectValue<ApiIndexedDataSource>(createApiIndexedDataSourceFromDiscriminatorValue); },
@@ -14361,6 +14667,7 @@ export function deserializeIntoApiModelPublic(apiModelPublic: Partial<ApiModelPu
     return {
         "agreement": n => { apiModelPublic.agreement = n.getObjectValue<ApiAgreement>(createApiAgreementFromDiscriminatorValue); },
         "created_at": n => { apiModelPublic.createdAt = n.getDateValue(); },
+        "id": n => { apiModelPublic.id = n.getStringValue(); },
         "is_foundational": n => { apiModelPublic.isFoundational = n.getBooleanValue(); },
         "name": n => { apiModelPublic.name = n.getStringValue(); },
         "parent_uuid": n => { apiModelPublic.parentUuid = n.getStringValue(); },
@@ -14503,6 +14810,20 @@ export function deserializeIntoApiRegenerateAgentAPIKeyOutput(apiRegenerateAgent
 export function deserializeIntoApiRegenerateModelAPIKeyOutput(apiRegenerateModelAPIKeyOutput: Partial<ApiRegenerateModelAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiRegenerateModelAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiModelAPIKeyInfo>(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiResourceUsage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiResourceUsage(apiResourceUsage: Partial<ApiResourceUsage> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "measurements": n => { apiResourceUsage.measurements = n.getCollectionOfObjectValues<ApiUsageMeasurement>(createApiUsageMeasurementFromDiscriminatorValue); },
+        "resource_uuid": n => { apiResourceUsage.resourceUuid = n.getStringValue(); },
+        "start": n => { apiResourceUsage.start = n.getDateValue(); },
+        "stop": n => { apiResourceUsage.stop = n.getDateValue(); },
     }
 }
 /**
@@ -14741,6 +15062,7 @@ export function deserializeIntoApiUpdateAgentFunctionOutput(apiUpdateAgentFuncti
 // @ts-ignore
 export function deserializeIntoApiUpdateAgentInputPublic(apiUpdateAgentInputPublic: Partial<ApiUpdateAgentInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "agent_log_insights_enabled": n => { apiUpdateAgentInputPublic.agentLogInsightsEnabled = n.getBooleanValue(); },
         "anthropic_key_uuid": n => { apiUpdateAgentInputPublic.anthropicKeyUuid = n.getStringValue(); },
         "conversation_logs_enabled": n => { apiUpdateAgentInputPublic.conversationLogsEnabled = n.getBooleanValue(); },
         "description": n => { apiUpdateAgentInputPublic.description = n.getStringValue(); },
@@ -14947,6 +15269,18 @@ export function deserializeIntoApiUpdateWorkspaceInputPublic(apiUpdateWorkspaceI
 export function deserializeIntoApiUpdateWorkspaceOutput(apiUpdateWorkspaceOutput: Partial<ApiUpdateWorkspaceOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "workspace": n => { apiUpdateWorkspaceOutput.workspace = n.getObjectValue<ApiWorkspace>(createApiWorkspaceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUsageMeasurement The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUsageMeasurement(apiUsageMeasurement: Partial<ApiUsageMeasurement> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "tokens": n => { apiUsageMeasurement.tokens = n.getNumberValue(); },
+        "usage_type": n => { apiUsageMeasurement.usageType = n.getStringValue(); },
     }
 }
 /**
@@ -17205,6 +17539,7 @@ export function deserializeIntoDatabase_cluster(database_cluster: Partial<Databa
         "project_id": n => { database_cluster.projectId = n.getGuidValue(); },
         "region": n => { database_cluster.region = n.getStringValue(); },
         "rules": n => { database_cluster.rules = n.getCollectionOfObjectValues<Firewall_rule>(createFirewall_ruleFromDiscriminatorValue); },
+        "schema_registry_connection": n => { database_cluster.schemaRegistryConnection = n.getObjectValue<Schema_registry_connection>(createSchema_registry_connectionFromDiscriminatorValue); },
         "semantic_version": n => { database_cluster.semanticVersion = n.getStringValue(); },
         "size": n => { database_cluster.size = n.getStringValue(); },
         "standby_connection": n => { database_cluster.standbyConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -17241,6 +17576,7 @@ export function deserializeIntoDatabase_cluster_read(database_cluster_read: Part
         "project_id": n => { database_cluster_read.projectId = n.getGuidValue(); },
         "region": n => { database_cluster_read.region = n.getStringValue(); },
         "rules": n => { database_cluster_read.rules = n.getCollectionOfObjectValues<Firewall_rule>(createFirewall_ruleFromDiscriminatorValue); },
+        "schema_registry_connection": n => { database_cluster_read.schemaRegistryConnection = n.getObjectValue<Schema_registry_connection>(createSchema_registry_connectionFromDiscriminatorValue); },
         "semantic_version": n => { database_cluster_read.semanticVersion = n.getStringValue(); },
         "size": n => { database_cluster_read.size = n.getStringValue(); },
         "standby_connection": n => { database_cluster_read.standbyConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -20471,6 +20807,22 @@ export function deserializeIntoScheduled_details(scheduled_details: Partial<Sche
 export function deserializeIntoScheduled_details_body(scheduled_details_body: Partial<Scheduled_details_body> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { scheduled_details_body.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Schema_registry_connection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSchema_registry_connection(schema_registry_connection: Partial<Schema_registry_connection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "host": n => { schema_registry_connection.host = n.getStringValue(); },
+        "password": n => { schema_registry_connection.password = n.getStringValue(); },
+        "port": n => { schema_registry_connection.port = n.getNumberValue(); },
+        "ssl": n => { schema_registry_connection.ssl = n.getBooleanValue(); },
+        "uri": n => { schema_registry_connection.uri = n.getStringValue(); },
+        "user": n => { schema_registry_connection.user = n.getStringValue(); },
     }
 }
 /**
@@ -25209,6 +25561,32 @@ export interface Scheduled_details_body extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
 }
+export interface Schema_registry_connection extends AdditionalDataHolder, Parsable {
+    /**
+     * The FQDN pointing to the schema registry connection uri.
+     */
+    host?: string | null;
+    /**
+     * The randomly generated password for the schema registry.<br><br>Requires `database:view_credentials` scope.
+     */
+    password?: string | null;
+    /**
+     * The port on which the schema registry is listening.
+     */
+    port?: number | null;
+    /**
+     * A boolean value indicating if the connection should be made over SSL.
+     */
+    ssl?: boolean | null;
+    /**
+     * This is provided as a convenience and should be able to be constructed by the other attributes.
+     */
+    uri?: string | null;
+    /**
+     * The default user for the schema registry.<br><br>Requires `database:view_credentials` scope.
+     */
+    user?: string | null;
+}
 /**
  * An object containing information about a resource to be scheduled for deletion.
  */
@@ -25658,6 +26036,8 @@ export function serializeApiAgentLoggingConfig(writer: SerializationWriter, apiA
     if (!apiAgentLoggingConfig || isSerializingDerivedType) { return; }
     writer.writeStringValue("galileo_project_id", apiAgentLoggingConfig.galileoProjectId);
     writer.writeStringValue("galileo_project_name", apiAgentLoggingConfig.galileoProjectName);
+    writer.writeBooleanValue("insights_enabled", apiAgentLoggingConfig.insightsEnabled);
+    writer.writeDateValue("insights_enabled_at", apiAgentLoggingConfig.insightsEnabledAt);
     writer.writeStringValue("log_stream_id", apiAgentLoggingConfig.logStreamId);
     writer.writeStringValue("log_stream_name", apiAgentLoggingConfig.logStreamName);
     writer.writeAdditionalData(apiAgentLoggingConfig.additionalData);
@@ -26310,6 +26690,57 @@ export function serializeApiDeployment(writer: SerializationWriter, apiDeploymen
 }
 /**
  * Serializes information the current object
+ * @param ApiDropboxDataSource The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDropboxDataSource(writer: SerializationWriter, apiDropboxDataSource: Partial<ApiDropboxDataSource> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDropboxDataSource || isSerializingDerivedType) { return; }
+    writer.writeStringValue("folder", apiDropboxDataSource.folder);
+    writer.writeStringValue("refresh_token", apiDropboxDataSource.refreshToken);
+    writer.writeAdditionalData(apiDropboxDataSource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDropboxDataSourceDisplay The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDropboxDataSourceDisplay(writer: SerializationWriter, apiDropboxDataSourceDisplay: Partial<ApiDropboxDataSourceDisplay> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDropboxDataSourceDisplay || isSerializingDerivedType) { return; }
+    writer.writeStringValue("folder", apiDropboxDataSourceDisplay.folder);
+    writer.writeAdditionalData(apiDropboxDataSourceDisplay.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDropboxOauth2GetTokensInput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDropboxOauth2GetTokensInput(writer: SerializationWriter, apiDropboxOauth2GetTokensInput: Partial<ApiDropboxOauth2GetTokensInput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDropboxOauth2GetTokensInput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("code", apiDropboxOauth2GetTokensInput.code);
+    writer.writeStringValue("redirect_url", apiDropboxOauth2GetTokensInput.redirectUrl);
+    writer.writeAdditionalData(apiDropboxOauth2GetTokensInput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDropboxOauth2GetTokensOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDropboxOauth2GetTokensOutput(writer: SerializationWriter, apiDropboxOauth2GetTokensOutput: Partial<ApiDropboxOauth2GetTokensOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDropboxOauth2GetTokensOutput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("refresh_token", apiDropboxOauth2GetTokensOutput.refreshToken);
+    writer.writeStringValue("token", apiDropboxOauth2GetTokensOutput.token);
+    writer.writeAdditionalData(apiDropboxOauth2GetTokensOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiEvaluationDataset The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -26466,6 +26897,18 @@ export function serializeApiFileUploadDataSource(writer: SerializationWriter, ap
 }
 /**
  * Serializes information the current object
+ * @param ApiGenerateOauth2URLOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGenerateOauth2URLOutput(writer: SerializationWriter, apiGenerateOauth2URLOutput: Partial<ApiGenerateOauth2URLOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGenerateOauth2URLOutput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("url", apiGenerateOauth2URLOutput.url);
+    writer.writeAdditionalData(apiGenerateOauth2URLOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiGetAgentOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -26475,6 +26918,19 @@ export function serializeApiGetAgentOutput(writer: SerializationWriter, apiGetAg
     if (!apiGetAgentOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAgent>("agent", apiGetAgentOutput.agent, serializeApiAgent);
     writer.writeAdditionalData(apiGetAgentOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGetAgentUsageOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetAgentUsageOutput(writer: SerializationWriter, apiGetAgentUsageOutput: Partial<ApiGetAgentUsageOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetAgentUsageOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiResourceUsage>("log_insights_usage", apiGetAgentUsageOutput.logInsightsUsage, serializeApiResourceUsage);
+    writer.writeObjectValue<ApiResourceUsage>("usage", apiGetAgentUsageOutput.usage, serializeApiResourceUsage);
+    writer.writeAdditionalData(apiGetAgentUsageOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -26644,6 +27100,9 @@ export function serializeApiIndexingJob(writer: SerializationWriter, apiIndexing
     writer.writeEnumValue<ApiIndexJobStatus>("status", apiIndexingJob.status ?? ApiIndexJobStatusObject.INDEX_JOB_STATUS_UNKNOWN);
     writer.writeNumberValue("tokens", apiIndexingJob.tokens);
     writer.writeNumberValue("total_datasources", apiIndexingJob.totalDatasources);
+    writer.writeStringValue("total_items_failed", apiIndexingJob.totalItemsFailed);
+    writer.writeStringValue("total_items_indexed", apiIndexingJob.totalItemsIndexed);
+    writer.writeStringValue("total_items_skipped", apiIndexingJob.totalItemsSkipped);
     writer.writeDateValue("updated_at", apiIndexingJob.updatedAt);
     writer.writeStringValue("uuid", apiIndexingJob.uuid);
     writer.writeAdditionalData(apiIndexingJob.additionalData);
@@ -26660,6 +27119,7 @@ export function serializeApiKBDataSource(writer: SerializationWriter, apiKBDataS
     writer.writeObjectValue<ApiAWSDataSource>("aws_data_source", apiKBDataSource.awsDataSource, serializeApiAWSDataSource);
     writer.writeStringValue("bucket_name", apiKBDataSource.bucketName);
     writer.writeStringValue("bucket_region", apiKBDataSource.bucketRegion);
+    writer.writeObjectValue<ApiDropboxDataSource>("dropbox_data_source", apiKBDataSource.dropboxDataSource, serializeApiDropboxDataSource);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKBDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
     writer.writeStringValue("item_path", apiKBDataSource.itemPath);
     writer.writeObjectValue<ApiSpacesDataSource>("spaces_data_source", apiKBDataSource.spacesDataSource, serializeApiSpacesDataSource);
@@ -26702,6 +27162,7 @@ export function serializeApiKnowledgeBaseDataSource(writer: SerializationWriter,
     writer.writeObjectValue<ApiAWSDataSourceDisplay>("aws_data_source", apiKnowledgeBaseDataSource.awsDataSource, serializeApiAWSDataSourceDisplay);
     writer.writeStringValue("bucket_name", apiKnowledgeBaseDataSource.bucketName);
     writer.writeDateValue("created_at", apiKnowledgeBaseDataSource.createdAt);
+    writer.writeObjectValue<ApiDropboxDataSourceDisplay>("dropbox_data_source", apiKnowledgeBaseDataSource.dropboxDataSource, serializeApiDropboxDataSourceDisplay);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKnowledgeBaseDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
     writer.writeStringValue("item_path", apiKnowledgeBaseDataSource.itemPath);
     writer.writeObjectValue<ApiIndexedDataSource>("last_datasource_indexing_job", apiKnowledgeBaseDataSource.lastDatasourceIndexingJob, serializeApiIndexedDataSource);
@@ -27163,6 +27624,7 @@ export function serializeApiModelPublic(writer: SerializationWriter, apiModelPub
     if (!apiModelPublic || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAgreement>("agreement", apiModelPublic.agreement, serializeApiAgreement);
     writer.writeDateValue("created_at", apiModelPublic.createdAt);
+    writer.writeStringValue("id", apiModelPublic.id);
     writer.writeBooleanValue("is_foundational", apiModelPublic.isFoundational);
     writer.writeStringValue("name", apiModelPublic.name);
     writer.writeStringValue("parent_uuid", apiModelPublic.parentUuid);
@@ -27316,6 +27778,21 @@ export function serializeApiRegenerateModelAPIKeyOutput(writer: SerializationWri
     if (!apiRegenerateModelAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiModelAPIKeyInfo>("api_key_info", apiRegenerateModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
     writer.writeAdditionalData(apiRegenerateModelAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiResourceUsage The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiResourceUsage(writer: SerializationWriter, apiResourceUsage: Partial<ApiResourceUsage> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiResourceUsage || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiUsageMeasurement>("measurements", apiResourceUsage.measurements, serializeApiUsageMeasurement);
+    writer.writeStringValue("resource_uuid", apiResourceUsage.resourceUuid);
+    writer.writeDateValue("start", apiResourceUsage.start);
+    writer.writeDateValue("stop", apiResourceUsage.stop);
+    writer.writeAdditionalData(apiResourceUsage.additionalData);
 }
 /**
  * Serializes information the current object
@@ -27573,6 +28050,7 @@ export function serializeApiUpdateAgentFunctionOutput(writer: SerializationWrite
 // @ts-ignore
 export function serializeApiUpdateAgentInputPublic(writer: SerializationWriter, apiUpdateAgentInputPublic: Partial<ApiUpdateAgentInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiUpdateAgentInputPublic || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("agent_log_insights_enabled", apiUpdateAgentInputPublic.agentLogInsightsEnabled);
     writer.writeStringValue("anthropic_key_uuid", apiUpdateAgentInputPublic.anthropicKeyUuid);
     writer.writeBooleanValue("conversation_logs_enabled", apiUpdateAgentInputPublic.conversationLogsEnabled);
     writer.writeStringValue("description", apiUpdateAgentInputPublic.description);
@@ -27795,6 +28273,19 @@ export function serializeApiUpdateWorkspaceOutput(writer: SerializationWriter, a
     if (!apiUpdateWorkspaceOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiWorkspace>("workspace", apiUpdateWorkspaceOutput.workspace, serializeApiWorkspace);
     writer.writeAdditionalData(apiUpdateWorkspaceOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUsageMeasurement The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUsageMeasurement(writer: SerializationWriter, apiUsageMeasurement: Partial<ApiUsageMeasurement> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUsageMeasurement || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("tokens", apiUsageMeasurement.tokens);
+    writer.writeStringValue("usage_type", apiUsageMeasurement.usageType);
+    writer.writeAdditionalData(apiUsageMeasurement.additionalData);
 }
 /**
  * Serializes information the current object
@@ -30195,6 +30686,7 @@ export function serializeDatabase_cluster(writer: SerializationWriter, database_
     writer.writeGuidValue("project_id", database_cluster.projectId);
     writer.writeStringValue("region", database_cluster.region);
     writer.writeCollectionOfObjectValues<Firewall_rule>("rules", database_cluster.rules, serializeFirewall_rule);
+    writer.writeObjectValue<Schema_registry_connection>("schema_registry_connection", database_cluster.schemaRegistryConnection, serializeSchema_registry_connection);
     writer.writeStringValue("size", database_cluster.size);
     writer.writeObjectValue<Database_connection>("standby_connection", database_cluster.standbyConnection, serializeDatabase_connection);
     writer.writeObjectValue<Database_connection>("standby_private_connection", database_cluster.standbyPrivateConnection, serializeDatabase_connection);
@@ -30223,6 +30715,7 @@ export function serializeDatabase_cluster_read(writer: SerializationWriter, data
     writer.writeGuidValue("project_id", database_cluster_read.projectId);
     writer.writeStringValue("region", database_cluster_read.region);
     writer.writeCollectionOfObjectValues<Firewall_rule>("rules", database_cluster_read.rules, serializeFirewall_rule);
+    writer.writeObjectValue<Schema_registry_connection>("schema_registry_connection", database_cluster_read.schemaRegistryConnection, serializeSchema_registry_connection);
     writer.writeStringValue("size", database_cluster_read.size);
     writer.writeObjectValue<Database_connection>("standby_connection", database_cluster_read.standbyConnection, serializeDatabase_connection);
     writer.writeObjectValue<Database_connection>("standby_private_connection", database_cluster_read.standbyPrivateConnection, serializeDatabase_connection);
@@ -33607,6 +34100,17 @@ export function serializeScheduled_details_body(writer: SerializationWriter, sch
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Schema_registry_connection The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSchema_registry_connection(writer: SerializationWriter, schema_registry_connection: Partial<Schema_registry_connection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!schema_registry_connection || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(schema_registry_connection.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Selective_destroy_associated_resource The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -35490,6 +35994,7 @@ export const App_alert_spec_ruleObject = {
     DOMAIN_FAILED: "DOMAIN_FAILED",
     DOMAIN_LIVE: "DOMAIN_LIVE",
     AUTOSCALE_FAILED: "AUTOSCALE_FAILED",
+    AUTOSCALE_SUCCEEDED: "AUTOSCALE_SUCCEEDED",
     FUNCTIONS_ACTIVATION_COUNT: "FUNCTIONS_ACTIVATION_COUNT",
     FUNCTIONS_AVERAGE_DURATION_MS: "FUNCTIONS_AVERAGE_DURATION_MS",
     FUNCTIONS_ERROR_RATE_PER_MINUTE: "FUNCTIONS_ERROR_RATE_PER_MINUTE",
