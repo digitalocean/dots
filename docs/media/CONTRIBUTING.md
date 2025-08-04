@@ -13,7 +13,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 ### Prerequisites
 
 * NodeJs version: >= 18 
-* [npm](https://www.npmjs.com/): To Manage TypeScript/JavaScript dependencies
+* [npm](https://www.npmjs.com/): To manage TypeScript/JavaScript dependencies
 * [Kiota](https://github.com/microsoft/kiota): The tool that generates the client libraries for accessing RESTful web services.
 
 ### Setup
@@ -53,7 +53,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 4. Compile all TypeScript Generated files
 
    ```sh
-   tsc
+   npm run build
    ```
 
 5.  It is also good practice to run mock tests against the changes using the following make command:
@@ -69,7 +69,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 
 The repo uses GitHub workflows to publish a draft release when a new tag is
 pushed. We use [semver](https://semver.org/#summary) to determine the version
-number vor the tag.
+number for the tag.
 
 1. Run `make changes` to review the merged PRs since last release and decide what kind of release you are doing (bugfix, feature or breaking).
     * Review the tags on each PR and make sure they are categorized

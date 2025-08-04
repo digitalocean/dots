@@ -14,6 +14,8 @@ import { FunctionsRequestBuilderNavigationMetadata, FunctionsRequestBuilderReque
 // @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
 // @ts-ignore
+import { type UsageRequestBuilder, UsageRequestBuilderRequestsMetadata } from './usage/index.js';
+// @ts-ignore
 import { type VersionsRequestBuilder, VersionsRequestBuilderRequestsMetadata } from './versions/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
@@ -42,6 +44,10 @@ export interface Agent_uuItemRequestBuilder extends BaseRequestBuilder<Agent_uuI
      * The knowledge_bases property
      */
     get knowledge_bases(): Knowledge_basesRequestBuilder;
+    /**
+     * The usage property
+     */
+    get usage(): UsageRequestBuilder;
     /**
      * The versions property
      */
@@ -126,6 +132,9 @@ export const Agent_uuItemRequestBuilderNavigationMetadata: Record<Exclude<keyof 
     knowledge_bases: {
         requestsMetadata: Knowledge_basesRequestBuilderRequestsMetadata,
         navigationMetadata: Knowledge_basesRequestBuilderNavigationMetadata,
+    },
+    usage: {
+        requestsMetadata: UsageRequestBuilderRequestsMetadata,
     },
     versions: {
         requestsMetadata: VersionsRequestBuilderRequestsMetadata,

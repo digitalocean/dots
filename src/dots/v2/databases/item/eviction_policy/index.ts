@@ -48,13 +48,13 @@ export function deserializeIntoEviction_policyPutRequestBody(eviction_policyPutR
 }
 export interface Eviction_policyGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for a Caching or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     evictionPolicy?: Eviction_policy_model | null;
 }
 export interface Eviction_policyPutRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for a Caching or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     evictionPolicy?: Eviction_policy_model | null;
 }
@@ -63,7 +63,7 @@ export interface Eviction_policyPutRequestBody extends AdditionalDataHolder, Par
  */
 export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Eviction_policyRequestBuilder> {
     /**
-     * To retrieve the configured eviction policy for an existing Redis or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
+     * To retrieve the configured eviction policy for an existing Caching or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Eviction_policyGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -74,7 +74,7 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Eviction_policyGetResponse | undefined>;
     /**
-     * To configure an eviction policy for an existing Redis or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
+     * To configure an eviction policy for an existing Caching or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -85,13 +85,13 @@ export interface Eviction_policyRequestBuilder extends BaseRequestBuilder<Evicti
      */
      put(body: Eviction_policyPutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To retrieve the configured eviction policy for an existing Redis or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
+     * To retrieve the configured eviction policy for an existing Caching or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To configure an eviction policy for an existing Redis or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
+     * To configure an eviction policy for an existing Caching or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

@@ -49,7 +49,7 @@ export interface WithDatabase_nameGetResponse extends AdditionalDataHolder, Pars
  */
 export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<WithDatabase_nameItemRequestBuilder> {
     /**
-     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Redis or Valkey clusters.
+     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -59,7 +59,7 @@ export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Redis or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
+     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithDatabase_nameGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -70,13 +70,13 @@ export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithDatabase_nameGetResponse | undefined>;
     /**
-     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Redis or Valkey clusters.
+     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Redis or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
+     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
