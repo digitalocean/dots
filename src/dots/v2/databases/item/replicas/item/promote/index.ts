@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface PromoteRequestBuilder extends BaseRequestBuilder<PromoteRequestBuilder> {
     /**
-     * To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -21,7 +21,7 @@ export interface PromoteRequestBuilder extends BaseRequestBuilder<PromoteRequest
      */
      put(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

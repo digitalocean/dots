@@ -119,7 +119,7 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
      */
     get reset_auth(): Reset_authRequestBuilder;
     /**
-     * To remove a specific database user, send a DELETE request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: User management is not supported for Redis or Valkey clusters.
+     * To remove a specific database user, send a DELETE request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: User management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -129,7 +129,7 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To show information about an existing database user, send a GET request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.Note: User management is not supported for Redis or Valkey clusters.The response will be a JSON object with a `user` key. This will be set to an objectcontaining the standard database user attributes. The user's password will not showup unless the `database:view_credentials` scope is present.For MySQL clusters, additional options will be contained in the `mysql_settings`object.For Kafka clusters, additional options will be contained in the `settings` object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
+     * To show information about an existing database user, send a GET request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.Note: User management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `user` key. This will be set to an objectcontaining the standard database user attributes. The user's password will not showup unless the `database:view_credentials` scope is present.For MySQL clusters, additional options will be contained in the `mysql_settings`object.For Kafka clusters, additional options will be contained in the `settings` object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithUsernameGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -152,13 +152,13 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
      */
      put(body: WithUsernamePutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithUsernamePutResponse | undefined>;
     /**
-     * To remove a specific database user, send a DELETE request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: User management is not supported for Redis or Valkey clusters.
+     * To remove a specific database user, send a DELETE request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: User management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To show information about an existing database user, send a GET request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.Note: User management is not supported for Redis or Valkey clusters.The response will be a JSON object with a `user` key. This will be set to an objectcontaining the standard database user attributes. The user's password will not showup unless the `database:view_credentials` scope is present.For MySQL clusters, additional options will be contained in the `mysql_settings`object.For Kafka clusters, additional options will be contained in the `settings` object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
+     * To show information about an existing database user, send a GET request to`/v2/databases/$DATABASE_ID/users/$USERNAME`.Note: User management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `user` key. This will be set to an objectcontaining the standard database user attributes. The user's password will not showup unless the `database:view_credentials` scope is present.For MySQL clusters, additional options will be contained in the `mysql_settings`object.For Kafka clusters, additional options will be contained in the `settings` object.For MongoDB clusters, additional information will be contained in the mongo_user_settings object
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

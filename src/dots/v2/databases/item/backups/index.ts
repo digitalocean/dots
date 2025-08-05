@@ -17,7 +17,7 @@ export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface BackupsRequestBuilder extends BaseRequestBuilder<BackupsRequestBuilder> {
     /**
-     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
+     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Caching or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<BackupsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -28,7 +28,7 @@ export interface BackupsRequestBuilder extends BaseRequestBuilder<BackupsRequest
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<BackupsGetResponse | undefined>;
     /**
-     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Redis or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
+     * To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.**Note**: Backups are not supported for Caching or Valkey clusters.The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
