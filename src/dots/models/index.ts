@@ -11559,6 +11559,15 @@ export function createScheduled_detailsFromDiscriminatorValue(parseNode: ParseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Schema_registry_connection}
+ */
+// @ts-ignore
+export function createSchema_registry_connectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSchema_registry_connection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Selective_destroy_associated_resource}
  */
 // @ts-ignore
@@ -12127,6 +12136,10 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     rules?: Firewall_rule[] | null;
     /**
+     * The connection details for Schema Registry.
+     */
+    schemaRegistryConnection?: Schema_registry_connection | null;
+    /**
      * A string representing the semantic version of the database engine in use for the cluster.
      */
     semanticVersion?: string | null;
@@ -12233,6 +12246,10 @@ export interface Database_cluster_read extends AdditionalDataHolder, Parsable {
      * The rules property
      */
     rules?: Firewall_rule[] | null;
+    /**
+     * The connection details for Schema Registry.
+     */
+    schemaRegistryConnection?: Schema_registry_connection | null;
     /**
      * A string representing the semantic version of the database engine in use for the cluster.
      */
@@ -17205,6 +17222,7 @@ export function deserializeIntoDatabase_cluster(database_cluster: Partial<Databa
         "project_id": n => { database_cluster.projectId = n.getGuidValue(); },
         "region": n => { database_cluster.region = n.getStringValue(); },
         "rules": n => { database_cluster.rules = n.getCollectionOfObjectValues<Firewall_rule>(createFirewall_ruleFromDiscriminatorValue); },
+        "schema_registry_connection": n => { database_cluster.schemaRegistryConnection = n.getObjectValue<Schema_registry_connection>(createSchema_registry_connectionFromDiscriminatorValue); },
         "semantic_version": n => { database_cluster.semanticVersion = n.getStringValue(); },
         "size": n => { database_cluster.size = n.getStringValue(); },
         "standby_connection": n => { database_cluster.standbyConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -17241,6 +17259,7 @@ export function deserializeIntoDatabase_cluster_read(database_cluster_read: Part
         "project_id": n => { database_cluster_read.projectId = n.getGuidValue(); },
         "region": n => { database_cluster_read.region = n.getStringValue(); },
         "rules": n => { database_cluster_read.rules = n.getCollectionOfObjectValues<Firewall_rule>(createFirewall_ruleFromDiscriminatorValue); },
+        "schema_registry_connection": n => { database_cluster_read.schemaRegistryConnection = n.getObjectValue<Schema_registry_connection>(createSchema_registry_connectionFromDiscriminatorValue); },
         "semantic_version": n => { database_cluster_read.semanticVersion = n.getStringValue(); },
         "size": n => { database_cluster_read.size = n.getStringValue(); },
         "standby_connection": n => { database_cluster_read.standbyConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -20471,6 +20490,22 @@ export function deserializeIntoScheduled_details(scheduled_details: Partial<Sche
 export function deserializeIntoScheduled_details_body(scheduled_details_body: Partial<Scheduled_details_body> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { scheduled_details_body.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Schema_registry_connection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSchema_registry_connection(schema_registry_connection: Partial<Schema_registry_connection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "host": n => { schema_registry_connection.host = n.getStringValue(); },
+        "password": n => { schema_registry_connection.password = n.getStringValue(); },
+        "port": n => { schema_registry_connection.port = n.getNumberValue(); },
+        "ssl": n => { schema_registry_connection.ssl = n.getBooleanValue(); },
+        "uri": n => { schema_registry_connection.uri = n.getStringValue(); },
+        "user": n => { schema_registry_connection.user = n.getStringValue(); },
     }
 }
 /**
@@ -25208,6 +25243,32 @@ export interface Scheduled_details_body extends AdditionalDataHolder, Parsable {
      * The name property
      */
     name?: string | null;
+}
+export interface Schema_registry_connection extends AdditionalDataHolder, Parsable {
+    /**
+     * The FQDN pointing to the schema registry connection uri.
+     */
+    host?: string | null;
+    /**
+     * The randomly generated password for the schema registry.<br><br>Requires `database:view_credentials` scope.
+     */
+    password?: string | null;
+    /**
+     * The port on which the schema registry is listening.
+     */
+    port?: number | null;
+    /**
+     * A boolean value indicating if the connection should be made over SSL.
+     */
+    ssl?: boolean | null;
+    /**
+     * This is provided as a convenience and should be able to be constructed by the other attributes.
+     */
+    uri?: string | null;
+    /**
+     * The default user for the schema registry.<br><br>Requires `database:view_credentials` scope.
+     */
+    user?: string | null;
 }
 /**
  * An object containing information about a resource to be scheduled for deletion.
@@ -30195,6 +30256,7 @@ export function serializeDatabase_cluster(writer: SerializationWriter, database_
     writer.writeGuidValue("project_id", database_cluster.projectId);
     writer.writeStringValue("region", database_cluster.region);
     writer.writeCollectionOfObjectValues<Firewall_rule>("rules", database_cluster.rules, serializeFirewall_rule);
+    writer.writeObjectValue<Schema_registry_connection>("schema_registry_connection", database_cluster.schemaRegistryConnection, serializeSchema_registry_connection);
     writer.writeStringValue("size", database_cluster.size);
     writer.writeObjectValue<Database_connection>("standby_connection", database_cluster.standbyConnection, serializeDatabase_connection);
     writer.writeObjectValue<Database_connection>("standby_private_connection", database_cluster.standbyPrivateConnection, serializeDatabase_connection);
@@ -30223,6 +30285,7 @@ export function serializeDatabase_cluster_read(writer: SerializationWriter, data
     writer.writeGuidValue("project_id", database_cluster_read.projectId);
     writer.writeStringValue("region", database_cluster_read.region);
     writer.writeCollectionOfObjectValues<Firewall_rule>("rules", database_cluster_read.rules, serializeFirewall_rule);
+    writer.writeObjectValue<Schema_registry_connection>("schema_registry_connection", database_cluster_read.schemaRegistryConnection, serializeSchema_registry_connection);
     writer.writeStringValue("size", database_cluster_read.size);
     writer.writeObjectValue<Database_connection>("standby_connection", database_cluster_read.standbyConnection, serializeDatabase_connection);
     writer.writeObjectValue<Database_connection>("standby_private_connection", database_cluster_read.standbyPrivateConnection, serializeDatabase_connection);
@@ -33603,6 +33666,17 @@ export function serializeScheduled_details_body(writer: SerializationWriter, sch
     if (!scheduled_details_body || isSerializingDerivedType) { return; }
     writer.writeStringValue("name", scheduled_details_body.name);
     writer.writeAdditionalData(scheduled_details_body.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Schema_registry_connection The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSchema_registry_connection(writer: SerializationWriter, schema_registry_connection: Partial<Schema_registry_connection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!schema_registry_connection || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(schema_registry_connection.additionalData);
 }
 /**
  * Serializes information the current object

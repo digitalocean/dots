@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createKafka_schema_verboseFromDiscriminatorValue, serializeDatabase_kafka_schema_create, serializeKafka_schema_verbose, type Database_kafka_schema_create, type ErrorEscaped, type Kafka_schema_verbose } from '../../../../models/index.js';
 // @ts-ignore
+import { ConfigRequestBuilderNavigationMetadata, ConfigRequestBuilderRequestsMetadata, type ConfigRequestBuilder } from './config/index.js';
+// @ts-ignore
 import { type WithSubject_nameItemRequestBuilder, WithSubject_nameItemRequestBuilderNavigationMetadata, WithSubject_nameItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -38,6 +40,10 @@ export interface SchemaRegistryGetResponse extends AdditionalDataHolder, Parsabl
  * Builds and executes requests for operations under /v2/databases/{database_cluster_uuid}/schema-registry
  */
 export interface SchemaRegistryRequestBuilder extends BaseRequestBuilder<SchemaRegistryRequestBuilder> {
+    /**
+     * The config property
+     */
+    get config(): ConfigRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.databases.item.schemaRegistry.item collection
      * @param subject_name The name of the Kafka schema subject.
@@ -105,6 +111,10 @@ export const SchemaRegistryRequestBuilderNavigationMetadata: Record<Exclude<keyo
         requestsMetadata: WithSubject_nameItemRequestBuilderRequestsMetadata,
         navigationMetadata: WithSubject_nameItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["subject_name"],
+    },
+    config: {
+        requestsMetadata: ConfigRequestBuilderRequestsMetadata,
+        navigationMetadata: ConfigRequestBuilderNavigationMetadata,
     },
 };
 /**
