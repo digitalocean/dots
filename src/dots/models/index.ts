@@ -36966,7 +36966,6 @@ export const Opensearch_index_statusObject = {
  * Optional redundancy zone for the partner attachment.
  */
 export const Partner_attachment_writable_redundancy_zoneObject = {
-    UNSPECIFIED: "UNSPECIFIED",
     MEGAPORT_BLUE: "MEGAPORT_BLUE",
     MEGAPORT_RED: "MEGAPORT_RED",
 } as const;
