@@ -55,7 +55,7 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
     get promote(): PromoteRequestBuilder;
     /**
-     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -65,7 +65,7 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
+     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithReplica_nameGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -76,13 +76,13 @@ export interface WithReplica_nameItemRequestBuilder extends BaseRequestBuilder<W
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithReplica_nameGetResponse | undefined>;
     /**
-     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+     * To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Redis or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
+     * To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.**Note**: Read-only replicas are not supported for Caching or Valkey clusters.The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

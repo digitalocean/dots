@@ -3941,7 +3941,7 @@ export interface App_database_spec extends AdditionalDataHolder, Parsable {
      */
     dbUser?: string | null;
     /**
-     * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Redis- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch- VALKEY: ValKey
+     * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Caching- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch- VALKEY: ValKey
      */
     engine?: App_database_spec_engine | null;
     /**
@@ -12304,7 +12304,7 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     dbNames?: string[] | null;
     /**
-     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
      */
     engine?: Database_cluster_engine | null;
     /**
@@ -12415,7 +12415,7 @@ export interface Database_cluster_read extends AdditionalDataHolder, Parsable {
      */
     dbNames?: string[] | null;
     /**
-     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
      */
     engine?: Database_cluster_read_engine | null;
     /**
@@ -25108,11 +25108,11 @@ export interface Purge_cache extends AdditionalDataHolder, Parsable {
 }
 export interface Redis_advanced_config extends AdditionalDataHolder, Parsable {
     /**
-     * Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Redis configuration acl-pubsub-default.
+     * Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Caching configuration acl-pubsub-default.
      */
     redisAclChannelsDefault?: Redis_advanced_config_redis_acl_channels_default | null;
     /**
-     * Redis IO thread count
+     * Caching IO thread count
      */
     redisIoThreads?: number | null;
     /**
@@ -25124,7 +25124,7 @@ export interface Redis_advanced_config extends AdditionalDataHolder, Parsable {
      */
     redisLfuLogFactor?: number | null;
     /**
-     * A string specifying the desired eviction policy for the Redis cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys-lru:` Evict any key, least recently used (LRU) first.- `allkeys-random`: Evict keys in a random order.- `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile-random`: Evict keys with expiration only in a random order.- `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for the Caching cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys-lru:` Evict any key, least recently used (LRU) first.- `allkeys-random`: Evict keys in a random order.- `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile-random`: Evict keys with expiration only in a random order.- `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     redisMaxmemoryPolicy?: Redis_advanced_config_redis_maxmemory_policy | null;
     /**
@@ -25144,11 +25144,11 @@ export interface Redis_advanced_config extends AdditionalDataHolder, Parsable {
      */
     redisPubsubClientOutputBufferLimit?: number | null;
     /**
-     * Require SSL to access Redis.- When enabled, Redis accepts only SSL connections on port `25061`.- When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
+     * Require SSL to access Caching.- When enabled, Caching accepts only SSL connections on port `25061`.- When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
      */
     redisSsl?: boolean | null;
     /**
-     * Redis idle connection timeout in seconds
+     * Caching idle connection timeout in seconds
      */
     redisTimeout?: number | null;
 }
@@ -35391,7 +35391,7 @@ export interface Valkey_advanced_config extends AdditionalDataHolder, Parsable {
      */
     valkeyLfuLogFactor?: number | null;
     /**
-     * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+     * A string specifying the desired eviction policy for a Caching or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
      */
     valkeyMaxmemoryPolicy?: Eviction_policy_model | null;
     /**
@@ -36015,7 +36015,7 @@ export const App_component_health_stateObject = {
     UNHEALTHY: "UNHEALTHY",
 } as const;
 /**
- * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Redis- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch- VALKEY: ValKey
+ * - MYSQL: MySQL- PG: PostgreSQL- REDIS: Caching- MONGODB: MongoDB- KAFKA: Kafka- OPENSEARCH: OpenSearch- VALKEY: ValKey
  */
 export const App_database_spec_engineObject = {
     UNSET: "UNSET",
@@ -36276,7 +36276,7 @@ export const Cluster_status_stateObject = {
     Deleting: "deleting",
 } as const;
 /**
- * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+ * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
  */
 export const Database_cluster_engineObject = {
     Pg: "pg",
@@ -36288,7 +36288,7 @@ export const Database_cluster_engineObject = {
     Opensearch: "opensearch",
 } as const;
 /**
- * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+ * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
  */
 export const Database_cluster_read_engineObject = {
     Pg: "pg",
@@ -36482,7 +36482,7 @@ export const Events_logs_event_typeObject = {
     Cluster_poweroff: "cluster_poweroff",
 } as const;
 /**
- * A string specifying the desired eviction policy for a Redis or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+ * A string specifying the desired eviction policy for a Caching or Valkey cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys_lru:` Evict any key, least recently used (LRU) first.- `allkeys_random`: Evict keys in a random order.- `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile_random`: Evict keys with expiration only in a random order.- `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
  */
 export const Eviction_policy_modelObject = {
     Noeviction: "noeviction",
@@ -37064,14 +37064,14 @@ export const Project_base_environmentObject = {
     Production: "Production",
 } as const;
 /**
- * Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Redis configuration acl-pubsub-default.
+ * Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Caching configuration acl-pubsub-default.
  */
 export const Redis_advanced_config_redis_acl_channels_defaultObject = {
     Allchannels: "allchannels",
     Resetchannels: "resetchannels",
 } as const;
 /**
- * A string specifying the desired eviction policy for the Redis cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys-lru:` Evict any key, least recently used (LRU) first.- `allkeys-random`: Evict keys in a random order.- `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile-random`: Evict keys with expiration only in a random order.- `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+ * A string specifying the desired eviction policy for the Caching cluster.- `noeviction`: Don't evict any data, returns error when memory limit is reached.- `allkeys-lru:` Evict any key, least recently used (LRU) first.- `allkeys-random`: Evict keys in a random order.- `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.- `volatile-random`: Evict keys with expiration only in a random order.- `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
  */
 export const Redis_advanced_config_redis_maxmemory_policyObject = {
     Noeviction: "noeviction",
