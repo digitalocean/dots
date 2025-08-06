@@ -1,6 +1,13 @@
 ## Changelist
 
 Current commit: digitalocean/openapi@fecaa57 (2025-07-25T07:57:44Z)
+<<<<<<< HEAD
+Target commit: digitalocean/openapi@3a64316 (2025-08-01T10:14:59Z)
+
+* digitalocean/openapi#1070: genai: updates - jul 29 2025 - 2025-08-01T10:14:59Z []
+* digitalocean/openapi#1069: Add GET/UPDATE kafka schema/subject config - 2025-07-29T12:21:50Z []
+=======
 Target commit: digitalocean/openapi@445b911 (2025-07-25T21:28:09Z)
 
+>>>>>>> prep-0-1-0
 * digitalocean/openapi#1067: Add `AUTOSCALE_SUCCEEDED` to App Platform alert types. - 2025-07-25T21:28:09Z []

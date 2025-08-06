@@ -20,6 +20,8 @@ import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequest
 // @ts-ignore
 import { ModelsRequestBuilderNavigationMetadata, ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
 // @ts-ignore
+import { Oauth2RequestBuilderNavigationMetadata, type Oauth2RequestBuilder } from './oauth2/index.js';
+// @ts-ignore
 import { OpenaiRequestBuilderNavigationMetadata, type OpenaiRequestBuilder } from './openai/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
@@ -68,6 +70,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      * The models property
      */
     get models(): ModelsRequestBuilder;
+    /**
+     * The oauth2 property
+     */
+    get oauth2(): Oauth2RequestBuilder;
     /**
      * The openai property
      */
@@ -122,6 +128,9 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,
         navigationMetadata: ModelsRequestBuilderNavigationMetadata,
+    },
+    oauth2: {
+        navigationMetadata: Oauth2RequestBuilderNavigationMetadata,
     },
     openai: {
         navigationMetadata: OpenaiRequestBuilderNavigationMetadata,
