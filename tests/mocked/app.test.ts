@@ -73,8 +73,6 @@ describe('Apps API Resource - Create App', () => {
 				],
 			},
 		};
-
-		// Mock the POST request
 		const requestBodyNock = {
 			spec: {
 				name: "web-app",
@@ -94,11 +92,7 @@ describe('Apps API Resource - Create App', () => {
 		};
 
 		nock(baseUrl).post("/v2/apps", requestBodyNock).reply(200, expected);
-
-		// Call the create method
 		const createResp = await client.v2.apps.post(requestBody);
-
-		// Assert the response
 		expect(createResp).toEqual(typeExpected);
 	});
 
@@ -113,8 +107,6 @@ describe('Apps API Resource - Create App', () => {
 					created_at: "2020-11-19T20:27:18Z",
 					updated_at: "2020-12-01T00:42:16Z",
 					active_deployment: {},
-					// cause: "app spec updated",
-					// progress: {},
 					last_deployment_created_at: "2020-12-01T00:40:05Z",
 					live_url: "https://sample-php-iaj87.ondigitalocean.app",
 					region: {},
@@ -137,8 +129,6 @@ describe('Apps API Resource - Create App', () => {
 					createdAt: new Date("2020-11-19T20:27:18Z"),
 					updatedAt: new Date("2020-12-01T00:42:16Z"),
 					activeDeployment: {},
-					// cause: "app spec updated",
-					// progress: {},
 					lastDeploymentCreatedAt: new Date("2020-12-01T00:40:05Z"),
 					liveUrl: "https://sample-php-iaj87.ondigitalocean.app",
 					region: {},
@@ -259,14 +249,8 @@ describe('Apps API Resource - Create App', () => {
                 },
                 app_id: "b6bdf840-2854-4f87-a36c-5f231c617c84",
             };
-
-            // Mock the POST request
             nock(baseUrl).post("/v2/apps/propose", proposedSpecNock).reply(200, expected);
-
-            // Call the validate_app_spec method
             const proposeResp = await client.v2.apps.propose.post(proposedSpec);
-
-            // Assert the response
             expect(proposeResp).toEqual(typeExpected);
         });
 
@@ -355,14 +339,8 @@ describe('Apps API Resource - Create App', () => {
 				},
 			],
 		};
-
-		// Mock the GET request
 		nock(baseUrl).get(`/v2/apps/${appId}/alerts`).reply(200, expected);
-
-		// Call the list_alerts method
 		const listResp = await client.v2.apps.byApp_Id(appId).alerts.get();
-
-		// Assert the response
 		expect(listResp).toEqual(typeExpected);
 	});
 
@@ -656,213 +634,6 @@ describe('Apps API Resource - Create App', () => {
         expect(resp).toEqual(typeExpected);
     });
 
-    // it("should mock creating a rollback", async () => {
-    //     const appId = "1";
-    //     const expected = {
-    //         deployment: {
-    //             id: "2",
-    //             spec: {
-    //                 name: "sample-golang",
-    //                 services: [
-    //                     {
-    //                         name: "web",
-    //                         github: {
-    //                             repo: "digitalocean/sample-golang",
-    //                             branch: "branch",
-    //                         },
-    //                         run_command: "bin/sample-golang",
-    //                         environment_slug: "go",
-    //                         instance_size_slug: "basic-xxs",
-    //                         instance_count: 2,
-    //                         routes: [{ path: "/" }],
-    //                     },
-    //                 ],
-    //                 region: "ams",
-    //             },
-    //             services: [
-    //                 {
-    //                     name: "web",
-    //                     source_commit_hash: "9a4df0b8e161e323bc3cdf1dc71878080fe144fa",
-    //                 },
-    //             ],
-    //             phase_last_updated_at: "0001-01-01T00:00:00Z",
-    //             created_at: "2020-07-28T18:00:00Z",
-    //             updated_at: "2020-07-28T18:00:00Z",
-    //             cause: "commit 9a4df0b pushed to github/digitalocean/sample-golang",
-    //             progress: {
-    //                 pending_steps: 6,
-    //                 total_steps: 6,
-    //                 steps: [
-    //                     {
-    //                         name: "build",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         component_name: "web",
-    //                                         message_base: "Building service",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                         ],
-    //                     },
-    //                     {
-    //                         name: "deploy",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         steps: [
-    //                                             {
-    //                                                 name: "deploy",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Deploying service",
-    //                                             },
-    //                                             {
-    //                                                 name: "wait",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Waiting for service",
-    //                                             },
-    //                                         ],
-    //                                         component_name: "web",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             { name: "finalize", status: "PENDING" },
-    //                         ],
-    //                     },
-    //                 ],
-    //             },
-    //             phase: "PENDING_BUILD",
-    //             tier_slug: "basic",
-    //         },
-    //     };
-
-    //     const typeExpected = {
-    //         deployment: {
-    //             id: "2",
-    //             spec: {
-    //                 name: "sample-golang",
-    //                 services: [
-    //                     {
-    //                         name: "web",
-    //                         github: {
-    //                             repo: "digitalocean/sample-golang",
-    //                             branch: "branch",
-    //                         },
-    //                         runCommand: "bin/sample-golang",
-    //                         environmentSlug: "go",
-    //                         instanceSizeSlug: "basic-xxs",
-    //                         instanceCount: 2,
-    //                         routes: [{ path: "/" }],
-    //                     },
-    //                 ],
-    //                 region: "ams",
-    //             },
-    //             services: [
-    //                 {
-    //                     name: "web",
-    //                     sourceCommitHash: "9a4df0b8e161e323bc3cdf1dc71878080fe144fa",
-    //                 },
-    //             ],
-    //             phaseLastUpdatedAt: new Date("0001-01-01T00:00:00Z"),
-    //             createdAt: new Date("2020-07-28T18:00:00Z"),
-    //             updatedAt: new Date("2020-07-28T18:00:00Z"),
-    //             cause: "commit 9a4df0b pushed to github/digitalocean/sample-golang",
-    //             progress: {
-    //                 pendingSteps: 6,
-    //                 totalSteps: 6,
-    //                 steps: [
-    //                     {
-    //                         name: "build",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         componentName: "web",
-    //                                         messageBase: "Building service",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                         ],
-    //                     },
-    //                     {
-    //                         name: "deploy",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         steps: [
-    //                                             {
-    //                                                 name: "deploy",
-    //                                                 status: "PENDING",
-    //                                                 componentName: "web",
-    //                                                 messageBase: "Deploying service",
-    //                                             },
-    //                                             {
-    //                                                 name: "wait",
-    //                                                 status: "PENDING",
-    //                                                 componentName: "web",
-    //                                                 messageBase: "Waiting for service",
-    //                                             },
-    //                                         ],
-    //                                         componentName: "web",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             { name: "finalize", status: "PENDING" },
-    //                         ],
-    //                     },
-    //                 ],
-    //             },
-    //             phase: "PENDING_BUILD",
-    //             tierSlug: "basic",
-    //         },
-    //     };
-
-    //     const postReqNock = { deployment_id: "2", skip_pin: false };
-
-    //     const postReq : Apps_rollback_app_request = { deploymentId: "2", skipPin: false };
-
-
-    //     // Mock the POST request
-    //     nock(baseUrl)
-    //         .post(`/v2/apps/${appId}/rollback`, postReqNock)
-    //         .reply(200, expected);
-
-    //     // Call the create_rollback method
-    //     const resp = await client.v2.apps.byApp_Id(appId).rollback.post(postReq);
-
-    //     // Assert the response
-    //     expect(resp).toEqual(typeExpected);
-    // });
-
     it("should mock validating a rollback", async () => {
         const appId = "1";
         const expected = { valid: true };
@@ -884,202 +655,6 @@ describe('Apps API Resource - Create App', () => {
         const commitResp = await client.v2.apps.byApp_Id(appId).rollback.commit.post();
         expect(JSON.stringify(commitResp)).toEqual(JSON.stringify({}));
     });
-
-    // it("should mock reverting a rollback", async () => {
-    //     const appId = "1";
-    //     const expected = {
-    //         deployment: {
-    //             id: "b6bdf840-2854-4f87-a36c-5f231c617c84",
-    //             spec: {
-    //                 name: "sample-golang",
-    //                 services: [
-    //                     {
-    //                         name: "web",
-    //                         github: {
-    //                             repo: "digitalocean/sample-golang",
-    //                             branch: "branch",
-    //                         },
-    //                         run_command: "bin/sample-golang",
-    //                         environment_slug: "go",
-    //                         instance_size_slug: "basic-xxs",
-    //                         instance_count: 2,
-    //                         routes: [{ path: "/" }],
-    //                     },
-    //                 ],
-    //                 region: "ams",
-    //             },
-    //             services: [
-    //                 {
-    //                     name: "web",
-    //                     source_commit_hash: "9a4df0b8e161e323bc3cdf1dc71878080fe144fa",
-    //                 },
-    //             ],
-    //             phase_last_updated_at: "0001-01-01T00:00:00Z",
-    //             created_at: "2020-07-28T18:00:00Z",
-    //             updated_at: "2020-07-28T18:00:00Z",
-    //             cause: "commit 9a4df0b pushed to github/digitalocean/sample-golang",
-    //             progress: {
-    //                 pending_steps: 6,
-    //                 total_steps: 6,
-    //                 steps: [
-    //                     {
-    //                         name: "build",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         component_name: "web",
-    //                                         message_base: "Building service",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                         ],
-    //                     },
-    //                     {
-    //                         name: "deploy",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         steps: [
-    //                                             {
-    //                                                 name: "deploy",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Deploying service",
-    //                                             },
-    //                                             {
-    //                                                 name: "wait",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Waiting for service",
-    //                                             },
-    //                                         ],
-    //                                         component_name: "web",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             { name: "finalize", status: "PENDING" },
-    //                         ],
-    //                     },
-    //                 ],
-    //             },
-    //             phase: "PENDING_BUILD",
-    //             tier_slug: "basic",
-    //         },
-    //     };
-
-    //    const typeExpected = {
-    //         deployment: {
-    //             id: "b6bdf840-2854-4f87-a36c-5f231c617c84",
-    //             spec: {
-    //                 name: "sample-golang",
-    //                 services: [
-    //                     {
-    //                         name: "web",
-    //                         github: {
-    //                             repo: "digitalocean/sample-golang",
-    //                             branch: "branch",
-    //                         },
-    //                         runCommand: "bin/sample-golang",
-    //                         environmentSlug: "go",
-    //                         instanceSizeSlug: "basic-xxs",
-    //                         instanceCount: 2,
-    //                         routes: [{ path: "/" }],
-    //                     },
-    //                 ],
-    //                 region: "ams",
-    //             },
-    //             services: [
-    //                 {
-    //                     name: "web",
-    //                     sourceCommitHash: "9a4df0b8e161e323bc3cdf1dc71878080fe144fa",
-    //                 },
-    //             ],
-    //             phaseLastUpdated_at: "0001-01-01T00:00:00Z",
-    //             createdAt: "2020-07-28T18:00:00Z",
-    //             updatedAt: "2020-07-28T18:00:00Z",
-    //             cause: "commit 9a4df0b pushed to github/digitalocean/sample-golang",
-    //             progress: {
-    //                 pendingSteps: 6,
-    //                 totalSteps: 6,
-    //                 steps: [
-    //                     {
-    //                         name: "build",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         component_name: "web",
-    //                                         message_base: "Building service",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                         ],
-    //                     },
-    //                     {
-    //                         name: "deploy",
-    //                         status: "PENDING",
-    //                         steps: [
-    //                             { name: "initialize", status: "PENDING" },
-    //                             {
-    //                                 name: "components",
-    //                                 status: "PENDING",
-    //                                 steps: [
-    //                                     {
-    //                                         name: "web",
-    //                                         status: "PENDING",
-    //                                         steps: [
-    //                                             {
-    //                                                 name: "deploy",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Deploying service",
-    //                                             },
-    //                                             {
-    //                                                 name: "wait",
-    //                                                 status: "PENDING",
-    //                                                 component_name: "web",
-    //                                                 message_base: "Waiting for service",
-    //                                             },
-    //                                         ],
-    //                                         component_name: "web",
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             { name: "finalize", status: "PENDING" },
-    //                         ],
-    //                     },
-    //                 ],
-    //             },
-    //             phase: "PENDING_BUILD",
-    //             tier_slug: "basic",
-    //         },
-    //     };
-
-
-    //     nock(baseUrl).post(`/v2/apps/${appId}/rollback/revert`).reply(200, expected);
-    //     const resp = await client.v2.apps.byApp_Id(appId).rollback.revert.post();
-    //     expect(resp).toEqual(typeExpected);
-    // });
 
     it("should mock retrieving bandwidth daily metrics for multiple apps", async () => {
         const typeExpected = {
@@ -1122,7 +697,7 @@ describe('Apps API Resource - Create App', () => {
       '4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf',
       'c2a93513-8d9b-4223-9d61-5f231c617c84',
     ],
-    date: '2023-01-17T00:00:00.000Z', // Ensure this matches the request
+    date: '2023-01-17T00:00:00.000Z',
   };
 
   nock(baseUrl)
