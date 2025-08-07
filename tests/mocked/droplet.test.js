@@ -1416,62 +1416,6 @@ describe("Droplets API", () => {
         const resp = await client.v2.droplets.delete({ queryParameters: { tagName } });
         expect(resp).toBeUndefined();
     });
-    // it("mocks the droplets list backups operation", async () => {
-    //         const expected = {
-    // 					backups: [
-    // 						{
-    // 							id: 67539192,
-    // 							name: "web-01- 2020-07-29",
-    // 							distribution: "Ubuntu",
-    // 							slug: null,
-    // 							public: false,
-    // 							regions: ["nyc3"],
-    // 							created_at: "2020-07-29T01:44:35Z",
-    // 							min_disk_size: 50,
-    // 							size_gigabytes: 2.34,
-    // 							type: "backup",
-    // 						},
-    // 					],
-    // 					links: {},
-    // 					meta: {
-    // 						total: 1,
-    // 					},
-    // 				};
-    //         const dropletId = 1;
-    //         nock(baseUrl)
-    //         .get(`/v2/droplets/${dropletId}/backups`)
-    //         .reply(200, expected);
-    //         const resp = await client.v2.droplets.byDroplet_id(dropletId).backups.get();  
-    //         console.log(JSON.stringify(resp));
-    //         expect(resp).toEqual(expected);
-    //     });
-    // it("mocks the droplets list kernels operation", async () => {
-    // 	const expected = {
-    // 		kernels: [
-    // 			{
-    // 				id: 7515,
-    // 				name: "DigitalOcean GrubLoader v0.2 (20160714)",
-    // 				version: "2016.07.13-DigitalOcean_loader_Ubuntu",
-    // 			},
-    // 		],
-    // 		links: {
-    // 			pages: {
-    // 				next: "https://api.digitalocean.com/v2/droplets/3164444/kernels?page=2&per_page=1",
-    // 				last: "https://api.digitalocean.com/v2/droplets/3164444/kernels?page=171&per_page=1",
-    // 			},
-    // 		},
-    // 		meta: { total: 171 },
-    // 	};
-    // 	const dropletId = 3929391;
-    // 	nock(baseUrl)
-    // 		.get(`/v2/droplets/${dropletId}/kernels`)
-    // 		.reply(200, expected);
-    // 	const resp = await client.v2.droplets
-    // 		.byDroplet_id(dropletId)
-    // 		.kernels.get();	
-    //   console.log(JSON.stringify(resp))
-    // 	expect(resp).toEqual(expected);
-    // });
     it("mocks the droplets list firewalls operation", async () => {
         const expected = {
             firewalls: [
@@ -2102,24 +2046,4 @@ describe("Droplets API", () => {
             .post();
         expect(resp).toBeUndefined();
     });
-    //   it('mocks the droplets list all neighbors operation', async () => {
-    //       const expected = {
-    // 	neighbor_ids: [
-    // 		[168671828, 168663509, 168671815],
-    // 		[168671883, 168671750],
-    // 	],
-    // };
-    //       const typeExpected = {
-    //         neighborIds: [
-    //           [168671828, 168663509, 168671815],
-    //           [168671883, 168671750],
-    //         ],
-    //       };
-    //       nock(baseUrl)
-    //           .get('/v2/reports/droplet_neighbors_ids')
-    //           .reply(200, expected);
-    //       const resp = await client.v2.reports.droplet_neighbors_ids.get();
-    //       console.log(JSON.stringify(resp));
-    //       expect(resp).toEqual(typeExpected);
-    //   });
 });
