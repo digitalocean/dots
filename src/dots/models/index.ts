@@ -34895,7 +34895,7 @@ export interface Size extends AdditionalDataHolder, Parsable {
      */
     priceMonthly?: number | null;
     /**
-     * An array containing the region slugs where this size is available for Droplet creates. regions:read is required to view.
+     * An array containing the region slugs where this size is available for Droplet creates.
      */
     regions?: string[] | null;
     /**
