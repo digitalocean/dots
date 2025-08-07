@@ -16,15 +16,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Set secure environment variables
+        run: |
+          echo "OPENAPI_SHA=${{ github.event.inputs.openapi_short_sha }}" >> $GITHUB_ENV
+          echo "NEW_BRANCH=openapi-${{ github.event.inputs.openapi_short_sha }}/clientgen" >> $GITHUB_ENV
+
       - name: Make openapi_changelist.sh executable
         run: chmod +x scripts/openapi_changelist.sh
       - name: OpenAPI Changelist
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          TARGET_SHA: ${{ github.event.inputs.openapi_short_sha }}
         run: |
           current_sha=$(cat DO_OPENAPI_COMMIT_SHA.txt)
           echo "current_sha=$current_sha" >> $GITHUB_ENV
-          target_sha=${{ github.event.inputs.openapi_short_sha }}
+          target_sha=${TARGET_SHA}
           echo "target_sha" >> target_sha
           scripts/openapi_changelist.sh $current_sha $target_sha > changelist.md
 
@@ -35,11 +41,12 @@ jobs:
         run: make docs_clean
 
       - name: Download spec file and update DO_OPENAPI_COMMIT_SHA.txt
-        run: |
-          curl --fail https://api-engineering.nyc3.digitaloceanspaces.com/spec-ci/DigitalOcean-public-${{ github.event.inputs.openapi_short_sha }}.v2.yaml -o DigitalOcean-public.v2.yaml
-          echo ${{ github.event.inputs.openapi_short_sha }} > DO_OPENAPI_COMMIT_SHA.txt
         env:
-          GH_TOKEN: ${{secrets.WORKFLOW_TOKEN}}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          TARGET_SHA: ${{ github.event.inputs.openapi_short_sha }}
+        run: |
+          curl --fail "https://api-engineering.nyc3.digitaloceanspaces.com/spec-ci/DigitalOcean-public-${TARGET_SHA}.v2.yaml" -o DigitalOcean-public.v2.yaml
+          echo "$TARGET_SHA" > DO_OPENAPI_COMMIT_SHA.txt
 
       - uses:  actions/upload-artifact@v4
         with:
@@ -93,9 +100,12 @@ jobs:
 
       - name: Set pr_title outputs 
         id: pr_title_var
-        run: echo "PR_TITLE=$(gh pr list --search "${{ github.event.inputs.openapi_short_sha }}" --json title --jq '.[0].title' --repo digitalocean/openapi --state merged)" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_SHA: ${{ github.event.inputs.openapi_short_sha }}
+        run: |
+          PR_TITLE=$(gh pr list --search "$SEARCH_SHA" --json title --jq '.[0].title' --repo digitalocean/openapi --state merged)
+          echo "PR_TITLE=$PR_TITLE" >> $GITHUB_OUTPUT
 
       - name: Check pr_title outputs 
         run: echo "${{ steps.pr_title_var.outputs.PR_TITLE }}"
@@ -103,10 +113,13 @@ jobs:
       - name: Create Pull Request
         id: create-pr
         if: steps.add-commit-changes.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          TITLE: ${{ steps.pr_title_var.outputs.PR_TITLE }}
         run: |
           export CURRENT="$(cat DO_OPENAPI_COMMIT_SHA.txt)"
-          export TARGET="${{ github.event.inputs.openapi_short_sha }}"
-          export TITLE="${{ steps.pr_title_var.outputs.PR_TITLE }}"
+          export TARGET="$OPENAPI_SHA"
+          export TITLE="$TITLE"
           envsubst < scripts/pr_body.md_tmpl > pr_body.md
           cat changelist.md >> pr_body.md
 
@@ -116,7 +129,5 @@ jobs:
           gh pr create \
             --title "[bot] $TITLE: Re-Generated From digitalocean/openapi@$TARGET" \
             --body-file pr_body.md \
-            --head "${{ env.NEW_BRANCH }}" \
+            --head "$NEW_BRANCH" \
             -r digitalocean/api-cli
-        env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
