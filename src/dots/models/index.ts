@@ -20286,6 +20286,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "log_error_verbosity": n => { postgres_advanced_config.logErrorVerbosity = n.getEnumValue<Postgres_advanced_config_log_error_verbosity>(Postgres_advanced_config_log_error_verbosityObject); },
         "log_line_prefix": n => { postgres_advanced_config.logLinePrefix = n.getEnumValue<Postgres_advanced_config_log_line_prefix>(Postgres_advanced_config_log_line_prefixObject); },
         "log_min_duration_statement": n => { postgres_advanced_config.logMinDurationStatement = n.getNumberValue(); },
+        "max_connections": n => { postgres_advanced_config.maxConnections = n.getNumberValue(); },
         "max_failover_replication_time_lag": n => { postgres_advanced_config.maxFailoverReplicationTimeLag = n.getNumberValue(); },
         "max_files_per_process": n => { postgres_advanced_config.maxFilesPerProcess = n.getNumberValue(); },
         "max_locks_per_transaction": n => { postgres_advanced_config.maxLocksPerTransaction = n.getNumberValue(); },
@@ -20295,6 +20296,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "max_pred_locks_per_transaction": n => { postgres_advanced_config.maxPredLocksPerTransaction = n.getNumberValue(); },
         "max_prepared_transactions": n => { postgres_advanced_config.maxPreparedTransactions = n.getNumberValue(); },
         "max_replication_slots": n => { postgres_advanced_config.maxReplicationSlots = n.getNumberValue(); },
+        "max_slot_wal_keep_size": n => { postgres_advanced_config.maxSlotWalKeepSize = n.getNumberValue(); },
         "max_stack_depth": n => { postgres_advanced_config.maxStackDepth = n.getNumberValue(); },
         "max_standby_archive_delay": n => { postgres_advanced_config.maxStandbyArchiveDelay = n.getNumberValue(); },
         "max_standby_streaming_delay": n => { postgres_advanced_config.maxStandbyStreamingDelay = n.getNumberValue(); },
@@ -24871,6 +24873,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      */
     logMinDurationStatement?: number | null;
     /**
+     * Sets the PostgreSQL maximum number of concurrent connections to the database server. This is a limited-release parameter. Contact your account team to confirm your eligibility. You cannot decrease this parameter value when set. For services with a read replica, first increase the read replica's value. After the change is applied to the replica, you can increase the primary service's value. Changing this parameter causes a service restart.
+     */
+    maxConnections?: number | null;
+    /**
      * Number of seconds of master unavailability before triggering database failover to standby. The default value is 60.
      */
     maxFailoverReplicationTimeLag?: number | null;
@@ -24906,6 +24912,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      * PostgreSQL maximum replication slots.
      */
     maxReplicationSlots?: number | null;
+    /**
+     * PostgreSQL maximum WAL size (MB) reserved for replication slots. If -1 is specified, replication slots may retain an unlimited amount of WAL files. The default is -1 (upstream default). wal_keep_size minimum WAL size setting takes precedence over this.
+     */
+    maxSlotWalKeepSize?: number | null;
     /**
      * Maximum depth of the stack in bytes.
      */
@@ -33535,6 +33545,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeEnumValue<Postgres_advanced_config_log_error_verbosity>("log_error_verbosity", postgres_advanced_config.logErrorVerbosity);
     writer.writeEnumValue<Postgres_advanced_config_log_line_prefix>("log_line_prefix", postgres_advanced_config.logLinePrefix);
     writer.writeNumberValue("log_min_duration_statement", postgres_advanced_config.logMinDurationStatement);
+    writer.writeNumberValue("max_connections", postgres_advanced_config.maxConnections);
     writer.writeNumberValue("max_failover_replication_time_lag", postgres_advanced_config.maxFailoverReplicationTimeLag);
     writer.writeNumberValue("max_files_per_process", postgres_advanced_config.maxFilesPerProcess);
     writer.writeNumberValue("max_locks_per_transaction", postgres_advanced_config.maxLocksPerTransaction);
@@ -33544,6 +33555,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeNumberValue("max_pred_locks_per_transaction", postgres_advanced_config.maxPredLocksPerTransaction);
     writer.writeNumberValue("max_prepared_transactions", postgres_advanced_config.maxPreparedTransactions);
     writer.writeNumberValue("max_replication_slots", postgres_advanced_config.maxReplicationSlots);
+    writer.writeNumberValue("max_slot_wal_keep_size", postgres_advanced_config.maxSlotWalKeepSize);
     writer.writeNumberValue("max_stack_depth", postgres_advanced_config.maxStackDepth);
     writer.writeNumberValue("max_standby_archive_delay", postgres_advanced_config.maxStandbyArchiveDelay);
     writer.writeNumberValue("max_standby_streaming_delay", postgres_advanced_config.maxStandbyStreamingDelay);
