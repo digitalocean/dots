@@ -1,62 +1,34 @@
-import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { v4 as uuidv4 } from "uuid";
-const token = "mock-token";
+import dotenv from "dotenv";
+dotenv.config();
+const token = process.env.DIGITALOCEAN_TOKEN;
+if (!token) {
+    throw new Error("DIGITALOCEAN_TOKEN is not set. Please check your .env file.");
+}
 const REGION = "nyc3";
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 describe("Integration Tests", () => {
-    beforeEach(() => {
-        nock.cleanAll();
-    });
     it("should create a droplet and attach a volume", async () => {
-        // Mock SSH key retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/account/keys")
-            .reply(200, {
-            ssh_keys: [{ name: "test-key", fingerprint: "mock-fingerprint" }],
-        });
-        // Mock droplet creation
-        nock("https://api.digitalocean.com")
-            .post("/v2/droplets")
-            .reply(200, { droplet: { id: 123, name: "test-droplet" } });
-        // Mock droplet details retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/droplets/123")
-            .reply(200, {
-            droplet: {
-                id: 123,
-                name: "test-droplet",
-                networks: { v4: [{ type: "public", ip_address: "1.2.3.4" }] },
-            },
-        });
-        // Mock volume creation
-        nock("https://api.digitalocean.com")
-            .post("/v2/volumes")
-            .reply(200, { volume: { id: 456, name: "test-volume", test: 'hi' } });
-        // Mock volume attachment
-        nock("https://api.digitalocean.com")
-            .post("/v2/volumes/456/actions")
-            .reply(200, { action: { id: 789, status: "in-progress" } });
-        // Mock action status retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/actions/789")
-            .reply(200, { action: { id: 789, status: "completed" } });
-        // Run the test workflow
-        const keyName = "test-key";
+        const keyName = process.env.SSH_KEY_NAME;
+        if (!keyName) {
+            throw new Error("SSH_KEY_NAME not set");
+        }
         const sshKey = await findSshKey(keyName);
+        const fingerprint = [sshKey.fingerprint ?? (() => { throw new Error("SSH key fingerprint is undefined or null"); })()];
         const dropletReq = {
             name: `test-${uuidv4()}`,
             region: REGION,
             size: "s-1vcpu-1gb",
             image: "ubuntu-22-04-x64",
-            ssh_keys: [sshKey.fingerprint],
+            ssh_keys: fingerprint,
         };
         const droplet = await createDroplet(dropletReq);
-        expect(droplet.id).toBe(123);
+        expect(droplet.id).toBeDefined();
         const volumeReq = {
             sizeGigabytes: 10,
             name: `test-${uuidv4()}`,
@@ -65,18 +37,17 @@ describe("Integration Tests", () => {
             filesystemType: "ext4",
         };
         const volume = await createVolume(volumeReq);
-        expect(volume.id).toBe(456);
+        expect(volume.id).toBeDefined();
         const volumeActionReq = {
             dropletId: droplet.id,
             type: "attach",
         };
-        const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
         console.log(`Attaching volume ${volume.id} to Droplet ${droplet.id}...`);
         try {
             const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
             if (actionResp?.action?.id !== undefined && actionResp.action.id !== null) {
                 await waitForAction(actionResp.action.id);
-                expect(actionResp.action.id).toBe(789);
+                expect(actionResp.action.id).toBeDefined();
             }
             else {
                 throw new Error("Action ID is undefined or null");
@@ -91,11 +62,10 @@ describe("Integration Tests", () => {
                 throw err;
             }
         }
-    });
+    }, 50000);
     // Helper functions
     async function findSshKey(name) {
         console.log(`Looking for SSH key named ${name}...`);
-        let page = 1;
         let paginated = true;
         while (paginated) {
             try {
@@ -135,7 +105,7 @@ describe("Integration Tests", () => {
         }
         throw new Error("No SSH key found");
     }
-    async function createDroplet(req = {}) {
+    async function createDroplet(req) {
         console.log(`Creating Droplet using: ${JSON.stringify(req)}`);
         try {
             const resp = await client.v2.droplets.post(req);
@@ -150,7 +120,7 @@ describe("Integration Tests", () => {
                         const getResp = await client.v2.droplets.byDroplet_id(dropletId).get();
                         if (getResp && 'droplet' in getResp) {
                             droplet = getResp.droplet;
-                            if (droplet.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
+                            if (droplet?.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
                                 break;
                             }
                         }
@@ -160,12 +130,29 @@ describe("Integration Tests", () => {
                     if (droplet && droplet.networks && droplet.networks.v4) {
                         let ipAddress = "";
                         for (const net of droplet.networks.v4) {
-                            if (net.type === "public") {
+                            if (net?.type === "public" && net.ipAddress) {
                                 ipAddress = net.ipAddress;
                             }
                         }
                         console.log(`Droplet ID: ${dropletId} Name: ${droplet.name} IP: ${ipAddress}`);
-                        return droplet;
+                        if (droplet?.id == null) {
+                            throw new Error("Droplet ID is null or undefined");
+                        }
+                        return {
+                            id: droplet.id,
+                            name: droplet.name,
+                            region: droplet.region,
+                            size: droplet.size,
+                            image: droplet.image,
+                            networks: {
+                                v4: (droplet.networks?.v4
+                                    ?.filter((net) => typeof net.ipAddress === "string" && !!net.type)
+                                    .map((net) => ({
+                                    ip_address: net.ipAddress,
+                                    type: net.type,
+                                }))) ?? [],
+                            },
+                        };
                     }
                     else {
                         throw new Error("Failed to retrieve droplet details or networks information");
@@ -174,6 +161,9 @@ describe("Integration Tests", () => {
                 else {
                     throw new Error("Droplet ID is undefined");
                 }
+            }
+            else {
+                throw new Error("Failed to create droplet");
             }
         }
         catch (err) {
@@ -193,7 +183,14 @@ describe("Integration Tests", () => {
             if (resp && resp.volume) {
                 const volume = resp.volume;
                 console.log(`Created volume ${volume.name} <ID: ${volume.id}>`);
-                return volume;
+                return {
+                    id: volume.id,
+                    name: volume.name,
+                    sizeGigabytes: volume.sizeGigabytes,
+                    description: volume.description,
+                    region: volume.region,
+                    filesystemType: volume.filesystemType,
+                };
             }
             else {
                 throw new Error("Failed to create volume or volume is undefined");

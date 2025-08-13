@@ -19,6 +19,7 @@ export function createOneClicksGetResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param OneClicksGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,10 +30,6 @@ export function deserializeIntoOneClicksGetResponse(oneClicksGetResponse: Partia
 }
 export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)[keyof typeof GetTypeQueryParameterTypeObject];
 export interface OneClicksGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The One_clicks property
      */
@@ -74,14 +71,15 @@ export interface OneClicksRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param OneClicksGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOneClicksGetResponse(writer: SerializationWriter, oneClicksGetResponse: Partial<OneClicksGetResponse> | undefined | null = {}) : void {
-    if (oneClicksGetResponse) {
-        writer.writeCollectionOfObjectValues<OneClicks>("1_clicks", oneClicksGetResponse.oneClicks, serializeOneClicks);
-        writer.writeAdditionalData(oneClicksGetResponse.additionalData);
-    }
+export function serializeOneClicksGetResponse(writer: SerializationWriter, oneClicksGetResponse: Partial<OneClicksGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!oneClicksGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<OneClicks>("1_clicks", oneClicksGetResponse.oneClicks, serializeOneClicks);
+    writer.writeAdditionalData(oneClicksGetResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

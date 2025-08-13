@@ -26,6 +26,7 @@ export function createWithTrigger_namePutResponseFromDiscriminatorValue(parseNod
 }
 /**
  * The deserialization information for the current model
+ * @param WithTrigger_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -36,6 +37,7 @@ export function deserializeIntoWithTrigger_nameGetResponse(withTrigger_nameGetRe
 }
 /**
  * The deserialization information for the current model
+ * @param WithTrigger_namePutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -46,31 +48,29 @@ export function deserializeIntoWithTrigger_namePutResponse(withTrigger_namePutRe
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithTrigger_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithTrigger_nameGetResponse(writer: SerializationWriter, withTrigger_nameGetResponse: Partial<WithTrigger_nameGetResponse> | undefined | null = {}) : void {
-    if (withTrigger_nameGetResponse) {
-        writer.writeObjectValue<Trigger_info>("trigger", withTrigger_nameGetResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(withTrigger_nameGetResponse.additionalData);
-    }
+export function serializeWithTrigger_nameGetResponse(writer: SerializationWriter, withTrigger_nameGetResponse: Partial<WithTrigger_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withTrigger_nameGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Trigger_info>("trigger", withTrigger_nameGetResponse.trigger, serializeTrigger_info);
+    writer.writeAdditionalData(withTrigger_nameGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithTrigger_namePutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithTrigger_namePutResponse(writer: SerializationWriter, withTrigger_namePutResponse: Partial<WithTrigger_namePutResponse> | undefined | null = {}) : void {
-    if (withTrigger_namePutResponse) {
-        writer.writeObjectValue<Trigger_info>("trigger", withTrigger_namePutResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(withTrigger_namePutResponse.additionalData);
-    }
+export function serializeWithTrigger_namePutResponse(writer: SerializationWriter, withTrigger_namePutResponse: Partial<WithTrigger_namePutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withTrigger_namePutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Trigger_info>("trigger", withTrigger_namePutResponse.trigger, serializeTrigger_info);
+    writer.writeAdditionalData(withTrigger_namePutResponse.additionalData);
 }
 export interface WithTrigger_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The trigger property
      */
@@ -135,10 +135,6 @@ export interface WithTrigger_nameItemRequestBuilder extends BaseRequestBuilder<W
      toPutRequestInformation(body: Update_trigger, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 export interface WithTrigger_namePutResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The trigger property
      */

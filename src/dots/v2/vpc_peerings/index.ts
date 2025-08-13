@@ -37,6 +37,7 @@ export function createVpc_peeringsPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param Vpc_peeringsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,6 +50,7 @@ export function deserializeIntoVpc_peeringsGetResponse(vpc_peeringsGetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param Vpc_peeringsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -60,6 +62,7 @@ export function deserializeIntoVpc_peeringsPostRequestBody(vpc_peeringsPostReque
 }
 /**
  * The deserialization information for the current model
+ * @param Vpc_peeringsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -70,45 +73,44 @@ export function deserializeIntoVpc_peeringsPostResponse(vpc_peeringsPostResponse
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_peeringsGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVpc_peeringsGetResponse(writer: SerializationWriter, vpc_peeringsGetResponse: Partial<Vpc_peeringsGetResponse> | undefined | null = {}) : void {
-    if (vpc_peeringsGetResponse) {
-        writer.writeObjectValue<Page_links>("links", vpc_peeringsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", vpc_peeringsGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Vpc_peering>("vpc_peerings", vpc_peeringsGetResponse.vpcPeerings, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsGetResponse.additionalData);
-    }
+export function serializeVpc_peeringsGetResponse(writer: SerializationWriter, vpc_peeringsGetResponse: Partial<Vpc_peeringsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_peeringsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", vpc_peeringsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", vpc_peeringsGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Vpc_peering>("vpc_peerings", vpc_peeringsGetResponse.vpcPeerings, serializeVpc_peering);
+    writer.writeAdditionalData(vpc_peeringsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_peeringsPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVpc_peeringsPostRequestBody(writer: SerializationWriter, vpc_peeringsPostRequestBody: Partial<Vpc_peeringsPostRequestBody> | undefined | null = {}) : void {
-    if (vpc_peeringsPostRequestBody) {
-        writer.writeStringValue("name", vpc_peeringsPostRequestBody.name);
-        writer.writeCollectionOfPrimitiveValues<Guid>("vpc_ids", vpc_peeringsPostRequestBody.vpcIds);
-        writer.writeAdditionalData(vpc_peeringsPostRequestBody.additionalData);
-    }
+export function serializeVpc_peeringsPostRequestBody(writer: SerializationWriter, vpc_peeringsPostRequestBody: Partial<Vpc_peeringsPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_peeringsPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", vpc_peeringsPostRequestBody.name);
+    writer.writeCollectionOfPrimitiveValues<Guid>("vpc_ids", vpc_peeringsPostRequestBody.vpcIds);
+    writer.writeAdditionalData(vpc_peeringsPostRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_peeringsPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVpc_peeringsPostResponse(writer: SerializationWriter, vpc_peeringsPostResponse: Partial<Vpc_peeringsPostResponse> | undefined | null = {}) : void {
-    if (vpc_peeringsPostResponse) {
-        writer.writeObjectValue<Vpc_peering>("vpc_peering", vpc_peeringsPostResponse.vpcPeering, serializeVpc_peering);
-        writer.writeAdditionalData(vpc_peeringsPostResponse.additionalData);
-    }
+export function serializeVpc_peeringsPostResponse(writer: SerializationWriter, vpc_peeringsPostResponse: Partial<Vpc_peeringsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_peeringsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc_peering>("vpc_peering", vpc_peeringsPostResponse.vpcPeering, serializeVpc_peering);
+    writer.writeAdditionalData(vpc_peeringsPostResponse.additionalData);
 }
 export interface Vpc_peeringsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The links property
      */
@@ -124,10 +126,6 @@ export interface Vpc_peeringsGetResponse extends AdditionalDataHolder, Parsable 
 }
 export interface Vpc_peeringsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.
      */
     name?: string | null;
@@ -137,10 +135,6 @@ export interface Vpc_peeringsPostRequestBody extends AdditionalDataHolder, Parsa
     vpcIds?: Guid[] | null;
 }
 export interface Vpc_peeringsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The vpc_peering property
      */

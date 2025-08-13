@@ -30,6 +30,7 @@ export function createSinksPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param SinksGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoSinksGetResponse(sinksGetResponse: Partial<SinksG
 }
 /**
  * The deserialization information for the current model
+ * @param SinksPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -51,42 +53,36 @@ export function deserializeIntoSinksPostRequestBody(sinksPostRequestBody: Partia
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SinksGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSinksGetResponse(writer: SerializationWriter, sinksGetResponse: Partial<SinksGetResponse> | undefined | null = {}) : void {
-    if (sinksGetResponse) {
-        writer.writeCollectionOfObjectValues<Sinks_response>("sinks", sinksGetResponse.sinks, serializeSinks_response);
-        writer.writeAdditionalData(sinksGetResponse.additionalData);
-    }
+export function serializeSinksGetResponse(writer: SerializationWriter, sinksGetResponse: Partial<SinksGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sinksGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Sinks_response>("sinks", sinksGetResponse.sinks, serializeSinks_response);
+    writer.writeAdditionalData(sinksGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SinksPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSinksPostRequestBody(writer: SerializationWriter, sinksPostRequestBody: Partial<SinksPostRequestBody> | undefined | null = {}) : void {
-    if (sinksPostRequestBody) {
-        writer.writeStringValue("destination_uuid", sinksPostRequestBody.destinationUuid);
-        writer.writeCollectionOfObjectValues<Sink_resource>("resources", sinksPostRequestBody.resources, serializeSink_resource);
-        writer.writeAdditionalData(sinksPostRequestBody.additionalData);
-    }
+export function serializeSinksPostRequestBody(writer: SerializationWriter, sinksPostRequestBody: Partial<SinksPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sinksPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("destination_uuid", sinksPostRequestBody.destinationUuid);
+    writer.writeCollectionOfObjectValues<Sink_resource>("resources", sinksPostRequestBody.resources, serializeSink_resource);
+    writer.writeAdditionalData(sinksPostRequestBody.additionalData);
 }
 export interface SinksGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * List of sinks identified by their URNs.
      */
     sinks?: Sinks_response[] | null;
 }
 export interface SinksPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * A unique identifier for an already-existing destination.
      */

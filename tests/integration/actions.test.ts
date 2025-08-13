@@ -1,82 +1,19 @@
-import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
-import { v4 as uuidv4 } from "uuid";
-import { Volumes_ext4, Volume_action_post_attach } from "../../src/dots/models/index.js";
-const token = "mock-token";
+import dotenv from "dotenv";
+dotenv.config();
+const token =  process.env.DIGITALOCEAN_TOKEN;
+if (!token) {
+	throw new Error("DIGITALOCEAN_TOKEN is not set. Please check your .env file.");
+}
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 
-
 describe("Integration Test for Actions Endpoint", () => {
 
     it("should list and get actions", async () => {
-        // List actions
-        const expected = {
-					actions: [
-						{
-							id: 36804636,
-							status: "completed",
-							type: "create",
-							started_at: "2020-11-14T16:29:21Z",
-							completed_at: "2020-11-14T16:30:06Z",
-							resource_id: 3164444,
-							resource_type: "droplet",
-							region: {
-								name: "New York 3",
-								slug: "nyc3",
-								features: [
-									"private_networking",
-									"backups",
-									"ipv6",
-									"metadata",
-									"install_agent",
-									"storage",
-									"image_transfer",
-								],
-								available: true,
-								sizes: [
-									"s-1vcpu-1gb",
-									"s-1vcpu-2gb",
-									"s-1vcpu-3gb",
-									"s-2vcpu-2gb",
-									"s-3vcpu-1gb",
-									"s-2vcpu-4gb",
-									"s-4vcpu-8gb",
-									"s-6vcpu-16gb",
-									"s-8vcpu-32gb",
-									"s-12vcpu-48gb",
-									"s-16vcpu-64gb",
-									"s-20vcpu-96gb",
-									"s-24vcpu-128gb",
-									"s-32vcpu-192g",
-								],
-							},
-							region_slug: "nyc3",
-						},
-					],
-					links: {
-						pages: {
-							pages: {
-								first: "https://api.digitalocean.com/v2/account/keys?page=1",
-								prev: "https://api.digitalocean.com/v2/account/keys?page=2",
-							},
-						},
-					},
-					meta: {
-						total: 1,
-					},
-				};
-       nock("https://api.digitalocean.com")
-            .get("/v2/actions")
-            .reply(200,expected);
-        
-         nock("https://api.digitalocean.com")
-            .get(`/v2/actions/${expected.actions[0].id}`)
-            .reply(200, { action: expected.actions[0] });
-    
         const listResp = await client.v2.actions.get();
         expect(listResp).not.toBeNull();
         expect(listResp?.actions).toBeDefined();
@@ -89,5 +26,5 @@ describe("Integration Test for Actions Endpoint", () => {
         expect(getResp).not.toBeNull();
         expect(getResp?.action).toBeDefined();
         expect(getResp?.action?.id).toBe(actionId);
-    });
+    }, 50000);
 });

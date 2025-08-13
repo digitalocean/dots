@@ -28,6 +28,7 @@ export function createDomainsPostResponseFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param DomainsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -40,6 +41,7 @@ export function deserializeIntoDomainsGetResponse(domainsGetResponse: Partial<Do
 }
 /**
  * The deserialization information for the current model
+ * @param DomainsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -49,10 +51,6 @@ export function deserializeIntoDomainsPostResponse(domainsPostResponse: Partial<
     }
 }
 export interface DomainsGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * Array of volumes.
      */
@@ -67,10 +65,6 @@ export interface DomainsGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 export interface DomainsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The domain property
      */
@@ -136,27 +130,29 @@ export interface DomainsRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param DomainsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDomainsGetResponse(writer: SerializationWriter, domainsGetResponse: Partial<DomainsGetResponse> | undefined | null = {}) : void {
-    if (domainsGetResponse) {
-        writer.writeCollectionOfObjectValues<Domain>("domains", domainsGetResponse.domains, serializeDomain);
-        writer.writeObjectValue<Page_links>("links", domainsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", domainsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(domainsGetResponse.additionalData);
-    }
+export function serializeDomainsGetResponse(writer: SerializationWriter, domainsGetResponse: Partial<DomainsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!domainsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Domain>("domains", domainsGetResponse.domains, serializeDomain);
+    writer.writeObjectValue<Page_links>("links", domainsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", domainsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(domainsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DomainsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDomainsPostResponse(writer: SerializationWriter, domainsPostResponse: Partial<DomainsPostResponse> | undefined | null = {}) : void {
-    if (domainsPostResponse) {
-        writer.writeObjectValue<Domain>("domain", domainsPostResponse.domain, serializeDomain);
-        writer.writeAdditionalData(domainsPostResponse.additionalData);
-    }
+export function serializeDomainsPostResponse(writer: SerializationWriter, domainsPostResponse: Partial<DomainsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!domainsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Domain>("domain", domainsPostResponse.domain, serializeDomain);
+    writer.writeAdditionalData(domainsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

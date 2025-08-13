@@ -28,19 +28,11 @@ export function createDbsPostResponseFromDiscriminatorValue(parseNode: ParseNode
 }
 export interface DbsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The dbs property
      */
     dbs?: Database[] | null;
 }
 export interface DbsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The db property
      */
@@ -57,7 +49,7 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
      */
      byDatabase_name(database_name: string) : WithDatabase_nameItemRequestBuilder;
     /**
-     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis clusters.
+     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DbsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -68,7 +60,7 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<DbsGetResponse | undefined>;
     /**
-     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
+     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DbsPostResponse>}
@@ -80,13 +72,13 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
      */
      post(body: Database, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<DbsPostResponse | undefined>;
     /**
-     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Redis clusters.
+     * To list all of the databases in a clusters, send a GET request to`/v2/databases/$DATABASE_ID/dbs`.The result will be a JSON object with a `dbs` key. This will be set to an arrayof database objects, each of which will contain the standard database attributes.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
+     * To add a new database to an existing cluster, send a POST request to`/v2/databases/$DATABASE_ID/dbs`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a key called `db`. The value of this will bean object that contains the standard attributes associated with a database.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -95,6 +87,7 @@ export interface DbsRequestBuilder extends BaseRequestBuilder<DbsRequestBuilder>
 }
 /**
  * The deserialization information for the current model
+ * @param DbsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -105,6 +98,7 @@ export function deserializeIntoDbsGetResponse(dbsGetResponse: Partial<DbsGetResp
 }
 /**
  * The deserialization information for the current model
+ * @param DbsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -115,25 +109,27 @@ export function deserializeIntoDbsPostResponse(dbsPostResponse: Partial<DbsPostR
 }
 /**
  * Serializes information the current object
+ * @param DbsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetResponse: Partial<DbsGetResponse> | undefined | null = {}) : void {
-    if (dbsGetResponse) {
-        writer.writeCollectionOfObjectValues<Database>("dbs", dbsGetResponse.dbs, serializeDatabase);
-        writer.writeAdditionalData(dbsGetResponse.additionalData);
-    }
+export function serializeDbsGetResponse(writer: SerializationWriter, dbsGetResponse: Partial<DbsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dbsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Database>("dbs", dbsGetResponse.dbs, serializeDatabase);
+    writer.writeAdditionalData(dbsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param DbsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbsPostResponse(writer: SerializationWriter, dbsPostResponse: Partial<DbsPostResponse> | undefined | null = {}) : void {
-    if (dbsPostResponse) {
-        writer.writeObjectValue<Database>("db", dbsPostResponse.db, serializeDatabase);
-        writer.writeAdditionalData(dbsPostResponse.additionalData);
-    }
+export function serializeDbsPostResponse(writer: SerializationWriter, dbsPostResponse: Partial<DbsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dbsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database>("db", dbsPostResponse.db, serializeDatabase);
+    writer.writeAdditionalData(dbsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

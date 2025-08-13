@@ -1,0 +1,10 @@
+{
+    "entryPoints": [
+        "src/dots/DigitalOceanApiKeyAuthenticationProvider.ts",
+        "src/dots/digitalOceanClient.ts",
+        "src/dots/v2/index.ts",
+        "src/dots/v2/**/*.ts"
+    ], 
+    "includeVersion": true, 
+    "theme": "default" 
+}

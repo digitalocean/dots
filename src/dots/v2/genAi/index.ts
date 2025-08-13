@@ -6,13 +6,27 @@ import { AgentsRequestBuilderNavigationMetadata, AgentsRequestBuilderRequestsMet
 // @ts-ignore
 import { AnthropicRequestBuilderNavigationMetadata, type AnthropicRequestBuilder } from './anthropic/index.js';
 // @ts-ignore
+import { Evaluation_datasetsRequestBuilderNavigationMetadata, Evaluation_datasetsRequestBuilderRequestsMetadata, type Evaluation_datasetsRequestBuilder } from './evaluation_datasets/index.js';
+// @ts-ignore
+import { Evaluation_metricsRequestBuilderRequestsMetadata, type Evaluation_metricsRequestBuilder } from './evaluation_metrics/index.js';
+// @ts-ignore
+import { Evaluation_runsRequestBuilderNavigationMetadata, Evaluation_runsRequestBuilderRequestsMetadata, type Evaluation_runsRequestBuilder } from './evaluation_runs/index.js';
+// @ts-ignore
+import { Evaluation_test_casesRequestBuilderNavigationMetadata, Evaluation_test_casesRequestBuilderRequestsMetadata, type Evaluation_test_casesRequestBuilder } from './evaluation_test_cases/index.js';
+// @ts-ignore
 import { Indexing_jobsRequestBuilderNavigationMetadata, Indexing_jobsRequestBuilderRequestsMetadata, type Indexing_jobsRequestBuilder } from './indexing_jobs/index.js';
 // @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
 // @ts-ignore
-import { ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
+import { ModelsRequestBuilderNavigationMetadata, ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
+// @ts-ignore
+import { Oauth2RequestBuilderNavigationMetadata, type Oauth2RequestBuilder } from './oauth2/index.js';
+// @ts-ignore
+import { OpenaiRequestBuilderNavigationMetadata, type OpenaiRequestBuilder } from './openai/index.js';
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
+// @ts-ignore
+import { type WorkspacesRequestBuilder, WorkspacesRequestBuilderNavigationMetadata, WorkspacesRequestBuilderRequestsMetadata } from './workspaces/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
@@ -29,6 +43,22 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get anthropic(): AnthropicRequestBuilder;
     /**
+     * The evaluation_datasets property
+     */
+    get evaluation_datasets(): Evaluation_datasetsRequestBuilder;
+    /**
+     * The evaluation_metrics property
+     */
+    get evaluation_metrics(): Evaluation_metricsRequestBuilder;
+    /**
+     * The evaluation_runs property
+     */
+    get evaluation_runs(): Evaluation_runsRequestBuilder;
+    /**
+     * The evaluation_test_cases property
+     */
+    get evaluation_test_cases(): Evaluation_test_casesRequestBuilder;
+    /**
      * The indexing_jobs property
      */
     get indexing_jobs(): Indexing_jobsRequestBuilder;
@@ -41,9 +71,21 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get models(): ModelsRequestBuilder;
     /**
+     * The oauth2 property
+     */
+    get oauth2(): Oauth2RequestBuilder;
+    /**
+     * The openai property
+     */
+    get openai(): OpenaiRequestBuilder;
+    /**
      * The regions property
      */
     get regions(): RegionsRequestBuilder;
+    /**
+     * The workspaces property
+     */
+    get workspaces(): WorkspacesRequestBuilder;
 }
 /**
  * Uri template for the request builder.
@@ -60,6 +102,21 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     anthropic: {
         navigationMetadata: AnthropicRequestBuilderNavigationMetadata,
     },
+    evaluation_datasets: {
+        requestsMetadata: Evaluation_datasetsRequestBuilderRequestsMetadata,
+        navigationMetadata: Evaluation_datasetsRequestBuilderNavigationMetadata,
+    },
+    evaluation_metrics: {
+        requestsMetadata: Evaluation_metricsRequestBuilderRequestsMetadata,
+    },
+    evaluation_runs: {
+        requestsMetadata: Evaluation_runsRequestBuilderRequestsMetadata,
+        navigationMetadata: Evaluation_runsRequestBuilderNavigationMetadata,
+    },
+    evaluation_test_cases: {
+        requestsMetadata: Evaluation_test_casesRequestBuilderRequestsMetadata,
+        navigationMetadata: Evaluation_test_casesRequestBuilderNavigationMetadata,
+    },
     indexing_jobs: {
         requestsMetadata: Indexing_jobsRequestBuilderRequestsMetadata,
         navigationMetadata: Indexing_jobsRequestBuilderNavigationMetadata,
@@ -70,9 +127,20 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     },
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,
+        navigationMetadata: ModelsRequestBuilderNavigationMetadata,
+    },
+    oauth2: {
+        navigationMetadata: Oauth2RequestBuilderNavigationMetadata,
+    },
+    openai: {
+        navigationMetadata: OpenaiRequestBuilderNavigationMetadata,
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,
+    },
+    workspaces: {
+        requestsMetadata: WorkspacesRequestBuilderRequestsMetadata,
+        navigationMetadata: WorkspacesRequestBuilderNavigationMetadata,
     },
 };
 /* tslint:enable */

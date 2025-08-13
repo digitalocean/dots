@@ -14,7 +14,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
 export interface Api_keysRequestBuilder extends BaseRequestBuilder<Api_keysRequestBuilder> {
     /**
      * Gets an item from the ApiSdk.v2.genAi.agents.item.api_keys.item collection
-     * @param api_key_uuid API key for an agent.
+     * @param api_key_uuid API key ID
      * @returns {WithApi_key_uuItemRequestBuilder}
      */
      byApi_key_uuid(api_key_uuid: string) : WithApi_key_uuItemRequestBuilder;

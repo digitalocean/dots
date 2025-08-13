@@ -17,6 +17,7 @@ export function createWithLogsink_GetResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param WithLogsink_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,20 +28,17 @@ export function deserializeIntoWithLogsink_GetResponse(withLogsink_GetResponse: 
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithLogsink_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithLogsink_GetResponse(writer: SerializationWriter, withLogsink_GetResponse: Partial<WithLogsink_GetResponse> | undefined | null = {}) : void {
-    if (withLogsink_GetResponse) {
-        writer.writeObjectValue<Logsink_verbose>("sink", withLogsink_GetResponse.sink, serializeLogsink_verbose);
-        writer.writeAdditionalData(withLogsink_GetResponse.additionalData);
-    }
+export function serializeWithLogsink_GetResponse(writer: SerializationWriter, withLogsink_GetResponse: Partial<WithLogsink_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withLogsink_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Logsink_verbose>("sink", withLogsink_GetResponse.sink, serializeLogsink_verbose);
+    writer.writeAdditionalData(withLogsink_GetResponse.additionalData);
 }
 export interface WithLogsink_GetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The sink property
      */

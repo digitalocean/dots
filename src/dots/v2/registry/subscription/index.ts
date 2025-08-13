@@ -35,6 +35,7 @@ export function createSubscriptionPostResponseFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param SubscriptionGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -45,6 +46,7 @@ export function deserializeIntoSubscriptionGetResponse(subscriptionGetResponse: 
 }
 /**
  * The deserialization information for the current model
+ * @param SubscriptionPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -55,6 +57,7 @@ export function deserializeIntoSubscriptionPostRequestBody(subscriptionPostReque
 }
 /**
  * The deserialization information for the current model
+ * @param SubscriptionPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -65,42 +68,41 @@ export function deserializeIntoSubscriptionPostResponse(subscriptionPostResponse
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SubscriptionGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSubscriptionGetResponse(writer: SerializationWriter, subscriptionGetResponse: Partial<SubscriptionGetResponse> | undefined | null = {}) : void {
-    if (subscriptionGetResponse) {
-        writer.writeObjectValue<Subscription>("subscription", subscriptionGetResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionGetResponse.additionalData);
-    }
+export function serializeSubscriptionGetResponse(writer: SerializationWriter, subscriptionGetResponse: Partial<SubscriptionGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!subscriptionGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Subscription>("subscription", subscriptionGetResponse.subscription, serializeSubscription);
+    writer.writeAdditionalData(subscriptionGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SubscriptionPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSubscriptionPostRequestBody(writer: SerializationWriter, subscriptionPostRequestBody: Partial<SubscriptionPostRequestBody> | undefined | null = {}) : void {
-    if (subscriptionPostRequestBody) {
-        writer.writeEnumValue<SubscriptionPostRequestBody_tier_slug>("tier_slug", subscriptionPostRequestBody.tierSlug);
-        writer.writeAdditionalData(subscriptionPostRequestBody.additionalData);
-    }
+export function serializeSubscriptionPostRequestBody(writer: SerializationWriter, subscriptionPostRequestBody: Partial<SubscriptionPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!subscriptionPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<SubscriptionPostRequestBody_tier_slug>("tier_slug", subscriptionPostRequestBody.tierSlug);
+    writer.writeAdditionalData(subscriptionPostRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SubscriptionPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSubscriptionPostResponse(writer: SerializationWriter, subscriptionPostResponse: Partial<SubscriptionPostResponse> | undefined | null = {}) : void {
-    if (subscriptionPostResponse) {
-        writer.writeObjectValue<Subscription>("subscription", subscriptionPostResponse.subscription, serializeSubscription);
-        writer.writeAdditionalData(subscriptionPostResponse.additionalData);
-    }
+export function serializeSubscriptionPostResponse(writer: SerializationWriter, subscriptionPostResponse: Partial<SubscriptionPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!subscriptionPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Subscription>("subscription", subscriptionPostResponse.subscription, serializeSubscription);
+    writer.writeAdditionalData(subscriptionPostResponse.additionalData);
 }
 export interface SubscriptionGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The subscription property
      */
@@ -108,20 +110,12 @@ export interface SubscriptionGetResponse extends AdditionalDataHolder, Parsable 
 }
 export interface SubscriptionPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The slug of the subscription tier to sign up for.
      */
     tierSlug?: SubscriptionPostRequestBody_tier_slug | null;
 }
 export type SubscriptionPostRequestBody_tier_slug = (typeof SubscriptionPostRequestBody_tier_slugObject)[keyof typeof SubscriptionPostRequestBody_tier_slugObject];
 export interface SubscriptionPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The subscription property
      */
@@ -147,6 +141,7 @@ export interface SubscriptionRequestBuilder extends BaseRequestBuilder<Subscript
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SubscriptionPostResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
+     * @throws {ErrorEscaped} error when the service returns a 412 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
@@ -199,6 +194,7 @@ export const SubscriptionRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            412: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

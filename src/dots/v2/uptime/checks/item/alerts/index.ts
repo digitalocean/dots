@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type Key
 
 export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The alerts property
      */
     alerts?: Alert[] | null;
@@ -29,10 +25,6 @@ export interface AlertsGetResponse extends AdditionalDataHolder, Parsable {
 export interface AlertsPostRequestBody extends Alert, Parsable {
 }
 export interface AlertsPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The alert property
      */
@@ -127,6 +119,7 @@ export function createAlertsPostResponseFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param AlertsGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -139,6 +132,7 @@ export function deserializeIntoAlertsGetResponse(alertsGetResponse: Partial<Aler
 }
 /**
  * The deserialization information for the current model
+ * @param AlertsPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -149,6 +143,7 @@ export function deserializeIntoAlertsPostRequestBody(alertsPostRequestBody: Part
 }
 /**
  * The deserialization information for the current model
+ * @param AlertsPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -159,37 +154,40 @@ export function deserializeIntoAlertsPostResponse(alertsPostResponse: Partial<Al
 }
 /**
  * Serializes information the current object
+ * @param AlertsGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAlertsGetResponse(writer: SerializationWriter, alertsGetResponse: Partial<AlertsGetResponse> | undefined | null = {}) : void {
-    if (alertsGetResponse) {
-        writer.writeCollectionOfObjectValues<Alert>("alerts", alertsGetResponse.alerts, serializeAlert);
-        writer.writeObjectValue<Page_links>("links", alertsGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", alertsGetResponse.meta, serializeMeta_properties);
-        writer.writeAdditionalData(alertsGetResponse.additionalData);
-    }
+export function serializeAlertsGetResponse(writer: SerializationWriter, alertsGetResponse: Partial<AlertsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!alertsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Alert>("alerts", alertsGetResponse.alerts, serializeAlert);
+    writer.writeObjectValue<Page_links>("links", alertsGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", alertsGetResponse.meta, serializeMeta_properties);
+    writer.writeAdditionalData(alertsGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param AlertsPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAlertsPostRequestBody(writer: SerializationWriter, alertsPostRequestBody: Partial<AlertsPostRequestBody> | undefined | null = {}) : void {
-    if (alertsPostRequestBody) {
-        serializeAlert(writer, alertsPostRequestBody)
-    }
+export function serializeAlertsPostRequestBody(writer: SerializationWriter, alertsPostRequestBody: Partial<AlertsPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!alertsPostRequestBody || isSerializingDerivedType) { return; }
+    serializeAlert(writer, alertsPostRequestBody, isSerializingDerivedType)
 }
 /**
  * Serializes information the current object
+ * @param AlertsPostResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAlertsPostResponse(writer: SerializationWriter, alertsPostResponse: Partial<AlertsPostResponse> | undefined | null = {}) : void {
-    if (alertsPostResponse) {
-        writer.writeObjectValue<Alert>("alert", alertsPostResponse.alert, serializeAlert);
-        writer.writeAdditionalData(alertsPostResponse.additionalData);
-    }
+export function serializeAlertsPostResponse(writer: SerializationWriter, alertsPostResponse: Partial<AlertsPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!alertsPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Alert>("alert", alertsPostResponse.alert, serializeAlert);
+    writer.writeAdditionalData(alertsPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

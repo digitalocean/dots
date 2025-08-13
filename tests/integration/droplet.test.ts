@@ -1,73 +1,65 @@
-import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { v4 as uuidv4 } from "uuid";
 import { Volumes_ext4, Volume_action_post_attach } from "../../src/dots/models/index.js";
-const token = "mock-token";
+import dotenv from "dotenv";
+dotenv.config();
+const token =  process.env.DIGITALOCEAN_TOKEN;
+if (!token) {
+    throw new Error("DIGITALOCEAN_TOKEN is not set. Please check your .env file.");
+}
 const REGION = "nyc3";
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
 const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 
+interface Droplet{
+    id: number;
+    name: string;
+    region: string;
+    size: string;
+    image: string;
+    networks: {
+        v4: { ip_address: string; type: string }[];
+    };
+}
+
+interface DropletRequest {
+    name: string;
+    region: string;
+    size: string;
+    image: string;
+    ssh_keys?: string[];
+}
+
+interface Volume {
+    id: string;
+    name: string;
+    sizeGigabytes: number;
+    description: string;
+    region: string;
+    filesystemType: string;
+}
+
 describe("Integration Tests", () => {
-    beforeEach(() => {
-        nock.cleanAll();
-    });
-
     it("should create a droplet and attach a volume", async () => {
-        // Mock SSH key retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/account/keys")
-            .reply(200, {
-                ssh_keys: [{ name: "test-key", fingerprint: "mock-fingerprint" }],
-            });
-
-        // Mock droplet creation
-        nock("https://api.digitalocean.com")
-            .post("/v2/droplets")
-            .reply(200, { droplet: { id: 123, name: "test-droplet" } });
-
-        // Mock droplet details retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/droplets/123")
-            .reply(200, {
-                droplet: {
-                    id: 123,
-                    name: "test-droplet",
-                    networks: { v4: [{ type: "public", ip_address: "1.2.3.4" }] },
-                },
-            });
-
-        // Mock volume creation
-        nock("https://api.digitalocean.com")
-            .post("/v2/volumes")
-            .reply(200, { volume: { id: '456', name: "test-volume"} });
-
-        // Mock volume attachment
-        nock("https://api.digitalocean.com")
-            .post("/v2/volumes/456/actions")
-            .reply(200, { action: { id: 789, status: "in-progress", type: "attach" } });
-
-        // Mock action status retrieval
-        nock("https://api.digitalocean.com")
-            .get("/v2/actions/789")
-            .reply(200, { action: { id: "789", status: "completed" } });
-
-        // Run the test workflow
-        const keyName = "test-key";
+        const keyName = process.env.SSH_KEY_NAME;
+        if (!keyName) {
+            throw new Error("SSH_KEY_NAME not set");
+        }
         const sshKey = await findSshKey(keyName);
-
-        const dropletReq = {
+        const fingerprint : string[] = [sshKey.fingerprint ?? (() => { throw new Error("SSH key fingerprint is undefined or null"); })()]
+        const dropletReq :DropletRequest = {
             name: `test-${uuidv4()}`,
             region: REGION,
             size: "s-1vcpu-1gb",
             image: "ubuntu-22-04-x64",
-            ssh_keys: [sshKey.fingerprint],
+            ssh_keys:fingerprint,
         };
 
-        const droplet = await createDroplet(dropletReq);
-        expect(droplet.id).toBe(123);
+        const droplet: Droplet = await createDroplet(dropletReq);
+        expect(droplet.id).toBeDefined();
 
         const volumeReq :Volumes_ext4 = {
             sizeGigabytes: 10,
@@ -77,39 +69,44 @@ describe("Integration Tests", () => {
             filesystemType: "ext4",
         };
 
-        const volume = await createVolume(volumeReq);
-        expect(volume.id).toBe("456");
+        const volume: Volume = await createVolume(volumeReq);
+        expect(volume.id).toBeDefined();
 
         const volumeActionReq : Volume_action_post_attach = {
-            dropletId: droplet.id,
+            dropletId: (droplet as { id: number }).id,
             type: "attach",
         };
 
-        console.log(`Attaching volume ${volume.id} to Droplet ${droplet.id}...`);
+        console.log(`Attaching volume ${(volume as { id: string }).id} to Droplet ${(droplet as { id: number }).id}...`);
         try {
-            const actionResp = await client.v2.volumes.byVolume_id(volume.id).actions.post(volumeActionReq);
+            const actionResp = await client.v2.volumes.byVolume_id((volume as { id: string }).id).actions.post(volumeActionReq);
             if (actionResp?.action?.id !== undefined && actionResp.action.id !== null) {
                 await waitForAction(actionResp.action.id);
-                expect(actionResp.action.id).toBe(789);
+                expect(actionResp.action.id).toBeDefined();
 
             } else {
                 throw new Error("Action ID is undefined or null");
             }
         } catch (err) {
             if (err instanceof Error && 'statusCode' in err) {
-                const httpError = err as any;
+                const httpError = err as Error & { 
+                    statusCode: number; 
+                    response?: { bodyAsText?: string } 
+                };
                 throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
             } else {
                 throw err;
             }
         }
 
-    });
+    }, 50000);
 
+
+
+    
     // Helper functions
-async function findSshKey(name: string): Promise<any> {
+async function findSshKey(name: string): Promise<{ name?: string | null; fingerprint?: string | null }> {
     console.log(`Looking for SSH key named ${name}...`);
-    let page = 1;
     let paginated = true;
     while (paginated) {
         try {
@@ -147,7 +144,7 @@ async function findSshKey(name: string): Promise<any> {
 }
 
 
-async function createDroplet(req: any = {}): Promise<any> {
+async function createDroplet(req: DropletRequest): Promise<Droplet> {
     console.log(`Creating Droplet using: ${JSON.stringify(req)}`);
     try {
         const resp = await client.v2.droplets.post(req);
@@ -163,8 +160,8 @@ async function createDroplet(req: any = {}): Promise<any> {
                 while (attempts < maxAttempts) {
                     const getResp = await client.v2.droplets.byDroplet_id(dropletId).get();
                     if (getResp && 'droplet' in getResp) {
-                        droplet = getResp.droplet as any;
-                        if (droplet.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
+                        droplet = getResp.droplet;
+                        if (droplet?.networks && droplet.networks.v4 && droplet.networks.v4.length > 0) {
                             break;
                         }
                     }
@@ -175,23 +172,48 @@ async function createDroplet(req: any = {}): Promise<any> {
                 if (droplet && droplet.networks && droplet.networks.v4) {
                     let ipAddress = "";
                     for (const net of droplet.networks.v4) {
-                        if (net.type === "public") {
+                        if (net?.type === "public" && net.ipAddress) {
                             ipAddress = net.ipAddress;
                         }
                     }
                     console.log(`Droplet ID: ${dropletId} Name: ${droplet.name} IP: ${ipAddress}`);
-                    return droplet;
+                    if (droplet?.id == null) {
+                        throw new Error("Droplet ID is null or undefined");
+                    }
+                    return {
+                        id: droplet.id,
+                        name: droplet.name as string,
+                        region: droplet.region as string,
+                        size: droplet.size as string,
+                        image: droplet.image as string,
+                        networks: {
+                            v4: (droplet.networks?.v4
+                                ?.filter((net: { ipAddress?: string | null; type?: string | null }) =>
+                                    typeof net.ipAddress === "string" && !!net.type
+                                )
+                                .map((net: { ipAddress?: string | null; type?: string | null }) => ({
+                                    ip_address: net.ipAddress as string,
+                                    type: net.type as string,
+                                }))
+                            ) ?? [],
+                        },
+                    };
                 } else {
                     throw new Error("Failed to retrieve droplet details or networks information");
                 }
             } else {
                 throw new Error("Droplet ID is undefined");
             }
+        } else {
+            throw new Error("Failed to create droplet");
         }
 
     } catch (err) {
         if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
+            const httpError = err as Error & { 
+                statusCode: number; 
+                response?: { bodyAsText?: string } 
+            };
             throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
         } else {
             throw err;
@@ -200,20 +222,30 @@ async function createDroplet(req: any = {}): Promise<any> {
 }
 
 
-async function createVolume(req: any): Promise<any> {
+async function createVolume(req: Volumes_ext4): Promise<Volume> {
     console.log(`Creating volume using: ${JSON.stringify(req)}`);
     try {
         const resp = await client.v2.volumes.post(req);
         if (resp && resp.volume) {
             const volume = resp.volume;
             console.log(`Created volume ${volume.name} <ID: ${volume.id}>`);
-            return volume;
+            return {
+                id: volume.id as string,
+                name: volume.name as string,
+                sizeGigabytes: volume.sizeGigabytes as number,
+                description: volume.description as string,
+                region: volume.region as string,
+                filesystemType: volume.filesystemType as string,
+            };
         } else {
             throw new Error("Failed to create volume or volume is undefined");
         }
     } catch (err) {
         if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
+            const httpError = err as Error & { 
+                statusCode: number; 
+                response?: { bodyAsText?: string } 
+            };
             throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
         } else {
             throw err;
@@ -224,30 +256,32 @@ async function waitForAction(id: number, wait: number = 5): Promise<void> {
     console.log(`Waiting for action ${id} to complete...`, "", { flush: true });
     let status = "in-progress";
     while (status === "in-progress") {
-    try {
-        const resp = await client.v2.actions.byAction_id(id).get();
-        if (resp && resp.action) {
-            status = resp.action.status as string;
-        } else {
-            throw new Error("Response or action is undefined");
-        }
-        if (status === "in-progress") {
-            process.stdout.write(".");
-            await new Promise(resolve => setTimeout(resolve, wait * 1000));
-        } else if (status === "errored") {
-            throw new Error(`${resp.action.type} action ${resp.action.id} ${status}`);
-        } else {
-            console.log(".");
-        }
-    } catch (err) {
-        if (err instanceof Error && 'statusCode' in err) {
-            const httpError = err as any;
-            throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
-        } else {
-            throw err;
+        try {
+            const resp = await client.v2.actions.byAction_id(id).get();
+            if (resp && resp.action) {
+                status = resp.action.status as string;
+            } else {
+                throw new Error("Response or action is undefined");
+            }
+            if (status === "in-progress") {
+                process.stdout.write(".");
+                await new Promise(resolve => setTimeout(resolve, wait * 1000));
+            } else if (status === "errored") {
+                throw new Error(`${resp.action.type} action ${resp.action.id} ${status}`);
+            } else {
+                console.log(".");
+            }
+        } catch (err) {
+            if (err instanceof Error && 'statusCode' in err) {
+                const httpError = err as Error & { 
+                    statusCode: number; 
+                    response?: { bodyAsText?: string } 
+                };
+                throw new Error(`Error: ${httpError.statusCode} ${httpError.message}: ${httpError.response?.bodyAsText}`);
+            } else {
+                throw err;
+            }
         }
     }
 }
-}
-
 });

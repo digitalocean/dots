@@ -17,6 +17,7 @@ export function createWithDatabase_nameGetResponseFromDiscriminatorValue(parseNo
 }
 /**
  * The deserialization information for the current model
+ * @param WithDatabase_nameGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -27,20 +28,17 @@ export function deserializeIntoWithDatabase_nameGetResponse(withDatabase_nameGet
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param WithDatabase_nameGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithDatabase_nameGetResponse(writer: SerializationWriter, withDatabase_nameGetResponse: Partial<WithDatabase_nameGetResponse> | undefined | null = {}) : void {
-    if (withDatabase_nameGetResponse) {
-        writer.writeObjectValue<Database>("db", withDatabase_nameGetResponse.db, serializeDatabase);
-        writer.writeAdditionalData(withDatabase_nameGetResponse.additionalData);
-    }
+export function serializeWithDatabase_nameGetResponse(writer: SerializationWriter, withDatabase_nameGetResponse: Partial<WithDatabase_nameGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withDatabase_nameGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database>("db", withDatabase_nameGetResponse.db, serializeDatabase);
+    writer.writeAdditionalData(withDatabase_nameGetResponse.additionalData);
 }
 export interface WithDatabase_nameGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The db property
      */
@@ -51,7 +49,7 @@ export interface WithDatabase_nameGetResponse extends AdditionalDataHolder, Pars
  */
 export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<WithDatabase_nameItemRequestBuilder> {
     /**
-     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Redis clusters.
+     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -61,7 +59,7 @@ export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
+     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithDatabase_nameGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -72,13 +70,13 @@ export interface WithDatabase_nameItemRequestBuilder extends BaseRequestBuilder<
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithDatabase_nameGetResponse | undefined>;
     /**
-     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Redis clusters.
+     * To delete a specific database, send a DELETE request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.Note: Database management is not supported for Caching or Valkey clusters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Redis clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
+     * To show information about an existing database cluster, send a GET request to`/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.Note: Database management is not supported for Caching or Valkey clusters.The response will be a JSON object with a `db` key. This will be set to an objectcontaining the standard database attributes.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

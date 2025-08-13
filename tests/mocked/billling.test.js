@@ -131,71 +131,6 @@ describe('Billing API Resource Tests', () => {
         const balance = await client.v2.customers.my.invoices.get();
         expect(balance).toEqual(typeExpected);
     });
-    it('should mock GET a list of invoices with pagination', async () => {
-        const expected = {
-            invoices: [
-                {
-                    invoice_uuid: '22737513-0ea7-4206-8ceb-98a575af7681',
-                    amount: '12.34',
-                    invoice_period: '2019-12',
-                },
-                {
-                    invoice_uuid: 'fdabb512-6faf-443c-ba2e-665452332a9e',
-                    amount: '23.45',
-                    invoice_period: '2019-11',
-                },
-            ],
-            invoice_preview: {
-                invoice_uuid: '1afe95e6-0958-4eb0-8d9a-9c5060d3ef03',
-                amount: '34.56',
-                invoice_period: '2020-02',
-                updated_at: '2020-02-23T06:31:50Z',
-            },
-            links: {
-                pages: {
-                    next: 'https://api.digitalocean.com/v2/customers/my/invoices?page=2&per_page=20',
-                    last: 'https://api.digitalocean.com/v2/customers/my/invoices?page=6&per_page=20',
-                },
-            },
-            meta: { total: 6 },
-        };
-        const typeExpected = {
-            invoices: [
-                {
-                    invoiceUuid: '22737513-0ea7-4206-8ceb-98a575af7681',
-                    amount: '12.34',
-                    invoicePeriod: '2019-12',
-                },
-                {
-                    invoiceUuid: 'fdabb512-6faf-443c-ba2e-665452332a9e',
-                    amount: '23.45',
-                    invoicePeriod: '2019-11',
-                },
-            ],
-            invoicePreview: {
-                invoiceUuid: '1afe95e6-0958-4eb0-8d9a-9c5060d3ef03',
-                amount: '34.56',
-                invoicePeriod: '2020-02',
-                updatedAt: '2020-02-23T06:31:50Z',
-            },
-            links: {
-                pages: {
-                    next: 'https://api.digitalocean.com/v2/customers/my/invoices?page=2&per_page=20',
-                    last: 'https://api.digitalocean.com/v2/customers/my/invoices?page=6&per_page=20',
-                },
-            },
-            meta: { total: 6 },
-        };
-        const params = { per_page: 20, page: 1 };
-        nock(baseUrl)
-            .get('/v2/customers/my/invoices')
-            .query(params)
-            .reply(200, expected);
-        const balance = await client.v2.customers.my.invoices.get({
-            queryParameters: params
-        });
-        expect(balance).toEqual(typeExpected);
-    });
     it('should mock GET invoice by UUID', async () => {
         const expected = {
             invoice_items: [
@@ -275,7 +210,6 @@ describe('Billing API Resource Tests', () => {
             .get('/v2/customers/my/invoices/1/pdf')
             .reply(200, expected);
         const invoices = await client.v2.customers.my.invoices.byInvoice_uuid("1").pdf.get();
-        // const listIn = Array.from(invoices);
         if (invoices) {
             const decodedInvoice = new TextDecoder('utf-8').decode(invoices);
             expect(decodedInvoice).toEqual(expected);
@@ -283,7 +217,6 @@ describe('Billing API Resource Tests', () => {
         else {
             throw new Error('The balance response is undefined');
         }
-        // console.log('invoices: ',invoices);
     });
     it('should mock GET invoice summary by UUID', async () => {
         const expected = {

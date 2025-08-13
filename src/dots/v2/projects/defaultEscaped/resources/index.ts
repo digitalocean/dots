@@ -26,6 +26,7 @@ export function createResourcesPostResponseFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param ResourcesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoResourcesGetResponse(resourcesGetResponse: Partia
 }
 /**
  * The deserialization information for the current model
+ * @param ResourcesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,10 +50,6 @@ export function deserializeIntoResourcesPostResponse(resourcesPostResponse: Part
 }
 export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The links property
      */
     links?: Page_links | null;
@@ -60,17 +58,13 @@ export interface ResourcesGetResponse extends AdditionalDataHolder, Parsable {
      */
     meta?: Meta_properties | null;
     /**
-     * The resources property
+     * The resources that are assigned to this project. Only resources that you are authorized to see will be returned.
      */
     resources?: Resource[] | null;
 }
 export interface ResourcesPostResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
-     * The resources property
+     * All resources, including the ones added in the request, that are assigned to the project. Only resources that you are authorized to see will be returned.
      */
     resources?: Resource[] | null;
 }
@@ -79,7 +73,7 @@ export interface ResourcesPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesRequestBuilder> {
     /**
-     * To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
+     * To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.Only resources that you are authorized to see will be returned. For example, to see Droplets in a project, include the `droplet:read` scope.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ResourcesGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -90,7 +84,7 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ResourcesGetResponse | undefined>;
     /**
-     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
+     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ResourcesPostResponse>}
@@ -102,13 +96,13 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      post(body: Project_assignment, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ResourcesPostResponse | undefined>;
     /**
-     * To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
+     * To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.Only resources that you are authorized to see will be returned. For example, to see Droplets in a project, include the `droplet:read` scope.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
+     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -117,27 +111,29 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ResourcesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeResourcesGetResponse(writer: SerializationWriter, resourcesGetResponse: Partial<ResourcesGetResponse> | undefined | null = {}) : void {
-    if (resourcesGetResponse) {
-        writer.writeObjectValue<Page_links>("links", resourcesGetResponse.links, serializePage_links);
-        writer.writeObjectValue<Meta_properties>("meta", resourcesGetResponse.meta, serializeMeta_properties);
-        writer.writeCollectionOfObjectValues<Resource>("resources", resourcesGetResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesGetResponse.additionalData);
-    }
+export function serializeResourcesGetResponse(writer: SerializationWriter, resourcesGetResponse: Partial<ResourcesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!resourcesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", resourcesGetResponse.links, serializePage_links);
+    writer.writeObjectValue<Meta_properties>("meta", resourcesGetResponse.meta, serializeMeta_properties);
+    writer.writeCollectionOfObjectValues<Resource>("resources", resourcesGetResponse.resources, serializeResource);
+    writer.writeAdditionalData(resourcesGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ResourcesPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeResourcesPostResponse(writer: SerializationWriter, resourcesPostResponse: Partial<ResourcesPostResponse> | undefined | null = {}) : void {
-    if (resourcesPostResponse) {
-        writer.writeCollectionOfObjectValues<Resource>("resources", resourcesPostResponse.resources, serializeResource);
-        writer.writeAdditionalData(resourcesPostResponse.additionalData);
-    }
+export function serializeResourcesPostResponse(writer: SerializationWriter, resourcesPostResponse: Partial<ResourcesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!resourcesPostResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Resource>("resources", resourcesPostResponse.resources, serializeResource);
+    writer.writeAdditionalData(resourcesPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -60,14 +60,4 @@ describe('Account API Resource', () => {
 
     expect(account).toEqual(EXPECTED_ACCOUNT_RESPONSE);
   });
-
-//   it('should mock the account get operation (async)', async () => {
-//     nock(baseUrl)
-//       .get('/v2/account')
-//       .reply(200, EXPECTED_ACCOUNT);
-
-//     const account = await client.v2.account.get();
-
-//     expect(account).toEqual(EXPECTED_ACCOUNT);
-//   });
 });

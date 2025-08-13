@@ -28,6 +28,7 @@ export function createTriggersPostResponseFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param TriggersGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoTriggersGetResponse(triggersGetResponse: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param TriggersPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,41 +50,35 @@ export function deserializeIntoTriggersPostResponse(triggersPostResponse: Partia
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TriggersGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTriggersGetResponse(writer: SerializationWriter, triggersGetResponse: Partial<TriggersGetResponse> | undefined | null = {}) : void {
-    if (triggersGetResponse) {
-        writer.writeCollectionOfObjectValues<Trigger_info>("triggers", triggersGetResponse.triggers, serializeTrigger_info);
-        writer.writeAdditionalData(triggersGetResponse.additionalData);
-    }
+export function serializeTriggersGetResponse(writer: SerializationWriter, triggersGetResponse: Partial<TriggersGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!triggersGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Trigger_info>("triggers", triggersGetResponse.triggers, serializeTrigger_info);
+    writer.writeAdditionalData(triggersGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TriggersPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTriggersPostResponse(writer: SerializationWriter, triggersPostResponse: Partial<TriggersPostResponse> | undefined | null = {}) : void {
-    if (triggersPostResponse) {
-        writer.writeObjectValue<Trigger_info>("trigger", triggersPostResponse.trigger, serializeTrigger_info);
-        writer.writeAdditionalData(triggersPostResponse.additionalData);
-    }
+export function serializeTriggersPostResponse(writer: SerializationWriter, triggersPostResponse: Partial<TriggersPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!triggersPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Trigger_info>("trigger", triggersPostResponse.trigger, serializeTrigger_info);
+    writer.writeAdditionalData(triggersPostResponse.additionalData);
 }
 export interface TriggersGetResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The triggers property
      */
     triggers?: Trigger_info[] | null;
 }
 export interface TriggersPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The trigger property
      */

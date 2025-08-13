@@ -28,6 +28,7 @@ export function createNamespacesPostResponseFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param NamespacesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -38,6 +39,7 @@ export function deserializeIntoNamespacesGetResponse(namespacesGetResponse: Part
 }
 /**
  * The deserialization information for the current model
+ * @param NamespacesPostResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -48,19 +50,11 @@ export function deserializeIntoNamespacesPostResponse(namespacesPostResponse: Pa
 }
 export interface NamespacesGetResponse extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The namespaces property
      */
     namespaces?: Namespace_info[] | null;
 }
 export interface NamespacesPostResponse extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The namespace property
      */
@@ -115,25 +109,27 @@ export interface NamespacesRequestBuilder extends BaseRequestBuilder<NamespacesR
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param NamespacesGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNamespacesGetResponse(writer: SerializationWriter, namespacesGetResponse: Partial<NamespacesGetResponse> | undefined | null = {}) : void {
-    if (namespacesGetResponse) {
-        writer.writeCollectionOfObjectValues<Namespace_info>("namespaces", namespacesGetResponse.namespaces, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesGetResponse.additionalData);
-    }
+export function serializeNamespacesGetResponse(writer: SerializationWriter, namespacesGetResponse: Partial<NamespacesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!namespacesGetResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Namespace_info>("namespaces", namespacesGetResponse.namespaces, serializeNamespace_info);
+    writer.writeAdditionalData(namespacesGetResponse.additionalData);
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param NamespacesPostResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNamespacesPostResponse(writer: SerializationWriter, namespacesPostResponse: Partial<NamespacesPostResponse> | undefined | null = {}) : void {
-    if (namespacesPostResponse) {
-        writer.writeObjectValue<Namespace_info>("namespace", namespacesPostResponse.namespace, serializeNamespace_info);
-        writer.writeAdditionalData(namespacesPostResponse.additionalData);
-    }
+export function serializeNamespacesPostResponse(writer: SerializationWriter, namespacesPostResponse: Partial<NamespacesPostResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!namespacesPostResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Namespace_info>("namespace", namespacesPostResponse.namespace, serializeNamespace_info);
+    writer.writeAdditionalData(namespacesPostResponse.additionalData);
 }
 /**
  * Uri template for the request builder.

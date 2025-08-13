@@ -1,7 +1,7 @@
 /**
  account.test.ts
  */
-import {nock} from "nock";
+import nock from "nock";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient } from "../../src/dots/digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
@@ -51,11 +51,4 @@ describe('Account API Resource', () => {
         const account = await client.v2.account.get();
         expect(account).toEqual(EXPECTED_ACCOUNT_RESPONSE);
     });
-    //   it('should mock the account get operation (async)', async () => {
-    //     nock(baseUrl)
-    //       .get('/v2/account')
-    //       .reply(200, EXPECTED_ACCOUNT);
-    //     const account = await client.v2.account.get();
-    //     expect(account).toEqual(EXPECTED_ACCOUNT);
-    //   });
 });
