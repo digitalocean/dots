@@ -9662,6 +9662,15 @@ export function createCurrent_utilizationFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Database_autoscale_params}
+ */
+// @ts-ignore
+export function createDatabase_autoscale_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDatabase_autoscale_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Database_backup}
  */
 // @ts-ignore
@@ -9784,6 +9793,15 @@ export function createDatabase_replicaFromDiscriminatorValue(parseNode: ParseNod
 // @ts-ignore
 export function createDatabase_service_endpointFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDatabase_service_endpoint;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Database_storage_autoscale_params}
+ */
+// @ts-ignore
+export function createDatabase_storage_autoscale_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDatabase_storage_autoscale_params;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -12280,6 +12298,15 @@ export interface Database extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
 }
+/**
+ * Contains all autoscaling configuration for a database cluster
+ */
+export interface Database_autoscale_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The storage property
+     */
+    storage?: Database_storage_autoscale_params | null;
+}
 export interface Database_backup extends AdditionalDataHolder, Parsable {
     /**
      * The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded.
@@ -12291,6 +12318,10 @@ export interface Database_backup extends AdditionalDataHolder, Parsable {
     databaseName?: string | null;
 }
 export interface Database_cluster extends AdditionalDataHolder, Parsable {
+    /**
+     * Autoscaling configuration for the database cluster. Currently only supports storage autoscaling. If null, autoscaling is not configured for the cluster.
+     */
+    autoscale?: Database_autoscale_params | null;
     /**
      * The connection property
      */
@@ -12717,6 +12748,23 @@ export interface Database_service_endpoint extends AdditionalDataHolder, Parsabl
      * The port on which a service is listening.
      */
     port?: number | null;
+}
+/**
+ * Configuration for database cluster storage autoscaling
+ */
+export interface Database_storage_autoscale_params extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether storage autoscaling is enabled for the cluster
+     */
+    enabled?: boolean | null;
+    /**
+     * The amount of additional storage to add (in GiB) when autoscaling is triggered
+     */
+    incrementGib?: number | null;
+    /**
+     * The storage usage threshold percentage that triggers autoscaling. When storage usage exceeds this percentage, additional storage will be added automatically.
+     */
+    thresholdPercent?: number | null;
 }
 export interface Database_user extends AdditionalDataHolder, Parsable {
     /**
@@ -17507,6 +17555,17 @@ export function deserializeIntoDatabase(database: Partial<Database> | undefined 
 }
 /**
  * The deserialization information for the current model
+ * @param Database_autoscale_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDatabase_autoscale_params(database_autoscale_params: Partial<Database_autoscale_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "storage": n => { database_autoscale_params.storage = n.getObjectValue<Database_storage_autoscale_params>(createDatabase_storage_autoscale_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Database_backup The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -17525,6 +17584,7 @@ export function deserializeIntoDatabase_backup(database_backup: Partial<Database
 // @ts-ignore
 export function deserializeIntoDatabase_cluster(database_cluster: Partial<Database_cluster> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "autoscale": n => { database_cluster.autoscale = n.getObjectValue<Database_autoscale_params>(createDatabase_autoscale_paramsFromDiscriminatorValue); },
         "connection": n => { database_cluster.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster.createdAt = n.getDateValue(); },
         "db_names": n => { database_cluster.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
@@ -17751,6 +17811,19 @@ export function deserializeIntoDatabase_service_endpoint(database_service_endpoi
     return {
         "host": n => { database_service_endpoint.host = n.getStringValue(); },
         "port": n => { database_service_endpoint.port = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Database_storage_autoscale_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDatabase_storage_autoscale_params(database_storage_autoscale_params: Partial<Database_storage_autoscale_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { database_storage_autoscale_params.enabled = n.getBooleanValue(); },
+        "increment_gib": n => { database_storage_autoscale_params.incrementGib = n.getNumberValue(); },
+        "threshold_percent": n => { database_storage_autoscale_params.thresholdPercent = n.getNumberValue(); },
     }
 }
 /**
@@ -20286,6 +20359,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "log_error_verbosity": n => { postgres_advanced_config.logErrorVerbosity = n.getEnumValue<Postgres_advanced_config_log_error_verbosity>(Postgres_advanced_config_log_error_verbosityObject); },
         "log_line_prefix": n => { postgres_advanced_config.logLinePrefix = n.getEnumValue<Postgres_advanced_config_log_line_prefix>(Postgres_advanced_config_log_line_prefixObject); },
         "log_min_duration_statement": n => { postgres_advanced_config.logMinDurationStatement = n.getNumberValue(); },
+        "max_connections": n => { postgres_advanced_config.maxConnections = n.getNumberValue(); },
         "max_failover_replication_time_lag": n => { postgres_advanced_config.maxFailoverReplicationTimeLag = n.getNumberValue(); },
         "max_files_per_process": n => { postgres_advanced_config.maxFilesPerProcess = n.getNumberValue(); },
         "max_locks_per_transaction": n => { postgres_advanced_config.maxLocksPerTransaction = n.getNumberValue(); },
@@ -20295,6 +20369,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "max_pred_locks_per_transaction": n => { postgres_advanced_config.maxPredLocksPerTransaction = n.getNumberValue(); },
         "max_prepared_transactions": n => { postgres_advanced_config.maxPreparedTransactions = n.getNumberValue(); },
         "max_replication_slots": n => { postgres_advanced_config.maxReplicationSlots = n.getNumberValue(); },
+        "max_slot_wal_keep_size": n => { postgres_advanced_config.maxSlotWalKeepSize = n.getNumberValue(); },
         "max_stack_depth": n => { postgres_advanced_config.maxStackDepth = n.getNumberValue(); },
         "max_standby_archive_delay": n => { postgres_advanced_config.maxStandbyArchiveDelay = n.getNumberValue(); },
         "max_standby_streaming_delay": n => { postgres_advanced_config.maxStandbyStreamingDelay = n.getNumberValue(); },
@@ -24871,6 +24946,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      */
     logMinDurationStatement?: number | null;
     /**
+     * Sets the PostgreSQL maximum number of concurrent connections to the database server. This is a limited-release parameter. Contact your account team to confirm your eligibility. You cannot decrease this parameter value when set. For services with a read replica, first increase the read replica's value. After the change is applied to the replica, you can increase the primary service's value. Changing this parameter causes a service restart.
+     */
+    maxConnections?: number | null;
+    /**
      * Number of seconds of master unavailability before triggering database failover to standby. The default value is 60.
      */
     maxFailoverReplicationTimeLag?: number | null;
@@ -24906,6 +24985,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      * PostgreSQL maximum replication slots.
      */
     maxReplicationSlots?: number | null;
+    /**
+     * PostgreSQL maximum WAL size (MB) reserved for replication slots. If -1 is specified, replication slots may retain an unlimited amount of WAL files. The default is -1 (upstream default). wal_keep_size minimum WAL size setting takes precedence over this.
+     */
+    maxSlotWalKeepSize?: number | null;
     /**
      * Maximum depth of the stack in bytes.
      */
@@ -30656,6 +30739,18 @@ export function serializeDatabase(writer: SerializationWriter, database: Partial
 }
 /**
  * Serializes information the current object
+ * @param Database_autoscale_params The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDatabase_autoscale_params(writer: SerializationWriter, database_autoscale_params: Partial<Database_autoscale_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!database_autoscale_params || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_storage_autoscale_params>("storage", database_autoscale_params.storage, serializeDatabase_storage_autoscale_params);
+    writer.writeAdditionalData(database_autoscale_params.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Database_backup The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -30676,6 +30771,7 @@ export function serializeDatabase_backup(writer: SerializationWriter, database_b
 // @ts-ignore
 export function serializeDatabase_cluster(writer: SerializationWriter, database_cluster: Partial<Database_cluster> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_cluster || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_autoscale_params>("autoscale", database_cluster.autoscale, serializeDatabase_autoscale_params);
     writer.writeObjectValue<Database_connection>("connection", database_cluster.connection, serializeDatabase_connection);
     writer.writeEnumValue<Database_cluster_engine>("engine", database_cluster.engine);
     writer.writeObjectValue<Database_maintenance_window>("maintenance_window", database_cluster.maintenanceWindow, serializeDatabase_maintenance_window);
@@ -30877,6 +30973,20 @@ export function serializeDatabase_replica_read(writer: SerializationWriter, data
 export function serializeDatabase_service_endpoint(writer: SerializationWriter, database_service_endpoint: Partial<Database_service_endpoint> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_service_endpoint || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(database_service_endpoint.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Database_storage_autoscale_params The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDatabase_storage_autoscale_params(writer: SerializationWriter, database_storage_autoscale_params: Partial<Database_storage_autoscale_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!database_storage_autoscale_params || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", database_storage_autoscale_params.enabled);
+    writer.writeNumberValue("increment_gib", database_storage_autoscale_params.incrementGib);
+    writer.writeNumberValue("threshold_percent", database_storage_autoscale_params.thresholdPercent);
+    writer.writeAdditionalData(database_storage_autoscale_params.additionalData);
 }
 /**
  * Serializes information the current object
@@ -33535,6 +33645,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeEnumValue<Postgres_advanced_config_log_error_verbosity>("log_error_verbosity", postgres_advanced_config.logErrorVerbosity);
     writer.writeEnumValue<Postgres_advanced_config_log_line_prefix>("log_line_prefix", postgres_advanced_config.logLinePrefix);
     writer.writeNumberValue("log_min_duration_statement", postgres_advanced_config.logMinDurationStatement);
+    writer.writeNumberValue("max_connections", postgres_advanced_config.maxConnections);
     writer.writeNumberValue("max_failover_replication_time_lag", postgres_advanced_config.maxFailoverReplicationTimeLag);
     writer.writeNumberValue("max_files_per_process", postgres_advanced_config.maxFilesPerProcess);
     writer.writeNumberValue("max_locks_per_transaction", postgres_advanced_config.maxLocksPerTransaction);
@@ -33544,6 +33655,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeNumberValue("max_pred_locks_per_transaction", postgres_advanced_config.maxPredLocksPerTransaction);
     writer.writeNumberValue("max_prepared_transactions", postgres_advanced_config.maxPreparedTransactions);
     writer.writeNumberValue("max_replication_slots", postgres_advanced_config.maxReplicationSlots);
+    writer.writeNumberValue("max_slot_wal_keep_size", postgres_advanced_config.maxSlotWalKeepSize);
     writer.writeNumberValue("max_stack_depth", postgres_advanced_config.maxStackDepth);
     writer.writeNumberValue("max_standby_archive_delay", postgres_advanced_config.maxStandbyArchiveDelay);
     writer.writeNumberValue("max_standby_streaming_delay", postgres_advanced_config.maxStandbyStreamingDelay);
