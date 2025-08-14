@@ -9662,6 +9662,15 @@ export function createCurrent_utilizationFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Database_autoscale_params}
+ */
+// @ts-ignore
+export function createDatabase_autoscale_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDatabase_autoscale_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Database_backup}
  */
 // @ts-ignore
@@ -9784,6 +9793,15 @@ export function createDatabase_replicaFromDiscriminatorValue(parseNode: ParseNod
 // @ts-ignore
 export function createDatabase_service_endpointFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDatabase_service_endpoint;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Database_storage_autoscale_params}
+ */
+// @ts-ignore
+export function createDatabase_storage_autoscale_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDatabase_storage_autoscale_params;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -12212,6 +12230,69 @@ export function createVpc_memberFromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_create_vpcs}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_create_vpcsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_create_vpcs;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_create}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_get_egresses_public_gateways}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_get_egresses_public_gatewaysFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_get_egresses_public_gateways;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_get_egresses}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_get_egressesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_get_egresses;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_get_vpcs}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_get_vpcsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_get_vpcs;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_get}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_getFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_get;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Vpc_nat_gateway_update}
+ */
+// @ts-ignore
+export function createVpc_nat_gateway_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_nat_gateway_update;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Vpc_peering_updatable}
  */
 // @ts-ignore
@@ -12280,6 +12361,15 @@ export interface Database extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
 }
+/**
+ * Contains all autoscaling configuration for a database cluster
+ */
+export interface Database_autoscale_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The storage property
+     */
+    storage?: Database_storage_autoscale_params | null;
+}
 export interface Database_backup extends AdditionalDataHolder, Parsable {
     /**
      * The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded.
@@ -12291,6 +12381,10 @@ export interface Database_backup extends AdditionalDataHolder, Parsable {
     databaseName?: string | null;
 }
 export interface Database_cluster extends AdditionalDataHolder, Parsable {
+    /**
+     * Autoscaling configuration for the database cluster. Currently only supports storage autoscaling. If null, autoscaling is not configured for the cluster.
+     */
+    autoscale?: Database_autoscale_params | null;
     /**
      * The connection property
      */
@@ -12717,6 +12811,23 @@ export interface Database_service_endpoint extends AdditionalDataHolder, Parsabl
      * The port on which a service is listening.
      */
     port?: number | null;
+}
+/**
+ * Configuration for database cluster storage autoscaling
+ */
+export interface Database_storage_autoscale_params extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether storage autoscaling is enabled for the cluster
+     */
+    enabled?: boolean | null;
+    /**
+     * The amount of additional storage to add (in GiB) when autoscaling is triggered
+     */
+    incrementGib?: number | null;
+    /**
+     * The storage usage threshold percentage that triggers autoscaling. When storage usage exceeds this percentage, additional storage will be added automatically.
+     */
+    thresholdPercent?: number | null;
 }
 export interface Database_user extends AdditionalDataHolder, Parsable {
     /**
@@ -17507,6 +17618,17 @@ export function deserializeIntoDatabase(database: Partial<Database> | undefined 
 }
 /**
  * The deserialization information for the current model
+ * @param Database_autoscale_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDatabase_autoscale_params(database_autoscale_params: Partial<Database_autoscale_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "storage": n => { database_autoscale_params.storage = n.getObjectValue<Database_storage_autoscale_params>(createDatabase_storage_autoscale_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Database_backup The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -17525,6 +17647,7 @@ export function deserializeIntoDatabase_backup(database_backup: Partial<Database
 // @ts-ignore
 export function deserializeIntoDatabase_cluster(database_cluster: Partial<Database_cluster> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "autoscale": n => { database_cluster.autoscale = n.getObjectValue<Database_autoscale_params>(createDatabase_autoscale_paramsFromDiscriminatorValue); },
         "connection": n => { database_cluster.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster.createdAt = n.getDateValue(); },
         "db_names": n => { database_cluster.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
@@ -17751,6 +17874,19 @@ export function deserializeIntoDatabase_service_endpoint(database_service_endpoi
     return {
         "host": n => { database_service_endpoint.host = n.getStringValue(); },
         "port": n => { database_service_endpoint.port = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Database_storage_autoscale_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDatabase_storage_autoscale_params(database_storage_autoscale_params: Partial<Database_storage_autoscale_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { database_storage_autoscale_params.enabled = n.getBooleanValue(); },
+        "increment_gib": n => { database_storage_autoscale_params.incrementGib = n.getNumberValue(); },
+        "threshold_percent": n => { database_storage_autoscale_params.thresholdPercent = n.getNumberValue(); },
     }
 }
 /**
@@ -20286,6 +20422,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "log_error_verbosity": n => { postgres_advanced_config.logErrorVerbosity = n.getEnumValue<Postgres_advanced_config_log_error_verbosity>(Postgres_advanced_config_log_error_verbosityObject); },
         "log_line_prefix": n => { postgres_advanced_config.logLinePrefix = n.getEnumValue<Postgres_advanced_config_log_line_prefix>(Postgres_advanced_config_log_line_prefixObject); },
         "log_min_duration_statement": n => { postgres_advanced_config.logMinDurationStatement = n.getNumberValue(); },
+        "max_connections": n => { postgres_advanced_config.maxConnections = n.getNumberValue(); },
         "max_failover_replication_time_lag": n => { postgres_advanced_config.maxFailoverReplicationTimeLag = n.getNumberValue(); },
         "max_files_per_process": n => { postgres_advanced_config.maxFilesPerProcess = n.getNumberValue(); },
         "max_locks_per_transaction": n => { postgres_advanced_config.maxLocksPerTransaction = n.getNumberValue(); },
@@ -20295,6 +20432,7 @@ export function deserializeIntoPostgres_advanced_config(postgres_advanced_config
         "max_pred_locks_per_transaction": n => { postgres_advanced_config.maxPredLocksPerTransaction = n.getNumberValue(); },
         "max_prepared_transactions": n => { postgres_advanced_config.maxPreparedTransactions = n.getNumberValue(); },
         "max_replication_slots": n => { postgres_advanced_config.maxReplicationSlots = n.getNumberValue(); },
+        "max_slot_wal_keep_size": n => { postgres_advanced_config.maxSlotWalKeepSize = n.getNumberValue(); },
         "max_stack_depth": n => { postgres_advanced_config.maxStackDepth = n.getNumberValue(); },
         "max_standby_archive_delay": n => { postgres_advanced_config.maxStandbyArchiveDelay = n.getNumberValue(); },
         "max_standby_streaming_delay": n => { postgres_advanced_config.maxStandbyStreamingDelay = n.getNumberValue(); },
@@ -21498,6 +21636,107 @@ export function deserializeIntoVpc_member(vpc_member: Partial<Vpc_member> | unde
         "created_at": n => { vpc_member.createdAt = n.getStringValue(); },
         "name": n => { vpc_member.name = n.getStringValue(); },
         "urn": n => { vpc_member.urn = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_create(vpc_nat_gateway_create: Partial<Vpc_nat_gateway_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "icmp_timeout_seconds": n => { vpc_nat_gateway_create.icmpTimeoutSeconds = n.getNumberValue(); },
+        "name": n => { vpc_nat_gateway_create.name = n.getStringValue(); },
+        "region": n => { vpc_nat_gateway_create.region = n.getEnumValue<Vpc_nat_gateway_create_region>(Vpc_nat_gateway_create_regionObject); },
+        "size": n => { vpc_nat_gateway_create.size = n.getNumberValue(); },
+        "tcp_timeout_seconds": n => { vpc_nat_gateway_create.tcpTimeoutSeconds = n.getNumberValue(); },
+        "type": n => { vpc_nat_gateway_create.type = n.getEnumValue<Vpc_nat_gateway_create_type>(Vpc_nat_gateway_create_typeObject); },
+        "udp_timeout_seconds": n => { vpc_nat_gateway_create.udpTimeoutSeconds = n.getNumberValue(); },
+        "vpcs": n => { vpc_nat_gateway_create.vpcs = n.getCollectionOfObjectValues<Vpc_nat_gateway_create_vpcs>(createVpc_nat_gateway_create_vpcsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_create_vpcs The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_create_vpcs(vpc_nat_gateway_create_vpcs: Partial<Vpc_nat_gateway_create_vpcs> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vpc_uuid": n => { vpc_nat_gateway_create_vpcs.vpcUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_get The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_get(vpc_nat_gateway_get: Partial<Vpc_nat_gateway_get> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { vpc_nat_gateway_get.createdAt = n.getDateValue(); },
+        "egresses": n => { vpc_nat_gateway_get.egresses = n.getObjectValue<Vpc_nat_gateway_get_egresses>(createVpc_nat_gateway_get_egressesFromDiscriminatorValue); },
+        "icmp_timeout_seconds": n => { vpc_nat_gateway_get.icmpTimeoutSeconds = n.getNumberValue(); },
+        "id": n => { vpc_nat_gateway_get.id = n.getStringValue(); },
+        "name": n => { vpc_nat_gateway_get.name = n.getStringValue(); },
+        "region": n => { vpc_nat_gateway_get.region = n.getEnumValue<Vpc_nat_gateway_get_region>(Vpc_nat_gateway_get_regionObject); },
+        "size": n => { vpc_nat_gateway_get.size = n.getNumberValue(); },
+        "state": n => { vpc_nat_gateway_get.state = n.getEnumValue<Vpc_nat_gateway_get_state>(Vpc_nat_gateway_get_stateObject); },
+        "tcp_timeout_seconds": n => { vpc_nat_gateway_get.tcpTimeoutSeconds = n.getNumberValue(); },
+        "type": n => { vpc_nat_gateway_get.type = n.getEnumValue<Vpc_nat_gateway_get_type>(Vpc_nat_gateway_get_typeObject); },
+        "udp_timeout_seconds": n => { vpc_nat_gateway_get.udpTimeoutSeconds = n.getNumberValue(); },
+        "updated_at": n => { vpc_nat_gateway_get.updatedAt = n.getDateValue(); },
+        "vpcs": n => { vpc_nat_gateway_get.vpcs = n.getCollectionOfObjectValues<Vpc_nat_gateway_get_vpcs>(createVpc_nat_gateway_get_vpcsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_get_egresses The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_get_egresses(vpc_nat_gateway_get_egresses: Partial<Vpc_nat_gateway_get_egresses> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "public_gateways": n => { vpc_nat_gateway_get_egresses.publicGateways = n.getCollectionOfObjectValues<Vpc_nat_gateway_get_egresses_public_gateways>(createVpc_nat_gateway_get_egresses_public_gatewaysFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_get_egresses_public_gateways The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_get_egresses_public_gateways(vpc_nat_gateway_get_egresses_public_gateways: Partial<Vpc_nat_gateway_get_egresses_public_gateways> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "ipv4": n => { vpc_nat_gateway_get_egresses_public_gateways.ipv4 = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_get_vpcs The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_get_vpcs(vpc_nat_gateway_get_vpcs: Partial<Vpc_nat_gateway_get_vpcs> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gateway_ip": n => { vpc_nat_gateway_get_vpcs.gatewayIp = n.getStringValue(); },
+        "vpc_uuid": n => { vpc_nat_gateway_get_vpcs.vpcUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Vpc_nat_gateway_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVpc_nat_gateway_update(vpc_nat_gateway_update: Partial<Vpc_nat_gateway_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "icmp_timeout_seconds": n => { vpc_nat_gateway_update.icmpTimeoutSeconds = n.getNumberValue(); },
+        "name": n => { vpc_nat_gateway_update.name = n.getStringValue(); },
+        "size": n => { vpc_nat_gateway_update.size = n.getNumberValue(); },
+        "tcp_timeout_seconds": n => { vpc_nat_gateway_update.tcpTimeoutSeconds = n.getNumberValue(); },
+        "udp_timeout_seconds": n => { vpc_nat_gateway_update.udpTimeoutSeconds = n.getNumberValue(); },
     }
 }
 /**
@@ -24871,6 +25110,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      */
     logMinDurationStatement?: number | null;
     /**
+     * Sets the PostgreSQL maximum number of concurrent connections to the database server. This is a limited-release parameter. Contact your account team to confirm your eligibility. You cannot decrease this parameter value when set. For services with a read replica, first increase the read replica's value. After the change is applied to the replica, you can increase the primary service's value. Changing this parameter causes a service restart.
+     */
+    maxConnections?: number | null;
+    /**
      * Number of seconds of master unavailability before triggering database failover to standby. The default value is 60.
      */
     maxFailoverReplicationTimeLag?: number | null;
@@ -24906,6 +25149,10 @@ export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable
      * PostgreSQL maximum replication slots.
      */
     maxReplicationSlots?: number | null;
+    /**
+     * PostgreSQL maximum WAL size (MB) reserved for replication slots. If -1 is specified, replication slots may retain an unlimited amount of WAL files. The default is -1 (upstream default). wal_keep_size minimum WAL size setting takes precedence over this.
+     */
+    maxSlotWalKeepSize?: number | null;
     /**
      * Maximum depth of the stack in bytes.
      */
@@ -30656,6 +30903,18 @@ export function serializeDatabase(writer: SerializationWriter, database: Partial
 }
 /**
  * Serializes information the current object
+ * @param Database_autoscale_params The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDatabase_autoscale_params(writer: SerializationWriter, database_autoscale_params: Partial<Database_autoscale_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!database_autoscale_params || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_storage_autoscale_params>("storage", database_autoscale_params.storage, serializeDatabase_storage_autoscale_params);
+    writer.writeAdditionalData(database_autoscale_params.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Database_backup The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -30676,6 +30935,7 @@ export function serializeDatabase_backup(writer: SerializationWriter, database_b
 // @ts-ignore
 export function serializeDatabase_cluster(writer: SerializationWriter, database_cluster: Partial<Database_cluster> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_cluster || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Database_autoscale_params>("autoscale", database_cluster.autoscale, serializeDatabase_autoscale_params);
     writer.writeObjectValue<Database_connection>("connection", database_cluster.connection, serializeDatabase_connection);
     writer.writeEnumValue<Database_cluster_engine>("engine", database_cluster.engine);
     writer.writeObjectValue<Database_maintenance_window>("maintenance_window", database_cluster.maintenanceWindow, serializeDatabase_maintenance_window);
@@ -30877,6 +31137,20 @@ export function serializeDatabase_replica_read(writer: SerializationWriter, data
 export function serializeDatabase_service_endpoint(writer: SerializationWriter, database_service_endpoint: Partial<Database_service_endpoint> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_service_endpoint || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(database_service_endpoint.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Database_storage_autoscale_params The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDatabase_storage_autoscale_params(writer: SerializationWriter, database_storage_autoscale_params: Partial<Database_storage_autoscale_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!database_storage_autoscale_params || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", database_storage_autoscale_params.enabled);
+    writer.writeNumberValue("increment_gib", database_storage_autoscale_params.incrementGib);
+    writer.writeNumberValue("threshold_percent", database_storage_autoscale_params.thresholdPercent);
+    writer.writeAdditionalData(database_storage_autoscale_params.additionalData);
 }
 /**
  * Serializes information the current object
@@ -33535,6 +33809,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeEnumValue<Postgres_advanced_config_log_error_verbosity>("log_error_verbosity", postgres_advanced_config.logErrorVerbosity);
     writer.writeEnumValue<Postgres_advanced_config_log_line_prefix>("log_line_prefix", postgres_advanced_config.logLinePrefix);
     writer.writeNumberValue("log_min_duration_statement", postgres_advanced_config.logMinDurationStatement);
+    writer.writeNumberValue("max_connections", postgres_advanced_config.maxConnections);
     writer.writeNumberValue("max_failover_replication_time_lag", postgres_advanced_config.maxFailoverReplicationTimeLag);
     writer.writeNumberValue("max_files_per_process", postgres_advanced_config.maxFilesPerProcess);
     writer.writeNumberValue("max_locks_per_transaction", postgres_advanced_config.maxLocksPerTransaction);
@@ -33544,6 +33819,7 @@ export function serializePostgres_advanced_config(writer: SerializationWriter, p
     writer.writeNumberValue("max_pred_locks_per_transaction", postgres_advanced_config.maxPredLocksPerTransaction);
     writer.writeNumberValue("max_prepared_transactions", postgres_advanced_config.maxPreparedTransactions);
     writer.writeNumberValue("max_replication_slots", postgres_advanced_config.maxReplicationSlots);
+    writer.writeNumberValue("max_slot_wal_keep_size", postgres_advanced_config.maxSlotWalKeepSize);
     writer.writeNumberValue("max_stack_depth", postgres_advanced_config.maxStackDepth);
     writer.writeNumberValue("max_standby_archive_delay", postgres_advanced_config.maxStandbyArchiveDelay);
     writer.writeNumberValue("max_standby_streaming_delay", postgres_advanced_config.maxStandbyStreamingDelay);
@@ -34809,6 +35085,114 @@ export function serializeVpc_member(writer: SerializationWriter, vpc_member: Par
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_create(writer: SerializationWriter, vpc_nat_gateway_create: Partial<Vpc_nat_gateway_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_create || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("icmp_timeout_seconds", vpc_nat_gateway_create.icmpTimeoutSeconds);
+    writer.writeStringValue("name", vpc_nat_gateway_create.name);
+    writer.writeEnumValue<Vpc_nat_gateway_create_region>("region", vpc_nat_gateway_create.region);
+    writer.writeNumberValue("size", vpc_nat_gateway_create.size);
+    writer.writeNumberValue("tcp_timeout_seconds", vpc_nat_gateway_create.tcpTimeoutSeconds);
+    writer.writeEnumValue<Vpc_nat_gateway_create_type>("type", vpc_nat_gateway_create.type);
+    writer.writeNumberValue("udp_timeout_seconds", vpc_nat_gateway_create.udpTimeoutSeconds);
+    writer.writeCollectionOfObjectValues<Vpc_nat_gateway_create_vpcs>("vpcs", vpc_nat_gateway_create.vpcs, serializeVpc_nat_gateway_create_vpcs);
+    writer.writeAdditionalData(vpc_nat_gateway_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_create_vpcs The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_create_vpcs(writer: SerializationWriter, vpc_nat_gateway_create_vpcs: Partial<Vpc_nat_gateway_create_vpcs> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_create_vpcs || isSerializingDerivedType) { return; }
+    writer.writeStringValue("vpc_uuid", vpc_nat_gateway_create_vpcs.vpcUuid);
+    writer.writeAdditionalData(vpc_nat_gateway_create_vpcs.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_get The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_get(writer: SerializationWriter, vpc_nat_gateway_get: Partial<Vpc_nat_gateway_get> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_get || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", vpc_nat_gateway_get.createdAt);
+    writer.writeObjectValue<Vpc_nat_gateway_get_egresses>("egresses", vpc_nat_gateway_get.egresses, serializeVpc_nat_gateway_get_egresses);
+    writer.writeNumberValue("icmp_timeout_seconds", vpc_nat_gateway_get.icmpTimeoutSeconds);
+    writer.writeStringValue("id", vpc_nat_gateway_get.id);
+    writer.writeStringValue("name", vpc_nat_gateway_get.name);
+    writer.writeEnumValue<Vpc_nat_gateway_get_region>("region", vpc_nat_gateway_get.region);
+    writer.writeNumberValue("size", vpc_nat_gateway_get.size);
+    writer.writeEnumValue<Vpc_nat_gateway_get_state>("state", vpc_nat_gateway_get.state);
+    writer.writeNumberValue("tcp_timeout_seconds", vpc_nat_gateway_get.tcpTimeoutSeconds);
+    writer.writeEnumValue<Vpc_nat_gateway_get_type>("type", vpc_nat_gateway_get.type);
+    writer.writeNumberValue("udp_timeout_seconds", vpc_nat_gateway_get.udpTimeoutSeconds);
+    writer.writeDateValue("updated_at", vpc_nat_gateway_get.updatedAt);
+    writer.writeCollectionOfObjectValues<Vpc_nat_gateway_get_vpcs>("vpcs", vpc_nat_gateway_get.vpcs, serializeVpc_nat_gateway_get_vpcs);
+    writer.writeAdditionalData(vpc_nat_gateway_get.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_get_egresses The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_get_egresses(writer: SerializationWriter, vpc_nat_gateway_get_egresses: Partial<Vpc_nat_gateway_get_egresses> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_get_egresses || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Vpc_nat_gateway_get_egresses_public_gateways>("public_gateways", vpc_nat_gateway_get_egresses.publicGateways, serializeVpc_nat_gateway_get_egresses_public_gateways);
+    writer.writeAdditionalData(vpc_nat_gateway_get_egresses.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_get_egresses_public_gateways The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_get_egresses_public_gateways(writer: SerializationWriter, vpc_nat_gateway_get_egresses_public_gateways: Partial<Vpc_nat_gateway_get_egresses_public_gateways> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_get_egresses_public_gateways || isSerializingDerivedType) { return; }
+    writer.writeStringValue("ipv4", vpc_nat_gateway_get_egresses_public_gateways.ipv4);
+    writer.writeAdditionalData(vpc_nat_gateway_get_egresses_public_gateways.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_get_vpcs The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_get_vpcs(writer: SerializationWriter, vpc_nat_gateway_get_vpcs: Partial<Vpc_nat_gateway_get_vpcs> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_get_vpcs || isSerializingDerivedType) { return; }
+    writer.writeStringValue("gateway_ip", vpc_nat_gateway_get_vpcs.gatewayIp);
+    writer.writeStringValue("vpc_uuid", vpc_nat_gateway_get_vpcs.vpcUuid);
+    writer.writeAdditionalData(vpc_nat_gateway_get_vpcs.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Vpc_nat_gateway_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVpc_nat_gateway_update(writer: SerializationWriter, vpc_nat_gateway_update: Partial<Vpc_nat_gateway_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_nat_gateway_update || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("icmp_timeout_seconds", vpc_nat_gateway_update.icmpTimeoutSeconds);
+    writer.writeStringValue("name", vpc_nat_gateway_update.name);
+    writer.writeNumberValue("size", vpc_nat_gateway_update.size);
+    writer.writeNumberValue("tcp_timeout_seconds", vpc_nat_gateway_update.tcpTimeoutSeconds);
+    writer.writeNumberValue("udp_timeout_seconds", vpc_nat_gateway_update.udpTimeoutSeconds);
+    writer.writeAdditionalData(vpc_nat_gateway_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Vpc_peering The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -35645,6 +36029,152 @@ export interface Vpc_member extends AdditionalDataHolder, Parsable {
      * The uniform resource name (URN) for the resource in the format do:resource_type:resource_id.
      */
     urn?: string | null;
+}
+export interface Vpc_nat_gateway_create extends AdditionalDataHolder, Parsable {
+    /**
+     * The ICMP timeout in seconds for the VPC NAT gateway.
+     */
+    icmpTimeoutSeconds?: number | null;
+    /**
+     * The human-readable name of the VPC NAT gateway.
+     */
+    name?: string | null;
+    /**
+     * The region in which the VPC NAT gateway is created.
+     */
+    region?: Vpc_nat_gateway_create_region | null;
+    /**
+     * The size of the VPC NAT gateway.
+     */
+    size?: number | null;
+    /**
+     * The TCP timeout in seconds for the VPC NAT gateway.
+     */
+    tcpTimeoutSeconds?: number | null;
+    /**
+     * The type of the VPC NAT gateway.
+     */
+    type?: Vpc_nat_gateway_create_type | null;
+    /**
+     * The UDP timeout in seconds for the VPC NAT gateway.
+     */
+    udpTimeoutSeconds?: number | null;
+    /**
+     * An array of VPCs associated with the VPC NAT gateway.
+     */
+    vpcs?: Vpc_nat_gateway_create_vpcs[] | null;
+}
+export type Vpc_nat_gateway_create_region = (typeof Vpc_nat_gateway_create_regionObject)[keyof typeof Vpc_nat_gateway_create_regionObject];
+export type Vpc_nat_gateway_create_type = (typeof Vpc_nat_gateway_create_typeObject)[keyof typeof Vpc_nat_gateway_create_typeObject];
+export interface Vpc_nat_gateway_create_vpcs extends AdditionalDataHolder, Parsable {
+    /**
+     * The unique identifier of the VPC to which the NAT gateway is attached.
+     */
+    vpcUuid?: string | null;
+}
+export interface Vpc_nat_gateway_get extends AdditionalDataHolder, Parsable {
+    /**
+     * A time value given in ISO8601 combined date and time format that represents when the VPC NAT gateway was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * An object containing egress information for the VPC NAT gateway.
+     */
+    egresses?: Vpc_nat_gateway_get_egresses | null;
+    /**
+     * The ICMP timeout in seconds for the VPC NAT gateway.
+     */
+    icmpTimeoutSeconds?: number | null;
+    /**
+     * The unique identifier for the VPC NAT gateway. This is automatically generated upon creation.
+     */
+    id?: string | null;
+    /**
+     * The human-readable name of the VPC NAT gateway.
+     */
+    name?: string | null;
+    /**
+     * The region in which the VPC NAT gateway is created.
+     */
+    region?: Vpc_nat_gateway_get_region | null;
+    /**
+     * The size of the VPC NAT gateway.
+     */
+    size?: number | null;
+    /**
+     * The current state of the VPC NAT gateway.
+     */
+    state?: Vpc_nat_gateway_get_state | null;
+    /**
+     * The TCP timeout in seconds for the VPC NAT gateway.
+     */
+    tcpTimeoutSeconds?: number | null;
+    /**
+     * The type of the VPC NAT gateway.
+     */
+    type?: Vpc_nat_gateway_get_type | null;
+    /**
+     * The UDP timeout in seconds for the VPC NAT gateway.
+     */
+    udpTimeoutSeconds?: number | null;
+    /**
+     * A time value given in ISO8601 combined date and time format that represents when the VPC NAT gateway was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * An array of VPCs associated with the VPC NAT gateway.
+     */
+    vpcs?: Vpc_nat_gateway_get_vpcs[] | null;
+}
+/**
+ * An object containing egress information for the VPC NAT gateway.
+ */
+export interface Vpc_nat_gateway_get_egresses extends AdditionalDataHolder, Parsable {
+    /**
+     * An array of public gateway IP addresses for the VPC NAT gateway.
+     */
+    publicGateways?: Vpc_nat_gateway_get_egresses_public_gateways[] | null;
+}
+export interface Vpc_nat_gateway_get_egresses_public_gateways extends AdditionalDataHolder, Parsable {
+    /**
+     * IPv4 address of the public gateway.
+     */
+    ipv4?: string | null;
+}
+export type Vpc_nat_gateway_get_region = (typeof Vpc_nat_gateway_get_regionObject)[keyof typeof Vpc_nat_gateway_get_regionObject];
+export type Vpc_nat_gateway_get_state = (typeof Vpc_nat_gateway_get_stateObject)[keyof typeof Vpc_nat_gateway_get_stateObject];
+export type Vpc_nat_gateway_get_type = (typeof Vpc_nat_gateway_get_typeObject)[keyof typeof Vpc_nat_gateway_get_typeObject];
+export interface Vpc_nat_gateway_get_vpcs extends AdditionalDataHolder, Parsable {
+    /**
+     * The gateway IP address of the VPC NAT gateway.
+     */
+    gatewayIp?: string | null;
+    /**
+     * The unique identifier of the VPC to which the NAT gateway is attached.
+     */
+    vpcUuid?: string | null;
+}
+export interface Vpc_nat_gateway_update extends AdditionalDataHolder, Parsable {
+    /**
+     * The ICMP timeout in seconds for the VPC NAT gateway.
+     */
+    icmpTimeoutSeconds?: number | null;
+    /**
+     * The human-readable name of the VPC NAT gateway.
+     */
+    name?: string | null;
+    /**
+     * The size of the VPC NAT gateway.
+     */
+    size?: number | null;
+    /**
+     * The TCP timeout in seconds for the VPC NAT gateway.
+     */
+    tcpTimeoutSeconds?: number | null;
+    /**
+     * The UDP timeout in seconds for the VPC NAT gateway.
+     */
+    udpTimeoutSeconds?: number | null;
 }
 export interface Vpc_peering extends AdditionalDataHolder, Parsable {
     /**
@@ -37241,6 +37771,69 @@ export const Volume_action_post_base_typeObject = {
     Attach: "attach",
     Detach: "detach",
     Resize: "resize",
+} as const;
+/**
+ * The region in which the VPC NAT gateway is created.
+ */
+export const Vpc_nat_gateway_create_regionObject = {
+    Nyc1: "nyc1",
+    Nyc2: "nyc2",
+    Nyc3: "nyc3",
+    Ams2: "ams2",
+    Ams3: "ams3",
+    Sfo1: "sfo1",
+    Sfo2: "sfo2",
+    Sfo3: "sfo3",
+    Sgp1: "sgp1",
+    Lon1: "lon1",
+    Fra1: "fra1",
+    Tor1: "tor1",
+    Blr1: "blr1",
+    Syd1: "syd1",
+    Atl1: "atl1",
+} as const;
+/**
+ * The type of the VPC NAT gateway.
+ */
+export const Vpc_nat_gateway_create_typeObject = {
+    PUBLIC: "PUBLIC",
+} as const;
+/**
+ * The region in which the VPC NAT gateway is created.
+ */
+export const Vpc_nat_gateway_get_regionObject = {
+    Nyc1: "nyc1",
+    Nyc2: "nyc2",
+    Nyc3: "nyc3",
+    Ams2: "ams2",
+    Ams3: "ams3",
+    Sfo1: "sfo1",
+    Sfo2: "sfo2",
+    Sfo3: "sfo3",
+    Sgp1: "sgp1",
+    Lon1: "lon1",
+    Fra1: "fra1",
+    Tor1: "tor1",
+    Blr1: "blr1",
+    Syd1: "syd1",
+    Atl1: "atl1",
+} as const;
+/**
+ * The current state of the VPC NAT gateway.
+ */
+export const Vpc_nat_gateway_get_stateObject = {
+    NEWEscaped: "NEW",
+    PROVISIONING: "PROVISIONING",
+    ACTIVE: "ACTIVE",
+    DELETING: "DELETING",
+    ERROREscaped: "ERROR",
+    INVALID: "INVALID",
+} as const;
+/**
+ * The type of the VPC NAT gateway.
+ */
+export const Vpc_nat_gateway_get_typeObject = {
+    PUBLIC: "PUBLIC",
 } as const;
 /**
  * The current status of the VPC peering.

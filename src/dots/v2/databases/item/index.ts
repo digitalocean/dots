@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createDatabase_cluster_readFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeDatabase_cluster_read, type Database_cluster_read, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
+import { AutoscaleRequestBuilderRequestsMetadata, type AutoscaleRequestBuilder } from './autoscale/index.js';
+// @ts-ignore
 import { BackupsRequestBuilderRequestsMetadata, type BackupsRequestBuilder } from './backups/index.js';
 // @ts-ignore
 import { CaRequestBuilderRequestsMetadata, type CaRequestBuilder } from './ca/index.js';
@@ -90,6 +92,10 @@ export interface WithDatabase_cluster_uuGetResponse extends AdditionalDataHolder
  * Builds and executes requests for operations under /v2/databases/{database_cluster_uuid}
  */
 export interface WithDatabase_cluster_uuItemRequestBuilder extends BaseRequestBuilder<WithDatabase_cluster_uuItemRequestBuilder> {
+    /**
+     * The autoscale property
+     */
+    get autoscale(): AutoscaleRequestBuilder;
     /**
      * The backups property
      */
@@ -216,6 +222,9 @@ export const WithDatabase_cluster_uuItemRequestBuilderUriTemplate = "{+baseurl}/
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithDatabase_cluster_uuItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithDatabase_cluster_uuItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    autoscale: {
+        requestsMetadata: AutoscaleRequestBuilderRequestsMetadata,
+    },
     backups: {
         requestsMetadata: BackupsRequestBuilderRequestsMetadata,
     },
