@@ -68,6 +68,8 @@ import { type UptimeRequestBuilder, UptimeRequestBuilderNavigationMetadata } fro
 // @ts-ignore
 import { type VolumesRequestBuilder, VolumesRequestBuilderNavigationMetadata, VolumesRequestBuilderRequestsMetadata } from './volumes/index.js';
 // @ts-ignore
+import { type Vpc_nat_gatewaysRequestBuilder, Vpc_nat_gatewaysRequestBuilderNavigationMetadata, Vpc_nat_gatewaysRequestBuilderRequestsMetadata } from './vpc_nat_gateways/index.js';
+// @ts-ignore
 import { type Vpc_peeringsRequestBuilder, Vpc_peeringsRequestBuilderNavigationMetadata, Vpc_peeringsRequestBuilderRequestsMetadata } from './vpc_peerings/index.js';
 // @ts-ignore
 import { type VpcsRequestBuilder, VpcsRequestBuilderNavigationMetadata, VpcsRequestBuilderRequestsMetadata } from './vpcs/index.js';
@@ -211,6 +213,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get volumes(): VolumesRequestBuilder;
     /**
+     * The vpc_nat_gateways property
+     */
+    get vpc_nat_gateways(): Vpc_nat_gatewaysRequestBuilder;
+    /**
      * The vpc_peerings property
      */
     get vpc_peerings(): Vpc_peeringsRequestBuilder;
@@ -350,6 +356,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     vpcs: {
         requestsMetadata: VpcsRequestBuilderRequestsMetadata,
         navigationMetadata: VpcsRequestBuilderNavigationMetadata,
+    },
+    vpc_nat_gateways: {
+        requestsMetadata: Vpc_nat_gatewaysRequestBuilderRequestsMetadata,
+        navigationMetadata: Vpc_nat_gatewaysRequestBuilderNavigationMetadata,
     },
     vpc_peerings: {
         requestsMetadata: Vpc_peeringsRequestBuilderRequestsMetadata,
