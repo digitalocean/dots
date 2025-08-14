@@ -37,9 +37,6 @@ jobs:
       - name: Removes all genrated code
         run: make clean
 
-      - name: Removes generated documentation
-        run: make docs_clean
-
       - name: Download spec file and update DO_OPENAPI_COMMIT_SHA.txt
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
