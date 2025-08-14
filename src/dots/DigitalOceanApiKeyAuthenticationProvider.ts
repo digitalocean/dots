@@ -18,7 +18,8 @@ export class DigitalOceanApiKeyAuthenticationProvider implements AuthenticationP
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         additionalAuthenticationContext?: Record<string, unknown> | undefined
     ): Promise<void> {
-        request.headers.add("Authorization", `Bearer ${this.apiKey}`);
-        return Promise.resolve();
+    request.headers.add("Authorization", `Bearer ${this.apiKey}`);
+    request.headers.add("User-Agent", "DigitalOcean-Dots/1.0");
+    return Promise.resolve();
     }
 }
