@@ -1,4 +1,6 @@
 import { AuthenticationProvider, RequestInformation } from "@microsoft/kiota-abstractions";
+// @ts-expect-error: Importing JSON for dynamic version in User-Agent header
+import pkg from '../../package.json' assert { type: "json" };
 
 /** Authenticate a request by using an API Key */
 export class DigitalOceanApiKeyAuthenticationProvider implements AuthenticationProvider {
@@ -19,7 +21,7 @@ export class DigitalOceanApiKeyAuthenticationProvider implements AuthenticationP
         additionalAuthenticationContext?: Record<string, unknown> | undefined
     ): Promise<void> {
     request.headers.add("Authorization", `Bearer ${this.apiKey}`);
-    request.headers.add("User-Agent", "DigitalOcean-Dots/1.0");
+    request.headers.add("User-Agent", `DigitalOcean-Dots/${pkg.version}`);
     return Promise.resolve();
     }
 }
