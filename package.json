@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.3",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
-  "main": "examples/index.js",
+  "main": "src/dots/DigitalOceanClient.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",
@@ -53,6 +53,7 @@
     "@azure/core-http": "^3.0.5",
     "@microsoft/kiota-authentication-azure": "^1.0.0-preview.61",
     "@microsoft/kiota-bundle": "^1.0.0-preview.9",
+    "@microsoft/kiota-http-fetchlibrary": "^1.0.0-preview.97",
     "dotenv": "^17.2.0",
     "uuid": "^11.1.0"
   }
