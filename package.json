@@ -1,7 +1,7 @@
 {
   "name": "@digitalocean/dots",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
   "main": "src/dots/DigitalOceanClient.js",
   "scripts": {
