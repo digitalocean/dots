@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.3",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
-  "main": "examples/index.js",
+  "main": "src/dots/DigitalOceanClient.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",
