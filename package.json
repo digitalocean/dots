@@ -53,7 +53,7 @@
     "@azure/core-http": "^3.0.5",
     "@microsoft/kiota-authentication-azure": "^1.0.0-preview.61",
     "@microsoft/kiota-bundle": "^1.0.0-preview.9",
-    "@microsoft/kiota-http-fetchlibrary": "^1.0.0",
+    "@microsoft/kiota-http-fetch": "^1.0.0"
     "dotenv": "^17.2.0",
     "uuid": "^11.1.0"
   }
