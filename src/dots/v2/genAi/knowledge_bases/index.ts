@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createApiCreateKnowledgeBaseOutputFromDiscriminatorValue, createApiListKnowledgeBasesOutputFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, serializeApiCreateKnowledgeBaseInputPublic, serializeApiCreateKnowledgeBaseOutput, type ApiCreateKnowledgeBaseInputPublic, type ApiCreateKnowledgeBaseOutput, type ApiListKnowledgeBasesOutput, type ErrorEscaped } from '../../../models/index.js';
 // @ts-ignore
+import { Data_sourcesRequestBuilderNavigationMetadata, type Data_sourcesRequestBuilder } from './data_sources/index.js';
+// @ts-ignore
 import { Knowledge_base_uuItemRequestBuilderNavigationMetadata, Knowledge_base_uuItemRequestBuilderRequestsMetadata, type Knowledge_base_uuItemRequestBuilder } from './item/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
@@ -12,6 +14,10 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  * Builds and executes requests for operations under /v2/gen-ai/knowledge_bases
  */
 export interface Knowledge_basesRequestBuilder extends BaseRequestBuilder<Knowledge_basesRequestBuilder> {
+    /**
+     * The data_sources property
+     */
+    get data_sources(): Data_sourcesRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.genAi.knowledge_bases.item collection
      * @param knowledge_base_uuId Knowledge base id
@@ -86,6 +92,9 @@ export const Knowledge_basesRequestBuilderNavigationMetadata: Record<Exclude<key
         requestsMetadata: Knowledge_base_uuItemRequestBuilderRequestsMetadata,
         navigationMetadata: Knowledge_base_uuItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["knowledge_base_uu%2Did"],
+    },
+    data_sources: {
+        navigationMetadata: Data_sourcesRequestBuilderNavigationMetadata,
     },
 };
 /**
