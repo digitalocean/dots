@@ -71,8 +71,6 @@ The repo uses GitHub workflows to publish a draft release when a new tag is
 pushed. We use [semver](https://semver.org/#summary) to determine the version
 number for the tag.
 
-0. Run `make docs_clean` and then `make generate-docs` to remove any unnecessary documentation. Automatic PRs from OpenAPI 3.0 changes will run `make generate-docs` but not `make docs_clean`. Create a PR and merge these changes. 
-
 1. Run `make changes` to review the merged PRs since last release and decide what kind of release you are doing (bugfix, feature or breaking).
     * Review the tags on each PR and make sure they are categorized
       appropriately.

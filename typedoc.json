@@ -7,5 +7,6 @@
 	], 
 	"out": "docs/",
 	"includeVersion": true, 
-	"theme": "default" 
+	"theme": "default",
+	"sourceLinkTemplate": "https://github.com/OWNER/REPO/blob/main/{path}#L{line}"
 }

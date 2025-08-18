@@ -34,9 +34,12 @@ jobs:
           echo "target_sha" >> target_sha
           scripts/openapi_changelist.sh $current_sha $target_sha > changelist.md
 
-      - name: Removes all genrated code
+      - name: Removes all generated code
         run: make clean
 
+      - name: Removes generated documentation
+        run: make docs_clean
+        
       - name: Download spec file and update DO_OPENAPI_COMMIT_SHA.txt
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
