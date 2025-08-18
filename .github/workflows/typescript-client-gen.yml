@@ -31,7 +31,6 @@ jobs:
           current_sha=$(cat DO_OPENAPI_COMMIT_SHA.txt)
           echo "current_sha=$current_sha" >> $GITHUB_ENV
           target_sha=${TARGET_SHA}
-          echo "target_sha" >> target_sha
           scripts/openapi_changelist.sh $current_sha $target_sha > changelist.md
 
       - name: Removes all generated code
