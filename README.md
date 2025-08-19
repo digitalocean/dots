@@ -92,6 +92,7 @@ We use `jest` to define and run the tests.
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - [Jest 30 or above](https://www.npmjs.com/package/jest) 
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources (for integration testing).
+- `"type": "module"` in your `package.json` (for ES module support)
   
 There are two types of test suites in the `tests/` directory.
 
@@ -145,4 +146,3 @@ To run integration tests, run:
 # **License**
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
-
