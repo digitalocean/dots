@@ -33,7 +33,7 @@ const client = createDigitalOceanClient(adapter);
 ### Managing DigitalOcean Resources via dots
 Find below a working example of creating a DigitalOcean volume via `dots`:
 ```typescript
-import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider, FetchRequestAdapter } from "@digitalocean/dots";
+import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider, FetchRequestAdapter, Volumes_ext4 } from "@digitalocean/dots";
 
 const token = process.env.DIGITALOCEAN_TOKEN;
 if (!token) {
