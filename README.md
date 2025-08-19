@@ -33,10 +33,7 @@ const client = createDigitalOceanClient(adapter);
 ### Managing DigitalOcean Resources via dots
 Find below a working example of creating a DigitalOcean volume via `dots`:
 ```typescript
-import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
-import { createDigitalOceanClient } from "../src/dots/digitalOceanClient.js";
-import { DigitalOceanApiKeyAuthenticationProvider } from '../src/dots/DigitalOceanApiKeyAuthenticationProvider.js';
-import {Volumes_ext4} from "../src/dots/models/index.js";
+import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider, FetchRequestAdapter } from "@digitalocean/dots";
 
 const token = process.env.DIGITALOCEAN_TOKEN;
 if (!token) {
