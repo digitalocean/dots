@@ -14,7 +14,7 @@
 ```shell
 npm i @digitalocean/dots
 ```
-## **The entire documentation is available at this link.**
+## **Documentation**
 > Note: Comprehensive documentation quality is currently lacking and under development. The documentation is actively being improved and will be updated once fixed.
 https://digitaloceandots.readthedocs.io/en/latest/
 
