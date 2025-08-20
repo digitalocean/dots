@@ -8,9 +8,7 @@
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
 
 ## Installation
-
-> The preferred way to install the DoTs for Node.js is to use the npm package manager for Node.js. \
-> Simply type the following into a terminal window:
+> The package is published on npmjs.com.
 ```shell
 npm i @digitalocean/dots
 ```
