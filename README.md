@@ -1,26 +1,26 @@
 # DoTs
 `DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
-# Getting Started
-## Prerequisites 
+## Getting Started
+#### Prerequisites 
 - [NodeJS 18 or above](https://nodejs.org/en/)
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
+- `"type": "module"` in your package.json (for ES module support)
 
-## Installation
-
-> The preferred way to install the DoTs for Node.js is to use the npm package manager for Node.js. \
-> Simply type the following into a terminal window:
+#### Installation
+> The package is published on npmjs.com.
 ```shell
 npm i @digitalocean/dots
 ```
-## **The entire documentation is available at this link.**
+#### **Documentation**
+> Note: Comprehensive documentation quality is currently lacking and under development. The documentation is actively being improved and will be updated once fixed.
 
-> https://digitaloceandots.readthedocs.io/en/latest/
+https://digitaloceandots.readthedocs.io/en/latest/
 
-## `DoTs` **Quick Start**
+## **Basic Usage**
 > A quick guide to getting started with client
-### Authenticating 
+#### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
 ```typescript
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token!);
@@ -30,10 +30,11 @@ const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 ```
 
-### Managing DigitalOcean Resources via dots
+#### Managing DigitalOcean Resources
 Find below a working example of creating a DigitalOcean volume via `dots`:
 ```typescript
-import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider, FetchRequestAdapter, Volumes_ext4 } from "@digitalocean/dots";
+import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider,
+ FetchRequestAdapter, Volumes_ext4 } from "@digitalocean/dots";
 
 const token = process.env.DIGITALOCEAN_TOKEN;
 if (!token) {
@@ -82,67 +83,18 @@ Done!
 
 More working examples can be found in `dots/examples`. 
 
-# **Tests**
-
->The tests included in this repo are used to validate the generated client.
-We use `jest` to define and run the tests.
-
-**_Requirements_**
-- [NodeJS 18 or above](https://nodejs.org/en/)
-- [TypeScript 5 or above](https://www.typescriptlang.org/)
-- [Jest 30 or above](https://www.npmjs.com/package/jest) 
-- A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources (for integration testing).
-- `"type": "module"` in your `package.json` (for ES module support)
-  
-There are two types of test suites in the `tests/` directory.
-
-#### Mocked Tests: `tests/mocked/`
-
-Tests in the `mocked` directory include:
-
-- tests that validate the generated client has all the expected classes and 
-  methods for the respective API resources and operations.
-- tests that exercise individual operations against mocked responses.
-
-These tests do not act against the real API so no real resources are created.
-
-To run mocked tests, run:
-
-```shell
-make test-mocked
-```
-
-#### Integration Tests: `tests/integration/`
-
-Tests in the `integration` directory include tests that simulate specific
-scenarios a customer might use the client for to interact with the API.
-**_IMPORTANT:_** these tests require a valid API token and **_DO_** create real
-resources on the respective DigitalOcean account. make sure you have correct access
-
-To run integration tests, run:
-
-```shell
- make test-integration file=droplet.test.ts
-```
-# **Kiota Behavior**
-> This section outlines Kiota's behaviors and transformations in API request and response handling.
-### Parameter Case Conversion
-- Kiota automatically converts parameters sent in snake_case to camelCase when generating API requests, ensuring consistency with standard naming conventions and TypeScript's camelCase practices
-### Reserved Keyword Handling
-- Kiota modifies reserved keywords to avoid conflicts and ensure compatibility.
-- For example: ``default : true`` to ``deaultEscaped : true``.
-# **Known Issues**
+## **Known Issues**
 
 >This section lists the known issues of the client generator.
-### Generates nested value fields for nested arrays
--  This is an existing issue with Kiota
+#### Generates nested `value` fields for nested arrays
+-  This is an existing issue with our code generated tool, Kiota
 -  More details about this issue can be found [here](https://github.com/microsoft/kiota/issues/4549)
 
 
-# **Contributing**
+## **Contributing**
 >We welcome contributions! Feel free to get involved in developing this client by visiting our [Contribuing Guide](CONTRIBUTING.md) for detailed information and guidelines.
 >For feature requests or bug reports, open an issue to help us improve the client.
 
-# **License**
+## **License**
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
