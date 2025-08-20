@@ -2,12 +2,13 @@
 `DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
 ## Getting Started
-### Prerequisites 
+#### Prerequisites 
 - [NodeJS 18 or above](https://nodejs.org/en/)
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
+- `"type": "module"` in your package.json (for ES module support)
 
-### Installation
+#### Installation
 > The package is published on npmjs.com.
 ```shell
 npm i @digitalocean/dots
@@ -18,7 +19,7 @@ https://digitaloceandots.readthedocs.io/en/latest/
 
 ## **Basic Usage**
 > A quick guide to getting started with client
-### Authenticating 
+#### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
 ```typescript
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token!);
@@ -28,7 +29,7 @@ const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 ```
 
-### Managing DigitalOcean Resources
+#### Managing DigitalOcean Resources
 Find below a working example of creating a DigitalOcean volume via `dots`:
 ```typescript
 import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider,
@@ -84,7 +85,7 @@ More working examples can be found in `dots/examples`.
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.
-### Generates nested value fields for nested arrays
+#### Generates nested `value` fields for nested arrays
 -  This is an existing issue with our code generated tool, Kiota
 -  More details about this issue can be found [here](https://github.com/microsoft/kiota/issues/4549)
 
