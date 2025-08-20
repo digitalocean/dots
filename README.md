@@ -7,7 +7,7 @@
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
 
-## Installation
+### Installation
 > The package is published on npmjs.com.
 ```shell
 npm i @digitalocean/dots
@@ -16,7 +16,7 @@ npm i @digitalocean/dots
 > Note: Comprehensive documentation quality is currently lacking and under development. The documentation is actively being improved and will be updated once fixed.
 https://digitaloceandots.readthedocs.io/en/latest/
 
-## `DoTs` **Quick Start**
+## **Basic Usage**
 > A quick guide to getting started with client
 ### Authenticating 
 `dots` must be initialized with `createDigitalOceanClient()`. A DigitalOcean token is required. This token can be passed in via `DigitalOceanApiKeyAuthenticationProvider()`, an example below:
@@ -28,7 +28,7 @@ const adapter = new FetchRequestAdapter(authProvider);
 const client = createDigitalOceanClient(adapter);
 ```
 
-### Managing DigitalOcean Resources via dots
+### Managing DigitalOcean Resources
 Find below a working example of creating a DigitalOcean volume via `dots`:
 ```typescript
 import { createDigitalOceanClient, DigitalOceanApiKeyAuthenticationProvider,
