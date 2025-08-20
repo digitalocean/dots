@@ -15,8 +15,8 @@
 npm i @digitalocean/dots
 ```
 ## **The entire documentation is available at this link.**
-
-> https://digitaloceandots.readthedocs.io/en/latest/
+> Note: Comprehensive documentation quality is currently lacking and under development. The documentation is actively being improved and will be updated once fixed.
+https://digitaloceandots.readthedocs.io/en/latest/
 
 ## `DoTs` **Quick Start**
 > A quick guide to getting started with client
