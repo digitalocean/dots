@@ -1,8 +1,8 @@
 # DoTs
 `DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
-# Getting Started
-## Prerequisites 
+## Getting Started
+### Prerequisites 
 - [NodeJS 18 or above](https://nodejs.org/en/)
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
@@ -81,7 +81,7 @@ Done!
 
 More working examples can be found in `dots/examples`. 
 
-# **Known Issues**
+## **Known Issues**
 
 >This section lists the known issues of the client generator.
 ### Generates nested value fields for nested arrays
@@ -89,10 +89,10 @@ More working examples can be found in `dots/examples`.
 -  More details about this issue can be found [here](https://github.com/microsoft/kiota/issues/4549)
 
 
-# **Contributing**
+## **Contributing**
 >We welcome contributions! Feel free to get involved in developing this client by visiting our [Contribuing Guide](CONTRIBUTING.md) for detailed information and guidelines.
 >For feature requests or bug reports, open an issue to help us improve the client.
 
-# **License**
+## **License**
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
