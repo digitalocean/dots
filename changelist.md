@@ -1,6 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@932526c (2025-08-18T16:47:36Z)
-Target commit: digitalocean/openapi@ee96483 (2025-08-21T10:13:32Z)
+Current commit: digitalocean/openapi@ee96483 (2025-08-21T10:13:32Z)
+Target commit: digitalocean/openapi@5c3c182 (2025-08-28T17:06:46Z)
 
-* digitalocean/openapi#1081: Remove public preview tag for reserved ipv6 - 2025-08-21T10:13:32Z []
+* digitalocean/openapi#1080: Add byoip patch prefix, remove public preview tag from byoip  - 2025-08-28T17:06:46Z []
