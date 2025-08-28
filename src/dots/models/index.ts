@@ -5930,9 +5930,17 @@ export interface Billing_history extends AdditionalDataHolder, Parsable {
 export type Billing_history_type = (typeof Billing_history_typeObject)[keyof typeof Billing_history_typeObject];
 export interface Byoip_prefix extends AdditionalDataHolder, Parsable {
     /**
+     * Whether the BYOIP prefix is being advertised
+     */
+    advertised?: boolean | null;
+    /**
      * Reason for failure, if applicable
      */
     failureReason?: string | null;
+    /**
+     * Whether the BYOIP prefix is locked
+     */
+    locked?: boolean | null;
     /**
      * Name of the BYOIP prefix
      */
@@ -5941,6 +5949,10 @@ export interface Byoip_prefix extends AdditionalDataHolder, Parsable {
      * The IP prefix in CIDR notation
      */
     prefix?: string | null;
+    /**
+     * The ID of the project associated with the BYOIP prefix
+     */
+    projectId?: string | null;
     /**
      * Region where the BYOIP prefix is located
      */
@@ -5993,6 +6005,12 @@ export interface Byoip_prefix_resource extends AdditionalDataHolder, Parsable {
      * The resource associated with the allocation
      */
     resource?: string | null;
+}
+export interface Byoip_prefix_update extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether the BYOIP prefix should be advertised
+     */
+    advertise?: boolean | null;
 }
 export interface Byoip_prefix_validations extends AdditionalDataHolder, Parsable {
     /**
@@ -9397,6 +9415,15 @@ export function createByoip_prefix_createFromDiscriminatorValue(parseNode: Parse
 // @ts-ignore
 export function createByoip_prefix_resourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoByoip_prefix_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Byoip_prefix_update}
+ */
+// @ts-ignore
+export function createByoip_prefix_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoByoip_prefix_update;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -17137,9 +17164,12 @@ export function deserializeIntoBilling_history(billing_history: Partial<Billing_
 // @ts-ignore
 export function deserializeIntoByoip_prefix(byoip_prefix: Partial<Byoip_prefix> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "advertised": n => { byoip_prefix.advertised = n.getBooleanValue(); },
         "failure_reason": n => { byoip_prefix.failureReason = n.getStringValue(); },
+        "locked": n => { byoip_prefix.locked = n.getBooleanValue(); },
         "name": n => { byoip_prefix.name = n.getStringValue(); },
         "prefix": n => { byoip_prefix.prefix = n.getStringValue(); },
+        "project_id": n => { byoip_prefix.projectId = n.getStringValue(); },
         "region": n => { byoip_prefix.region = n.getStringValue(); },
         "status": n => { byoip_prefix.status = n.getStringValue(); },
         "uuid": n => { byoip_prefix.uuid = n.getStringValue(); },
@@ -17172,6 +17202,17 @@ export function deserializeIntoByoip_prefix_resource(byoip_prefix_resource: Part
         "id": n => { byoip_prefix_resource.id = n.getNumberValue(); },
         "region": n => { byoip_prefix_resource.region = n.getStringValue(); },
         "resource": n => { byoip_prefix_resource.resource = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Byoip_prefix_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoByoip_prefix_update(byoip_prefix_update: Partial<Byoip_prefix_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "advertise": n => { byoip_prefix_update.advertise = n.getBooleanValue(); },
     }
 }
 /**
@@ -30415,9 +30456,12 @@ export function serializeBilling_history(writer: SerializationWriter, billing_hi
 // @ts-ignore
 export function serializeByoip_prefix(writer: SerializationWriter, byoip_prefix: Partial<Byoip_prefix> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!byoip_prefix || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("advertised", byoip_prefix.advertised);
     writer.writeStringValue("failure_reason", byoip_prefix.failureReason);
+    writer.writeBooleanValue("locked", byoip_prefix.locked);
     writer.writeStringValue("name", byoip_prefix.name);
     writer.writeStringValue("prefix", byoip_prefix.prefix);
+    writer.writeStringValue("project_id", byoip_prefix.projectId);
     writer.writeStringValue("region", byoip_prefix.region);
     writer.writeStringValue("status", byoip_prefix.status);
     writer.writeStringValue("uuid", byoip_prefix.uuid);
@@ -30453,6 +30497,18 @@ export function serializeByoip_prefix_resource(writer: SerializationWriter, byoi
     writer.writeStringValue("region", byoip_prefix_resource.region);
     writer.writeStringValue("resource", byoip_prefix_resource.resource);
     writer.writeAdditionalData(byoip_prefix_resource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Byoip_prefix_update The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeByoip_prefix_update(writer: SerializationWriter, byoip_prefix_update: Partial<Byoip_prefix_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!byoip_prefix_update || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("advertise", byoip_prefix_update.advertise);
+    writer.writeAdditionalData(byoip_prefix_update.additionalData);
 }
 /**
  * Serializes information the current object
