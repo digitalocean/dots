@@ -19767,6 +19767,8 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "long_query_time": n => { mysql_advanced_config.longQueryTime = n.getNumberValue(); },
         "max_allowed_packet": n => { mysql_advanced_config.maxAllowedPacket = n.getNumberValue(); },
         "max_heap_table_size": n => { mysql_advanced_config.maxHeapTableSize = n.getNumberValue(); },
+        "mysql_incremental_backup.enabled": n => { mysql_advanced_config.mysqlIncrementalBackupEnabled = n.getBooleanValue(); },
+        "mysql_incremental_backup.full_backup_week_schedule": n => { mysql_advanced_config.mysqlIncrementalBackupFullBackupWeekSchedule = n.getStringValue(); },
         "net_buffer_length": n => { mysql_advanced_config.netBufferLength = n.getNumberValue(); },
         "net_read_timeout": n => { mysql_advanced_config.netReadTimeout = n.getNumberValue(); },
         "net_write_timeout": n => { mysql_advanced_config.netWriteTimeout = n.getNumberValue(); },
@@ -24091,6 +24093,14 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size. Default is 16777216 (16M)
      */
     maxHeapTableSize?: number | null;
+    /**
+     * Enable periodic incremental backups. When enabled, full_backup_week_schedule must be set. Incremental backups only store changes since the last backup, making them faster and more storage-efficient than full backups. This is particularly useful for large databases where daily full backups would be too time-consuming or expensive.
+     */
+    mysqlIncrementalBackupEnabled?: boolean | null;
+    /**
+     * Comma-separated list of days of the week when full backups should be created. Valid values: mon, tue, wed, thu, fri, sat, sun. Default is null. Example : "mon,fri,sun". 
+     */
+    mysqlIncrementalBackupFullBackupWeekSchedule?: string | null;
     /**
      * Start sizes of connection buffer and result buffer, must be multiple of 1024. Changing this parameter will lead to a restart of the MySQL service.
      */
@@ -33158,6 +33168,8 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeNumberValue("long_query_time", mysql_advanced_config.longQueryTime);
     writer.writeNumberValue("max_allowed_packet", mysql_advanced_config.maxAllowedPacket);
     writer.writeNumberValue("max_heap_table_size", mysql_advanced_config.maxHeapTableSize);
+    writer.writeBooleanValue("mysql_incremental_backup.enabled", mysql_advanced_config.mysqlIncrementalBackupEnabled);
+    writer.writeStringValue("mysql_incremental_backup.full_backup_week_schedule", mysql_advanced_config.mysqlIncrementalBackupFullBackupWeekSchedule);
     writer.writeNumberValue("net_buffer_length", mysql_advanced_config.netBufferLength);
     writer.writeNumberValue("net_read_timeout", mysql_advanced_config.netReadTimeout);
     writer.writeNumberValue("net_write_timeout", mysql_advanced_config.netWriteTimeout);
