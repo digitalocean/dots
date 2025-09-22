@@ -11043,6 +11043,15 @@ export function createMysql_advanced_configFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Mysql_incremental_backup}
+ */
+// @ts-ignore
+export function createMysql_incremental_backupFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMysql_incremental_backup;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Mysql_settings}
  */
 // @ts-ignore
@@ -19767,6 +19776,7 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "long_query_time": n => { mysql_advanced_config.longQueryTime = n.getNumberValue(); },
         "max_allowed_packet": n => { mysql_advanced_config.maxAllowedPacket = n.getNumberValue(); },
         "max_heap_table_size": n => { mysql_advanced_config.maxHeapTableSize = n.getNumberValue(); },
+        "mysql_incremental_backup": n => { mysql_advanced_config.mysqlIncrementalBackup = n.getObjectValue<Mysql_incremental_backup>(createMysql_incremental_backupFromDiscriminatorValue); },
         "net_buffer_length": n => { mysql_advanced_config.netBufferLength = n.getNumberValue(); },
         "net_read_timeout": n => { mysql_advanced_config.netReadTimeout = n.getNumberValue(); },
         "net_write_timeout": n => { mysql_advanced_config.netWriteTimeout = n.getNumberValue(); },
@@ -19776,6 +19786,18 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "sql_require_primary_key": n => { mysql_advanced_config.sqlRequirePrimaryKey = n.getBooleanValue(); },
         "tmp_table_size": n => { mysql_advanced_config.tmpTableSize = n.getNumberValue(); },
         "wait_timeout": n => { mysql_advanced_config.waitTimeout = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Mysql_incremental_backup The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMysql_incremental_backup(mysql_incremental_backup: Partial<Mysql_incremental_backup> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { mysql_incremental_backup.enabled = n.getBooleanValue(); },
+        "full_backup_week_schedule": n => { mysql_incremental_backup.fullBackupWeekSchedule = n.getStringValue(); },
     }
 }
 /**
@@ -24092,6 +24114,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     maxHeapTableSize?: number | null;
     /**
+     * MySQL Incremental Backup configuration settings
+     */
+    mysqlIncrementalBackup?: Mysql_incremental_backup | null;
+    /**
      * Start sizes of connection buffer and result buffer, must be multiple of 1024. Changing this parameter will lead to a restart of the MySQL service.
      */
     netBufferLength?: number | null;
@@ -24130,6 +24156,19 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
 }
 export type Mysql_advanced_config_internal_tmp_mem_storage_engine = (typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject)[keyof typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject];
 export type Mysql_advanced_config_log_output = (typeof Mysql_advanced_config_log_outputObject)[keyof typeof Mysql_advanced_config_log_outputObject];
+/**
+ * MySQL Incremental Backup configuration settings
+ */
+export interface Mysql_incremental_backup extends AdditionalDataHolder, Parsable {
+    /**
+     * Enable periodic incremental backups. When enabled, full_backup_week_schedule must be set. Incremental backups only store changes since the last backup, making them faster and more storage-efficient than full backups. This is particularly useful for large databases where daily full backups would be too time-consuming or expensive.
+     */
+    enabled?: boolean | null;
+    /**
+     * Comma-separated list of days of the week when full backups should be created. Valid values: mon, tue, wed, thu, fri, sat, sun. Default is null. Example : "mon,fri,sun". 
+     */
+    fullBackupWeekSchedule?: string | null;
+}
 export interface Mysql_settings extends AdditionalDataHolder, Parsable {
     /**
      * A string specifying the authentication method to be used for connectionsto the MySQL user account. The valid values are `mysql_native_password`or `caching_sha2_password`. If excluded when creating a new user, thedefault for the version of MySQL in use will be used. As of MySQL 8.0, thedefault is `caching_sha2_password`.
@@ -33158,6 +33197,7 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeNumberValue("long_query_time", mysql_advanced_config.longQueryTime);
     writer.writeNumberValue("max_allowed_packet", mysql_advanced_config.maxAllowedPacket);
     writer.writeNumberValue("max_heap_table_size", mysql_advanced_config.maxHeapTableSize);
+    writer.writeObjectValue<Mysql_incremental_backup>("mysql_incremental_backup", mysql_advanced_config.mysqlIncrementalBackup, serializeMysql_incremental_backup);
     writer.writeNumberValue("net_buffer_length", mysql_advanced_config.netBufferLength);
     writer.writeNumberValue("net_read_timeout", mysql_advanced_config.netReadTimeout);
     writer.writeNumberValue("net_write_timeout", mysql_advanced_config.netWriteTimeout);
@@ -33168,6 +33208,19 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeNumberValue("tmp_table_size", mysql_advanced_config.tmpTableSize);
     writer.writeNumberValue("wait_timeout", mysql_advanced_config.waitTimeout);
     writer.writeAdditionalData(mysql_advanced_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Mysql_incremental_backup The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMysql_incremental_backup(writer: SerializationWriter, mysql_incremental_backup: Partial<Mysql_incremental_backup> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!mysql_incremental_backup || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", mysql_incremental_backup.enabled);
+    writer.writeStringValue("full_backup_week_schedule", mysql_incremental_backup.fullBackupWeekSchedule);
+    writer.writeAdditionalData(mysql_incremental_backup.additionalData);
 }
 /**
  * Serializes information the current object
