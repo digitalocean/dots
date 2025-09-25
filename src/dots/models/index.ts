@@ -4244,6 +4244,107 @@ export interface App_instances extends AdditionalDataHolder, Parsable {
      */
     instances?: App_instance[] | null;
 }
+export interface App_job_invocation extends AdditionalDataHolder, Parsable {
+    /**
+     * The completed_at property
+     */
+    completedAt?: Date | null;
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * The deployment_id property
+     */
+    deploymentId?: string | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The job_name property
+     */
+    jobName?: string | null;
+    /**
+     * The phase of the job invocation
+     */
+    phase?: App_job_invocation_phase | null;
+    /**
+     * The started_at property
+     */
+    startedAt?: Date | null;
+    /**
+     * The trigger property
+     */
+    trigger?: App_job_invocation_trigger | null;
+}
+export type App_job_invocation_phase = (typeof App_job_invocation_phaseObject)[keyof typeof App_job_invocation_phaseObject];
+export interface App_job_invocation_trigger extends AdditionalDataHolder, Parsable {
+    /**
+     * Details about the manual trigger, if applicable
+     */
+    manual?: App_job_invocation_trigger_manual | null;
+    /**
+     * The schedule for the job
+     */
+    scheduled?: App_job_invocation_trigger_scheduled | null;
+    /**
+     * The type of trigger that initiated the job invocation.
+     */
+    type?: App_job_invocation_trigger_type | null;
+}
+/**
+ * Details about the manual trigger, if applicable
+ */
+export interface App_job_invocation_trigger_manual extends AdditionalDataHolder, Parsable {
+    /**
+     * The user who triggered the job
+     */
+    user?: App_job_invocation_trigger_manual_user | null;
+}
+/**
+ * The user who triggered the job
+ */
+export interface App_job_invocation_trigger_manual_user extends AdditionalDataHolder, Parsable {
+    /**
+     * The email property
+     */
+    email?: string | null;
+    /**
+     * The full_name property
+     */
+    fullName?: string | null;
+    /**
+     * The uuid property
+     */
+    uuid?: string | null;
+}
+/**
+ * The schedule for the job
+ */
+export interface App_job_invocation_trigger_scheduled extends AdditionalDataHolder, Parsable {
+    /**
+     * The schedule property
+     */
+    schedule?: App_job_invocation_trigger_scheduled_schedule | null;
+}
+export interface App_job_invocation_trigger_scheduled_schedule extends AdditionalDataHolder, Parsable {
+    /**
+     * The cron expression defining the schedule
+     */
+    cron?: string | null;
+    /**
+     * The time zone for the schedule
+     */
+    timeZone?: string | null;
+}
+export type App_job_invocation_trigger_type = (typeof App_job_invocation_trigger_typeObject)[keyof typeof App_job_invocation_trigger_typeObject];
+export interface App_job_invocations extends Pagination, Parsable {
+    /**
+     * The job_invocations property
+     */
+    jobInvocations?: App_job_invocation[] | null;
+}
 export interface App_job_spec extends AdditionalDataHolder, Parsable {
     /**
      * Configuration for automatically scaling this component based on metrics.
@@ -8519,6 +8620,69 @@ export function createApp_instancesFromDiscriminatorValue(parseNode: ParseNode |
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation_trigger_manual_user}
+ */
+// @ts-ignore
+export function createApp_job_invocation_trigger_manual_userFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation_trigger_manual_user;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation_trigger_manual}
+ */
+// @ts-ignore
+export function createApp_job_invocation_trigger_manualFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation_trigger_manual;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation_trigger_scheduled_schedule}
+ */
+// @ts-ignore
+export function createApp_job_invocation_trigger_scheduled_scheduleFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation_trigger_scheduled_schedule;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation_trigger_scheduled}
+ */
+// @ts-ignore
+export function createApp_job_invocation_trigger_scheduledFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation_trigger_scheduled;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation_trigger}
+ */
+// @ts-ignore
+export function createApp_job_invocation_triggerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation_trigger;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocation}
+ */
+// @ts-ignore
+export function createApp_job_invocationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocation;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_job_invocations}
+ */
+// @ts-ignore
+export function createApp_job_invocationsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_job_invocations;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_job_spec_autoscaling_metrics_cpu}
  */
 // @ts-ignore
@@ -11043,6 +11207,15 @@ export function createMysql_advanced_configFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Mysql_incremental_backup}
+ */
+// @ts-ignore
+export function createMysql_incremental_backupFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMysql_incremental_backup;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Mysql_settings}
  */
 // @ts-ignore
@@ -11354,6 +11527,15 @@ export function createPage_links_pagesMember1FromDiscriminatorValue(parseNode: P
 // @ts-ignore
 export function createPage_linksFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoPage_links;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pagination}
+ */
+// @ts-ignore
+export function createPaginationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPagination;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -15860,6 +16042,96 @@ export function deserializeIntoApp_instances(app_instances: Partial<App_instance
 }
 /**
  * The deserialization information for the current model
+ * @param App_job_invocation The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation(app_job_invocation: Partial<App_job_invocation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "completed_at": n => { app_job_invocation.completedAt = n.getDateValue(); },
+        "created_at": n => { app_job_invocation.createdAt = n.getDateValue(); },
+        "deployment_id": n => { app_job_invocation.deploymentId = n.getStringValue(); },
+        "id": n => { app_job_invocation.id = n.getStringValue(); },
+        "job_name": n => { app_job_invocation.jobName = n.getStringValue(); },
+        "phase": n => { app_job_invocation.phase = n.getEnumValue<App_job_invocation_phase>(App_job_invocation_phaseObject); },
+        "started_at": n => { app_job_invocation.startedAt = n.getDateValue(); },
+        "trigger": n => { app_job_invocation.trigger = n.getObjectValue<App_job_invocation_trigger>(createApp_job_invocation_triggerFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocation_trigger The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation_trigger(app_job_invocation_trigger: Partial<App_job_invocation_trigger> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "manual": n => { app_job_invocation_trigger.manual = n.getObjectValue<App_job_invocation_trigger_manual>(createApp_job_invocation_trigger_manualFromDiscriminatorValue); },
+        "scheduled": n => { app_job_invocation_trigger.scheduled = n.getObjectValue<App_job_invocation_trigger_scheduled>(createApp_job_invocation_trigger_scheduledFromDiscriminatorValue); },
+        "type": n => { app_job_invocation_trigger.type = n.getEnumValue<App_job_invocation_trigger_type>(App_job_invocation_trigger_typeObject) ?? App_job_invocation_trigger_typeObject.UNKNOWN; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocation_trigger_manual The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation_trigger_manual(app_job_invocation_trigger_manual: Partial<App_job_invocation_trigger_manual> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "user": n => { app_job_invocation_trigger_manual.user = n.getObjectValue<App_job_invocation_trigger_manual_user>(createApp_job_invocation_trigger_manual_userFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocation_trigger_manual_user The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation_trigger_manual_user(app_job_invocation_trigger_manual_user: Partial<App_job_invocation_trigger_manual_user> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "email": n => { app_job_invocation_trigger_manual_user.email = n.getStringValue(); },
+        "full_name": n => { app_job_invocation_trigger_manual_user.fullName = n.getStringValue(); },
+        "uuid": n => { app_job_invocation_trigger_manual_user.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocation_trigger_scheduled The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation_trigger_scheduled(app_job_invocation_trigger_scheduled: Partial<App_job_invocation_trigger_scheduled> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "schedule": n => { app_job_invocation_trigger_scheduled.schedule = n.getObjectValue<App_job_invocation_trigger_scheduled_schedule>(createApp_job_invocation_trigger_scheduled_scheduleFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocation_trigger_scheduled_schedule The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocation_trigger_scheduled_schedule(app_job_invocation_trigger_scheduled_schedule: Partial<App_job_invocation_trigger_scheduled_schedule> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cron": n => { app_job_invocation_trigger_scheduled_schedule.cron = n.getStringValue(); },
+        "time_zone": n => { app_job_invocation_trigger_scheduled_schedule.timeZone = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_job_invocations The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_job_invocations(app_job_invocations: Partial<App_job_invocations> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoPagination(app_job_invocations),
+        "job_invocations": n => { app_job_invocations.jobInvocations = n.getCollectionOfObjectValues<App_job_invocation>(createApp_job_invocationFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param App_job_spec The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -19767,6 +20039,7 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "long_query_time": n => { mysql_advanced_config.longQueryTime = n.getNumberValue(); },
         "max_allowed_packet": n => { mysql_advanced_config.maxAllowedPacket = n.getNumberValue(); },
         "max_heap_table_size": n => { mysql_advanced_config.maxHeapTableSize = n.getNumberValue(); },
+        "mysql_incremental_backup": n => { mysql_advanced_config.mysqlIncrementalBackup = n.getObjectValue<Mysql_incremental_backup>(createMysql_incremental_backupFromDiscriminatorValue); },
         "net_buffer_length": n => { mysql_advanced_config.netBufferLength = n.getNumberValue(); },
         "net_read_timeout": n => { mysql_advanced_config.netReadTimeout = n.getNumberValue(); },
         "net_write_timeout": n => { mysql_advanced_config.netWriteTimeout = n.getNumberValue(); },
@@ -19776,6 +20049,18 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "sql_require_primary_key": n => { mysql_advanced_config.sqlRequirePrimaryKey = n.getBooleanValue(); },
         "tmp_table_size": n => { mysql_advanced_config.tmpTableSize = n.getNumberValue(); },
         "wait_timeout": n => { mysql_advanced_config.waitTimeout = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Mysql_incremental_backup The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMysql_incremental_backup(mysql_incremental_backup: Partial<Mysql_incremental_backup> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { mysql_incremental_backup.enabled = n.getBooleanValue(); },
+        "full_backup_week_schedule": n => { mysql_incremental_backup.fullBackupWeekSchedule = n.getStringValue(); },
     }
 }
 /**
@@ -20286,6 +20571,17 @@ export function deserializeIntoPage_links_pages(page_links_pages: Partial<Backwa
 // @ts-ignore
 export function deserializeIntoPage_links_pagesMember1(page_links_pagesMember1: Partial<Page_links_pagesMember1> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Pagination The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPagination(pagination: Partial<Pagination> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "links": n => { pagination.links = n.getObjectValue<Page_links>(createPage_linksFromDiscriminatorValue); },
     }
 }
 /**
@@ -24092,6 +24388,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     maxHeapTableSize?: number | null;
     /**
+     * MySQL Incremental Backup configuration settings
+     */
+    mysqlIncrementalBackup?: Mysql_incremental_backup | null;
+    /**
      * Start sizes of connection buffer and result buffer, must be multiple of 1024. Changing this parameter will lead to a restart of the MySQL service.
      */
     netBufferLength?: number | null;
@@ -24130,6 +24430,19 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
 }
 export type Mysql_advanced_config_internal_tmp_mem_storage_engine = (typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject)[keyof typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject];
 export type Mysql_advanced_config_log_output = (typeof Mysql_advanced_config_log_outputObject)[keyof typeof Mysql_advanced_config_log_outputObject];
+/**
+ * MySQL Incremental Backup configuration settings
+ */
+export interface Mysql_incremental_backup extends AdditionalDataHolder, Parsable {
+    /**
+     * Enable periodic incremental backups. When enabled, full_backup_week_schedule must be set. Incremental backups only store changes since the last backup, making them faster and more storage-efficient than full backups. This is particularly useful for large databases where daily full backups would be too time-consuming or expensive.
+     */
+    enabled?: boolean | null;
+    /**
+     * Comma-separated list of days of the week when full backups should be created. Valid values: mon, tue, wed, thu, fri, sat, sun. Default is null. Example : "mon,fri,sun". 
+     */
+    fullBackupWeekSchedule?: string | null;
+}
 export interface Mysql_settings extends AdditionalDataHolder, Parsable {
     /**
      * A string specifying the authentication method to be used for connectionsto the MySQL user account. The valid values are `mysql_native_password`or `caching_sha2_password`. If excluded when creating a new user, thedefault for the version of MySQL in use will be used. As of MySQL 8.0, thedefault is `caching_sha2_password`.
@@ -24844,6 +25157,12 @@ export interface Page_links extends AdditionalDataHolder, Parsable {
 }
 export type Page_links_pages = Backward_links | Forward_links | Page_links_pagesMember1;
 export interface Page_links_pagesMember1 extends AdditionalDataHolder, Parsable {
+}
+export interface Pagination extends AdditionalDataHolder, Parsable {
+    /**
+     * The links property
+     */
+    links?: Page_links | null;
 }
 export interface Partner_attachment extends AdditionalDataHolder, Parsable {
     /**
@@ -29027,6 +29346,102 @@ export function serializeApp_instances(writer: SerializationWriter, app_instance
 }
 /**
  * Serializes information the current object
+ * @param App_job_invocation The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation(writer: SerializationWriter, app_job_invocation: Partial<App_job_invocation> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation || isSerializingDerivedType) { return; }
+    writer.writeDateValue("completed_at", app_job_invocation.completedAt);
+    writer.writeDateValue("created_at", app_job_invocation.createdAt);
+    writer.writeStringValue("deployment_id", app_job_invocation.deploymentId);
+    writer.writeStringValue("id", app_job_invocation.id);
+    writer.writeStringValue("job_name", app_job_invocation.jobName);
+    writer.writeEnumValue<App_job_invocation_phase>("phase", app_job_invocation.phase);
+    writer.writeDateValue("started_at", app_job_invocation.startedAt);
+    writer.writeObjectValue<App_job_invocation_trigger>("trigger", app_job_invocation.trigger, serializeApp_job_invocation_trigger);
+    writer.writeAdditionalData(app_job_invocation.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocation_trigger The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation_trigger(writer: SerializationWriter, app_job_invocation_trigger: Partial<App_job_invocation_trigger> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation_trigger || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_job_invocation_trigger_manual>("manual", app_job_invocation_trigger.manual, serializeApp_job_invocation_trigger_manual);
+    writer.writeObjectValue<App_job_invocation_trigger_scheduled>("scheduled", app_job_invocation_trigger.scheduled, serializeApp_job_invocation_trigger_scheduled);
+    writer.writeEnumValue<App_job_invocation_trigger_type>("type", app_job_invocation_trigger.type ?? App_job_invocation_trigger_typeObject.UNKNOWN);
+    writer.writeAdditionalData(app_job_invocation_trigger.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocation_trigger_manual The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation_trigger_manual(writer: SerializationWriter, app_job_invocation_trigger_manual: Partial<App_job_invocation_trigger_manual> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation_trigger_manual || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_job_invocation_trigger_manual_user>("user", app_job_invocation_trigger_manual.user, serializeApp_job_invocation_trigger_manual_user);
+    writer.writeAdditionalData(app_job_invocation_trigger_manual.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocation_trigger_manual_user The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation_trigger_manual_user(writer: SerializationWriter, app_job_invocation_trigger_manual_user: Partial<App_job_invocation_trigger_manual_user> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation_trigger_manual_user || isSerializingDerivedType) { return; }
+    writer.writeStringValue("email", app_job_invocation_trigger_manual_user.email);
+    writer.writeStringValue("full_name", app_job_invocation_trigger_manual_user.fullName);
+    writer.writeStringValue("uuid", app_job_invocation_trigger_manual_user.uuid);
+    writer.writeAdditionalData(app_job_invocation_trigger_manual_user.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocation_trigger_scheduled The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation_trigger_scheduled(writer: SerializationWriter, app_job_invocation_trigger_scheduled: Partial<App_job_invocation_trigger_scheduled> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation_trigger_scheduled || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_job_invocation_trigger_scheduled_schedule>("schedule", app_job_invocation_trigger_scheduled.schedule, serializeApp_job_invocation_trigger_scheduled_schedule);
+    writer.writeAdditionalData(app_job_invocation_trigger_scheduled.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocation_trigger_scheduled_schedule The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocation_trigger_scheduled_schedule(writer: SerializationWriter, app_job_invocation_trigger_scheduled_schedule: Partial<App_job_invocation_trigger_scheduled_schedule> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocation_trigger_scheduled_schedule || isSerializingDerivedType) { return; }
+    writer.writeStringValue("cron", app_job_invocation_trigger_scheduled_schedule.cron);
+    writer.writeStringValue("time_zone", app_job_invocation_trigger_scheduled_schedule.timeZone);
+    writer.writeAdditionalData(app_job_invocation_trigger_scheduled_schedule.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_job_invocations The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_job_invocations(writer: SerializationWriter, app_job_invocations: Partial<App_job_invocations> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_job_invocations || isSerializingDerivedType) { return; }
+    serializePagination(writer, app_job_invocations, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<App_job_invocation>("job_invocations", app_job_invocations.jobInvocations, serializeApp_job_invocation);
+}
+/**
+ * Serializes information the current object
  * @param App_job_spec The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -33158,6 +33573,7 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeNumberValue("long_query_time", mysql_advanced_config.longQueryTime);
     writer.writeNumberValue("max_allowed_packet", mysql_advanced_config.maxAllowedPacket);
     writer.writeNumberValue("max_heap_table_size", mysql_advanced_config.maxHeapTableSize);
+    writer.writeObjectValue<Mysql_incremental_backup>("mysql_incremental_backup", mysql_advanced_config.mysqlIncrementalBackup, serializeMysql_incremental_backup);
     writer.writeNumberValue("net_buffer_length", mysql_advanced_config.netBufferLength);
     writer.writeNumberValue("net_read_timeout", mysql_advanced_config.netReadTimeout);
     writer.writeNumberValue("net_write_timeout", mysql_advanced_config.netWriteTimeout);
@@ -33168,6 +33584,19 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeNumberValue("tmp_table_size", mysql_advanced_config.tmpTableSize);
     writer.writeNumberValue("wait_timeout", mysql_advanced_config.waitTimeout);
     writer.writeAdditionalData(mysql_advanced_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Mysql_incremental_backup The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMysql_incremental_backup(writer: SerializationWriter, mysql_incremental_backup: Partial<Mysql_incremental_backup> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!mysql_incremental_backup || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", mysql_incremental_backup.enabled);
+    writer.writeStringValue("full_backup_week_schedule", mysql_incremental_backup.fullBackupWeekSchedule);
+    writer.writeAdditionalData(mysql_incremental_backup.additionalData);
 }
 /**
  * Serializes information the current object
@@ -33683,6 +34112,18 @@ export function serializePage_links_pages(writer: SerializationWriter, page_link
 export function serializePage_links_pagesMember1(writer: SerializationWriter, page_links_pagesMember1: Partial<Page_links_pagesMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!page_links_pagesMember1 || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(page_links_pagesMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pagination The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePagination(writer: SerializationWriter, pagination: Partial<Pagination> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!pagination || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", pagination.links, serializePage_links);
+    writer.writeAdditionalData(pagination.additionalData);
 }
 /**
  * Serializes information the current object
@@ -36640,6 +37081,26 @@ export const App_instance_component_typeObject = {
     SERVICE: "SERVICE",
     WORKER: "WORKER",
     JOB: "JOB",
+} as const;
+/**
+ * The phase of the job invocation
+ */
+export const App_job_invocation_phaseObject = {
+    UNKNOWN: "UNKNOWN",
+    PENDING: "PENDING",
+    RUNNING: "RUNNING",
+    SUCCEEDED: "SUCCEEDED",
+    FAILED: "FAILED",
+    CANCELED: "CANCELED",
+    SKIPPED: "SKIPPED",
+} as const;
+/**
+ * The type of trigger that initiated the job invocation.
+ */
+export const App_job_invocation_trigger_typeObject = {
+    MANUAL: "MANUAL",
+    SCHEDULE: "SCHEDULE",
+    UNKNOWN: "UNKNOWN",
 } as const;
 /**
  * - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.- PRE_DEPLOY: Indicates a job that runs before an app deployment.- POST_DEPLOY: Indicates a job that runs after an app deployment.- FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy.
