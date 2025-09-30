@@ -8,9 +8,31 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface BackupsGetResponse extends AdditionalDataHolder, Parsable {
     /**
+     * If a backup is currently in progress, this attribute shows the percentage of completion. If no backup is in progress, this attribute will be hidden.
+     */
+    backupProgress?: string | null;
+    /**
      * The backups property
      */
     backups?: Backup[] | null;
+    /**
+     * The scheduled_backup_time property
+     */
+    scheduledBackupTime?: BackupsGetResponse_scheduled_backup_time | null;
+}
+export interface BackupsGetResponse_scheduled_backup_time extends AdditionalDataHolder, Parsable {
+    /**
+     * The hour of the day when the backup is scheduled (in UTC).
+     */
+    backupHour?: number | null;
+    /**
+     * The frequency, in hours, at which backups are taken.
+     */
+    backupIntervalHours?: number | null;
+    /**
+     * The minute of the hour when the backup is scheduled.
+     */
+    backupMinute?: number | null;
 }
 /**
  * Builds and executes requests for operations under /v2/databases/{database_cluster_uuid}/backups
@@ -37,6 +59,15 @@ export interface BackupsRequestBuilder extends BaseRequestBuilder<BackupsRequest
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {BackupsGetResponse_scheduled_backup_time}
+ */
+// @ts-ignore
+export function createBackupsGetResponse_scheduled_backup_timeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoBackupsGetResponse_scheduled_backup_time;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {BackupsGetResponse}
  */
 // @ts-ignore
@@ -51,7 +82,22 @@ export function createBackupsGetResponseFromDiscriminatorValue(parseNode: ParseN
 // @ts-ignore
 export function deserializeIntoBackupsGetResponse(backupsGetResponse: Partial<BackupsGetResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "backup_progress": n => { backupsGetResponse.backupProgress = n.getStringValue(); },
         "backups": n => { backupsGetResponse.backups = n.getCollectionOfObjectValues<Backup>(createBackupFromDiscriminatorValue); },
+        "scheduled_backup_time": n => { backupsGetResponse.scheduledBackupTime = n.getObjectValue<BackupsGetResponse_scheduled_backup_time>(createBackupsGetResponse_scheduled_backup_timeFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param BackupsGetResponse_scheduled_backup_time The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoBackupsGetResponse_scheduled_backup_time(backupsGetResponse_scheduled_backup_time: Partial<BackupsGetResponse_scheduled_backup_time> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backup_hour": n => { backupsGetResponse_scheduled_backup_time.backupHour = n.getNumberValue(); },
+        "backup_interval_hours": n => { backupsGetResponse_scheduled_backup_time.backupIntervalHours = n.getNumberValue(); },
+        "backup_minute": n => { backupsGetResponse_scheduled_backup_time.backupMinute = n.getNumberValue(); },
     }
 }
 /**
@@ -63,8 +109,24 @@ export function deserializeIntoBackupsGetResponse(backupsGetResponse: Partial<Ba
 // @ts-ignore
 export function serializeBackupsGetResponse(writer: SerializationWriter, backupsGetResponse: Partial<BackupsGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!backupsGetResponse || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backup_progress", backupsGetResponse.backupProgress);
     writer.writeCollectionOfObjectValues<Backup>("backups", backupsGetResponse.backups, serializeBackup);
+    writer.writeObjectValue<BackupsGetResponse_scheduled_backup_time>("scheduled_backup_time", backupsGetResponse.scheduledBackupTime, serializeBackupsGetResponse_scheduled_backup_time);
     writer.writeAdditionalData(backupsGetResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param BackupsGetResponse_scheduled_backup_time The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeBackupsGetResponse_scheduled_backup_time(writer: SerializationWriter, backupsGetResponse_scheduled_backup_time: Partial<BackupsGetResponse_scheduled_backup_time> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!backupsGetResponse_scheduled_backup_time || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("backup_hour", backupsGetResponse_scheduled_backup_time.backupHour);
+    writer.writeNumberValue("backup_interval_hours", backupsGetResponse_scheduled_backup_time.backupIntervalHours);
+    writer.writeNumberValue("backup_minute", backupsGetResponse_scheduled_backup_time.backupMinute);
+    writer.writeAdditionalData(backupsGetResponse_scheduled_backup_time.additionalData);
 }
 /**
  * Uri template for the request builder.
