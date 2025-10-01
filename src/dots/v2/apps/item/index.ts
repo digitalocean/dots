@@ -14,6 +14,10 @@ import { HealthRequestBuilderRequestsMetadata, type HealthRequestBuilder } from 
 // @ts-ignore
 import { InstancesRequestBuilderRequestsMetadata, type InstancesRequestBuilder } from './instances/index.js';
 // @ts-ignore
+import { JobInvocationsRequestBuilderNavigationMetadata, JobInvocationsRequestBuilderRequestsMetadata, type JobInvocationsRequestBuilder } from './jobInvocations/index.js';
+// @ts-ignore
+import { JobsRequestBuilderNavigationMetadata, type JobsRequestBuilder } from './jobs/index.js';
+// @ts-ignore
 import { LogsRequestBuilderRequestsMetadata, type LogsRequestBuilder } from './logs/index.js';
 // @ts-ignore
 import { MetricsRequestBuilderNavigationMetadata, type MetricsRequestBuilder } from './metrics/index.js';
@@ -48,6 +52,14 @@ export interface App_ItemRequestBuilder extends BaseRequestBuilder<App_ItemReque
      * The instances property
      */
     get instances(): InstancesRequestBuilder;
+    /**
+     * The jobInvocations property
+     */
+    get jobInvocations(): JobInvocationsRequestBuilder;
+    /**
+     * The jobs property
+     */
+    get jobs(): JobsRequestBuilder;
     /**
      * The logs property
      */
@@ -151,6 +163,13 @@ export const App_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof App_
     },
     instances: {
         requestsMetadata: InstancesRequestBuilderRequestsMetadata,
+    },
+    jobInvocations: {
+        requestsMetadata: JobInvocationsRequestBuilderRequestsMetadata,
+        navigationMetadata: JobInvocationsRequestBuilderNavigationMetadata,
+    },
+    jobs: {
+        navigationMetadata: JobsRequestBuilderNavigationMetadata,
     },
     logs: {
         requestsMetadata: LogsRequestBuilderRequestsMetadata,
