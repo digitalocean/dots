@@ -149,7 +149,7 @@ export interface Reserved_ipsRequestBuilder extends BaseRequestBuilder<Reserved_
      */
      get(requestConfiguration?: RequestConfiguration<Reserved_ipsRequestBuilderGetQueryParameters> | undefined) : Promise<Reserved_ipsGetResponse | undefined>;
     /**
-     * On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.* To create a new reserved IP assigned to a Droplet, send a POST  request to `/v2/reserved_ips` with the `droplet_id` attribute.* To create a new reserved IP reserved to a region, send a POST request to  `/v2/reserved_ips` with the `region` attribute.**Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
+     * On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.* To create a new reserved IP assigned to a Droplet, send a POST  request to `/v2/reserved_ips` with the `droplet_id` attribute.* To create a new reserved IP reserved to a region, send a POST request to  `/v2/reserved_ips` with the `region` attribute.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Reserved_ipsPostResponse>}
@@ -166,7 +166,7 @@ export interface Reserved_ipsRequestBuilder extends BaseRequestBuilder<Reserved_
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<Reserved_ipsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.* To create a new reserved IP assigned to a Droplet, send a POST  request to `/v2/reserved_ips` with the `droplet_id` attribute.* To create a new reserved IP reserved to a region, send a POST request to  `/v2/reserved_ips` with the `region` attribute.**Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
+     * On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.* To create a new reserved IP assigned to a Droplet, send a POST  request to `/v2/reserved_ips` with the `droplet_id` attribute.* To create a new reserved IP reserved to a region, send a POST request to  `/v2/reserved_ips` with the `region` attribute.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
