@@ -149,7 +149,7 @@ export interface Floating_ipsRequestBuilder extends BaseRequestBuilder<Floating_
      */
      get(requestConfiguration?: RequestConfiguration<Floating_ipsRequestBuilderGetQueryParameters> | undefined) : Promise<Floating_ipsGetResponse | undefined>;
     /**
-     * On creation, a floating IP must be either assigned to a Droplet or reserved to a region.* To create a new floating IP assigned to a Droplet, send a POST  request to `/v2/floating_ips` with the `droplet_id` attribute.* To create a new floating IP reserved to a region, send a POST request to  `/v2/floating_ips` with the `region` attribute.**Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
+     * On creation, a floating IP must be either assigned to a Droplet or reserved to a region.* To create a new floating IP assigned to a Droplet, send a POST  request to `/v2/floating_ips` with the `droplet_id` attribute.* To create a new floating IP reserved to a region, send a POST request to  `/v2/floating_ips` with the `region` attribute.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Floating_ipsPostResponse>}
@@ -166,7 +166,7 @@ export interface Floating_ipsRequestBuilder extends BaseRequestBuilder<Floating_
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<Floating_ipsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * On creation, a floating IP must be either assigned to a Droplet or reserved to a region.* To create a new floating IP assigned to a Droplet, send a POST  request to `/v2/floating_ips` with the `droplet_id` attribute.* To create a new floating IP reserved to a region, send a POST request to  `/v2/floating_ips` with the `region` attribute.**Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
+     * On creation, a floating IP must be either assigned to a Droplet or reserved to a region.* To create a new floating IP assigned to a Droplet, send a POST  request to `/v2/floating_ips` with the `droplet_id` attribute.* To create a new floating IP reserved to a region, send a POST request to  `/v2/floating_ips` with the `region` attribute.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
