@@ -24764,7 +24764,7 @@ export interface Opensearch_advanced_config extends AdditionalDataHolder, Parsab
      */
     knnMemoryCircuitBreakerEnabled?: boolean | null;
     /**
-     * Maximum amount of memory that can be used for KNN index, as a percentage of the JVM heap size.
+     * Maximum amount of memory in percentage that can be used for the KNN index. Defaults to 50% of the JVM heap size.  0 is used to set it to null which can be used to invalidate caches.
      */
     knnMemoryCircuitBreakerLimit?: number | null;
     /**
