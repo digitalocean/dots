@@ -1,6 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@02ebd02 (2025-10-06T15:13:43Z)
-Target commit: digitalocean/openapi@f69afd1 (2025-10-09T13:59:25Z)
+Current commit: digitalocean/openapi@f69afd1 (2025-10-09T13:59:25Z)
+Target commit: digitalocean/openapi@ee73633 (2025-10-10T15:56:48Z)
 
-* digitalocean/openapi#1104: Remove deleted floating ip restriction note - 2025-10-09T13:59:25Z []
+* digitalocean/openapi#1105: [DBAAS-7178] | OpenSearch KNN_circuit_limit description changes - 2025-10-10T15:56:48Z []
