@@ -11273,6 +11273,51 @@ export function createNetwork_v6FromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_create_response}
+ */
+// @ts-ignore
+export function createNfs_create_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_create_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_get_response}
+ */
+// @ts-ignore
+export function createNfs_get_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_get_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_list_response}
+ */
+// @ts-ignore
+export function createNfs_list_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_list_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_request}
+ */
+// @ts-ignore
+export function createNfs_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_response}
+ */
+// @ts-ignore
+export function createNfs_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Node_status}
  */
 // @ts-ignore
@@ -20157,6 +20202,70 @@ export function deserializeIntoNetwork_v6(network_v6: Partial<Network_v6> | unde
 }
 /**
  * The deserialization information for the current model
+ * @param Nfs_create_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_create_response(nfs_create_response: Partial<Nfs_create_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "share": n => { nfs_create_response.share = n.getObjectValue<Nfs_response>(createNfs_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_get_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_get_response(nfs_get_response: Partial<Nfs_get_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "share": n => { nfs_get_response.share = n.getObjectValue<Nfs_response>(createNfs_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_list_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_list_response(nfs_list_response: Partial<Nfs_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "shares": n => { nfs_list_response.shares = n.getCollectionOfObjectValues<Nfs_response>(createNfs_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_request(nfs_request: Partial<Nfs_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { nfs_request.name = n.getStringValue(); },
+        "region": n => { nfs_request.region = n.getStringValue(); },
+        "size_gib": n => { nfs_request.sizeGib = n.getNumberValue(); },
+        "vpc_ids": n => { nfs_request.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_response(nfs_response: Partial<Nfs_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { nfs_response.createdAt = n.getDateValue(); },
+        "id": n => { nfs_response.id = n.getStringValue(); },
+        "name": n => { nfs_response.name = n.getStringValue(); },
+        "region": n => { nfs_response.region = n.getStringValue(); },
+        "size_gib": n => { nfs_response.sizeGib = n.getNumberValue(); },
+        "status": n => { nfs_response.status = n.getEnumValue<Nfs_response_status>(Nfs_response_statusObject); },
+        "vpc_ids": n => { nfs_response.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Node The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -24563,6 +24672,73 @@ export interface Network_v6 extends AdditionalDataHolder, Parsable {
     type?: Network_v6_type | null;
 }
 export type Network_v6_type = (typeof Network_v6_typeObject)[keyof typeof Network_v6_typeObject];
+export interface Nfs_create_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The share property
+     */
+    share?: Nfs_response | null;
+}
+export interface Nfs_get_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The share property
+     */
+    share?: Nfs_response | null;
+}
+export interface Nfs_list_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The shares property
+     */
+    shares?: Nfs_response[] | null;
+}
+export interface Nfs_request extends AdditionalDataHolder, Parsable {
+    /**
+     * The human-readable name of the share.
+     */
+    name?: string | null;
+    /**
+     * The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+     */
+    region?: string | null;
+    /**
+     * The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+     */
+    sizeGib?: number | null;
+    /**
+     * List of VPC IDs that should be able to access the share.
+     */
+    vpcIds?: string[] | null;
+}
+export interface Nfs_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Timestamp for when the NFS share was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The unique identifier of the NFS share.
+     */
+    id?: string | null;
+    /**
+     * The human-readable name of the share.
+     */
+    name?: string | null;
+    /**
+     * The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+     */
+    region?: string | null;
+    /**
+     * The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+     */
+    sizeGib?: number | null;
+    /**
+     * The current status of the share.
+     */
+    status?: Nfs_response_status | null;
+    /**
+     * List of VPC IDs that should be able to access the share.
+     */
+    vpcIds?: string[] | null;
+}
+export type Nfs_response_status = (typeof Nfs_response_statusObject)[keyof typeof Nfs_response_statusObject];
 export interface Node extends AdditionalDataHolder, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the node was created.
@@ -33721,6 +33897,72 @@ export function serializeNetwork_v6(writer: SerializationWriter, network_v6: Par
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_create_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_create_response(writer: SerializationWriter, nfs_create_response: Partial<Nfs_create_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_create_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Nfs_response>("share", nfs_create_response.share, serializeNfs_response);
+    writer.writeAdditionalData(nfs_create_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_get_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_get_response(writer: SerializationWriter, nfs_get_response: Partial<Nfs_get_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_get_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Nfs_response>("share", nfs_get_response.share, serializeNfs_response);
+    writer.writeAdditionalData(nfs_get_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_list_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_list_response(writer: SerializationWriter, nfs_list_response: Partial<Nfs_list_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_list_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Nfs_response>("shares", nfs_list_response.shares, serializeNfs_response);
+    writer.writeAdditionalData(nfs_list_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_request The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_request(writer: SerializationWriter, nfs_request: Partial<Nfs_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", nfs_request.name);
+    writer.writeStringValue("region", nfs_request.region);
+    writer.writeNumberValue("size_gib", nfs_request.sizeGib);
+    writer.writeCollectionOfPrimitiveValues<string>("vpc_ids", nfs_request.vpcIds);
+    writer.writeAdditionalData(nfs_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_response(writer: SerializationWriter, nfs_response: Partial<Nfs_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", nfs_response.name);
+    writer.writeStringValue("region", nfs_response.region);
+    writer.writeNumberValue("size_gib", nfs_response.sizeGib);
+    writer.writeCollectionOfPrimitiveValues<string>("vpc_ids", nfs_response.vpcIds);
+    writer.writeAdditionalData(nfs_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Node The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -38030,6 +38272,15 @@ export const Network_v4_typeObject = {
  */
 export const Network_v6_typeObject = {
     Public: "public",
+} as const;
+/**
+ * The current status of the share.
+ */
+export const Nfs_response_statusObject = {
+    CREATING: "CREATING",
+    ACTIVE: "ACTIVE",
+    FAILED: "FAILED",
+    DELETED: "DELETED",
 } as const;
 /**
  * A string indicating the current status of the node.
