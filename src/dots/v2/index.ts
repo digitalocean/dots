@@ -38,6 +38,8 @@ import { Load_balancersRequestBuilderNavigationMetadata, Load_balancersRequestBu
 // @ts-ignore
 import { MonitoringRequestBuilderNavigationMetadata, type MonitoringRequestBuilder } from './monitoring/index.js';
 // @ts-ignore
+import { NfsRequestBuilderNavigationMetadata, NfsRequestBuilderRequestsMetadata, type NfsRequestBuilder } from './nfs/index.js';
+// @ts-ignore
 import { OneClicksRequestBuilderNavigationMetadata, OneClicksRequestBuilderRequestsMetadata, type OneClicksRequestBuilder } from './oneClicks/index.js';
 // @ts-ignore
 import { Partner_network_connectRequestBuilderNavigationMetadata, type Partner_network_connectRequestBuilder } from './partner_network_connect/index.js';
@@ -152,6 +154,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The monitoring property
      */
     get monitoring(): MonitoringRequestBuilder;
+    /**
+     * The nfs property
+     */
+    get nfs(): NfsRequestBuilder;
     /**
      * The OneClicks property
      */
@@ -298,6 +304,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     },
     monitoring: {
         navigationMetadata: MonitoringRequestBuilderNavigationMetadata,
+    },
+    nfs: {
+        requestsMetadata: NfsRequestBuilderRequestsMetadata,
+        navigationMetadata: NfsRequestBuilderNavigationMetadata,
     },
     oneClicks: {
         requestsMetadata: OneClicksRequestBuilderRequestsMetadata,
