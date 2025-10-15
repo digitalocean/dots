@@ -26,6 +26,8 @@ import { OpenaiRequestBuilderNavigationMetadata, type OpenaiRequestBuilder } fro
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
 // @ts-ignore
+import { ScheduledIndexingRequestBuilderNavigationMetadata, ScheduledIndexingRequestBuilderRequestsMetadata, type ScheduledIndexingRequestBuilder } from './scheduledIndexing/index.js';
+// @ts-ignore
 import { type WorkspacesRequestBuilder, WorkspacesRequestBuilderNavigationMetadata, WorkspacesRequestBuilderRequestsMetadata } from './workspaces/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
@@ -83,6 +85,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get regions(): RegionsRequestBuilder;
     /**
+     * The scheduledIndexing property
+     */
+    get scheduledIndexing(): ScheduledIndexingRequestBuilder;
+    /**
      * The workspaces property
      */
     get workspaces(): WorkspacesRequestBuilder;
@@ -137,6 +143,10 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     },
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,
+    },
+    scheduledIndexing: {
+        requestsMetadata: ScheduledIndexingRequestBuilderRequestsMetadata,
+        navigationMetadata: ScheduledIndexingRequestBuilderNavigationMetadata,
     },
     workspaces: {
         requestsMetadata: WorkspacesRequestBuilderRequestsMetadata,

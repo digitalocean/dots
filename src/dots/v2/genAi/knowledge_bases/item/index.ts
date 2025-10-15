@@ -6,6 +6,8 @@ import { createApiDeleteKnowledgeBaseOutputFromDiscriminatorValue, createApiGetK
 // @ts-ignore
 import { Data_sourcesRequestBuilderNavigationMetadata, Data_sourcesRequestBuilderRequestsMetadata, type Data_sourcesRequestBuilder } from './data_sources/index.js';
 // @ts-ignore
+import { Indexing_jobsRequestBuilderRequestsMetadata, type Indexing_jobsRequestBuilder } from './indexing_jobs/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -16,6 +18,10 @@ export interface Knowledge_base_uuItemRequestBuilder extends BaseRequestBuilder<
      * The data_sources property
      */
     get data_sources(): Data_sourcesRequestBuilder;
+    /**
+     * The indexing_jobs property
+     */
+    get indexing_jobs(): Indexing_jobsRequestBuilder;
     /**
      * To delete a knowledge base, send a DELETE request to `/v2/gen-ai/knowledge_bases/{uuid}`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -81,6 +87,9 @@ export const Knowledge_base_uuItemRequestBuilderNavigationMetadata: Record<Exclu
     data_sources: {
         requestsMetadata: Data_sourcesRequestBuilderRequestsMetadata,
         navigationMetadata: Data_sourcesRequestBuilderNavigationMetadata,
+    },
+    indexing_jobs: {
+        requestsMetadata: Indexing_jobsRequestBuilderRequestsMetadata,
     },
 };
 /**

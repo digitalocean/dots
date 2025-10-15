@@ -369,6 +369,10 @@ export interface ApiAgent extends AdditionalDataHolder, Parsable {
      */
     model?: ApiModel | null;
     /**
+     * The model_provider_key property
+     */
+    modelProviderKey?: ApiModelProviderKeyInfo | null;
+    /**
      * Agent name
      */
     name?: string | null;
@@ -448,6 +452,14 @@ export interface ApiAgent extends AdditionalDataHolder, Parsable {
      * The latest version of the agent
      */
     versionHash?: string | null;
+    /**
+     * VPC Egress IPs
+     */
+    vpcEgressIps?: string[] | null;
+    /**
+     * The vpc_uuid property
+     */
+    vpcUuid?: string | null;
     /**
      * The workspace property
      */
@@ -1175,6 +1187,10 @@ export interface ApiCancelKnowledgeBaseIndexingJobOutput extends AdditionalDataH
  */
 export interface ApiChatbot extends AdditionalDataHolder, Parsable {
     /**
+     * The allowed_domains property
+     */
+    allowedDomains?: string[] | null;
+    /**
      * The button_background_color property
      */
     buttonBackgroundColor?: string | null;
@@ -1237,6 +1253,10 @@ export interface ApiCreateAgentInputPublic extends AdditionalDataHolder, Parsabl
      */
     knowledgeBaseUuid?: string[] | null;
     /**
+     * The model_provider_key_uuid property
+     */
+    modelProviderKeyUuid?: string | null;
+    /**
      * Identifier for the foundation model.
      */
     modelUuid?: string | null;
@@ -1260,6 +1280,10 @@ export interface ApiCreateAgentInputPublic extends AdditionalDataHolder, Parsabl
      * Agent tag to organize related resources
      */
     tags?: string[] | null;
+    /**
+     * Identifier for the workspace
+     */
+    workspaceUuid?: string | null;
 }
 /**
  * Information about a newly created Agent
@@ -1478,6 +1502,26 @@ export interface ApiCreateOpenAIAPIKeyOutput extends AdditionalDataHolder, Parsa
      */
     apiKeyInfo?: ApiOpenAIAPIKeyInfo | null;
 }
+export interface ApiCreateScheduledIndexingInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Days for execution (day is represented same as in a cron expression, e.g. Monday begins with 1 )
+     */
+    days?: number[] | null;
+    /**
+     * Knowledge base uuid for which the schedule is created
+     */
+    knowledgeBaseUuid?: string | null;
+    /**
+     * Time of execution (HH:MM) UTC
+     */
+    time?: string | null;
+}
+export interface ApiCreateScheduledIndexingOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Metadata for scheduled indexing entries
+     */
+    indexingInfo?: ApiScheduledIndexingInfo | null;
+}
 /**
  * Parameters for Workspace Creation
  */
@@ -1561,6 +1605,12 @@ export interface ApiDeleteOpenAIAPIKeyOutput extends AdditionalDataHolder, Parsa
      * OpenAI API Key Info
      */
     apiKeyInfo?: ApiOpenAIAPIKeyInfo | null;
+}
+export interface ApiDeleteScheduledIndexingOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Metadata for scheduled indexing entries
+     */
+    indexingInfo?: ApiScheduledIndexingInfo | null;
 }
 export interface ApiDeleteWorkspaceOutput extends AdditionalDataHolder, Parsable {
     /**
@@ -2033,6 +2083,12 @@ export interface ApiGetEvaluationTestCaseOutput extends AdditionalDataHolder, Pa
      */
     evaluationTestCase?: ApiEvaluationTestCase | null;
 }
+export interface ApiGetIndexingJobDetailsSignedURLOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The signed url for downloading the indexing job details
+     */
+    signedUrl?: string | null;
+}
 /**
  * GetKnowledgeBaseIndexingJobOutput description
  */
@@ -2061,11 +2117,43 @@ export interface ApiGetOpenAIAPIKeyOutput extends AdditionalDataHolder, Parsable
      */
     apiKeyInfo?: ApiOpenAIAPIKeyInfo | null;
 }
+export interface ApiGetScheduledIndexingOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Metadata for scheduled indexing entries
+     */
+    indexingInfo?: ApiScheduledIndexingInfo | null;
+}
 export interface ApiGetWorkspaceOutput extends AdditionalDataHolder, Parsable {
     /**
      * The workspace property
      */
     workspace?: ApiWorkspace | null;
+}
+/**
+ * Google Drive Data Source
+ */
+export interface ApiGoogleDriveDataSource extends AdditionalDataHolder, Parsable {
+    /**
+     * The folder_id property
+     */
+    folderId?: string | null;
+    /**
+     * Refresh token. you can obrain a refresh token by following the oauth2 flow. see /v2/gen-ai/oauth2/google/tokens for reference.
+     */
+    refreshToken?: string | null;
+}
+/**
+ * Google Drive Data Source for Display
+ */
+export interface ApiGoogleDriveDataSourceDisplay extends AdditionalDataHolder, Parsable {
+    /**
+     * The folder_id property
+     */
+    folderId?: string | null;
+    /**
+     * Name of the selected folder if available
+     */
+    folderName?: string | null;
 }
 export type ApiGuardrailType = (typeof ApiGuardrailTypeObject)[keyof typeof ApiGuardrailTypeObject];
 export interface ApiIndexedDataSource extends AdditionalDataHolder, Parsable {
@@ -2140,6 +2228,10 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * Details on Data Sources included in the Indexing Job
+     */
+    dataSourceJobs?: ApiIndexedDataSource[] | null;
+    /**
      * The data_source_uuids property
      */
     dataSourceUuids?: string[] | null;
@@ -2147,6 +2239,10 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      * The finished_at property
      */
     finishedAt?: Date | null;
+    /**
+     * Boolean value to determine if the indexing job details are available
+     */
+    isReportAvailable?: boolean | null;
     /**
      * Knowledge base id
      */
@@ -2164,7 +2260,7 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      */
     status?: ApiIndexJobStatus | null;
     /**
-     * Number of tokens
+     * Number of tokens [This field is deprecated]
      */
     tokens?: number | null;
     /**
@@ -2180,9 +2276,17 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      */
     totalItemsIndexed?: string | null;
     /**
+     * Total Items Removed
+     */
+    totalItemsRemoved?: string | null;
+    /**
      * Total Items Skipped
      */
     totalItemsSkipped?: string | null;
+    /**
+     * Total Tokens Consumed By the Indexing Job
+     */
+    totalTokens?: string | null;
     /**
      * Last modified
      */
@@ -2214,6 +2318,10 @@ export interface ApiKBDataSource extends AdditionalDataHolder, Parsable {
      * File to upload as data source for knowledge base.
      */
     fileUploadDataSource?: ApiFileUploadDataSource | null;
+    /**
+     * Google Drive Data Source
+     */
+    googleDriveDataSource?: ApiGoogleDriveDataSource | null;
     /**
      * The item_path property
      */
@@ -2308,6 +2416,10 @@ export interface ApiKnowledgeBaseDataSource extends AdditionalDataHolder, Parsab
      * File to upload as data source for knowledge base.
      */
     fileUploadDataSource?: ApiFileUploadDataSource | null;
+    /**
+     * Google Drive Data Source for Display
+     */
+    googleDriveDataSource?: ApiGoogleDriveDataSourceDisplay | null;
     /**
      * Path of folder or object in bucket - Deprecated, moved to data_source_details
      */
@@ -2819,6 +2931,40 @@ export interface ApiModelAPIKeyInfo extends AdditionalDataHolder, Parsable {
     uuid?: string | null;
 }
 export type ApiModelProvider = (typeof ApiModelProviderObject)[keyof typeof ApiModelProviderObject];
+export interface ApiModelProviderKeyInfo extends AdditionalDataHolder, Parsable {
+    /**
+     * API key ID
+     */
+    apiKeyUuid?: string | null;
+    /**
+     * Key creation date
+     */
+    createdAt?: Date | null;
+    /**
+     * Created by user id from DO
+     */
+    createdBy?: string | null;
+    /**
+     * Key deleted date
+     */
+    deletedAt?: Date | null;
+    /**
+     * Models supported by the openAI api key
+     */
+    models?: ApiModel[] | null;
+    /**
+     * Name of the key
+     */
+    name?: string | null;
+    /**
+     * The provider property
+     */
+    provider?: ApiModelProvider | null;
+    /**
+     * Key last updated date
+     */
+    updatedAt?: Date | null;
+}
 /**
  * A machine learning model stored on the GenAI platform
  */
@@ -3106,6 +3252,51 @@ export interface ApiRunEvaluationTestCaseOutput extends AdditionalDataHolder, Pa
     evaluationRunUuids?: string[] | null;
 }
 /**
+ * Metadata for scheduled indexing entries
+ */
+export interface ApiScheduledIndexingInfo extends AdditionalDataHolder, Parsable {
+    /**
+     * Created at timestamp
+     */
+    createdAt?: Date | null;
+    /**
+     * Days for execution (day is represented same as in a cron expression, e.g. Monday begins with 1 )
+     */
+    days?: number[] | null;
+    /**
+     * Deleted at timestamp (if soft deleted)
+     */
+    deletedAt?: Date | null;
+    /**
+     * Whether the schedule is currently active
+     */
+    isActive?: boolean | null;
+    /**
+     * Knowledge base uuid associated with this schedule
+     */
+    knowledgeBaseUuid?: string | null;
+    /**
+     * Last time the schedule was executed
+     */
+    lastRanAt?: Date | null;
+    /**
+     * Next scheduled run
+     */
+    nextRunAt?: Date | null;
+    /**
+     * Scheduled time of execution (HH:MM:SS format)
+     */
+    time?: string | null;
+    /**
+     * Updated at timestamp
+     */
+    updatedAt?: Date | null;
+    /**
+     * Unique identifier for the scheduled indexing entry
+     */
+    uuid?: string | null;
+}
+/**
  * Spaces Bucket Data Source
  */
 export interface ApiSpacesDataSource extends AdditionalDataHolder, Parsable {
@@ -3300,6 +3491,10 @@ export interface ApiUpdateAgentInputPublic extends AdditionalDataHolder, Parsabl
      */
     agentLogInsightsEnabled?: boolean | null;
     /**
+     * Optional list of allowed domains for the chatbot - Must use fully qualified domain name (FQDN) such as https://example.com
+     */
+    allowedDomains?: string[] | null;
+    /**
      * Optional anthropic key uuid for use with anthropic models
      */
     anthropicKeyUuid?: string | null;
@@ -3323,6 +3518,10 @@ export interface ApiUpdateAgentInputPublic extends AdditionalDataHolder, Parsabl
      * Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
      */
     maxTokens?: number | null;
+    /**
+     * Optional Model Provider uuid for use with provider models
+     */
+    modelProviderKeyUuid?: string | null;
     /**
      * Identifier for the foundation model.
      */
@@ -3613,6 +3812,10 @@ export interface ApiWebCrawlerDataSource extends AdditionalDataHolder, Parsable 
      * Whether to ingest and index media (images, etc.) on web pages.
      */
     embedMedia?: boolean | null;
+    /**
+     * Declaring which tags to exclude in web pages while webcrawling
+     */
+    excludeTags?: string[] | null;
 }
 export interface ApiWorkspace extends AdditionalDataHolder, Parsable {
     /**
@@ -7282,6 +7485,24 @@ export function createApiCreateOpenAIAPIKeyOutputFromDiscriminatorValue(parseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateScheduledIndexingInputPublic}
+ */
+// @ts-ignore
+export function createApiCreateScheduledIndexingInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateScheduledIndexingInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateScheduledIndexingOutput}
+ */
+// @ts-ignore
+export function createApiCreateScheduledIndexingOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateScheduledIndexingOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCreateWorkspaceInputPublic}
  */
 // @ts-ignore
@@ -7359,6 +7580,15 @@ export function createApiDeleteModelAPIKeyOutputFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createApiDeleteOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiDeleteOpenAIAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteScheduledIndexingOutput}
+ */
+// @ts-ignore
+export function createApiDeleteScheduledIndexingOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteScheduledIndexingOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -7570,6 +7800,15 @@ export function createApiGetEvaluationTestCaseOutputFromDiscriminatorValue(parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetIndexingJobDetailsSignedURLOutput}
+ */
+// @ts-ignore
+export function createApiGetIndexingJobDetailsSignedURLOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetIndexingJobDetailsSignedURLOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetKnowledgeBaseIndexingJobOutput}
  */
 // @ts-ignore
@@ -7597,11 +7836,38 @@ export function createApiGetOpenAIAPIKeyOutputFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetScheduledIndexingOutput}
+ */
+// @ts-ignore
+export function createApiGetScheduledIndexingOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetScheduledIndexingOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetWorkspaceOutput}
  */
 // @ts-ignore
 export function createApiGetWorkspaceOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiGetWorkspaceOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGoogleDriveDataSourceDisplay}
+ */
+// @ts-ignore
+export function createApiGoogleDriveDataSourceDisplayFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGoogleDriveDataSourceDisplay;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGoogleDriveDataSource}
+ */
+// @ts-ignore
+export function createApiGoogleDriveDataSourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGoogleDriveDataSource;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -7939,6 +8205,15 @@ export function createApiModelFromDiscriminatorValue(parseNode: ParseNode | unde
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelProviderKeyInfo}
+ */
+// @ts-ignore
+export function createApiModelProviderKeyInfoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelProviderKeyInfo;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiModelPublic}
  */
 // @ts-ignore
@@ -8079,6 +8354,15 @@ export function createApiRunEvaluationTestCaseInputPublicFromDiscriminatorValue(
 // @ts-ignore
 export function createApiRunEvaluationTestCaseOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiRunEvaluationTestCaseOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiScheduledIndexingInfo}
+ */
+// @ts-ignore
+export function createApiScheduledIndexingInfoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiScheduledIndexingInfo;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -13369,6 +13653,7 @@ export function deserializeIntoApiAgent(apiAgent: Partial<ApiAgent> | undefined 
         "logging_config": n => { apiAgent.loggingConfig = n.getObjectValue<ApiAgentLoggingConfig>(createApiAgentLoggingConfigFromDiscriminatorValue); },
         "max_tokens": n => { apiAgent.maxTokens = n.getNumberValue(); },
         "model": n => { apiAgent.model = n.getObjectValue<ApiModel>(createApiModelFromDiscriminatorValue); },
+        "model_provider_key": n => { apiAgent.modelProviderKey = n.getObjectValue<ApiModelProviderKeyInfo>(createApiModelProviderKeyInfoFromDiscriminatorValue); },
         "name": n => { apiAgent.name = n.getStringValue(); },
         "openai_api_key": n => { apiAgent.openaiApiKey = n.getObjectValue<ApiOpenAIAPIKeyInfo>(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
         "parent_agents": n => { apiAgent.parentAgents = n.getCollectionOfObjectValues<ApiAgent>(createApiAgentFromDiscriminatorValue); },
@@ -13389,6 +13674,8 @@ export function deserializeIntoApiAgent(apiAgent: Partial<ApiAgent> | undefined 
         "user_id": n => { apiAgent.userId = n.getStringValue(); },
         "uuid": n => { apiAgent.uuid = n.getStringValue(); },
         "version_hash": n => { apiAgent.versionHash = n.getStringValue(); },
+        "vpc_egress_ips": n => { apiAgent.vpcEgressIps = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_uuid": n => { apiAgent.vpcUuid = n.getStringValue(); },
         "workspace": n => { apiAgent.workspace = n.getObjectValue<ApiWorkspace>(createApiWorkspaceFromDiscriminatorValue); },
     }
 }
@@ -13794,6 +14081,7 @@ export function deserializeIntoApiCancelKnowledgeBaseIndexingJobOutput(apiCancel
 // @ts-ignore
 export function deserializeIntoApiChatbot(apiChatbot: Partial<ApiChatbot> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "allowed_domains": n => { apiChatbot.allowedDomains = n.getCollectionOfPrimitiveValues<string>(); },
         "button_background_color": n => { apiChatbot.buttonBackgroundColor = n.getStringValue(); },
         "logo": n => { apiChatbot.logo = n.getStringValue(); },
         "name": n => { apiChatbot.name = n.getStringValue(); },
@@ -13837,12 +14125,14 @@ export function deserializeIntoApiCreateAgentInputPublic(apiCreateAgentInputPubl
         "description": n => { apiCreateAgentInputPublic.description = n.getStringValue(); },
         "instruction": n => { apiCreateAgentInputPublic.instruction = n.getStringValue(); },
         "knowledge_base_uuid": n => { apiCreateAgentInputPublic.knowledgeBaseUuid = n.getCollectionOfPrimitiveValues<string>(); },
+        "model_provider_key_uuid": n => { apiCreateAgentInputPublic.modelProviderKeyUuid = n.getStringValue(); },
         "model_uuid": n => { apiCreateAgentInputPublic.modelUuid = n.getStringValue(); },
         "name": n => { apiCreateAgentInputPublic.name = n.getStringValue(); },
         "open_ai_key_uuid": n => { apiCreateAgentInputPublic.openAiKeyUuid = n.getStringValue(); },
         "project_id": n => { apiCreateAgentInputPublic.projectId = n.getStringValue(); },
         "region": n => { apiCreateAgentInputPublic.region = n.getStringValue(); },
         "tags": n => { apiCreateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "workspace_uuid": n => { apiCreateAgentInputPublic.workspaceUuid = n.getStringValue(); },
     }
 }
 /**
@@ -14053,6 +14343,30 @@ export function deserializeIntoApiCreateOpenAIAPIKeyOutput(apiCreateOpenAIAPIKey
 }
 /**
  * The deserialization information for the current model
+ * @param ApiCreateScheduledIndexingInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateScheduledIndexingInputPublic(apiCreateScheduledIndexingInputPublic: Partial<ApiCreateScheduledIndexingInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "days": n => { apiCreateScheduledIndexingInputPublic.days = n.getCollectionOfPrimitiveValues<number>(); },
+        "knowledge_base_uuid": n => { apiCreateScheduledIndexingInputPublic.knowledgeBaseUuid = n.getStringValue(); },
+        "time": n => { apiCreateScheduledIndexingInputPublic.time = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiCreateScheduledIndexingOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateScheduledIndexingOutput(apiCreateScheduledIndexingOutput: Partial<ApiCreateScheduledIndexingOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "indexing_info": n => { apiCreateScheduledIndexingOutput.indexingInfo = n.getObjectValue<ApiScheduledIndexingInfo>(createApiScheduledIndexingInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCreateWorkspaceInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -14151,6 +14465,17 @@ export function deserializeIntoApiDeleteModelAPIKeyOutput(apiDeleteModelAPIKeyOu
 export function deserializeIntoApiDeleteOpenAIAPIKeyOutput(apiDeleteOpenAIAPIKeyOutput: Partial<ApiDeleteOpenAIAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiDeleteOpenAIAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiOpenAIAPIKeyInfo>(createApiOpenAIAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDeleteScheduledIndexingOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteScheduledIndexingOutput(apiDeleteScheduledIndexingOutput: Partial<ApiDeleteScheduledIndexingOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "indexing_info": n => { apiDeleteScheduledIndexingOutput.indexingInfo = n.getObjectValue<ApiScheduledIndexingInfo>(createApiScheduledIndexingInfoFromDiscriminatorValue); },
     }
 }
 /**
@@ -14481,6 +14806,17 @@ export function deserializeIntoApiGetEvaluationTestCaseOutput(apiGetEvaluationTe
 }
 /**
  * The deserialization information for the current model
+ * @param ApiGetIndexingJobDetailsSignedURLOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetIndexingJobDetailsSignedURLOutput(apiGetIndexingJobDetailsSignedURLOutput: Partial<ApiGetIndexingJobDetailsSignedURLOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "signed_url": n => { apiGetIndexingJobDetailsSignedURLOutput.signedUrl = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiGetKnowledgeBaseIndexingJobOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -14515,6 +14851,17 @@ export function deserializeIntoApiGetOpenAIAPIKeyOutput(apiGetOpenAIAPIKeyOutput
 }
 /**
  * The deserialization information for the current model
+ * @param ApiGetScheduledIndexingOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetScheduledIndexingOutput(apiGetScheduledIndexingOutput: Partial<ApiGetScheduledIndexingOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "indexing_info": n => { apiGetScheduledIndexingOutput.indexingInfo = n.getObjectValue<ApiScheduledIndexingInfo>(createApiScheduledIndexingInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiGetWorkspaceOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -14522,6 +14869,30 @@ export function deserializeIntoApiGetOpenAIAPIKeyOutput(apiGetOpenAIAPIKeyOutput
 export function deserializeIntoApiGetWorkspaceOutput(apiGetWorkspaceOutput: Partial<ApiGetWorkspaceOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "workspace": n => { apiGetWorkspaceOutput.workspace = n.getObjectValue<ApiWorkspace>(createApiWorkspaceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGoogleDriveDataSource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGoogleDriveDataSource(apiGoogleDriveDataSource: Partial<ApiGoogleDriveDataSource> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "folder_id": n => { apiGoogleDriveDataSource.folderId = n.getStringValue(); },
+        "refresh_token": n => { apiGoogleDriveDataSource.refreshToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGoogleDriveDataSourceDisplay The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGoogleDriveDataSourceDisplay(apiGoogleDriveDataSourceDisplay: Partial<ApiGoogleDriveDataSourceDisplay> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "folder_id": n => { apiGoogleDriveDataSourceDisplay.folderId = n.getStringValue(); },
+        "folder_name": n => { apiGoogleDriveDataSourceDisplay.folderName = n.getStringValue(); },
     }
 }
 /**
@@ -14558,8 +14929,10 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob: Partial<ApiIndexin
     return {
         "completed_datasources": n => { apiIndexingJob.completedDatasources = n.getNumberValue(); },
         "created_at": n => { apiIndexingJob.createdAt = n.getDateValue(); },
+        "data_source_jobs": n => { apiIndexingJob.dataSourceJobs = n.getCollectionOfObjectValues<ApiIndexedDataSource>(createApiIndexedDataSourceFromDiscriminatorValue); },
         "data_source_uuids": n => { apiIndexingJob.dataSourceUuids = n.getCollectionOfPrimitiveValues<string>(); },
         "finished_at": n => { apiIndexingJob.finishedAt = n.getDateValue(); },
+        "is_report_available": n => { apiIndexingJob.isReportAvailable = n.getBooleanValue(); },
         "knowledge_base_uuid": n => { apiIndexingJob.knowledgeBaseUuid = n.getStringValue(); },
         "phase": n => { apiIndexingJob.phase = n.getEnumValue<ApiBatchJobPhase>(ApiBatchJobPhaseObject) ?? ApiBatchJobPhaseObject.BATCH_JOB_PHASE_UNKNOWN; },
         "started_at": n => { apiIndexingJob.startedAt = n.getDateValue(); },
@@ -14568,7 +14941,9 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob: Partial<ApiIndexin
         "total_datasources": n => { apiIndexingJob.totalDatasources = n.getNumberValue(); },
         "total_items_failed": n => { apiIndexingJob.totalItemsFailed = n.getStringValue(); },
         "total_items_indexed": n => { apiIndexingJob.totalItemsIndexed = n.getStringValue(); },
+        "total_items_removed": n => { apiIndexingJob.totalItemsRemoved = n.getStringValue(); },
         "total_items_skipped": n => { apiIndexingJob.totalItemsSkipped = n.getStringValue(); },
+        "total_tokens": n => { apiIndexingJob.totalTokens = n.getStringValue(); },
         "updated_at": n => { apiIndexingJob.updatedAt = n.getDateValue(); },
         "uuid": n => { apiIndexingJob.uuid = n.getStringValue(); },
     }
@@ -14586,6 +14961,7 @@ export function deserializeIntoApiKBDataSource(apiKBDataSource: Partial<ApiKBDat
         "bucket_region": n => { apiKBDataSource.bucketRegion = n.getStringValue(); },
         "dropbox_data_source": n => { apiKBDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSource>(createApiDropboxDataSourceFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKBDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
+        "google_drive_data_source": n => { apiKBDataSource.googleDriveDataSource = n.getObjectValue<ApiGoogleDriveDataSource>(createApiGoogleDriveDataSourceFromDiscriminatorValue); },
         "item_path": n => { apiKBDataSource.itemPath = n.getStringValue(); },
         "spaces_data_source": n => { apiKBDataSource.spacesDataSource = n.getObjectValue<ApiSpacesDataSource>(createApiSpacesDataSourceFromDiscriminatorValue); },
         "web_crawler_data_source": n => { apiKBDataSource.webCrawlerDataSource = n.getObjectValue<ApiWebCrawlerDataSource>(createApiWebCrawlerDataSourceFromDiscriminatorValue); },
@@ -14627,6 +15003,7 @@ export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSo
         "created_at": n => { apiKnowledgeBaseDataSource.createdAt = n.getDateValue(); },
         "dropbox_data_source": n => { apiKnowledgeBaseDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSourceDisplay>(createApiDropboxDataSourceDisplayFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKnowledgeBaseDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
+        "google_drive_data_source": n => { apiKnowledgeBaseDataSource.googleDriveDataSource = n.getObjectValue<ApiGoogleDriveDataSourceDisplay>(createApiGoogleDriveDataSourceDisplayFromDiscriminatorValue); },
         "item_path": n => { apiKnowledgeBaseDataSource.itemPath = n.getStringValue(); },
         "last_datasource_indexing_job": n => { apiKnowledgeBaseDataSource.lastDatasourceIndexingJob = n.getObjectValue<ApiIndexedDataSource>(createApiIndexedDataSourceFromDiscriminatorValue); },
         "last_indexing_job": n => { apiKnowledgeBaseDataSource.lastIndexingJob = n.getObjectValue<ApiIndexingJob>(createApiIndexingJobFromDiscriminatorValue); },
@@ -15045,6 +15422,24 @@ export function deserializeIntoApiModelAPIKeyInfo(apiModelAPIKeyInfo: Partial<Ap
 }
 /**
  * The deserialization information for the current model
+ * @param ApiModelProviderKeyInfo The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelProviderKeyInfo(apiModelProviderKeyInfo: Partial<ApiModelProviderKeyInfo> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "api_key_uuid": n => { apiModelProviderKeyInfo.apiKeyUuid = n.getStringValue(); },
+        "created_at": n => { apiModelProviderKeyInfo.createdAt = n.getDateValue(); },
+        "created_by": n => { apiModelProviderKeyInfo.createdBy = n.getStringValue(); },
+        "deleted_at": n => { apiModelProviderKeyInfo.deletedAt = n.getDateValue(); },
+        "models": n => { apiModelProviderKeyInfo.models = n.getCollectionOfObjectValues<ApiModel>(createApiModelFromDiscriminatorValue); },
+        "name": n => { apiModelProviderKeyInfo.name = n.getStringValue(); },
+        "provider": n => { apiModelProviderKeyInfo.provider = n.getEnumValue<ApiModelProvider>(ApiModelProviderObject) ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN; },
+        "updated_at": n => { apiModelProviderKeyInfo.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiModelPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -15262,6 +15657,26 @@ export function deserializeIntoApiRunEvaluationTestCaseOutput(apiRunEvaluationTe
 }
 /**
  * The deserialization information for the current model
+ * @param ApiScheduledIndexingInfo The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiScheduledIndexingInfo(apiScheduledIndexingInfo: Partial<ApiScheduledIndexingInfo> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { apiScheduledIndexingInfo.createdAt = n.getDateValue(); },
+        "days": n => { apiScheduledIndexingInfo.days = n.getCollectionOfPrimitiveValues<number>(); },
+        "deleted_at": n => { apiScheduledIndexingInfo.deletedAt = n.getDateValue(); },
+        "is_active": n => { apiScheduledIndexingInfo.isActive = n.getBooleanValue(); },
+        "knowledge_base_uuid": n => { apiScheduledIndexingInfo.knowledgeBaseUuid = n.getStringValue(); },
+        "last_ran_at": n => { apiScheduledIndexingInfo.lastRanAt = n.getDateValue(); },
+        "next_run_at": n => { apiScheduledIndexingInfo.nextRunAt = n.getDateValue(); },
+        "time": n => { apiScheduledIndexingInfo.time = n.getStringValue(); },
+        "updated_at": n => { apiScheduledIndexingInfo.updatedAt = n.getDateValue(); },
+        "uuid": n => { apiScheduledIndexingInfo.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiSpacesDataSource The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -15449,12 +15864,14 @@ export function deserializeIntoApiUpdateAgentFunctionOutput(apiUpdateAgentFuncti
 export function deserializeIntoApiUpdateAgentInputPublic(apiUpdateAgentInputPublic: Partial<ApiUpdateAgentInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_log_insights_enabled": n => { apiUpdateAgentInputPublic.agentLogInsightsEnabled = n.getBooleanValue(); },
+        "allowed_domains": n => { apiUpdateAgentInputPublic.allowedDomains = n.getCollectionOfPrimitiveValues<string>(); },
         "anthropic_key_uuid": n => { apiUpdateAgentInputPublic.anthropicKeyUuid = n.getStringValue(); },
         "conversation_logs_enabled": n => { apiUpdateAgentInputPublic.conversationLogsEnabled = n.getBooleanValue(); },
         "description": n => { apiUpdateAgentInputPublic.description = n.getStringValue(); },
         "instruction": n => { apiUpdateAgentInputPublic.instruction = n.getStringValue(); },
         "k": n => { apiUpdateAgentInputPublic.k = n.getNumberValue(); },
         "max_tokens": n => { apiUpdateAgentInputPublic.maxTokens = n.getNumberValue(); },
+        "model_provider_key_uuid": n => { apiUpdateAgentInputPublic.modelProviderKeyUuid = n.getStringValue(); },
         "model_uuid": n => { apiUpdateAgentInputPublic.modelUuid = n.getStringValue(); },
         "name": n => { apiUpdateAgentInputPublic.name = n.getStringValue(); },
         "open_ai_key_uuid": n => { apiUpdateAgentInputPublic.openAiKeyUuid = n.getStringValue(); },
@@ -15680,6 +16097,7 @@ export function deserializeIntoApiWebCrawlerDataSource(apiWebCrawlerDataSource: 
         "base_url": n => { apiWebCrawlerDataSource.baseUrl = n.getStringValue(); },
         "crawling_option": n => { apiWebCrawlerDataSource.crawlingOption = n.getEnumValue<ApiCrawlingOption>(ApiCrawlingOptionObject) ?? ApiCrawlingOptionObject.UNKNOWN; },
         "embed_media": n => { apiWebCrawlerDataSource.embedMedia = n.getBooleanValue(); },
+        "exclude_tags": n => { apiWebCrawlerDataSource.excludeTags = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -26647,6 +27065,7 @@ export function serializeApiAgent(writer: SerializationWriter, apiAgent: Partial
     writer.writeObjectValue<ApiAgentLoggingConfig>("logging_config", apiAgent.loggingConfig, serializeApiAgentLoggingConfig);
     writer.writeNumberValue("max_tokens", apiAgent.maxTokens);
     writer.writeObjectValue<ApiModel>("model", apiAgent.model, serializeApiModel);
+    writer.writeObjectValue<ApiModelProviderKeyInfo>("model_provider_key", apiAgent.modelProviderKey, serializeApiModelProviderKeyInfo);
     writer.writeStringValue("name", apiAgent.name);
     writer.writeObjectValue<ApiOpenAIAPIKeyInfo>("openai_api_key", apiAgent.openaiApiKey, serializeApiOpenAIAPIKeyInfo);
     writer.writeCollectionOfObjectValues<ApiAgent>("parent_agents", apiAgent.parentAgents, serializeApiAgent);
@@ -26667,6 +27086,8 @@ export function serializeApiAgent(writer: SerializationWriter, apiAgent: Partial
     writer.writeStringValue("user_id", apiAgent.userId);
     writer.writeStringValue("uuid", apiAgent.uuid);
     writer.writeStringValue("version_hash", apiAgent.versionHash);
+    writer.writeCollectionOfPrimitiveValues<string>("vpc_egress_ips", apiAgent.vpcEgressIps);
+    writer.writeStringValue("vpc_uuid", apiAgent.vpcUuid);
     writer.writeObjectValue<ApiWorkspace>("workspace", apiAgent.workspace, serializeApiWorkspace);
     writer.writeAdditionalData(apiAgent.additionalData);
 }
@@ -27097,6 +27518,7 @@ export function serializeApiCancelKnowledgeBaseIndexingJobOutput(writer: Seriali
 // @ts-ignore
 export function serializeApiChatbot(writer: SerializationWriter, apiChatbot: Partial<ApiChatbot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiChatbot || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("allowed_domains", apiChatbot.allowedDomains);
     writer.writeStringValue("button_background_color", apiChatbot.buttonBackgroundColor);
     writer.writeStringValue("logo", apiChatbot.logo);
     writer.writeStringValue("name", apiChatbot.name);
@@ -27143,12 +27565,14 @@ export function serializeApiCreateAgentInputPublic(writer: SerializationWriter, 
     writer.writeStringValue("description", apiCreateAgentInputPublic.description);
     writer.writeStringValue("instruction", apiCreateAgentInputPublic.instruction);
     writer.writeCollectionOfPrimitiveValues<string>("knowledge_base_uuid", apiCreateAgentInputPublic.knowledgeBaseUuid);
+    writer.writeStringValue("model_provider_key_uuid", apiCreateAgentInputPublic.modelProviderKeyUuid);
     writer.writeStringValue("model_uuid", apiCreateAgentInputPublic.modelUuid);
     writer.writeStringValue("name", apiCreateAgentInputPublic.name);
     writer.writeStringValue("open_ai_key_uuid", apiCreateAgentInputPublic.openAiKeyUuid);
     writer.writeStringValue("project_id", apiCreateAgentInputPublic.projectId);
     writer.writeStringValue("region", apiCreateAgentInputPublic.region);
     writer.writeCollectionOfPrimitiveValues<string>("tags", apiCreateAgentInputPublic.tags);
+    writer.writeStringValue("workspace_uuid", apiCreateAgentInputPublic.workspaceUuid);
     writer.writeAdditionalData(apiCreateAgentInputPublic.additionalData);
 }
 /**
@@ -27376,6 +27800,32 @@ export function serializeApiCreateOpenAIAPIKeyOutput(writer: SerializationWriter
 }
 /**
  * Serializes information the current object
+ * @param ApiCreateScheduledIndexingInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateScheduledIndexingInputPublic(writer: SerializationWriter, apiCreateScheduledIndexingInputPublic: Partial<ApiCreateScheduledIndexingInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateScheduledIndexingInputPublic || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<number>("days", apiCreateScheduledIndexingInputPublic.days);
+    writer.writeStringValue("knowledge_base_uuid", apiCreateScheduledIndexingInputPublic.knowledgeBaseUuid);
+    writer.writeStringValue("time", apiCreateScheduledIndexingInputPublic.time);
+    writer.writeAdditionalData(apiCreateScheduledIndexingInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiCreateScheduledIndexingOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateScheduledIndexingOutput(writer: SerializationWriter, apiCreateScheduledIndexingOutput: Partial<ApiCreateScheduledIndexingOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateScheduledIndexingOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiScheduledIndexingInfo>("indexing_info", apiCreateScheduledIndexingOutput.indexingInfo, serializeApiScheduledIndexingInfo);
+    writer.writeAdditionalData(apiCreateScheduledIndexingOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCreateWorkspaceInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -27484,6 +27934,18 @@ export function serializeApiDeleteOpenAIAPIKeyOutput(writer: SerializationWriter
     if (!apiDeleteOpenAIAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiOpenAIAPIKeyInfo>("api_key_info", apiDeleteOpenAIAPIKeyOutput.apiKeyInfo, serializeApiOpenAIAPIKeyInfo);
     writer.writeAdditionalData(apiDeleteOpenAIAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDeleteScheduledIndexingOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteScheduledIndexingOutput(writer: SerializationWriter, apiDeleteScheduledIndexingOutput: Partial<ApiDeleteScheduledIndexingOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteScheduledIndexingOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiScheduledIndexingInfo>("indexing_info", apiDeleteScheduledIndexingOutput.indexingInfo, serializeApiScheduledIndexingInfo);
+    writer.writeAdditionalData(apiDeleteScheduledIndexingOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -27836,6 +28298,18 @@ export function serializeApiGetEvaluationTestCaseOutput(writer: SerializationWri
 }
 /**
  * Serializes information the current object
+ * @param ApiGetIndexingJobDetailsSignedURLOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetIndexingJobDetailsSignedURLOutput(writer: SerializationWriter, apiGetIndexingJobDetailsSignedURLOutput: Partial<ApiGetIndexingJobDetailsSignedURLOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetIndexingJobDetailsSignedURLOutput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("signed_url", apiGetIndexingJobDetailsSignedURLOutput.signedUrl);
+    writer.writeAdditionalData(apiGetIndexingJobDetailsSignedURLOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiGetKnowledgeBaseIndexingJobOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -27873,6 +28347,18 @@ export function serializeApiGetOpenAIAPIKeyOutput(writer: SerializationWriter, a
 }
 /**
  * Serializes information the current object
+ * @param ApiGetScheduledIndexingOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetScheduledIndexingOutput(writer: SerializationWriter, apiGetScheduledIndexingOutput: Partial<ApiGetScheduledIndexingOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetScheduledIndexingOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiScheduledIndexingInfo>("indexing_info", apiGetScheduledIndexingOutput.indexingInfo, serializeApiScheduledIndexingInfo);
+    writer.writeAdditionalData(apiGetScheduledIndexingOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiGetWorkspaceOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -27882,6 +28368,32 @@ export function serializeApiGetWorkspaceOutput(writer: SerializationWriter, apiG
     if (!apiGetWorkspaceOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiWorkspace>("workspace", apiGetWorkspaceOutput.workspace, serializeApiWorkspace);
     writer.writeAdditionalData(apiGetWorkspaceOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGoogleDriveDataSource The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGoogleDriveDataSource(writer: SerializationWriter, apiGoogleDriveDataSource: Partial<ApiGoogleDriveDataSource> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGoogleDriveDataSource || isSerializingDerivedType) { return; }
+    writer.writeStringValue("folder_id", apiGoogleDriveDataSource.folderId);
+    writer.writeStringValue("refresh_token", apiGoogleDriveDataSource.refreshToken);
+    writer.writeAdditionalData(apiGoogleDriveDataSource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGoogleDriveDataSourceDisplay The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGoogleDriveDataSourceDisplay(writer: SerializationWriter, apiGoogleDriveDataSourceDisplay: Partial<ApiGoogleDriveDataSourceDisplay> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGoogleDriveDataSourceDisplay || isSerializingDerivedType) { return; }
+    writer.writeStringValue("folder_id", apiGoogleDriveDataSourceDisplay.folderId);
+    writer.writeStringValue("folder_name", apiGoogleDriveDataSourceDisplay.folderName);
+    writer.writeAdditionalData(apiGoogleDriveDataSourceDisplay.additionalData);
 }
 /**
  * Serializes information the current object
@@ -27919,8 +28431,10 @@ export function serializeApiIndexingJob(writer: SerializationWriter, apiIndexing
     if (!apiIndexingJob || isSerializingDerivedType) { return; }
     writer.writeNumberValue("completed_datasources", apiIndexingJob.completedDatasources);
     writer.writeDateValue("created_at", apiIndexingJob.createdAt);
+    writer.writeCollectionOfObjectValues<ApiIndexedDataSource>("data_source_jobs", apiIndexingJob.dataSourceJobs, serializeApiIndexedDataSource);
     writer.writeCollectionOfPrimitiveValues<string>("data_source_uuids", apiIndexingJob.dataSourceUuids);
     writer.writeDateValue("finished_at", apiIndexingJob.finishedAt);
+    writer.writeBooleanValue("is_report_available", apiIndexingJob.isReportAvailable);
     writer.writeStringValue("knowledge_base_uuid", apiIndexingJob.knowledgeBaseUuid);
     writer.writeEnumValue<ApiBatchJobPhase>("phase", apiIndexingJob.phase ?? ApiBatchJobPhaseObject.BATCH_JOB_PHASE_UNKNOWN);
     writer.writeDateValue("started_at", apiIndexingJob.startedAt);
@@ -27929,7 +28443,9 @@ export function serializeApiIndexingJob(writer: SerializationWriter, apiIndexing
     writer.writeNumberValue("total_datasources", apiIndexingJob.totalDatasources);
     writer.writeStringValue("total_items_failed", apiIndexingJob.totalItemsFailed);
     writer.writeStringValue("total_items_indexed", apiIndexingJob.totalItemsIndexed);
+    writer.writeStringValue("total_items_removed", apiIndexingJob.totalItemsRemoved);
     writer.writeStringValue("total_items_skipped", apiIndexingJob.totalItemsSkipped);
+    writer.writeStringValue("total_tokens", apiIndexingJob.totalTokens);
     writer.writeDateValue("updated_at", apiIndexingJob.updatedAt);
     writer.writeStringValue("uuid", apiIndexingJob.uuid);
     writer.writeAdditionalData(apiIndexingJob.additionalData);
@@ -27948,6 +28464,7 @@ export function serializeApiKBDataSource(writer: SerializationWriter, apiKBDataS
     writer.writeStringValue("bucket_region", apiKBDataSource.bucketRegion);
     writer.writeObjectValue<ApiDropboxDataSource>("dropbox_data_source", apiKBDataSource.dropboxDataSource, serializeApiDropboxDataSource);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKBDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
+    writer.writeObjectValue<ApiGoogleDriveDataSource>("google_drive_data_source", apiKBDataSource.googleDriveDataSource, serializeApiGoogleDriveDataSource);
     writer.writeStringValue("item_path", apiKBDataSource.itemPath);
     writer.writeObjectValue<ApiSpacesDataSource>("spaces_data_source", apiKBDataSource.spacesDataSource, serializeApiSpacesDataSource);
     writer.writeObjectValue<ApiWebCrawlerDataSource>("web_crawler_data_source", apiKBDataSource.webCrawlerDataSource, serializeApiWebCrawlerDataSource);
@@ -27991,6 +28508,7 @@ export function serializeApiKnowledgeBaseDataSource(writer: SerializationWriter,
     writer.writeDateValue("created_at", apiKnowledgeBaseDataSource.createdAt);
     writer.writeObjectValue<ApiDropboxDataSourceDisplay>("dropbox_data_source", apiKnowledgeBaseDataSource.dropboxDataSource, serializeApiDropboxDataSourceDisplay);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKnowledgeBaseDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
+    writer.writeObjectValue<ApiGoogleDriveDataSourceDisplay>("google_drive_data_source", apiKnowledgeBaseDataSource.googleDriveDataSource, serializeApiGoogleDriveDataSourceDisplay);
     writer.writeStringValue("item_path", apiKnowledgeBaseDataSource.itemPath);
     writer.writeObjectValue<ApiIndexedDataSource>("last_datasource_indexing_job", apiKnowledgeBaseDataSource.lastDatasourceIndexingJob, serializeApiIndexedDataSource);
     writer.writeObjectValue<ApiIndexingJob>("last_indexing_job", apiKnowledgeBaseDataSource.lastIndexingJob, serializeApiIndexingJob);
@@ -28442,6 +28960,25 @@ export function serializeApiModelAPIKeyInfo(writer: SerializationWriter, apiMode
 }
 /**
  * Serializes information the current object
+ * @param ApiModelProviderKeyInfo The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelProviderKeyInfo(writer: SerializationWriter, apiModelProviderKeyInfo: Partial<ApiModelProviderKeyInfo> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelProviderKeyInfo || isSerializingDerivedType) { return; }
+    writer.writeStringValue("api_key_uuid", apiModelProviderKeyInfo.apiKeyUuid);
+    writer.writeDateValue("created_at", apiModelProviderKeyInfo.createdAt);
+    writer.writeStringValue("created_by", apiModelProviderKeyInfo.createdBy);
+    writer.writeDateValue("deleted_at", apiModelProviderKeyInfo.deletedAt);
+    writer.writeCollectionOfObjectValues<ApiModel>("models", apiModelProviderKeyInfo.models, serializeApiModel);
+    writer.writeStringValue("name", apiModelProviderKeyInfo.name);
+    writer.writeEnumValue<ApiModelProvider>("provider", apiModelProviderKeyInfo.provider ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN);
+    writer.writeDateValue("updated_at", apiModelProviderKeyInfo.updatedAt);
+    writer.writeAdditionalData(apiModelProviderKeyInfo.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiModelPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -28675,6 +29212,27 @@ export function serializeApiRunEvaluationTestCaseOutput(writer: SerializationWri
 }
 /**
  * Serializes information the current object
+ * @param ApiScheduledIndexingInfo The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiScheduledIndexingInfo(writer: SerializationWriter, apiScheduledIndexingInfo: Partial<ApiScheduledIndexingInfo> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiScheduledIndexingInfo || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", apiScheduledIndexingInfo.createdAt);
+    writer.writeCollectionOfPrimitiveValues<number>("days", apiScheduledIndexingInfo.days);
+    writer.writeDateValue("deleted_at", apiScheduledIndexingInfo.deletedAt);
+    writer.writeBooleanValue("is_active", apiScheduledIndexingInfo.isActive);
+    writer.writeStringValue("knowledge_base_uuid", apiScheduledIndexingInfo.knowledgeBaseUuid);
+    writer.writeDateValue("last_ran_at", apiScheduledIndexingInfo.lastRanAt);
+    writer.writeDateValue("next_run_at", apiScheduledIndexingInfo.nextRunAt);
+    writer.writeStringValue("time", apiScheduledIndexingInfo.time);
+    writer.writeDateValue("updated_at", apiScheduledIndexingInfo.updatedAt);
+    writer.writeStringValue("uuid", apiScheduledIndexingInfo.uuid);
+    writer.writeAdditionalData(apiScheduledIndexingInfo.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiSpacesDataSource The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -28878,12 +29436,14 @@ export function serializeApiUpdateAgentFunctionOutput(writer: SerializationWrite
 export function serializeApiUpdateAgentInputPublic(writer: SerializationWriter, apiUpdateAgentInputPublic: Partial<ApiUpdateAgentInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiUpdateAgentInputPublic || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("agent_log_insights_enabled", apiUpdateAgentInputPublic.agentLogInsightsEnabled);
+    writer.writeCollectionOfPrimitiveValues<string>("allowed_domains", apiUpdateAgentInputPublic.allowedDomains);
     writer.writeStringValue("anthropic_key_uuid", apiUpdateAgentInputPublic.anthropicKeyUuid);
     writer.writeBooleanValue("conversation_logs_enabled", apiUpdateAgentInputPublic.conversationLogsEnabled);
     writer.writeStringValue("description", apiUpdateAgentInputPublic.description);
     writer.writeStringValue("instruction", apiUpdateAgentInputPublic.instruction);
     writer.writeNumberValue("k", apiUpdateAgentInputPublic.k);
     writer.writeNumberValue("max_tokens", apiUpdateAgentInputPublic.maxTokens);
+    writer.writeStringValue("model_provider_key_uuid", apiUpdateAgentInputPublic.modelProviderKeyUuid);
     writer.writeStringValue("model_uuid", apiUpdateAgentInputPublic.modelUuid);
     writer.writeStringValue("name", apiUpdateAgentInputPublic.name);
     writer.writeStringValue("open_ai_key_uuid", apiUpdateAgentInputPublic.openAiKeyUuid);
@@ -29126,6 +29686,7 @@ export function serializeApiWebCrawlerDataSource(writer: SerializationWriter, ap
     writer.writeStringValue("base_url", apiWebCrawlerDataSource.baseUrl);
     writer.writeEnumValue<ApiCrawlingOption>("crawling_option", apiWebCrawlerDataSource.crawlingOption ?? ApiCrawlingOptionObject.UNKNOWN);
     writer.writeBooleanValue("embed_media", apiWebCrawlerDataSource.embedMedia);
+    writer.writeCollectionOfPrimitiveValues<string>("exclude_tags", apiWebCrawlerDataSource.excludeTags);
     writer.writeAdditionalData(apiWebCrawlerDataSource.additionalData);
 }
 /**
@@ -37207,6 +37768,7 @@ export const ApiDeploymentStatusObject = {
     STATUS_UNDEPLOYING: "STATUS_UNDEPLOYING",
     STATUS_UNDEPLOYMENT_FAILED: "STATUS_UNDEPLOYMENT_FAILED",
     STATUS_DELETED: "STATUS_DELETED",
+    STATUS_BUILDING: "STATUS_BUILDING",
 } as const;
 /**
  * - VISIBILITY_UNKNOWN: The status of the deployment is unknown - VISIBILITY_DISABLED: The deployment is disabled and will no longer service requests - VISIBILITY_PLAYGROUND: Deprecated: No longer a valid state - VISIBILITY_PUBLIC: The deployment is public and will service requests from the public internet - VISIBILITY_PRIVATE: The deployment is private and will only service requests from other agents, or through API keys
@@ -37256,6 +37818,7 @@ export const ApiIndexedDataSourceStatusObject = {
     DATA_SOURCE_STATUS_PARTIALLY_UPDATED: "DATA_SOURCE_STATUS_PARTIALLY_UPDATED",
     DATA_SOURCE_STATUS_NOT_UPDATED: "DATA_SOURCE_STATUS_NOT_UPDATED",
     DATA_SOURCE_STATUS_FAILED: "DATA_SOURCE_STATUS_FAILED",
+    DATA_SOURCE_STATUS_CANCELLED: "DATA_SOURCE_STATUS_CANCELLED",
 } as const;
 export const ApiIndexJobStatusObject = {
     INDEX_JOB_STATUS_UNKNOWN: "INDEX_JOB_STATUS_UNKNOWN",

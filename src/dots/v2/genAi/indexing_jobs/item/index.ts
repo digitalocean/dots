@@ -8,6 +8,8 @@ import { CancelRequestBuilderRequestsMetadata, type CancelRequestBuilder } from 
 // @ts-ignore
 import { Data_sourcesRequestBuilderRequestsMetadata, type Data_sourcesRequestBuilder } from './data_sources/index.js';
 // @ts-ignore
+import { Details_signed_urlRequestBuilderRequestsMetadata, type Details_signed_urlRequestBuilder } from './details_signed_url/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -22,6 +24,10 @@ export interface Indexing_job_uuItemRequestBuilder extends BaseRequestBuilder<In
      * The data_sources property
      */
     get data_sources(): Data_sourcesRequestBuilder;
+    /**
+     * The details_signed_url property
+     */
+    get details_signed_url(): Details_signed_urlRequestBuilder;
     /**
      * To get status of an indexing Job for a knowledge base, send a GET request to `/v2/gen-ai/indexing_jobs/{uuid}`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -53,6 +59,9 @@ export const Indexing_job_uuItemRequestBuilderNavigationMetadata: Record<Exclude
     },
     data_sources: {
         requestsMetadata: Data_sourcesRequestBuilderRequestsMetadata,
+    },
+    details_signed_url: {
+        requestsMetadata: Details_signed_urlRequestBuilderRequestsMetadata,
     },
 };
 /**
