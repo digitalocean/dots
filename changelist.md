@@ -1,7 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@7026161 (2025-10-13T08:33:16Z)
-Target commit: digitalocean/openapi@25c9969 (2025-10-16T05:08:55Z)
+Current commit: digitalocean/openapi@25c9969 (2025-10-16T05:08:55Z)
+Target commit: digitalocean/openapi@6baac4a (2025-10-16T05:15:56Z)
 
-* digitalocean/openapi#1108: CON-12993 Add RDMA shared device plugin - 2025-10-16T05:08:55Z []
-* digitalocean/openapi#1107: Gen ai public api updated - 2025-10-15T06:20:58Z []
+* digitalocean/openapi#1091: CON-12531 Add DOKS multi-registries documentation - 2025-10-16T05:15:56Z []
