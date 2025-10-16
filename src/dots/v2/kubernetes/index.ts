@@ -6,6 +6,8 @@ import { ClustersRequestBuilderNavigationMetadata, ClustersRequestBuilderRequest
 // @ts-ignore
 import { OptionsRequestBuilderRequestsMetadata, type OptionsRequestBuilder } from './options/index.js';
 // @ts-ignore
+import { RegistriesRequestBuilderRequestsMetadata, type RegistriesRequestBuilder } from './registries/index.js';
+// @ts-ignore
 import { RegistryRequestBuilderRequestsMetadata, type RegistryRequestBuilder } from './registry/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
@@ -22,6 +24,10 @@ export interface KubernetesRequestBuilder extends BaseRequestBuilder<KubernetesR
      * The optionsPath property
      */
     get optionsPath(): OptionsRequestBuilder;
+    /**
+     * The registries property
+     */
+    get registries(): RegistriesRequestBuilder;
     /**
      * The registry property
      */
@@ -41,6 +47,9 @@ export const KubernetesRequestBuilderNavigationMetadata: Record<Exclude<keyof Ku
     },
     optionsPath: {
         requestsMetadata: OptionsRequestBuilderRequestsMetadata,
+    },
+    registries: {
+        requestsMetadata: RegistriesRequestBuilderRequestsMetadata,
     },
     registry: {
         requestsMetadata: RegistryRequestBuilderRequestsMetadata,

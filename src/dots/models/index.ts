@@ -6679,6 +6679,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      */
     region?: string | null;
     /**
+     * An array of integrated DOCR registries.
+     */
+    registries?: string[] | null;
+    /**
      * A read-only boolean value indicating if a container registry is integrated with the cluster.
      */
     registryEnabled?: boolean | null;
@@ -6730,6 +6734,16 @@ export interface Cluster_read_status extends AdditionalDataHolder, Parsable {
 }
 export type Cluster_read_status_state = (typeof Cluster_read_status_stateObject)[keyof typeof Cluster_read_status_stateObject];
 export interface Cluster_registries extends AdditionalDataHolder, Parsable {
+    /**
+     * An array containing the UUIDs of Kubernetes clusters.
+     */
+    clusterUuids?: string[] | null;
+    /**
+     * An array containing the registry names.
+     */
+    registries?: string[] | null;
+}
+export interface Cluster_registry extends AdditionalDataHolder, Parsable {
     /**
      * An array containing the UUIDs of Kubernetes clusters.
      */
@@ -10022,6 +10036,15 @@ export function createCluster_readFromDiscriminatorValue(parseNode: ParseNode | 
 // @ts-ignore
 export function createCluster_registriesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCluster_registries;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cluster_registry}
+ */
+// @ts-ignore
+export function createCluster_registryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCluster_registry;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18194,6 +18217,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "nvidia_gpu_device_plugin": n => { cluster_read.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
+        "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>(); },
         "registry_enabled": n => { cluster_read.registryEnabled = n.getBooleanValue(); },
         "routing_agent": n => { cluster_read.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "service_subnet": n => { cluster_read.serviceSubnet = n.getStringValue(); },
@@ -18226,6 +18250,18 @@ export function deserializeIntoCluster_read_status(cluster_read_status: Partial<
 export function deserializeIntoCluster_registries(cluster_registries: Partial<Cluster_registries> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "cluster_uuids": n => { cluster_registries.clusterUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "registries": n => { cluster_registries.registries = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Cluster_registry The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCluster_registry(cluster_registry: Partial<Cluster_registry> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cluster_uuids": n => { cluster_registry.clusterUuids = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -31944,6 +31980,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_read.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_read.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster_read.region);
+    writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_read.registries);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_read.routingAgent, serializeRouting_agent);
     writer.writeStringValue("service_subnet", cluster_read.serviceSubnet);
     writer.writeBooleanValue("surge_upgrade", cluster_read.surgeUpgrade);
@@ -31975,7 +32012,20 @@ export function serializeCluster_read_status(writer: SerializationWriter, cluste
 export function serializeCluster_registries(writer: SerializationWriter, cluster_registries: Partial<Cluster_registries> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!cluster_registries || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("cluster_uuids", cluster_registries.clusterUuids);
+    writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_registries.registries);
     writer.writeAdditionalData(cluster_registries.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Cluster_registry The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCluster_registry(writer: SerializationWriter, cluster_registry: Partial<Cluster_registry> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cluster_registry || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("cluster_uuids", cluster_registry.clusterUuids);
+    writer.writeAdditionalData(cluster_registry.additionalData);
 }
 /**
  * Serializes information the current object
