@@ -4,7 +4,9 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createNfs_create_responseFromDiscriminatorValue, createNfs_list_responseFromDiscriminatorValue, serializeNfs_create_response, serializeNfs_request, type ErrorEscaped, type Nfs_create_response, type Nfs_list_response, type Nfs_request } from '../../models/index.js';
 // @ts-ignore
-import { type WithNfs_ItemRequestBuilder, WithNfs_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+import { type WithNfs_ItemRequestBuilder, WithNfs_ItemRequestBuilderNavigationMetadata, WithNfs_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+// @ts-ignore
+import { SnapshotsRequestBuilderNavigationMetadata, SnapshotsRequestBuilderRequestsMetadata, type SnapshotsRequestBuilder } from './snapshots/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -12,6 +14,10 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  * Builds and executes requests for operations under /v2/nfs
  */
 export interface NfsRequestBuilder extends BaseRequestBuilder<NfsRequestBuilder> {
+    /**
+     * The snapshots property
+     */
+    get snapshots(): SnapshotsRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.nfs.item collection
      * @param nfs_id The unique ID of the NFS share
@@ -74,7 +80,12 @@ export const NfsRequestBuilderUriTemplate = "{+baseurl}/v2/nfs?region={region}";
 export const NfsRequestBuilderNavigationMetadata: Record<Exclude<keyof NfsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     byNfs_id: {
         requestsMetadata: WithNfs_ItemRequestBuilderRequestsMetadata,
+        navigationMetadata: WithNfs_ItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["nfs_id"],
+    },
+    snapshots: {
+        requestsMetadata: SnapshotsRequestBuilderRequestsMetadata,
+        navigationMetadata: SnapshotsRequestBuilderNavigationMetadata,
     },
 };
 /**

@@ -4,14 +4,20 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createNfs_get_responseFromDiscriminatorValue, type ErrorEscaped, type Nfs_get_response } from '../../../models/index.js';
 // @ts-ignore
-import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
+import { ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
+// @ts-ignore
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
  * Builds and executes requests for operations under /v2/nfs/{nfs_id}
  */
 export interface WithNfs_ItemRequestBuilder extends BaseRequestBuilder<WithNfs_ItemRequestBuilder> {
     /**
-     * To delete an NFS share, send a DELETE request to `/v2/nfs/$ID?region=${region}`.A successful request will return a `204 No Content` status code.
+     * The actions property
+     */
+    get actions(): ActionsRequestBuilder;
+    /**
+     * To delete an NFS share, send a DELETE request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return a `204 No Content` status code.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -21,7 +27,7 @@ export interface WithNfs_ItemRequestBuilder extends BaseRequestBuilder<WithNfs_I
      */
      delete(requestConfiguration?: RequestConfiguration<WithNfs_ItemRequestBuilderDeleteQueryParameters> | undefined) : Promise<void>;
     /**
-     * To get an NFS share, send a GET request to `/v2/nfs/$ID?region=${region}`.A successful request will return the NFS share.
+     * To get an NFS share, send a GET request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return the NFS share.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Nfs_get_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -32,20 +38,20 @@ export interface WithNfs_ItemRequestBuilder extends BaseRequestBuilder<WithNfs_I
      */
      get(requestConfiguration?: RequestConfiguration<WithNfs_ItemRequestBuilderGetQueryParameters> | undefined) : Promise<Nfs_get_response | undefined>;
     /**
-     * To delete an NFS share, send a DELETE request to `/v2/nfs/$ID?region=${region}`.A successful request will return a `204 No Content` status code.
+     * To delete an NFS share, send a DELETE request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return a `204 No Content` status code.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<WithNfs_ItemRequestBuilderDeleteQueryParameters> | undefined) : RequestInformation;
     /**
-     * To get an NFS share, send a GET request to `/v2/nfs/$ID?region=${region}`.A successful request will return the NFS share.
+     * To get an NFS share, send a GET request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return the NFS share.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<WithNfs_ItemRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To delete an NFS share, send a DELETE request to `/v2/nfs/$ID?region=${region}`.A successful request will return a `204 No Content` status code.
+ * To delete an NFS share, send a DELETE request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return a `204 No Content` status code.
  */
 export interface WithNfs_ItemRequestBuilderDeleteQueryParameters {
     /**
@@ -54,7 +60,7 @@ export interface WithNfs_ItemRequestBuilderDeleteQueryParameters {
     region?: string;
 }
 /**
- * To get an NFS share, send a GET request to `/v2/nfs/$ID?region=${region}`.A successful request will return the NFS share.
+ * To get an NFS share, send a GET request to `/v2/nfs/{nfs_id}?region=${region}`.A successful request will return the NFS share.
  */
 export interface WithNfs_ItemRequestBuilderGetQueryParameters {
     /**
@@ -66,6 +72,14 @@ export interface WithNfs_ItemRequestBuilderGetQueryParameters {
  * Uri template for the request builder.
  */
 export const WithNfs_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/nfs/{nfs_id}?region={region}";
+/**
+ * Metadata for all the navigation properties in the request builder.
+ */
+export const WithNfs_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithNfs_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    actions: {
+        requestsMetadata: ActionsRequestBuilderRequestsMetadata,
+    },
+};
 /**
  * Metadata for all the requests in the request builder.
  */
