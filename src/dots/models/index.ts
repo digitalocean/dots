@@ -6139,6 +6139,10 @@ export interface Backup extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * Indicates if this backup is a full or an incremental one (available only for MySQL).
+     */
+    incremental?: boolean | null;
+    /**
      * The size of the database backup in GBs.
      */
     sizeGigabytes?: number | null;
@@ -17983,6 +17987,7 @@ export function deserializeIntoAutoscale_pool_static_config(autoscale_pool_stati
 export function deserializeIntoBackup(backup: Partial<Backup> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "created_at": n => { backup.createdAt = n.getDateValue(); },
+        "incremental": n => { backup.incremental = n.getBooleanValue(); },
         "size_gigabytes": n => { backup.sizeGigabytes = n.getNumberValue(); },
     }
 }
@@ -32004,6 +32009,7 @@ export function serializeAutoscale_pool_static_config(writer: SerializationWrite
 export function serializeBackup(writer: SerializationWriter, backup: Partial<Backup> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!backup || isSerializingDerivedType) { return; }
     writer.writeDateValue("created_at", backup.createdAt);
+    writer.writeBooleanValue("incremental", backup.incremental);
     writer.writeNumberValue("size_gigabytes", backup.sizeGigabytes);
     writer.writeAdditionalData(backup.additionalData);
 }
