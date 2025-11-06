@@ -11596,6 +11596,42 @@ export function createNetwork_v6FromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_attach_params}
+ */
+// @ts-ignore
+export function createNfs_action_attach_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_attach_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_attach}
+ */
+// @ts-ignore
+export function createNfs_action_attachFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_attach;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_detach_params}
+ */
+// @ts-ignore
+export function createNfs_action_detach_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_detach_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_detach}
+ */
+// @ts-ignore
+export function createNfs_action_detachFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_detach;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_action_resize_params}
  */
 // @ts-ignore
@@ -20787,6 +20823,52 @@ export function deserializeIntoNfs_action(nfs_action: Partial<Nfs_action> | unde
 }
 /**
  * The deserialization information for the current model
+ * @param Nfs_action_attach The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_attach(nfs_action_attach: Partial<Nfs_action_attach> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoNfs_action(nfs_action_attach),
+        "params": n => { nfs_action_attach.params = n.getObjectValue<Nfs_action_attach_params>(createNfs_action_attach_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_attach_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_attach_params(nfs_action_attach_params: Partial<Nfs_action_attach_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vpc_id": n => { nfs_action_attach_params.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_detach The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_detach(nfs_action_detach: Partial<Nfs_action_detach> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoNfs_action(nfs_action_detach),
+        "params": n => { nfs_action_detach.params = n.getObjectValue<Nfs_action_detach_params>(createNfs_action_detach_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_detach_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_detach_params(nfs_action_detach_params: Partial<Nfs_action_detach_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vpc_id": n => { nfs_action_detach_params.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Nfs_action_resize The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -25394,6 +25476,30 @@ export interface Nfs_action extends AdditionalDataHolder, Parsable {
      * The type of action to initiate for the NFS share (such as resize or snapshot).
      */
     type?: Nfs_action_type | null;
+}
+export interface Nfs_action_attach extends Nfs_action, Parsable {
+    /**
+     * The params property
+     */
+    params?: Nfs_action_attach_params | null;
+}
+export interface Nfs_action_attach_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The ID of the VPC to which the NFS share will be attached
+     */
+    vpcId?: string | null;
+}
+export interface Nfs_action_detach extends Nfs_action, Parsable {
+    /**
+     * The params property
+     */
+    params?: Nfs_action_detach_params | null;
+}
+export interface Nfs_action_detach_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The ID of the VPC from which the NFS share will be detached
+     */
+    vpcId?: string | null;
 }
 export interface Nfs_action_resize extends Nfs_action, Parsable {
     /**
@@ -34918,6 +35024,54 @@ export function serializeNfs_action(writer: SerializationWriter, nfs_action: Par
     writer.writeStringValue("region", nfs_action.region);
     writer.writeEnumValue<Nfs_action_type>("type", nfs_action.type);
     writer.writeAdditionalData(nfs_action.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_attach The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_attach(writer: SerializationWriter, nfs_action_attach: Partial<Nfs_action_attach> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_attach || isSerializingDerivedType) { return; }
+    serializeNfs_action(writer, nfs_action_attach, isSerializingDerivedType)
+    writer.writeObjectValue<Nfs_action_attach_params>("params", nfs_action_attach.params, serializeNfs_action_attach_params);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_attach_params The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_attach_params(writer: SerializationWriter, nfs_action_attach_params: Partial<Nfs_action_attach_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_attach_params || isSerializingDerivedType) { return; }
+    writer.writeStringValue("vpc_id", nfs_action_attach_params.vpcId);
+    writer.writeAdditionalData(nfs_action_attach_params.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_detach The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_detach(writer: SerializationWriter, nfs_action_detach: Partial<Nfs_action_detach> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_detach || isSerializingDerivedType) { return; }
+    serializeNfs_action(writer, nfs_action_detach, isSerializingDerivedType)
+    writer.writeObjectValue<Nfs_action_detach_params>("params", nfs_action_detach.params, serializeNfs_action_detach_params);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_detach_params The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_detach_params(writer: SerializationWriter, nfs_action_detach_params: Partial<Nfs_action_detach_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_detach_params || isSerializingDerivedType) { return; }
+    writer.writeStringValue("vpc_id", nfs_action_detach_params.vpcId);
+    writer.writeAdditionalData(nfs_action_detach_params.additionalData);
 }
 /**
  * Serializes information the current object
