@@ -11398,6 +11398,15 @@ export function createLogsink_createFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Logsink_schema}
+ */
+// @ts-ignore
+export function createLogsink_schemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoLogsink_schema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
  */
 // @ts-ignore
@@ -20498,6 +20507,17 @@ export function deserializeIntoLogsink_create_config(logsink_create_config: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Logsink_schema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoLogsink_schema(logsink_schema: Partial<Logsink_schema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoLogsink_verbose(logsink_schema),
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Logsink_update The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -25066,6 +25086,8 @@ export interface Logsink_create extends Logsink_base, Parsable {
     config?: Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink | null;
 }
 export type Logsink_create_config = Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink;
+export interface Logsink_schema extends Logsink_verbose, Parsable {
+}
 export interface Logsink_update extends AdditionalDataHolder, Parsable {
     /**
      * The config property
@@ -34683,6 +34705,17 @@ export function serializeLogsink_create_config(writer: SerializationWriter, logs
     serializeElasticsearch_logsink(writer, logsink_create_config as Elasticsearch_logsink);
     serializeOpensearch_logsink(writer, logsink_create_config as Opensearch_logsink);
     serializeRsyslog_logsink(writer, logsink_create_config as Rsyslog_logsink);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Logsink_schema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeLogsink_schema(writer: SerializationWriter, logsink_schema: Partial<Logsink_schema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!logsink_schema || isSerializingDerivedType) { return; }
+    serializeLogsink_verbose(writer, logsink_schema, isSerializingDerivedType)
 }
 /**
  * Serializes information the current object
