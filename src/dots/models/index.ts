@@ -112,6 +112,279 @@ export interface Action_link extends AdditionalDataHolder, Parsable {
     rel?: string | null;
 }
 export type Action_status = (typeof Action_statusObject)[keyof typeof Action_statusObject];
+export interface Addons_app_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The slug identifier for the application associated with the resource.
+     */
+    appSlug?: string | null;
+    /**
+     * The End User License Agreement URL for the resource.
+     */
+    eula?: string | null;
+    /**
+     * A list of plans available for the resource.
+     */
+    plans?: Addons_plan[] | null;
+    /**
+     * The Terms of Service URL for the resource.
+     */
+    tos?: string | null;
+}
+export interface Addons_app_metadata extends AdditionalDataHolder, Parsable {
+    /**
+     * A brief description of the metadata item.
+     */
+    description?: string | null;
+    /**
+     * The display name of the metadata item.
+     */
+    displayName?: string | null;
+    /**
+     * Unique identifier for the addon metadata item.
+     */
+    id?: number | null;
+    /**
+     * The name of the metadata item.
+     */
+    name?: string | null;
+    /**
+     * The options property
+     */
+    options?: string[] | null;
+    /**
+     * The data type of the metadata value.
+     */
+    type?: Addons_app_metadata_type | null;
+}
+export type Addons_app_metadata_type = (typeof Addons_app_metadata_typeObject)[keyof typeof Addons_app_metadata_typeObject];
+export interface Addons_dimension_volume_with_price extends AdditionalDataHolder, Parsable {
+    /**
+     * Unique identifier for the addon.
+     */
+    id?: number | null;
+    /**
+     * The minimum volume for the volume pricing tier.
+     */
+    lowVolume?: number | null;
+    /**
+     * The maximum volume for the volume pricing tier.
+     */
+    maxVolume?: number | null;
+    /**
+     * The price per unit for the volume tier in US dollars.
+     */
+    pricePerUnit?: string | null;
+}
+export interface Addons_dimension_with_price extends AdditionalDataHolder, Parsable {
+    /**
+     * Display name for the dimension.
+     */
+    displayName?: string | null;
+    /**
+     * Name of the feature associated with the dimension.
+     */
+    featureName?: string | null;
+    /**
+     * Unique identifier for the dimension.
+     */
+    id?: number | null;
+    /**
+     * Unique string identifier for the dimension, tied to a price.
+     */
+    sku?: string | null;
+    /**
+     * Slug identifier for the dimension.
+     */
+    slug?: string | null;
+    /**
+     * A list of volumes associated with the dimension, each with its own price.
+     */
+    volumes?: Addons_dimension_volume_with_price[] | null;
+}
+export interface Addons_feature extends AdditionalDataHolder, Parsable {
+    /**
+     * Timestamp when the feature was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Unique identifier for the app feature.
+     */
+    id?: number | null;
+    /**
+     * Name of the feature.
+     */
+    name?: string | null;
+    /**
+     * Feature type, indicating the kind of data it holds.
+     */
+    type?: Addons_feature_type | null;
+    /**
+     * Unit of measurement for the feature, if applicable. Units apply to allowance features.
+     */
+    unit?: Addons_feature_unit | null;
+    /**
+     * Timestamp when the feature was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * Value of the feature, which can vary based on the type.
+     */
+    value?: boolean | string | null;
+}
+export type Addons_feature_type = (typeof Addons_feature_typeObject)[keyof typeof Addons_feature_typeObject];
+export type Addons_feature_unit = (typeof Addons_feature_unitObject)[keyof typeof Addons_feature_unitObject];
+export type Addons_feature_value = boolean | string;
+export interface Addons_plan extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates if the plan is currently active.
+     */
+    active?: boolean | null;
+    /**
+     * ID of the app associated with this plan.
+     */
+    appId?: number | null;
+    /**
+     * Indicates if the plan is available for selection.
+     */
+    available?: boolean | null;
+    /**
+     * Indicates if this plan is the default option for the app.
+     */
+    byDefault?: boolean | null;
+    /**
+     * Timestamp when the plan was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Description of an app plan.
+     */
+    description?: string | null;
+    /**
+     * List of dimensions associated with the plan, each with its own pricing.
+     */
+    dimensions?: Addons_dimension_with_price[] | null;
+    /**
+     * Display name for a given plan.
+     */
+    displayName?: string | null;
+    /**
+     * List of features included in the plan.
+     */
+    features?: Addons_feature[] | null;
+    /**
+     * ID of a given plan.
+     */
+    id?: number | null;
+    /**
+     * Price of a month's usage of the plan in US dollars.
+     */
+    pricePerMonth?: number | null;
+    /**
+     * Slug identifier for the plan.
+     */
+    slug?: string | null;
+    /**
+     * Current state of the plan.
+     */
+    state?: Addons_plan_state | null;
+    /**
+     * Timestamp when the plan was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * Unique identifier for the plan.
+     */
+    uuid?: string | null;
+}
+export type Addons_plan_state = (typeof Addons_plan_stateObject)[keyof typeof Addons_plan_stateObject];
+export interface Addons_resource extends AdditionalDataHolder, Parsable {
+    /**
+     * The name of the application associated with the resource.
+     */
+    appName?: string | null;
+    /**
+     * The slug identifier for the application associated with the resource.
+     */
+    appSlug?: string | null;
+    /**
+     * Indicates if the resource has configuration values set by the vendor.
+     */
+    hasConfig?: boolean | null;
+    /**
+     * A message related to the resource, if applicable.
+     */
+    message?: string | null;
+    /**
+     * Metadata associated with the resource, set by the user.
+     */
+    metadata?: Addons_resource_metadata[] | null;
+    /**
+     * The name of the addon resource.
+     */
+    name?: string | null;
+    /**
+     * The name of the plan associated with the resource.
+     */
+    planName?: string | null;
+    /**
+     * The price of the plan per month in US dollars.
+     */
+    planPricePerMonth?: number | null;
+    /**
+     * The slug identifier for the plan associated with the resource.
+     */
+    planSlug?: string | null;
+    /**
+     * The Single Sign-On URL for the resource, if applicable.
+     */
+    ssoUrl?: string | null;
+    /**
+     * The state the resource is currently in.
+     */
+    state?: Addons_resource_state | null;
+    /**
+     * The unique identifier for the addon resource.
+     */
+    uuid?: string | null;
+}
+export interface Addons_resource_metadata extends AdditionalDataHolder, Parsable {
+    /**
+     * The name of the metadata item to be set.
+     */
+    name?: string | null;
+    /**
+     * The value to be set for the metadata item, which can be a string or boolean.
+     */
+    value?: boolean | string | null;
+}
+export type Addons_resource_metadata_value = boolean | string;
+export interface Addons_resource_new extends AdditionalDataHolder, Parsable {
+    /**
+     * The slug identifier for the application associated with the resource.
+     */
+    appSlug?: string | null;
+    /**
+     * UUID of the fleet/project to which this resource will belong.
+     */
+    fleetUuid?: string | null;
+    /**
+     * ID of the droplet to be linked to this resource, if applicable.
+     */
+    linkedDropletId?: number | null;
+    /**
+     * Metadata associated with the resource, set by the user. Metadata expected varies per app, and can be verified with a GET request to "/v2/add-ons/apps/{app_slug}/metadata"
+     */
+    metadata?: Addons_resource_metadata[] | null;
+    /**
+     * The name of the addon resource.
+     */
+    name?: string | null;
+    /**
+     * The slug identifier for the plan associated with the resource.
+     */
+    planSlug?: string | null;
+}
+export type Addons_resource_state = (typeof Addons_resource_stateObject)[keyof typeof Addons_resource_stateObject];
 export interface Alert extends AdditionalDataHolder, Parsable {
     /**
      * The comparison operator used against the alert's threshold.
@@ -7038,6 +7311,105 @@ export function createActionFromDiscriminatorValue(parseNode: ParseNode | undefi
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_app_info}
+ */
+// @ts-ignore
+export function createAddons_app_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_app_info;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_app_metadata}
+ */
+// @ts-ignore
+export function createAddons_app_metadataFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_app_metadata;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_dimension_volume_with_price}
+ */
+// @ts-ignore
+export function createAddons_dimension_volume_with_priceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_dimension_volume_with_price;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_dimension_with_price}
+ */
+// @ts-ignore
+export function createAddons_dimension_with_priceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_dimension_with_price;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {boolean | string}
+ */
+// @ts-ignore
+export function createAddons_feature_valueFromDiscriminatorValue(parseNode: ParseNode | undefined) : boolean | string | undefined {
+    return parseNode?.getBooleanValue() ?? parseNode?.getStringValue();
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_feature}
+ */
+// @ts-ignore
+export function createAddons_featureFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_feature;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_plan}
+ */
+// @ts-ignore
+export function createAddons_planFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_plan;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {boolean | string}
+ */
+// @ts-ignore
+export function createAddons_resource_metadata_valueFromDiscriminatorValue(parseNode: ParseNode | undefined) : boolean | string | undefined {
+    return parseNode?.getBooleanValue() ?? parseNode?.getStringValue();
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_resource_metadata}
+ */
+// @ts-ignore
+export function createAddons_resource_metadataFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_resource_metadata;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_resource_new}
+ */
+// @ts-ignore
+export function createAddons_resource_newFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_resource_new;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Addons_resource}
+ */
+// @ts-ignore
+export function createAddons_resourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAddons_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Alert_policy_request}
  */
 // @ts-ignore
@@ -11398,6 +11770,15 @@ export function createLogsink_createFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Logsink_schema}
+ */
+// @ts-ignore
+export function createLogsink_schemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoLogsink_schema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink}
  */
 // @ts-ignore
@@ -13692,6 +14073,158 @@ export function deserializeIntoAction_link(action_link: Partial<Action_link> | u
         "href": n => { action_link.href = n.getStringValue(); },
         "id": n => { action_link.id = n.getNumberValue(); },
         "rel": n => { action_link.rel = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_app_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_app_info(addons_app_info: Partial<Addons_app_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "app_slug": n => { addons_app_info.appSlug = n.getStringValue(); },
+        "eula": n => { addons_app_info.eula = n.getStringValue(); },
+        "plans": n => { addons_app_info.plans = n.getCollectionOfObjectValues<Addons_plan>(createAddons_planFromDiscriminatorValue); },
+        "tos": n => { addons_app_info.tos = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_app_metadata The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_app_metadata(addons_app_metadata: Partial<Addons_app_metadata> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { addons_app_metadata.description = n.getStringValue(); },
+        "display_name": n => { addons_app_metadata.displayName = n.getStringValue(); },
+        "id": n => { addons_app_metadata.id = n.getNumberValue(); },
+        "name": n => { addons_app_metadata.name = n.getStringValue(); },
+        "options": n => { addons_app_metadata.options = n.getCollectionOfPrimitiveValues<string>(); },
+        "type": n => { addons_app_metadata.type = n.getEnumValue<Addons_app_metadata_type>(Addons_app_metadata_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_dimension_volume_with_price The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_dimension_volume_with_price(addons_dimension_volume_with_price: Partial<Addons_dimension_volume_with_price> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { addons_dimension_volume_with_price.id = n.getNumberValue(); },
+        "low_volume": n => { addons_dimension_volume_with_price.lowVolume = n.getNumberValue(); },
+        "max_volume": n => { addons_dimension_volume_with_price.maxVolume = n.getNumberValue(); },
+        "price_per_unit": n => { addons_dimension_volume_with_price.pricePerUnit = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_dimension_with_price The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_dimension_with_price(addons_dimension_with_price: Partial<Addons_dimension_with_price> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "display_name": n => { addons_dimension_with_price.displayName = n.getStringValue(); },
+        "feature_name": n => { addons_dimension_with_price.featureName = n.getStringValue(); },
+        "id": n => { addons_dimension_with_price.id = n.getNumberValue(); },
+        "sku": n => { addons_dimension_with_price.sku = n.getStringValue(); },
+        "slug": n => { addons_dimension_with_price.slug = n.getStringValue(); },
+        "volumes": n => { addons_dimension_with_price.volumes = n.getCollectionOfObjectValues<Addons_dimension_volume_with_price>(createAddons_dimension_volume_with_priceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_feature The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_feature(addons_feature: Partial<Addons_feature> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { addons_feature.createdAt = n.getDateValue(); },
+        "id": n => { addons_feature.id = n.getNumberValue(); },
+        "name": n => { addons_feature.name = n.getStringValue(); },
+        "type": n => { addons_feature.type = n.getEnumValue<Addons_feature_type>(Addons_feature_typeObject); },
+        "unit": n => { addons_feature.unit = n.getEnumValue<Addons_feature_unit>(Addons_feature_unitObject); },
+        "updated_at": n => { addons_feature.updatedAt = n.getDateValue(); },
+        "value": n => { addons_feature.value = n.getBooleanValue() ?? n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_plan The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_plan(addons_plan: Partial<Addons_plan> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "active": n => { addons_plan.active = n.getBooleanValue(); },
+        "app_id": n => { addons_plan.appId = n.getNumberValue(); },
+        "available": n => { addons_plan.available = n.getBooleanValue(); },
+        "by_default": n => { addons_plan.byDefault = n.getBooleanValue(); },
+        "created_at": n => { addons_plan.createdAt = n.getDateValue(); },
+        "description": n => { addons_plan.description = n.getStringValue(); },
+        "dimensions": n => { addons_plan.dimensions = n.getCollectionOfObjectValues<Addons_dimension_with_price>(createAddons_dimension_with_priceFromDiscriminatorValue); },
+        "display_name": n => { addons_plan.displayName = n.getStringValue(); },
+        "features": n => { addons_plan.features = n.getCollectionOfObjectValues<Addons_feature>(createAddons_featureFromDiscriminatorValue); },
+        "id": n => { addons_plan.id = n.getNumberValue(); },
+        "price_per_month": n => { addons_plan.pricePerMonth = n.getNumberValue(); },
+        "slug": n => { addons_plan.slug = n.getStringValue(); },
+        "state": n => { addons_plan.state = n.getEnumValue<Addons_plan_state>(Addons_plan_stateObject); },
+        "updated_at": n => { addons_plan.updatedAt = n.getDateValue(); },
+        "uuid": n => { addons_plan.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_resource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_resource(addons_resource: Partial<Addons_resource> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "app_name": n => { addons_resource.appName = n.getStringValue(); },
+        "app_slug": n => { addons_resource.appSlug = n.getStringValue(); },
+        "has_config": n => { addons_resource.hasConfig = n.getBooleanValue(); },
+        "message": n => { addons_resource.message = n.getStringValue(); },
+        "metadata": n => { addons_resource.metadata = n.getCollectionOfObjectValues<Addons_resource_metadata>(createAddons_resource_metadataFromDiscriminatorValue); },
+        "name": n => { addons_resource.name = n.getStringValue(); },
+        "plan_name": n => { addons_resource.planName = n.getStringValue(); },
+        "plan_price_per_month": n => { addons_resource.planPricePerMonth = n.getNumberValue(); },
+        "plan_slug": n => { addons_resource.planSlug = n.getStringValue(); },
+        "sso_url": n => { addons_resource.ssoUrl = n.getStringValue(); },
+        "state": n => { addons_resource.state = n.getEnumValue<Addons_resource_state>(Addons_resource_stateObject); },
+        "uuid": n => { addons_resource.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_resource_metadata The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_resource_metadata(addons_resource_metadata: Partial<Addons_resource_metadata> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { addons_resource_metadata.name = n.getStringValue(); },
+        "value": n => { addons_resource_metadata.value = n.getBooleanValue() ?? n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Addons_resource_new The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAddons_resource_new(addons_resource_new: Partial<Addons_resource_new> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "app_slug": n => { addons_resource_new.appSlug = n.getStringValue(); },
+        "fleet_uuid": n => { addons_resource_new.fleetUuid = n.getStringValue(); },
+        "linked_droplet_id": n => { addons_resource_new.linkedDropletId = n.getNumberValue(); },
+        "metadata": n => { addons_resource_new.metadata = n.getCollectionOfObjectValues<Addons_resource_metadata>(createAddons_resource_metadataFromDiscriminatorValue); },
+        "name": n => { addons_resource_new.name = n.getStringValue(); },
+        "plan_slug": n => { addons_resource_new.planSlug = n.getStringValue(); },
     }
 }
 /**
@@ -20498,6 +21031,17 @@ export function deserializeIntoLogsink_create_config(logsink_create_config: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Logsink_schema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoLogsink_schema(logsink_schema: Partial<Logsink_schema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoLogsink_verbose(logsink_schema),
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Logsink_update The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -25066,6 +25610,8 @@ export interface Logsink_create extends Logsink_base, Parsable {
     config?: Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink | null;
 }
 export type Logsink_create_config = Datadog_logsink | Elasticsearch_logsink | Opensearch_logsink | Rsyslog_logsink;
+export interface Logsink_schema extends Logsink_verbose, Parsable {
+}
 export interface Logsink_update extends AdditionalDataHolder, Parsable {
     /**
      * The config property
@@ -27463,6 +28009,211 @@ export function serializeAction_link(writer: SerializationWriter, action_link: P
     writer.writeNumberValue("id", action_link.id);
     writer.writeStringValue("rel", action_link.rel);
     writer.writeAdditionalData(action_link.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_app_info The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_app_info(writer: SerializationWriter, addons_app_info: Partial<Addons_app_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_app_info || isSerializingDerivedType) { return; }
+    writer.writeStringValue("app_slug", addons_app_info.appSlug);
+    writer.writeStringValue("eula", addons_app_info.eula);
+    writer.writeCollectionOfObjectValues<Addons_plan>("plans", addons_app_info.plans, serializeAddons_plan);
+    writer.writeStringValue("tos", addons_app_info.tos);
+    writer.writeAdditionalData(addons_app_info.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_app_metadata The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_app_metadata(writer: SerializationWriter, addons_app_metadata: Partial<Addons_app_metadata> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_app_metadata || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", addons_app_metadata.description);
+    writer.writeStringValue("display_name", addons_app_metadata.displayName);
+    writer.writeNumberValue("id", addons_app_metadata.id);
+    writer.writeStringValue("name", addons_app_metadata.name);
+    writer.writeCollectionOfPrimitiveValues<string>("options", addons_app_metadata.options);
+    writer.writeEnumValue<Addons_app_metadata_type>("type", addons_app_metadata.type);
+    writer.writeAdditionalData(addons_app_metadata.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_dimension_volume_with_price The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_dimension_volume_with_price(writer: SerializationWriter, addons_dimension_volume_with_price: Partial<Addons_dimension_volume_with_price> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_dimension_volume_with_price || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("id", addons_dimension_volume_with_price.id);
+    writer.writeNumberValue("low_volume", addons_dimension_volume_with_price.lowVolume);
+    writer.writeNumberValue("max_volume", addons_dimension_volume_with_price.maxVolume);
+    writer.writeStringValue("price_per_unit", addons_dimension_volume_with_price.pricePerUnit);
+    writer.writeAdditionalData(addons_dimension_volume_with_price.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_dimension_with_price The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_dimension_with_price(writer: SerializationWriter, addons_dimension_with_price: Partial<Addons_dimension_with_price> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_dimension_with_price || isSerializingDerivedType) { return; }
+    writer.writeStringValue("display_name", addons_dimension_with_price.displayName);
+    writer.writeStringValue("feature_name", addons_dimension_with_price.featureName);
+    writer.writeNumberValue("id", addons_dimension_with_price.id);
+    writer.writeStringValue("sku", addons_dimension_with_price.sku);
+    writer.writeStringValue("slug", addons_dimension_with_price.slug);
+    writer.writeCollectionOfObjectValues<Addons_dimension_volume_with_price>("volumes", addons_dimension_with_price.volumes, serializeAddons_dimension_volume_with_price);
+    writer.writeAdditionalData(addons_dimension_with_price.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_feature The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_feature(writer: SerializationWriter, addons_feature: Partial<Addons_feature> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_feature || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", addons_feature.createdAt);
+    writer.writeNumberValue("id", addons_feature.id);
+    writer.writeStringValue("name", addons_feature.name);
+    writer.writeEnumValue<Addons_feature_type>("type", addons_feature.type);
+    writer.writeEnumValue<Addons_feature_unit>("unit", addons_feature.unit);
+    writer.writeDateValue("updated_at", addons_feature.updatedAt);
+    if ( typeof addons_feature.value === "boolean") {
+        writer.writeBooleanValue("value", addons_feature.value as boolean);
+    }
+    else if ( typeof addons_feature.value === "string") {
+        writer.writeStringValue("value", addons_feature.value as string);
+    }
+    writer.writeAdditionalData(addons_feature.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_feature_value The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param key The name of the property to write in the serialization.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_feature_value(writer: SerializationWriter, key: string, addons_feature_value: Parsable | Addons_feature_value | undefined, isSerializingDerivedType: boolean = false) : void {
+    if (addons_feature_value === undefined || addons_feature_value === null) return;
+    if (typeof addons_feature_value === "boolean" ) {
+        writer.writeBooleanValue(undefined, addons_feature_value as boolean);
+    }
+    else if (typeof addons_feature_value === "string" ) {
+        writer.writeStringValue(undefined, addons_feature_value as string);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Addons_plan The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_plan(writer: SerializationWriter, addons_plan: Partial<Addons_plan> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_plan || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("active", addons_plan.active);
+    writer.writeNumberValue("app_id", addons_plan.appId);
+    writer.writeBooleanValue("available", addons_plan.available);
+    writer.writeBooleanValue("by_default", addons_plan.byDefault);
+    writer.writeDateValue("created_at", addons_plan.createdAt);
+    writer.writeStringValue("description", addons_plan.description);
+    writer.writeCollectionOfObjectValues<Addons_dimension_with_price>("dimensions", addons_plan.dimensions, serializeAddons_dimension_with_price);
+    writer.writeStringValue("display_name", addons_plan.displayName);
+    writer.writeCollectionOfObjectValues<Addons_feature>("features", addons_plan.features, serializeAddons_feature);
+    writer.writeNumberValue("id", addons_plan.id);
+    writer.writeNumberValue("price_per_month", addons_plan.pricePerMonth);
+    writer.writeStringValue("slug", addons_plan.slug);
+    writer.writeEnumValue<Addons_plan_state>("state", addons_plan.state);
+    writer.writeDateValue("updated_at", addons_plan.updatedAt);
+    writer.writeStringValue("uuid", addons_plan.uuid);
+    writer.writeAdditionalData(addons_plan.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_resource The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_resource(writer: SerializationWriter, addons_resource: Partial<Addons_resource> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_resource || isSerializingDerivedType) { return; }
+    writer.writeStringValue("app_name", addons_resource.appName);
+    writer.writeStringValue("app_slug", addons_resource.appSlug);
+    writer.writeBooleanValue("has_config", addons_resource.hasConfig);
+    writer.writeStringValue("message", addons_resource.message);
+    writer.writeCollectionOfObjectValues<Addons_resource_metadata>("metadata", addons_resource.metadata, serializeAddons_resource_metadata);
+    writer.writeStringValue("name", addons_resource.name);
+    writer.writeStringValue("plan_name", addons_resource.planName);
+    writer.writeNumberValue("plan_price_per_month", addons_resource.planPricePerMonth);
+    writer.writeStringValue("plan_slug", addons_resource.planSlug);
+    writer.writeStringValue("sso_url", addons_resource.ssoUrl);
+    writer.writeEnumValue<Addons_resource_state>("state", addons_resource.state);
+    writer.writeStringValue("uuid", addons_resource.uuid);
+    writer.writeAdditionalData(addons_resource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_resource_metadata The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_resource_metadata(writer: SerializationWriter, addons_resource_metadata: Partial<Addons_resource_metadata> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_resource_metadata || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", addons_resource_metadata.name);
+    if ( typeof addons_resource_metadata.value === "boolean") {
+        writer.writeBooleanValue("value", addons_resource_metadata.value as boolean);
+    }
+    else if ( typeof addons_resource_metadata.value === "string") {
+        writer.writeStringValue("value", addons_resource_metadata.value as string);
+    }
+    writer.writeAdditionalData(addons_resource_metadata.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Addons_resource_metadata_value The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param key The name of the property to write in the serialization.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_resource_metadata_value(writer: SerializationWriter, key: string, addons_resource_metadata_value: Parsable | Addons_resource_metadata_value | undefined, isSerializingDerivedType: boolean = false) : void {
+    if (addons_resource_metadata_value === undefined || addons_resource_metadata_value === null) return;
+    if (typeof addons_resource_metadata_value === "boolean" ) {
+        writer.writeBooleanValue(undefined, addons_resource_metadata_value as boolean);
+    }
+    else if (typeof addons_resource_metadata_value === "string" ) {
+        writer.writeStringValue(undefined, addons_resource_metadata_value as string);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Addons_resource_new The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAddons_resource_new(writer: SerializationWriter, addons_resource_new: Partial<Addons_resource_new> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addons_resource_new || isSerializingDerivedType) { return; }
+    writer.writeStringValue("app_slug", addons_resource_new.appSlug);
+    writer.writeStringValue("fleet_uuid", addons_resource_new.fleetUuid);
+    writer.writeNumberValue("linked_droplet_id", addons_resource_new.linkedDropletId);
+    writer.writeCollectionOfObjectValues<Addons_resource_metadata>("metadata", addons_resource_new.metadata, serializeAddons_resource_metadata);
+    writer.writeStringValue("name", addons_resource_new.name);
+    writer.writeStringValue("plan_slug", addons_resource_new.planSlug);
+    writer.writeAdditionalData(addons_resource_new.additionalData);
 }
 /**
  * Serializes information the current object
@@ -34687,6 +35438,17 @@ export function serializeLogsink_create_config(writer: SerializationWriter, logs
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Logsink_schema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeLogsink_schema(writer: SerializationWriter, logsink_schema: Partial<Logsink_schema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!logsink_schema || isSerializingDerivedType) { return; }
+    serializeLogsink_verbose(writer, logsink_schema, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Logsink_update The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -38330,6 +39092,57 @@ export const Action_statusObject = {
     InProgress: "in-progress",
     Completed: "completed",
     Errored: "errored",
+} as const;
+/**
+ * The data type of the metadata value.
+ */
+export const Addons_app_metadata_typeObject = {
+    String: "string",
+    Boolean: "boolean",
+} as const;
+/**
+ * Feature type, indicating the kind of data it holds.
+ */
+export const Addons_feature_typeObject = {
+    Unknown: "unknown",
+    String: "string",
+    Boolean: "boolean",
+    Allowance: "allowance",
+} as const;
+/**
+ * Unit of measurement for the feature, if applicable. Units apply to allowance features.
+ */
+export const Addons_feature_unitObject = {
+    Unit_unknown: "unit_unknown",
+    GB: "GB",
+    GIB: "GIB",
+    Count: "count",
+    Byte: "byte",
+    Byte_second: "byte_second",
+} as const;
+/**
+ * Current state of the plan.
+ */
+export const Addons_plan_stateObject = {
+    Unknown: "unknown",
+    Draft: "draft",
+    In_review: "in_review",
+    Approved: "approved",
+    Suspended: "suspended",
+    Archived: "archived",
+} as const;
+/**
+ * The state the resource is currently in.
+ */
+export const Addons_resource_stateObject = {
+    Pending: "pending",
+    Provisioning: "provisioning",
+    Provisioned: "provisioned",
+    Deprovisioning: "deprovisioning",
+    Deprovisioned: "deprovisioned",
+    ProvisioningFailed: "provisioning-failed",
+    DeprovisioningFailed: "deprovisioning-failed",
+    Suspended: "suspended",
 } as const;
 /**
  * The comparison operator used against the alert's threshold.
