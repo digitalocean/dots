@@ -6,6 +6,8 @@ import { AccountRequestBuilderNavigationMetadata, AccountRequestBuilderRequestsM
 // @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
+import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } from './addOns/index.js';
+// @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
 import { Byoip_prefixesRequestBuilderNavigationMetadata, Byoip_prefixesRequestBuilderRequestsMetadata, type Byoip_prefixesRequestBuilder } from './byoip_prefixes/index.js';
@@ -90,6 +92,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The actions property
      */
     get actions(): ActionsRequestBuilder;
+    /**
+     * The addOns property
+     */
+    get addOns(): AddOnsRequestBuilder;
     /**
      * The apps property
      */
@@ -246,6 +252,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     actions: {
         requestsMetadata: ActionsRequestBuilderRequestsMetadata,
         navigationMetadata: ActionsRequestBuilderNavigationMetadata,
+    },
+    addOns: {
+        navigationMetadata: AddOnsRequestBuilderNavigationMetadata,
     },
     apps: {
         requestsMetadata: AppsRequestBuilderRequestsMetadata,
