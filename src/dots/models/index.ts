@@ -2002,6 +2002,10 @@ export interface ApiEvaluationDataset extends AdditionalDataHolder, Parsable {
 }
 export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
     /**
+     * The category property
+     */
+    category?: ApiEvaluationMetricCategory | null;
+    /**
      * The description property
      */
     description?: string | null;
@@ -2010,9 +2014,17 @@ export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
      */
     inverted?: boolean | null;
     /**
+     * The is_metric_goal property
+     */
+    isMetricGoal?: boolean | null;
+    /**
      * The metric_name property
      */
     metricName?: string | null;
+    /**
+     * The metric_rank property
+     */
+    metricRank?: number | null;
     /**
      * The metric_type property
      */
@@ -2034,6 +2046,7 @@ export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
      */
     rangeMin?: number | null;
 }
+export type ApiEvaluationMetricCategory = (typeof ApiEvaluationMetricCategoryObject)[keyof typeof ApiEvaluationMetricCategoryObject];
 export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsable {
     /**
      * Error description if the metric could not be calculated.
@@ -2541,22 +2554,6 @@ export interface ApiIndexingJob extends AdditionalDataHolder, Parsable {
      */
     totalDatasources?: number | null;
     /**
-     * Total Items Failed
-     */
-    totalItemsFailed?: string | null;
-    /**
-     * Total Items Indexed
-     */
-    totalItemsIndexed?: string | null;
-    /**
-     * Total Items Removed
-     */
-    totalItemsRemoved?: string | null;
-    /**
-     * Total Items Skipped
-     */
-    totalItemsSkipped?: string | null;
-    /**
      * Total Tokens Consumed By the Indexing Job
      */
     totalTokens?: string | null;
@@ -2701,10 +2698,6 @@ export interface ApiKnowledgeBaseDataSource extends AdditionalDataHolder, Parsab
      * The last_datasource_indexing_job property
      */
     lastDatasourceIndexingJob?: ApiIndexedDataSource | null;
-    /**
-     * IndexingJob description
-     */
-    lastIndexingJob?: ApiIndexingJob | null;
     /**
      * Region code - Deprecated, moved to data_source_details
      */
@@ -4078,7 +4071,7 @@ export interface ApiWebCrawlerDataSource extends AdditionalDataHolder, Parsable 
      */
     baseUrl?: string | null;
     /**
-     * Options for specifying how URLs found on pages should be handled. - UNKNOWN: Default unknown value - SCOPED: Only include the base URL. - PATH: Crawl the base URL and linked pages within the URL path. - DOMAIN: Crawl the base URL and linked pages within the same domain. - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain.
+     * Options for specifying how URLs found on pages should be handled. - UNKNOWN: Default unknown value - SCOPED: Only include the base URL. - PATH: Crawl the base URL and linked pages within the URL path. - DOMAIN: Crawl the base URL and linked pages within the same domain. - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain. - SITEMAP: Crawl URLs discovered in the sitemap.
      */
     crawlingOption?: ApiCrawlingOption | null;
     /**
@@ -15293,9 +15286,12 @@ export function deserializeIntoApiEvaluationDataset(apiEvaluationDataset: Partia
 // @ts-ignore
 export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric: Partial<ApiEvaluationMetric> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "category": n => { apiEvaluationMetric.category = n.getEnumValue<ApiEvaluationMetricCategory>(ApiEvaluationMetricCategoryObject) ?? ApiEvaluationMetricCategoryObject.METRIC_CATEGORY_UNSPECIFIED; },
         "description": n => { apiEvaluationMetric.description = n.getStringValue(); },
         "inverted": n => { apiEvaluationMetric.inverted = n.getBooleanValue(); },
+        "is_metric_goal": n => { apiEvaluationMetric.isMetricGoal = n.getBooleanValue(); },
         "metric_name": n => { apiEvaluationMetric.metricName = n.getStringValue(); },
+        "metric_rank": n => { apiEvaluationMetric.metricRank = n.getNumberValue(); },
         "metric_type": n => { apiEvaluationMetric.metricType = n.getEnumValue<ApiEvaluationMetricType>(ApiEvaluationMetricTypeObject) ?? ApiEvaluationMetricTypeObject.METRIC_TYPE_UNSPECIFIED; },
         "metric_uuid": n => { apiEvaluationMetric.metricUuid = n.getStringValue(); },
         "metric_value_type": n => { apiEvaluationMetric.metricValueType = n.getEnumValue<ApiEvaluationMetricValueType>(ApiEvaluationMetricValueTypeObject) ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED; },
@@ -15655,10 +15651,6 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob: Partial<ApiIndexin
         "status": n => { apiIndexingJob.status = n.getEnumValue<ApiIndexJobStatus>(ApiIndexJobStatusObject) ?? ApiIndexJobStatusObject.INDEX_JOB_STATUS_UNKNOWN; },
         "tokens": n => { apiIndexingJob.tokens = n.getNumberValue(); },
         "total_datasources": n => { apiIndexingJob.totalDatasources = n.getNumberValue(); },
-        "total_items_failed": n => { apiIndexingJob.totalItemsFailed = n.getStringValue(); },
-        "total_items_indexed": n => { apiIndexingJob.totalItemsIndexed = n.getStringValue(); },
-        "total_items_removed": n => { apiIndexingJob.totalItemsRemoved = n.getStringValue(); },
-        "total_items_skipped": n => { apiIndexingJob.totalItemsSkipped = n.getStringValue(); },
         "total_tokens": n => { apiIndexingJob.totalTokens = n.getStringValue(); },
         "updated_at": n => { apiIndexingJob.updatedAt = n.getDateValue(); },
         "uuid": n => { apiIndexingJob.uuid = n.getStringValue(); },
@@ -15722,7 +15714,6 @@ export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSo
         "google_drive_data_source": n => { apiKnowledgeBaseDataSource.googleDriveDataSource = n.getObjectValue<ApiGoogleDriveDataSourceDisplay>(createApiGoogleDriveDataSourceDisplayFromDiscriminatorValue); },
         "item_path": n => { apiKnowledgeBaseDataSource.itemPath = n.getStringValue(); },
         "last_datasource_indexing_job": n => { apiKnowledgeBaseDataSource.lastDatasourceIndexingJob = n.getObjectValue<ApiIndexedDataSource>(createApiIndexedDataSourceFromDiscriminatorValue); },
-        "last_indexing_job": n => { apiKnowledgeBaseDataSource.lastIndexingJob = n.getObjectValue<ApiIndexingJob>(createApiIndexingJobFromDiscriminatorValue); },
         "region": n => { apiKnowledgeBaseDataSource.region = n.getStringValue(); },
         "spaces_data_source": n => { apiKnowledgeBaseDataSource.spacesDataSource = n.getObjectValue<ApiSpacesDataSource>(createApiSpacesDataSourceFromDiscriminatorValue); },
         "updated_at": n => { apiKnowledgeBaseDataSource.updatedAt = n.getDateValue(); },
@@ -29367,9 +29358,12 @@ export function serializeApiEvaluationDataset(writer: SerializationWriter, apiEv
 // @ts-ignore
 export function serializeApiEvaluationMetric(writer: SerializationWriter, apiEvaluationMetric: Partial<ApiEvaluationMetric> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiEvaluationMetric || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<ApiEvaluationMetricCategory>("category", apiEvaluationMetric.category ?? ApiEvaluationMetricCategoryObject.METRIC_CATEGORY_UNSPECIFIED);
     writer.writeStringValue("description", apiEvaluationMetric.description);
     writer.writeBooleanValue("inverted", apiEvaluationMetric.inverted);
+    writer.writeBooleanValue("is_metric_goal", apiEvaluationMetric.isMetricGoal);
     writer.writeStringValue("metric_name", apiEvaluationMetric.metricName);
+    writer.writeNumberValue("metric_rank", apiEvaluationMetric.metricRank);
     writer.writeEnumValue<ApiEvaluationMetricType>("metric_type", apiEvaluationMetric.metricType ?? ApiEvaluationMetricTypeObject.METRIC_TYPE_UNSPECIFIED);
     writer.writeStringValue("metric_uuid", apiEvaluationMetric.metricUuid);
     writer.writeEnumValue<ApiEvaluationMetricValueType>("metric_value_type", apiEvaluationMetric.metricValueType ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED);
@@ -29754,10 +29748,6 @@ export function serializeApiIndexingJob(writer: SerializationWriter, apiIndexing
     writer.writeEnumValue<ApiIndexJobStatus>("status", apiIndexingJob.status ?? ApiIndexJobStatusObject.INDEX_JOB_STATUS_UNKNOWN);
     writer.writeNumberValue("tokens", apiIndexingJob.tokens);
     writer.writeNumberValue("total_datasources", apiIndexingJob.totalDatasources);
-    writer.writeStringValue("total_items_failed", apiIndexingJob.totalItemsFailed);
-    writer.writeStringValue("total_items_indexed", apiIndexingJob.totalItemsIndexed);
-    writer.writeStringValue("total_items_removed", apiIndexingJob.totalItemsRemoved);
-    writer.writeStringValue("total_items_skipped", apiIndexingJob.totalItemsSkipped);
     writer.writeStringValue("total_tokens", apiIndexingJob.totalTokens);
     writer.writeDateValue("updated_at", apiIndexingJob.updatedAt);
     writer.writeStringValue("uuid", apiIndexingJob.uuid);
@@ -29824,7 +29814,6 @@ export function serializeApiKnowledgeBaseDataSource(writer: SerializationWriter,
     writer.writeObjectValue<ApiGoogleDriveDataSourceDisplay>("google_drive_data_source", apiKnowledgeBaseDataSource.googleDriveDataSource, serializeApiGoogleDriveDataSourceDisplay);
     writer.writeStringValue("item_path", apiKnowledgeBaseDataSource.itemPath);
     writer.writeObjectValue<ApiIndexedDataSource>("last_datasource_indexing_job", apiKnowledgeBaseDataSource.lastDatasourceIndexingJob, serializeApiIndexedDataSource);
-    writer.writeObjectValue<ApiIndexingJob>("last_indexing_job", apiKnowledgeBaseDataSource.lastIndexingJob, serializeApiIndexingJob);
     writer.writeStringValue("region", apiKnowledgeBaseDataSource.region);
     writer.writeObjectValue<ApiSpacesDataSource>("spaces_data_source", apiKnowledgeBaseDataSource.spacesDataSource, serializeApiSpacesDataSource);
     writer.writeDateValue("updated_at", apiKnowledgeBaseDataSource.updatedAt);
@@ -39369,7 +39358,7 @@ export const ApiBatchJobPhaseObject = {
     BATCH_JOB_PHASE_CANCELLED: "BATCH_JOB_PHASE_CANCELLED",
 } as const;
 /**
- * Options for specifying how URLs found on pages should be handled. - UNKNOWN: Default unknown value - SCOPED: Only include the base URL. - PATH: Crawl the base URL and linked pages within the URL path. - DOMAIN: Crawl the base URL and linked pages within the same domain. - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain.
+ * Options for specifying how URLs found on pages should be handled. - UNKNOWN: Default unknown value - SCOPED: Only include the base URL. - PATH: Crawl the base URL and linked pages within the URL path. - DOMAIN: Crawl the base URL and linked pages within the same domain. - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain. - SITEMAP: Crawl URLs discovered in the sitemap.
  */
 export const ApiCrawlingOptionObject = {
     UNKNOWN: "UNKNOWN",
@@ -39377,6 +39366,7 @@ export const ApiCrawlingOptionObject = {
     PATH: "PATH",
     DOMAIN: "DOMAIN",
     SUBDOMAINS: "SUBDOMAINS",
+    SITEMAP: "SITEMAP",
 } as const;
 export const ApiDeploymentStatusObject = {
     STATUS_UNKNOWN: "STATUS_UNKNOWN",
@@ -39399,6 +39389,14 @@ export const ApiDeploymentVisibilityObject = {
     VISIBILITY_PLAYGROUND: "VISIBILITY_PLAYGROUND",
     VISIBILITY_PUBLIC: "VISIBILITY_PUBLIC",
     VISIBILITY_PRIVATE: "VISIBILITY_PRIVATE",
+} as const;
+export const ApiEvaluationMetricCategoryObject = {
+    METRIC_CATEGORY_UNSPECIFIED: "METRIC_CATEGORY_UNSPECIFIED",
+    METRIC_CATEGORY_CORRECTNESS: "METRIC_CATEGORY_CORRECTNESS",
+    METRIC_CATEGORY_USER_OUTCOMES: "METRIC_CATEGORY_USER_OUTCOMES",
+    METRIC_CATEGORY_SAFETY_AND_SECURITY: "METRIC_CATEGORY_SAFETY_AND_SECURITY",
+    METRIC_CATEGORY_CONTEXT_QUALITY: "METRIC_CATEGORY_CONTEXT_QUALITY",
+    METRIC_CATEGORY_MODEL_FIT: "METRIC_CATEGORY_MODEL_FIT",
 } as const;
 export const ApiEvaluationMetricTypeObject = {
     METRIC_TYPE_UNSPECIFIED: "METRIC_TYPE_UNSPECIFIED",
@@ -39448,6 +39446,7 @@ export const ApiIndexJobStatusObject = {
     INDEX_JOB_STATUS_FAILED: "INDEX_JOB_STATUS_FAILED",
     INDEX_JOB_STATUS_NO_CHANGES: "INDEX_JOB_STATUS_NO_CHANGES",
     INDEX_JOB_STATUS_PENDING: "INDEX_JOB_STATUS_PENDING",
+    INDEX_JOB_STATUS_CANCELLED: "INDEX_JOB_STATUS_CANCELLED",
 } as const;
 export const ApiModelProviderObject = {
     MODEL_PROVIDER_DIGITALOCEAN: "MODEL_PROVIDER_DIGITALOCEAN",
