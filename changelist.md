@@ -1,7 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@6f71ecc (2025-11-19T07:14:58Z)
-Target commit: digitalocean/openapi@c8bfa37 (2025-12-16T02:35:29Z)
+Current commit: digitalocean/openapi@c8bfa37 (2025-12-16T02:35:29Z)
+Target commit: digitalocean/openapi@578e1b5 (2025-12-16T18:30:04Z)
 
-* digitalocean/openapi#1121: Billing insights endpoint documentation - 2025-12-16T02:35:29Z []
-* digitalocean/openapi#1117: Updated the docs - 2025-11-21T09:47:50Z []
+* digitalocean/openapi#1123: Billing insights endpoint documentation added to public along with minor fixes to endpoint documentation - 2025-12-16T18:30:04Z []

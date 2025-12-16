@@ -10,6 +10,8 @@ import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } fro
 // @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
+import { BillingRequestBuilderNavigationMetadata, type BillingRequestBuilder } from './billing/index.js';
+// @ts-ignore
 import { Byoip_prefixesRequestBuilderNavigationMetadata, Byoip_prefixesRequestBuilderRequestsMetadata, type Byoip_prefixesRequestBuilder } from './byoip_prefixes/index.js';
 // @ts-ignore
 import { CdnRequestBuilderNavigationMetadata, type CdnRequestBuilder } from './cdn/index.js';
@@ -100,6 +102,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The apps property
      */
     get apps(): AppsRequestBuilder;
+    /**
+     * The billing property
+     */
+    get billing(): BillingRequestBuilder;
     /**
      * The byoip_prefixes property
      */
@@ -259,6 +265,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     apps: {
         requestsMetadata: AppsRequestBuilderRequestsMetadata,
         navigationMetadata: AppsRequestBuilderNavigationMetadata,
+    },
+    billing: {
+        navigationMetadata: BillingRequestBuilderNavigationMetadata,
     },
     byoip_prefixes: {
         requestsMetadata: Byoip_prefixesRequestBuilderRequestsMetadata,
