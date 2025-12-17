@@ -1488,6 +1488,25 @@ export interface ApiChatbot extends AdditionalDataHolder, Parsable {
      */
     startingMessage?: string | null;
 }
+export type ApiChunkingAlgorithm = (typeof ApiChunkingAlgorithmObject)[keyof typeof ApiChunkingAlgorithmObject];
+export interface ApiChunkingOptions extends AdditionalDataHolder, Parsable {
+    /**
+     * The child_chunk_size property
+     */
+    childChunkSize?: number | null;
+    /**
+     * Common options
+     */
+    maxChunkSize?: number | null;
+    /**
+     * Hierarchical options
+     */
+    parentChunkSize?: number | null;
+    /**
+     * Semantic options
+     */
+    semanticThreshold?: number | null;
+}
 export type ApiCrawlingOption = (typeof ApiCrawlingOptionObject)[keyof typeof ApiCrawlingOptionObject];
 export interface ApiCreateAgentAPIKeyInputPublic extends AdditionalDataHolder, Parsable {
     /**
@@ -1616,6 +1635,10 @@ export interface ApiCreateDataSourceFileUploadPresignedUrlsOutput extends Additi
  */
 export interface ApiCreateEvaluationDatasetInputPublic extends AdditionalDataHolder, Parsable {
     /**
+     * The dataset_type property
+     */
+    datasetType?: ApiEvaluationDatasetType | null;
+    /**
      * File to upload as data source for knowledge base.
      */
     fileUploadDataset?: ApiFileUploadDataSource | null;
@@ -1634,6 +1657,10 @@ export interface ApiCreateEvaluationDatasetOutput extends AdditionalDataHolder, 
     evaluationDatasetUuid?: string | null;
 }
 export interface ApiCreateEvaluationTestCaseInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * The agent_workspace_name property
+     */
+    agentWorkspaceName?: string | null;
     /**
      * Dataset against which the test‑case is executed.
      */
@@ -1673,6 +1700,14 @@ export interface ApiCreateKnowledgeBaseDataSourceInputPublic extends AdditionalD
      * AWS S3 Data Source
      */
     awsDataSource?: ApiAWSDataSource | null;
+    /**
+     * The chunking_algorithm property
+     */
+    chunkingAlgorithm?: ApiChunkingAlgorithm | null;
+    /**
+     * The chunking_options property
+     */
+    chunkingOptions?: ApiChunkingOptions | null;
     /**
      * Knowledge base id
      */
@@ -2000,6 +2035,7 @@ export interface ApiEvaluationDataset extends AdditionalDataHolder, Parsable {
      */
     rowCount?: number | null;
 }
+export type ApiEvaluationDatasetType = (typeof ApiEvaluationDatasetTypeObject)[keyof typeof ApiEvaluationDatasetTypeObject];
 export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
     /**
      * The category property
@@ -2080,6 +2116,10 @@ export interface ApiEvaluationRun extends AdditionalDataHolder, Parsable {
      * Whether agent is deleted
      */
     agentDeleted?: boolean | null;
+    /**
+     * The agent deployment name
+     */
+    agentDeploymentName?: string | null;
     /**
      * Agent name
      */
@@ -2245,6 +2285,49 @@ export interface ApiEvaluationTestCaseMetricList extends AdditionalDataHolder, P
      * The metric_uuids property
      */
     metricUuids?: string[] | null;
+}
+/**
+ * Represents a span within an evaluatioin trace (e.g., LLM call, tool call, etc.)
+ */
+export interface ApiEvaluationTraceSpan extends AdditionalDataHolder, Parsable {
+    /**
+     * When the span was created
+     */
+    createdAt?: Date | null;
+    /**
+     * Input data for the span (flexible structure - can be messages array, string, etc.)
+     */
+    input?: ApiEvaluationTraceSpan_input | null;
+    /**
+     * Name/identifier for the span
+     */
+    name?: string | null;
+    /**
+     * Output data from the span (flexible structure - can be message, string, etc.)
+     */
+    output?: ApiEvaluationTraceSpan_output | null;
+    /**
+     * Any retriever span chunks that were included as part of the span.
+     */
+    retrieverChunks?: ApiPromptChunk[] | null;
+    /**
+     * The span-level metric results.
+     */
+    spanLevelMetricResults?: ApiEvaluationMetricResult[] | null;
+    /**
+     * Types of spans in a trace
+     */
+    type?: ApiTraceSpanType | null;
+}
+/**
+ * Input data for the span (flexible structure - can be messages array, string, etc.)
+ */
+export interface ApiEvaluationTraceSpan_input extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Output data from the span (flexible structure - can be message, string, etc.)
+ */
+export interface ApiEvaluationTraceSpan_output extends AdditionalDataHolder, Parsable {
 }
 /**
  * Detailed info about each presigned URL returned to the client.
@@ -2581,6 +2664,14 @@ export interface ApiKBDataSource extends AdditionalDataHolder, Parsable {
      */
     bucketRegion?: string | null;
     /**
+     * The chunking_algorithm property
+     */
+    chunkingAlgorithm?: ApiChunkingAlgorithm | null;
+    /**
+     * The chunking_options property
+     */
+    chunkingOptions?: ApiChunkingOptions | null;
+    /**
      * Dropbox Data Source
      */
     dropboxDataSource?: ApiDropboxDataSource | null;
@@ -2674,6 +2765,14 @@ export interface ApiKnowledgeBaseDataSource extends AdditionalDataHolder, Parsab
      * Name of storage bucket - Deprecated, moved to data_source_details
      */
     bucketName?: string | null;
+    /**
+     * The chunking_algorithm property
+     */
+    chunkingAlgorithm?: ApiChunkingAlgorithm | null;
+    /**
+     * The chunking_options property
+     */
+    chunkingOptions?: ApiChunkingOptions | null;
     /**
      * Creation date / time
      */
@@ -3122,6 +3221,18 @@ export interface ApiModel extends AdditionalDataHolder, Parsable {
      */
     isFoundational?: boolean | null;
     /**
+     * Default chunking size limit to show in UI
+     */
+    kbDefaultChunkSize?: number | null;
+    /**
+     * Maximum chunk size limit of model
+     */
+    kbMaxChunkSize?: number | null;
+    /**
+     * Minimum chunking size token limits if model supports KNOWLEDGEBASE usecase
+     */
+    kbMinChunkSize?: number | null;
+    /**
      * Additional meta data
      */
     metadata?: ApiModel_metadata | null;
@@ -3251,6 +3362,18 @@ export interface ApiModelPublic extends AdditionalDataHolder, Parsable {
      * True if it is a foundational model provided by do
      */
     isFoundational?: boolean | null;
+    /**
+     * Default chunking size limit to show in UI
+     */
+    kbDefaultChunkSize?: number | null;
+    /**
+     * Maximum chunk size limit of model
+     */
+    kbMaxChunkSize?: number | null;
+    /**
+     * Minimum chunking size token limits if model supports KNOWLEDGEBASE usecase
+     */
+    kbMinChunkSize?: number | null;
     /**
      * Display name of the model
      */
@@ -3386,6 +3509,10 @@ export interface ApiPresignedUrlFile extends AdditionalDataHolder, Parsable {
 }
 export interface ApiPrompt extends AdditionalDataHolder, Parsable {
     /**
+     * The evaluated trace spans.
+     */
+    evaluationTraceSpans?: ApiEvaluationTraceSpan[] | null;
+    /**
      * The ground truth for the prompt.
      */
     groundTruth?: string | null;
@@ -3417,6 +3544,10 @@ export interface ApiPrompt extends AdditionalDataHolder, Parsable {
      * The metric results for the prompt.
      */
     promptLevelMetricResults?: ApiEvaluationMetricResult[] | null;
+    /**
+     * The trace id for the prompt.
+     */
+    traceId?: string | null;
 }
 export interface ApiPromptChunk extends AdditionalDataHolder, Parsable {
     /**
@@ -3499,7 +3630,11 @@ export interface ApiRollbackToAgentVersionOutput extends AdditionalDataHolder, P
  */
 export interface ApiRunEvaluationTestCaseInputPublic extends AdditionalDataHolder, Parsable {
     /**
-     * Agent UUIDs to run the test case against.
+     * Agent deployment names to run the test case against (ADK agent workspaces).
+     */
+    agentDeploymentNames?: string[] | null;
+    /**
+     * Agent UUIDs to run the test case against (legacy agents).
      */
     agentUuids?: string[] | null;
     /**
@@ -3619,6 +3754,7 @@ export interface ApiStartKnowledgeBaseIndexingJobOutput extends AdditionalDataHo
      */
     job?: ApiIndexingJob | null;
 }
+export type ApiTraceSpanType = (typeof ApiTraceSpanTypeObject)[keyof typeof ApiTraceSpanTypeObject];
 /**
  * Information about a newly unlinked agent
  */
@@ -7730,6 +7866,15 @@ export function createApiChatbotFromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiChunkingOptions}
+ */
+// @ts-ignore
+export function createApiChunkingOptionsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiChunkingOptions;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCreateAgentAPIKeyInputPublic}
  */
 // @ts-ignore
@@ -8122,6 +8267,33 @@ export function createApiEvaluationTestCaseFromDiscriminatorValue(parseNode: Par
 // @ts-ignore
 export function createApiEvaluationTestCaseMetricListFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiEvaluationTestCaseMetricList;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiEvaluationTraceSpan_input}
+ */
+// @ts-ignore
+export function createApiEvaluationTraceSpan_inputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiEvaluationTraceSpan_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiEvaluationTraceSpan_output}
+ */
+// @ts-ignore
+export function createApiEvaluationTraceSpan_outputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiEvaluationTraceSpan_output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiEvaluationTraceSpan}
+ */
+// @ts-ignore
+export function createApiEvaluationTraceSpanFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiEvaluationTraceSpan;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -14840,6 +15012,20 @@ export function deserializeIntoApiChatbot(apiChatbot: Partial<ApiChatbot> | unde
 }
 /**
  * The deserialization information for the current model
+ * @param ApiChunkingOptions The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiChunkingOptions(apiChunkingOptions: Partial<ApiChunkingOptions> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "child_chunk_size": n => { apiChunkingOptions.childChunkSize = n.getNumberValue(); },
+        "max_chunk_size": n => { apiChunkingOptions.maxChunkSize = n.getNumberValue(); },
+        "parent_chunk_size": n => { apiChunkingOptions.parentChunkSize = n.getNumberValue(); },
+        "semantic_threshold": n => { apiChunkingOptions.semanticThreshold = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCreateAgentAPIKeyInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -14948,6 +15134,7 @@ export function deserializeIntoApiCreateDataSourceFileUploadPresignedUrlsOutput(
 // @ts-ignore
 export function deserializeIntoApiCreateEvaluationDatasetInputPublic(apiCreateEvaluationDatasetInputPublic: Partial<ApiCreateEvaluationDatasetInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "dataset_type": n => { apiCreateEvaluationDatasetInputPublic.datasetType = n.getEnumValue<ApiEvaluationDatasetType>(ApiEvaluationDatasetTypeObject) ?? ApiEvaluationDatasetTypeObject.EVALUATION_DATASET_TYPE_UNKNOWN; },
         "file_upload_dataset": n => { apiCreateEvaluationDatasetInputPublic.fileUploadDataset = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
         "name": n => { apiCreateEvaluationDatasetInputPublic.name = n.getStringValue(); },
     }
@@ -14971,6 +15158,7 @@ export function deserializeIntoApiCreateEvaluationDatasetOutput(apiCreateEvaluat
 // @ts-ignore
 export function deserializeIntoApiCreateEvaluationTestCaseInputPublic(apiCreateEvaluationTestCaseInputPublic: Partial<ApiCreateEvaluationTestCaseInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "agent_workspace_name": n => { apiCreateEvaluationTestCaseInputPublic.agentWorkspaceName = n.getStringValue(); },
         "dataset_uuid": n => { apiCreateEvaluationTestCaseInputPublic.datasetUuid = n.getStringValue(); },
         "description": n => { apiCreateEvaluationTestCaseInputPublic.description = n.getStringValue(); },
         "metrics": n => { apiCreateEvaluationTestCaseInputPublic.metrics = n.getCollectionOfPrimitiveValues<string>(); },
@@ -14999,6 +15187,8 @@ export function deserializeIntoApiCreateEvaluationTestCaseOutput(apiCreateEvalua
 export function deserializeIntoApiCreateKnowledgeBaseDataSourceInputPublic(apiCreateKnowledgeBaseDataSourceInputPublic: Partial<ApiCreateKnowledgeBaseDataSourceInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "aws_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource = n.getObjectValue<ApiAWSDataSource>(createApiAWSDataSourceFromDiscriminatorValue); },
+        "chunking_algorithm": n => { apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_options": n => { apiCreateKnowledgeBaseDataSourceInputPublic.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "knowledge_base_uuid": n => { apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid = n.getStringValue(); },
         "spaces_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource = n.getObjectValue<ApiSpacesDataSource>(createApiSpacesDataSourceFromDiscriminatorValue); },
         "web_crawler_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.webCrawlerDataSource = n.getObjectValue<ApiWebCrawlerDataSource>(createApiWebCrawlerDataSourceFromDiscriminatorValue); },
@@ -15363,6 +15553,7 @@ export function deserializeIntoApiEvaluationMetricResult(apiEvaluationMetricResu
 export function deserializeIntoApiEvaluationRun(apiEvaluationRun: Partial<ApiEvaluationRun> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_deleted": n => { apiEvaluationRun.agentDeleted = n.getBooleanValue(); },
+        "agent_deployment_name": n => { apiEvaluationRun.agentDeploymentName = n.getStringValue(); },
         "agent_name": n => { apiEvaluationRun.agentName = n.getStringValue(); },
         "agent_uuid": n => { apiEvaluationRun.agentUuid = n.getStringValue(); },
         "agent_version_hash": n => { apiEvaluationRun.agentVersionHash = n.getStringValue(); },
@@ -15423,6 +15614,43 @@ export function deserializeIntoApiEvaluationTestCase(apiEvaluationTestCase: Part
 export function deserializeIntoApiEvaluationTestCaseMetricList(apiEvaluationTestCaseMetricList: Partial<ApiEvaluationTestCaseMetricList> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "metric_uuids": n => { apiEvaluationTestCaseMetricList.metricUuids = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiEvaluationTraceSpan The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiEvaluationTraceSpan(apiEvaluationTraceSpan: Partial<ApiEvaluationTraceSpan> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { apiEvaluationTraceSpan.createdAt = n.getDateValue(); },
+        "input": n => { apiEvaluationTraceSpan.input = n.getObjectValue<ApiEvaluationTraceSpan_input>(createApiEvaluationTraceSpan_inputFromDiscriminatorValue); },
+        "name": n => { apiEvaluationTraceSpan.name = n.getStringValue(); },
+        "output": n => { apiEvaluationTraceSpan.output = n.getObjectValue<ApiEvaluationTraceSpan_output>(createApiEvaluationTraceSpan_outputFromDiscriminatorValue); },
+        "retriever_chunks": n => { apiEvaluationTraceSpan.retrieverChunks = n.getCollectionOfObjectValues<ApiPromptChunk>(createApiPromptChunkFromDiscriminatorValue); },
+        "span_level_metric_results": n => { apiEvaluationTraceSpan.spanLevelMetricResults = n.getCollectionOfObjectValues<ApiEvaluationMetricResult>(createApiEvaluationMetricResultFromDiscriminatorValue); },
+        "type": n => { apiEvaluationTraceSpan.type = n.getEnumValue<ApiTraceSpanType>(ApiTraceSpanTypeObject) ?? ApiTraceSpanTypeObject.TRACE_SPAN_TYPE_UNKNOWN; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiEvaluationTraceSpan_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiEvaluationTraceSpan_input(apiEvaluationTraceSpan_input: Partial<ApiEvaluationTraceSpan_input> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiEvaluationTraceSpan_output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiEvaluationTraceSpan_output(apiEvaluationTraceSpan_output: Partial<ApiEvaluationTraceSpan_output> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
     }
 }
 /**
@@ -15706,6 +15934,8 @@ export function deserializeIntoApiKBDataSource(apiKBDataSource: Partial<ApiKBDat
         "aws_data_source": n => { apiKBDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSource>(createApiAWSDataSourceFromDiscriminatorValue); },
         "bucket_name": n => { apiKBDataSource.bucketName = n.getStringValue(); },
         "bucket_region": n => { apiKBDataSource.bucketRegion = n.getStringValue(); },
+        "chunking_algorithm": n => { apiKBDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_options": n => { apiKBDataSource.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "dropbox_data_source": n => { apiKBDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSource>(createApiDropboxDataSourceFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKBDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
         "google_drive_data_source": n => { apiKBDataSource.googleDriveDataSource = n.getObjectValue<ApiGoogleDriveDataSource>(createApiGoogleDriveDataSourceFromDiscriminatorValue); },
@@ -15747,6 +15977,8 @@ export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSo
     return {
         "aws_data_source": n => { apiKnowledgeBaseDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSourceDisplay>(createApiAWSDataSourceDisplayFromDiscriminatorValue); },
         "bucket_name": n => { apiKnowledgeBaseDataSource.bucketName = n.getStringValue(); },
+        "chunking_algorithm": n => { apiKnowledgeBaseDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_options": n => { apiKnowledgeBaseDataSource.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "created_at": n => { apiKnowledgeBaseDataSource.createdAt = n.getDateValue(); },
         "dropbox_data_source": n => { apiKnowledgeBaseDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSourceDisplay>(createApiDropboxDataSourceDisplayFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKnowledgeBaseDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
@@ -16128,6 +16360,9 @@ export function deserializeIntoApiModel(apiModel: Partial<ApiModel> | undefined 
         "inference_name": n => { apiModel.inferenceName = n.getStringValue(); },
         "inference_version": n => { apiModel.inferenceVersion = n.getStringValue(); },
         "is_foundational": n => { apiModel.isFoundational = n.getBooleanValue(); },
+        "kb_default_chunk_size": n => { apiModel.kbDefaultChunkSize = n.getNumberValue(); },
+        "kb_max_chunk_size": n => { apiModel.kbMaxChunkSize = n.getNumberValue(); },
+        "kb_min_chunk_size": n => { apiModel.kbMinChunkSize = n.getNumberValue(); },
         "metadata": n => { apiModel.metadata = n.getObjectValue<ApiModel_metadata>(createApiModel_metadataFromDiscriminatorValue); },
         "name": n => { apiModel.name = n.getStringValue(); },
         "parent_uuid": n => { apiModel.parentUuid = n.getStringValue(); },
@@ -16196,6 +16431,9 @@ export function deserializeIntoApiModelPublic(apiModelPublic: Partial<ApiModelPu
         "created_at": n => { apiModelPublic.createdAt = n.getDateValue(); },
         "id": n => { apiModelPublic.id = n.getStringValue(); },
         "is_foundational": n => { apiModelPublic.isFoundational = n.getBooleanValue(); },
+        "kb_default_chunk_size": n => { apiModelPublic.kbDefaultChunkSize = n.getNumberValue(); },
+        "kb_max_chunk_size": n => { apiModelPublic.kbMaxChunkSize = n.getNumberValue(); },
+        "kb_min_chunk_size": n => { apiModelPublic.kbMinChunkSize = n.getNumberValue(); },
         "name": n => { apiModelPublic.name = n.getStringValue(); },
         "parent_uuid": n => { apiModelPublic.parentUuid = n.getStringValue(); },
         "updated_at": n => { apiModelPublic.updatedAt = n.getDateValue(); },
@@ -16292,6 +16530,7 @@ export function deserializeIntoApiPresignedUrlFile(apiPresignedUrlFile: Partial<
 // @ts-ignore
 export function deserializeIntoApiPrompt(apiPrompt: Partial<ApiPrompt> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "evaluation_trace_spans": n => { apiPrompt.evaluationTraceSpans = n.getCollectionOfObjectValues<ApiEvaluationTraceSpan>(createApiEvaluationTraceSpanFromDiscriminatorValue); },
         "ground_truth": n => { apiPrompt.groundTruth = n.getStringValue(); },
         "input": n => { apiPrompt.input = n.getStringValue(); },
         "input_tokens": n => { apiPrompt.inputTokens = n.getStringValue(); },
@@ -16300,6 +16539,7 @@ export function deserializeIntoApiPrompt(apiPrompt: Partial<ApiPrompt> | undefin
         "prompt_chunks": n => { apiPrompt.promptChunks = n.getCollectionOfObjectValues<ApiPromptChunk>(createApiPromptChunkFromDiscriminatorValue); },
         "prompt_id": n => { apiPrompt.promptId = n.getNumberValue(); },
         "prompt_level_metric_results": n => { apiPrompt.promptLevelMetricResults = n.getCollectionOfObjectValues<ApiEvaluationMetricResult>(createApiEvaluationMetricResultFromDiscriminatorValue); },
+        "trace_id": n => { apiPrompt.traceId = n.getStringValue(); },
     }
 }
 /**
@@ -16385,6 +16625,7 @@ export function deserializeIntoApiRollbackToAgentVersionOutput(apiRollbackToAgen
 // @ts-ignore
 export function deserializeIntoApiRunEvaluationTestCaseInputPublic(apiRunEvaluationTestCaseInputPublic: Partial<ApiRunEvaluationTestCaseInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "agent_deployment_names": n => { apiRunEvaluationTestCaseInputPublic.agentDeploymentNames = n.getCollectionOfPrimitiveValues<string>(); },
         "agent_uuids": n => { apiRunEvaluationTestCaseInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>(); },
         "run_name": n => { apiRunEvaluationTestCaseInputPublic.runName = n.getStringValue(); },
         "test_case_uuid": n => { apiRunEvaluationTestCaseInputPublic.testCaseUuid = n.getStringValue(); },
@@ -28889,6 +29130,21 @@ export function serializeApiChatbot(writer: SerializationWriter, apiChatbot: Par
 }
 /**
  * Serializes information the current object
+ * @param ApiChunkingOptions The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiChunkingOptions(writer: SerializationWriter, apiChunkingOptions: Partial<ApiChunkingOptions> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiChunkingOptions || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("child_chunk_size", apiChunkingOptions.childChunkSize);
+    writer.writeNumberValue("max_chunk_size", apiChunkingOptions.maxChunkSize);
+    writer.writeNumberValue("parent_chunk_size", apiChunkingOptions.parentChunkSize);
+    writer.writeNumberValue("semantic_threshold", apiChunkingOptions.semanticThreshold);
+    writer.writeAdditionalData(apiChunkingOptions.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCreateAgentAPIKeyInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -29006,6 +29262,7 @@ export function serializeApiCreateDataSourceFileUploadPresignedUrlsOutput(writer
 // @ts-ignore
 export function serializeApiCreateEvaluationDatasetInputPublic(writer: SerializationWriter, apiCreateEvaluationDatasetInputPublic: Partial<ApiCreateEvaluationDatasetInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiCreateEvaluationDatasetInputPublic || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<ApiEvaluationDatasetType>("dataset_type", apiCreateEvaluationDatasetInputPublic.datasetType ?? ApiEvaluationDatasetTypeObject.EVALUATION_DATASET_TYPE_UNKNOWN);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_dataset", apiCreateEvaluationDatasetInputPublic.fileUploadDataset, serializeApiFileUploadDataSource);
     writer.writeStringValue("name", apiCreateEvaluationDatasetInputPublic.name);
     writer.writeAdditionalData(apiCreateEvaluationDatasetInputPublic.additionalData);
@@ -29031,6 +29288,7 @@ export function serializeApiCreateEvaluationDatasetOutput(writer: SerializationW
 // @ts-ignore
 export function serializeApiCreateEvaluationTestCaseInputPublic(writer: SerializationWriter, apiCreateEvaluationTestCaseInputPublic: Partial<ApiCreateEvaluationTestCaseInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiCreateEvaluationTestCaseInputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("agent_workspace_name", apiCreateEvaluationTestCaseInputPublic.agentWorkspaceName);
     writer.writeStringValue("dataset_uuid", apiCreateEvaluationTestCaseInputPublic.datasetUuid);
     writer.writeStringValue("description", apiCreateEvaluationTestCaseInputPublic.description);
     writer.writeCollectionOfPrimitiveValues<string>("metrics", apiCreateEvaluationTestCaseInputPublic.metrics);
@@ -29061,6 +29319,8 @@ export function serializeApiCreateEvaluationTestCaseOutput(writer: Serialization
 export function serializeApiCreateKnowledgeBaseDataSourceInputPublic(writer: SerializationWriter, apiCreateKnowledgeBaseDataSourceInputPublic: Partial<ApiCreateKnowledgeBaseDataSourceInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiCreateKnowledgeBaseDataSourceInputPublic || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAWSDataSource>("aws_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource, serializeApiAWSDataSource);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiCreateKnowledgeBaseDataSourceInputPublic.chunkingOptions, serializeApiChunkingOptions);
     writer.writeStringValue("knowledge_base_uuid", apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid);
     writer.writeObjectValue<ApiSpacesDataSource>("spaces_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource, serializeApiSpacesDataSource);
     writer.writeObjectValue<ApiWebCrawlerDataSource>("web_crawler_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.webCrawlerDataSource, serializeApiWebCrawlerDataSource);
@@ -29454,6 +29714,7 @@ export function serializeApiEvaluationMetricResult(writer: SerializationWriter, 
 export function serializeApiEvaluationRun(writer: SerializationWriter, apiEvaluationRun: Partial<ApiEvaluationRun> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiEvaluationRun || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("agent_deleted", apiEvaluationRun.agentDeleted);
+    writer.writeStringValue("agent_deployment_name", apiEvaluationRun.agentDeploymentName);
     writer.writeStringValue("agent_name", apiEvaluationRun.agentName);
     writer.writeStringValue("agent_uuid", apiEvaluationRun.agentUuid);
     writer.writeStringValue("agent_version_hash", apiEvaluationRun.agentVersionHash);
@@ -29517,6 +29778,46 @@ export function serializeApiEvaluationTestCaseMetricList(writer: SerializationWr
     if (!apiEvaluationTestCaseMetricList || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("metric_uuids", apiEvaluationTestCaseMetricList.metricUuids);
     writer.writeAdditionalData(apiEvaluationTestCaseMetricList.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiEvaluationTraceSpan The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiEvaluationTraceSpan(writer: SerializationWriter, apiEvaluationTraceSpan: Partial<ApiEvaluationTraceSpan> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiEvaluationTraceSpan || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", apiEvaluationTraceSpan.createdAt);
+    writer.writeObjectValue<ApiEvaluationTraceSpan_input>("input", apiEvaluationTraceSpan.input, serializeApiEvaluationTraceSpan_input);
+    writer.writeStringValue("name", apiEvaluationTraceSpan.name);
+    writer.writeObjectValue<ApiEvaluationTraceSpan_output>("output", apiEvaluationTraceSpan.output, serializeApiEvaluationTraceSpan_output);
+    writer.writeCollectionOfObjectValues<ApiPromptChunk>("retriever_chunks", apiEvaluationTraceSpan.retrieverChunks, serializeApiPromptChunk);
+    writer.writeCollectionOfObjectValues<ApiEvaluationMetricResult>("span_level_metric_results", apiEvaluationTraceSpan.spanLevelMetricResults, serializeApiEvaluationMetricResult);
+    writer.writeEnumValue<ApiTraceSpanType>("type", apiEvaluationTraceSpan.type ?? ApiTraceSpanTypeObject.TRACE_SPAN_TYPE_UNKNOWN);
+    writer.writeAdditionalData(apiEvaluationTraceSpan.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiEvaluationTraceSpan_input The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiEvaluationTraceSpan_input(writer: SerializationWriter, apiEvaluationTraceSpan_input: Partial<ApiEvaluationTraceSpan_input> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiEvaluationTraceSpan_input || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(apiEvaluationTraceSpan_input.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiEvaluationTraceSpan_output The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiEvaluationTraceSpan_output(writer: SerializationWriter, apiEvaluationTraceSpan_output: Partial<ApiEvaluationTraceSpan_output> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiEvaluationTraceSpan_output || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(apiEvaluationTraceSpan_output.additionalData);
 }
 /**
  * Serializes information the current object
@@ -29821,6 +30122,8 @@ export function serializeApiKBDataSource(writer: SerializationWriter, apiKBDataS
     writer.writeObjectValue<ApiAWSDataSource>("aws_data_source", apiKBDataSource.awsDataSource, serializeApiAWSDataSource);
     writer.writeStringValue("bucket_name", apiKBDataSource.bucketName);
     writer.writeStringValue("bucket_region", apiKBDataSource.bucketRegion);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKBDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiKBDataSource.chunkingOptions, serializeApiChunkingOptions);
     writer.writeObjectValue<ApiDropboxDataSource>("dropbox_data_source", apiKBDataSource.dropboxDataSource, serializeApiDropboxDataSource);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKBDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
     writer.writeObjectValue<ApiGoogleDriveDataSource>("google_drive_data_source", apiKBDataSource.googleDriveDataSource, serializeApiGoogleDriveDataSource);
@@ -29864,6 +30167,8 @@ export function serializeApiKnowledgeBaseDataSource(writer: SerializationWriter,
     if (!apiKnowledgeBaseDataSource || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAWSDataSourceDisplay>("aws_data_source", apiKnowledgeBaseDataSource.awsDataSource, serializeApiAWSDataSourceDisplay);
     writer.writeStringValue("bucket_name", apiKnowledgeBaseDataSource.bucketName);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKnowledgeBaseDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiKnowledgeBaseDataSource.chunkingOptions, serializeApiChunkingOptions);
     writer.writeDateValue("created_at", apiKnowledgeBaseDataSource.createdAt);
     writer.writeObjectValue<ApiDropboxDataSourceDisplay>("dropbox_data_source", apiKnowledgeBaseDataSource.dropboxDataSource, serializeApiDropboxDataSourceDisplay);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKnowledgeBaseDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
@@ -30275,6 +30580,9 @@ export function serializeApiModel(writer: SerializationWriter, apiModel: Partial
     writer.writeStringValue("inference_name", apiModel.inferenceName);
     writer.writeStringValue("inference_version", apiModel.inferenceVersion);
     writer.writeBooleanValue("is_foundational", apiModel.isFoundational);
+    writer.writeNumberValue("kb_default_chunk_size", apiModel.kbDefaultChunkSize);
+    writer.writeNumberValue("kb_max_chunk_size", apiModel.kbMaxChunkSize);
+    writer.writeNumberValue("kb_min_chunk_size", apiModel.kbMinChunkSize);
     writer.writeObjectValue<ApiModel_metadata>("metadata", apiModel.metadata, serializeApiModel_metadata);
     writer.writeStringValue("name", apiModel.name);
     writer.writeStringValue("parent_uuid", apiModel.parentUuid);
@@ -30348,6 +30656,9 @@ export function serializeApiModelPublic(writer: SerializationWriter, apiModelPub
     writer.writeDateValue("created_at", apiModelPublic.createdAt);
     writer.writeStringValue("id", apiModelPublic.id);
     writer.writeBooleanValue("is_foundational", apiModelPublic.isFoundational);
+    writer.writeNumberValue("kb_default_chunk_size", apiModelPublic.kbDefaultChunkSize);
+    writer.writeNumberValue("kb_max_chunk_size", apiModelPublic.kbMaxChunkSize);
+    writer.writeNumberValue("kb_min_chunk_size", apiModelPublic.kbMinChunkSize);
     writer.writeStringValue("name", apiModelPublic.name);
     writer.writeStringValue("parent_uuid", apiModelPublic.parentUuid);
     writer.writeDateValue("updated_at", apiModelPublic.updatedAt);
@@ -30451,6 +30762,7 @@ export function serializeApiPresignedUrlFile(writer: SerializationWriter, apiPre
 // @ts-ignore
 export function serializeApiPrompt(writer: SerializationWriter, apiPrompt: Partial<ApiPrompt> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiPrompt || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiEvaluationTraceSpan>("evaluation_trace_spans", apiPrompt.evaluationTraceSpans, serializeApiEvaluationTraceSpan);
     writer.writeStringValue("ground_truth", apiPrompt.groundTruth);
     writer.writeStringValue("input", apiPrompt.input);
     writer.writeStringValue("input_tokens", apiPrompt.inputTokens);
@@ -30459,6 +30771,7 @@ export function serializeApiPrompt(writer: SerializationWriter, apiPrompt: Parti
     writer.writeCollectionOfObjectValues<ApiPromptChunk>("prompt_chunks", apiPrompt.promptChunks, serializeApiPromptChunk);
     writer.writeNumberValue("prompt_id", apiPrompt.promptId);
     writer.writeCollectionOfObjectValues<ApiEvaluationMetricResult>("prompt_level_metric_results", apiPrompt.promptLevelMetricResults, serializeApiEvaluationMetricResult);
+    writer.writeStringValue("trace_id", apiPrompt.traceId);
     writer.writeAdditionalData(apiPrompt.additionalData);
 }
 /**
@@ -30551,6 +30864,7 @@ export function serializeApiRollbackToAgentVersionOutput(writer: SerializationWr
 // @ts-ignore
 export function serializeApiRunEvaluationTestCaseInputPublic(writer: SerializationWriter, apiRunEvaluationTestCaseInputPublic: Partial<ApiRunEvaluationTestCaseInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiRunEvaluationTestCaseInputPublic || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("agent_deployment_names", apiRunEvaluationTestCaseInputPublic.agentDeploymentNames);
     writer.writeCollectionOfPrimitiveValues<string>("agent_uuids", apiRunEvaluationTestCaseInputPublic.agentUuids);
     writer.writeStringValue("run_name", apiRunEvaluationTestCaseInputPublic.runName);
     writer.writeStringValue("test_case_uuid", apiRunEvaluationTestCaseInputPublic.testCaseUuid);
@@ -39431,6 +39745,13 @@ export const ApiBatchJobPhaseObject = {
     BATCH_JOB_PHASE_ERROR: "BATCH_JOB_PHASE_ERROR",
     BATCH_JOB_PHASE_CANCELLED: "BATCH_JOB_PHASE_CANCELLED",
 } as const;
+export const ApiChunkingAlgorithmObject = {
+    CHUNKING_ALGORITHM_UNKNOWN: "CHUNKING_ALGORITHM_UNKNOWN",
+    CHUNKING_ALGORITHM_SECTION_BASED: "CHUNKING_ALGORITHM_SECTION_BASED",
+    CHUNKING_ALGORITHM_HIERARCHICAL: "CHUNKING_ALGORITHM_HIERARCHICAL",
+    CHUNKING_ALGORITHM_SEMANTIC: "CHUNKING_ALGORITHM_SEMANTIC",
+    CHUNKING_ALGORITHM_FIXED_LENGTH: "CHUNKING_ALGORITHM_FIXED_LENGTH",
+} as const;
 /**
  * Options for specifying how URLs found on pages should be handled. - UNKNOWN: Default unknown value - SCOPED: Only include the base URL. - PATH: Crawl the base URL and linked pages within the URL path. - DOMAIN: Crawl the base URL and linked pages within the same domain. - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain. - SITEMAP: Crawl URLs discovered in the sitemap.
  */
@@ -39463,6 +39784,11 @@ export const ApiDeploymentVisibilityObject = {
     VISIBILITY_PLAYGROUND: "VISIBILITY_PLAYGROUND",
     VISIBILITY_PUBLIC: "VISIBILITY_PUBLIC",
     VISIBILITY_PRIVATE: "VISIBILITY_PRIVATE",
+} as const;
+export const ApiEvaluationDatasetTypeObject = {
+    EVALUATION_DATASET_TYPE_UNKNOWN: "EVALUATION_DATASET_TYPE_UNKNOWN",
+    EVALUATION_DATASET_TYPE_ADK: "EVALUATION_DATASET_TYPE_ADK",
+    EVALUATION_DATASET_TYPE_NON_ADK: "EVALUATION_DATASET_TYPE_NON_ADK",
 } as const;
 export const ApiEvaluationMetricCategoryObject = {
     METRIC_CATEGORY_UNSPECIFIED: "METRIC_CATEGORY_UNSPECIFIED",
@@ -39548,6 +39874,15 @@ export const ApiRetrievalMethodObject = {
     RETRIEVAL_METHOD_STEP_BACK: "RETRIEVAL_METHOD_STEP_BACK",
     RETRIEVAL_METHOD_SUB_QUERIES: "RETRIEVAL_METHOD_SUB_QUERIES",
     RETRIEVAL_METHOD_NONE: "RETRIEVAL_METHOD_NONE",
+} as const;
+/**
+ * Types of spans in a trace
+ */
+export const ApiTraceSpanTypeObject = {
+    TRACE_SPAN_TYPE_UNKNOWN: "TRACE_SPAN_TYPE_UNKNOWN",
+    TRACE_SPAN_TYPE_LLM: "TRACE_SPAN_TYPE_LLM",
+    TRACE_SPAN_TYPE_RETRIEVER: "TRACE_SPAN_TYPE_RETRIEVER",
+    TRACE_SPAN_TYPE_TOOL: "TRACE_SPAN_TYPE_TOOL",
 } as const;
 export const App_alert_phaseObject = {
     UNKNOWN: "UNKNOWN",
