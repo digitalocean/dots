@@ -1489,13 +1489,16 @@ export interface ApiChatbot extends AdditionalDataHolder, Parsable {
     startingMessage?: string | null;
 }
 export type ApiChunkingAlgorithm = (typeof ApiChunkingAlgorithmObject)[keyof typeof ApiChunkingAlgorithmObject];
+/**
+ * Configuration options for the chunking algorithm.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+ */
 export interface ApiChunkingOptions extends AdditionalDataHolder, Parsable {
     /**
-     * The child_chunk_size property
+     * Hierarchical options
      */
     childChunkSize?: number | null;
     /**
-     * Common options
+     * Section_Based and Fixed_Length options
      */
     maxChunkSize?: number | null;
     /**
@@ -1701,11 +1704,11 @@ export interface ApiCreateKnowledgeBaseDataSourceInputPublic extends AdditionalD
      */
     awsDataSource?: ApiAWSDataSource | null;
     /**
-     * The chunking_algorithm property
+     * The chunking algorithm to use for processing data sources.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingAlgorithm?: ApiChunkingAlgorithm | null;
     /**
-     * The chunking_options property
+     * Configuration options for the chunking algorithm.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingOptions?: ApiChunkingOptions | null;
     /**
@@ -2664,11 +2667,11 @@ export interface ApiKBDataSource extends AdditionalDataHolder, Parsable {
      */
     bucketRegion?: string | null;
     /**
-     * The chunking_algorithm property
+     * The chunking algorithm to use for processing data sources.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingAlgorithm?: ApiChunkingAlgorithm | null;
     /**
-     * The chunking_options property
+     * Configuration options for the chunking algorithm.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingOptions?: ApiChunkingOptions | null;
     /**
@@ -2766,11 +2769,11 @@ export interface ApiKnowledgeBaseDataSource extends AdditionalDataHolder, Parsab
      */
     bucketName?: string | null;
     /**
-     * The chunking_algorithm property
+     * The chunking algorithm to use for processing data sources.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingAlgorithm?: ApiChunkingAlgorithm | null;
     /**
-     * The chunking_options property
+     * Configuration options for the chunking algorithm.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
      */
     chunkingOptions?: ApiChunkingOptions | null;
     /**
@@ -15187,7 +15190,7 @@ export function deserializeIntoApiCreateEvaluationTestCaseOutput(apiCreateEvalua
 export function deserializeIntoApiCreateKnowledgeBaseDataSourceInputPublic(apiCreateKnowledgeBaseDataSourceInputPublic: Partial<ApiCreateKnowledgeBaseDataSourceInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "aws_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource = n.getObjectValue<ApiAWSDataSource>(createApiAWSDataSourceFromDiscriminatorValue); },
-        "chunking_algorithm": n => { apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_algorithm": n => { apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED; },
         "chunking_options": n => { apiCreateKnowledgeBaseDataSourceInputPublic.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "knowledge_base_uuid": n => { apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid = n.getStringValue(); },
         "spaces_data_source": n => { apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource = n.getObjectValue<ApiSpacesDataSource>(createApiSpacesDataSourceFromDiscriminatorValue); },
@@ -15934,7 +15937,7 @@ export function deserializeIntoApiKBDataSource(apiKBDataSource: Partial<ApiKBDat
         "aws_data_source": n => { apiKBDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSource>(createApiAWSDataSourceFromDiscriminatorValue); },
         "bucket_name": n => { apiKBDataSource.bucketName = n.getStringValue(); },
         "bucket_region": n => { apiKBDataSource.bucketRegion = n.getStringValue(); },
-        "chunking_algorithm": n => { apiKBDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_algorithm": n => { apiKBDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED; },
         "chunking_options": n => { apiKBDataSource.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "dropbox_data_source": n => { apiKBDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSource>(createApiDropboxDataSourceFromDiscriminatorValue); },
         "file_upload_data_source": n => { apiKBDataSource.fileUploadDataSource = n.getObjectValue<ApiFileUploadDataSource>(createApiFileUploadDataSourceFromDiscriminatorValue); },
@@ -15977,7 +15980,7 @@ export function deserializeIntoApiKnowledgeBaseDataSource(apiKnowledgeBaseDataSo
     return {
         "aws_data_source": n => { apiKnowledgeBaseDataSource.awsDataSource = n.getObjectValue<ApiAWSDataSourceDisplay>(createApiAWSDataSourceDisplayFromDiscriminatorValue); },
         "bucket_name": n => { apiKnowledgeBaseDataSource.bucketName = n.getStringValue(); },
-        "chunking_algorithm": n => { apiKnowledgeBaseDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN; },
+        "chunking_algorithm": n => { apiKnowledgeBaseDataSource.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED; },
         "chunking_options": n => { apiKnowledgeBaseDataSource.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
         "created_at": n => { apiKnowledgeBaseDataSource.createdAt = n.getDateValue(); },
         "dropbox_data_source": n => { apiKnowledgeBaseDataSource.dropboxDataSource = n.getObjectValue<ApiDropboxDataSourceDisplay>(createApiDropboxDataSourceDisplayFromDiscriminatorValue); },
@@ -29319,7 +29322,7 @@ export function serializeApiCreateEvaluationTestCaseOutput(writer: Serialization
 export function serializeApiCreateKnowledgeBaseDataSourceInputPublic(writer: SerializationWriter, apiCreateKnowledgeBaseDataSourceInputPublic: Partial<ApiCreateKnowledgeBaseDataSourceInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiCreateKnowledgeBaseDataSourceInputPublic || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAWSDataSource>("aws_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.awsDataSource, serializeApiAWSDataSource);
-    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiCreateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED);
     writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiCreateKnowledgeBaseDataSourceInputPublic.chunkingOptions, serializeApiChunkingOptions);
     writer.writeStringValue("knowledge_base_uuid", apiCreateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid);
     writer.writeObjectValue<ApiSpacesDataSource>("spaces_data_source", apiCreateKnowledgeBaseDataSourceInputPublic.spacesDataSource, serializeApiSpacesDataSource);
@@ -30122,7 +30125,7 @@ export function serializeApiKBDataSource(writer: SerializationWriter, apiKBDataS
     writer.writeObjectValue<ApiAWSDataSource>("aws_data_source", apiKBDataSource.awsDataSource, serializeApiAWSDataSource);
     writer.writeStringValue("bucket_name", apiKBDataSource.bucketName);
     writer.writeStringValue("bucket_region", apiKBDataSource.bucketRegion);
-    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKBDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKBDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED);
     writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiKBDataSource.chunkingOptions, serializeApiChunkingOptions);
     writer.writeObjectValue<ApiDropboxDataSource>("dropbox_data_source", apiKBDataSource.dropboxDataSource, serializeApiDropboxDataSource);
     writer.writeObjectValue<ApiFileUploadDataSource>("file_upload_data_source", apiKBDataSource.fileUploadDataSource, serializeApiFileUploadDataSource);
@@ -30167,7 +30170,7 @@ export function serializeApiKnowledgeBaseDataSource(writer: SerializationWriter,
     if (!apiKnowledgeBaseDataSource || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAWSDataSourceDisplay>("aws_data_source", apiKnowledgeBaseDataSource.awsDataSource, serializeApiAWSDataSourceDisplay);
     writer.writeStringValue("bucket_name", apiKnowledgeBaseDataSource.bucketName);
-    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKnowledgeBaseDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_UNKNOWN);
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiKnowledgeBaseDataSource.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED);
     writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiKnowledgeBaseDataSource.chunkingOptions, serializeApiChunkingOptions);
     writer.writeDateValue("created_at", apiKnowledgeBaseDataSource.createdAt);
     writer.writeObjectValue<ApiDropboxDataSourceDisplay>("dropbox_data_source", apiKnowledgeBaseDataSource.dropboxDataSource, serializeApiDropboxDataSourceDisplay);
@@ -39745,6 +39748,9 @@ export const ApiBatchJobPhaseObject = {
     BATCH_JOB_PHASE_ERROR: "BATCH_JOB_PHASE_ERROR",
     BATCH_JOB_PHASE_CANCELLED: "BATCH_JOB_PHASE_CANCELLED",
 } as const;
+/**
+ * The chunking algorithm to use for processing data sources.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+ */
 export const ApiChunkingAlgorithmObject = {
     CHUNKING_ALGORITHM_UNKNOWN: "CHUNKING_ALGORITHM_UNKNOWN",
     CHUNKING_ALGORITHM_SECTION_BASED: "CHUNKING_ALGORITHM_SECTION_BASED",
