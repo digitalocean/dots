@@ -66,10 +66,11 @@ export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilde
      * Gets an item from the ApiSdk.v2.registry.item.repositories.item.tags.item collection
      * @param repository_tag The name of a container registry repository tag.
      * @returns {WithRepository_tagItemRequestBuilder}
+     * @deprecated 
      */
      byRepository_tag(repository_tag: string) : WithRepository_tagItemRequestBuilder;
     /**
-     * To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<TagsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -77,17 +78,19 @@ export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilde
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<TagsRequestBuilderGetQueryParameters> | undefined) : Promise<TagsGetResponse | undefined>;
     /**
-     * To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<TagsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
+ * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all tags in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`.
  */
 export interface TagsRequestBuilderGetQueryParameters {
     /**

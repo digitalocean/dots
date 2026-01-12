@@ -47,7 +47,7 @@ export interface RepositoriesV2GetResponse extends AdditionalDataHolder, Parsabl
  */
 export interface RepositoriesV2RequestBuilder extends BaseRequestBuilder<RepositoriesV2RequestBuilder> {
     /**
-     * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2` and exists for backward compatibility.
+     * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RepositoriesV2GetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -59,14 +59,14 @@ export interface RepositoriesV2RequestBuilder extends BaseRequestBuilder<Reposit
      */
      get(requestConfiguration?: RequestConfiguration<RepositoriesV2RequestBuilderGetQueryParameters> | undefined) : Promise<RepositoriesV2GetResponse | undefined>;
     /**
-     * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2` and exists for backward compatibility.
+     * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<RepositoriesV2RequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2` and exists for backward compatibility.
+ * To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
  */
 export interface RepositoriesV2RequestBuilderGetQueryParameters {
     /**

@@ -37,7 +37,7 @@ export interface GarbageCollectionsGetResponse extends AdditionalDataHolder, Par
  */
 export interface GarbageCollectionsRequestBuilder extends BaseRequestBuilder<GarbageCollectionsRequestBuilder> {
     /**
-     * To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about past garbage collections for a registry,send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<GarbageCollectionsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -45,17 +45,19 @@ export interface GarbageCollectionsRequestBuilder extends BaseRequestBuilder<Gar
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<GarbageCollectionsRequestBuilderGetQueryParameters> | undefined) : Promise<GarbageCollectionsGetResponse | undefined>;
     /**
-     * To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about past garbage collections for a registry,send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<GarbageCollectionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
+ * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about past garbage collections for a registry,send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
  */
 export interface GarbageCollectionsRequestBuilderGetQueryParameters {
     /**

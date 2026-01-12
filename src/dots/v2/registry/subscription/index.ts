@@ -126,17 +126,18 @@ export interface SubscriptionPostResponse extends AdditionalDataHolder, Parsable
  */
 export interface SubscriptionRequestBuilder extends BaseRequestBuilder<SubscriptionRequestBuilder> {
     /**
-     * A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**A subscription is automatically created when you configure yourcontainer registry. To get information about your subscription, send a GETrequest to `/v2/registry/subscription`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SubscriptionGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<SubscriptionGetResponse | undefined>;
     /**
-     * After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**After creating your registry, you can switch to a differentsubscription tier to better suit your needs. To do this, send a POST requestto `/v2/registry/subscription`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SubscriptionPostResponse>}
@@ -145,19 +146,22 @@ export interface SubscriptionRequestBuilder extends BaseRequestBuilder<Subscript
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      post(body: SubscriptionPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<SubscriptionPostResponse | undefined>;
     /**
-     * A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**A subscription is automatically created when you configure yourcontainer registry. To get information about your subscription, send a GETrequest to `/v2/registry/subscription`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**After creating your registry, you can switch to a differentsubscription tier to better suit your needs. To do this, send a POST requestto `/v2/registry/subscription`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPostRequestInformation(body: SubscriptionPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }

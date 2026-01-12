@@ -52,10 +52,11 @@ export interface DigestsRequestBuilder extends BaseRequestBuilder<DigestsRequest
      * Gets an item from the ApiSdk.v2.registry.item.repositories.item.digests.item collection
      * @param manifest_digest The manifest digest of a container registry repository tag.
      * @returns {WithManifest_digestItemRequestBuilder}
+     * @deprecated 
      */
      byManifest_digest(manifest_digest: string) : WithManifest_digestItemRequestBuilder;
     /**
-     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DigestsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -63,17 +64,19 @@ export interface DigestsRequestBuilder extends BaseRequestBuilder<DigestsRequest
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<DigestsRequestBuilderGetQueryParameters> | undefined) : Promise<DigestsGetResponse | undefined>;
     /**
-     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<DigestsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
+ * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all manifests in your container registry repository, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.
  */
 export interface DigestsRequestBuilderGetQueryParameters {
     /**

@@ -20389,6 +20389,7 @@ export function deserializeIntoFirewall_rule(firewall_rule: Partial<Firewall_rul
     return {
         "cluster_uuid": n => { firewall_rule.clusterUuid = n.getStringValue(); },
         "created_at": n => { firewall_rule.createdAt = n.getDateValue(); },
+        "description": n => { firewall_rule.description = n.getStringValue(); },
         "type": n => { firewall_rule.type = n.getEnumValue<Firewall_rule_type>(Firewall_rule_typeObject); },
         "uuid": n => { firewall_rule.uuid = n.getStringValue(); },
         "value": n => { firewall_rule.value = n.getStringValue(); },
@@ -24552,6 +24553,10 @@ export interface Firewall_rule extends AdditionalDataHolder, Parsable {
      * A time value given in ISO8601 combined date and time format that represents when the firewall rule was created.
      */
     createdAt?: Date | null;
+    /**
+     * A human-readable description of the rule.
+     */
+    description?: string | null;
     /**
      * The type of resource that the firewall rule allows to access the database cluster.
      */
@@ -34853,6 +34858,7 @@ export function serializeFirewall_pending_changes(writer: SerializationWriter, f
 // @ts-ignore
 export function serializeFirewall_rule(writer: SerializationWriter, firewall_rule: Partial<Firewall_rule> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!firewall_rule || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", firewall_rule.description);
     writer.writeEnumValue<Firewall_rule_type>("type", firewall_rule.type);
     writer.writeStringValue("uuid", firewall_rule.uuid);
     writer.writeStringValue("value", firewall_rule.value);

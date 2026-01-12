@@ -68,10 +68,11 @@ export interface GarbageCollectionRequestBuilder extends BaseRequestBuilder<Garb
      * Gets an item from the ApiSdk.v2.registry.item.garbageCollection.item collection
      * @param garbage_collection_uuid The UUID of a garbage collection run.
      * @returns {WithGarbage_collection_uuItemRequestBuilder}
+     * @deprecated 
      */
      byGarbage_collection_uuid(garbage_collection_uuid: string) : WithGarbage_collection_uuItemRequestBuilder;
     /**
-     * To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about the currently-active garbage collectionfor a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<GarbageCollectionGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -79,10 +80,11 @@ export interface GarbageCollectionRequestBuilder extends BaseRequestBuilder<Garb
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<GarbageCollectionGetResponse | undefined>;
     /**
-     * Garbage collection enables users to clear out unreferenced blobs (layer &manifest data) after deleting one or more manifests from a repository. Ifthere are no unreferenced blobs resulting from the deletion of one or moremanifests, garbage collection is effectively a noop.[See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)about how and why you should clean up your container registry periodically.To request a garbage collection run on your registry, send a POST request to`/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate thefollowing sequence of events on your registry.* Set the registry to read-only mode, meaning no further write-scoped  JWTs will be issued to registry clients. Existing write-scoped JWTs will  continue to work until they expire which can take up to 15 minutes.* Wait until all existing write-scoped JWTs have expired.* Scan all registry manifests to determine which blobs are unreferenced.* Delete all unreferenced blobs from the registry.* Record the number of blobs deleted and bytes freed, mark the garbage  collection status as `success`.* Remove the read-only mode restriction from the registry, meaning write-scoped  JWTs will once again be issued to registry clients.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**Garbage collection enables users to clear out unreferenced blobs (layer &manifest data) after deleting one or more manifests from a repository. Ifthere are no unreferenced blobs resulting from the deletion of one or moremanifests, garbage collection is effectively a noop.[See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)about how and why you should clean up your container registry periodically.To request a garbage collection run on your registry, send a POST request to`/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate thefollowing sequence of events on your registry.* Set the registry to read-only mode, meaning no further write-scoped  JWTs will be issued to registry clients. Existing write-scoped JWTs will  continue to work until they expire which can take up to 15 minutes.* Wait until all existing write-scoped JWTs have expired.* Scan all registry manifests to determine which blobs are unreferenced.* Delete all unreferenced blobs from the registry.* Record the number of blobs deleted and bytes freed, mark the garbage  collection status as `success`.* Remove the read-only mode restriction from the registry, meaning write-scoped  JWTs will once again be issued to registry clients.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<GarbageCollectionPostResponse>}
@@ -91,19 +93,22 @@ export interface GarbageCollectionRequestBuilder extends BaseRequestBuilder<Garb
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      post(body: Registry_run_gc, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<GarbageCollectionPostResponse | undefined>;
     /**
-     * To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about the currently-active garbage collectionfor a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * Garbage collection enables users to clear out unreferenced blobs (layer &manifest data) after deleting one or more manifests from a repository. Ifthere are no unreferenced blobs resulting from the deletion of one or moremanifests, garbage collection is effectively a noop.[See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)about how and why you should clean up your container registry periodically.To request a garbage collection run on your registry, send a POST request to`/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate thefollowing sequence of events on your registry.* Set the registry to read-only mode, meaning no further write-scoped  JWTs will be issued to registry clients. Existing write-scoped JWTs will  continue to work until they expire which can take up to 15 minutes.* Wait until all existing write-scoped JWTs have expired.* Scan all registry manifests to determine which blobs are unreferenced.* Delete all unreferenced blobs from the registry.* Record the number of blobs deleted and bytes freed, mark the garbage  collection status as `success`.* Remove the read-only mode restriction from the registry, meaning write-scoped  JWTs will once again be issued to registry clients.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**Garbage collection enables users to clear out unreferenced blobs (layer &manifest data) after deleting one or more manifests from a repository. Ifthere are no unreferenced blobs resulting from the deletion of one or moremanifests, garbage collection is effectively a noop.[See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)about how and why you should clean up your container registry periodically.To request a garbage collection run on your registry, send a POST request to`/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate thefollowing sequence of events on your registry.* Set the registry to read-only mode, meaning no further write-scoped  JWTs will be issued to registry clients. Existing write-scoped JWTs will  continue to work until they expire which can take up to 15 minutes.* Wait until all existing write-scoped JWTs have expired.* Scan all registry manifests to determine which blobs are unreferenced.* Delete all unreferenced blobs from the registry.* Record the number of blobs deleted and bytes freed, mark the garbage  collection status as `success`.* Remove the read-only mode restriction from the registry, meaning write-scoped  JWTs will once again be issued to registry clients.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPostRequestInformation(body: Registry_run_gc, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }

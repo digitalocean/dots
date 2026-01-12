@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface ValidateNameRequestBuilder extends BaseRequestBuilder<ValidateNameRequestBuilder> {
     /**
-     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registries/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict. It is similar to `/v2/registry/validate-name` and exists for backward compatibility.
+     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registries/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict. It is similar to `/v2/registry/validate-name`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -22,7 +22,7 @@ export interface ValidateNameRequestBuilder extends BaseRequestBuilder<ValidateN
      */
      post(body: Validate_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registries/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict. It is similar to `/v2/registry/validate-name` and exists for backward compatibility.
+     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registries/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict. It is similar to `/v2/registry/validate-name`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

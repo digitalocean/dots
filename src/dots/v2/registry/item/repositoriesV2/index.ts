@@ -47,7 +47,7 @@ export interface RepositoriesV2GetResponse extends AdditionalDataHolder, Parsabl
  */
 export interface RepositoriesV2RequestBuilder extends BaseRequestBuilder<RepositoriesV2RequestBuilder> {
     /**
-     * To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RepositoriesV2GetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -56,17 +56,19 @@ export interface RepositoriesV2RequestBuilder extends BaseRequestBuilder<Reposit
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<RepositoriesV2RequestBuilderGetQueryParameters> | undefined) : Promise<RepositoriesV2GetResponse | undefined>;
     /**
-     * To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<RepositoriesV2RequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
+ * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
  */
 export interface RepositoriesV2RequestBuilderGetQueryParameters {
     /**
