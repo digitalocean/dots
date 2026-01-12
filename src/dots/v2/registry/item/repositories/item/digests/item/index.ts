@@ -11,19 +11,21 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface WithManifest_digestItemRequestBuilder extends BaseRequestBuilder<WithManifest_digestItemRequestBuilder> {
     /**
-     * To delete a container repository manifest by digest, send a DELETE request to`/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to delete`registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.A successful request will receive a 204 status code with no body in response.This indicates that the request was processed successfully.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To delete a container repository manifest by digest, send a DELETE request to`/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to delete`registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.A successful request will receive a 204 status code with no body in response.This indicates that the request was processed successfully.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To delete a container repository manifest by digest, send a DELETE request to`/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to delete`registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.A successful request will receive a 204 status code with no body in response.This indicates that the request was processed successfully.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To delete a container repository manifest by digest, send a DELETE request to`/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to delete`registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.A successful request will receive a 204 status code with no body in response.This indicates that the request was processed successfully.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }

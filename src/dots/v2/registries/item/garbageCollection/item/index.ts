@@ -43,7 +43,7 @@ export function serializeWithGarbage_collection_uuPutResponse(writer: Serializat
  */
 export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequestBuilder<WithGarbage_collection_uuItemRequestBuilder> {
     /**
-     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below. It is similar to PUT `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and exists for backward compatibility.
+     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below. It is similar to PUT `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithGarbage_collection_uuPutResponse>}
@@ -55,7 +55,7 @@ export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequest
      */
      put(body: Update_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithGarbage_collection_uuPutResponse | undefined>;
     /**
-     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below. It is similar to PUT `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and exists for backward compatibility.
+     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below. It is similar to PUT `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

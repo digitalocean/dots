@@ -69,7 +69,7 @@ export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilde
      */
      byRepository_tag(repository_tag: string) : WithRepository_tagItemRequestBuilder;
     /**
-     * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags` and exists for backward compatibility.
+     * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<TagsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -80,14 +80,14 @@ export interface TagsRequestBuilder extends BaseRequestBuilder<TagsRequestBuilde
      */
      get(requestConfiguration?: RequestConfiguration<TagsRequestBuilderGetQueryParameters> | undefined) : Promise<TagsGetResponse | undefined>;
     /**
-     * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags` and exists for backward compatibility.
+     * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<TagsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags` and exists for backward compatibility.
+ * To list all tags in one of your container registry's repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list tags for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/tags`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
  */
 export interface TagsRequestBuilderGetQueryParameters {
     /**

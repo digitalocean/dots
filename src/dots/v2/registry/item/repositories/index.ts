@@ -55,7 +55,7 @@ export interface RepositoriesRequestBuilder extends BaseRequestBuilder<Repositor
      */
      byRepository_name(repository_name: string) : WithRepository_nameItemRequestBuilder;
     /**
-     * This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RepositoriesGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -67,7 +67,7 @@ export interface RepositoriesRequestBuilder extends BaseRequestBuilder<Repositor
      */
      get(requestConfiguration?: RequestConfiguration<RepositoriesRequestBuilderGetQueryParameters> | undefined) : Promise<RepositoriesGetResponse | undefined>;
     /**
-     * This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      * @deprecated 
@@ -75,7 +75,7 @@ export interface RepositoriesRequestBuilder extends BaseRequestBuilder<Repositor
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<RepositoriesRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
+ * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.To list all repositories in your container registry, send a GETrequest to `/v2/registry/$REGISTRY_NAME/repositories`.
  */
 export interface RepositoriesRequestBuilderGetQueryParameters {
     /**

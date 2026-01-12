@@ -43,7 +43,7 @@ export function serializeWithGarbage_collection_uuPutResponse(writer: Serializat
  */
 export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequestBuilder<WithGarbage_collection_uuItemRequestBuilder> {
     /**
-     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To cancel the currently-active garbage collection for a registry,send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID`and specify one or more of the attributes below.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithGarbage_collection_uuPutResponse>}
@@ -52,13 +52,15 @@ export interface WithGarbage_collection_uuItemRequestBuilder extends BaseRequest
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      put(body: Update_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithGarbage_collection_uuPutResponse | undefined>;
     /**
-     * To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To cancel the currently-active garbage collection for a registry,send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID`and specify one or more of the attributes below.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPutRequestInformation(body: Update_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
