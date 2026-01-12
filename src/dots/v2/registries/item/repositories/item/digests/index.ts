@@ -55,7 +55,7 @@ export interface DigestsRequestBuilder extends BaseRequestBuilder<DigestsRequest
      */
      byManifest_digest(manifest_digest: string) : WithManifest_digestItemRequestBuilder;
     /**
-     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests` and exists for backward compatibility.
+     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DigestsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -66,14 +66,14 @@ export interface DigestsRequestBuilder extends BaseRequestBuilder<DigestsRequest
      */
      get(requestConfiguration?: RequestConfiguration<DigestsRequestBuilderGetQueryParameters> | undefined) : Promise<DigestsGetResponse | undefined>;
     /**
-     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests` and exists for backward compatibility.
+     * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<DigestsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests` and exists for backward compatibility.
+ * To list all manifests in your container registry repository, send a GETrequest to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.Note that if your repository name contains `/` characters, it must beURL-encoded in the request URL. For example, to list manifests for`registry.digitalocean.com/example/my/repo`, the path would be`/v2/registry/example/repositories/my%2Frepo/digests`.It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
  */
 export interface DigestsRequestBuilderGetQueryParameters {
     /**

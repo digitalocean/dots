@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface ValidateNameRequestBuilder extends BaseRequestBuilder<ValidateNameRequestBuilder> {
     /**
-     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registry/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.** To validate that a container registry name is available for use, send a POST request to `/v2/registry/validate-name`. If the name is both formatted correctly and available, the response code will be 204 and contain no body. If the name is already in use, the response will be a 409 Conflict.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -19,13 +19,15 @@ export interface ValidateNameRequestBuilder extends BaseRequestBuilder<ValidateN
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      post(body: Validate_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To validate that a container registry name is available for use, send a POSTrequest to `/v2/registry/validate-name`.If the name is both formatted correctly and available, the response code willbe 204 and contain no body. If the name is already in use, the response willbe a 409 Conflict.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.** To validate that a container registry name is available for use, send a POST request to `/v2/registry/validate-name`. If the name is both formatted correctly and available, the response code will be 204 and contain no body. If the name is already in use, the response will be a 409 Conflict.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPostRequestInformation(body: Validate_registry, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }

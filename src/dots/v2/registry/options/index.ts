@@ -140,19 +140,21 @@ export type OptionsGetResponse_options_subscription_tiers_eligibility_reasons = 
  */
 export interface OptionsRequestBuilder extends BaseRequestBuilder<OptionsRequestBuilder> {
     /**
-     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registry/options`.
+     * **Note: This endpoint is deprecated and may be removed in a future version. There is no alternative.****Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**This endpoint serves to provide additional information as to which option valuesare available when creating a container registry.There are multiple subscription tiers available for container registry. Eachtier allows a different number of image repositories to be created in yourregistry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controlswhere your data is stored.To list the available options, send a GET request to`/v2/registry/options`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<OptionsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<OptionsGetResponse | undefined>;
     /**
-     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registry/options`.
+     * **Note: This endpoint is deprecated and may be removed in a future version. There is no alternative.****Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**This endpoint serves to provide additional information as to which option valuesare available when creating a container registry.There are multiple subscription tiers available for container registry. Eachtier allows a different number of image repositories to be created in yourregistry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controlswhere your data is stored.To list the available options, send a GET request to`/v2/registry/options`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }

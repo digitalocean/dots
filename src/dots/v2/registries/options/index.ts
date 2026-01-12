@@ -140,7 +140,7 @@ export type OptionsGetResponse_options_subscription_tiers_eligibility_reasons = 
  */
 export interface OptionsRequestBuilder extends BaseRequestBuilder<OptionsRequestBuilder> {
     /**
-     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registries/options`. This is similar to GET `/v2/registry/options` and exists for backward compatibility.
+     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registries/options`. This is similar to GET `/v2/registry/options`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<OptionsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -150,7 +150,7 @@ export interface OptionsRequestBuilder extends BaseRequestBuilder<OptionsRequest
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<OptionsGetResponse | undefined>;
     /**
-     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registries/options`. This is similar to GET `/v2/registry/options` and exists for backward compatibility.
+     * This endpoint serves to provide additional information as to which option values are available when creating a container registry.There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.There are multiple regions available for container registry and controls where your data is stored.To list the available options, send a GET request to `/v2/registries/options`. This is similar to GET `/v2/registry/options`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

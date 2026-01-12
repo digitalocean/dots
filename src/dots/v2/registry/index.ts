@@ -74,18 +74,22 @@ export interface RegistryPostResponse extends AdditionalDataHolder, Parsable {
 export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryRequestBuilder> {
     /**
      * The dockerCredentials property
+     * @deprecated 
      */
     get dockerCredentials(): DockerCredentialsRequestBuilder;
     /**
      * The optionsPath property
+     * @deprecated 
      */
     get optionsPath(): OptionsRequestBuilder;
     /**
      * The subscription property
+     * @deprecated 
      */
     get subscription(): SubscriptionRequestBuilder;
     /**
      * The validateName property
+     * @deprecated 
      */
     get validateName(): ValidateNameRequestBuilder;
     /**
@@ -95,7 +99,7 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      */
      byRegistry_name(registry_name: string) : WithRegistry_nameItemRequestBuilder;
     /**
-     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To delete your container registry, destroying all container imagedata stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -103,10 +107,11 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
-     * To get information about your container registry, send a GET request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about your container registry, send a GETrequest to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RegistryGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -114,10 +119,11 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<RegistryGetResponse | undefined>;
     /**
-     * To create your container registry, send a POST request to `/v2/registry`.The `name` becomes part of the URL for images stored in the registry. Forexample, if your registry is called `example`, an image in it will have theURL `registry.digitalocean.com/example/image:tag`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To create your container registry, send a POST request to `/v2/registry`.The `name` becomes part of the URL for images stored in the registry. Forexample, if your registry is called `example`, an image in it will have theURL `registry.digitalocean.com/example/image:tag`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<RegistryPostResponse>}
@@ -125,25 +131,29 @@ export interface RegistryRequestBuilder extends BaseRequestBuilder<RegistryReque
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      post(body: Registry_create, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<RegistryPostResponse | undefined>;
     /**
-     * To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To delete your container registry, destroying all container imagedata stored in it, send a DELETE request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To get information about your container registry, send a GET request to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To get information about your container registry, send a GETrequest to `/v2/registry`.This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To create your container registry, send a POST request to `/v2/registry`.The `name` becomes part of the URL for images stored in the registry. Forexample, if your registry is called `example`, an image in it will have theURL `registry.digitalocean.com/example/image:tag`.
+     * **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**To create your container registry, send a POST request to `/v2/registry`.The `name` becomes part of the URL for images stored in the registry. Forexample, if your registry is called `example`, an image in it will have theURL `registry.digitalocean.com/example/image:tag`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPostRequestInformation(body: Registry_create, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
