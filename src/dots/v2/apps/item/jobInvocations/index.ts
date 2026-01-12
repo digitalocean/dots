@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createApp_job_invocationsFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, type App_job_invocations, type ErrorEscaped } from '../../../../models/index.js';
 // @ts-ignore
-import { type WithJob_invocation_ItemRequestBuilder, WithJob_invocation_ItemRequestBuilderNavigationMetadata, WithJob_invocation_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+import { type WithJob_invocation_ItemRequestBuilder, WithJob_invocation_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -75,7 +75,6 @@ const JobInvocationsRequestBuilderGetQueryParametersMapper: Record<string, strin
 export const JobInvocationsRequestBuilderNavigationMetadata: Record<Exclude<keyof JobInvocationsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     byJob_invocation_id: {
         requestsMetadata: WithJob_invocation_ItemRequestBuilderRequestsMetadata,
-        navigationMetadata: WithJob_invocation_ItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["job_invocation_id"],
     },
 };
