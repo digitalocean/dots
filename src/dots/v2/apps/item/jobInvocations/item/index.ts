@@ -4,12 +4,18 @@
 // @ts-ignore
 import { createApp_job_invocationFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, type App_job_invocation, type ErrorEscaped } from '../../../../../models/index.js';
 // @ts-ignore
-import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
+import { CancelRequestBuilderRequestsMetadata, type CancelRequestBuilder } from './cancel/index.js';
+// @ts-ignore
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
  * Builds and executes requests for operations under /v2/apps/{app_-id}/job-invocations/{job_invocation_id}
  */
 export interface WithJob_invocation_ItemRequestBuilder extends BaseRequestBuilder<WithJob_invocation_ItemRequestBuilder> {
+    /**
+     * The cancel property
+     */
+    get cancel(): CancelRequestBuilder;
     /**
      * Get a specific job invocation for an app.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -46,6 +52,14 @@ export const WithJob_invocation_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/a
  */
 const WithJob_invocation_ItemRequestBuilderGetQueryParametersMapper: Record<string, string> = {
     "jobName": "job_name",
+};
+/**
+ * Metadata for all the navigation properties in the request builder.
+ */
+export const WithJob_invocation_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithJob_invocation_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    cancel: {
+        requestsMetadata: CancelRequestBuilderRequestsMetadata,
+    },
 };
 /**
  * Metadata for all the requests in the request builder.
