@@ -4,6 +4,7 @@
   "version": "1.7.0",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",
