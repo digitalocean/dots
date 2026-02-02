@@ -4040,6 +4040,36 @@ export interface ApiUpdateEvaluationTestCaseOutput extends AdditionalDataHolder,
     version?: number | null;
 }
 /**
+ * Update a data source of a knowledge base with change in chunking algorithm/options
+ */
+export interface ApiUpdateKnowledgeBaseDataSourceInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * The chunking algorithm to use for processing data sources.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+     */
+    chunkingAlgorithm?: ApiChunkingAlgorithm | null;
+    /**
+     * Configuration options for the chunking algorithm.**Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+     */
+    chunkingOptions?: ApiChunkingOptions | null;
+    /**
+     * Data Source ID (Path Parameter)
+     */
+    dataSourceUuid?: string | null;
+    /**
+     * Knowledge Base ID (Path Parameter)
+     */
+    knowledgeBaseUuid?: string | null;
+}
+/**
+ * Update a data source of a knowledge base with change in chunking algorithm/options
+ */
+export interface ApiUpdateKnowledgeBaseDataSourceOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Data Source configuration for Knowledge Bases
+     */
+    knowledgeBaseDataSource?: ApiKnowledgeBaseDataSource | null;
+}
+/**
  * Information about updating a knowledge base
  */
 export interface ApiUpdateKnowledgeBaseInputPublic extends AdditionalDataHolder, Parsable {
@@ -9152,6 +9182,24 @@ export function createApiUpdateEvaluationTestCaseInputPublicFromDiscriminatorVal
 // @ts-ignore
 export function createApiUpdateEvaluationTestCaseOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiUpdateEvaluationTestCaseOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateKnowledgeBaseDataSourceInputPublic}
+ */
+// @ts-ignore
+export function createApiUpdateKnowledgeBaseDataSourceInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateKnowledgeBaseDataSourceInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateKnowledgeBaseDataSourceOutput}
+ */
+// @ts-ignore
+export function createApiUpdateKnowledgeBaseDataSourceOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateKnowledgeBaseDataSourceOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16935,6 +16983,31 @@ export function deserializeIntoApiUpdateEvaluationTestCaseOutput(apiUpdateEvalua
     return {
         "test_case_uuid": n => { apiUpdateEvaluationTestCaseOutput.testCaseUuid = n.getStringValue(); },
         "version": n => { apiUpdateEvaluationTestCaseOutput.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUpdateKnowledgeBaseDataSourceInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateKnowledgeBaseDataSourceInputPublic(apiUpdateKnowledgeBaseDataSourceInputPublic: Partial<ApiUpdateKnowledgeBaseDataSourceInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "chunking_algorithm": n => { apiUpdateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm = n.getEnumValue<ApiChunkingAlgorithm>(ApiChunkingAlgorithmObject) ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED; },
+        "chunking_options": n => { apiUpdateKnowledgeBaseDataSourceInputPublic.chunkingOptions = n.getObjectValue<ApiChunkingOptions>(createApiChunkingOptionsFromDiscriminatorValue); },
+        "data_source_uuid": n => { apiUpdateKnowledgeBaseDataSourceInputPublic.dataSourceUuid = n.getStringValue(); },
+        "knowledge_base_uuid": n => { apiUpdateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUpdateKnowledgeBaseDataSourceOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateKnowledgeBaseDataSourceOutput(apiUpdateKnowledgeBaseDataSourceOutput: Partial<ApiUpdateKnowledgeBaseDataSourceOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "knowledge_base_data_source": n => { apiUpdateKnowledgeBaseDataSourceOutput.knowledgeBaseDataSource = n.getObjectValue<ApiKnowledgeBaseDataSource>(createApiKnowledgeBaseDataSourceFromDiscriminatorValue); },
     }
 }
 /**
@@ -31203,6 +31276,33 @@ export function serializeApiUpdateEvaluationTestCaseOutput(writer: Serialization
     writer.writeStringValue("test_case_uuid", apiUpdateEvaluationTestCaseOutput.testCaseUuid);
     writer.writeNumberValue("version", apiUpdateEvaluationTestCaseOutput.version);
     writer.writeAdditionalData(apiUpdateEvaluationTestCaseOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUpdateKnowledgeBaseDataSourceInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateKnowledgeBaseDataSourceInputPublic(writer: SerializationWriter, apiUpdateKnowledgeBaseDataSourceInputPublic: Partial<ApiUpdateKnowledgeBaseDataSourceInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateKnowledgeBaseDataSourceInputPublic || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<ApiChunkingAlgorithm>("chunking_algorithm", apiUpdateKnowledgeBaseDataSourceInputPublic.chunkingAlgorithm ?? ApiChunkingAlgorithmObject.CHUNKING_ALGORITHM_SECTION_BASED);
+    writer.writeObjectValue<ApiChunkingOptions>("chunking_options", apiUpdateKnowledgeBaseDataSourceInputPublic.chunkingOptions, serializeApiChunkingOptions);
+    writer.writeStringValue("data_source_uuid", apiUpdateKnowledgeBaseDataSourceInputPublic.dataSourceUuid);
+    writer.writeStringValue("knowledge_base_uuid", apiUpdateKnowledgeBaseDataSourceInputPublic.knowledgeBaseUuid);
+    writer.writeAdditionalData(apiUpdateKnowledgeBaseDataSourceInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUpdateKnowledgeBaseDataSourceOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateKnowledgeBaseDataSourceOutput(writer: SerializationWriter, apiUpdateKnowledgeBaseDataSourceOutput: Partial<ApiUpdateKnowledgeBaseDataSourceOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateKnowledgeBaseDataSourceOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiKnowledgeBaseDataSource>("knowledge_base_data_source", apiUpdateKnowledgeBaseDataSourceOutput.knowledgeBaseDataSource, serializeApiKnowledgeBaseDataSource);
+    writer.writeAdditionalData(apiUpdateKnowledgeBaseDataSourceOutput.additionalData);
 }
 /**
  * Serializes information the current object
