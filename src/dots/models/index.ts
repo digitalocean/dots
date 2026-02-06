@@ -11067,6 +11067,15 @@ export function createDisk_infoFromDiscriminatorValue(parseNode: ParseNode | und
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Do_settings}
+ */
+// @ts-ignore
+export function createDo_settingsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDo_settings;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Docker_credentials_auths_registryDigitaloceanCom}
  */
 // @ts-ignore
@@ -13776,6 +13785,10 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     dbNames?: string[] | null;
     /**
+     * The do_settings property
+     */
+    doSettings?: Do_settings | null;
+    /**
      * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
      */
     engine?: Database_cluster_engine | null;
@@ -13886,6 +13899,10 @@ export interface Database_cluster_read extends AdditionalDataHolder, Parsable {
      * An array of strings containing the names of databases created in the database cluster.
      */
     dbNames?: string[] | null;
+    /**
+     * The do_settings property
+     */
+    doSettings?: Do_settings | null;
     /**
      * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
      */
@@ -14096,6 +14113,10 @@ export interface Database_replica extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * The do_settings property
+     */
+    doSettings?: Do_settings | null;
+    /**
      * A unique ID that can be used to identify and reference a database replica.
      */
     id?: Guid | null;
@@ -14141,6 +14162,10 @@ export interface Database_replica_read extends AdditionalDataHolder, Parsable {
      * A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
      */
     createdAt?: Date | null;
+    /**
+     * The do_settings property
+     */
+    doSettings?: Do_settings | null;
     /**
      * A unique ID that can be used to identify and reference a database replica.
      */
@@ -19548,6 +19573,7 @@ export function deserializeIntoDatabase_cluster(database_cluster: Partial<Databa
         "connection": n => { database_cluster.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster.createdAt = n.getDateValue(); },
         "db_names": n => { database_cluster.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "do_settings": n => { database_cluster.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "engine": n => { database_cluster.engine = n.getEnumValue<Database_cluster_engine>(Database_cluster_engineObject); },
         "id": n => { database_cluster.id = n.getGuidValue(); },
         "maintenance_window": n => { database_cluster.maintenanceWindow = n.getObjectValue<Database_maintenance_window>(createDatabase_maintenance_windowFromDiscriminatorValue); },
@@ -19585,6 +19611,7 @@ export function deserializeIntoDatabase_cluster_read(database_cluster_read: Part
         "connection": n => { database_cluster_read.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster_read.createdAt = n.getDateValue(); },
         "db_names": n => { database_cluster_read.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "do_settings": n => { database_cluster_read.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "engine": n => { database_cluster_read.engine = n.getEnumValue<Database_cluster_read_engine>(Database_cluster_read_engineObject); },
         "id": n => { database_cluster_read.id = n.getGuidValue(); },
         "maintenance_window": n => { database_cluster_read.maintenanceWindow = n.getObjectValue<Database_maintenance_window>(createDatabase_maintenance_windowFromDiscriminatorValue); },
@@ -19729,6 +19756,7 @@ export function deserializeIntoDatabase_replica(database_replica: Partial<Databa
     return {
         "connection": n => { database_replica.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_replica.createdAt = n.getDateValue(); },
+        "do_settings": n => { database_replica.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "id": n => { database_replica.id = n.getGuidValue(); },
         "name": n => { database_replica.name = n.getStringValue(); },
         "private_connection": n => { database_replica.privateConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -19750,6 +19778,7 @@ export function deserializeIntoDatabase_replica_read(database_replica_read: Part
     return {
         "connection": n => { database_replica_read.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_replica_read.createdAt = n.getDateValue(); },
+        "do_settings": n => { database_replica_read.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "id": n => { database_replica_read.id = n.getGuidValue(); },
         "name": n => { database_replica_read.name = n.getStringValue(); },
         "private_connection": n => { database_replica_read.privateConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
@@ -19930,6 +19959,17 @@ export function deserializeIntoDisk_info_size(disk_info_size: Partial<Disk_info_
     return {
         "amount": n => { disk_info_size.amount = n.getNumberValue(); },
         "unit": n => { disk_info_size.unit = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Do_settings The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDo_settings(do_settings: Partial<Do_settings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "service_cnames": n => { do_settings.serviceCnames = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -24083,6 +24123,15 @@ export interface Disk_info_size extends AdditionalDataHolder, Parsable {
 }
 export type Disk_info_type = (typeof Disk_info_typeObject)[keyof typeof Disk_info_typeObject];
 export type Distribution = (typeof DistributionObject)[keyof typeof DistributionObject];
+/**
+ * DigitalOcean-specific settings for the database cluster.
+ */
+export interface Do_settings extends AdditionalDataHolder, Parsable {
+    /**
+     * An array of custom CNAMEs for the database cluster. Each CNAME must be a valid RFC 1123 hostname (e.g., "db.example.com"). Maximum of 16 CNAMEs allowed, each up to 253 characters.
+     */
+    serviceCnames?: string[] | null;
+}
 export interface Docker_credentials extends AdditionalDataHolder, Parsable {
     /**
      * The auths property
@@ -34008,6 +34057,7 @@ export function serializeDatabase_cluster(writer: SerializationWriter, database_
     if (!database_cluster || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Database_autoscale_params>("autoscale", database_cluster.autoscale, serializeDatabase_autoscale_params);
     writer.writeObjectValue<Database_connection>("connection", database_cluster.connection, serializeDatabase_connection);
+    writer.writeObjectValue<Do_settings>("do_settings", database_cluster.doSettings, serializeDo_settings);
     writer.writeEnumValue<Database_cluster_engine>("engine", database_cluster.engine);
     writer.writeObjectValue<Database_maintenance_window>("maintenance_window", database_cluster.maintenanceWindow, serializeDatabase_maintenance_window);
     writer.writeStringValue("name", database_cluster.name);
@@ -34037,6 +34087,7 @@ export function serializeDatabase_cluster(writer: SerializationWriter, database_
 export function serializeDatabase_cluster_read(writer: SerializationWriter, database_cluster_read: Partial<Database_cluster_read> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_cluster_read || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Database_connection>("connection", database_cluster_read.connection, serializeDatabase_connection);
+    writer.writeObjectValue<Do_settings>("do_settings", database_cluster_read.doSettings, serializeDo_settings);
     writer.writeEnumValue<Database_cluster_read_engine>("engine", database_cluster_read.engine);
     writer.writeObjectValue<Database_maintenance_window>("maintenance_window", database_cluster_read.maintenanceWindow, serializeDatabase_maintenance_window);
     writer.writeStringValue("name", database_cluster_read.name);
@@ -34170,6 +34221,7 @@ export function serializeDatabase_metrics_credentials(writer: SerializationWrite
 export function serializeDatabase_replica(writer: SerializationWriter, database_replica: Partial<Database_replica> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_replica || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Database_connection>("connection", database_replica.connection, serializeDatabase_connection);
+    writer.writeObjectValue<Do_settings>("do_settings", database_replica.doSettings, serializeDo_settings);
     writer.writeStringValue("name", database_replica.name);
     writer.writeObjectValue<Database_connection>("private_connection", database_replica.privateConnection, serializeDatabase_connection);
     writer.writeStringValue("private_network_uuid", database_replica.privateNetworkUuid);
@@ -34189,6 +34241,7 @@ export function serializeDatabase_replica(writer: SerializationWriter, database_
 export function serializeDatabase_replica_read(writer: SerializationWriter, database_replica_read: Partial<Database_replica_read> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!database_replica_read || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Database_connection>("connection", database_replica_read.connection, serializeDatabase_connection);
+    writer.writeObjectValue<Do_settings>("do_settings", database_replica_read.doSettings, serializeDo_settings);
     writer.writeStringValue("name", database_replica_read.name);
     writer.writeObjectValue<Database_connection>("private_connection", database_replica_read.privateConnection, serializeDatabase_connection);
     writer.writeStringValue("private_network_uuid", database_replica_read.privateNetworkUuid);
@@ -34375,6 +34428,18 @@ export function serializeDisk_info_size(writer: SerializationWriter, disk_info_s
     writer.writeNumberValue("amount", disk_info_size.amount);
     writer.writeStringValue("unit", disk_info_size.unit);
     writer.writeAdditionalData(disk_info_size.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Do_settings The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDo_settings(writer: SerializationWriter, do_settings: Partial<Do_settings> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!do_settings || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("service_cnames", do_settings.serviceCnames);
+    writer.writeAdditionalData(do_settings.additionalData);
 }
 /**
  * Serializes information the current object
