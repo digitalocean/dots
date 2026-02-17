@@ -73,7 +73,7 @@ export interface NfsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const NfsRequestBuilderUriTemplate = "{+baseurl}/v2/nfs?region={region}";
+export const NfsRequestBuilderUriTemplate = "{+baseurl}/v2/nfs{?region*}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */

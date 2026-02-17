@@ -12313,6 +12313,24 @@ export function createNfs_action_snapshotFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_switch_performance_tier_params}
+ */
+// @ts-ignore
+export function createNfs_action_switch_performance_tier_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_switch_performance_tier_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_switch_performance_tier}
+ */
+// @ts-ignore
+export function createNfs_action_switch_performance_tierFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_switch_performance_tier;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_action}
  */
 // @ts-ignore
@@ -21873,6 +21891,29 @@ export function deserializeIntoNfs_action_snapshot_params(nfs_action_snapshot_pa
 }
 /**
  * The deserialization information for the current model
+ * @param Nfs_action_switch_performance_tier The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_switch_performance_tier(nfs_action_switch_performance_tier: Partial<Nfs_action_switch_performance_tier> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoNfs_action(nfs_action_switch_performance_tier),
+        "params": n => { nfs_action_switch_performance_tier.params = n.getObjectValue<Nfs_action_switch_performance_tier_params>(createNfs_action_switch_performance_tier_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_switch_performance_tier_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_switch_performance_tier_params(nfs_action_switch_performance_tier_params: Partial<Nfs_action_switch_performance_tier_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "performance_tier": n => { nfs_action_switch_performance_tier_params.performanceTier = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Nfs_actions_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21940,6 +21981,7 @@ export function deserializeIntoNfs_list_response(nfs_list_response: Partial<Nfs_
 export function deserializeIntoNfs_request(nfs_request: Partial<Nfs_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { nfs_request.name = n.getStringValue(); },
+        "performance_tier": n => { nfs_request.performanceTier = n.getStringValue(); },
         "region": n => { nfs_request.region = n.getStringValue(); },
         "size_gib": n => { nfs_request.sizeGib = n.getNumberValue(); },
         "vpc_ids": n => { nfs_request.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
@@ -26512,6 +26554,18 @@ export interface Nfs_action_snapshot_params extends AdditionalDataHolder, Parsab
      */
     name?: string | null;
 }
+export interface Nfs_action_switch_performance_tier extends Nfs_action, Parsable {
+    /**
+     * The params property
+     */
+    params?: Nfs_action_switch_performance_tier_params | null;
+}
+export interface Nfs_action_switch_performance_tier_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The performance tier to which the NFS share will be switched (e.g., standard, high).
+     */
+    performanceTier?: string | null;
+}
 export type Nfs_action_type = (typeof Nfs_action_typeObject)[keyof typeof Nfs_action_typeObject];
 /**
  * Action response of an NFS share.
@@ -26576,6 +26630,10 @@ export interface Nfs_request extends AdditionalDataHolder, Parsable {
      * The human-readable name of the share.
      */
     name?: string | null;
+    /**
+     * The performance tier of the share.
+     */
+    performanceTier?: string | null;
     /**
      * The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
      */
@@ -36460,6 +36518,30 @@ export function serializeNfs_action_snapshot_params(writer: SerializationWriter,
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_switch_performance_tier The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_switch_performance_tier(writer: SerializationWriter, nfs_action_switch_performance_tier: Partial<Nfs_action_switch_performance_tier> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_switch_performance_tier || isSerializingDerivedType) { return; }
+    serializeNfs_action(writer, nfs_action_switch_performance_tier, isSerializingDerivedType)
+    writer.writeObjectValue<Nfs_action_switch_performance_tier_params>("params", nfs_action_switch_performance_tier.params, serializeNfs_action_switch_performance_tier_params);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_switch_performance_tier_params The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_switch_performance_tier_params(writer: SerializationWriter, nfs_action_switch_performance_tier_params: Partial<Nfs_action_switch_performance_tier_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_switch_performance_tier_params || isSerializingDerivedType) { return; }
+    writer.writeStringValue("performance_tier", nfs_action_switch_performance_tier_params.performanceTier);
+    writer.writeAdditionalData(nfs_action_switch_performance_tier_params.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Nfs_actions_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -36532,6 +36614,7 @@ export function serializeNfs_list_response(writer: SerializationWriter, nfs_list
 export function serializeNfs_request(writer: SerializationWriter, nfs_request: Partial<Nfs_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!nfs_request || isSerializingDerivedType) { return; }
     writer.writeStringValue("name", nfs_request.name);
+    writer.writeStringValue("performance_tier", nfs_request.performanceTier);
     writer.writeStringValue("region", nfs_request.region);
     writer.writeNumberValue("size_gib", nfs_request.sizeGib);
     writer.writeCollectionOfPrimitiveValues<string>("vpc_ids", nfs_request.vpcIds);

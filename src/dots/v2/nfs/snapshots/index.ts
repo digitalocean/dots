@@ -52,7 +52,7 @@ export interface SnapshotsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const SnapshotsRequestBuilderUriTemplate = "{+baseurl}/v2/nfs/snapshots?region={region}{&share_id*}";
+export const SnapshotsRequestBuilderUriTemplate = "{+baseurl}/v2/nfs/snapshots{?region*,share_id*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
