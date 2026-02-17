@@ -65,7 +65,7 @@ export interface WithNfs_snapshot_ItemRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const WithNfs_snapshot_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/nfs/snapshots/{nfs_snapshot_id}?region={region}";
+export const WithNfs_snapshot_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/nfs/snapshots/{nfs_snapshot_id}{?region*}";
 /**
  * Metadata for all the requests in the request builder.
  */
