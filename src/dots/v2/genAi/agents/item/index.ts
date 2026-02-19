@@ -12,6 +12,8 @@ import { Deployment_visibilityRequestBuilderRequestsMetadata, type Deployment_vi
 // @ts-ignore
 import { FunctionsRequestBuilderNavigationMetadata, FunctionsRequestBuilderRequestsMetadata, type FunctionsRequestBuilder } from './functions/index.js';
 // @ts-ignore
+import { GuardrailsRequestBuilderNavigationMetadata, GuardrailsRequestBuilderRequestsMetadata, type GuardrailsRequestBuilder } from './guardrails/index.js';
+// @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
 // @ts-ignore
 import { type UsageRequestBuilder, UsageRequestBuilderRequestsMetadata } from './usage/index.js';
@@ -40,6 +42,10 @@ export interface Agent_uuItemRequestBuilder extends BaseRequestBuilder<Agent_uuI
      * The functions property
      */
     get functions(): FunctionsRequestBuilder;
+    /**
+     * The guardrails property
+     */
+    get guardrails(): GuardrailsRequestBuilder;
     /**
      * The knowledge_bases property
      */
@@ -128,6 +134,10 @@ export const Agent_uuItemRequestBuilderNavigationMetadata: Record<Exclude<keyof 
     functions: {
         requestsMetadata: FunctionsRequestBuilderRequestsMetadata,
         navigationMetadata: FunctionsRequestBuilderNavigationMetadata,
+    },
+    guardrails: {
+        requestsMetadata: GuardrailsRequestBuilderRequestsMetadata,
+        navigationMetadata: GuardrailsRequestBuilderNavigationMetadata,
     },
     knowledge_bases: {
         requestsMetadata: Knowledge_basesRequestBuilderRequestsMetadata,

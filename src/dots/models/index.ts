@@ -948,6 +948,16 @@ export interface ApiAgentGuardrail extends AdditionalDataHolder, Parsable {
 }
 export interface ApiAgentGuardrail_metadata extends AdditionalDataHolder, Parsable {
 }
+export interface ApiAgentGuardrailInput extends AdditionalDataHolder, Parsable {
+    /**
+     * Guardrail uuid
+     */
+    guardrailUuid?: string | null;
+    /**
+     * Priority of the guardrail
+     */
+    priority?: number | null;
+}
 /**
  * Agent Guardrail version
  */
@@ -2874,6 +2884,28 @@ export interface ApiLinkAgentFunctionOutput extends AdditionalDataHolder, Parsab
     agent?: ApiAgent | null;
 }
 /**
+ * Information about an updated agent
+ */
+export interface ApiLinkAgentGuardrailOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * An Agent
+     */
+    agent?: ApiAgent | null;
+}
+/**
+ * Information about linking an agent to a guardrail
+ */
+export interface ApiLinkAgentGuardrailsInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * The UUID of the agent.
+     */
+    agentUuid?: string | null;
+    /**
+     * The list of guardrails to attach.
+     */
+    guardrails?: ApiAgentGuardrailInput[] | null;
+}
+/**
  * Information for linking an agent
  */
 export interface ApiLinkAgentInputPublic extends AdditionalDataHolder, Parsable {
@@ -3762,6 +3794,15 @@ export type ApiTraceSpanType = (typeof ApiTraceSpanTypeObject)[keyof typeof ApiT
  * Information about a newly unlinked agent
  */
 export interface ApiUnlinkAgentFunctionOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * An Agent
+     */
+    agent?: ApiAgent | null;
+}
+/**
+ * UnlinkAgentGuardrailOutput description
+ */
+export interface ApiUnlinkAgentGuardrailOutput extends AdditionalDataHolder, Parsable {
     /**
      * An Agent
      */
@@ -7764,6 +7805,15 @@ export function createApiAgentGuardrailFromDiscriminatorValue(parseNode: ParseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAgentGuardrailInput}
+ */
+// @ts-ignore
+export function createApiAgentGuardrailInputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiAgentGuardrailInput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiAgentGuardrailVersion}
  */
 // @ts-ignore
@@ -8583,6 +8633,24 @@ export function createApiLinkAgentFunctionOutputFromDiscriminatorValue(parseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiLinkAgentGuardrailOutput}
+ */
+// @ts-ignore
+export function createApiLinkAgentGuardrailOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiLinkAgentGuardrailOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiLinkAgentGuardrailsInputPublic}
+ */
+// @ts-ignore
+export function createApiLinkAgentGuardrailsInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiLinkAgentGuardrailsInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiLinkAgentInputPublic}
  */
 // @ts-ignore
@@ -9038,6 +9106,15 @@ export function createApiStartKnowledgeBaseIndexingJobOutputFromDiscriminatorVal
 // @ts-ignore
 export function createApiUnlinkAgentFunctionOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiUnlinkAgentFunctionOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUnlinkAgentGuardrailOutput}
+ */
+// @ts-ignore
+export function createApiUnlinkAgentGuardrailOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUnlinkAgentGuardrailOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -14838,6 +14915,18 @@ export function deserializeIntoApiAgentGuardrail_metadata(apiAgentGuardrail_meta
 }
 /**
  * The deserialization information for the current model
+ * @param ApiAgentGuardrailInput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAgentGuardrailInput(apiAgentGuardrailInput: Partial<ApiAgentGuardrailInput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "guardrail_uuid": n => { apiAgentGuardrailInput.guardrailUuid = n.getStringValue(); },
+        "priority": n => { apiAgentGuardrailInput.priority = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiAgentGuardrailVersion The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -16136,6 +16225,29 @@ export function deserializeIntoApiLinkAgentFunctionOutput(apiLinkAgentFunctionOu
 }
 /**
  * The deserialization information for the current model
+ * @param ApiLinkAgentGuardrailOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiLinkAgentGuardrailOutput(apiLinkAgentGuardrailOutput: Partial<ApiLinkAgentGuardrailOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "agent": n => { apiLinkAgentGuardrailOutput.agent = n.getObjectValue<ApiAgent>(createApiAgentFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiLinkAgentGuardrailsInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiLinkAgentGuardrailsInputPublic(apiLinkAgentGuardrailsInputPublic: Partial<ApiLinkAgentGuardrailsInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "agent_uuid": n => { apiLinkAgentGuardrailsInputPublic.agentUuid = n.getStringValue(); },
+        "guardrails": n => { apiLinkAgentGuardrailsInputPublic.guardrails = n.getCollectionOfObjectValues<ApiAgentGuardrailInput>(createApiAgentGuardrailInputFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiLinkAgentInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -16815,6 +16927,17 @@ export function deserializeIntoApiStartKnowledgeBaseIndexingJobOutput(apiStartKn
 export function deserializeIntoApiUnlinkAgentFunctionOutput(apiUnlinkAgentFunctionOutput: Partial<ApiUnlinkAgentFunctionOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent": n => { apiUnlinkAgentFunctionOutput.agent = n.getObjectValue<ApiAgent>(createApiAgentFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUnlinkAgentGuardrailOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUnlinkAgentGuardrailOutput(apiUnlinkAgentGuardrailOutput: Partial<ApiUnlinkAgentGuardrailOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "agent": n => { apiUnlinkAgentGuardrailOutput.agent = n.getObjectValue<ApiAgent>(createApiAgentFromDiscriminatorValue); },
     }
 }
 /**
@@ -29035,6 +29158,19 @@ export function serializeApiAgentGuardrail_metadata(writer: SerializationWriter,
 }
 /**
  * Serializes information the current object
+ * @param ApiAgentGuardrailInput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAgentGuardrailInput(writer: SerializationWriter, apiAgentGuardrailInput: Partial<ApiAgentGuardrailInput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiAgentGuardrailInput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("guardrail_uuid", apiAgentGuardrailInput.guardrailUuid);
+    writer.writeNumberValue("priority", apiAgentGuardrailInput.priority);
+    writer.writeAdditionalData(apiAgentGuardrailInput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiAgentGuardrailVersion The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -30424,6 +30560,31 @@ export function serializeApiLinkAgentFunctionOutput(writer: SerializationWriter,
 }
 /**
  * Serializes information the current object
+ * @param ApiLinkAgentGuardrailOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiLinkAgentGuardrailOutput(writer: SerializationWriter, apiLinkAgentGuardrailOutput: Partial<ApiLinkAgentGuardrailOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiLinkAgentGuardrailOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiAgent>("agent", apiLinkAgentGuardrailOutput.agent, serializeApiAgent);
+    writer.writeAdditionalData(apiLinkAgentGuardrailOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiLinkAgentGuardrailsInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiLinkAgentGuardrailsInputPublic(writer: SerializationWriter, apiLinkAgentGuardrailsInputPublic: Partial<ApiLinkAgentGuardrailsInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiLinkAgentGuardrailsInputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("agent_uuid", apiLinkAgentGuardrailsInputPublic.agentUuid);
+    writer.writeCollectionOfObjectValues<ApiAgentGuardrailInput>("guardrails", apiLinkAgentGuardrailsInputPublic.guardrails, serializeApiAgentGuardrailInput);
+    writer.writeAdditionalData(apiLinkAgentGuardrailsInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiLinkAgentInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -31156,6 +31317,18 @@ export function serializeApiUnlinkAgentFunctionOutput(writer: SerializationWrite
     if (!apiUnlinkAgentFunctionOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAgent>("agent", apiUnlinkAgentFunctionOutput.agent, serializeApiAgent);
     writer.writeAdditionalData(apiUnlinkAgentFunctionOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUnlinkAgentGuardrailOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUnlinkAgentGuardrailOutput(writer: SerializationWriter, apiUnlinkAgentGuardrailOutput: Partial<ApiUnlinkAgentGuardrailOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUnlinkAgentGuardrailOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiAgent>("agent", apiUnlinkAgentGuardrailOutput.agent, serializeApiAgent);
+    writer.writeAdditionalData(apiUnlinkAgentGuardrailOutput.additionalData);
 }
 /**
  * Serializes information the current object
