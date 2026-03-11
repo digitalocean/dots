@@ -4,6 +4,25 @@
 // @ts-ignore
 import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, type ApiError, type DateOnly, type Guid, type Parsable, type ParseNode, type SerializationWriter, type UntypedNode } from '@microsoft/kiota-abstractions';
 
+export interface Accelerator_config_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * DigitalOcean GPU slug.
+     */
+    acceleratorSlug?: string | null;
+    /**
+     * Number of accelerator instances.
+     */
+    scale?: number | null;
+    /**
+     * Current state of the Accelerator.
+     */
+    status?: Accelerator_config_spec_status | null;
+    /**
+     * Accelerator type (e.g. prefill_decode).
+     */
+    type?: string | null;
+}
+export type Accelerator_config_spec_status = (typeof Accelerator_config_spec_statusObject)[keyof typeof Accelerator_config_spec_statusObject];
 export interface Account extends AdditionalDataHolder, Parsable {
     /**
      * The total number of Droplets current user or team may have active at one time.<br><br>Requires `droplet:read` scope.
@@ -7508,6 +7527,15 @@ export interface Create_trigger extends AdditionalDataHolder, Parsable {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Accelerator_config_spec}
+ */
+// @ts-ignore
+export function createAccelerator_config_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccelerator_config_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Account_team}
  */
 // @ts-ignore
@@ -11081,6 +11109,141 @@ export function createDatadog_logsinkFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_accelerator}
+ */
+// @ts-ignore
+export function createDedicated_inference_acceleratorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_accelerator;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_access_token}
+ */
+// @ts-ignore
+export function createDedicated_inference_access_tokenFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_access_token;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_create_request_access_tokens}
+ */
+// @ts-ignore
+export function createDedicated_inference_create_request_access_tokensFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_create_request_access_tokens;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_create_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_create_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_endpoints}
+ */
+// @ts-ignore
+export function createDedicated_inference_endpointsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_endpoints;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_gpu_model_config}
+ */
+// @ts-ignore
+export function createDedicated_inference_gpu_model_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_gpu_model_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_gpu_model_configs_response}
+ */
+// @ts-ignore
+export function createDedicated_inference_gpu_model_configs_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_gpu_model_configs_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_size}
+ */
+// @ts-ignore
+export function createDedicated_inference_sizeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_size;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_sizes_response}
+ */
+// @ts-ignore
+export function createDedicated_inference_sizes_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_sizes_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_spec_vpc}
+ */
+// @ts-ignore
+export function createDedicated_inference_spec_vpcFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_spec_vpc;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_spec}
+ */
+// @ts-ignore
+export function createDedicated_inference_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_token_create_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_token_create_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_token_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_update_request_access_tokens}
+ */
+// @ts-ignore
+export function createDedicated_inference_update_request_access_tokensFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_update_request_access_tokens;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_update_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_update_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference_update_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference}
+ */
+// @ts-ignore
+export function createDedicated_inferenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDedicated_inference;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Destination_omit_credentials}
  */
 // @ts-ignore
@@ -12228,6 +12391,24 @@ export function createMetricsFromDiscriminatorValue(parseNode: ParseNode | undef
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Model_deployment_spec_workload_config}
+ */
+// @ts-ignore
+export function createModel_deployment_spec_workload_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoModel_deployment_spec_workload_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Model_deployment_spec}
+ */
+// @ts-ignore
+export function createModel_deployment_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoModel_deployment_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Mongo_advanced_config}
  */
 // @ts-ignore
@@ -12872,6 +13053,24 @@ export function createPartner_attachment_writableFromDiscriminatorValue(parseNod
 // @ts-ignore
 export function createPartner_attachmentFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoPartner_attachment;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pending_deployment_spec_vpc}
+ */
+// @ts-ignore
+export function createPending_deployment_spec_vpcFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPending_deployment_spec_vpc;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pending_deployment_spec}
+ */
+// @ts-ignore
+export function createPending_deployment_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPending_deployment_spec;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -14396,6 +14595,256 @@ export interface Datadog_logsink extends AdditionalDataHolder, Parsable {
     site?: string | null;
 }
 export type DbaasClusterStatus = (typeof DbaasClusterStatusObject)[keyof typeof DbaasClusterStatusObject];
+/**
+ * A Dedicated Inference instance.
+ */
+export interface Dedicated_inference extends AdditionalDataHolder, Parsable {
+    /**
+     * When the Dedicated Inference was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The endpoints property
+     */
+    endpoints?: Dedicated_inference_endpoints | null;
+    /**
+     * Unique ID of the Dedicated Inference.
+     */
+    id?: Guid | null;
+    /**
+     * Pending deployment when status is provisioning or updating.
+     */
+    pendingDeploymentSpec?: Pending_deployment_spec | null;
+    /**
+     * DigitalOcean region where the Dedicated Inference is hosted.
+     */
+    region?: string | null;
+    /**
+     * Structured configuration for a Dedicated Inference deployment.
+     */
+    spec?: Dedicated_inference_spec | null;
+    /**
+     * Current state of the Dedicated Inference.
+     */
+    status?: Dedicated_inference_status | null;
+    /**
+     * When the Dedicated Inference was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * VPC UUID of the Dedicated Inference.
+     */
+    vpcUuid?: Guid | null;
+}
+/**
+ * A Dedicated Inference accelerator (GPU) in use by an instance.
+ */
+export interface Dedicated_inference_accelerator extends AdditionalDataHolder, Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * Unique ID of the accelerator.
+     */
+    id?: Guid | null;
+    /**
+     * Name of the accelerator.
+     */
+    name?: string | null;
+    /**
+     * Role of the accelerator (e.g. prefill_decode).
+     */
+    role?: string | null;
+    /**
+     * DigitalOcean GPU slug.
+     */
+    slug?: string | null;
+    /**
+     * Status of the accelerator.
+     */
+    status?: string | null;
+}
+/**
+ * Access token for authenticating to Dedicated Inference endpoints.
+ */
+export interface Dedicated_inference_access_token extends AdditionalDataHolder, Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * Unique ID of the token.
+     */
+    id?: Guid | null;
+    /**
+     * Name of the token.
+     */
+    name?: string | null;
+    /**
+     * Token value; only returned once on create. Store securely.
+     */
+    value?: string | null;
+}
+export interface Dedicated_inference_create_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Key-value pairs for provider tokens (e.g. Hugging Face).
+     */
+    accessTokens?: Dedicated_inference_create_request_access_tokens | null;
+    /**
+     * Structured configuration for a Dedicated Inference deployment.
+     */
+    spec?: Dedicated_inference_spec | null;
+}
+/**
+ * Key-value pairs for provider tokens (e.g. Hugging Face).
+ */
+export interface Dedicated_inference_create_request_access_tokens extends AdditionalDataHolder, Parsable {
+}
+export interface Dedicated_inference_endpoints extends AdditionalDataHolder, Parsable {
+    /**
+     * Private VPC FQDN of the Dedicated Inference instance.
+     */
+    privateEndpointFqdn?: string | null;
+    /**
+     * Public FQDN of the Dedicated Inference instance.
+     */
+    publicEndpointFqdn?: string | null;
+}
+export interface Dedicated_inference_gpu_model_config extends AdditionalDataHolder, Parsable {
+    /**
+     * The gpu_slugs property
+     */
+    gpuSlugs?: string[] | null;
+    /**
+     * Whether the model requires gated access (e.g. Hugging Face token).
+     */
+    isGatedModel?: boolean | null;
+    /**
+     * The model_name property
+     */
+    modelName?: string | null;
+    /**
+     * The model_slug property
+     */
+    modelSlug?: string | null;
+}
+/**
+ * Supported GPU and model configurations for Dedicated Inference.
+ */
+export interface Dedicated_inference_gpu_model_configs_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The gpu_model_configs property
+     */
+    gpuModelConfigs?: Dedicated_inference_gpu_model_config[] | null;
+}
+export interface Dedicated_inference_size extends AdditionalDataHolder, Parsable {
+    /**
+     * The currency property
+     */
+    currency?: string | null;
+    /**
+     * The gpu_slug property
+     */
+    gpuSlug?: string | null;
+    /**
+     * The price_per_hour property
+     */
+    pricePerHour?: string | null;
+    /**
+     * The region property
+     */
+    region?: string | null;
+}
+/**
+ * Available Dedicated Inference sizes and pricing.
+ */
+export interface Dedicated_inference_sizes_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Regions where Dedicated Inference is available.
+     */
+    enabledRegions?: string[] | null;
+    /**
+     * The sizes property
+     */
+    sizes?: Dedicated_inference_size[] | null;
+}
+/**
+ * Structured configuration for a Dedicated Inference deployment.
+ */
+export interface Dedicated_inference_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether to expose a public LLM endpoint.
+     */
+    enablePublicEndpoint?: boolean | null;
+    /**
+     * At least one model deployment is required.
+     */
+    modelDeployments?: Model_deployment_spec[] | null;
+    /**
+     * Name of the Dedicated Inference. Must be unique within the team.
+     */
+    name?: string | null;
+    /**
+     * DigitalOcean region where the Dedicated Inference is hosted.
+     */
+    region?: Dedicated_inference_spec_region | null;
+    /**
+     * Spec version.
+     */
+    version?: number | null;
+    /**
+     * The vpc property
+     */
+    vpc?: Dedicated_inference_spec_vpc | null;
+}
+export type Dedicated_inference_spec_region = (typeof Dedicated_inference_spec_regionObject)[keyof typeof Dedicated_inference_spec_regionObject];
+export interface Dedicated_inference_spec_vpc extends AdditionalDataHolder, Parsable {
+    /**
+     * VPC UUID for the Dedicated Inference.
+     */
+    uuid?: Guid | null;
+}
+export type Dedicated_inference_status = (typeof Dedicated_inference_statusObject)[keyof typeof Dedicated_inference_statusObject];
+export interface Dedicated_inference_token_create_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Name for the new token.
+     */
+    name?: string | null;
+}
+export interface Dedicated_inference_update_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Provider tokens for model access (e.g. gated Hugging Face models).
+     */
+    accessTokens?: Dedicated_inference_update_request_access_tokens | null;
+    /**
+     * Structured configuration for a Dedicated Inference deployment.
+     */
+    spec?: Dedicated_inference_spec | null;
+}
+/**
+ * Provider tokens for model access (e.g. gated Hugging Face models).
+ */
+export interface Dedicated_inference_update_request_access_tokens extends Parsable {
+    /**
+     * Hugging Face token required for gated models.
+     */
+    huggingFaceToken?: string | null;
+}
+/**
+ * The deserialization information for the current model
+ * @param Accelerator_config_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccelerator_config_spec(accelerator_config_spec: Partial<Accelerator_config_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "accelerator_slug": n => { accelerator_config_spec.acceleratorSlug = n.getStringValue(); },
+        "scale": n => { accelerator_config_spec.scale = n.getNumberValue(); },
+        "status": n => { accelerator_config_spec.status = n.getEnumValue<Accelerator_config_spec_status>(Accelerator_config_spec_statusObject); },
+        "type": n => { accelerator_config_spec.type = n.getStringValue(); },
+    }
+}
 /**
  * The deserialization information for the current model
  * @param Account The instance to deserialize into.
@@ -20012,6 +20461,201 @@ export function deserializeIntoDatadog_logsink(datadog_logsink: Partial<Datadog_
 }
 /**
  * The deserialization information for the current model
+ * @param Dedicated_inference The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference(dedicated_inference: Partial<Dedicated_inference> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { dedicated_inference.createdAt = n.getDateValue(); },
+        "endpoints": n => { dedicated_inference.endpoints = n.getObjectValue<Dedicated_inference_endpoints>(createDedicated_inference_endpointsFromDiscriminatorValue); },
+        "id": n => { dedicated_inference.id = n.getGuidValue(); },
+        "pending_deployment_spec": n => { dedicated_inference.pendingDeploymentSpec = n.getObjectValue<Pending_deployment_spec>(createPending_deployment_specFromDiscriminatorValue); },
+        "region": n => { dedicated_inference.region = n.getStringValue(); },
+        "spec": n => { dedicated_inference.spec = n.getObjectValue<Dedicated_inference_spec>(createDedicated_inference_specFromDiscriminatorValue); },
+        "status": n => { dedicated_inference.status = n.getEnumValue<Dedicated_inference_status>(Dedicated_inference_statusObject); },
+        "updated_at": n => { dedicated_inference.updatedAt = n.getDateValue(); },
+        "vpc_uuid": n => { dedicated_inference.vpcUuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_accelerator The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_accelerator(dedicated_inference_accelerator: Partial<Dedicated_inference_accelerator> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { dedicated_inference_accelerator.createdAt = n.getDateValue(); },
+        "id": n => { dedicated_inference_accelerator.id = n.getGuidValue(); },
+        "name": n => { dedicated_inference_accelerator.name = n.getStringValue(); },
+        "role": n => { dedicated_inference_accelerator.role = n.getStringValue(); },
+        "slug": n => { dedicated_inference_accelerator.slug = n.getStringValue(); },
+        "status": n => { dedicated_inference_accelerator.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_access_token The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_access_token(dedicated_inference_access_token: Partial<Dedicated_inference_access_token> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { dedicated_inference_access_token.createdAt = n.getDateValue(); },
+        "id": n => { dedicated_inference_access_token.id = n.getGuidValue(); },
+        "name": n => { dedicated_inference_access_token.name = n.getStringValue(); },
+        "value": n => { dedicated_inference_access_token.value = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_create_request(dedicated_inference_create_request: Partial<Dedicated_inference_create_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_tokens": n => { dedicated_inference_create_request.accessTokens = n.getObjectValue<Dedicated_inference_create_request_access_tokens>(createDedicated_inference_create_request_access_tokensFromDiscriminatorValue); },
+        "spec": n => { dedicated_inference_create_request.spec = n.getObjectValue<Dedicated_inference_spec>(createDedicated_inference_specFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_create_request_access_tokens The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_create_request_access_tokens(dedicated_inference_create_request_access_tokens: Partial<Dedicated_inference_create_request_access_tokens> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_endpoints The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_endpoints(dedicated_inference_endpoints: Partial<Dedicated_inference_endpoints> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "private_endpoint_fqdn": n => { dedicated_inference_endpoints.privateEndpointFqdn = n.getStringValue(); },
+        "public_endpoint_fqdn": n => { dedicated_inference_endpoints.publicEndpointFqdn = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_gpu_model_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_gpu_model_config(dedicated_inference_gpu_model_config: Partial<Dedicated_inference_gpu_model_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gpu_slugs": n => { dedicated_inference_gpu_model_config.gpuSlugs = n.getCollectionOfPrimitiveValues<string>(); },
+        "is_gated_model": n => { dedicated_inference_gpu_model_config.isGatedModel = n.getBooleanValue(); },
+        "model_name": n => { dedicated_inference_gpu_model_config.modelName = n.getStringValue(); },
+        "model_slug": n => { dedicated_inference_gpu_model_config.modelSlug = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_gpu_model_configs_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_gpu_model_configs_response(dedicated_inference_gpu_model_configs_response: Partial<Dedicated_inference_gpu_model_configs_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gpu_model_configs": n => { dedicated_inference_gpu_model_configs_response.gpuModelConfigs = n.getCollectionOfObjectValues<Dedicated_inference_gpu_model_config>(createDedicated_inference_gpu_model_configFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_size The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_size(dedicated_inference_size: Partial<Dedicated_inference_size> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "currency": n => { dedicated_inference_size.currency = n.getStringValue(); },
+        "gpu_slug": n => { dedicated_inference_size.gpuSlug = n.getStringValue(); },
+        "price_per_hour": n => { dedicated_inference_size.pricePerHour = n.getStringValue(); },
+        "region": n => { dedicated_inference_size.region = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_sizes_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_sizes_response(dedicated_inference_sizes_response: Partial<Dedicated_inference_sizes_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled_regions": n => { dedicated_inference_sizes_response.enabledRegions = n.getCollectionOfPrimitiveValues<string>(); },
+        "sizes": n => { dedicated_inference_sizes_response.sizes = n.getCollectionOfObjectValues<Dedicated_inference_size>(createDedicated_inference_sizeFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_spec(dedicated_inference_spec: Partial<Dedicated_inference_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enable_public_endpoint": n => { dedicated_inference_spec.enablePublicEndpoint = n.getBooleanValue(); },
+        "model_deployments": n => { dedicated_inference_spec.modelDeployments = n.getCollectionOfObjectValues<Model_deployment_spec>(createModel_deployment_specFromDiscriminatorValue); },
+        "name": n => { dedicated_inference_spec.name = n.getStringValue(); },
+        "region": n => { dedicated_inference_spec.region = n.getEnumValue<Dedicated_inference_spec_region>(Dedicated_inference_spec_regionObject); },
+        "version": n => { dedicated_inference_spec.version = n.getNumberValue(); },
+        "vpc": n => { dedicated_inference_spec.vpc = n.getObjectValue<Dedicated_inference_spec_vpc>(createDedicated_inference_spec_vpcFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_spec_vpc The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_spec_vpc(dedicated_inference_spec_vpc: Partial<Dedicated_inference_spec_vpc> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "uuid": n => { dedicated_inference_spec_vpc.uuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_token_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_token_create_request(dedicated_inference_token_create_request: Partial<Dedicated_inference_token_create_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { dedicated_inference_token_create_request.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_update_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_update_request(dedicated_inference_update_request: Partial<Dedicated_inference_update_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_tokens": n => { dedicated_inference_update_request.accessTokens = n.getObjectValue<Dedicated_inference_update_request_access_tokens>(createDedicated_inference_update_request_access_tokensFromDiscriminatorValue); },
+        "spec": n => { dedicated_inference_update_request.spec = n.getObjectValue<Dedicated_inference_spec>(createDedicated_inference_specFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_update_request_access_tokens The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_update_request_access_tokens(dedicated_inference_update_request_access_tokens: Partial<Dedicated_inference_update_request_access_tokens> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "hugging_face_token": n => { dedicated_inference_update_request_access_tokens.huggingFaceToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Destination The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21746,6 +22390,31 @@ export function deserializeIntoMetrics_result_metric(metrics_result_metric: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Model_deployment_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoModel_deployment_spec(model_deployment_spec: Partial<Model_deployment_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "accelerators": n => { model_deployment_spec.accelerators = n.getCollectionOfObjectValues<Accelerator_config_spec>(createAccelerator_config_specFromDiscriminatorValue); },
+        "model_id": n => { model_deployment_spec.modelId = n.getStringValue(); },
+        "model_provider": n => { model_deployment_spec.modelProvider = n.getEnumValue<Model_deployment_spec_model_provider>(Model_deployment_spec_model_providerObject); },
+        "model_slug": n => { model_deployment_spec.modelSlug = n.getStringValue(); },
+        "workload_config": n => { model_deployment_spec.workloadConfig = n.getObjectValue<Model_deployment_spec_workload_config>(createModel_deployment_spec_workload_configFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Model_deployment_spec_workload_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoModel_deployment_spec_workload_config(model_deployment_spec_workload_config: Partial<Model_deployment_spec_workload_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Mongo_advanced_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -22755,6 +23424,36 @@ export function deserializeIntoPartner_attachment_writable_bgp(partner_attachmen
         "local_router_ip": n => { partner_attachment_writable_bgp.localRouterIp = n.getStringValue(); },
         "peer_router_asn": n => { partner_attachment_writable_bgp.peerRouterAsn = n.getNumberValue(); },
         "peer_router_ip": n => { partner_attachment_writable_bgp.peerRouterIp = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Pending_deployment_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPending_deployment_spec(pending_deployment_spec: Partial<Pending_deployment_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { pending_deployment_spec.createdAt = n.getDateValue(); },
+        "enable_public_endpoint": n => { pending_deployment_spec.enablePublicEndpoint = n.getBooleanValue(); },
+        "id": n => { pending_deployment_spec.id = n.getGuidValue(); },
+        "model_deployments": n => { pending_deployment_spec.modelDeployments = n.getCollectionOfObjectValues<Model_deployment_spec>(createModel_deployment_specFromDiscriminatorValue); },
+        "name": n => { pending_deployment_spec.name = n.getStringValue(); },
+        "status": n => { pending_deployment_spec.status = n.getEnumValue<Pending_deployment_spec_status>(Pending_deployment_spec_statusObject); },
+        "updated_at": n => { pending_deployment_spec.updatedAt = n.getDateValue(); },
+        "version": n => { pending_deployment_spec.version = n.getNumberValue(); },
+        "vpc": n => { pending_deployment_spec.vpc = n.getObjectValue<Pending_deployment_spec_vpc>(createPending_deployment_spec_vpcFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Pending_deployment_spec_vpc The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPending_deployment_spec_vpc(pending_deployment_spec_vpc: Partial<Pending_deployment_spec_vpc> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "uuid": n => { pending_deployment_spec_vpc.uuid = n.getGuidValue(); },
     }
 }
 /**
@@ -26333,6 +27032,37 @@ export interface Metrics_result extends AdditionalDataHolder, Parsable {
 export interface Metrics_result_metric extends AdditionalDataHolder, Parsable {
 }
 export type Metrics_status = (typeof Metrics_statusObject)[keyof typeof Metrics_statusObject];
+/**
+ * Configuration for a single model deployment.
+ */
+export interface Model_deployment_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Accelerator configuration for this deployment.
+     */
+    accelerators?: Accelerator_config_spec[] | null;
+    /**
+     * Used to identify an existing deployment when updating; empty means create new.
+     */
+    modelId?: string | null;
+    /**
+     * Model provider.
+     */
+    modelProvider?: Model_deployment_spec_model_provider | null;
+    /**
+     * Model identifier (e.g. Hugging Face slug).
+     */
+    modelSlug?: string | null;
+    /**
+     * Workload-specific configuration (e.g. ISL/OSL in future).
+     */
+    workloadConfig?: Model_deployment_spec_workload_config | null;
+}
+export type Model_deployment_spec_model_provider = (typeof Model_deployment_spec_model_providerObject)[keyof typeof Model_deployment_spec_model_providerObject];
+/**
+ * Workload-specific configuration (e.g. ISL/OSL in future).
+ */
+export interface Model_deployment_spec_workload_config extends AdditionalDataHolder, Parsable {
+}
 export interface Mongo_advanced_config extends AdditionalDataHolder, Parsable {
     /**
      * Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
@@ -27670,6 +28400,54 @@ export interface Partner_attachment_writable_bgp extends AdditionalDataHolder, P
 export type Partner_attachment_writable_redundancy_zone = (typeof Partner_attachment_writable_redundancy_zoneObject)[keyof typeof Partner_attachment_writable_redundancy_zoneObject];
 export type Partner_attachment_writable_region = (typeof Partner_attachment_writable_regionObject)[keyof typeof Partner_attachment_writable_regionObject];
 /**
+ * Pending deployment when status is provisioning or updating.
+ */
+export interface Pending_deployment_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * Whether to expose a public LLM endpoint.
+     */
+    enablePublicEndpoint?: boolean | null;
+    /**
+     * Deployment UUID.
+     */
+    id?: Guid | null;
+    /**
+     * At least one model deployment is required.
+     */
+    modelDeployments?: Model_deployment_spec[] | null;
+    /**
+     * Name of the Dedicated Inference. Must be unique within the team.
+     */
+    name?: string | null;
+    /**
+     * The status property
+     */
+    status?: Pending_deployment_spec_status | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * Spec version.
+     */
+    version?: number | null;
+    /**
+     * The vpc property
+     */
+    vpc?: Pending_deployment_spec_vpc | null;
+}
+export type Pending_deployment_spec_status = (typeof Pending_deployment_spec_statusObject)[keyof typeof Pending_deployment_spec_statusObject];
+export interface Pending_deployment_spec_vpc extends AdditionalDataHolder, Parsable {
+    /**
+     * VPC UUID for the Dedicated Inference.
+     */
+    uuid?: Guid | null;
+}
+/**
  * PGBouncer connection pooling settings
  */
 export interface Pgbouncer_advanced_config extends AdditionalDataHolder, Parsable {
@@ -28564,6 +29342,20 @@ export interface Selective_destroy_associated_resource extends AdditionalDataHol
      * An array of unique identifiers for the volume snapshots to be scheduled for deletion.
      */
     volumeSnapshots?: string[] | null;
+}
+/**
+ * Serializes information the current object
+ * @param Accelerator_config_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccelerator_config_spec(writer: SerializationWriter, accelerator_config_spec: Partial<Accelerator_config_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!accelerator_config_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("accelerator_slug", accelerator_config_spec.acceleratorSlug);
+    writer.writeNumberValue("scale", accelerator_config_spec.scale);
+    writer.writeStringValue("type", accelerator_config_spec.type);
+    writer.writeAdditionalData(accelerator_config_spec.additionalData);
 }
 /**
  * Serializes information the current object
@@ -34563,6 +35355,198 @@ export function serializeDatadog_logsink(writer: SerializationWriter, datadog_lo
 }
 /**
  * Serializes information the current object
+ * @param Dedicated_inference The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference(writer: SerializationWriter, dedicated_inference: Partial<Dedicated_inference> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Pending_deployment_spec>("pending_deployment_spec", dedicated_inference.pendingDeploymentSpec, serializePending_deployment_spec);
+    writer.writeObjectValue<Dedicated_inference_spec>("spec", dedicated_inference.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_accelerator The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_accelerator(writer: SerializationWriter, dedicated_inference_accelerator: Partial<Dedicated_inference_accelerator> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_accelerator || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(dedicated_inference_accelerator.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_access_token The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_access_token(writer: SerializationWriter, dedicated_inference_access_token: Partial<Dedicated_inference_access_token> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_access_token || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(dedicated_inference_access_token.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_create_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_create_request(writer: SerializationWriter, dedicated_inference_create_request: Partial<Dedicated_inference_create_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_create_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Dedicated_inference_create_request_access_tokens>("access_tokens", dedicated_inference_create_request.accessTokens, serializeDedicated_inference_create_request_access_tokens);
+    writer.writeObjectValue<Dedicated_inference_spec>("spec", dedicated_inference_create_request.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_create_request_access_tokens The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_create_request_access_tokens(writer: SerializationWriter, dedicated_inference_create_request_access_tokens: Partial<Dedicated_inference_create_request_access_tokens> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_create_request_access_tokens || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(dedicated_inference_create_request_access_tokens.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_endpoints The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_endpoints(writer: SerializationWriter, dedicated_inference_endpoints: Partial<Dedicated_inference_endpoints> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_endpoints || isSerializingDerivedType) { return; }
+    writer.writeStringValue("private_endpoint_fqdn", dedicated_inference_endpoints.privateEndpointFqdn);
+    writer.writeStringValue("public_endpoint_fqdn", dedicated_inference_endpoints.publicEndpointFqdn);
+    writer.writeAdditionalData(dedicated_inference_endpoints.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_gpu_model_config The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_gpu_model_config(writer: SerializationWriter, dedicated_inference_gpu_model_config: Partial<Dedicated_inference_gpu_model_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_gpu_model_config || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("gpu_slugs", dedicated_inference_gpu_model_config.gpuSlugs);
+    writer.writeBooleanValue("is_gated_model", dedicated_inference_gpu_model_config.isGatedModel);
+    writer.writeStringValue("model_name", dedicated_inference_gpu_model_config.modelName);
+    writer.writeStringValue("model_slug", dedicated_inference_gpu_model_config.modelSlug);
+    writer.writeAdditionalData(dedicated_inference_gpu_model_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_gpu_model_configs_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_gpu_model_configs_response(writer: SerializationWriter, dedicated_inference_gpu_model_configs_response: Partial<Dedicated_inference_gpu_model_configs_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_gpu_model_configs_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Dedicated_inference_gpu_model_config>("gpu_model_configs", dedicated_inference_gpu_model_configs_response.gpuModelConfigs, serializeDedicated_inference_gpu_model_config);
+    writer.writeAdditionalData(dedicated_inference_gpu_model_configs_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_size The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_size(writer: SerializationWriter, dedicated_inference_size: Partial<Dedicated_inference_size> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_size || isSerializingDerivedType) { return; }
+    writer.writeStringValue("currency", dedicated_inference_size.currency);
+    writer.writeStringValue("gpu_slug", dedicated_inference_size.gpuSlug);
+    writer.writeStringValue("price_per_hour", dedicated_inference_size.pricePerHour);
+    writer.writeStringValue("region", dedicated_inference_size.region);
+    writer.writeAdditionalData(dedicated_inference_size.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_sizes_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_sizes_response(writer: SerializationWriter, dedicated_inference_sizes_response: Partial<Dedicated_inference_sizes_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_sizes_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("enabled_regions", dedicated_inference_sizes_response.enabledRegions);
+    writer.writeCollectionOfObjectValues<Dedicated_inference_size>("sizes", dedicated_inference_sizes_response.sizes, serializeDedicated_inference_size);
+    writer.writeAdditionalData(dedicated_inference_sizes_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_spec(writer: SerializationWriter, dedicated_inference_spec: Partial<Dedicated_inference_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_spec || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enable_public_endpoint", dedicated_inference_spec.enablePublicEndpoint);
+    writer.writeCollectionOfObjectValues<Model_deployment_spec>("model_deployments", dedicated_inference_spec.modelDeployments, serializeModel_deployment_spec);
+    writer.writeStringValue("name", dedicated_inference_spec.name);
+    writer.writeEnumValue<Dedicated_inference_spec_region>("region", dedicated_inference_spec.region);
+    writer.writeNumberValue("version", dedicated_inference_spec.version);
+    writer.writeObjectValue<Dedicated_inference_spec_vpc>("vpc", dedicated_inference_spec.vpc, serializeDedicated_inference_spec_vpc);
+    writer.writeAdditionalData(dedicated_inference_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_spec_vpc The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_spec_vpc(writer: SerializationWriter, dedicated_inference_spec_vpc: Partial<Dedicated_inference_spec_vpc> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_spec_vpc || isSerializingDerivedType) { return; }
+    writer.writeGuidValue("uuid", dedicated_inference_spec_vpc.uuid);
+    writer.writeAdditionalData(dedicated_inference_spec_vpc.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_token_create_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_token_create_request(writer: SerializationWriter, dedicated_inference_token_create_request: Partial<Dedicated_inference_token_create_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_token_create_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", dedicated_inference_token_create_request.name);
+    writer.writeAdditionalData(dedicated_inference_token_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_update_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_update_request(writer: SerializationWriter, dedicated_inference_update_request: Partial<Dedicated_inference_update_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_update_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Dedicated_inference_update_request_access_tokens>("access_tokens", dedicated_inference_update_request.accessTokens, serializeDedicated_inference_update_request_access_tokens);
+    writer.writeObjectValue<Dedicated_inference_spec>("spec", dedicated_inference_update_request.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference_update_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_update_request_access_tokens The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_update_request_access_tokens(writer: SerializationWriter, dedicated_inference_update_request_access_tokens: Partial<Dedicated_inference_update_request_access_tokens> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dedicated_inference_update_request_access_tokens || isSerializingDerivedType) { return; }
+    writer.writeStringValue("hugging_face_token", dedicated_inference_update_request_access_tokens.huggingFaceToken);
+}
+/**
+ * Serializes information the current object
  * @param Destination The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -36409,6 +37393,33 @@ export function serializeMetrics_result_metric(writer: SerializationWriter, metr
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Model_deployment_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeModel_deployment_spec(writer: SerializationWriter, model_deployment_spec: Partial<Model_deployment_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!model_deployment_spec || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Accelerator_config_spec>("accelerators", model_deployment_spec.accelerators, serializeAccelerator_config_spec);
+    writer.writeStringValue("model_id", model_deployment_spec.modelId);
+    writer.writeEnumValue<Model_deployment_spec_model_provider>("model_provider", model_deployment_spec.modelProvider);
+    writer.writeStringValue("model_slug", model_deployment_spec.modelSlug);
+    writer.writeObjectValue<Model_deployment_spec_workload_config>("workload_config", model_deployment_spec.workloadConfig, serializeModel_deployment_spec_workload_config);
+    writer.writeAdditionalData(model_deployment_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Model_deployment_spec_workload_config The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeModel_deployment_spec_workload_config(writer: SerializationWriter, model_deployment_spec_workload_config: Partial<Model_deployment_spec_workload_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!model_deployment_spec_workload_config || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(model_deployment_spec_workload_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Mongo_advanced_config The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -37445,6 +38456,38 @@ export function serializePartner_attachment_writable_bgp(writer: SerializationWr
     writer.writeNumberValue("peer_router_asn", partner_attachment_writable_bgp.peerRouterAsn);
     writer.writeStringValue("peer_router_ip", partner_attachment_writable_bgp.peerRouterIp);
     writer.writeAdditionalData(partner_attachment_writable_bgp.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pending_deployment_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePending_deployment_spec(writer: SerializationWriter, pending_deployment_spec: Partial<Pending_deployment_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!pending_deployment_spec || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", pending_deployment_spec.createdAt);
+    writer.writeBooleanValue("enable_public_endpoint", pending_deployment_spec.enablePublicEndpoint);
+    writer.writeGuidValue("id", pending_deployment_spec.id);
+    writer.writeCollectionOfObjectValues<Model_deployment_spec>("model_deployments", pending_deployment_spec.modelDeployments, serializeModel_deployment_spec);
+    writer.writeStringValue("name", pending_deployment_spec.name);
+    writer.writeEnumValue<Pending_deployment_spec_status>("status", pending_deployment_spec.status);
+    writer.writeDateValue("updated_at", pending_deployment_spec.updatedAt);
+    writer.writeNumberValue("version", pending_deployment_spec.version);
+    writer.writeObjectValue<Pending_deployment_spec_vpc>("vpc", pending_deployment_spec.vpc, serializePending_deployment_spec_vpc);
+    writer.writeAdditionalData(pending_deployment_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pending_deployment_spec_vpc The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePending_deployment_spec_vpc(writer: SerializationWriter, pending_deployment_spec_vpc: Partial<Pending_deployment_spec_vpc> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!pending_deployment_spec_vpc || isSerializingDerivedType) { return; }
+    writer.writeGuidValue("uuid", pending_deployment_spec_vpc.uuid);
+    writer.writeAdditionalData(pending_deployment_spec_vpc.additionalData);
 }
 /**
  * Serializes information the current object
@@ -39941,6 +40984,14 @@ export interface Vpc_peering_updatable extends AdditionalDataHolder, Parsable {
     name?: string | null;
 }
 /**
+ * Current state of the Accelerator.
+ */
+export const Accelerator_config_spec_statusObject = {
+    NewEscaped: "new",
+    Provisioning: "provisioning",
+    Active: "active",
+} as const;
+/**
  * This value is one of "active", "warning" or "locked".
  */
 export const Account_statusObject = {
@@ -40741,6 +41792,25 @@ export const DbaasClusterStatusObject = {
     UNHEALTHY: "UNHEALTHY",
 } as const;
 /**
+ * DigitalOcean region where the Dedicated Inference is hosted.
+ */
+export const Dedicated_inference_spec_regionObject = {
+    Atl1: "atl1",
+    Nyc2: "nyc2",
+    Tor1: "tor1",
+} as const;
+/**
+ * Current state of the Dedicated Inference.
+ */
+export const Dedicated_inference_statusObject = {
+    Active: "active",
+    NewEscaped: "new",
+    Provisioning: "provisioning",
+    Updating: "updating",
+    Deleting: "deleting",
+    ErrorEscaped: "error",
+} as const;
+/**
  * The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearchcluster or `opensearch_ext` for an externally managed one.
  */
 export const Destination_omit_credentials_typeObject = {
@@ -41233,6 +42303,12 @@ export const Metrics_statusObject = {
     ErrorEscaped: "error",
 } as const;
 /**
+ * Model provider.
+ */
+export const Model_deployment_spec_model_providerObject = {
+    Hugging_face: "hugging_face",
+} as const;
+/**
  * Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
  */
 export const Mongo_advanced_config_default_read_concernObject = {
@@ -41391,6 +42467,10 @@ export const Partner_attachment_writable_regionObject = {
     Fra: "fra",
     Ams: "ams",
     Sgp: "sgp",
+} as const;
+export const Pending_deployment_spec_statusObject = {
+    Provisioning: "provisioning",
+    Updating: "updating",
 } as const;
 /**
  * PGBouncer pool mode

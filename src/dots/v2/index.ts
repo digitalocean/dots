@@ -22,6 +22,8 @@ import { CustomersRequestBuilderNavigationMetadata, type CustomersRequestBuilder
 // @ts-ignore
 import { DatabasesRequestBuilderNavigationMetadata, DatabasesRequestBuilderRequestsMetadata, type DatabasesRequestBuilder } from './databases/index.js';
 // @ts-ignore
+import { DedicatedInferencesRequestBuilderNavigationMetadata, DedicatedInferencesRequestBuilderRequestsMetadata, type DedicatedInferencesRequestBuilder } from './dedicatedInferences/index.js';
+// @ts-ignore
 import { DomainsRequestBuilderNavigationMetadata, DomainsRequestBuilderRequestsMetadata, type DomainsRequestBuilder } from './domains/index.js';
 // @ts-ignore
 import { DropletsRequestBuilderNavigationMetadata, DropletsRequestBuilderRequestsMetadata, type DropletsRequestBuilder } from './droplets/index.js';
@@ -126,6 +128,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The databases property
      */
     get databases(): DatabasesRequestBuilder;
+    /**
+     * The dedicatedInferences property
+     */
+    get dedicatedInferences(): DedicatedInferencesRequestBuilder;
     /**
      * The domains property
      */
@@ -286,6 +292,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     databases: {
         requestsMetadata: DatabasesRequestBuilderRequestsMetadata,
         navigationMetadata: DatabasesRequestBuilderNavigationMetadata,
+    },
+    dedicatedInferences: {
+        requestsMetadata: DedicatedInferencesRequestBuilderRequestsMetadata,
+        navigationMetadata: DedicatedInferencesRequestBuilderNavigationMetadata,
     },
     domains: {
         requestsMetadata: DomainsRequestBuilderRequestsMetadata,
