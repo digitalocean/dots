@@ -22,6 +22,8 @@ import { CustomersRequestBuilderNavigationMetadata, type CustomersRequestBuilder
 // @ts-ignore
 import { DatabasesRequestBuilderNavigationMetadata, DatabasesRequestBuilderRequestsMetadata, type DatabasesRequestBuilder } from './databases/index.js';
 // @ts-ignore
+import { DedicatedInferencesRequestBuilderNavigationMetadata, DedicatedInferencesRequestBuilderRequestsMetadata, type DedicatedInferencesRequestBuilder } from './dedicatedInferences/index.js';
+// @ts-ignore
 import { DomainsRequestBuilderNavigationMetadata, DomainsRequestBuilderRequestsMetadata, type DomainsRequestBuilder } from './domains/index.js';
 // @ts-ignore
 import { DropletsRequestBuilderNavigationMetadata, DropletsRequestBuilderRequestsMetadata, type DropletsRequestBuilder } from './droplets/index.js';
@@ -61,6 +63,8 @@ import { ReportsRequestBuilderNavigationMetadata, type ReportsRequestBuilder } f
 import { Reserved_ipsRequestBuilderNavigationMetadata, Reserved_ipsRequestBuilderRequestsMetadata, type Reserved_ipsRequestBuilder } from './reserved_ips/index.js';
 // @ts-ignore
 import { Reserved_ipv6RequestBuilderNavigationMetadata, Reserved_ipv6RequestBuilderRequestsMetadata, type Reserved_ipv6RequestBuilder } from './reserved_ipv6/index.js';
+// @ts-ignore
+import { SecurityRequestBuilderNavigationMetadata, type SecurityRequestBuilder } from './security/index.js';
 // @ts-ignore
 import { SizesRequestBuilderRequestsMetadata, type SizesRequestBuilder } from './sizes/index.js';
 // @ts-ignore
@@ -126,6 +130,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The databases property
      */
     get databases(): DatabasesRequestBuilder;
+    /**
+     * The dedicatedInferences property
+     */
+    get dedicatedInferences(): DedicatedInferencesRequestBuilder;
     /**
      * The domains property
      */
@@ -207,6 +215,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get reserved_ipv6(): Reserved_ipv6RequestBuilder;
     /**
+     * The security property
+     */
+    get security(): SecurityRequestBuilder;
+    /**
      * The sizes property
      */
     get sizes(): SizesRequestBuilder;
@@ -287,6 +299,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: DatabasesRequestBuilderRequestsMetadata,
         navigationMetadata: DatabasesRequestBuilderNavigationMetadata,
     },
+    dedicatedInferences: {
+        requestsMetadata: DedicatedInferencesRequestBuilderRequestsMetadata,
+        navigationMetadata: DedicatedInferencesRequestBuilderNavigationMetadata,
+    },
     domains: {
         requestsMetadata: DomainsRequestBuilderRequestsMetadata,
         navigationMetadata: DomainsRequestBuilderNavigationMetadata,
@@ -359,6 +375,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     reserved_ipv6: {
         requestsMetadata: Reserved_ipv6RequestBuilderRequestsMetadata,
         navigationMetadata: Reserved_ipv6RequestBuilderNavigationMetadata,
+    },
+    security: {
+        navigationMetadata: SecurityRequestBuilderNavigationMetadata,
     },
     sizes: {
         requestsMetadata: SizesRequestBuilderRequestsMetadata,
