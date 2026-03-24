@@ -4,6 +4,8 @@
 // @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
+import { DatabaseRequestBuilderNavigationMetadata, type DatabaseRequestBuilder } from './database/index.js';
+// @ts-ignore
 import { Droplet_autoscaleRequestBuilderNavigationMetadata, type Droplet_autoscaleRequestBuilder } from './droplet_autoscale/index.js';
 // @ts-ignore
 import { DropletRequestBuilderNavigationMetadata, type DropletRequestBuilder } from './droplet/index.js';
@@ -20,6 +22,10 @@ export interface MetricsRequestBuilder extends BaseRequestBuilder<MetricsRequest
      * The apps property
      */
     get apps(): AppsRequestBuilder;
+    /**
+     * The database property
+     */
+    get database(): DatabaseRequestBuilder;
     /**
      * The droplet property
      */
@@ -43,6 +49,9 @@ export const MetricsRequestBuilderUriTemplate = "{+baseurl}/v2/monitoring/metric
 export const MetricsRequestBuilderNavigationMetadata: Record<Exclude<keyof MetricsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     apps: {
         navigationMetadata: AppsRequestBuilderNavigationMetadata,
+    },
+    database: {
+        navigationMetadata: DatabaseRequestBuilderNavigationMetadata,
     },
     droplet: {
         navigationMetadata: DropletRequestBuilderNavigationMetadata,
