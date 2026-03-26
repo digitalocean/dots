@@ -1,7 +1,6 @@
 import {
     RequestAdapter,
     RequestInformation,
-    ResponseHandler,
 } from "@microsoft/kiota-abstractions";
 import type { Parsable, ParsableFactory } from "@microsoft/kiota-abstractions";
 
@@ -67,15 +66,21 @@ export class StreamingRequestAdapter {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
 
+            // Build headers - flatten Set values to strings
+            const headers: Record<string, string> = {};
+            if (requestInfo.headers) {
+                for (const [key, values] of requestInfo.headers.entries()) {
+                    headers[key] = Array.from(values).join(", ");
+                }
+            }
+
             // Use fetch to get the raw stream
             const response = await fetch(
                 requestInfo.URL ?? "",
                 {
                     method: requestInfo.httpMethod?.toString() || "GET",
-                    headers: Object.fromEntries(
-                        requestInfo.headers?.entries() ?? []
-                    ),
-                } as any
+                    headers,
+                }
             );
 
             if (!response.ok) {
@@ -224,7 +229,7 @@ export class StreamingRequestAdapter {
             }
 
             callbacks.onData?.(parsed);
-        } catch (error) {
+        } catch {
             // Continue on parse errors
         }
     }

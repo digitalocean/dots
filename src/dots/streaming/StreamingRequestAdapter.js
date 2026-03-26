@@ -34,10 +34,17 @@ export class StreamingRequestAdapter {
     async stream(requestInfo, callbacks, options) {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
+            // Build headers - flatten Set values to strings
+            const headers = {};
+            if (requestInfo.headers) {
+                for (const [key, values] of requestInfo.headers.entries()) {
+                    headers[key] = Array.from(values).join(", ");
+                }
+            }
             // Use fetch to get the raw stream
             const response = await fetch(requestInfo.URL ?? "", {
                 method: requestInfo.httpMethod?.toString() || "GET",
-                headers: Object.fromEntries(requestInfo.headers?.entries() ?? []),
+                headers,
             });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -153,7 +160,7 @@ export class StreamingRequestAdapter {
             }
             callbacks.onData?.(parsed);
         }
-        catch (error) {
+        catch {
             // Continue on parse errors
         }
     }

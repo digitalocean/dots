@@ -4,7 +4,6 @@ import {
     createDigitalOceanClient,
     createServerlessInferenceClient,
     createAgentInferenceClient,
-    ServiceType,
 } from "../src/dots/services/index.js";
 
 /**

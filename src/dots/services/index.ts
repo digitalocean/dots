@@ -1,7 +1,6 @@
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import {
     AuthenticationProvider,
-    HttpMethod,
     RequestInformation,
 } from "@microsoft/kiota-abstractions";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../DigitalOceanApiKeyAuthenticationProvider.js";
@@ -44,7 +43,7 @@ class BearerTokenAuthenticationProvider implements AuthenticationProvider {
 
     async authenticateRequest(
         request: RequestInformation,
-        _additionalAuthenticationContextProvider?: any
+        _additionalAuthenticationContextProvider?: Record<string, unknown>
     ): Promise<void> {
         request.headers.add("Authorization", `Bearer ${this.token}`);
     }
@@ -137,7 +136,7 @@ export function createAgentInferenceClient(
         authProvider = new (class implements AuthenticationProvider {
             async authenticateRequest(
                 _request: RequestInformation,
-                _additionalAuthenticationContextProvider?: any
+                _additionalAuthenticationContextProvider?: Record<string, unknown>
             ): Promise<void> {
                 // No authentication
             }

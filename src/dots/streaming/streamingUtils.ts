@@ -8,7 +8,8 @@ import {
     type StreamingResponseCallbacks,
     type StreamingRequestOptions,
 } from "./StreamingRequestAdapter.js";
-import type { RequestAdapter, RequestInformation } from "@microsoft/kiota-abstractions";
+import type { RequestAdapter } from "@microsoft/kiota-abstractions";
+import type { RequestInformation } from "@microsoft/kiota-abstractions";
 
 /**
  * Helper type for streaming options with factory function
@@ -22,7 +23,7 @@ export interface StreamingOptions<T> extends StreamingRequestOptions {
  */
 export async function collectStream<T = unknown>(
     streamingAdapter: StreamingRequestAdapter,
-    requestInfo: any,
+    requestInfo: RequestInformation,
     options: StreamingOptions<T> = {}
 ): Promise<T[]> {
     const results: T[] = [];
@@ -62,7 +63,7 @@ export function createStreamingAdapter(
  */
 export async function streamWithHandler<T>(
     streamingAdapter: StreamingRequestAdapter,
-    requestInfo: any,
+    requestInfo: RequestInformation,
     handler: (data: T) => Promise<void> | void,
     options?: StreamingOptions<T>
 ): Promise<void> {
