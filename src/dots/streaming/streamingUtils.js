@@ -24,8 +24,8 @@ export async function collectStream(streamingAdapter, requestInfo, options = {})
 /**
  * Create a streaming adapter from a request adapter
  */
-export function createStreamingAdapter(underlyingAdapter) {
-    return new StreamingRequestAdapter(underlyingAdapter);
+export function createStreamingAdapter(underlyingAdapter, authenticationProvider) {
+    return new StreamingRequestAdapter(underlyingAdapter, authenticationProvider);
 }
 /**
  * Stream data with custom handler

@@ -27,7 +27,7 @@ class BearerTokenAuthenticationProvider {
 export function createDigitalOceanClient(apiKey) {
     const config = {
         type: ServiceType.DIGITALOCEAN_API,
-        baseUrl: "https://api.digitalocean.com/v2",
+        baseUrl: "https://api.digitalocean.com",
         apiKey: apiKey,
     };
     const authProvider = new DigitalOceanApiKeyAuthenticationProvider(apiKey);
@@ -68,13 +68,11 @@ export function createAgentInferenceClient(agentUrl, authToken, customHeaders) {
     if (!agentUrl) {
         throw new Error("agentUrl is required for agent inference");
     }
-    // Ensure URL has proper format: https://{agent_url}/api/v1
     const normalizedUrl = agentUrl.startsWith("http")
         ? agentUrl
         : `https://${agentUrl}`;
-    const baseUrl = normalizedUrl.endsWith("/api/v1")
-        ? normalizedUrl
-        : `${normalizedUrl}/api/v1`;
+    // Strip trailing /api/v1 — the Kiota URI templates already include path segments
+    const baseUrl = normalizedUrl.replace(/\/api\/v1\/?$/, "");
     const config = {
         type: ServiceType.AGENT_INFERENCE,
         baseUrl: baseUrl,

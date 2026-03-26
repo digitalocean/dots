@@ -1,4 +1,5 @@
 import {
+    type AuthenticationProvider,
     RequestAdapter,
     RequestInformation,
 } from "@microsoft/kiota-abstractions";
@@ -45,8 +46,12 @@ export class StreamingRequestAdapter {
     /**
      * Creates a new StreamingRequestAdapter
      * @param underlyingAdapter The underlying RequestAdapter to wrap
+     * @param authenticationProvider Optional auth provider used to authenticate streaming requests
      */
-    constructor(private readonly underlyingAdapter: RequestAdapter) {
+    constructor(
+        private readonly underlyingAdapter: RequestAdapter,
+        private readonly authenticationProvider?: AuthenticationProvider,
+    ) {
         if (!underlyingAdapter) {
             throw new Error("underlyingAdapter cannot be null");
         }
@@ -66,6 +71,10 @@ export class StreamingRequestAdapter {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
 
+            if (this.authenticationProvider) {
+                await this.authenticationProvider.authenticateRequest(requestInfo);
+            }
+
             // Build headers - flatten Set values to strings
             const headers: Record<string, string> = {};
             if (requestInfo.headers) {
@@ -74,12 +83,12 @@ export class StreamingRequestAdapter {
                 }
             }
 
-            // Use fetch to get the raw stream
             const response = await fetch(
                 requestInfo.URL ?? "",
                 {
                     method: requestInfo.httpMethod?.toString() || "GET",
                     headers,
+                    body: requestInfo.content ?? undefined,
                 }
             );
 

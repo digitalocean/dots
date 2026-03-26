@@ -19,8 +19,9 @@ export class StreamingRequestAdapter {
      * Creates a new StreamingRequestAdapter
      * @param underlyingAdapter The underlying RequestAdapter to wrap
      */
-    constructor(underlyingAdapter) {
+    constructor(underlyingAdapter, authenticationProvider) {
         this.underlyingAdapter = underlyingAdapter;
+        this.authenticationProvider = authenticationProvider;
         if (!underlyingAdapter) {
             throw new Error("underlyingAdapter cannot be null");
         }
@@ -34,6 +35,9 @@ export class StreamingRequestAdapter {
     async stream(requestInfo, callbacks, options) {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
+            if (this.authenticationProvider) {
+                await this.authenticationProvider.authenticateRequest(requestInfo);
+            }
             // Build headers - flatten Set values to strings
             const headers = {};
             if (requestInfo.headers) {
@@ -41,10 +45,10 @@ export class StreamingRequestAdapter {
                     headers[key] = Array.from(values).join(", ");
                 }
             }
-            // Use fetch to get the raw stream
             const response = await fetch(requestInfo.URL ?? "", {
                 method: requestInfo.httpMethod?.toString() || "GET",
                 headers,
+                body: requestInfo.content ?? undefined,
             });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);

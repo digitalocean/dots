@@ -8,8 +8,7 @@ import {
     type StreamingResponseCallbacks,
     type StreamingRequestOptions,
 } from "./StreamingRequestAdapter.js";
-import type { RequestAdapter } from "@microsoft/kiota-abstractions";
-import type { RequestInformation } from "@microsoft/kiota-abstractions";
+import type { AuthenticationProvider, RequestAdapter, RequestInformation } from "@microsoft/kiota-abstractions";
 
 /**
  * Helper type for streaming options with factory function
@@ -53,9 +52,10 @@ export async function collectStream<T = unknown>(
  * Create a streaming adapter from a request adapter
  */
 export function createStreamingAdapter(
-    underlyingAdapter: RequestAdapter
+    underlyingAdapter: RequestAdapter,
+    authenticationProvider?: AuthenticationProvider,
 ): StreamingRequestAdapter {
-    return new StreamingRequestAdapter(underlyingAdapter);
+    return new StreamingRequestAdapter(underlyingAdapter, authenticationProvider);
 }
 
 /**
