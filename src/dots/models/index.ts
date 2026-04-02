@@ -6781,6 +6781,10 @@ export interface Autoscale_pool_droplet_template extends AdditionalDataHolder, P
      */
     projectId?: string | null;
     /**
+     * An optional boolean indicating whether the Droplets should be created with public networking or not. By default, all Droplets are created with public networking available. If explicitly set to `false`, only private networking will be enabled, and public networking will be disabled; currently this means that it will not have any public static or Reserved IPv4 or IPv6 address, nor can one be assigned later. If explicitly set to `false`, `ipv6` must also be `false`.
+     */
+    publicNetworking?: boolean | null;
+    /**
      * The datacenter in which all of the Droplets will be created.
      */
     region?: Autoscale_pool_droplet_template_region | null;
@@ -16251,6 +16255,10 @@ export interface Dedicated_inference_access_token extends AdditionalDataHolder, 
      */
     id?: Guid | null;
     /**
+     * When true, the token is managed by DigitalOcean (for example, system-provisioned). When false, the token was created by the user.
+     */
+    isManaged?: boolean | null;
+    /**
      * Name of the token.
      */
     name?: string | null;
@@ -21229,6 +21237,7 @@ export function deserializeIntoAutoscale_pool_droplet_template(autoscale_pool_dr
         "ipv6": n => { autoscale_pool_droplet_template.ipv6 = n.getBooleanValue(); },
         "name": n => { autoscale_pool_droplet_template.name = n.getStringValue(); },
         "project_id": n => { autoscale_pool_droplet_template.projectId = n.getStringValue(); },
+        "public_networking": n => { autoscale_pool_droplet_template.publicNetworking = n.getBooleanValue(); },
         "region": n => { autoscale_pool_droplet_template.region = n.getEnumValue<Autoscale_pool_droplet_template_region>(Autoscale_pool_droplet_template_regionObject); },
         "size": n => { autoscale_pool_droplet_template.size = n.getStringValue(); },
         "ssh_keys": n => { autoscale_pool_droplet_template.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
@@ -22784,6 +22793,7 @@ export function deserializeIntoDedicated_inference_access_token(dedicated_infere
     return {
         "created_at": n => { dedicated_inference_access_token.createdAt = n.getDateValue(); },
         "id": n => { dedicated_inference_access_token.id = n.getGuidValue(); },
+        "is_managed": n => { dedicated_inference_access_token.isManaged = n.getBooleanValue(); },
         "name": n => { dedicated_inference_access_token.name = n.getStringValue(); },
         "value": n => { dedicated_inference_access_token.value = n.getStringValue(); },
     }
@@ -23400,6 +23410,7 @@ export function deserializeIntoDroplet_create(droplet_create: Partial<Droplet_cr
         "ipv6": n => { droplet_create.ipv6 = n.getBooleanValue(); },
         "monitoring": n => { droplet_create.monitoring = n.getBooleanValue(); },
         "private_networking": n => { droplet_create.privateNetworking = n.getBooleanValue(); },
+        "public_networking": n => { droplet_create.publicNetworking = n.getBooleanValue(); },
         "region": n => { droplet_create.region = n.getStringValue(); },
         "size": n => { droplet_create.size = n.getStringValue(); },
         "ssh_keys": n => { droplet_create.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
@@ -27913,6 +27924,10 @@ export interface Droplet_create extends AdditionalDataHolder, Parsable {
      * @deprecated 
      */
     privateNetworking?: boolean | null;
+    /**
+     * An optional boolean indicating whether this Droplet should be created with public networking or not. By default, all Droplets are created with public networking available. If explicitly set to `false`, only private networking will be enabled, and public networking will be disabled; currently this means that it will not have any public static or Reserved IPv4 or IPv6 address, nor can one be assigned later. If explicitly set to `false`, `ipv6` must also be `false`.
+     */
+    publicNetworking?: boolean | null;
     /**
      * The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region.
      */
@@ -37395,6 +37410,7 @@ export function serializeAutoscale_pool_droplet_template(writer: SerializationWr
     writer.writeBooleanValue("ipv6", autoscale_pool_droplet_template.ipv6);
     writer.writeStringValue("name", autoscale_pool_droplet_template.name);
     writer.writeStringValue("project_id", autoscale_pool_droplet_template.projectId);
+    writer.writeBooleanValue("public_networking", autoscale_pool_droplet_template.publicNetworking);
     writer.writeEnumValue<Autoscale_pool_droplet_template_region>("region", autoscale_pool_droplet_template.region);
     writer.writeStringValue("size", autoscale_pool_droplet_template.size);
     writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", autoscale_pool_droplet_template.sshKeys);
@@ -39663,6 +39679,7 @@ export function serializeDroplet_create(writer: SerializationWriter, droplet_cre
     writer.writeBooleanValue("ipv6", droplet_create.ipv6);
     writer.writeBooleanValue("monitoring", droplet_create.monitoring);
     writer.writeBooleanValue("private_networking", droplet_create.privateNetworking);
+    writer.writeBooleanValue("public_networking", droplet_create.publicNetworking);
     writer.writeStringValue("region", droplet_create.region);
     writer.writeStringValue("size", droplet_create.size);
     writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", droplet_create.sshKeys);
