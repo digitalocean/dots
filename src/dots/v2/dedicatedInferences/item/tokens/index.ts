@@ -107,7 +107,7 @@ export interface TokensRequestBuilder extends BaseRequestBuilder<TokensRequestBu
      */
      byToken_id(token_id: Guid) : WithToken_ItemRequestBuilder;
     /**
-     * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, and created_at. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
+     * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, created_at, and is_managed. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<TokensGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -130,7 +130,7 @@ export interface TokensRequestBuilder extends BaseRequestBuilder<TokensRequestBu
      */
      post(body: Dedicated_inference_token_create_request, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<TokensPostResponse | undefined>;
     /**
-     * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, and created_at. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
+     * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, created_at, and is_managed. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -144,7 +144,7 @@ export interface TokensRequestBuilder extends BaseRequestBuilder<TokensRequestBu
      toPostRequestInformation(body: Dedicated_inference_token_create_request, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 /**
- * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, and created_at. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
+ * List all access tokens for a Dedicated Inference instance. Token values arenot returned; only id, name, created_at, and is_managed. Send a GET request to`/v2/dedicated-inferences/{dedicated_inference_id}/tokens`.
  */
 export interface TokensRequestBuilderGetQueryParameters {
     /**
