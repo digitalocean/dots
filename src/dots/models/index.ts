@@ -6781,6 +6781,10 @@ export interface Autoscale_pool_droplet_template extends AdditionalDataHolder, P
      */
     projectId?: string | null;
     /**
+     * An optional boolean indicating whether the Droplets should be created with public networking or not. By default, all Droplets are created with public networking available. If explicitly set to `false`, only private networking will be enabled, and public networking will be disabled; currently this means that it will not have any public static or Reserved IPv4 or IPv6 address, nor can one be assigned later. If explicitly set to `false`, `ipv6` must also be `false`.
+     */
+    publicNetworking?: boolean | null;
+    /**
      * The datacenter in which all of the Droplets will be created.
      */
     region?: Autoscale_pool_droplet_template_region | null;
@@ -13352,6 +13356,51 @@ export function createImageFromDiscriminatorValue(parseNode: ParseNode | undefin
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_post_account_transfer_accept}
+ */
+// @ts-ignore
+export function createImages_post_account_transfer_acceptFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImages_post_account_transfer_accept;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_post_account_transfer_cancel}
+ */
+// @ts-ignore
+export function createImages_post_account_transfer_cancelFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImages_post_account_transfer_cancel;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_post_account_transfer_createMember1}
+ */
+// @ts-ignore
+export function createImages_post_account_transfer_createMember1FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImages_post_account_transfer_createMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_post_account_transfer_createMember2}
+ */
+// @ts-ignore
+export function createImages_post_account_transfer_createMember2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImages_post_account_transfer_createMember2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_post_account_transfer_decline}
+ */
+// @ts-ignore
+export function createImages_post_account_transfer_declineFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImages_post_account_transfer_decline;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Images_response}
  */
 // @ts-ignore
@@ -13969,6 +14018,24 @@ export function createNfs_action_detach_paramsFromDiscriminatorValue(parseNode: 
 // @ts-ignore
 export function createNfs_action_detachFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoNfs_action_detach;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_reassign_params}
+ */
+// @ts-ignore
+export function createNfs_action_reassign_paramsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_reassign_params;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action_reassign}
+ */
+// @ts-ignore
+export function createNfs_action_reassignFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action_reassign;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16250,6 +16317,10 @@ export interface Dedicated_inference_access_token extends AdditionalDataHolder, 
      * Unique ID of the token.
      */
     id?: Guid | null;
+    /**
+     * When true, the token is managed by DigitalOcean (for example, system-provisioned). When false, the token was created by the user.
+     */
+    isManaged?: boolean | null;
     /**
      * Name of the token.
      */
@@ -21229,6 +21300,7 @@ export function deserializeIntoAutoscale_pool_droplet_template(autoscale_pool_dr
         "ipv6": n => { autoscale_pool_droplet_template.ipv6 = n.getBooleanValue(); },
         "name": n => { autoscale_pool_droplet_template.name = n.getStringValue(); },
         "project_id": n => { autoscale_pool_droplet_template.projectId = n.getStringValue(); },
+        "public_networking": n => { autoscale_pool_droplet_template.publicNetworking = n.getBooleanValue(); },
         "region": n => { autoscale_pool_droplet_template.region = n.getEnumValue<Autoscale_pool_droplet_template_region>(Autoscale_pool_droplet_template_regionObject); },
         "size": n => { autoscale_pool_droplet_template.size = n.getStringValue(); },
         "ssh_keys": n => { autoscale_pool_droplet_template.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
@@ -22784,6 +22856,7 @@ export function deserializeIntoDedicated_inference_access_token(dedicated_infere
     return {
         "created_at": n => { dedicated_inference_access_token.createdAt = n.getDateValue(); },
         "id": n => { dedicated_inference_access_token.id = n.getGuidValue(); },
+        "is_managed": n => { dedicated_inference_access_token.isManaged = n.getBooleanValue(); },
         "name": n => { dedicated_inference_access_token.name = n.getStringValue(); },
         "value": n => { dedicated_inference_access_token.value = n.getStringValue(); },
     }
@@ -23400,6 +23473,7 @@ export function deserializeIntoDroplet_create(droplet_create: Partial<Droplet_cr
         "ipv6": n => { droplet_create.ipv6 = n.getBooleanValue(); },
         "monitoring": n => { droplet_create.monitoring = n.getBooleanValue(); },
         "private_networking": n => { droplet_create.privateNetworking = n.getBooleanValue(); },
+        "public_networking": n => { droplet_create.publicNetworking = n.getBooleanValue(); },
         "region": n => { droplet_create.region = n.getStringValue(); },
         "size": n => { droplet_create.size = n.getStringValue(); },
         "ssh_keys": n => { droplet_create.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
@@ -23982,6 +24056,62 @@ export function deserializeIntoImage_update(image_update: Partial<Image_update> 
         "description": n => { image_update.description = n.getStringValue(); },
         "distribution": n => { image_update.distribution = n.getEnumValue<Distribution>(DistributionObject); },
         "name": n => { image_update.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_post_account_transfer_accept The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_post_account_transfer_accept(images_post_account_transfer_accept: Partial<Images_post_account_transfer_accept> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "recipient_uuid": n => { images_post_account_transfer_accept.recipientUuid = n.getStringValue(); },
+        "transfer_id": n => { images_post_account_transfer_accept.transferId = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_post_account_transfer_cancel The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_post_account_transfer_cancel(images_post_account_transfer_cancel: Partial<Images_post_account_transfer_cancel> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "transfer_id": n => { images_post_account_transfer_cancel.transferId = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_post_account_transfer_createMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_post_account_transfer_createMember1(images_post_account_transfer_createMember1: Partial<Images_post_account_transfer_createMember1> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "recipient_email": n => { images_post_account_transfer_createMember1.recipientEmail = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_post_account_transfer_createMember2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_post_account_transfer_createMember2(images_post_account_transfer_createMember2: Partial<Images_post_account_transfer_createMember2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "recipient_uuid": n => { images_post_account_transfer_createMember2.recipientUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_post_account_transfer_decline The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_post_account_transfer_decline(images_post_account_transfer_decline: Partial<Images_post_account_transfer_decline> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "transfer_id": n => { images_post_account_transfer_decline.transferId = n.getNumberValue(); },
     }
 }
 /**
@@ -25017,6 +25147,30 @@ export function deserializeIntoNfs_action_detach(nfs_action_detach: Partial<Nfs_
 export function deserializeIntoNfs_action_detach_params(nfs_action_detach_params: Partial<Nfs_action_detach_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "vpc_id": n => { nfs_action_detach_params.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_reassign The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_reassign(nfs_action_reassign: Partial<Nfs_action_reassign> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoNfs_action(nfs_action_reassign),
+        "params": n => { nfs_action_reassign.params = n.getObjectValue<Nfs_action_reassign_params>(createNfs_action_reassign_paramsFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nfs_action_reassign_params The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action_reassign_params(nfs_action_reassign_params: Partial<Nfs_action_reassign_params> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "new_vpc_id": n => { nfs_action_reassign_params.newVpcId = n.getStringValue(); },
+        "old_vpc_id": n => { nfs_action_reassign_params.oldVpcId = n.getStringValue(); },
     }
 }
 /**
@@ -27914,6 +28068,10 @@ export interface Droplet_create extends AdditionalDataHolder, Parsable {
      */
     privateNetworking?: boolean | null;
     /**
+     * An optional boolean indicating whether this Droplet should be created with public networking or not. By default, all Droplets are created with public networking available. If explicitly set to `false`, only private networking will be enabled, and public networking will be disabled; currently this means that it will not have any public static or Reserved IPv4 or IPv6 address, nor can one be assigned later. If explicitly set to `false`, `ipv6` must also be `false`.
+     */
+    publicNetworking?: boolean | null;
+    /**
      * The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region.
      */
     region?: string | null;
@@ -28616,6 +28774,40 @@ export interface Image_update extends AdditionalDataHolder, Parsable {
      * The display name that has been given to an image.  This is what is shown in the control panel and is generally a descriptive title for the image in question.
      */
     name?: string | null;
+}
+export interface Images_post_account_transfer_accept extends AdditionalDataHolder, Parsable {
+    /**
+     * The UUID of the team that the image will be transferred to.
+     */
+    recipientUuid?: string | null;
+    /**
+     * A unique number that used to identify and reference an image account transfer.
+     */
+    transferId?: number | null;
+}
+export interface Images_post_account_transfer_cancel extends AdditionalDataHolder, Parsable {
+    /**
+     * A unique number that used to identify and reference an image account transfer.
+     */
+    transferId?: number | null;
+}
+export interface Images_post_account_transfer_createMember1 extends AdditionalDataHolder, Parsable {
+    /**
+     * The email address of the user account that the image will be transferred to.
+     */
+    recipientEmail?: string | null;
+}
+export interface Images_post_account_transfer_createMember2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The UUID of the team that the image will be transferred to.
+     */
+    recipientUuid?: string | null;
+}
+export interface Images_post_account_transfer_decline extends AdditionalDataHolder, Parsable {
+    /**
+     * A unique number that used to identify and reference an image account transfer.
+     */
+    transferId?: number | null;
 }
 /**
  * The response from the image generation endpoint.
@@ -30095,6 +30287,22 @@ export interface Nfs_action_detach_params extends AdditionalDataHolder, Parsable
      * The ID of the VPC from which the NFS share will be detached
      */
     vpcId?: string | null;
+}
+export interface Nfs_action_reassign extends Nfs_action, Parsable {
+    /**
+     * The params property
+     */
+    params?: Nfs_action_reassign_params | null;
+}
+export interface Nfs_action_reassign_params extends AdditionalDataHolder, Parsable {
+    /**
+     * The ID of the VPC to which the NFS share will be reassigned
+     */
+    newVpcId?: string | null;
+    /**
+     * The ID of the VPC from which the NFS share will be reassigned
+     */
+    oldVpcId?: string | null;
 }
 export interface Nfs_action_resize extends Nfs_action, Parsable {
     /**
@@ -37395,6 +37603,7 @@ export function serializeAutoscale_pool_droplet_template(writer: SerializationWr
     writer.writeBooleanValue("ipv6", autoscale_pool_droplet_template.ipv6);
     writer.writeStringValue("name", autoscale_pool_droplet_template.name);
     writer.writeStringValue("project_id", autoscale_pool_droplet_template.projectId);
+    writer.writeBooleanValue("public_networking", autoscale_pool_droplet_template.publicNetworking);
     writer.writeEnumValue<Autoscale_pool_droplet_template_region>("region", autoscale_pool_droplet_template.region);
     writer.writeStringValue("size", autoscale_pool_droplet_template.size);
     writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", autoscale_pool_droplet_template.sshKeys);
@@ -39663,6 +39872,7 @@ export function serializeDroplet_create(writer: SerializationWriter, droplet_cre
     writer.writeBooleanValue("ipv6", droplet_create.ipv6);
     writer.writeBooleanValue("monitoring", droplet_create.monitoring);
     writer.writeBooleanValue("private_networking", droplet_create.privateNetworking);
+    writer.writeBooleanValue("public_networking", droplet_create.publicNetworking);
     writer.writeStringValue("region", droplet_create.region);
     writer.writeStringValue("size", droplet_create.size);
     writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", droplet_create.sshKeys);
@@ -40298,6 +40508,67 @@ export function serializeImage_update(writer: SerializationWriter, image_update:
     writer.writeEnumValue<Distribution>("distribution", image_update.distribution);
     writer.writeStringValue("name", image_update.name);
     writer.writeAdditionalData(image_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_post_account_transfer_accept The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_post_account_transfer_accept(writer: SerializationWriter, images_post_account_transfer_accept: Partial<Images_post_account_transfer_accept> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!images_post_account_transfer_accept || isSerializingDerivedType) { return; }
+    writer.writeStringValue("recipient_uuid", images_post_account_transfer_accept.recipientUuid);
+    writer.writeNumberValue("transfer_id", images_post_account_transfer_accept.transferId);
+    writer.writeAdditionalData(images_post_account_transfer_accept.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_post_account_transfer_cancel The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_post_account_transfer_cancel(writer: SerializationWriter, images_post_account_transfer_cancel: Partial<Images_post_account_transfer_cancel> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!images_post_account_transfer_cancel || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("transfer_id", images_post_account_transfer_cancel.transferId);
+    writer.writeAdditionalData(images_post_account_transfer_cancel.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_post_account_transfer_createMember1 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_post_account_transfer_createMember1(writer: SerializationWriter, images_post_account_transfer_createMember1: Partial<Images_post_account_transfer_createMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!images_post_account_transfer_createMember1 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("recipient_email", images_post_account_transfer_createMember1.recipientEmail);
+    writer.writeAdditionalData(images_post_account_transfer_createMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_post_account_transfer_createMember2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_post_account_transfer_createMember2(writer: SerializationWriter, images_post_account_transfer_createMember2: Partial<Images_post_account_transfer_createMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!images_post_account_transfer_createMember2 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("recipient_uuid", images_post_account_transfer_createMember2.recipientUuid);
+    writer.writeAdditionalData(images_post_account_transfer_createMember2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_post_account_transfer_decline The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_post_account_transfer_decline(writer: SerializationWriter, images_post_account_transfer_decline: Partial<Images_post_account_transfer_decline> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!images_post_account_transfer_decline || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("transfer_id", images_post_account_transfer_decline.transferId);
+    writer.writeAdditionalData(images_post_account_transfer_decline.additionalData);
 }
 /**
  * Serializes information the current object
@@ -41373,6 +41644,31 @@ export function serializeNfs_action_detach_params(writer: SerializationWriter, n
     if (!nfs_action_detach_params || isSerializingDerivedType) { return; }
     writer.writeStringValue("vpc_id", nfs_action_detach_params.vpcId);
     writer.writeAdditionalData(nfs_action_detach_params.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_reassign The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_reassign(writer: SerializationWriter, nfs_action_reassign: Partial<Nfs_action_reassign> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_reassign || isSerializingDerivedType) { return; }
+    serializeNfs_action(writer, nfs_action_reassign, isSerializingDerivedType)
+    writer.writeObjectValue<Nfs_action_reassign_params>("params", nfs_action_reassign.params, serializeNfs_action_reassign_params);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action_reassign_params The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action_reassign_params(writer: SerializationWriter, nfs_action_reassign_params: Partial<Nfs_action_reassign_params> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action_reassign_params || isSerializingDerivedType) { return; }
+    writer.writeStringValue("new_vpc_id", nfs_action_reassign_params.newVpcId);
+    writer.writeStringValue("old_vpc_id", nfs_action_reassign_params.oldVpcId);
+    writer.writeAdditionalData(nfs_action_reassign_params.additionalData);
 }
 /**
  * Serializes information the current object
@@ -46556,6 +46852,10 @@ export const Network_v6_typeObject = {
 export const Nfs_action_typeObject = {
     Resize: "resize",
     Snapshot: "snapshot",
+    Attach: "attach",
+    Detach: "detach",
+    Reassign: "reassign",
+    Switch_performance_tier: "switch_performance_tier",
 } as const;
 /**
  * The type of resource on which the action is being performed.
