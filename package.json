@@ -8,10 +8,15 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",
     "test:integration": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=integration",
+    "test:inference-smoke": "node --experimental-vm-modules node_modules/.bin/jest tests/mocked/inference-smoke.test.ts",
     "test:single": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "npx eslint . --ignore-pattern docs/",
     "docs": "typedoc",
-    "build": "tsc"
+    "build": "tsc",
+    "example:inference-v1": "npm run build && node examples/inference-v1-github-style.mjs",
+    "example:inference-chat": "npm run build && node examples/inference-chat-like-openai.mjs",
+    "example:openai-compat": "npm run build && node examples/openai-compat-test.mjs",
+    "postgen": "node scripts/postgen-inference.mjs"
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",
@@ -47,7 +52,8 @@
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.7",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0"
+    "typescript-eslint": "^8.37.0",
+    "yaml": "^2.8.0"
   },
   "dependencies": {
     "@azure/core-http": "^3.0.5",

@@ -19,7 +19,7 @@ clean: ## Remove kiota generated files and directories
 
 .PHONY: dev-dependencies
 dev-dependencies: ## Install development tooling
-	npm install --only=dev
+	npm install
 
 .PHONY: lint
 lint: ## Run linter on code base
@@ -68,8 +68,10 @@ generate: SPEC_FILE = $(LOCAL_SPEC_FILE)
 generate: download-spec ## Generates the typescript client using the latest published spec first.
 endif
 generate: dev-dependencies
-	@printf "=== Generating client with spec: $(SPEC_FILE)\n\n"; \
-	kiota generate -l typescript -d $(SPEC_FILE) -c DigitalOceanClient -o ./src/dots
+	@printf "=== Generating client with spec: $(SPEC_FILE)\n"; \
+	printf "=== Kiota: ./src/dots. Post-gen inference: ./src/inference-gen (from bundled spec).\n\n"; \
+	kiota generate -l typescript -d $(SPEC_FILE) -c DigitalOceanClient -o ./src/dots && \
+	node scripts/postgen-inference.mjs "$(SPEC_FILE)"
 
 .PHONY: tag
 tag: ## Tags a release
