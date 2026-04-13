@@ -5,6 +5,9 @@ export default {
   transformIgnorePatterns: [
     '/node_modules/(?!@microsoft/kiota-http-fetchlibrary).+\\.js$',
   ],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   globals: {
     'ts-jest': {
       useESM: true,
