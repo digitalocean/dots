@@ -25,7 +25,7 @@ describe("Inference Integration Tests", () => {
             // Auto-discover models for subsequent tests if not set via env.
             // Prefer non-reasoning models (reasoning models return content as object, not string).
             if (Array.isArray(result.data)) {
-                const ids: string[] = result.data.map((m: any) => m.id);
+                const ids: string[] = result.data.map((m: Record<string, unknown>) => m.id as string);
                 const skip = (id: string) =>
                     id.includes("deepseek-r1") || id.includes("reasoning") || id.includes("embed");
 
@@ -97,7 +97,7 @@ describe("Inference Integration Tests", () => {
             expect(stream).toBeInstanceOf(SSEStream);
 
             let chunkCount = 0;
-            for await (const chunk of stream as SSEStream) {
+            for await (const _chunk of stream as SSEStream) {
                 chunkCount++;
             }
 
@@ -130,44 +130,47 @@ describe("Inference Integration Tests", () => {
 
     describe("responses.create", () => {
         it("returns a response with aggregated output_text", async () => {
-            let response: any;
+            let response: Record<string, unknown> | undefined;
             try {
                 response = await client.responses.create({
                     model: RESPONSES_MODEL,
                     input: "Reply with exactly: INTEGRATION_OK",
                 });
-            } catch (err: any) {
-                if (err.message?.includes("401") || err.message?.includes("403") || err.message?.includes("404") || err.message?.includes("not available")) {
-                    console.warn(`responses.create skipped: ${err.message.slice(0, 80)}`);
+            } catch (err: unknown) {
+                const msg = err instanceof Error ? err.message : "";
+                if (msg.includes("401") || msg.includes("403") || msg.includes("404") || msg.includes("not available")) {
+                    console.warn(`responses.create skipped: ${msg.slice(0, 80)}`);
                     return;
                 }
                 throw err;
             }
 
             expect(response).toBeDefined();
-            expect(response.id).toBeDefined();
-            expect(typeof response.output_text).toBe("string");
-            expect(response.output_text.length).toBeGreaterThan(0);
+            expect(response!.id).toBeDefined();
+            expect(typeof response!.output_text).toBe("string");
+            expect((response!.output_text as string).length).toBeGreaterThan(0);
 
-            expect(Array.isArray(response.output)).toBe(true);
-            expect(response.output.length).toBeGreaterThan(0);
-            const msg = response.output.find((o: any) => o.type === "message");
-            expect(msg).toBeDefined();
-            expect(msg.role).toBe("assistant");
-            expect(Array.isArray(msg.content)).toBe(true);
+            expect(Array.isArray(response!.output)).toBe(true);
+            const output = response!.output as Array<Record<string, unknown>>;
+            expect(output.length).toBeGreaterThan(0);
+            const respMsg = output.find((o) => o.type === "message");
+            expect(respMsg).toBeDefined();
+            expect(respMsg!.role).toBe("assistant");
+            expect(Array.isArray(respMsg!.content)).toBe(true);
         }, 30000);
 
         it("streaming returns SSEStream with event objects", async () => {
-            let stream: any;
+            let stream: SSEStream | undefined;
             try {
                 stream = await client.responses.create({
                     model: RESPONSES_MODEL,
                     input: "Say hello in one word.",
                     stream: true,
-                });
-            } catch (err: any) {
-                if (err.message?.includes("401") || err.message?.includes("403") || err.message?.includes("404") || err.message?.includes("not available")) {
-                    console.warn(`responses.create streaming skipped: ${err.message.slice(0, 80)}`);
+                }) as SSEStream;
+            } catch (err: unknown) {
+                const msg = err instanceof Error ? err.message : "";
+                if (msg.includes("401") || msg.includes("403") || msg.includes("404") || msg.includes("not available")) {
+                    console.warn(`responses.create streaming skipped: ${msg.slice(0, 80)}`);
                     return;
                 }
                 throw err;
@@ -177,12 +180,13 @@ describe("Inference Integration Tests", () => {
 
             let eventCount = 0;
             try {
-                for await (const event of stream as SSEStream) {
+                for await (const _event of stream!) {
                     eventCount++;
                 }
-            } catch (iterErr: any) {
-                if (iterErr.message?.includes("401") || iterErr.message?.includes("403") || iterErr.message?.includes("404") || iterErr.message?.includes("not available")) {
-                    console.warn(`responses.create streaming skipped: ${iterErr.message.slice(0, 80)}`);
+            } catch (iterErr: unknown) {
+                const msg = iterErr instanceof Error ? iterErr.message : "";
+                if (msg.includes("401") || msg.includes("403") || msg.includes("404") || msg.includes("not available")) {
+                    console.warn(`responses.create streaming skipped: ${msg.slice(0, 80)}`);
                     return;
                 }
                 throw iterErr;
@@ -196,15 +200,15 @@ describe("Inference Integration Tests", () => {
 
     describe("asyncInvoke.create", () => {
         it("queues a request and returns a request_id", async () => {
-            let result: any;
+            let result: Record<string, unknown> | undefined;
             try {
                 result = await client.asyncInvoke.create({
                     model_id: "fal-ai/flux/schnell",
                     input: { prompt: "A tiny shark" },
                 });
-            } catch (err: any) {
-                // Some accounts may not have access to fal models — skip gracefully
-                if (err.message?.includes("401") || err.message?.includes("403") || err.message?.includes("404")) {
+            } catch (err: unknown) {
+                const msg = err instanceof Error ? err.message : "";
+                if (msg.includes("401") || msg.includes("403") || msg.includes("404")) {
                     console.warn("asyncInvoke skipped: model not available for this key");
                     return;
                 }
@@ -212,8 +216,8 @@ describe("Inference Integration Tests", () => {
             }
 
             expect(result).toBeDefined();
-            expect(typeof result.request_id).toBe("string");
-            expect(result.request_id.length).toBeGreaterThan(0);
+            expect(typeof result!.request_id).toBe("string");
+            expect((result!.request_id as string).length).toBeGreaterThan(0);
         }, 60000);
     });
 

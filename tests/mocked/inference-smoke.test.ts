@@ -234,10 +234,11 @@ describe("InferenceClient", () => {
         const client = new InferenceClient({ apiKey: "test-key" });
 
         nock(BASE)
-            .post("/v1/async-invoke", (body: any) => {
+            .post("/v1/async-invoke", (body: Record<string, unknown>) => {
                 expect(body.model_id).toBe("fal-ai/stable-audio-25/text-to-audio");
-                expect(body.input.prompt).toBe("ocean waves crashing");
-                expect(body.input.seconds_total).toBe(10);
+                const input = body.input as Record<string, unknown>;
+                expect(input.prompt).toBe("ocean waves crashing");
+                expect(input.seconds_total).toBe(10);
                 return true;
             })
             .reply(200, { request_id: "audio-1", status: "QUEUED" });
@@ -258,9 +259,10 @@ describe("InferenceClient", () => {
         const client = new InferenceClient({ apiKey: "test-key" });
 
         nock(BASE)
-            .post("/v1/async-invoke", (body: any) => {
+            .post("/v1/async-invoke", (body: Record<string, unknown>) => {
                 expect(body.model_id).toBe("fal-ai/playai/tts/v3");
-                expect(body.input.text).toBe("Hello from DigitalOcean");
+                const input = body.input as Record<string, unknown>;
+                expect(input.text).toBe("Hello from DigitalOcean");
                 return true;
             })
             .reply(200, { request_id: "tts-1", status: "QUEUED" });
@@ -279,9 +281,10 @@ describe("InferenceClient", () => {
         const client = new InferenceClient({ apiKey: "test-key" });
 
         nock(BASE)
-            .post("/v1/async-invoke", (body: any) => {
+            .post("/v1/async-invoke", (body: Record<string, unknown>) => {
                 expect(body.model_id).toBe("fal-ai/fast-sdxl");
-                expect(body.input.prompt).toBe("A cute otter");
+                const input = body.input as Record<string, unknown>;
+                expect(input.prompt).toBe("A cute otter");
                 return true;
             })
             .reply(200, { request_id: "img-1", status: "QUEUED" });
