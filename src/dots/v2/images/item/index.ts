@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createImageFromDiscriminatorValue, serializeImage, serializeImage_update, type ErrorEscaped, type Image, type Image_update } from '../../../models/index.js';
 // @ts-ignore
+import { Account_transferRequestBuilderNavigationMetadata, Account_transferRequestBuilderRequestsMetadata, type Account_transferRequestBuilder } from './account_transfer/index.js';
+// @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -83,6 +85,10 @@ export interface WithImage_GetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface WithImage_ItemRequestBuilder extends BaseRequestBuilder<WithImage_ItemRequestBuilder> {
     /**
+     * The account_transfer property
+     */
+    get account_transfer(): Account_transferRequestBuilder;
+    /**
      * The actions property
      */
     get actions(): ActionsRequestBuilder;
@@ -153,6 +159,10 @@ export const WithImage_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/images/{im
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithImage_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithImage_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    account_transfer: {
+        requestsMetadata: Account_transferRequestBuilderRequestsMetadata,
+        navigationMetadata: Account_transferRequestBuilderNavigationMetadata,
+    },
     actions: {
         requestsMetadata: ActionsRequestBuilderRequestsMetadata,
         navigationMetadata: ActionsRequestBuilderNavigationMetadata,
