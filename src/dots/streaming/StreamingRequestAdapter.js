@@ -34,18 +34,32 @@ export class StreamingRequestAdapter {
     async stream(requestInfo, callbacks, options) {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
-            // Build headers - flatten Set values to strings
-            const headers = {};
-            if (requestInfo.headers) {
-                for (const [key, values] of requestInfo.headers.entries()) {
-                    headers[key] = Array.from(values).join(", ");
-                }
+            const adapterWithAuth = this.underlyingAdapter;
+            // Ensure auth headers are present for direct fetch streaming.
+            if (adapterWithAuth.authenticationProvider?.authenticateRequest) {
+                await adapterWithAuth.authenticationProvider.authenticateRequest(requestInfo);
             }
-            // Use fetch to get the raw stream
-            const response = await fetch(requestInfo.URL ?? "", {
-                method: requestInfo.httpMethod?.toString() || "GET",
-                headers,
-            });
+            requestInfo.headers.tryAdd("Accept", streamType);
+            let response;
+            try {
+                // Let the adapter build an authenticated native request (headers + body).
+                const nativeRequest = await this.underlyingAdapter.convertToNativeRequest(requestInfo);
+                response = await fetch(nativeRequest);
+            }
+            catch {
+                // Fallback path in case a non-fetch adapter is used.
+                const headers = {};
+                if (requestInfo.headers) {
+                    for (const [key, values] of requestInfo.headers.entries()) {
+                        headers[key] = Array.from(values).join(", ");
+                    }
+                }
+                response = await fetch(requestInfo.URL ?? "", {
+                    method: requestInfo.httpMethod?.toString() || "GET",
+                    headers,
+                    body: requestInfo.content,
+                });
+            }
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }

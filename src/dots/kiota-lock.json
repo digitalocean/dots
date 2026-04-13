@@ -1,6 +1,6 @@
 {
-  "descriptionHash": "9539D88B6B1CB22091FFD24790C4C65F0EAC8CEE3024B89D08712167244AEADD48850E3266D4A8F40555A1F078B0BE42BCF03CC280DFBAC26340E16202AA02F5",
-  "descriptionLocation": "../../DigitalOcean-public.v2.yaml",
+  "descriptionHash": "DC5E7A7217069F21158C0942140FDA6DC6B48518CC409C476C9E3EFDE9A1B95173099FE2AE567ECA0B735647E1CE1266EAA3E466A9D5507FB0464E40CC2799D4",
+  "descriptionLocation": "../../../openapi/tests/openapi-bundled.yaml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.30.0",
   "clientClassName": "DigitalOceanClient",

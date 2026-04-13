@@ -6,6 +6,42 @@ import { createUntypedNodeFromDiscriminatorValue } from '@microsoft/kiota-abstra
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Accelerator_config_spec}
+ */
+// @ts-ignore
+export function createAccelerator_config_specFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAccelerator_config_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_key_create_request}
+ */
+// @ts-ignore
+export function createAccess_key_create_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAccess_key_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_key_create_response}
+ */
+// @ts-ignore
+export function createAccess_key_create_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAccess_key_create_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_key}
+ */
+// @ts-ignore
+export function createAccess_keyFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAccess_key;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Account_team}
  */
 // @ts-ignore
@@ -137,6 +173,15 @@ export function createAddons_resource_newFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createAddons_resourceFromDiscriminatorValue(parseNode) {
     return deserializeIntoAddons_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Affected_resource}
+ */
+// @ts-ignore
+export function createAffected_resourceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAffected_resource;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -2004,6 +2049,42 @@ export function createApp_egress_specFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_event_autoscaling_components}
+ */
+// @ts-ignore
+export function createApp_event_autoscaling_componentsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_event_autoscaling_components;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_event_autoscaling}
+ */
+// @ts-ignore
+export function createApp_event_autoscalingFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_event_autoscaling;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_event}
+ */
+// @ts-ignore
+export function createApp_eventFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_event;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_events}
+ */
+// @ts-ignore
+export function createApp_eventsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoApp_events;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_functions_component_health_functions_component_health_metrics}
  */
 // @ts-ignore
@@ -2976,6 +3057,51 @@ export function createAssociated_resourceFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Async_invoke_request_input}
+ */
+// @ts-ignore
+export function createAsync_invoke_request_inputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAsync_invoke_request_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Async_invoke_request_tags}
+ */
+// @ts-ignore
+export function createAsync_invoke_request_tagsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAsync_invoke_request_tags;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Async_invoke_request}
+ */
+// @ts-ignore
+export function createAsync_invoke_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAsync_invoke_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Async_invoke_response_output}
+ */
+// @ts-ignore
+export function createAsync_invoke_response_outputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAsync_invoke_response_output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Async_invoke_response}
+ */
+// @ts-ignore
+export function createAsync_invoke_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoAsync_invoke_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Autoscale_pool_dynamic_config | Autoscale_pool_static_config}
  */
 // @ts-ignore
@@ -3192,6 +3318,186 @@ export function createCertificateFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_logit_bias}
+ */
+// @ts-ignore
+export function createChat_completion_request_logit_biasFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_logit_bias;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_metadata}
+ */
+// @ts-ignore
+export function createChat_completion_request_metadataFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_metadata;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {string[] | string}
+ */
+// @ts-ignore
+export function createChat_completion_request_stopFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_stop;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_stream_options}
+ */
+// @ts-ignore
+export function createChat_completion_request_stream_optionsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_stream_options;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_tool_choiceMember1 | string}
+ */
+// @ts-ignore
+export function createChat_completion_request_tool_choiceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_tool_choice;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_tool_choiceMember1_function}
+ */
+// @ts-ignore
+export function createChat_completion_request_tool_choiceMember1_functionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_tool_choiceMember1_function;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request_tool_choiceMember1}
+ */
+// @ts-ignore
+export function createChat_completion_request_tool_choiceMember1FromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request_tool_choiceMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_request}
+ */
+// @ts-ignore
+export function createChat_completion_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response_choices_logprobs}
+ */
+// @ts-ignore
+export function createChat_completion_response_choices_logprobsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response_choices_logprobs;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response_choices_message_tool_calls_function}
+ */
+// @ts-ignore
+export function createChat_completion_response_choices_message_tool_calls_functionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response_choices_message_tool_calls_function;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response_choices_message_tool_calls}
+ */
+// @ts-ignore
+export function createChat_completion_response_choices_message_tool_callsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response_choices_message_tool_calls;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response_choices_message}
+ */
+// @ts-ignore
+export function createChat_completion_response_choices_messageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response_choices_message;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response_choices}
+ */
+// @ts-ignore
+export function createChat_completion_response_choicesFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response_choices;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_response}
+ */
+// @ts-ignore
+export function createChat_completion_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_token_logprob}
+ */
+// @ts-ignore
+export function createChat_completion_token_logprobFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_token_logprob;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_tool_call_function}
+ */
+// @ts-ignore
+export function createChat_completion_tool_call_functionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_tool_call_function;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_tool_call}
+ */
+// @ts-ignore
+export function createChat_completion_tool_callFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_tool_call;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_tool}
+ */
+// @ts-ignore
+export function createChat_completion_toolFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_tool;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_completion_top_logprob_item}
+ */
+// @ts-ignore
+export function createChat_completion_top_logprob_itemFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_completion_top_logprob_item;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Chat_message}
+ */
+// @ts-ignore
+export function createChat_messageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoChat_message;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Check_updatable}
  */
 // @ts-ignore
@@ -3318,6 +3624,24 @@ export function createClusterlint_resultsFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Completion_usage_cache_creation}
+ */
+// @ts-ignore
+export function createCompletion_usage_cache_creationFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCompletion_usage_cache_creation;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Completion_usage}
+ */
+// @ts-ignore
+export function createCompletion_usageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCompletion_usage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Connection_pool_update}
  */
 // @ts-ignore
@@ -3354,11 +3678,164 @@ export function createControl_plane_firewallFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_image_request}
+ */
+// @ts-ignore
+export function createCreate_image_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_image_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Create_namespace}
  */
 // @ts-ignore
 export function createCreate_namespaceFromDiscriminatorValue(parseNode) {
     return deserializeIntoCreate_namespace;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_inputMember1[] | string}
+ */
+// @ts-ignore
+export function createCreate_response_request_inputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_inputMember1}
+ */
+// @ts-ignore
+export function createCreate_response_request_inputMember1FromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_inputMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_metadata}
+ */
+// @ts-ignore
+export function createCreate_response_request_metadataFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_metadata;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {string[] | string}
+ */
+// @ts-ignore
+export function createCreate_response_request_stopFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_stop;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_stream_options}
+ */
+// @ts-ignore
+export function createCreate_response_request_stream_optionsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_stream_options;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_tool_choiceMember1 | string}
+ */
+// @ts-ignore
+export function createCreate_response_request_tool_choiceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_tool_choice;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_tool_choiceMember1_function}
+ */
+// @ts-ignore
+export function createCreate_response_request_tool_choiceMember1_functionFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_tool_choiceMember1_function;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_tool_choiceMember1}
+ */
+// @ts-ignore
+export function createCreate_response_request_tool_choiceMember1FromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_tool_choiceMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_tools_parameters}
+ */
+// @ts-ignore
+export function createCreate_response_request_tools_parametersFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_tools_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request_tools}
+ */
+// @ts-ignore
+export function createCreate_response_request_toolsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request_tools;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_request}
+ */
+// @ts-ignore
+export function createCreate_response_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_response_output_content}
+ */
+// @ts-ignore
+export function createCreate_response_response_output_contentFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_response_output_content;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_response_output}
+ */
+// @ts-ignore
+export function createCreate_response_response_outputFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_response_output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_response_tools_parameters}
+ */
+// @ts-ignore
+export function createCreate_response_response_tools_parametersFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_response_tools_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_response_tools}
+ */
+// @ts-ignore
+export function createCreate_response_response_toolsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_response_tools;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_response_response}
+ */
+// @ts-ignore
+export function createCreate_response_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoCreate_response_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -3575,6 +4052,141 @@ export function createDatabases_basic_auth_credentialsFromDiscriminatorValue(par
 // @ts-ignore
 export function createDatadog_logsinkFromDiscriminatorValue(parseNode) {
     return deserializeIntoDatadog_logsink;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_accelerator}
+ */
+// @ts-ignore
+export function createDedicated_inference_acceleratorFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_accelerator;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_access_token}
+ */
+// @ts-ignore
+export function createDedicated_inference_access_tokenFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_access_token;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_create_request_access_tokens}
+ */
+// @ts-ignore
+export function createDedicated_inference_create_request_access_tokensFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_create_request_access_tokens;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_create_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_create_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_endpoints}
+ */
+// @ts-ignore
+export function createDedicated_inference_endpointsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_endpoints;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_gpu_model_config}
+ */
+// @ts-ignore
+export function createDedicated_inference_gpu_model_configFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_gpu_model_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_gpu_model_configs_response}
+ */
+// @ts-ignore
+export function createDedicated_inference_gpu_model_configs_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_gpu_model_configs_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_size}
+ */
+// @ts-ignore
+export function createDedicated_inference_sizeFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_size;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_sizes_response}
+ */
+// @ts-ignore
+export function createDedicated_inference_sizes_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_sizes_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_spec_vpc}
+ */
+// @ts-ignore
+export function createDedicated_inference_spec_vpcFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_spec_vpc;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_spec}
+ */
+// @ts-ignore
+export function createDedicated_inference_specFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_token_create_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_token_create_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_token_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_update_request_access_tokens}
+ */
+// @ts-ignore
+export function createDedicated_inference_update_request_access_tokensFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_update_request_access_tokens;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference_update_request}
+ */
+// @ts-ignore
+export function createDedicated_inference_update_requestFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference_update_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dedicated_inference}
+ */
+// @ts-ignore
+export function createDedicated_inferenceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoDedicated_inference;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4160,6 +4772,24 @@ export function createForwarding_ruleFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Function_object_parameters}
+ */
+// @ts-ignore
+export function createFunction_object_parametersFromDiscriminatorValue(parseNode) {
+    return deserializeIntoFunction_object_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Function_object}
+ */
+// @ts-ignore
+export function createFunction_objectFromDiscriminatorValue(parseNode) {
+    return deserializeIntoFunction_object;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Garbage_collection}
  */
 // @ts-ignore
@@ -4174,6 +4804,15 @@ export function createGarbage_collectionFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createGenaiapiRegionFromDiscriminatorValue(parseNode) {
     return deserializeIntoGenaiapiRegion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Generated_image}
+ */
+// @ts-ignore
+export function createGenerated_imageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoGenerated_image;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4291,6 +4930,33 @@ export function createImage_updateFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createImageFromDiscriminatorValue(parseNode) {
     return deserializeIntoImage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_response}
+ */
+// @ts-ignore
+export function createImages_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoImages_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_usage_input_tokens_details}
+ */
+// @ts-ignore
+export function createImages_usage_input_tokens_detailsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoImages_usage_input_tokens_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Images_usage}
+ */
+// @ts-ignore
+export function createImages_usageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoImages_usage;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4547,6 +5213,15 @@ export function createLb_firewallFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_models_response}
+ */
+// @ts-ignore
+export function createList_models_responseFromDiscriminatorValue(parseNode) {
+    return deserializeIntoList_models_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Load_balancer_base}
  */
 // @ts-ignore
@@ -4723,6 +5398,33 @@ export function createMetrics_resultFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createMetricsFromDiscriminatorValue(parseNode) {
     return deserializeIntoMetrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Model_deployment_spec_workload_config}
+ */
+// @ts-ignore
+export function createModel_deployment_spec_workload_configFromDiscriminatorValue(parseNode) {
+    return deserializeIntoModel_deployment_spec_workload_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Model_deployment_spec}
+ */
+// @ts-ignore
+export function createModel_deployment_specFromDiscriminatorValue(parseNode) {
+    return deserializeIntoModel_deployment_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Model}
+ */
+// @ts-ignore
+export function createModelFromDiscriminatorValue(parseNode) {
+    return deserializeIntoModel;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -5375,6 +6077,24 @@ export function createPartner_attachmentFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pending_deployment_spec_vpc}
+ */
+// @ts-ignore
+export function createPending_deployment_spec_vpcFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPending_deployment_spec_vpc;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pending_deployment_spec}
+ */
+// @ts-ignore
+export function createPending_deployment_specFromDiscriminatorValue(parseNode) {
+    return deserializeIntoPending_deployment_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Pgbouncer_advanced_config}
  */
 // @ts-ignore
@@ -5727,6 +6447,33 @@ export function createResourceFromDiscriminatorValue(parseNode) {
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Response_usage_input_tokens_details}
+ */
+// @ts-ignore
+export function createResponse_usage_input_tokens_detailsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoResponse_usage_input_tokens_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Response_usage_output_tokens_details}
+ */
+// @ts-ignore
+export function createResponse_usage_output_tokens_detailsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoResponse_usage_output_tokens_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Response_usage}
+ */
+// @ts-ignore
+export function createResponse_usageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoResponse_usage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Routing_agent}
  */
 // @ts-ignore
@@ -5741,6 +6488,33 @@ export function createRouting_agentFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createRsyslog_logsinkFromDiscriminatorValue(parseNode) {
     return deserializeIntoRsyslog_logsink;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Scan_findings_mitigation_steps}
+ */
+// @ts-ignore
+export function createScan_findings_mitigation_stepsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoScan_findings_mitigation_steps;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Scan_findings}
+ */
+// @ts-ignore
+export function createScan_findingsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoScan_findings;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Scan}
+ */
+// @ts-ignore
+export function createScanFromDiscriminatorValue(parseNode) {
+    return deserializeIntoScan;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -5777,6 +6551,42 @@ export function createSchema_registry_connectionFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createSelective_destroy_associated_resourceFromDiscriminatorValue(parseNode) {
     return deserializeIntoSelective_destroy_associated_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Settings_plan_downgrades}
+ */
+// @ts-ignore
+export function createSettings_plan_downgradesFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSettings_plan_downgrades;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Settings_settings}
+ */
+// @ts-ignore
+export function createSettings_settingsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSettings_settings;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Settings_tier_coverage}
+ */
+// @ts-ignore
+export function createSettings_tier_coverageFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSettings_tier_coverage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Settings}
+ */
+// @ts-ignore
+export function createSettingsFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSettings;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -5930,6 +6740,51 @@ export function createSubscriptionFromDiscriminatorValue(parseNode) {
 // @ts-ignore
 export function createSupported_droplet_backup_policyFromDiscriminatorValue(parseNode) {
     return deserializeIntoSupported_droplet_backup_policy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Suppressed_resource_root_links_pages}
+ */
+// @ts-ignore
+export function createSuppressed_resource_root_links_pagesFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSuppressed_resource_root_links_pages;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Suppressed_resource_root_links}
+ */
+// @ts-ignore
+export function createSuppressed_resource_root_linksFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSuppressed_resource_root_links;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Suppressed_resource_root_meta}
+ */
+// @ts-ignore
+export function createSuppressed_resource_root_metaFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSuppressed_resource_root_meta;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Suppressed_resource_root}
+ */
+// @ts-ignore
+export function createSuppressed_resource_rootFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSuppressed_resource_root;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Suppressed_resource}
+ */
+// @ts-ignore
+export function createSuppressed_resourceFromDiscriminatorValue(parseNode) {
+    return deserializeIntoSuppressed_resource;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -6302,6 +7157,59 @@ export function createVpcFromDiscriminatorValue(parseNode) {
 }
 /**
  * The deserialization information for the current model
+ * @param Accelerator_config_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccelerator_config_spec(accelerator_config_spec = {}) {
+    return {
+        "accelerator_slug": n => { accelerator_config_spec.acceleratorSlug = n.getStringValue(); },
+        "scale": n => { accelerator_config_spec.scale = n.getNumberValue(); },
+        "status": n => { accelerator_config_spec.status = n.getEnumValue(Accelerator_config_spec_statusObject); },
+        "type": n => { accelerator_config_spec.type = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_key The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_key(access_key = {}) {
+    return {
+        "created_at": n => { access_key.createdAt = n.getDateValue(); },
+        "expires_at": n => { access_key.expiresAt = n.getDateValue(); },
+        "id": n => { access_key.id = n.getStringValue(); },
+        "name": n => { access_key.name = n.getStringValue(); },
+        "updated_at": n => { access_key.updatedAt = n.getDateValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_key_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_key_create_request(access_key_create_request = {}) {
+    return {
+        "expires_in": n => { access_key_create_request.expiresIn = n.getStringValue(); },
+        "name": n => { access_key_create_request.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_key_create_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_key_create_response(access_key_create_response = {}) {
+    return {
+        ...deserializeIntoAccess_key(access_key_create_response),
+        "secret": n => { access_key_create_response.secret = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Account The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -6513,6 +7421,19 @@ export function deserializeIntoAddons_resource_new(addons_resource_new = {}) {
         "metadata": n => { addons_resource_new.metadata = n.getCollectionOfObjectValues(createAddons_resource_metadataFromDiscriminatorValue); },
         "name": n => { addons_resource_new.name = n.getStringValue(); },
         "plan_slug": n => { addons_resource_new.planSlug = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Affected_resource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAffected_resource(affected_resource = {}) {
+    return {
+        "name": n => { affected_resource.name = n.getStringValue(); },
+        "type": n => { affected_resource.type = n.getStringValue(); },
+        "urn": n => { affected_resource.urn = n.getStringValue(); },
     };
 }
 /**
@@ -9451,6 +10372,55 @@ export function deserializeIntoApp_egress_spec(app_egress_spec = {}) {
 }
 /**
  * The deserialization information for the current model
+ * @param App_event The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_event(app_event = {}) {
+    return {
+        "autoscaling": n => { app_event.autoscaling = n.getObjectValue(createApp_event_autoscalingFromDiscriminatorValue); },
+        "created_at": n => { app_event.createdAt = n.getDateValue(); },
+        "deployment": n => { app_event.deployment = n.getObjectValue(createApps_deploymentFromDiscriminatorValue); },
+        "deployment_id": n => { app_event.deploymentId = n.getStringValue(); },
+        "id": n => { app_event.id = n.getStringValue(); },
+        "type": n => { app_event.type = n.getEnumValue(App_event_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param App_event_autoscaling The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_event_autoscaling(app_event_autoscaling = {}) {
+    return {
+        "components": n => { app_event_autoscaling.components = n.getObjectValue(createApp_event_autoscaling_componentsFromDiscriminatorValue); },
+        "phase": n => { app_event_autoscaling.phase = n.getEnumValue(App_event_autoscaling_phaseObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param App_event_autoscaling_components The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_event_autoscaling_components(app_event_autoscaling_components = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param App_events The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_events(app_events = {}) {
+    return {
+        ...deserializeIntoPagination(app_events),
+        "events": n => { app_events.events = n.getCollectionOfObjectValues(createApp_eventFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param App_functions_component_health The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -10860,6 +11830,76 @@ export function deserializeIntoAssociated_resource_status_resources(associated_r
 }
 /**
  * The deserialization information for the current model
+ * @param Async_invoke_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAsync_invoke_request(async_invoke_request = {}) {
+    return {
+        "input": n => { async_invoke_request.input = n.getObjectValue(createAsync_invoke_request_inputFromDiscriminatorValue); },
+        "model_id": n => { async_invoke_request.modelId = n.getStringValue(); },
+        "tags": n => { async_invoke_request.tags = n.getCollectionOfObjectValues(createAsync_invoke_request_tagsFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Async_invoke_request_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAsync_invoke_request_input(async_invoke_request_input = {}) {
+    return {
+        "enable_safety_checker": n => { async_invoke_request_input.enableSafetyChecker = n.getBooleanValue(); },
+        "guidance_scale": n => { async_invoke_request_input.guidanceScale = n.getNumberValue(); },
+        "num_images": n => { async_invoke_request_input.numImages = n.getNumberValue(); },
+        "num_inference_steps": n => { async_invoke_request_input.numInferenceSteps = n.getNumberValue(); },
+        "output_format": n => { async_invoke_request_input.outputFormat = n.getStringValue(); },
+        "prompt": n => { async_invoke_request_input.prompt = n.getStringValue(); },
+        "seconds_total": n => { async_invoke_request_input.secondsTotal = n.getNumberValue(); },
+        "text": n => { async_invoke_request_input.text = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Async_invoke_request_tags The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAsync_invoke_request_tags(async_invoke_request_tags = {}) {
+    return {
+        "key": n => { async_invoke_request_tags.key = n.getStringValue(); },
+        "value": n => { async_invoke_request_tags.value = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Async_invoke_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAsync_invoke_response(async_invoke_response = {}) {
+    return {
+        "completed_at": n => { async_invoke_response.completedAt = n.getDateValue(); },
+        "created_at": n => { async_invoke_response.createdAt = n.getDateValue(); },
+        "error": n => { async_invoke_response.errorEscaped = n.getStringValue(); },
+        "model_id": n => { async_invoke_response.modelId = n.getStringValue(); },
+        "output": n => { async_invoke_response.output = n.getObjectValue(createAsync_invoke_response_outputFromDiscriminatorValue); },
+        "request_id": n => { async_invoke_response.requestId = n.getStringValue(); },
+        "started_at": n => { async_invoke_response.startedAt = n.getDateValue(); },
+        "status": n => { async_invoke_response.status = n.getEnumValue(Async_invoke_response_statusObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Async_invoke_response_output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAsync_invoke_response_output(async_invoke_response_output = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
  * @param Autoscale_pool The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -11209,6 +12249,274 @@ export function deserializeIntoCertificate_request_lets_encrypt(certificate_requ
 }
 /**
  * The deserialization information for the current model
+ * @param Chat_completion_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request(chat_completion_request = {}) {
+    return {
+        "frequency_penalty": n => { chat_completion_request.frequencyPenalty = n.getNumberValue(); },
+        "logit_bias": n => { chat_completion_request.logitBias = n.getObjectValue(createChat_completion_request_logit_biasFromDiscriminatorValue); },
+        "logprobs": n => { chat_completion_request.logprobs = n.getBooleanValue(); },
+        "max_completion_tokens": n => { chat_completion_request.maxCompletionTokens = n.getNumberValue(); },
+        "max_tokens": n => { chat_completion_request.maxTokens = n.getNumberValue(); },
+        "messages": n => { chat_completion_request.messages = n.getCollectionOfObjectValues(createChat_messageFromDiscriminatorValue); },
+        "metadata": n => { chat_completion_request.metadata = n.getObjectValue(createChat_completion_request_metadataFromDiscriminatorValue); },
+        "model": n => { chat_completion_request.model = n.getStringValue(); },
+        "n": n => { chat_completion_request.n = n.getNumberValue(); },
+        "presence_penalty": n => { chat_completion_request.presencePenalty = n.getNumberValue(); },
+        "reasoning_effort": n => { chat_completion_request.reasoningEffort = n.getEnumValue(Chat_completion_request_reasoning_effortObject); },
+        "seed": n => { chat_completion_request.seed = n.getNumberValue(); },
+        "stop": n => { chat_completion_request.stop = n.getCollectionOfPrimitiveValues() ?? n.getStringValue(); },
+        "stream": n => { chat_completion_request.stream = n.getBooleanValue(); },
+        "stream_options": n => { chat_completion_request.streamOptions = n.getObjectValue(createChat_completion_request_stream_optionsFromDiscriminatorValue); },
+        "temperature": n => { chat_completion_request.temperature = n.getNumberValue(); },
+        "tool_choice": n => { chat_completion_request.toolChoice = n.getObjectValue(createChat_completion_request_tool_choiceMember1FromDiscriminatorValue) ?? n.getStringValue(); },
+        "tools": n => { chat_completion_request.tools = n.getCollectionOfObjectValues(createChat_completion_toolFromDiscriminatorValue); },
+        "top_logprobs": n => { chat_completion_request.topLogprobs = n.getNumberValue(); },
+        "top_p": n => { chat_completion_request.topP = n.getNumberValue(); },
+        "user": n => { chat_completion_request.user = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_logit_bias The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_logit_bias(chat_completion_request_logit_bias = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_metadata The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_metadata(chat_completion_request_metadata = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_stop The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_stop(chat_completion_request_stop = {}) {
+    return {
+        "": n => { chat_completion_request_stop = n.getCollectionOfPrimitiveValues() ?? n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_stream_options The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_stream_options(chat_completion_request_stream_options = {}) {
+    return {
+        "include_usage": n => { chat_completion_request_stream_options.includeUsage = n.getBooleanValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_tool_choice The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_tool_choice(chat_completion_request_tool_choice = {}) {
+    return {
+        "": n => { chat_completion_request_tool_choice = n.getStringValue(); },
+        ...deserializeIntoChat_completion_request_tool_choiceMember1(chat_completion_request_tool_choice),
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_tool_choiceMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_tool_choiceMember1(chat_completion_request_tool_choiceMember1 = {}) {
+    return {
+        "function": n => { chat_completion_request_tool_choiceMember1.functionEscaped = n.getObjectValue(createChat_completion_request_tool_choiceMember1_functionFromDiscriminatorValue); },
+        "type": n => { chat_completion_request_tool_choiceMember1.type = n.getEnumValue(Chat_completion_request_tool_choiceMember1_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_request_tool_choiceMember1_function The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_request_tool_choiceMember1_function(chat_completion_request_tool_choiceMember1_function = {}) {
+    return {
+        "name": n => { chat_completion_request_tool_choiceMember1_function.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response(chat_completion_response = {}) {
+    return {
+        "choices": n => { chat_completion_response.choices = n.getCollectionOfObjectValues(createChat_completion_response_choicesFromDiscriminatorValue); },
+        "created": n => { chat_completion_response.created = n.getNumberValue(); },
+        "id": n => { chat_completion_response.id = n.getStringValue(); },
+        "model": n => { chat_completion_response.model = n.getStringValue(); },
+        "object": n => { chat_completion_response.object = n.getEnumValue(Chat_completion_response_objectObject); },
+        "usage": n => { chat_completion_response.usage = n.getObjectValue(createCompletion_usageFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response_choices The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response_choices(chat_completion_response_choices = {}) {
+    return {
+        "finish_reason": n => { chat_completion_response_choices.finishReason = n.getEnumValue(Chat_completion_response_choices_finish_reasonObject); },
+        "index": n => { chat_completion_response_choices.index = n.getNumberValue(); },
+        "logprobs": n => { chat_completion_response_choices.logprobs = n.getObjectValue(createChat_completion_response_choices_logprobsFromDiscriminatorValue); },
+        "message": n => { chat_completion_response_choices.message = n.getObjectValue(createChat_completion_response_choices_messageFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response_choices_logprobs The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response_choices_logprobs(chat_completion_response_choices_logprobs = {}) {
+    return {
+        "content": n => { chat_completion_response_choices_logprobs.content = n.getCollectionOfObjectValues(createChat_completion_token_logprobFromDiscriminatorValue); },
+        "refusal": n => { chat_completion_response_choices_logprobs.refusal = n.getCollectionOfObjectValues(createChat_completion_token_logprobFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response_choices_message The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response_choices_message(chat_completion_response_choices_message = {}) {
+    return {
+        "content": n => { chat_completion_response_choices_message.content = n.getStringValue(); },
+        "reasoning_content": n => { chat_completion_response_choices_message.reasoningContent = n.getStringValue(); },
+        "refusal": n => { chat_completion_response_choices_message.refusal = n.getStringValue(); },
+        "role": n => { chat_completion_response_choices_message.role = n.getEnumValue(Chat_completion_response_choices_message_roleObject); },
+        "tool_calls": n => { chat_completion_response_choices_message.toolCalls = n.getCollectionOfObjectValues(createChat_completion_response_choices_message_tool_callsFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response_choices_message_tool_calls The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response_choices_message_tool_calls(chat_completion_response_choices_message_tool_calls = {}) {
+    return {
+        "function": n => { chat_completion_response_choices_message_tool_calls.functionEscaped = n.getObjectValue(createChat_completion_response_choices_message_tool_calls_functionFromDiscriminatorValue); },
+        "id": n => { chat_completion_response_choices_message_tool_calls.id = n.getStringValue(); },
+        "type": n => { chat_completion_response_choices_message_tool_calls.type = n.getEnumValue(Chat_completion_response_choices_message_tool_calls_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_response_choices_message_tool_calls_function The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_response_choices_message_tool_calls_function(chat_completion_response_choices_message_tool_calls_function = {}) {
+    return {
+        "arguments": n => { chat_completion_response_choices_message_tool_calls_function.arguments = n.getStringValue(); },
+        "name": n => { chat_completion_response_choices_message_tool_calls_function.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_token_logprob The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_token_logprob(chat_completion_token_logprob = {}) {
+    return {
+        "bytes": n => { chat_completion_token_logprob.bytes = n.getCollectionOfPrimitiveValues(); },
+        "logprob": n => { chat_completion_token_logprob.logprob = n.getNumberValue(); },
+        "token": n => { chat_completion_token_logprob.token = n.getStringValue(); },
+        "top_logprobs": n => { chat_completion_token_logprob.topLogprobs = n.getCollectionOfObjectValues(createChat_completion_top_logprob_itemFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_tool The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_tool(chat_completion_tool = {}) {
+    return {
+        "function": n => { chat_completion_tool.functionEscaped = n.getObjectValue(createFunction_objectFromDiscriminatorValue); },
+        "type": n => { chat_completion_tool.type = n.getEnumValue(Chat_completion_tool_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_tool_call The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_tool_call(chat_completion_tool_call = {}) {
+    return {
+        "function": n => { chat_completion_tool_call.functionEscaped = n.getObjectValue(createChat_completion_tool_call_functionFromDiscriminatorValue); },
+        "id": n => { chat_completion_tool_call.id = n.getStringValue(); },
+        "type": n => { chat_completion_tool_call.type = n.getEnumValue(Chat_completion_tool_call_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_tool_call_function The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_tool_call_function(chat_completion_tool_call_function = {}) {
+    return {
+        "arguments": n => { chat_completion_tool_call_function.arguments = n.getStringValue(); },
+        "name": n => { chat_completion_tool_call_function.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_completion_top_logprob_item The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_completion_top_logprob_item(chat_completion_top_logprob_item = {}) {
+    return {
+        "bytes": n => { chat_completion_top_logprob_item.bytes = n.getCollectionOfPrimitiveValues(); },
+        "logprob": n => { chat_completion_top_logprob_item.logprob = n.getNumberValue(); },
+        "token": n => { chat_completion_top_logprob_item.token = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Chat_message The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoChat_message(chat_message = {}) {
+    return {
+        "content": n => { chat_message.content = n.getStringValue(); },
+        "reasoning_content": n => { chat_message.reasoningContent = n.getStringValue(); },
+        "refusal": n => { chat_message.refusal = n.getStringValue(); },
+        "role": n => { chat_message.role = n.getEnumValue(Chat_message_roleObject); },
+        "tool_call_id": n => { chat_message.toolCallId = n.getStringValue(); },
+        "tool_calls": n => { chat_message.toolCalls = n.getCollectionOfObjectValues(createChat_completion_tool_callFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Check The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -11451,6 +12759,34 @@ export function deserializeIntoClusterlint_results_diagnostics_object(clusterlin
 }
 /**
  * The deserialization information for the current model
+ * @param Completion_usage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCompletion_usage(completion_usage = {}) {
+    return {
+        "cache_created_input_tokens": n => { completion_usage.cacheCreatedInputTokens = n.getNumberValue(); },
+        "cache_creation": n => { completion_usage.cacheCreation = n.getObjectValue(createCompletion_usage_cache_creationFromDiscriminatorValue); },
+        "cache_read_input_tokens": n => { completion_usage.cacheReadInputTokens = n.getNumberValue(); },
+        "completion_tokens": n => { completion_usage.completionTokens = n.getNumberValue(); },
+        "prompt_tokens": n => { completion_usage.promptTokens = n.getNumberValue(); },
+        "total_tokens": n => { completion_usage.totalTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Completion_usage_cache_creation The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCompletion_usage_cache_creation(completion_usage_cache_creation = {}) {
+    return {
+        "ephemeral_1h_input_tokens": n => { completion_usage_cache_creation.ephemeral1hInputTokens = n.getNumberValue(); },
+        "ephemeral_5m_input_tokens": n => { completion_usage_cache_creation.ephemeral5mInputTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Connection_pool The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -11507,6 +12843,28 @@ export function deserializeIntoControl_plane_firewall(control_plane_firewall = {
 }
 /**
  * The deserialization information for the current model
+ * @param Create_image_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_image_request(create_image_request = {}) {
+    return {
+        "background": n => { create_image_request.background = n.getStringValue(); },
+        "model": n => { create_image_request.model = n.getStringValue(); },
+        "moderation": n => { create_image_request.moderation = n.getStringValue(); },
+        "n": n => { create_image_request.n = n.getNumberValue(); },
+        "output_compression": n => { create_image_request.outputCompression = n.getNumberValue(); },
+        "output_format": n => { create_image_request.outputFormat = n.getStringValue(); },
+        "partial_images": n => { create_image_request.partialImages = n.getNumberValue(); },
+        "prompt": n => { create_image_request.prompt = n.getStringValue(); },
+        "quality": n => { create_image_request.quality = n.getStringValue(); },
+        "size": n => { create_image_request.size = n.getEnumValue(Create_image_request_sizeObject); },
+        "stream": n => { create_image_request.stream = n.getBooleanValue(); },
+        "user": n => { create_image_request.user = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Create_namespace The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -11516,6 +12874,216 @@ export function deserializeIntoCreate_namespace(create_namespace = {}) {
         "label": n => { create_namespace.label = n.getStringValue(); },
         "region": n => { create_namespace.region = n.getStringValue(); },
     };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request(create_response_request = {}) {
+    return {
+        "input": n => { create_response_request.input = n.getCollectionOfObjectValues(createCreate_response_request_inputMember1FromDiscriminatorValue) ?? n.getStringValue(); },
+        "instructions": n => { create_response_request.instructions = n.getStringValue(); },
+        "max_output_tokens": n => { create_response_request.maxOutputTokens = n.getNumberValue(); },
+        "metadata": n => { create_response_request.metadata = n.getObjectValue(createCreate_response_request_metadataFromDiscriminatorValue); },
+        "model": n => { create_response_request.model = n.getStringValue(); },
+        "stop": n => { create_response_request.stop = n.getCollectionOfPrimitiveValues() ?? n.getStringValue(); },
+        "stream": n => { create_response_request.stream = n.getBooleanValue(); },
+        "stream_options": n => { create_response_request.streamOptions = n.getObjectValue(createCreate_response_request_stream_optionsFromDiscriminatorValue); },
+        "temperature": n => { create_response_request.temperature = n.getNumberValue(); },
+        "tool_choice": n => { create_response_request.toolChoice = n.getObjectValue(createCreate_response_request_tool_choiceMember1FromDiscriminatorValue) ?? n.getStringValue(); },
+        "tools": n => { create_response_request.tools = n.getCollectionOfObjectValues(createCreate_response_request_toolsFromDiscriminatorValue); },
+        "top_p": n => { create_response_request.topP = n.getNumberValue(); },
+        "user": n => { create_response_request.user = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_input(create_response_request_input = {}) {
+    return {
+        "": n => { create_response_request_input = n.getStringValue(); },
+        ...deserializeIntoCreate_response_request_inputMember1(create_response_request_input),
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_inputMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_inputMember1(create_response_request_inputMember1 = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_metadata The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_metadata(create_response_request_metadata = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_stop The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_stop(create_response_request_stop = {}) {
+    return {
+        "": n => { create_response_request_stop = n.getCollectionOfPrimitiveValues() ?? n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_stream_options The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_stream_options(create_response_request_stream_options = {}) {
+    return {
+        "include_usage": n => { create_response_request_stream_options.includeUsage = n.getBooleanValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_tool_choice The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_tool_choice(create_response_request_tool_choice = {}) {
+    return {
+        "": n => { create_response_request_tool_choice = n.getStringValue(); },
+        ...deserializeIntoCreate_response_request_tool_choiceMember1(create_response_request_tool_choice),
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_tool_choiceMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_tool_choiceMember1(create_response_request_tool_choiceMember1 = {}) {
+    return {
+        "function": n => { create_response_request_tool_choiceMember1.functionEscaped = n.getObjectValue(createCreate_response_request_tool_choiceMember1_functionFromDiscriminatorValue); },
+        "type": n => { create_response_request_tool_choiceMember1.type = n.getEnumValue(Create_response_request_tool_choiceMember1_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_tool_choiceMember1_function The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_tool_choiceMember1_function(create_response_request_tool_choiceMember1_function = {}) {
+    return {
+        "name": n => { create_response_request_tool_choiceMember1_function.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_tools The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_tools(create_response_request_tools = {}) {
+    return {
+        "description": n => { create_response_request_tools.description = n.getStringValue(); },
+        "name": n => { create_response_request_tools.name = n.getStringValue(); },
+        "parameters": n => { create_response_request_tools.parameters = n.getObjectValue(createCreate_response_request_tools_parametersFromDiscriminatorValue); },
+        "type": n => { create_response_request_tools.type = n.getEnumValue(Create_response_request_tools_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_request_tools_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_request_tools_parameters(create_response_request_tools_parameters = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_response(create_response_response = {}) {
+    return {
+        "created": n => { create_response_response.created = n.getNumberValue(); },
+        "id": n => { create_response_response.id = n.getStringValue(); },
+        "max_output_tokens": n => { create_response_response.maxOutputTokens = n.getNumberValue(); },
+        "model": n => { create_response_response.model = n.getStringValue(); },
+        "object": n => { create_response_response.object = n.getEnumValue(Create_response_response_objectObject); },
+        "output": n => { create_response_response.output = n.getCollectionOfObjectValues(createCreate_response_response_outputFromDiscriminatorValue); },
+        "parallel_tool_calls": n => { create_response_response.parallelToolCalls = n.getBooleanValue(); },
+        "status": n => { create_response_response.status = n.getStringValue(); },
+        "temperature": n => { create_response_response.temperature = n.getNumberValue(); },
+        "tool_choice": n => { create_response_response.toolChoice = n.getStringValue(); },
+        "tools": n => { create_response_response.tools = n.getCollectionOfObjectValues(createCreate_response_response_toolsFromDiscriminatorValue); },
+        "top_p": n => { create_response_response.topP = n.getNumberValue(); },
+        "usage": n => { create_response_response.usage = n.getObjectValue(createResponse_usageFromDiscriminatorValue); },
+        "user": n => { create_response_response.user = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_response_output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_response_output(create_response_response_output = {}) {
+    return {
+        "arguments": n => { create_response_response_output.arguments = n.getStringValue(); },
+        "call_id": n => { create_response_response_output.callId = n.getStringValue(); },
+        "content": n => { create_response_response_output.content = n.getCollectionOfObjectValues(createCreate_response_response_output_contentFromDiscriminatorValue); },
+        "id": n => { create_response_response_output.id = n.getStringValue(); },
+        "name": n => { create_response_response_output.name = n.getStringValue(); },
+        "role": n => { create_response_response_output.role = n.getStringValue(); },
+        "status": n => { create_response_response_output.status = n.getStringValue(); },
+        "type": n => { create_response_response_output.type = n.getEnumValue(Create_response_response_output_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_response_output_content The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_response_output_content(create_response_response_output_content = {}) {
+    return {
+        "text": n => { create_response_response_output_content.text = n.getStringValue(); },
+        "type": n => { create_response_response_output_content.type = n.getEnumValue(Create_response_response_output_content_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_response_tools The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_response_tools(create_response_response_tools = {}) {
+    return {
+        "description": n => { create_response_response_tools.description = n.getStringValue(); },
+        "name": n => { create_response_response_tools.name = n.getStringValue(); },
+        "parameters": n => { create_response_response_tools.parameters = n.getObjectValue(createCreate_response_response_tools_parametersFromDiscriminatorValue); },
+        "type": n => { create_response_response_tools.type = n.getEnumValue(Create_response_response_tools_typeObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_response_response_tools_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_response_response_tools_parameters(create_response_response_tools_parameters = {}) {
+    return {};
 }
 /**
  * The deserialization information for the current model
@@ -11900,6 +13468,200 @@ export function deserializeIntoDatadog_logsink(datadog_logsink = {}) {
     return {
         "datadog_api_key": n => { datadog_logsink.datadogApiKey = n.getStringValue(); },
         "site": n => { datadog_logsink.site = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference(dedicated_inference = {}) {
+    return {
+        "created_at": n => { dedicated_inference.createdAt = n.getDateValue(); },
+        "endpoints": n => { dedicated_inference.endpoints = n.getObjectValue(createDedicated_inference_endpointsFromDiscriminatorValue); },
+        "id": n => { dedicated_inference.id = n.getGuidValue(); },
+        "pending_deployment_spec": n => { dedicated_inference.pendingDeploymentSpec = n.getObjectValue(createPending_deployment_specFromDiscriminatorValue); },
+        "region": n => { dedicated_inference.region = n.getStringValue(); },
+        "spec": n => { dedicated_inference.spec = n.getObjectValue(createDedicated_inference_specFromDiscriminatorValue); },
+        "status": n => { dedicated_inference.status = n.getEnumValue(Dedicated_inference_statusObject); },
+        "updated_at": n => { dedicated_inference.updatedAt = n.getDateValue(); },
+        "vpc_uuid": n => { dedicated_inference.vpcUuid = n.getGuidValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_accelerator The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_accelerator(dedicated_inference_accelerator = {}) {
+    return {
+        "created_at": n => { dedicated_inference_accelerator.createdAt = n.getDateValue(); },
+        "id": n => { dedicated_inference_accelerator.id = n.getGuidValue(); },
+        "name": n => { dedicated_inference_accelerator.name = n.getStringValue(); },
+        "role": n => { dedicated_inference_accelerator.role = n.getStringValue(); },
+        "slug": n => { dedicated_inference_accelerator.slug = n.getStringValue(); },
+        "status": n => { dedicated_inference_accelerator.status = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_access_token The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_access_token(dedicated_inference_access_token = {}) {
+    return {
+        "created_at": n => { dedicated_inference_access_token.createdAt = n.getDateValue(); },
+        "id": n => { dedicated_inference_access_token.id = n.getGuidValue(); },
+        "name": n => { dedicated_inference_access_token.name = n.getStringValue(); },
+        "value": n => { dedicated_inference_access_token.value = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_create_request(dedicated_inference_create_request = {}) {
+    return {
+        "access_tokens": n => { dedicated_inference_create_request.accessTokens = n.getObjectValue(createDedicated_inference_create_request_access_tokensFromDiscriminatorValue); },
+        "spec": n => { dedicated_inference_create_request.spec = n.getObjectValue(createDedicated_inference_specFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_create_request_access_tokens The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_create_request_access_tokens(dedicated_inference_create_request_access_tokens = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_endpoints The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_endpoints(dedicated_inference_endpoints = {}) {
+    return {
+        "private_endpoint_fqdn": n => { dedicated_inference_endpoints.privateEndpointFqdn = n.getStringValue(); },
+        "public_endpoint_fqdn": n => { dedicated_inference_endpoints.publicEndpointFqdn = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_gpu_model_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_gpu_model_config(dedicated_inference_gpu_model_config = {}) {
+    return {
+        "gpu_slugs": n => { dedicated_inference_gpu_model_config.gpuSlugs = n.getCollectionOfPrimitiveValues(); },
+        "is_gated_model": n => { dedicated_inference_gpu_model_config.isGatedModel = n.getBooleanValue(); },
+        "model_name": n => { dedicated_inference_gpu_model_config.modelName = n.getStringValue(); },
+        "model_slug": n => { dedicated_inference_gpu_model_config.modelSlug = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_gpu_model_configs_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_gpu_model_configs_response(dedicated_inference_gpu_model_configs_response = {}) {
+    return {
+        "gpu_model_configs": n => { dedicated_inference_gpu_model_configs_response.gpuModelConfigs = n.getCollectionOfObjectValues(createDedicated_inference_gpu_model_configFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_size The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_size(dedicated_inference_size = {}) {
+    return {
+        "currency": n => { dedicated_inference_size.currency = n.getStringValue(); },
+        "gpu_slug": n => { dedicated_inference_size.gpuSlug = n.getStringValue(); },
+        "price_per_hour": n => { dedicated_inference_size.pricePerHour = n.getStringValue(); },
+        "region": n => { dedicated_inference_size.region = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_sizes_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_sizes_response(dedicated_inference_sizes_response = {}) {
+    return {
+        "enabled_regions": n => { dedicated_inference_sizes_response.enabledRegions = n.getCollectionOfPrimitiveValues(); },
+        "sizes": n => { dedicated_inference_sizes_response.sizes = n.getCollectionOfObjectValues(createDedicated_inference_sizeFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_spec(dedicated_inference_spec = {}) {
+    return {
+        "enable_public_endpoint": n => { dedicated_inference_spec.enablePublicEndpoint = n.getBooleanValue(); },
+        "model_deployments": n => { dedicated_inference_spec.modelDeployments = n.getCollectionOfObjectValues(createModel_deployment_specFromDiscriminatorValue); },
+        "name": n => { dedicated_inference_spec.name = n.getStringValue(); },
+        "region": n => { dedicated_inference_spec.region = n.getEnumValue(Dedicated_inference_spec_regionObject); },
+        "version": n => { dedicated_inference_spec.version = n.getNumberValue(); },
+        "vpc": n => { dedicated_inference_spec.vpc = n.getObjectValue(createDedicated_inference_spec_vpcFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_spec_vpc The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_spec_vpc(dedicated_inference_spec_vpc = {}) {
+    return {
+        "uuid": n => { dedicated_inference_spec_vpc.uuid = n.getGuidValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_token_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_token_create_request(dedicated_inference_token_create_request = {}) {
+    return {
+        "name": n => { dedicated_inference_token_create_request.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_update_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_update_request(dedicated_inference_update_request = {}) {
+    return {
+        "access_tokens": n => { dedicated_inference_update_request.accessTokens = n.getObjectValue(createDedicated_inference_update_request_access_tokensFromDiscriminatorValue); },
+        "spec": n => { dedicated_inference_update_request.spec = n.getObjectValue(createDedicated_inference_specFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Dedicated_inference_update_request_access_tokens The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDedicated_inference_update_request_access_tokens(dedicated_inference_update_request_access_tokens = {}) {
+    return {
+        "hugging_face_token": n => { dedicated_inference_update_request_access_tokens.huggingFaceToken = n.getStringValue(); },
     };
 }
 /**
@@ -12706,6 +14468,28 @@ export function deserializeIntoForwarding_rule(forwarding_rule = {}) {
 }
 /**
  * The deserialization information for the current model
+ * @param Function_object The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFunction_object(function_object = {}) {
+    return {
+        "description": n => { function_object.description = n.getStringValue(); },
+        "name": n => { function_object.name = n.getStringValue(); },
+        "parameters": n => { function_object.parameters = n.getObjectValue(createFunction_object_parametersFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Function_object_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFunction_object_parameters(function_object_parameters = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
  * @param Garbage_collection The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -12734,6 +14518,18 @@ export function deserializeIntoGenaiapiRegion(genaiapiRegion = {}) {
         "serves_batch": n => { genaiapiRegion.servesBatch = n.getBooleanValue(); },
         "serves_inference": n => { genaiapiRegion.servesInference = n.getBooleanValue(); },
         "stream_inference_url": n => { genaiapiRegion.streamInferenceUrl = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Generated_image The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoGenerated_image(generated_image = {}) {
+    return {
+        "b64_json": n => { generated_image.b64Json = n.getStringValue(); },
+        "revised_prompt": n => { generated_image.revisedPrompt = n.getStringValue(); },
     };
 }
 /**
@@ -12914,6 +14710,49 @@ export function deserializeIntoImage_update(image_update = {}) {
         "description": n => { image_update.description = n.getStringValue(); },
         "distribution": n => { image_update.distribution = n.getEnumValue(DistributionObject); },
         "name": n => { image_update.name = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_response(images_response = {}) {
+    return {
+        "background": n => { images_response.background = n.getStringValue(); },
+        "created": n => { images_response.created = n.getNumberValue(); },
+        "data": n => { images_response.data = n.getCollectionOfObjectValues(createGenerated_imageFromDiscriminatorValue); },
+        "output_format": n => { images_response.outputFormat = n.getStringValue(); },
+        "quality": n => { images_response.quality = n.getStringValue(); },
+        "size": n => { images_response.size = n.getStringValue(); },
+        "usage": n => { images_response.usage = n.getObjectValue(createImages_usageFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_usage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_usage(images_usage = {}) {
+    return {
+        "input_tokens": n => { images_usage.inputTokens = n.getNumberValue(); },
+        "input_tokens_details": n => { images_usage.inputTokensDetails = n.getObjectValue(createImages_usage_input_tokens_detailsFromDiscriminatorValue); },
+        "output_tokens": n => { images_usage.outputTokens = n.getNumberValue(); },
+        "total_tokens": n => { images_usage.totalTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Images_usage_input_tokens_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImages_usage_input_tokens_details(images_usage_input_tokens_details = {}) {
+    return {
+        "image_tokens": n => { images_usage_input_tokens_details.imageTokens = n.getNumberValue(); },
+        "text_tokens": n => { images_usage_input_tokens_details.textTokens = n.getNumberValue(); },
     };
 }
 /**
@@ -13362,6 +15201,18 @@ export function deserializeIntoLb_firewall(lb_firewall = {}) {
 }
 /**
  * The deserialization information for the current model
+ * @param List_models_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_models_response(list_models_response = {}) {
+    return {
+        "data": n => { list_models_response.data = n.getCollectionOfObjectValues(createModelFromDiscriminatorValue); },
+        "object": n => { list_models_response.object = n.getEnumValue(List_models_response_objectObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Load_balancer The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -13630,6 +15481,44 @@ export function deserializeIntoMetrics_result(metrics_result = {}) {
  */
 // @ts-ignore
 export function deserializeIntoMetrics_result_metric(metrics_result_metric = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Model The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoModel(model = {}) {
+    return {
+        "created": n => { model.created = n.getNumberValue(); },
+        "id": n => { model.id = n.getStringValue(); },
+        "object": n => { model.object = n.getEnumValue(Model_objectObject); },
+        "owned_by": n => { model.ownedBy = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Model_deployment_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoModel_deployment_spec(model_deployment_spec = {}) {
+    return {
+        "accelerators": n => { model_deployment_spec.accelerators = n.getCollectionOfObjectValues(createAccelerator_config_specFromDiscriminatorValue); },
+        "model_id": n => { model_deployment_spec.modelId = n.getStringValue(); },
+        "model_provider": n => { model_deployment_spec.modelProvider = n.getEnumValue(Model_deployment_spec_model_providerObject); },
+        "model_slug": n => { model_deployment_spec.modelSlug = n.getStringValue(); },
+        "workload_config": n => { model_deployment_spec.workloadConfig = n.getObjectValue(createModel_deployment_spec_workload_configFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Model_deployment_spec_workload_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoModel_deployment_spec_workload_config(model_deployment_spec_workload_config = {}) {
     return {};
 }
 /**
@@ -14646,6 +16535,36 @@ export function deserializeIntoPartner_attachment_writable_bgp(partner_attachmen
 }
 /**
  * The deserialization information for the current model
+ * @param Pending_deployment_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPending_deployment_spec(pending_deployment_spec = {}) {
+    return {
+        "created_at": n => { pending_deployment_spec.createdAt = n.getDateValue(); },
+        "enable_public_endpoint": n => { pending_deployment_spec.enablePublicEndpoint = n.getBooleanValue(); },
+        "id": n => { pending_deployment_spec.id = n.getGuidValue(); },
+        "model_deployments": n => { pending_deployment_spec.modelDeployments = n.getCollectionOfObjectValues(createModel_deployment_specFromDiscriminatorValue); },
+        "name": n => { pending_deployment_spec.name = n.getStringValue(); },
+        "status": n => { pending_deployment_spec.status = n.getEnumValue(Pending_deployment_spec_statusObject); },
+        "updated_at": n => { pending_deployment_spec.updatedAt = n.getDateValue(); },
+        "version": n => { pending_deployment_spec.version = n.getNumberValue(); },
+        "vpc": n => { pending_deployment_spec.vpc = n.getObjectValue(createPending_deployment_spec_vpcFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Pending_deployment_spec_vpc The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPending_deployment_spec_vpc(pending_deployment_spec_vpc = {}) {
+    return {
+        "uuid": n => { pending_deployment_spec_vpc.uuid = n.getGuidValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Pgbouncer_advanced_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -15179,6 +17098,44 @@ export function deserializeIntoResource_links(resource_links = {}) {
 }
 /**
  * The deserialization information for the current model
+ * @param Response_usage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoResponse_usage(response_usage = {}) {
+    return {
+        "input_tokens": n => { response_usage.inputTokens = n.getNumberValue(); },
+        "input_tokens_details": n => { response_usage.inputTokensDetails = n.getObjectValue(createResponse_usage_input_tokens_detailsFromDiscriminatorValue); },
+        "output_tokens": n => { response_usage.outputTokens = n.getNumberValue(); },
+        "output_tokens_details": n => { response_usage.outputTokensDetails = n.getObjectValue(createResponse_usage_output_tokens_detailsFromDiscriminatorValue); },
+        "total_tokens": n => { response_usage.totalTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Response_usage_input_tokens_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoResponse_usage_input_tokens_details(response_usage_input_tokens_details = {}) {
+    return {
+        "cached_tokens": n => { response_usage_input_tokens_details.cachedTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Response_usage_output_tokens_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoResponse_usage_output_tokens_details(response_usage_output_tokens_details = {}) {
+    return {
+        "reasoning_tokens": n => { response_usage_output_tokens_details.reasoningTokens = n.getNumberValue(); },
+        "tool_output_tokens": n => { response_usage_output_tokens_details.toolOutputTokens = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
  * @param Routing_agent The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -15205,6 +17162,52 @@ export function deserializeIntoRsyslog_logsink(rsyslog_logsink = {}) {
         "sd": n => { rsyslog_logsink.sd = n.getStringValue(); },
         "server": n => { rsyslog_logsink.server = n.getStringValue(); },
         "tls": n => { rsyslog_logsink.tls = n.getBooleanValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Scan The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoScan(scan = {}) {
+    return {
+        "created_at": n => { scan.createdAt = n.getDateValue(); },
+        "findings": n => { scan.findings = n.getCollectionOfObjectValues(createScan_findingsFromDiscriminatorValue); },
+        "id": n => { scan.id = n.getStringValue(); },
+        "status": n => { scan.status = n.getEnumValue(Scan_statusObject); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Scan_findings The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoScan_findings(scan_findings = {}) {
+    return {
+        "affected_resources_count": n => { scan_findings.affectedResourcesCount = n.getNumberValue(); },
+        "business_impact": n => { scan_findings.businessImpact = n.getStringValue(); },
+        "details": n => { scan_findings.details = n.getStringValue(); },
+        "found_at": n => { scan_findings.foundAt = n.getDateValue(); },
+        "mitigation_steps": n => { scan_findings.mitigationSteps = n.getCollectionOfObjectValues(createScan_findings_mitigation_stepsFromDiscriminatorValue); },
+        "name": n => { scan_findings.name = n.getStringValue(); },
+        "rule_uuid": n => { scan_findings.ruleUuid = n.getStringValue(); },
+        "severity": n => { scan_findings.severity = n.getEnumValue(Scan_findings_severityObject); },
+        "technical_details": n => { scan_findings.technicalDetails = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Scan_findings_mitigation_steps The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoScan_findings_mitigation_steps(scan_findings_mitigation_steps = {}) {
+    return {
+        "description": n => { scan_findings_mitigation_steps.description = n.getStringValue(); },
+        "step": n => { scan_findings_mitigation_steps.step = n.getNumberValue(); },
+        "title": n => { scan_findings_mitigation_steps.title = n.getStringValue(); },
     };
 }
 /**
@@ -15260,6 +17263,48 @@ export function deserializeIntoSelective_destroy_associated_resource(selective_d
         "volumes": n => { selective_destroy_associated_resource.volumes = n.getCollectionOfPrimitiveValues(); },
         "volume_snapshots": n => { selective_destroy_associated_resource.volumeSnapshots = n.getCollectionOfPrimitiveValues(); },
     };
+}
+/**
+ * The deserialization information for the current model
+ * @param Settings The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSettings(settings = {}) {
+    return {
+        "plan_downgrades": n => { settings.planDowngrades = n.getObjectValue(createSettings_plan_downgradesFromDiscriminatorValue); },
+        "settings": n => { settings.settings = n.getObjectValue(createSettings_settingsFromDiscriminatorValue); },
+        "tier_coverage": n => { settings.tierCoverage = n.getObjectValue(createSettings_tier_coverageFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Settings_plan_downgrades The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSettings_plan_downgrades(settings_plan_downgrades = {}) {
+    return {};
+}
+/**
+ * The deserialization information for the current model
+ * @param Settings_settings The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSettings_settings(settings_settings = {}) {
+    return {
+        "suppressions": n => { settings_settings.suppressions = n.getObjectValue(createSuppressed_resource_rootFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Settings_tier_coverage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSettings_tier_coverage(settings_tier_coverage = {}) {
+    return {};
 }
 /**
  * The deserialization information for the current model
@@ -15495,6 +17540,72 @@ export function deserializeIntoSupported_droplet_backup_policy(supported_droplet
         "possible_window_starts": n => { supported_droplet_backup_policy.possibleWindowStarts = n.getCollectionOfPrimitiveValues(); },
         "retention_period_days": n => { supported_droplet_backup_policy.retentionPeriodDays = n.getNumberValue(); },
         "window_length_hours": n => { supported_droplet_backup_policy.windowLengthHours = n.getNumberValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Suppressed_resource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSuppressed_resource(suppressed_resource = {}) {
+    return {
+        "id": n => { suppressed_resource.id = n.getStringValue(); },
+        "resource_id": n => { suppressed_resource.resourceId = n.getStringValue(); },
+        "resource_type": n => { suppressed_resource.resourceType = n.getStringValue(); },
+        "rule_name": n => { suppressed_resource.ruleName = n.getStringValue(); },
+        "rule_uuid": n => { suppressed_resource.ruleUuid = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Suppressed_resource_root The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSuppressed_resource_root(suppressed_resource_root = {}) {
+    return {
+        "links": n => { suppressed_resource_root.links = n.getObjectValue(createSuppressed_resource_root_linksFromDiscriminatorValue); },
+        "meta": n => { suppressed_resource_root.meta = n.getObjectValue(createSuppressed_resource_root_metaFromDiscriminatorValue); },
+        "resources": n => { suppressed_resource_root.resources = n.getCollectionOfObjectValues(createSuppressed_resourceFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Suppressed_resource_root_links The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSuppressed_resource_root_links(suppressed_resource_root_links = {}) {
+    return {
+        "pages": n => { suppressed_resource_root_links.pages = n.getObjectValue(createSuppressed_resource_root_links_pagesFromDiscriminatorValue); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Suppressed_resource_root_links_pages The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSuppressed_resource_root_links_pages(suppressed_resource_root_links_pages = {}) {
+    return {
+        "first": n => { suppressed_resource_root_links_pages.first = n.getStringValue(); },
+        "last": n => { suppressed_resource_root_links_pages.last = n.getStringValue(); },
+        "next": n => { suppressed_resource_root_links_pages.next = n.getStringValue(); },
+        "prev": n => { suppressed_resource_root_links_pages.prev = n.getStringValue(); },
+    };
+}
+/**
+ * The deserialization information for the current model
+ * @param Suppressed_resource_root_meta The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSuppressed_resource_root_meta(suppressed_resource_root_meta = {}) {
+    return {
+        "page": n => { suppressed_resource_root_meta.page = n.getNumberValue(); },
+        "pages": n => { suppressed_resource_root_meta.pages = n.getNumberValue(); },
+        "total": n => { suppressed_resource_root_meta.total = n.getNumberValue(); },
     };
 }
 /**
@@ -16064,6 +18175,64 @@ export function deserializeIntoVpc_peering_updatable(vpc_peering_updatable = {})
 }
 /**
  * Serializes information the current object
+ * @param Accelerator_config_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccelerator_config_spec(writer, accelerator_config_spec = {}, isSerializingDerivedType = false) {
+    if (!accelerator_config_spec || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("accelerator_slug", accelerator_config_spec.acceleratorSlug);
+    writer.writeNumberValue("scale", accelerator_config_spec.scale);
+    writer.writeStringValue("type", accelerator_config_spec.type);
+    writer.writeAdditionalData(accelerator_config_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_key The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_key(writer, access_key = {}, isSerializingDerivedType = false) {
+    if (!access_key || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("name", access_key.name);
+    writer.writeAdditionalData(access_key.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_key_create_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_key_create_request(writer, access_key_create_request = {}, isSerializingDerivedType = false) {
+    if (!access_key_create_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("expires_in", access_key_create_request.expiresIn);
+    writer.writeStringValue("name", access_key_create_request.name);
+    writer.writeAdditionalData(access_key_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_key_create_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_key_create_response(writer, access_key_create_response = {}, isSerializingDerivedType = false) {
+    if (!access_key_create_response || isSerializingDerivedType) {
+        return;
+    }
+    serializeAccess_key(writer, access_key_create_response, isSerializingDerivedType);
+}
+/**
+ * Serializes information the current object
  * @param Account The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -16361,6 +18530,22 @@ export function serializeAddons_resource_new(writer, addons_resource_new = {}, i
     writer.writeStringValue("name", addons_resource_new.name);
     writer.writeStringValue("plan_slug", addons_resource_new.planSlug);
     writer.writeAdditionalData(addons_resource_new.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Affected_resource The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAffected_resource(writer, affected_resource = {}, isSerializingDerivedType = false) {
+    if (!affected_resource || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("name", affected_resource.name);
+    writer.writeStringValue("type", affected_resource.type);
+    writer.writeStringValue("urn", affected_resource.urn);
+    writer.writeAdditionalData(affected_resource.additionalData);
 }
 /**
  * Serializes information the current object
@@ -19915,6 +22100,67 @@ export function serializeApp_egress_spec(writer, app_egress_spec = {}, isSeriali
 }
 /**
  * Serializes information the current object
+ * @param App_event The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_event(writer, app_event = {}, isSerializingDerivedType = false) {
+    if (!app_event || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("autoscaling", app_event.autoscaling, serializeApp_event_autoscaling);
+    writer.writeDateValue("created_at", app_event.createdAt);
+    writer.writeObjectValue("deployment", app_event.deployment, serializeApps_deployment);
+    writer.writeStringValue("deployment_id", app_event.deploymentId);
+    writer.writeStringValue("id", app_event.id);
+    writer.writeEnumValue("type", app_event.type);
+    writer.writeAdditionalData(app_event.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_event_autoscaling The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_event_autoscaling(writer, app_event_autoscaling = {}, isSerializingDerivedType = false) {
+    if (!app_event_autoscaling || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("components", app_event_autoscaling.components, serializeApp_event_autoscaling_components);
+    writer.writeEnumValue("phase", app_event_autoscaling.phase);
+    writer.writeAdditionalData(app_event_autoscaling.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_event_autoscaling_components The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_event_autoscaling_components(writer, app_event_autoscaling_components = {}, isSerializingDerivedType = false) {
+    if (!app_event_autoscaling_components || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(app_event_autoscaling_components.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_events The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_events(writer, app_events = {}, isSerializingDerivedType = false) {
+    if (!app_events || isSerializingDerivedType) {
+        return;
+    }
+    serializePagination(writer, app_events, isSerializingDerivedType);
+    writer.writeCollectionOfObjectValues("events", app_events.events, serializeApp_event);
+}
+/**
+ * Serializes information the current object
  * @param App_functions_component_health The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -21674,6 +23920,92 @@ export function serializeAssociated_resource_status_resources(writer, associated
 }
 /**
  * Serializes information the current object
+ * @param Async_invoke_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAsync_invoke_request(writer, async_invoke_request = {}, isSerializingDerivedType = false) {
+    if (!async_invoke_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("input", async_invoke_request.input, serializeAsync_invoke_request_input);
+    writer.writeStringValue("model_id", async_invoke_request.modelId);
+    writer.writeCollectionOfObjectValues("tags", async_invoke_request.tags, serializeAsync_invoke_request_tags);
+    writer.writeAdditionalData(async_invoke_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Async_invoke_request_input The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAsync_invoke_request_input(writer, async_invoke_request_input = {}, isSerializingDerivedType = false) {
+    if (!async_invoke_request_input || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeBooleanValue("enable_safety_checker", async_invoke_request_input.enableSafetyChecker);
+    writer.writeNumberValue("guidance_scale", async_invoke_request_input.guidanceScale);
+    writer.writeNumberValue("num_images", async_invoke_request_input.numImages);
+    writer.writeNumberValue("num_inference_steps", async_invoke_request_input.numInferenceSteps);
+    writer.writeStringValue("output_format", async_invoke_request_input.outputFormat);
+    writer.writeStringValue("prompt", async_invoke_request_input.prompt);
+    writer.writeNumberValue("seconds_total", async_invoke_request_input.secondsTotal);
+    writer.writeStringValue("text", async_invoke_request_input.text);
+    writer.writeAdditionalData(async_invoke_request_input.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Async_invoke_request_tags The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAsync_invoke_request_tags(writer, async_invoke_request_tags = {}, isSerializingDerivedType = false) {
+    if (!async_invoke_request_tags || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("key", async_invoke_request_tags.key);
+    writer.writeStringValue("value", async_invoke_request_tags.value);
+    writer.writeAdditionalData(async_invoke_request_tags.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Async_invoke_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAsync_invoke_response(writer, async_invoke_response = {}, isSerializingDerivedType = false) {
+    if (!async_invoke_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeDateValue("completed_at", async_invoke_response.completedAt);
+    writer.writeDateValue("created_at", async_invoke_response.createdAt);
+    writer.writeStringValue("error", async_invoke_response.errorEscaped);
+    writer.writeStringValue("model_id", async_invoke_response.modelId);
+    writer.writeObjectValue("output", async_invoke_response.output, serializeAsync_invoke_response_output);
+    writer.writeStringValue("request_id", async_invoke_response.requestId);
+    writer.writeDateValue("started_at", async_invoke_response.startedAt);
+    writer.writeEnumValue("status", async_invoke_response.status);
+    writer.writeAdditionalData(async_invoke_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Async_invoke_response_output The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAsync_invoke_response_output(writer, async_invoke_response_output = {}, isSerializingDerivedType = false) {
+    if (!async_invoke_response_output || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(async_invoke_response_output.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Autoscale_pool The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -22076,6 +24408,344 @@ export function serializeCertificate_request_lets_encrypt(writer, certificate_re
 }
 /**
  * Serializes information the current object
+ * @param Chat_completion_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request(writer, chat_completion_request = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("frequency_penalty", chat_completion_request.frequencyPenalty);
+    writer.writeObjectValue("logit_bias", chat_completion_request.logitBias, serializeChat_completion_request_logit_bias);
+    writer.writeBooleanValue("logprobs", chat_completion_request.logprobs);
+    writer.writeNumberValue("max_completion_tokens", chat_completion_request.maxCompletionTokens);
+    writer.writeNumberValue("max_tokens", chat_completion_request.maxTokens);
+    writer.writeCollectionOfObjectValues("messages", chat_completion_request.messages, serializeChat_message);
+    writer.writeObjectValue("metadata", chat_completion_request.metadata, serializeChat_completion_request_metadata);
+    writer.writeStringValue("model", chat_completion_request.model);
+    writer.writeNumberValue("n", chat_completion_request.n);
+    writer.writeNumberValue("presence_penalty", chat_completion_request.presencePenalty);
+    writer.writeEnumValue("reasoning_effort", chat_completion_request.reasoningEffort);
+    writer.writeNumberValue("seed", chat_completion_request.seed);
+    if (typeof chat_completion_request.stop === "string") {
+        writer.writeStringValue("stop", chat_completion_request.stop);
+    }
+    else {
+        writer.writeCollectionOfObjectValues("stop", chat_completion_request.stop, serializeChat_completion_request_stop);
+    }
+    writer.writeBooleanValue("stream", chat_completion_request.stream);
+    writer.writeObjectValue("stream_options", chat_completion_request.streamOptions, serializeChat_completion_request_stream_options);
+    writer.writeNumberValue("temperature", chat_completion_request.temperature);
+    if (typeof chat_completion_request.toolChoice === "string") {
+        writer.writeStringValue("tool_choice", chat_completion_request.toolChoice);
+    }
+    else {
+        writer.writeObjectValue("tool_choice", chat_completion_request.toolChoice, serializeChat_completion_request_tool_choice);
+    }
+    writer.writeCollectionOfObjectValues("tools", chat_completion_request.tools, serializeChat_completion_tool);
+    writer.writeNumberValue("top_logprobs", chat_completion_request.topLogprobs);
+    writer.writeNumberValue("top_p", chat_completion_request.topP);
+    writer.writeStringValue("user", chat_completion_request.user);
+    writer.writeAdditionalData(chat_completion_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_logit_bias The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_logit_bias(writer, chat_completion_request_logit_bias = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request_logit_bias || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(chat_completion_request_logit_bias.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_metadata The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_metadata(writer, chat_completion_request_metadata = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request_metadata || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(chat_completion_request_metadata.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_stop The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_stop(writer, chat_completion_request_stop = {}, isSerializingDerivedType = false) {
+    if (chat_completion_request_stop === undefined || chat_completion_request_stop === null)
+        return;
+    if (Array.isArray(chat_completion_request_stop) && (chat_completion_request_stop).every(item => typeof item === 'string')) {
+        writer.writeCollectionOfPrimitiveValues(undefined, chat_completion_request_stop);
+    }
+    else if (typeof chat_completion_request_stop === "string") {
+        writer.writeStringValue(undefined, chat_completion_request_stop);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_stream_options The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_stream_options(writer, chat_completion_request_stream_options = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request_stream_options || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeBooleanValue("include_usage", chat_completion_request_stream_options.includeUsage);
+    writer.writeAdditionalData(chat_completion_request_stream_options.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_tool_choice The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_tool_choice(writer, chat_completion_request_tool_choice = {}, isSerializingDerivedType = false) {
+    serializeChat_completion_request_tool_choiceMember1(writer, chat_completion_request_tool_choice);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_tool_choiceMember1 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_tool_choiceMember1(writer, chat_completion_request_tool_choiceMember1 = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request_tool_choiceMember1 || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("function", chat_completion_request_tool_choiceMember1.functionEscaped, serializeChat_completion_request_tool_choiceMember1_function);
+    writer.writeEnumValue("type", chat_completion_request_tool_choiceMember1.type);
+    writer.writeAdditionalData(chat_completion_request_tool_choiceMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_request_tool_choiceMember1_function The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_request_tool_choiceMember1_function(writer, chat_completion_request_tool_choiceMember1_function = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_request_tool_choiceMember1_function || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("name", chat_completion_request_tool_choiceMember1_function.name);
+    writer.writeAdditionalData(chat_completion_request_tool_choiceMember1_function.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response(writer, chat_completion_response = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfObjectValues("choices", chat_completion_response.choices, serializeChat_completion_response_choices);
+    writer.writeNumberValue("created", chat_completion_response.created);
+    writer.writeStringValue("id", chat_completion_response.id);
+    writer.writeStringValue("model", chat_completion_response.model);
+    writer.writeEnumValue("object", chat_completion_response.object);
+    writer.writeObjectValue("usage", chat_completion_response.usage, serializeCompletion_usage);
+    writer.writeAdditionalData(chat_completion_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response_choices The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response_choices(writer, chat_completion_response_choices = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response_choices || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeEnumValue("finish_reason", chat_completion_response_choices.finishReason);
+    writer.writeNumberValue("index", chat_completion_response_choices.index);
+    writer.writeObjectValue("logprobs", chat_completion_response_choices.logprobs, serializeChat_completion_response_choices_logprobs);
+    writer.writeObjectValue("message", chat_completion_response_choices.message, serializeChat_completion_response_choices_message);
+    writer.writeAdditionalData(chat_completion_response_choices.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response_choices_logprobs The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response_choices_logprobs(writer, chat_completion_response_choices_logprobs = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response_choices_logprobs || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfObjectValues("content", chat_completion_response_choices_logprobs.content, serializeChat_completion_token_logprob);
+    writer.writeCollectionOfObjectValues("refusal", chat_completion_response_choices_logprobs.refusal, serializeChat_completion_token_logprob);
+    writer.writeAdditionalData(chat_completion_response_choices_logprobs.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response_choices_message The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response_choices_message(writer, chat_completion_response_choices_message = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response_choices_message || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("content", chat_completion_response_choices_message.content);
+    writer.writeStringValue("reasoning_content", chat_completion_response_choices_message.reasoningContent);
+    writer.writeStringValue("refusal", chat_completion_response_choices_message.refusal);
+    writer.writeEnumValue("role", chat_completion_response_choices_message.role);
+    writer.writeCollectionOfObjectValues("tool_calls", chat_completion_response_choices_message.toolCalls, serializeChat_completion_response_choices_message_tool_calls);
+    writer.writeAdditionalData(chat_completion_response_choices_message.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response_choices_message_tool_calls The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response_choices_message_tool_calls(writer, chat_completion_response_choices_message_tool_calls = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response_choices_message_tool_calls || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("function", chat_completion_response_choices_message_tool_calls.functionEscaped, serializeChat_completion_response_choices_message_tool_calls_function);
+    writer.writeStringValue("id", chat_completion_response_choices_message_tool_calls.id);
+    writer.writeEnumValue("type", chat_completion_response_choices_message_tool_calls.type);
+    writer.writeAdditionalData(chat_completion_response_choices_message_tool_calls.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_response_choices_message_tool_calls_function The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_response_choices_message_tool_calls_function(writer, chat_completion_response_choices_message_tool_calls_function = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_response_choices_message_tool_calls_function || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("arguments", chat_completion_response_choices_message_tool_calls_function.arguments);
+    writer.writeStringValue("name", chat_completion_response_choices_message_tool_calls_function.name);
+    writer.writeAdditionalData(chat_completion_response_choices_message_tool_calls_function.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_token_logprob The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_token_logprob(writer, chat_completion_token_logprob = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_token_logprob || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfPrimitiveValues("bytes", chat_completion_token_logprob.bytes);
+    writer.writeNumberValue("logprob", chat_completion_token_logprob.logprob);
+    writer.writeStringValue("token", chat_completion_token_logprob.token);
+    writer.writeCollectionOfObjectValues("top_logprobs", chat_completion_token_logprob.topLogprobs, serializeChat_completion_top_logprob_item);
+    writer.writeAdditionalData(chat_completion_token_logprob.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_tool The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_tool(writer, chat_completion_tool = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_tool || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("function", chat_completion_tool.functionEscaped, serializeFunction_object);
+    writer.writeEnumValue("type", chat_completion_tool.type);
+    writer.writeAdditionalData(chat_completion_tool.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_tool_call The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_tool_call(writer, chat_completion_tool_call = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_tool_call || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("function", chat_completion_tool_call.functionEscaped, serializeChat_completion_tool_call_function);
+    writer.writeStringValue("id", chat_completion_tool_call.id);
+    writer.writeEnumValue("type", chat_completion_tool_call.type);
+    writer.writeAdditionalData(chat_completion_tool_call.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_tool_call_function The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_tool_call_function(writer, chat_completion_tool_call_function = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_tool_call_function || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("arguments", chat_completion_tool_call_function.arguments);
+    writer.writeStringValue("name", chat_completion_tool_call_function.name);
+    writer.writeAdditionalData(chat_completion_tool_call_function.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_completion_top_logprob_item The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_completion_top_logprob_item(writer, chat_completion_top_logprob_item = {}, isSerializingDerivedType = false) {
+    if (!chat_completion_top_logprob_item || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfPrimitiveValues("bytes", chat_completion_top_logprob_item.bytes);
+    writer.writeNumberValue("logprob", chat_completion_top_logprob_item.logprob);
+    writer.writeStringValue("token", chat_completion_top_logprob_item.token);
+    writer.writeAdditionalData(chat_completion_top_logprob_item.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Chat_message The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeChat_message(writer, chat_message = {}, isSerializingDerivedType = false) {
+    if (!chat_message || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("content", chat_message.content);
+    writer.writeStringValue("reasoning_content", chat_message.reasoningContent);
+    writer.writeStringValue("refusal", chat_message.refusal);
+    writer.writeEnumValue("role", chat_message.role);
+    writer.writeStringValue("tool_call_id", chat_message.toolCallId);
+    writer.writeCollectionOfObjectValues("tool_calls", chat_message.toolCalls, serializeChat_completion_tool_call);
+    writer.writeAdditionalData(chat_message.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Check The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -22348,6 +25018,40 @@ export function serializeClusterlint_results_diagnostics_object(writer, clusterl
 }
 /**
  * Serializes information the current object
+ * @param Completion_usage The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCompletion_usage(writer, completion_usage = {}, isSerializingDerivedType = false) {
+    if (!completion_usage || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("cache_created_input_tokens", completion_usage.cacheCreatedInputTokens);
+    writer.writeObjectValue("cache_creation", completion_usage.cacheCreation, serializeCompletion_usage_cache_creation);
+    writer.writeNumberValue("cache_read_input_tokens", completion_usage.cacheReadInputTokens);
+    writer.writeNumberValue("completion_tokens", completion_usage.completionTokens);
+    writer.writeNumberValue("prompt_tokens", completion_usage.promptTokens);
+    writer.writeNumberValue("total_tokens", completion_usage.totalTokens);
+    writer.writeAdditionalData(completion_usage.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Completion_usage_cache_creation The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCompletion_usage_cache_creation(writer, completion_usage_cache_creation = {}, isSerializingDerivedType = false) {
+    if (!completion_usage_cache_creation || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("ephemeral_1h_input_tokens", completion_usage_cache_creation.ephemeral1hInputTokens);
+    writer.writeNumberValue("ephemeral_5m_input_tokens", completion_usage_cache_creation.ephemeral5mInputTokens);
+    writer.writeAdditionalData(completion_usage_cache_creation.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Connection_pool The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -22415,6 +25119,31 @@ export function serializeControl_plane_firewall(writer, control_plane_firewall =
 }
 /**
  * Serializes information the current object
+ * @param Create_image_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_image_request(writer, create_image_request = {}, isSerializingDerivedType = false) {
+    if (!create_image_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("background", create_image_request.background);
+    writer.writeStringValue("model", create_image_request.model);
+    writer.writeStringValue("moderation", create_image_request.moderation);
+    writer.writeNumberValue("n", create_image_request.n);
+    writer.writeNumberValue("output_compression", create_image_request.outputCompression);
+    writer.writeStringValue("output_format", create_image_request.outputFormat);
+    writer.writeNumberValue("partial_images", create_image_request.partialImages);
+    writer.writeStringValue("prompt", create_image_request.prompt);
+    writer.writeStringValue("quality", create_image_request.quality);
+    writer.writeEnumValue("size", create_image_request.size);
+    writer.writeBooleanValue("stream", create_image_request.stream);
+    writer.writeStringValue("user", create_image_request.user);
+    writer.writeAdditionalData(create_image_request.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Create_namespace The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -22427,6 +25156,276 @@ export function serializeCreate_namespace(writer, create_namespace = {}, isSeria
     writer.writeStringValue("label", create_namespace.label);
     writer.writeStringValue("region", create_namespace.region);
     writer.writeAdditionalData(create_namespace.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request(writer, create_response_request = {}, isSerializingDerivedType = false) {
+    if (!create_response_request || isSerializingDerivedType) {
+        return;
+    }
+    if (typeof create_response_request.input === "string") {
+        writer.writeStringValue("input", create_response_request.input);
+    }
+    else {
+        writer.writeCollectionOfObjectValues("input", create_response_request.input, serializeCreate_response_request_input);
+    }
+    writer.writeStringValue("instructions", create_response_request.instructions);
+    writer.writeNumberValue("max_output_tokens", create_response_request.maxOutputTokens);
+    writer.writeObjectValue("metadata", create_response_request.metadata, serializeCreate_response_request_metadata);
+    writer.writeStringValue("model", create_response_request.model);
+    if (typeof create_response_request.stop === "string") {
+        writer.writeStringValue("stop", create_response_request.stop);
+    }
+    else {
+        writer.writeCollectionOfObjectValues("stop", create_response_request.stop, serializeCreate_response_request_stop);
+    }
+    writer.writeBooleanValue("stream", create_response_request.stream);
+    writer.writeObjectValue("stream_options", create_response_request.streamOptions, serializeCreate_response_request_stream_options);
+    writer.writeNumberValue("temperature", create_response_request.temperature);
+    if (typeof create_response_request.toolChoice === "string") {
+        writer.writeStringValue("tool_choice", create_response_request.toolChoice);
+    }
+    else {
+        writer.writeObjectValue("tool_choice", create_response_request.toolChoice, serializeCreate_response_request_tool_choice);
+    }
+    writer.writeCollectionOfObjectValues("tools", create_response_request.tools, serializeCreate_response_request_tools);
+    writer.writeNumberValue("top_p", create_response_request.topP);
+    writer.writeStringValue("user", create_response_request.user);
+    writer.writeAdditionalData(create_response_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_input The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_input(writer, create_response_request_input = {}, isSerializingDerivedType = false) {
+    serializeCreate_response_request_inputMember1(writer, create_response_request_input);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_inputMember1 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_inputMember1(writer, create_response_request_inputMember1 = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_inputMember1 || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(create_response_request_inputMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_metadata The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_metadata(writer, create_response_request_metadata = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_metadata || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(create_response_request_metadata.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_stop The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_stop(writer, create_response_request_stop = {}, isSerializingDerivedType = false) {
+    if (create_response_request_stop === undefined || create_response_request_stop === null)
+        return;
+    if (Array.isArray(create_response_request_stop) && (create_response_request_stop).every(item => typeof item === 'string')) {
+        writer.writeCollectionOfPrimitiveValues(undefined, create_response_request_stop);
+    }
+    else if (typeof create_response_request_stop === "string") {
+        writer.writeStringValue(undefined, create_response_request_stop);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_stream_options The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_stream_options(writer, create_response_request_stream_options = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_stream_options || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeBooleanValue("include_usage", create_response_request_stream_options.includeUsage);
+    writer.writeAdditionalData(create_response_request_stream_options.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_tool_choice The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_tool_choice(writer, create_response_request_tool_choice = {}, isSerializingDerivedType = false) {
+    serializeCreate_response_request_tool_choiceMember1(writer, create_response_request_tool_choice);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_tool_choiceMember1 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_tool_choiceMember1(writer, create_response_request_tool_choiceMember1 = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_tool_choiceMember1 || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("function", create_response_request_tool_choiceMember1.functionEscaped, serializeCreate_response_request_tool_choiceMember1_function);
+    writer.writeEnumValue("type", create_response_request_tool_choiceMember1.type);
+    writer.writeAdditionalData(create_response_request_tool_choiceMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_tool_choiceMember1_function The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_tool_choiceMember1_function(writer, create_response_request_tool_choiceMember1_function = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_tool_choiceMember1_function || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("name", create_response_request_tool_choiceMember1_function.name);
+    writer.writeAdditionalData(create_response_request_tool_choiceMember1_function.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_tools The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_tools(writer, create_response_request_tools = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_tools || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("description", create_response_request_tools.description);
+    writer.writeStringValue("name", create_response_request_tools.name);
+    writer.writeObjectValue("parameters", create_response_request_tools.parameters, serializeCreate_response_request_tools_parameters);
+    writer.writeEnumValue("type", create_response_request_tools.type);
+    writer.writeAdditionalData(create_response_request_tools.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_request_tools_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_request_tools_parameters(writer, create_response_request_tools_parameters = {}, isSerializingDerivedType = false) {
+    if (!create_response_request_tools_parameters || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(create_response_request_tools_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_response(writer, create_response_response = {}, isSerializingDerivedType = false) {
+    if (!create_response_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("created", create_response_response.created);
+    writer.writeStringValue("id", create_response_response.id);
+    writer.writeNumberValue("max_output_tokens", create_response_response.maxOutputTokens);
+    writer.writeStringValue("model", create_response_response.model);
+    writer.writeEnumValue("object", create_response_response.object);
+    writer.writeCollectionOfObjectValues("output", create_response_response.output, serializeCreate_response_response_output);
+    writer.writeBooleanValue("parallel_tool_calls", create_response_response.parallelToolCalls);
+    writer.writeStringValue("status", create_response_response.status);
+    writer.writeNumberValue("temperature", create_response_response.temperature);
+    writer.writeStringValue("tool_choice", create_response_response.toolChoice);
+    writer.writeCollectionOfObjectValues("tools", create_response_response.tools, serializeCreate_response_response_tools);
+    writer.writeNumberValue("top_p", create_response_response.topP);
+    writer.writeObjectValue("usage", create_response_response.usage, serializeResponse_usage);
+    writer.writeStringValue("user", create_response_response.user);
+    writer.writeAdditionalData(create_response_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_response_output The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_response_output(writer, create_response_response_output = {}, isSerializingDerivedType = false) {
+    if (!create_response_response_output || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("arguments", create_response_response_output.arguments);
+    writer.writeStringValue("call_id", create_response_response_output.callId);
+    writer.writeCollectionOfObjectValues("content", create_response_response_output.content, serializeCreate_response_response_output_content);
+    writer.writeStringValue("id", create_response_response_output.id);
+    writer.writeStringValue("name", create_response_response_output.name);
+    writer.writeStringValue("role", create_response_response_output.role);
+    writer.writeStringValue("status", create_response_response_output.status);
+    writer.writeEnumValue("type", create_response_response_output.type);
+    writer.writeAdditionalData(create_response_response_output.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_response_output_content The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_response_output_content(writer, create_response_response_output_content = {}, isSerializingDerivedType = false) {
+    if (!create_response_response_output_content || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("text", create_response_response_output_content.text);
+    writer.writeEnumValue("type", create_response_response_output_content.type);
+    writer.writeAdditionalData(create_response_response_output_content.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_response_tools The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_response_tools(writer, create_response_response_tools = {}, isSerializingDerivedType = false) {
+    if (!create_response_response_tools || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("description", create_response_response_tools.description);
+    writer.writeStringValue("name", create_response_response_tools.name);
+    writer.writeObjectValue("parameters", create_response_response_tools.parameters, serializeCreate_response_response_tools_parameters);
+    writer.writeEnumValue("type", create_response_response_tools.type);
+    writer.writeAdditionalData(create_response_response_tools.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_response_response_tools_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_response_response_tools_parameters(writer, create_response_response_tools_parameters = {}, isSerializingDerivedType = false) {
+    if (!create_response_response_tools_parameters || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(create_response_response_tools_parameters.additionalData);
 }
 /**
  * Serializes information the current object
@@ -22840,6 +25839,228 @@ export function serializeDatadog_logsink(writer, datadog_logsink = {}, isSeriali
     writer.writeStringValue("datadog_api_key", datadog_logsink.datadogApiKey);
     writer.writeStringValue("site", datadog_logsink.site);
     writer.writeAdditionalData(datadog_logsink.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference(writer, dedicated_inference = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("pending_deployment_spec", dedicated_inference.pendingDeploymentSpec, serializePending_deployment_spec);
+    writer.writeObjectValue("spec", dedicated_inference.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_accelerator The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_accelerator(writer, dedicated_inference_accelerator = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_accelerator || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(dedicated_inference_accelerator.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_access_token The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_access_token(writer, dedicated_inference_access_token = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_access_token || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(dedicated_inference_access_token.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_create_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_create_request(writer, dedicated_inference_create_request = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_create_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("access_tokens", dedicated_inference_create_request.accessTokens, serializeDedicated_inference_create_request_access_tokens);
+    writer.writeObjectValue("spec", dedicated_inference_create_request.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_create_request_access_tokens The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_create_request_access_tokens(writer, dedicated_inference_create_request_access_tokens = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_create_request_access_tokens || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(dedicated_inference_create_request_access_tokens.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_endpoints The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_endpoints(writer, dedicated_inference_endpoints = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_endpoints || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("private_endpoint_fqdn", dedicated_inference_endpoints.privateEndpointFqdn);
+    writer.writeStringValue("public_endpoint_fqdn", dedicated_inference_endpoints.publicEndpointFqdn);
+    writer.writeAdditionalData(dedicated_inference_endpoints.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_gpu_model_config The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_gpu_model_config(writer, dedicated_inference_gpu_model_config = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_gpu_model_config || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfPrimitiveValues("gpu_slugs", dedicated_inference_gpu_model_config.gpuSlugs);
+    writer.writeBooleanValue("is_gated_model", dedicated_inference_gpu_model_config.isGatedModel);
+    writer.writeStringValue("model_name", dedicated_inference_gpu_model_config.modelName);
+    writer.writeStringValue("model_slug", dedicated_inference_gpu_model_config.modelSlug);
+    writer.writeAdditionalData(dedicated_inference_gpu_model_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_gpu_model_configs_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_gpu_model_configs_response(writer, dedicated_inference_gpu_model_configs_response = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_gpu_model_configs_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfObjectValues("gpu_model_configs", dedicated_inference_gpu_model_configs_response.gpuModelConfigs, serializeDedicated_inference_gpu_model_config);
+    writer.writeAdditionalData(dedicated_inference_gpu_model_configs_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_size The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_size(writer, dedicated_inference_size = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_size || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("currency", dedicated_inference_size.currency);
+    writer.writeStringValue("gpu_slug", dedicated_inference_size.gpuSlug);
+    writer.writeStringValue("price_per_hour", dedicated_inference_size.pricePerHour);
+    writer.writeStringValue("region", dedicated_inference_size.region);
+    writer.writeAdditionalData(dedicated_inference_size.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_sizes_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_sizes_response(writer, dedicated_inference_sizes_response = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_sizes_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfPrimitiveValues("enabled_regions", dedicated_inference_sizes_response.enabledRegions);
+    writer.writeCollectionOfObjectValues("sizes", dedicated_inference_sizes_response.sizes, serializeDedicated_inference_size);
+    writer.writeAdditionalData(dedicated_inference_sizes_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_spec(writer, dedicated_inference_spec = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_spec || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeBooleanValue("enable_public_endpoint", dedicated_inference_spec.enablePublicEndpoint);
+    writer.writeCollectionOfObjectValues("model_deployments", dedicated_inference_spec.modelDeployments, serializeModel_deployment_spec);
+    writer.writeStringValue("name", dedicated_inference_spec.name);
+    writer.writeEnumValue("region", dedicated_inference_spec.region);
+    writer.writeNumberValue("version", dedicated_inference_spec.version);
+    writer.writeObjectValue("vpc", dedicated_inference_spec.vpc, serializeDedicated_inference_spec_vpc);
+    writer.writeAdditionalData(dedicated_inference_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_spec_vpc The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_spec_vpc(writer, dedicated_inference_spec_vpc = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_spec_vpc || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeGuidValue("uuid", dedicated_inference_spec_vpc.uuid);
+    writer.writeAdditionalData(dedicated_inference_spec_vpc.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_token_create_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_token_create_request(writer, dedicated_inference_token_create_request = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_token_create_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("name", dedicated_inference_token_create_request.name);
+    writer.writeAdditionalData(dedicated_inference_token_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_update_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_update_request(writer, dedicated_inference_update_request = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_update_request || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("access_tokens", dedicated_inference_update_request.accessTokens, serializeDedicated_inference_update_request_access_tokens);
+    writer.writeObjectValue("spec", dedicated_inference_update_request.spec, serializeDedicated_inference_spec);
+    writer.writeAdditionalData(dedicated_inference_update_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dedicated_inference_update_request_access_tokens The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDedicated_inference_update_request_access_tokens(writer, dedicated_inference_update_request_access_tokens = {}, isSerializingDerivedType = false) {
+    if (!dedicated_inference_update_request_access_tokens || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("hugging_face_token", dedicated_inference_update_request_access_tokens.huggingFaceToken);
 }
 /**
  * Serializes information the current object
@@ -23846,6 +27067,35 @@ export function serializeForwarding_rule(writer, forwarding_rule = {}, isSeriali
 }
 /**
  * Serializes information the current object
+ * @param Function_object The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFunction_object(writer, function_object = {}, isSerializingDerivedType = false) {
+    if (!function_object || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("description", function_object.description);
+    writer.writeStringValue("name", function_object.name);
+    writer.writeObjectValue("parameters", function_object.parameters, serializeFunction_object_parameters);
+    writer.writeAdditionalData(function_object.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Function_object_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFunction_object_parameters(writer, function_object_parameters = {}, isSerializingDerivedType = false) {
+    if (!function_object_parameters || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(function_object_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Garbage_collection The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -23881,6 +27131,21 @@ export function serializeGenaiapiRegion(writer, genaiapiRegion = {}, isSerializi
     writer.writeBooleanValue("serves_inference", genaiapiRegion.servesInference);
     writer.writeStringValue("stream_inference_url", genaiapiRegion.streamInferenceUrl);
     writer.writeAdditionalData(genaiapiRegion.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Generated_image The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeGenerated_image(writer, generated_image = {}, isSerializingDerivedType = false) {
+    if (!generated_image || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("b64_json", generated_image.b64Json);
+    writer.writeStringValue("revised_prompt", generated_image.revisedPrompt);
+    writer.writeAdditionalData(generated_image.additionalData);
 }
 /**
  * Serializes information the current object
@@ -24099,6 +27364,58 @@ export function serializeImage_update(writer, image_update = {}, isSerializingDe
     writer.writeEnumValue("distribution", image_update.distribution);
     writer.writeStringValue("name", image_update.name);
     writer.writeAdditionalData(image_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_response(writer, images_response = {}, isSerializingDerivedType = false) {
+    if (!images_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("background", images_response.background);
+    writer.writeNumberValue("created", images_response.created);
+    writer.writeCollectionOfObjectValues("data", images_response.data, serializeGenerated_image);
+    writer.writeStringValue("output_format", images_response.outputFormat);
+    writer.writeStringValue("quality", images_response.quality);
+    writer.writeStringValue("size", images_response.size);
+    writer.writeObjectValue("usage", images_response.usage, serializeImages_usage);
+    writer.writeAdditionalData(images_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_usage The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_usage(writer, images_usage = {}, isSerializingDerivedType = false) {
+    if (!images_usage || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("input_tokens", images_usage.inputTokens);
+    writer.writeObjectValue("input_tokens_details", images_usage.inputTokensDetails, serializeImages_usage_input_tokens_details);
+    writer.writeNumberValue("output_tokens", images_usage.outputTokens);
+    writer.writeNumberValue("total_tokens", images_usage.totalTokens);
+    writer.writeAdditionalData(images_usage.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Images_usage_input_tokens_details The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImages_usage_input_tokens_details(writer, images_usage_input_tokens_details = {}, isSerializingDerivedType = false) {
+    if (!images_usage_input_tokens_details || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("image_tokens", images_usage_input_tokens_details.imageTokens);
+    writer.writeNumberValue("text_tokens", images_usage_input_tokens_details.textTokens);
+    writer.writeAdditionalData(images_usage_input_tokens_details.additionalData);
 }
 /**
  * Serializes information the current object
@@ -24623,6 +27940,21 @@ export function serializeLb_firewall(writer, lb_firewall = {}, isSerializingDeri
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_models_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_models_response(writer, list_models_response = {}, isSerializingDerivedType = false) {
+    if (!list_models_response || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfObjectValues("data", list_models_response.data, serializeModel);
+    writer.writeEnumValue("object", list_models_response.object);
+    writer.writeAdditionalData(list_models_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Load_balancer The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -24929,6 +28261,54 @@ export function serializeMetrics_result_metric(writer, metrics_result_metric = {
         return;
     }
     writer.writeAdditionalData(metrics_result_metric.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Model The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeModel(writer, model = {}, isSerializingDerivedType = false) {
+    if (!model || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("created", model.created);
+    writer.writeStringValue("id", model.id);
+    writer.writeEnumValue("object", model.object);
+    writer.writeStringValue("owned_by", model.ownedBy);
+    writer.writeAdditionalData(model.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Model_deployment_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeModel_deployment_spec(writer, model_deployment_spec = {}, isSerializingDerivedType = false) {
+    if (!model_deployment_spec || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeCollectionOfObjectValues("accelerators", model_deployment_spec.accelerators, serializeAccelerator_config_spec);
+    writer.writeStringValue("model_id", model_deployment_spec.modelId);
+    writer.writeEnumValue("model_provider", model_deployment_spec.modelProvider);
+    writer.writeStringValue("model_slug", model_deployment_spec.modelSlug);
+    writer.writeObjectValue("workload_config", model_deployment_spec.workloadConfig, serializeModel_deployment_spec_workload_config);
+    writer.writeAdditionalData(model_deployment_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Model_deployment_spec_workload_config The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeModel_deployment_spec_workload_config(writer, model_deployment_spec_workload_config = {}, isSerializingDerivedType = false) {
+    if (!model_deployment_spec_workload_config || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(model_deployment_spec_workload_config.additionalData);
 }
 /**
  * Serializes information the current object
@@ -26115,6 +29495,42 @@ export function serializePartner_attachment_writable_bgp(writer, partner_attachm
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pending_deployment_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePending_deployment_spec(writer, pending_deployment_spec = {}, isSerializingDerivedType = false) {
+    if (!pending_deployment_spec || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeDateValue("created_at", pending_deployment_spec.createdAt);
+    writer.writeBooleanValue("enable_public_endpoint", pending_deployment_spec.enablePublicEndpoint);
+    writer.writeGuidValue("id", pending_deployment_spec.id);
+    writer.writeCollectionOfObjectValues("model_deployments", pending_deployment_spec.modelDeployments, serializeModel_deployment_spec);
+    writer.writeStringValue("name", pending_deployment_spec.name);
+    writer.writeEnumValue("status", pending_deployment_spec.status);
+    writer.writeDateValue("updated_at", pending_deployment_spec.updatedAt);
+    writer.writeNumberValue("version", pending_deployment_spec.version);
+    writer.writeObjectValue("vpc", pending_deployment_spec.vpc, serializePending_deployment_spec_vpc);
+    writer.writeAdditionalData(pending_deployment_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pending_deployment_spec_vpc The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePending_deployment_spec_vpc(writer, pending_deployment_spec_vpc = {}, isSerializingDerivedType = false) {
+    if (!pending_deployment_spec_vpc || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeGuidValue("uuid", pending_deployment_spec_vpc.uuid);
+    writer.writeAdditionalData(pending_deployment_spec_vpc.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Pgbouncer_advanced_config The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -26759,6 +30175,53 @@ export function serializeResource_links(writer, resource_links = {}, isSerializi
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Response_usage The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeResponse_usage(writer, response_usage = {}, isSerializingDerivedType = false) {
+    if (!response_usage || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("input_tokens", response_usage.inputTokens);
+    writer.writeObjectValue("input_tokens_details", response_usage.inputTokensDetails, serializeResponse_usage_input_tokens_details);
+    writer.writeNumberValue("output_tokens", response_usage.outputTokens);
+    writer.writeObjectValue("output_tokens_details", response_usage.outputTokensDetails, serializeResponse_usage_output_tokens_details);
+    writer.writeNumberValue("total_tokens", response_usage.totalTokens);
+    writer.writeAdditionalData(response_usage.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Response_usage_input_tokens_details The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeResponse_usage_input_tokens_details(writer, response_usage_input_tokens_details = {}, isSerializingDerivedType = false) {
+    if (!response_usage_input_tokens_details || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("cached_tokens", response_usage_input_tokens_details.cachedTokens);
+    writer.writeAdditionalData(response_usage_input_tokens_details.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Response_usage_output_tokens_details The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeResponse_usage_output_tokens_details(writer, response_usage_output_tokens_details = {}, isSerializingDerivedType = false) {
+    if (!response_usage_output_tokens_details || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("reasoning_tokens", response_usage_output_tokens_details.reasoningTokens);
+    writer.writeNumberValue("tool_output_tokens", response_usage_output_tokens_details.toolOutputTokens);
+    writer.writeAdditionalData(response_usage_output_tokens_details.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Routing_agent The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -26791,6 +30254,61 @@ export function serializeRsyslog_logsink(writer, rsyslog_logsink = {}, isSeriali
     writer.writeStringValue("server", rsyslog_logsink.server);
     writer.writeBooleanValue("tls", rsyslog_logsink.tls);
     writer.writeAdditionalData(rsyslog_logsink.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Scan The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeScan(writer, scan = {}, isSerializingDerivedType = false) {
+    if (!scan || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeDateValue("created_at", scan.createdAt);
+    writer.writeCollectionOfObjectValues("findings", scan.findings, serializeScan_findings);
+    writer.writeStringValue("id", scan.id);
+    writer.writeEnumValue("status", scan.status);
+    writer.writeAdditionalData(scan.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Scan_findings The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeScan_findings(writer, scan_findings = {}, isSerializingDerivedType = false) {
+    if (!scan_findings || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("affected_resources_count", scan_findings.affectedResourcesCount);
+    writer.writeStringValue("business_impact", scan_findings.businessImpact);
+    writer.writeStringValue("details", scan_findings.details);
+    writer.writeDateValue("found_at", scan_findings.foundAt);
+    writer.writeCollectionOfObjectValues("mitigation_steps", scan_findings.mitigationSteps, serializeScan_findings_mitigation_steps);
+    writer.writeStringValue("name", scan_findings.name);
+    writer.writeStringValue("rule_uuid", scan_findings.ruleUuid);
+    writer.writeEnumValue("severity", scan_findings.severity);
+    writer.writeStringValue("technical_details", scan_findings.technicalDetails);
+    writer.writeAdditionalData(scan_findings.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Scan_findings_mitigation_steps The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeScan_findings_mitigation_steps(writer, scan_findings_mitigation_steps = {}, isSerializingDerivedType = false) {
+    if (!scan_findings_mitigation_steps || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("description", scan_findings_mitigation_steps.description);
+    writer.writeNumberValue("step", scan_findings_mitigation_steps.step);
+    writer.writeStringValue("title", scan_findings_mitigation_steps.title);
+    writer.writeAdditionalData(scan_findings_mitigation_steps.additionalData);
 }
 /**
  * Serializes information the current object
@@ -26851,6 +30369,62 @@ export function serializeSelective_destroy_associated_resource(writer, selective
     writer.writeCollectionOfPrimitiveValues("volumes", selective_destroy_associated_resource.volumes);
     writer.writeCollectionOfPrimitiveValues("volume_snapshots", selective_destroy_associated_resource.volumeSnapshots);
     writer.writeAdditionalData(selective_destroy_associated_resource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Settings The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSettings(writer, settings = {}, isSerializingDerivedType = false) {
+    if (!settings || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("plan_downgrades", settings.planDowngrades, serializeSettings_plan_downgrades);
+    writer.writeObjectValue("settings", settings.settings, serializeSettings_settings);
+    writer.writeObjectValue("tier_coverage", settings.tierCoverage, serializeSettings_tier_coverage);
+    writer.writeAdditionalData(settings.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Settings_plan_downgrades The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSettings_plan_downgrades(writer, settings_plan_downgrades = {}, isSerializingDerivedType = false) {
+    if (!settings_plan_downgrades || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(settings_plan_downgrades.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Settings_settings The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSettings_settings(writer, settings_settings = {}, isSerializingDerivedType = false) {
+    if (!settings_settings || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("suppressions", settings_settings.suppressions, serializeSuppressed_resource_root);
+    writer.writeAdditionalData(settings_settings.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Settings_tier_coverage The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSettings_tier_coverage(writer, settings_tier_coverage = {}, isSerializingDerivedType = false) {
+    if (!settings_tier_coverage || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeAdditionalData(settings_tier_coverage.additionalData);
 }
 /**
  * Serializes information the current object
@@ -27131,6 +30705,87 @@ export function serializeSupported_droplet_backup_policy(writer, supported_dropl
     writer.writeNumberValue("retention_period_days", supported_droplet_backup_policy.retentionPeriodDays);
     writer.writeNumberValue("window_length_hours", supported_droplet_backup_policy.windowLengthHours);
     writer.writeAdditionalData(supported_droplet_backup_policy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Suppressed_resource The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSuppressed_resource(writer, suppressed_resource = {}, isSerializingDerivedType = false) {
+    if (!suppressed_resource || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("id", suppressed_resource.id);
+    writer.writeStringValue("resource_id", suppressed_resource.resourceId);
+    writer.writeStringValue("resource_type", suppressed_resource.resourceType);
+    writer.writeStringValue("rule_name", suppressed_resource.ruleName);
+    writer.writeStringValue("rule_uuid", suppressed_resource.ruleUuid);
+    writer.writeAdditionalData(suppressed_resource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Suppressed_resource_root The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSuppressed_resource_root(writer, suppressed_resource_root = {}, isSerializingDerivedType = false) {
+    if (!suppressed_resource_root || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("links", suppressed_resource_root.links, serializeSuppressed_resource_root_links);
+    writer.writeObjectValue("meta", suppressed_resource_root.meta, serializeSuppressed_resource_root_meta);
+    writer.writeCollectionOfObjectValues("resources", suppressed_resource_root.resources, serializeSuppressed_resource);
+    writer.writeAdditionalData(suppressed_resource_root.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Suppressed_resource_root_links The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSuppressed_resource_root_links(writer, suppressed_resource_root_links = {}, isSerializingDerivedType = false) {
+    if (!suppressed_resource_root_links || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeObjectValue("pages", suppressed_resource_root_links.pages, serializeSuppressed_resource_root_links_pages);
+    writer.writeAdditionalData(suppressed_resource_root_links.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Suppressed_resource_root_links_pages The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSuppressed_resource_root_links_pages(writer, suppressed_resource_root_links_pages = {}, isSerializingDerivedType = false) {
+    if (!suppressed_resource_root_links_pages || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeStringValue("first", suppressed_resource_root_links_pages.first);
+    writer.writeStringValue("last", suppressed_resource_root_links_pages.last);
+    writer.writeStringValue("next", suppressed_resource_root_links_pages.next);
+    writer.writeStringValue("prev", suppressed_resource_root_links_pages.prev);
+    writer.writeAdditionalData(suppressed_resource_root_links_pages.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Suppressed_resource_root_meta The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSuppressed_resource_root_meta(writer, suppressed_resource_root_meta = {}, isSerializingDerivedType = false) {
+    if (!suppressed_resource_root_meta || isSerializingDerivedType) {
+        return;
+    }
+    writer.writeNumberValue("page", suppressed_resource_root_meta.page);
+    writer.writeNumberValue("pages", suppressed_resource_root_meta.pages);
+    writer.writeNumberValue("total", suppressed_resource_root_meta.total);
+    writer.writeAdditionalData(suppressed_resource_root_meta.additionalData);
 }
 /**
  * Serializes information the current object
@@ -27799,6 +31454,14 @@ export function serializeVpc_peering_updatable(writer, vpc_peering_updatable = {
     writer.writeAdditionalData(vpc_peering_updatable.additionalData);
 }
 /**
+ * Current state of the Accelerator.
+ */
+export const Accelerator_config_spec_statusObject = {
+    NewEscaped: "new",
+    Provisioning: "provisioning",
+    Active: "active",
+};
+/**
  * This value is one of "active", "warning" or "locked".
  */
 export const Account_statusObject = {
@@ -28258,6 +31921,25 @@ export const App_egress_type_specObject = {
     DEDICATED_IP: "DEDICATED_IP",
 };
 /**
+ * The current phase of the autoscaling event
+ */
+export const App_event_autoscaling_phaseObject = {
+    UNKNOWN: "UNKNOWN",
+    PENDING: "PENDING",
+    IN_PROGRESS: "IN_PROGRESS",
+    SUCCEEDED: "SUCCEEDED",
+    FAILED: "FAILED",
+    CANCELED: "CANCELED",
+};
+/**
+ * The type of event
+ */
+export const App_event_typeObject = {
+    UNKNOWN: "UNKNOWN",
+    DEPLOYMENT: "DEPLOYMENT",
+    AUTOSCALING: "AUTOSCALING",
+};
+/**
  * Supported compute component by DigitalOcean App Platform.
  */
 export const App_instance_component_typeObject = {
@@ -28385,6 +32067,15 @@ export const Apps_image_source_spec_registry_typeObject = {
     GHCR: "GHCR",
 };
 /**
+ * The current status of the async invocation.
+ */
+export const Async_invoke_response_statusObject = {
+    QUEUED: "QUEUED",
+    IN_PROGRESS: "IN_PROGRESS",
+    COMPLETED: "COMPLETED",
+    FAILED: "FAILED",
+};
+/**
  * The datacenter in which all of the Droplets will be created.
  */
 export const Autoscale_pool_droplet_template_regionObject = {
@@ -28448,6 +32139,69 @@ export const Certificate_typeObject = {
     Custom: "custom",
     Lets_encrypt: "lets_encrypt",
 };
+/**
+ * Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+ */
+export const Chat_completion_request_reasoning_effortObject = {
+    None: "none",
+    Minimal: "minimal",
+    Low: "low",
+    Medium: "medium",
+    High: "high",
+    Xhigh: "xhigh",
+};
+export const Chat_completion_request_tool_choiceMember1_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The reason the model stopped generating tokens. stop if the model hit a natural stop point or a provided stop sequence, length if the maximum number of tokens specified in the request was reached, tool_calls if the model called a tool.
+ */
+export const Chat_completion_response_choices_finish_reasonObject = {
+    Stop: "stop",
+    Length: "length",
+    Tool_calls: "tool_calls",
+    Content_filter: "content_filter",
+};
+/**
+ * The role of the author of this message.
+ */
+export const Chat_completion_response_choices_message_roleObject = {
+    Assistant: "assistant",
+};
+/**
+ * The type of the tool.
+ */
+export const Chat_completion_response_choices_message_tool_calls_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The object type, which is always chat.completion.
+ */
+export const Chat_completion_response_objectObject = {
+    ChatCompletion: "chat.completion",
+};
+/**
+ * The type of the tool. Currently, only function is supported.
+ */
+export const Chat_completion_tool_call_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The type of the tool. Currently, only function is supported.
+ */
+export const Chat_completion_tool_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The role of the message author.
+ */
+export const Chat_message_roleObject = {
+    System: "system",
+    Developer: "developer",
+    User: "user",
+    Assistant: "assistant",
+    Tool: "tool",
+};
 export const Check_regionsObject = {
     Us_east: "us_east",
     Us_west: "us_west",
@@ -28504,6 +32258,50 @@ export const Cluster_status_stateObject = {
     Deleted: "deleted",
     Upgrading: "upgrading",
     Deleting: "deleting",
+};
+/**
+ * The size of the generated images. GPT-IMAGE-1 supports: auto (automatically select best size), 1536x1024 (landscape), 1024x1536 (portrait).
+ */
+export const Create_image_request_sizeObject = {
+    Auto: "auto",
+    OneFiveThreeSixx1024: "1536x1024",
+    OneZeroTwoFourx1536: "1024x1536",
+};
+export const Create_response_request_tool_choiceMember1_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The type of the tool.
+ */
+export const Create_response_request_tools_typeObject = {
+    FunctionEscaped: "function",
+};
+/**
+ * The object type, which is always `response`.
+ */
+export const Create_response_response_objectObject = {
+    Response: "response",
+};
+/**
+ * The type of content part. `reasoning_text` for reasoning content, `output_text` for final output text.
+ */
+export const Create_response_response_output_content_typeObject = {
+    Reasoning_text: "reasoning_text",
+    Output_text: "output_text",
+};
+/**
+ * The type of output item. One of `reasoning`, `message`, or `function_call`.
+ */
+export const Create_response_response_output_typeObject = {
+    Reasoning: "reasoning",
+    Message: "message",
+    Function_call: "function_call",
+};
+/**
+ * The type of the tool.
+ */
+export const Create_response_response_tools_typeObject = {
+    FunctionEscaped: "function",
 };
 /**
  * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
@@ -28597,6 +32395,25 @@ export const DbaasClusterStatusObject = {
     RESTORING: "RESTORING",
     POWERING_ON: "POWERING_ON",
     UNHEALTHY: "UNHEALTHY",
+};
+/**
+ * DigitalOcean region where the Dedicated Inference is hosted.
+ */
+export const Dedicated_inference_spec_regionObject = {
+    Atl1: "atl1",
+    Nyc2: "nyc2",
+    Tor1: "tor1",
+};
+/**
+ * Current state of the Dedicated Inference.
+ */
+export const Dedicated_inference_statusObject = {
+    Active: "active",
+    NewEscaped: "new",
+    Provisioning: "provisioning",
+    Updating: "updating",
+    Deleting: "deleting",
+    ErrorEscaped: "error",
 };
 /**
  * The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearchcluster or `opensearch_ext` for an externally managed one.
@@ -28994,6 +32811,12 @@ export const Kubernetes_node_pool_taint_effectObject = {
     NoExecute: "NoExecute",
 };
 /**
+ * The object type, which is always "list".
+ */
+export const List_models_response_objectObject = {
+    List: "list",
+};
+/**
  * This field has been deprecated. You can no longer specify an algorithm for load balancers.
  * @deprecated
  */
@@ -29089,6 +32912,18 @@ export const Metrics_data_resultTypeObject = {
 export const Metrics_statusObject = {
     Success: "success",
     ErrorEscaped: "error",
+};
+/**
+ * Model provider.
+ */
+export const Model_deployment_spec_model_providerObject = {
+    Hugging_face: "hugging_face",
+};
+/**
+ * The object type, which is always "model".
+ */
+export const Model_objectObject = {
+    Model: "model",
 };
 /**
  * Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
@@ -29249,6 +33084,10 @@ export const Partner_attachment_writable_regionObject = {
     Fra: "fra",
     Ams: "ams",
     Sgp: "sgp",
+};
+export const Pending_deployment_spec_statusObject = {
+    Provisioning: "provisioning",
+    Updating: "updating",
 };
 /**
  * PGBouncer pool mode
@@ -29440,6 +33279,25 @@ export const Rsyslog_logsink_formatObject = {
     Rfc5424: "rfc5424",
     Rfc3164: "rfc3164",
     Custom: "custom",
+};
+/**
+ * The severity of the finding.
+ */
+export const Scan_findings_severityObject = {
+    CRITICAL: "CRITICAL",
+    HIGH: "HIGH",
+    MEDIUM: "MEDIUM",
+    LOW: "LOW",
+};
+/**
+ * The status of the scan.
+ */
+export const Scan_statusObject = {
+    IN_PROGRESS: "IN_PROGRESS",
+    COMPLETED: "COMPLETED",
+    FAILED: "FAILED",
+    CSPM_NOT_ENABLED: "CSPM_NOT_ENABLED",
+    SCAN_NOT_RUN: "SCAN_NOT_RUN",
 };
 /**
  * The type of resource that the snapshot originated from.

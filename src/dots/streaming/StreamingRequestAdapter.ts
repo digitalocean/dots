@@ -4,6 +4,15 @@ import {
 } from "@microsoft/kiota-abstractions";
 import type { Parsable, ParsableFactory } from "@microsoft/kiota-abstractions";
 
+type AdapterWithOptionalAuth = RequestAdapter & {
+    authenticationProvider?: {
+        authenticateRequest: (
+            request: RequestInformation,
+            additionalAuthenticationContextProvider?: Record<string, unknown>
+        ) => Promise<void>;
+    };
+};
+
 /**
  * Supported streaming response types
  */
@@ -65,23 +74,37 @@ export class StreamingRequestAdapter {
     ): Promise<void> {
         try {
             const streamType = options?.streamType || StreamingResponseType.TEXT_EVENT_STREAM;
+            const adapterWithAuth = this.underlyingAdapter as AdapterWithOptionalAuth;
 
-            // Build headers - flatten Set values to strings
-            const headers: Record<string, string> = {};
-            if (requestInfo.headers) {
-                for (const [key, values] of requestInfo.headers.entries()) {
-                    headers[key] = Array.from(values).join(", ");
-                }
+            // Ensure auth headers are present for direct fetch streaming.
+            if (adapterWithAuth.authenticationProvider?.authenticateRequest) {
+                await adapterWithAuth.authenticationProvider.authenticateRequest(
+                    requestInfo
+                );
             }
 
-            // Use fetch to get the raw stream
-            const response = await fetch(
-                requestInfo.URL ?? "",
-                {
+            requestInfo.headers.tryAdd("Accept", streamType);
+            let response: Response;
+
+            try {
+                // Let the adapter build an authenticated native request (headers + body).
+                const nativeRequest =
+                    await this.underlyingAdapter.convertToNativeRequest<Request>(requestInfo);
+                response = await fetch(nativeRequest);
+            } catch {
+                // Fallback path in case a non-fetch adapter is used.
+                const headers: Record<string, string> = {};
+                if (requestInfo.headers) {
+                    for (const [key, values] of requestInfo.headers.entries()) {
+                        headers[key] = Array.from(values).join(", ");
+                    }
+                }
+                response = await fetch(requestInfo.URL ?? "", {
                     method: requestInfo.httpMethod?.toString() || "GET",
                     headers,
-                }
-            );
+                    body: requestInfo.content,
+                });
+            }
 
             if (!response.ok) {
                 throw new Error(

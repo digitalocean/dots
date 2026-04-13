@@ -10,6 +10,8 @@ import { ComponentsRequestBuilderNavigationMetadata, type ComponentsRequestBuild
 // @ts-ignore
 import { DeploymentsRequestBuilderNavigationMetadata, DeploymentsRequestBuilderRequestsMetadata, type DeploymentsRequestBuilder } from './deployments/index.js';
 // @ts-ignore
+import { EventsRequestBuilderNavigationMetadata, EventsRequestBuilderRequestsMetadata, type EventsRequestBuilder } from './events/index.js';
+// @ts-ignore
 import { HealthRequestBuilderRequestsMetadata, type HealthRequestBuilder } from './health/index.js';
 // @ts-ignore
 import { InstancesRequestBuilderRequestsMetadata, type InstancesRequestBuilder } from './instances/index.js';
@@ -44,6 +46,10 @@ export interface App_ItemRequestBuilder extends BaseRequestBuilder<App_ItemReque
      * The deployments property
      */
     get deployments(): DeploymentsRequestBuilder;
+    /**
+     * The events property
+     */
+    get events(): EventsRequestBuilder;
     /**
      * The health property
      */
@@ -157,6 +163,10 @@ export const App_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof App_
     deployments: {
         requestsMetadata: DeploymentsRequestBuilderRequestsMetadata,
         navigationMetadata: DeploymentsRequestBuilderNavigationMetadata,
+    },
+    events: {
+        requestsMetadata: EventsRequestBuilderRequestsMetadata,
+        navigationMetadata: EventsRequestBuilderNavigationMetadata,
     },
     health: {
         requestsMetadata: HealthRequestBuilderRequestsMetadata,

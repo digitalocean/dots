@@ -42,7 +42,7 @@ export interface LogsRequestBuilderGetQueryParameters {
      */
     podConnectionTimeout?: string;
     /**
-     * The type of logs to retrieve- BUILD: Build-time logs- DEPLOY: Deploy-time logs- RUN: Live run-time logs- RUN_RESTARTED: Logs of crashed/restarted instances during runtime
+     * The type of logs to retrieve- BUILD: Build-time logs- DEPLOY: Deploy-time logs- RUN: Live run-time logs- RUN_RESTARTED: Logs of crashed/restarted instances during runtime- AUTOSCALE_EVENT: Logs of an autoscaling event (requires event_id)
      */
     type?: GetTypeQueryParameterType;
 }
@@ -56,6 +56,7 @@ export const GetTypeQueryParameterTypeObject = {
     DEPLOY: "DEPLOY",
     RUN: "RUN",
     RUN_RESTARTED: "RUN_RESTARTED",
+    AUTOSCALE_EVENT: "AUTOSCALE_EVENT",
 } as const;
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.

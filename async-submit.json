@@ -1,0 +1,8 @@
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+{
+  "createdAt": "2026-03-26T13:32:42.821Z",
+  "modelId": "fal-ai/stable-audio-25/text-to-audio",
+  "output": {},
+  "requestId": "019d2a58-e7b5-7642-9769-fa67d8ac5299",
+  "status": "QUEUED"
+}

@@ -1,5 +1,4 @@
-// @ts-expect-error: Importing JSON for dynamic version in User-Agent header
-import pkg from '../../package.json' assert { type: "json" };
+import pkg from "../../package.json" with { type: "json" };
 /** Authenticate a request by using an API Key */
 export class DigitalOceanApiKeyAuthenticationProvider {
     /**

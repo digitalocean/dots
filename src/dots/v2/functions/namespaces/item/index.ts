@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createNamespace_infoFromDiscriminatorValue, serializeNamespace_info, type ErrorEscaped, type Namespace_info } from '../../../../models/index.js';
 // @ts-ignore
+import { KeysRequestBuilderNavigationMetadata, KeysRequestBuilderRequestsMetadata, type KeysRequestBuilder } from './keys/index.js';
+// @ts-ignore
 import { TriggersRequestBuilderNavigationMetadata, TriggersRequestBuilderRequestsMetadata, type TriggersRequestBuilder } from './triggers/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
@@ -51,6 +53,10 @@ export interface WithNamespace_GetResponse extends AdditionalDataHolder, Parsabl
  */
 export interface WithNamespace_ItemRequestBuilder extends BaseRequestBuilder<WithNamespace_ItemRequestBuilder> {
     /**
+     * The keys property
+     */
+    get keys(): KeysRequestBuilder;
+    /**
      * The triggers property
      */
     get triggers(): TriggersRequestBuilder;
@@ -97,6 +103,10 @@ export const WithNamespace_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/functi
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithNamespace_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithNamespace_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    keys: {
+        requestsMetadata: KeysRequestBuilderRequestsMetadata,
+        navigationMetadata: KeysRequestBuilderNavigationMetadata,
+    },
     triggers: {
         requestsMetadata: TriggersRequestBuilderRequestsMetadata,
         navigationMetadata: TriggersRequestBuilderNavigationMetadata,
