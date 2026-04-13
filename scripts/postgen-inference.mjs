@@ -296,6 +296,8 @@ function emitNode(obj, depth) {
 
         if (ep) out += emitMethodBody(ep, baseIndent + "    ");
         if (hasChildren) out += emitNode(children, depth + 1);
+        // Inject OpenAI-compat aliases into specific groups
+        if (key === "images" && imagesAliasCode) out += imagesAliasCode + "\n";
 
         if (depth === 0) {
             out += `    };\n\n`;
@@ -306,7 +308,70 @@ function emitNode(obj, depth) {
     return out;
 }
 
+/* ─── OpenAI-compat aliases (detected before tree emission) ─── */
+
+// /v1/images/generations → images.generations.create in the tree,
+// but OpenAI uses client.images.generate(). Add an alias inside `images`.
+const imagesGenPath = paths.find(p => p === "/v1/images/generations");
+let imagesAliasCode = "";
+if (imagesGenPath) {
+    imagesAliasCode = `
+        /** Alias matching OpenAI's \`client.images.generate(...)\`. */
+        generate: async (
+            params: Record<string, any>,
+            streamCallbacks?: InferenceStreamCallbacks,
+        ): Promise<any> => {
+            return this.images.generations.create(params, streamCallbacks);
+        },`;
+}
+
 const methodsCode = emitNode(tree, 0);
+
+/* ─── async-invoke convenience aliases ─── */
+// /v1/async-invoke is one path but supports 3 use-cases (image, audio, TTS)
+// with different input shapes. Detect it from the spec and emit typed wrappers.
+
+const asyncInvokePath = paths.find(p => p === "/v1/async-invoke");
+let asyncAliasCode = "";
+if (asyncInvokePath) {
+    asyncAliasCode = `
+    public readonly audio = {
+        /** Async audio generation (e.g. fal-ai/stable-audio-25/text-to-audio). */
+        generate: async (params: { model_id: string; prompt: string; seconds_total?: number; [k: string]: any }): Promise<any> => {
+            return this._fetch("/v1/async-invoke", "POST", {
+                model_id: params.model_id,
+                input: { prompt: params.prompt, seconds_total: params.seconds_total },
+            });
+        },
+        speech: {
+            /** Text-to-speech (e.g. fal-ai/playai/tts/v3). */
+            create: async (params: { model_id: string; input: string; [k: string]: any }): Promise<any> => {
+                return this._fetch("/v1/async-invoke", "POST", {
+                    model_id: params.model_id,
+                    input: { text: params.input },
+                });
+            },
+        },
+    };
+
+    public readonly async_images = {
+        /** Async image generation (e.g. fal-ai/fast-sdxl, fal-ai/flux/schnell). */
+        generate: async (params: { model_id: string; prompt: string; num_images?: number; num_inference_steps?: number; guidance_scale?: number; output_format?: string; enable_safety_checker?: boolean; [k: string]: any }): Promise<any> => {
+            return this._fetch("/v1/async-invoke", "POST", {
+                model_id: params.model_id,
+                input: {
+                    prompt: params.prompt,
+                    num_images: params.num_images,
+                    num_inference_steps: params.num_inference_steps,
+                    guidance_scale: params.guidance_scale,
+                    output_format: params.output_format,
+                    enable_safety_checker: params.enable_safety_checker,
+                },
+            });
+        },
+    };
+`;
+}
 
 const clientBody = `/* eslint-disable */
 /* tslint:disable */
@@ -348,7 +413,11 @@ const clientBody = `/* eslint-disable */
  *   );
  */
 
-import { DEFAULT_INFERENCE_BASE_URL, normalizeInferenceBaseUrl } from "./index.js";
+const DEFAULT_INFERENCE_BASE_URL = ${JSON.stringify(defaultBaseUrl)};
+
+function normalizeInferenceBaseUrl(baseUrl: string): string {
+    return baseUrl.trim().replace(/\\/+$/, "").replace(/\\/v1$/i, "");
+}
 
 export interface InferenceClientOptions {
     apiKey: string;
@@ -492,7 +561,7 @@ export class InferenceClient {
         return new SSEStream(this._baseUrl + path, this._apiKey, body);
     }
 
-${methodsCode}}
+${methodsCode}${asyncAliasCode}}
 
 export default InferenceClient;
 `;
@@ -509,3 +578,35 @@ const clientFile = path.join(outDir, "InferenceClient.ts");
 fs.writeFileSync(clientFile, clientBody, "utf8");
 const methodSummary = endpoints.map(e => e.segments.join(".") + "." + e.methodName).join(", ");
 console.log(`postgen-inference: wrote ${path.relative(dotsRoot, clientFile)} (${endpoints.length} methods: ${methodSummary})`);
+
+/* ───────── 6. patch index.ts to re-export inference ───────── */
+
+const INFERENCE_MARKER = "/* postgen-inference exports */";
+const inferenceExports = `
+${INFERENCE_MARKER}
+export {
+    createDigitalOceanInferenceClient,
+    DEFAULT_INFERENCE_BASE_URL,
+    INFERENCE_OPENAPI_PATHS,
+} from "./src/inference-gen/index.js";
+export {
+    InferenceClient,
+    SSEStream,
+    type InferenceClientOptions,
+    type InferenceStreamCallbacks,
+} from "./src/inference-gen/InferenceClient.js";
+export { default } from "./src/inference-gen/InferenceClient.js";
+`;
+
+const rootIndex = path.join(dotsRoot, "index.ts");
+let rootSrc = fs.readFileSync(rootIndex, "utf8");
+if (rootSrc.includes(INFERENCE_MARKER)) {
+    rootSrc = rootSrc.replace(
+        new RegExp("\n" + INFERENCE_MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[\\s\\S]*$"),
+        inferenceExports,
+    );
+} else {
+    rootSrc = rootSrc.trimEnd() + "\n" + inferenceExports;
+}
+fs.writeFileSync(rootIndex, rootSrc, "utf8");
+console.log("postgen-inference: patched index.ts with inference exports");
