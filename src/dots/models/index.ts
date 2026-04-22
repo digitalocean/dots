@@ -13010,6 +13010,60 @@ export function createElasticsearch_logsinkFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {number[] | string}
+ */
+// @ts-ignore
+export function createEmbedding_data_item_embeddingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbedding_data_item_embedding;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Embedding_data_item}
+ */
+// @ts-ignore
+export function createEmbedding_data_itemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbedding_data_item;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {string[] | string}
+ */
+// @ts-ignore
+export function createEmbeddings_request_inputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbeddings_request_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Embeddings_request}
+ */
+// @ts-ignore
+export function createEmbeddings_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbeddings_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Embeddings_response}
+ */
+// @ts-ignore
+export function createEmbeddings_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbeddings_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Embeddings_usage}
+ */
+// @ts-ignore
+export function createEmbeddings_usageFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEmbeddings_usage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Error_with_root_causes}
  */
 // @ts-ignore
@@ -13820,6 +13874,186 @@ export function createMember_current_utilizationFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createMemberFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMember;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_request_content_block_param[] | string}
+ */
+// @ts-ignore
+export function createMessages_api_message_param_contentFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_api_message_param_content;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_api_message_param}
+ */
+// @ts-ignore
+export function createMessages_api_message_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_api_message_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_create_error_response_error}
+ */
+// @ts-ignore
+export function createMessages_create_error_response_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_error_response_error;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_create_error_response}
+ */
+// @ts-ignore
+export function createMessages_create_error_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_error_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_create_request_metadata}
+ */
+// @ts-ignore
+export function createMessages_create_request_metadataFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_request_metadata;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_request_text_block_param[] | string}
+ */
+// @ts-ignore
+export function createMessages_create_request_systemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_request_system;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_create_request}
+ */
+// @ts-ignore
+export function createMessages_create_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_create_response}
+ */
+// @ts-ignore
+export function createMessages_create_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_create_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_request_content_block_param}
+ */
+// @ts-ignore
+export function createMessages_request_content_block_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_request_content_block_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_request_text_block_param}
+ */
+// @ts-ignore
+export function createMessages_request_text_block_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_request_text_block_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_response_text_block | Messages_response_tool_use_block}
+ */
+// @ts-ignore
+export function createMessages_response_content_blockFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_response_content_block;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_response_text_block}
+ */
+// @ts-ignore
+export function createMessages_response_text_blockFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_response_text_block;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_response_tool_use_block_input}
+ */
+// @ts-ignore
+export function createMessages_response_tool_use_block_inputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_response_tool_use_block_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_response_tool_use_block}
+ */
+// @ts-ignore
+export function createMessages_response_tool_use_blockFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_response_tool_use_block;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_thinking_config_param}
+ */
+// @ts-ignore
+export function createMessages_thinking_config_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_thinking_config_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_tool_choice_paramMember1 | string}
+ */
+// @ts-ignore
+export function createMessages_tool_choice_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_tool_choice_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_tool_choice_paramMember1}
+ */
+// @ts-ignore
+export function createMessages_tool_choice_paramMember1FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_tool_choice_paramMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_tool_definition_param_input_schema}
+ */
+// @ts-ignore
+export function createMessages_tool_definition_param_input_schemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_tool_definition_param_input_schema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_tool_definition_param}
+ */
+// @ts-ignore
+export function createMessages_tool_definition_paramFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_tool_definition_param;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Messages_usage}
+ */
+// @ts-ignore
+export function createMessages_usageFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMessages_usage;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -23562,6 +23796,81 @@ export function deserializeIntoElasticsearch_logsink(elasticsearch_logsink: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Embedding_data_item The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbedding_data_item(embedding_data_item: Partial<Embedding_data_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "embedding": n => { embedding_data_item.embedding = n.getCollectionOfPrimitiveValues<number>() ?? n.getStringValue(); },
+        "index": n => { embedding_data_item.index = n.getNumberValue(); },
+        "object": n => { embedding_data_item.object = n.getEnumValue<Embedding_data_item_object>(Embedding_data_item_objectObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Embedding_data_item_embedding The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbedding_data_item_embedding(embedding_data_item_embedding: Partial<Parsable | number[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "" : n => { embedding_data_item_embedding = n.getCollectionOfPrimitiveValues<number>() ?? n.getStringValue()},
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Embeddings_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbeddings_request(embeddings_request: Partial<Embeddings_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "encoding_format": n => { embeddings_request.encodingFormat = n.getEnumValue<Embeddings_request_encoding_format>(Embeddings_request_encoding_formatObject) ?? Embeddings_request_encoding_formatObject.Float; },
+        "input": n => { embeddings_request.input = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue(); },
+        "model": n => { embeddings_request.model = n.getStringValue(); },
+        "user": n => { embeddings_request.user = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Embeddings_request_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbeddings_request_input(embeddings_request_input: Partial<Parsable | string[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "" : n => { embeddings_request_input = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue()},
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Embeddings_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbeddings_response(embeddings_response: Partial<Embeddings_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "data": n => { embeddings_response.data = n.getCollectionOfObjectValues<Embedding_data_item>(createEmbedding_data_itemFromDiscriminatorValue); },
+        "model": n => { embeddings_response.model = n.getStringValue(); },
+        "object": n => { embeddings_response.object = n.getEnumValue<Embeddings_response_object>(Embeddings_response_objectObject); },
+        "usage": n => { embeddings_response.usage = n.getObjectValue<Embeddings_usage>(createEmbeddings_usageFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Embeddings_usage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEmbeddings_usage(embeddings_usage: Partial<Embeddings_usage> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "prompt_tokens": n => { embeddings_usage.promptTokens = n.getNumberValue(); },
+        "total_tokens": n => { embeddings_usage.totalTokens = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Error_with_root_causes The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -24829,6 +25138,261 @@ export function deserializeIntoMember_current_utilization(member_current_utiliza
     return {
         "cpu": n => { member_current_utilization.cpu = n.getNumberValue(); },
         "memory": n => { member_current_utilization.memory = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_api_message_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_api_message_param(messages_api_message_param: Partial<Messages_api_message_param> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "content": n => { messages_api_message_param.content = n.getCollectionOfObjectValues<Messages_request_content_block_param>(createMessages_request_content_block_paramFromDiscriminatorValue) ?? n.getStringValue(); },
+        "role": n => { messages_api_message_param.role = n.getEnumValue<Messages_api_message_param_role>(Messages_api_message_param_roleObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_api_message_param_content The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_api_message_param_content(messages_api_message_param_content: Partial<Parsable | Messages_request_content_block_param[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "" : n => { messages_api_message_param_content = n.getStringValue()},
+        ...deserializeIntoMessages_request_content_block_param(messages_api_message_param_content as Messages_request_content_block_param),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_error_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_error_response(messages_create_error_response: Partial<Messages_create_error_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "error": n => { messages_create_error_response.errorEscaped = n.getObjectValue<Messages_create_error_response_error>(createMessages_create_error_response_errorFromDiscriminatorValue); },
+        "type": n => { messages_create_error_response.type = n.getEnumValue<Messages_create_error_response_type>(Messages_create_error_response_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_error_response_error The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_error_response_error(messages_create_error_response_error: Partial<Messages_create_error_response_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "message": n => { messages_create_error_response_error.message = n.getStringValue(); },
+        "type": n => { messages_create_error_response_error.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_request(messages_create_request: Partial<Messages_create_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "max_tokens": n => { messages_create_request.maxTokens = n.getNumberValue(); },
+        "messages": n => { messages_create_request.messages = n.getCollectionOfObjectValues<Messages_api_message_param>(createMessages_api_message_paramFromDiscriminatorValue); },
+        "metadata": n => { messages_create_request.metadata = n.getObjectValue<Messages_create_request_metadata>(createMessages_create_request_metadataFromDiscriminatorValue); },
+        "model": n => { messages_create_request.model = n.getStringValue(); },
+        "reasoning_effort": n => { messages_create_request.reasoningEffort = n.getEnumValue<Messages_create_request_reasoning_effort>(Messages_create_request_reasoning_effortObject); },
+        "speed": n => { messages_create_request.speed = n.getEnumValue<Messages_create_request_speed>(Messages_create_request_speedObject); },
+        "stop_sequences": n => { messages_create_request.stopSequences = n.getCollectionOfPrimitiveValues<string>(); },
+        "stream": n => { messages_create_request.stream = n.getBooleanValue(); },
+        "system": n => { messages_create_request.system = n.getCollectionOfObjectValues<Messages_request_text_block_param>(createMessages_request_text_block_paramFromDiscriminatorValue) ?? n.getStringValue(); },
+        "temperature": n => { messages_create_request.temperature = n.getNumberValue(); },
+        "thinking": n => { messages_create_request.thinking = n.getObjectValue<Messages_thinking_config_param>(createMessages_thinking_config_paramFromDiscriminatorValue); },
+        "tool_choice": n => { messages_create_request.toolChoice = n.getObjectValue<Messages_tool_choice_paramMember1>(createMessages_tool_choice_paramMember1FromDiscriminatorValue) ?? n.getStringValue(); },
+        "tools": n => { messages_create_request.tools = n.getCollectionOfObjectValues<Messages_tool_definition_param>(createMessages_tool_definition_paramFromDiscriminatorValue); },
+        "top_k": n => { messages_create_request.topK = n.getNumberValue(); },
+        "top_p": n => { messages_create_request.topP = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_request_metadata The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_request_metadata(messages_create_request_metadata: Partial<Messages_create_request_metadata> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "user_id": n => { messages_create_request_metadata.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_request_system The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_request_system(messages_create_request_system: Partial<Parsable | Messages_request_text_block_param[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "" : n => { messages_create_request_system = n.getStringValue()},
+        ...deserializeIntoMessages_request_text_block_param(messages_create_request_system as Messages_request_text_block_param),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_create_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_create_response(messages_create_response: Partial<Messages_create_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "content": n => { messages_create_response.content = n.getCollectionOfObjectValues<Messages_response_text_block>(createMessages_response_text_blockFromDiscriminatorValue) ?? n.getCollectionOfObjectValues<Messages_response_tool_use_block>(createMessages_response_tool_use_blockFromDiscriminatorValue); },
+        "id": n => { messages_create_response.id = n.getStringValue(); },
+        "model": n => { messages_create_response.model = n.getStringValue(); },
+        "role": n => { messages_create_response.role = n.getEnumValue<Messages_create_response_role>(Messages_create_response_roleObject); },
+        "stop_reason": n => { messages_create_response.stopReason = n.getEnumValue<Messages_create_response_stop_reason>(Messages_create_response_stop_reasonObject); },
+        "stop_sequence": n => { messages_create_response.stopSequence = n.getStringValue(); },
+        "type": n => { messages_create_response.type = n.getEnumValue<Messages_create_response_type>(Messages_create_response_typeObject); },
+        "usage": n => { messages_create_response.usage = n.getObjectValue<Messages_usage>(createMessages_usageFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_request_content_block_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_request_content_block_param(messages_request_content_block_param: Partial<Messages_request_content_block_param> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_request_text_block_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_request_text_block_param(messages_request_text_block_param: Partial<Messages_request_text_block_param> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_response_content_block The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_response_content_block(messages_response_content_block: Partial<Messages_response_text_block | Messages_response_tool_use_block> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoMessages_response_text_block(messages_response_content_block as Messages_response_text_block),
+        ...deserializeIntoMessages_response_tool_use_block(messages_response_content_block as Messages_response_tool_use_block),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_response_text_block The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_response_text_block(messages_response_text_block: Partial<Messages_response_text_block> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "text": n => { messages_response_text_block.text = n.getStringValue(); },
+        "type": n => { messages_response_text_block.type = n.getEnumValue<Messages_response_text_block_type>(Messages_response_text_block_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_response_tool_use_block The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_response_tool_use_block(messages_response_tool_use_block: Partial<Messages_response_tool_use_block> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { messages_response_tool_use_block.id = n.getStringValue(); },
+        "input": n => { messages_response_tool_use_block.input = n.getObjectValue<Messages_response_tool_use_block_input>(createMessages_response_tool_use_block_inputFromDiscriminatorValue); },
+        "name": n => { messages_response_tool_use_block.name = n.getStringValue(); },
+        "type": n => { messages_response_tool_use_block.type = n.getEnumValue<Messages_response_tool_use_block_type>(Messages_response_tool_use_block_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_response_tool_use_block_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_response_tool_use_block_input(messages_response_tool_use_block_input: Partial<Messages_response_tool_use_block_input> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_thinking_config_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_thinking_config_param(messages_thinking_config_param: Partial<Messages_thinking_config_param> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "type": n => { messages_thinking_config_param.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_tool_choice_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_tool_choice_param(messages_tool_choice_param: Partial<Parsable | Messages_tool_choice_paramMember1 | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "" : n => { messages_tool_choice_param = n.getStringValue()},
+        ...deserializeIntoMessages_tool_choice_paramMember1(messages_tool_choice_param as Messages_tool_choice_paramMember1),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_tool_choice_paramMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_tool_choice_paramMember1(messages_tool_choice_paramMember1: Partial<Messages_tool_choice_paramMember1> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { messages_tool_choice_paramMember1.name = n.getStringValue(); },
+        "type": n => { messages_tool_choice_paramMember1.type = n.getEnumValue<Messages_tool_choice_paramMember1_type>(Messages_tool_choice_paramMember1_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_tool_definition_param The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_tool_definition_param(messages_tool_definition_param: Partial<Messages_tool_definition_param> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { messages_tool_definition_param.description = n.getStringValue(); },
+        "input_schema": n => { messages_tool_definition_param.inputSchema = n.getObjectValue<Messages_tool_definition_param_input_schema>(createMessages_tool_definition_param_input_schemaFromDiscriminatorValue); },
+        "name": n => { messages_tool_definition_param.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_tool_definition_param_input_schema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_tool_definition_param_input_schema(messages_tool_definition_param_input_schema: Partial<Messages_tool_definition_param_input_schema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Messages_usage The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMessages_usage(messages_usage: Partial<Messages_usage> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cache_creation_input_tokens": n => { messages_usage.cacheCreationInputTokens = n.getNumberValue(); },
+        "cache_read_input_tokens": n => { messages_usage.cacheReadInputTokens = n.getNumberValue(); },
+        "input_tokens": n => { messages_usage.inputTokens = n.getNumberValue(); },
+        "output_tokens": n => { messages_usage.outputTokens = n.getNumberValue(); },
+        "speed": n => { messages_usage.speed = n.getEnumValue<Messages_usage_speed>(Messages_usage_speedObject); },
     }
 }
 /**
@@ -28174,6 +28738,83 @@ export interface Elasticsearch_logsink extends AdditionalDataHolder, Parsable {
      */
     url?: string | null;
 }
+/**
+ * One row in the embeddings `data` array, aligned with a single `input` item.
+ */
+export interface Embedding_data_item extends AdditionalDataHolder, Parsable {
+    /**
+     * The embedding vector, or a base64-encoded string when the request set encoding_format to base64.
+     */
+    embedding?: number[] | string | null;
+    /**
+     * Zero-based index of the corresponding `input` item (0 when `input` is a string).
+     */
+    index?: number | null;
+    /**
+     * The object type, which is always `embedding`.
+     */
+    object?: Embedding_data_item_object | null;
+}
+export type Embedding_data_item_embedding = number[] | string;
+export type Embedding_data_item_object = (typeof Embedding_data_item_objectObject)[keyof typeof Embedding_data_item_objectObject];
+/**
+ * Request body for `POST /v1/embeddings` (OpenAI-compatible). Extra fields are rejected.
+ */
+export interface Embeddings_request extends Parsable {
+    /**
+     * How embedding values are returned in each `data[].embedding` field.
+     */
+    encodingFormat?: Embeddings_request_encoding_format | null;
+    /**
+     * A single string or 1–2048 strings; each string produces one row in `data`, in order.
+     */
+    input?: string[] | string | null;
+    /**
+     * Model id to use for embeddings. Must match a model your account can access.
+     */
+    model?: string | null;
+    /**
+     * Optional end-user identifier to help with abuse monitoring.
+     */
+    user?: string | null;
+}
+export type Embeddings_request_encoding_format = (typeof Embeddings_request_encoding_formatObject)[keyof typeof Embeddings_request_encoding_formatObject];
+export type Embeddings_request_input = string[] | string;
+/**
+ * OpenAI-style embeddings response.
+ */
+export interface Embeddings_response extends AdditionalDataHolder, Parsable {
+    /**
+     * One entry for each `input` string, in the same order.
+     */
+    data?: Embedding_data_item[] | null;
+    /**
+     * The embedding model that produced the vectors.
+     */
+    model?: string | null;
+    /**
+     * The object type, which is always the string `list`.
+     */
+    object?: Embeddings_response_object | null;
+    /**
+     * Token usage for the embeddings request.
+     */
+    usage?: Embeddings_usage | null;
+}
+export type Embeddings_response_object = (typeof Embeddings_response_objectObject)[keyof typeof Embeddings_response_objectObject];
+/**
+ * Token usage for the embeddings request.
+ */
+export interface Embeddings_usage extends AdditionalDataHolder, Parsable {
+    /**
+     * Number of input tokens used for the embedding.
+     */
+    promptTokens?: number | null;
+    /**
+     * Total billable tokens for the request.
+     */
+    totalTokens?: number | null;
+}
 export interface Error_with_root_causes extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * A message providing information about the error.
@@ -29869,6 +30510,277 @@ export interface Member_current_utilization extends AdditionalDataHolder, Parsab
     memory?: number | null;
 }
 export type Member_status = (typeof Member_statusObject)[keyof typeof Member_statusObject];
+/**
+ * One turn in the conversation. Roles are `user` or `assistant` (no `system` role; use the top-level `system` field). Content may be a string (equivalent to a single text block) or an array of content blocks.
+ */
+export interface Messages_api_message_param extends AdditionalDataHolder, Parsable {
+    /**
+     * Message body as plain text or structured blocks.
+     */
+    content?: Messages_request_content_block_param[] | string | null;
+    /**
+     * Speaker role for this message.
+     */
+    role?: Messages_api_message_param_role | null;
+}
+export type Messages_api_message_param_content = Messages_request_content_block_param[] | string;
+export type Messages_api_message_param_role = (typeof Messages_api_message_param_roleObject)[keyof typeof Messages_api_message_param_roleObject];
+/**
+ * Error envelope for some failures from this endpoint.
+ */
+export interface Messages_create_error_response extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * The error property
+     */
+    errorEscaped?: Messages_create_error_response_error | null;
+    /**
+     * The type property
+     */
+    type?: Messages_create_error_response_type | null;
+}
+export interface Messages_create_error_response_error extends AdditionalDataHolder, Parsable {
+    /**
+     * Human-readable error message.
+     */
+    message?: string | null;
+    /**
+     * Machine-readable error code.
+     */
+    type?: string | null;
+}
+export type Messages_create_error_response_type = (typeof Messages_create_error_response_typeObject)[keyof typeof Messages_create_error_response_typeObject];
+/**
+ * Request body for `POST /v1/messages`. Required fields are `model`, `messages`, and `max_tokens`.
+ */
+export interface Messages_create_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Maximum tokens to generate before stopping.
+     */
+    maxTokens?: number | null;
+    /**
+     * Conversation turns. Each item has `role` `user` or `assistant` and `content` as a string or an array of content blocks.
+     */
+    messages?: Messages_api_message_param[] | null;
+    /**
+     * Optional request metadata.
+     */
+    metadata?: Messages_create_request_metadata | null;
+    /**
+     * Model ID (for example `claude-opus-4-6` or a serverless model id).
+     */
+    model?: string | null;
+    /**
+     * DigitalOcean extension for reasoning-capable models. Ignored by executors that do not support it.
+     */
+    reasoningEffort?: Messages_create_request_reasoning_effort | null;
+    /**
+     * DigitalOcean extension for preferred inference speed. Ignored when not supported.
+     */
+    speed?: Messages_create_request_speed | null;
+    /**
+     * Custom strings that stop generation when produced.
+     */
+    stopSequences?: string[] | null;
+    /**
+     * When true, the response is streamed using server-sent events (SSE).
+     */
+    stream?: boolean | null;
+    /**
+     * System prompt as plain text or as an array of text blocks.
+     */
+    system?: Messages_request_text_block_param[] | string | null;
+    /**
+     * Sampling temperature between 0.0 and 1.0.
+     */
+    temperature?: number | null;
+    /**
+     * Extended thinking configuration. Executors that do not support thinking may ignore this field.
+     */
+    thinking?: Messages_thinking_config_param | null;
+    /**
+     * Controls how the model uses tools: automatic selection, require any tool, force a specific tool, or a string form accepted by the service.
+     */
+    toolChoice?: Messages_tool_choice_paramMember1 | string | null;
+    /**
+     * Tool definitions the model may invoke.
+     */
+    tools?: Messages_tool_definition_param[] | null;
+    /**
+     * Top-K sampling cutoff.
+     */
+    topK?: number | null;
+    /**
+     * Nucleus sampling; use either `temperature` or `top_p`, not both.
+     */
+    topP?: number | null;
+}
+/**
+ * Optional request metadata.
+ */
+export interface Messages_create_request_metadata extends AdditionalDataHolder, Parsable {
+    /**
+     * Opaque identifier for the end user (for example a UUID or hash). Do not include PII.
+     */
+    userId?: string | null;
+}
+export type Messages_create_request_reasoning_effort = (typeof Messages_create_request_reasoning_effortObject)[keyof typeof Messages_create_request_reasoning_effortObject];
+export type Messages_create_request_speed = (typeof Messages_create_request_speedObject)[keyof typeof Messages_create_request_speedObject];
+export type Messages_create_request_system = Messages_request_text_block_param[] | string;
+/**
+ * Non-streaming assistant message from `POST /v1/messages`. `type` is always `message` and `role` is always `assistant`.
+ */
+export interface Messages_create_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Assistant output blocks (`text` and/or `tool_use`).
+     */
+    content?: (Messages_response_text_block | Messages_response_tool_use_block)[] | null;
+    /**
+     * Unique identifier for this message object.
+     */
+    id?: string | null;
+    /**
+     * Model that produced the message.
+     */
+    model?: string | null;
+    /**
+     * Always `assistant` for this response.
+     */
+    role?: Messages_create_response_role | null;
+    /**
+     * Why generation stopped.
+     */
+    stopReason?: Messages_create_response_stop_reason | null;
+    /**
+     * When `stop_reason` is `stop_sequence`, the sequence that matched.
+     */
+    stopSequence?: string | null;
+    /**
+     * Object type discriminator.
+     */
+    type?: Messages_create_response_type | null;
+    /**
+     * Token usage for a non-streaming `POST /v1/messages` response.
+     */
+    usage?: Messages_usage | null;
+}
+export type Messages_create_response_role = (typeof Messages_create_response_roleObject)[keyof typeof Messages_create_response_roleObject];
+export type Messages_create_response_stop_reason = (typeof Messages_create_response_stop_reasonObject)[keyof typeof Messages_create_response_stop_reasonObject];
+export type Messages_create_response_type = (typeof Messages_create_response_typeObject)[keyof typeof Messages_create_response_typeObject];
+export interface Messages_request_content_block_param extends AdditionalDataHolder, Parsable {
+}
+export interface Messages_request_text_block_param extends AdditionalDataHolder, Parsable {
+}
+export type Messages_response_content_block = Messages_response_text_block | Messages_response_tool_use_block;
+/**
+ * A text block in an assistant message in the response.
+ */
+export interface Messages_response_text_block extends AdditionalDataHolder, Parsable {
+    /**
+     * Generated text for this block.
+     */
+    text?: string | null;
+    /**
+     * The type property
+     */
+    type?: Messages_response_text_block_type | null;
+}
+export type Messages_response_text_block_type = (typeof Messages_response_text_block_typeObject)[keyof typeof Messages_response_text_block_typeObject];
+/**
+ * Tool call emitted by the assistant in the response.
+ */
+export interface Messages_response_tool_use_block extends AdditionalDataHolder, Parsable {
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * Arguments for the tool invocation.
+     */
+    input?: Messages_response_tool_use_block_input | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The type property
+     */
+    type?: Messages_response_tool_use_block_type | null;
+}
+/**
+ * Arguments for the tool invocation.
+ */
+export interface Messages_response_tool_use_block_input extends AdditionalDataHolder, Parsable {
+}
+export type Messages_response_tool_use_block_type = (typeof Messages_response_tool_use_block_typeObject)[keyof typeof Messages_response_tool_use_block_typeObject];
+/**
+ * Extended thinking configuration. Executors that do not support thinking may ignore this field.
+ */
+export interface Messages_thinking_config_param extends AdditionalDataHolder, Parsable {
+    /**
+     * Thinking mode discriminator (for example enabled or disabled).
+     */
+    type?: string | null;
+}
+export type Messages_tool_choice_param = Messages_tool_choice_paramMember1 | string;
+export interface Messages_tool_choice_paramMember1 extends AdditionalDataHolder, Parsable {
+    /**
+     * When `type` is `tool`, the tool name to use.
+     */
+    name?: string | null;
+    /**
+     * Tool selection mode.
+     */
+    type?: Messages_tool_choice_paramMember1_type | null;
+}
+export type Messages_tool_choice_paramMember1_type = (typeof Messages_tool_choice_paramMember1_typeObject)[keyof typeof Messages_tool_choice_paramMember1_typeObject];
+/**
+ * Tool definition the model may call (`name`, JSON Schema for `input`).
+ */
+export interface Messages_tool_definition_param extends AdditionalDataHolder, Parsable {
+    /**
+     * Human-readable description of what the tool does.
+     */
+    description?: string | null;
+    /**
+     * JSON Schema (draft 2020-12 style) describing the tool input object.
+     */
+    inputSchema?: Messages_tool_definition_param_input_schema | null;
+    /**
+     * Tool name referenced in `tool_use` blocks.
+     */
+    name?: string | null;
+}
+/**
+ * JSON Schema (draft 2020-12 style) describing the tool input object.
+ */
+export interface Messages_tool_definition_param_input_schema extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Token usage for a non-streaming `POST /v1/messages` response.
+ */
+export interface Messages_usage extends AdditionalDataHolder, Parsable {
+    /**
+     * Input tokens used to create a prompt cache entry, if applicable.
+     */
+    cacheCreationInputTokens?: number | null;
+    /**
+     * Input tokens read from a prompt cache, if applicable.
+     */
+    cacheReadInputTokens?: number | null;
+    /**
+     * Number of input tokens billed for this request.
+     */
+    inputTokens?: number | null;
+    /**
+     * Number of output tokens generated.
+     */
+    outputTokens?: number | null;
+    /**
+     * Inference speed tier reflected in billing or routing.
+     */
+    speed?: Messages_usage_speed | null;
+}
+export type Messages_usage_speed = (typeof Messages_usage_speedObject)[keyof typeof Messages_usage_speedObject];
 /**
  * Information about the response itself.
  */
@@ -39981,6 +40893,104 @@ export function serializeElasticsearch_logsink(writer: SerializationWriter, elas
 }
 /**
  * Serializes information the current object
+ * @param Embedding_data_item The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbedding_data_item(writer: SerializationWriter, embedding_data_item: Partial<Embedding_data_item> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!embedding_data_item || isSerializingDerivedType) { return; }
+    if ( typeof embedding_data_item.embedding === "string") {
+        writer.writeStringValue("embedding", embedding_data_item.embedding as string);
+    }
+    else {
+        writer.writeCollectionOfObjectValues<number>("embedding", embedding_data_item.embedding as number[] | undefined | null, serializeEmbedding_data_item_embedding);
+    }
+    writer.writeNumberValue("index", embedding_data_item.index);
+    writer.writeEnumValue<Embedding_data_item_object>("object", embedding_data_item.object);
+    writer.writeAdditionalData(embedding_data_item.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Embedding_data_item_embedding The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbedding_data_item_embedding(writer: SerializationWriter, embedding_data_item_embedding: Partial<Parsable | Embedding_data_item_embedding> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (embedding_data_item_embedding === undefined || embedding_data_item_embedding === null) return;
+    if (Array.isArray(embedding_data_item_embedding) && (embedding_data_item_embedding).every(item => typeof item === 'number')) {
+        writer.writeCollectionOfPrimitiveValues<number>(undefined, embedding_data_item_embedding as number[]);
+    }
+    else if (typeof embedding_data_item_embedding === "string" ) {
+        writer.writeStringValue(undefined, embedding_data_item_embedding as string);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Embeddings_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbeddings_request(writer: SerializationWriter, embeddings_request: Partial<Embeddings_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!embeddings_request || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Embeddings_request_encoding_format>("encoding_format", embeddings_request.encodingFormat ?? Embeddings_request_encoding_formatObject.Float);
+    if ( typeof embeddings_request.input === "string") {
+        writer.writeStringValue("input", embeddings_request.input as string);
+    }
+    else {
+        writer.writeCollectionOfObjectValues<string>("input", embeddings_request.input as string[] | undefined | null, serializeEmbeddings_request_input);
+    }
+    writer.writeStringValue("model", embeddings_request.model);
+    writer.writeStringValue("user", embeddings_request.user);
+}
+/**
+ * Serializes information the current object
+ * @param Embeddings_request_input The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbeddings_request_input(writer: SerializationWriter, embeddings_request_input: Partial<Parsable | Embeddings_request_input> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (embeddings_request_input === undefined || embeddings_request_input === null) return;
+    if (Array.isArray(embeddings_request_input) && (embeddings_request_input).every(item => typeof item === 'string')) {
+        writer.writeCollectionOfPrimitiveValues<string>(undefined, embeddings_request_input as string[]);
+    }
+    else if (typeof embeddings_request_input === "string" ) {
+        writer.writeStringValue(undefined, embeddings_request_input as string);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Embeddings_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbeddings_response(writer: SerializationWriter, embeddings_response: Partial<Embeddings_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!embeddings_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Embedding_data_item>("data", embeddings_response.data, serializeEmbedding_data_item);
+    writer.writeStringValue("model", embeddings_response.model);
+    writer.writeEnumValue<Embeddings_response_object>("object", embeddings_response.object);
+    writer.writeObjectValue<Embeddings_usage>("usage", embeddings_response.usage, serializeEmbeddings_usage);
+    writer.writeAdditionalData(embeddings_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Embeddings_usage The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEmbeddings_usage(writer: SerializationWriter, embeddings_usage: Partial<Embeddings_usage> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!embeddings_usage || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("prompt_tokens", embeddings_usage.promptTokens);
+    writer.writeNumberValue("total_tokens", embeddings_usage.totalTokens);
+    writer.writeAdditionalData(embeddings_usage.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Error_with_root_causes The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -41306,6 +42316,285 @@ export function serializeMember_current_utilization(writer: SerializationWriter,
     writer.writeNumberValue("cpu", member_current_utilization.cpu);
     writer.writeNumberValue("memory", member_current_utilization.memory);
     writer.writeAdditionalData(member_current_utilization.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_api_message_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_api_message_param(writer: SerializationWriter, messages_api_message_param: Partial<Messages_api_message_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_api_message_param || isSerializingDerivedType) { return; }
+    if ( typeof messages_api_message_param.content === "string") {
+        writer.writeStringValue("content", messages_api_message_param.content as string);
+    }
+    else {
+        writer.writeCollectionOfObjectValues<Messages_request_content_block_param>("content", messages_api_message_param.content as Messages_request_content_block_param[] | undefined | null, serializeMessages_api_message_param_content);
+    }
+    writer.writeEnumValue<Messages_api_message_param_role>("role", messages_api_message_param.role);
+    writer.writeAdditionalData(messages_api_message_param.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_api_message_param_content The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_api_message_param_content(writer: SerializationWriter, messages_api_message_param_content: Partial<Parsable | Messages_request_content_block_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    serializeMessages_request_content_block_param(writer, messages_api_message_param_content as Messages_request_content_block_param);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_error_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_error_response(writer: SerializationWriter, messages_create_error_response: Partial<Messages_create_error_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_create_error_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Messages_create_error_response_error>("error", messages_create_error_response.errorEscaped, serializeMessages_create_error_response_error);
+    writer.writeEnumValue<Messages_create_error_response_type>("type", messages_create_error_response.type);
+    writer.writeAdditionalData(messages_create_error_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_error_response_error The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_error_response_error(writer: SerializationWriter, messages_create_error_response_error: Partial<Messages_create_error_response_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_create_error_response_error || isSerializingDerivedType) { return; }
+    writer.writeStringValue("message", messages_create_error_response_error.message);
+    writer.writeStringValue("type", messages_create_error_response_error.type);
+    writer.writeAdditionalData(messages_create_error_response_error.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_request The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_request(writer: SerializationWriter, messages_create_request: Partial<Messages_create_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_create_request || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("max_tokens", messages_create_request.maxTokens);
+    writer.writeCollectionOfObjectValues<Messages_api_message_param>("messages", messages_create_request.messages, serializeMessages_api_message_param);
+    writer.writeObjectValue<Messages_create_request_metadata>("metadata", messages_create_request.metadata, serializeMessages_create_request_metadata);
+    writer.writeStringValue("model", messages_create_request.model);
+    writer.writeEnumValue<Messages_create_request_reasoning_effort>("reasoning_effort", messages_create_request.reasoningEffort);
+    writer.writeEnumValue<Messages_create_request_speed>("speed", messages_create_request.speed);
+    writer.writeCollectionOfPrimitiveValues<string>("stop_sequences", messages_create_request.stopSequences);
+    writer.writeBooleanValue("stream", messages_create_request.stream);
+    if ( typeof messages_create_request.system === "string") {
+        writer.writeStringValue("system", messages_create_request.system as string);
+    }
+    else {
+        writer.writeCollectionOfObjectValues<Messages_request_text_block_param>("system", messages_create_request.system as Messages_request_text_block_param[] | undefined | null, serializeMessages_create_request_system);
+    }
+    writer.writeNumberValue("temperature", messages_create_request.temperature);
+    writer.writeObjectValue<Messages_thinking_config_param>("thinking", messages_create_request.thinking, serializeMessages_thinking_config_param);
+    if ( typeof messages_create_request.toolChoice === "string") {
+        writer.writeStringValue("tool_choice", messages_create_request.toolChoice as string);
+    }
+    else {
+        writer.writeObjectValue<Messages_tool_choice_paramMember1>("tool_choice", messages_create_request.toolChoice as Messages_tool_choice_paramMember1 | undefined | null, serializeMessages_tool_choice_param);
+    }
+    writer.writeCollectionOfObjectValues<Messages_tool_definition_param>("tools", messages_create_request.tools, serializeMessages_tool_definition_param);
+    writer.writeNumberValue("top_k", messages_create_request.topK);
+    writer.writeNumberValue("top_p", messages_create_request.topP);
+    writer.writeAdditionalData(messages_create_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_request_metadata The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_request_metadata(writer: SerializationWriter, messages_create_request_metadata: Partial<Messages_create_request_metadata> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_create_request_metadata || isSerializingDerivedType) { return; }
+    writer.writeStringValue("user_id", messages_create_request_metadata.userId);
+    writer.writeAdditionalData(messages_create_request_metadata.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_request_system The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_request_system(writer: SerializationWriter, messages_create_request_system: Partial<Parsable | Messages_request_text_block_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    serializeMessages_request_text_block_param(writer, messages_create_request_system as Messages_request_text_block_param);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_create_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_create_response(writer: SerializationWriter, messages_create_response: Partial<Messages_create_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_create_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Messages_response_text_block | Messages_response_tool_use_block>("content", messages_create_response.content, serializeMessages_response_content_block);
+    writer.writeStringValue("id", messages_create_response.id);
+    writer.writeStringValue("model", messages_create_response.model);
+    writer.writeEnumValue<Messages_create_response_role>("role", messages_create_response.role);
+    writer.writeEnumValue<Messages_create_response_stop_reason>("stop_reason", messages_create_response.stopReason);
+    writer.writeStringValue("stop_sequence", messages_create_response.stopSequence);
+    writer.writeEnumValue<Messages_create_response_type>("type", messages_create_response.type);
+    writer.writeObjectValue<Messages_usage>("usage", messages_create_response.usage, serializeMessages_usage);
+    writer.writeAdditionalData(messages_create_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_request_content_block_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_request_content_block_param(writer: SerializationWriter, messages_request_content_block_param: Partial<Messages_request_content_block_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_request_content_block_param || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(messages_request_content_block_param.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_request_text_block_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_request_text_block_param(writer: SerializationWriter, messages_request_text_block_param: Partial<Messages_request_text_block_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_request_text_block_param || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(messages_request_text_block_param.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_response_content_block The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_response_content_block(writer: SerializationWriter, messages_response_content_block: Partial<Messages_response_text_block | Messages_response_tool_use_block> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    serializeMessages_response_text_block(writer, messages_response_content_block as Messages_response_text_block);
+    serializeMessages_response_tool_use_block(writer, messages_response_content_block as Messages_response_tool_use_block);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_response_text_block The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_response_text_block(writer: SerializationWriter, messages_response_text_block: Partial<Messages_response_text_block> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_response_text_block || isSerializingDerivedType) { return; }
+    writer.writeStringValue("text", messages_response_text_block.text);
+    writer.writeEnumValue<Messages_response_text_block_type>("type", messages_response_text_block.type);
+    writer.writeAdditionalData(messages_response_text_block.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_response_tool_use_block The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_response_tool_use_block(writer: SerializationWriter, messages_response_tool_use_block: Partial<Messages_response_tool_use_block> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_response_tool_use_block || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", messages_response_tool_use_block.id);
+    writer.writeObjectValue<Messages_response_tool_use_block_input>("input", messages_response_tool_use_block.input, serializeMessages_response_tool_use_block_input);
+    writer.writeStringValue("name", messages_response_tool_use_block.name);
+    writer.writeEnumValue<Messages_response_tool_use_block_type>("type", messages_response_tool_use_block.type);
+    writer.writeAdditionalData(messages_response_tool_use_block.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_response_tool_use_block_input The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_response_tool_use_block_input(writer: SerializationWriter, messages_response_tool_use_block_input: Partial<Messages_response_tool_use_block_input> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_response_tool_use_block_input || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(messages_response_tool_use_block_input.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_thinking_config_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_thinking_config_param(writer: SerializationWriter, messages_thinking_config_param: Partial<Messages_thinking_config_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_thinking_config_param || isSerializingDerivedType) { return; }
+    writer.writeStringValue("type", messages_thinking_config_param.type);
+    writer.writeAdditionalData(messages_thinking_config_param.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_tool_choice_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_tool_choice_param(writer: SerializationWriter, messages_tool_choice_param: Partial<Parsable | Messages_tool_choice_paramMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    serializeMessages_tool_choice_paramMember1(writer, messages_tool_choice_param as Messages_tool_choice_paramMember1);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_tool_choice_paramMember1 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_tool_choice_paramMember1(writer: SerializationWriter, messages_tool_choice_paramMember1: Partial<Messages_tool_choice_paramMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_tool_choice_paramMember1 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", messages_tool_choice_paramMember1.name);
+    writer.writeEnumValue<Messages_tool_choice_paramMember1_type>("type", messages_tool_choice_paramMember1.type);
+    writer.writeAdditionalData(messages_tool_choice_paramMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_tool_definition_param The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_tool_definition_param(writer: SerializationWriter, messages_tool_definition_param: Partial<Messages_tool_definition_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_tool_definition_param || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", messages_tool_definition_param.description);
+    writer.writeObjectValue<Messages_tool_definition_param_input_schema>("input_schema", messages_tool_definition_param.inputSchema, serializeMessages_tool_definition_param_input_schema);
+    writer.writeStringValue("name", messages_tool_definition_param.name);
+    writer.writeAdditionalData(messages_tool_definition_param.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_tool_definition_param_input_schema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_tool_definition_param_input_schema(writer: SerializationWriter, messages_tool_definition_param_input_schema: Partial<Messages_tool_definition_param_input_schema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_tool_definition_param_input_schema || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(messages_tool_definition_param_input_schema.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Messages_usage The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMessages_usage(writer: SerializationWriter, messages_usage: Partial<Messages_usage> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!messages_usage || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("cache_creation_input_tokens", messages_usage.cacheCreationInputTokens);
+    writer.writeNumberValue("cache_read_input_tokens", messages_usage.cacheReadInputTokens);
+    writer.writeNumberValue("input_tokens", messages_usage.inputTokens);
+    writer.writeNumberValue("output_tokens", messages_usage.outputTokens);
+    writer.writeEnumValue<Messages_usage_speed>("speed", messages_usage.speed);
+    writer.writeAdditionalData(messages_usage.additionalData);
 }
 /**
  * Serializes information the current object
@@ -46373,6 +47662,25 @@ export const Droplet_statusObject = {
     Archive: "archive",
 } as const;
 /**
+ * The object type, which is always `embedding`.
+ */
+export const Embedding_data_item_objectObject = {
+    Embedding: "embedding",
+} as const;
+/**
+ * How embedding values are returned in each `data[].embedding` field.
+ */
+export const Embeddings_request_encoding_formatObject = {
+    Float: "float",
+    Base64: "base64",
+} as const;
+/**
+ * The object type, which is always the string `list`.
+ */
+export const Embeddings_response_objectObject = {
+    List: "list",
+} as const;
+/**
  * Type of the event.
  */
 export const Events_logs_event_typeObject = {
@@ -46761,6 +48069,76 @@ export const Member_statusObject = {
     Active: "active",
     Deleting: "deleting",
     Off: "off",
+} as const;
+/**
+ * Speaker role for this message.
+ */
+export const Messages_api_message_param_roleObject = {
+    User: "user",
+    Assistant: "assistant",
+} as const;
+export const Messages_create_error_response_typeObject = {
+    ErrorEscaped: "error",
+} as const;
+/**
+ * DigitalOcean extension for reasoning-capable models. Ignored by executors that do not support it.
+ */
+export const Messages_create_request_reasoning_effortObject = {
+    None: "none",
+    Minimal: "minimal",
+    Low: "low",
+    Medium: "medium",
+    High: "high",
+    Xhigh: "xhigh",
+} as const;
+/**
+ * DigitalOcean extension for preferred inference speed. Ignored when not supported.
+ */
+export const Messages_create_request_speedObject = {
+    Standard: "standard",
+    Fast: "fast",
+} as const;
+/**
+ * Always `assistant` for this response.
+ */
+export const Messages_create_response_roleObject = {
+    Assistant: "assistant",
+} as const;
+/**
+ * Why generation stopped.
+ */
+export const Messages_create_response_stop_reasonObject = {
+    End_turn: "end_turn",
+    Max_tokens: "max_tokens",
+    Stop_sequence: "stop_sequence",
+    Tool_use: "tool_use",
+} as const;
+/**
+ * Object type discriminator.
+ */
+export const Messages_create_response_typeObject = {
+    Message: "message",
+} as const;
+export const Messages_response_text_block_typeObject = {
+    Text: "text",
+} as const;
+export const Messages_response_tool_use_block_typeObject = {
+    Tool_use: "tool_use",
+} as const;
+/**
+ * Tool selection mode.
+ */
+export const Messages_tool_choice_paramMember1_typeObject = {
+    Auto: "auto",
+    Any: "any",
+    Tool: "tool",
+} as const;
+/**
+ * Inference speed tier reflected in billing or routing.
+ */
+export const Messages_usage_speedObject = {
+    Standard: "standard",
+    Fast: "fast",
 } as const;
 export const Metrics_data_resultTypeObject = {
     Matrix: "matrix",

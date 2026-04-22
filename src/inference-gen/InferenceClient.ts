@@ -208,6 +208,12 @@ export class InferenceClient {
         },
     };
 
+    public readonly embeddings = {
+        create: async (params: Record<string, any>): Promise<any> => {
+            return this._fetch("/v1/embeddings", "POST", params);
+        },
+    };
+
     public readonly images = {
         generations: {
             create: async (
@@ -229,6 +235,20 @@ export class InferenceClient {
             streamCallbacks?: InferenceStreamCallbacks,
         ): Promise<any> => {
             return this.images.generations.create(params, streamCallbacks);
+        },
+    };
+
+    public readonly messages = {
+        create: async (
+            params: Record<string, any>,
+            streamCallbacks?: InferenceStreamCallbacks,
+        ): Promise<any> => {
+            if (params.stream === true) {
+                const s = this._sse("/v1/messages", params);
+                if (streamCallbacks?.onData) { await s.consume(streamCallbacks); return; }
+                return s;
+            }
+            return this._fetch("/v1/messages", "POST", params);
         },
     };
 

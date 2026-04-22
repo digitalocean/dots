@@ -6,7 +6,11 @@ import { AsyncInvokeRequestBuilderRequestsMetadata, type AsyncInvokeRequestBuild
 // @ts-ignore
 import { ChatRequestBuilderNavigationMetadata, type ChatRequestBuilder } from './chat/index.js';
 // @ts-ignore
+import { EmbeddingsRequestBuilderRequestsMetadata, type EmbeddingsRequestBuilder } from './embeddings/index.js';
+// @ts-ignore
 import { ImagesRequestBuilderNavigationMetadata, type ImagesRequestBuilder } from './images/index.js';
+// @ts-ignore
+import { MessagesRequestBuilderRequestsMetadata, type MessagesRequestBuilder } from './messages/index.js';
 // @ts-ignore
 import { ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
 // @ts-ignore
@@ -27,9 +31,17 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get chat(): ChatRequestBuilder;
     /**
+     * The embeddings property
+     */
+    get embeddings(): EmbeddingsRequestBuilder;
+    /**
      * The images property
      */
     get images(): ImagesRequestBuilder;
+    /**
+     * The messages property
+     */
+    get messages(): MessagesRequestBuilder;
     /**
      * The models property
      */
@@ -53,8 +65,14 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     chat: {
         navigationMetadata: ChatRequestBuilderNavigationMetadata,
     },
+    embeddings: {
+        requestsMetadata: EmbeddingsRequestBuilderRequestsMetadata,
+    },
     images: {
         navigationMetadata: ImagesRequestBuilderNavigationMetadata,
+    },
+    messages: {
+        requestsMetadata: MessagesRequestBuilderRequestsMetadata,
     },
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,

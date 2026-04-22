@@ -13,7 +13,9 @@ import { DigitalOceanApiKeyAuthenticationProvider } from "../dots/DigitalOceanAp
 export const INFERENCE_OPENAPI_PATHS = [
     "/v1/async-invoke",
     "/v1/chat/completions",
+    "/v1/embeddings",
     "/v1/images/generations",
+    "/v1/messages",
     "/v1/models",
     "/v1/responses"
 ] as const;
