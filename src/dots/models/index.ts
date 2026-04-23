@@ -1843,6 +1843,10 @@ export interface ApiCreateKnowledgeBaseInputPublic extends AdditionalDataHolder,
      */
     region?: string | null;
     /**
+     * Configuration for cross-encoder reranking during retrieval.
+     */
+    rerankingConfig?: ApiRerankingConfiguration | null;
+    /**
      * Tags to organize your knowledge base.
      */
     tags?: string[] | null;
@@ -2821,6 +2825,10 @@ export interface ApiKnowledgeBase extends AdditionalDataHolder, Parsable {
      */
     region?: string | null;
     /**
+     * Configuration for cross-encoder reranking during retrieval.
+     */
+    rerankingConfig?: ApiRerankingConfiguration | null;
+    /**
      * Tags to organize related resources
      */
     tags?: string[] | null;
@@ -3690,6 +3698,19 @@ export interface ApiRegenerateModelAPIKeyOutput extends AdditionalDataHolder, Pa
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
 }
 /**
+ * Configuration for cross-encoder reranking during retrieval.
+ */
+export interface ApiRerankingConfiguration extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether reranking is enabled for retrieval
+     */
+    enabled?: boolean | null;
+    /**
+     * Reranker model internal name
+     */
+    model?: string | null;
+}
+/**
  * Resource Usage Description
  */
 export interface ApiResourceUsage extends AdditionalDataHolder, Parsable {
@@ -4201,6 +4222,10 @@ export interface ApiUpdateKnowledgeBaseInputPublic extends AdditionalDataHolder,
      * The id of the DigitalOcean project this knowledge base will belong to
      */
     projectId?: string | null;
+    /**
+     * Configuration for cross-encoder reranking during retrieval.
+     */
+    rerankingConfig?: ApiRerankingConfiguration | null;
     /**
      * Tags to organize your knowledge base.
      */
@@ -9973,6 +9998,15 @@ export function createApiRegenerateAgentAPIKeyOutputFromDiscriminatorValue(parse
 // @ts-ignore
 export function createApiRegenerateModelAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiRegenerateModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiRerankingConfiguration}
+ */
+// @ts-ignore
+export function createApiRerankingConfigurationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiRerankingConfiguration;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -17781,6 +17815,7 @@ export function deserializeIntoApiCreateKnowledgeBaseInputPublic(apiCreateKnowle
         "name": n => { apiCreateKnowledgeBaseInputPublic.name = n.getStringValue(); },
         "project_id": n => { apiCreateKnowledgeBaseInputPublic.projectId = n.getStringValue(); },
         "region": n => { apiCreateKnowledgeBaseInputPublic.region = n.getStringValue(); },
+        "reranking_config": n => { apiCreateKnowledgeBaseInputPublic.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
         "tags": n => { apiCreateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
         "vpc_uuid": n => { apiCreateKnowledgeBaseInputPublic.vpcUuid = n.getStringValue(); },
     }
@@ -18523,6 +18558,7 @@ export function deserializeIntoApiKnowledgeBase(apiKnowledgeBase: Partial<ApiKno
         "name": n => { apiKnowledgeBase.name = n.getStringValue(); },
         "project_id": n => { apiKnowledgeBase.projectId = n.getStringValue(); },
         "region": n => { apiKnowledgeBase.region = n.getStringValue(); },
+        "reranking_config": n => { apiKnowledgeBase.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
         "tags": n => { apiKnowledgeBase.tags = n.getCollectionOfPrimitiveValues<string>(); },
         "updated_at": n => { apiKnowledgeBase.updatedAt = n.getDateValue(); },
         "user_id": n => { apiKnowledgeBase.userId = n.getStringValue(); },
@@ -19166,6 +19202,18 @@ export function deserializeIntoApiRegenerateModelAPIKeyOutput(apiRegenerateModel
 }
 /**
  * The deserialization information for the current model
+ * @param ApiRerankingConfiguration The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiRerankingConfiguration(apiRerankingConfiguration: Partial<ApiRerankingConfiguration> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { apiRerankingConfiguration.enabled = n.getBooleanValue(); },
+        "model": n => { apiRerankingConfiguration.model = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiResourceUsage The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -19567,6 +19615,7 @@ export function deserializeIntoApiUpdateKnowledgeBaseInputPublic(apiUpdateKnowle
         "embedding_model_uuid": n => { apiUpdateKnowledgeBaseInputPublic.embeddingModelUuid = n.getStringValue(); },
         "name": n => { apiUpdateKnowledgeBaseInputPublic.name = n.getStringValue(); },
         "project_id": n => { apiUpdateKnowledgeBaseInputPublic.projectId = n.getStringValue(); },
+        "reranking_config": n => { apiUpdateKnowledgeBaseInputPublic.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
         "tags": n => { apiUpdateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
         "uuid": n => { apiUpdateKnowledgeBaseInputPublic.uuid = n.getStringValue(); },
     }
@@ -34474,6 +34523,7 @@ export function serializeApiCreateKnowledgeBaseInputPublic(writer: Serialization
     writer.writeStringValue("name", apiCreateKnowledgeBaseInputPublic.name);
     writer.writeStringValue("project_id", apiCreateKnowledgeBaseInputPublic.projectId);
     writer.writeStringValue("region", apiCreateKnowledgeBaseInputPublic.region);
+    writer.writeObjectValue<ApiRerankingConfiguration>("reranking_config", apiCreateKnowledgeBaseInputPublic.rerankingConfig, serializeApiRerankingConfiguration);
     writer.writeCollectionOfPrimitiveValues<string>("tags", apiCreateKnowledgeBaseInputPublic.tags);
     writer.writeStringValue("vpc_uuid", apiCreateKnowledgeBaseInputPublic.vpcUuid);
     writer.writeAdditionalData(apiCreateKnowledgeBaseInputPublic.additionalData);
@@ -35271,6 +35321,7 @@ export function serializeApiKnowledgeBase(writer: SerializationWriter, apiKnowle
     writer.writeStringValue("name", apiKnowledgeBase.name);
     writer.writeStringValue("project_id", apiKnowledgeBase.projectId);
     writer.writeStringValue("region", apiKnowledgeBase.region);
+    writer.writeObjectValue<ApiRerankingConfiguration>("reranking_config", apiKnowledgeBase.rerankingConfig, serializeApiRerankingConfiguration);
     writer.writeCollectionOfPrimitiveValues<string>("tags", apiKnowledgeBase.tags);
     writer.writeDateValue("updated_at", apiKnowledgeBase.updatedAt);
     writer.writeStringValue("user_id", apiKnowledgeBase.userId);
@@ -35962,6 +36013,19 @@ export function serializeApiRegenerateModelAPIKeyOutput(writer: SerializationWri
 }
 /**
  * Serializes information the current object
+ * @param ApiRerankingConfiguration The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiRerankingConfiguration(writer: SerializationWriter, apiRerankingConfiguration: Partial<ApiRerankingConfiguration> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiRerankingConfiguration || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", apiRerankingConfiguration.enabled);
+    writer.writeStringValue("model", apiRerankingConfiguration.model);
+    writer.writeAdditionalData(apiRerankingConfiguration.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiResourceUsage The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -36394,6 +36458,7 @@ export function serializeApiUpdateKnowledgeBaseInputPublic(writer: Serialization
     writer.writeStringValue("embedding_model_uuid", apiUpdateKnowledgeBaseInputPublic.embeddingModelUuid);
     writer.writeStringValue("name", apiUpdateKnowledgeBaseInputPublic.name);
     writer.writeStringValue("project_id", apiUpdateKnowledgeBaseInputPublic.projectId);
+    writer.writeObjectValue<ApiRerankingConfiguration>("reranking_config", apiUpdateKnowledgeBaseInputPublic.rerankingConfig, serializeApiRerankingConfiguration);
     writer.writeCollectionOfPrimitiveValues<string>("tags", apiUpdateKnowledgeBaseInputPublic.tags);
     writer.writeStringValue("uuid", apiUpdateKnowledgeBaseInputPublic.uuid);
     writer.writeAdditionalData(apiUpdateKnowledgeBaseInputPublic.additionalData);
