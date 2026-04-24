@@ -1877,6 +1877,40 @@ export interface ApiCreateModelAPIKeyOutput extends AdditionalDataHolder, Parsab
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
 }
 /**
+ * Create a model router
+ */
+export interface ApiCreateModelRouterInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Model router description
+     */
+    description?: string | null;
+    /**
+     * Fallback models
+     */
+    fallbackModels?: string[] | null;
+    /**
+     * Model router name
+     */
+    name?: string | null;
+    /**
+     * Router policies
+     */
+    policies?: ApiModelRouterTaskPolicy[] | null;
+    /**
+     * Target regions for the router
+     */
+    regions?: string[] | null;
+}
+/**
+ * Information about a newly created model router
+ */
+export interface ApiCreateModelRouterOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model router
+     */
+    modelRouter?: ApiModelRouter | null;
+}
+/**
  * CreateOpenAIAPIKeyInputPublic is used to create a new OpenAI API key for a specific agent.
  */
 export interface ApiCreateOpenAIAPIKeyInputPublic extends AdditionalDataHolder, Parsable {
@@ -1992,6 +2026,15 @@ export interface ApiDeleteModelAPIKeyOutput extends AdditionalDataHolder, Parsab
      * Model API Key Info
      */
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
+}
+/**
+ * Information about a deleted model router
+ */
+export interface ApiDeleteModelRouterOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The id of the deleted model router
+     */
+    uuid?: string | null;
 }
 /**
  * DeleteOpenAIAPIKeyOutput is used to return the deleted OpenAI API key.
@@ -2567,6 +2610,15 @@ export interface ApiGetKnowledgeBaseOutput extends AdditionalDataHolder, Parsabl
      * Knowledgebase Description
      */
     knowledgeBase?: ApiKnowledgeBase | null;
+}
+/**
+ * The model router
+ */
+export interface ApiGetModelRouterOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model router
+     */
+    modelRouter?: ApiModelRouter | null;
 }
 export interface ApiGetOpenAIAPIKeyOutput extends AdditionalDataHolder, Parsable {
     /**
@@ -3245,6 +3297,57 @@ export interface ApiListModelAPIKeysOutput extends AdditionalDataHolder, Parsabl
     meta?: ApiMeta | null;
 }
 /**
+ * List of model router presets
+ */
+export interface ApiListModelRouterPresetsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Links to other pages
+     */
+    links?: ApiLinks | null;
+    /**
+     * Meta information about the data set
+     */
+    meta?: ApiMeta | null;
+    /**
+     * The model router presets
+     */
+    presets?: ApiModelRouterPreset[] | null;
+}
+/**
+ * List of model routers
+ */
+export interface ApiListModelRoutersOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Links to other pages
+     */
+    links?: ApiLinks | null;
+    /**
+     * Meta information about the data set
+     */
+    meta?: ApiMeta | null;
+    /**
+     * The model routers
+     */
+    modelRouters?: ApiModelRouter[] | null;
+}
+/**
+ * List of model router task presets
+ */
+export interface ApiListModelRouterTaskPresetsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Links to other pages
+     */
+    links?: ApiLinks | null;
+    /**
+     * Meta information about the data set
+     */
+    meta?: ApiMeta | null;
+    /**
+     * The task presets
+     */
+    tasks?: ApiModelRouterTaskPreset[] | null;
+}
+/**
  * A list of models
  */
 export interface ApiListModelsOutputPublic extends AdditionalDataHolder, Parsable {
@@ -3516,6 +3619,151 @@ export interface ApiModelPublic extends AdditionalDataHolder, Parsable {
      * Version Information about a Model
      */
     version?: ApiModelVersion | null;
+}
+/**
+ * Model router
+ */
+export interface ApiModelRouter extends AdditionalDataHolder, Parsable {
+    /**
+     * The config property
+     */
+    config?: ApiModelRouterConfig | null;
+    /**
+     * Creation date / time
+     */
+    createdAt?: Date | null;
+    /**
+     * Description
+     */
+    description?: string | null;
+    /**
+     * Name of the model router
+     */
+    name?: string | null;
+    /**
+     * Target regions for the router
+     */
+    regions?: string[] | null;
+    /**
+     * Last modified
+     */
+    updatedAt?: Date | null;
+    /**
+     * Unique id
+     */
+    uuid?: string | null;
+}
+export interface ApiModelRouterConfig extends AdditionalDataHolder, Parsable {
+    /**
+     * Router-level fallback models
+     */
+    fallbackModels?: string[] | null;
+    /**
+     * Task routing policies
+     */
+    policies?: ApiModelRouterTaskPolicy[] | null;
+}
+/**
+ * Model router preset used to prefill new router configurations.
+ */
+export interface ApiModelRouterPreset extends AdditionalDataHolder, Parsable {
+    /**
+     * The config property
+     */
+    config?: ApiModelRouterConfig | null;
+    /**
+     * Display name for UI surfaces
+     */
+    displayName?: string | null;
+    /**
+     * Long description for details views
+     */
+    longDescription?: string | null;
+    /**
+     * Short description for list views
+     */
+    shortDescription?: string | null;
+    /**
+     * Stable slug for routing usage
+     */
+    slug?: string | null;
+}
+/**
+ * Selection policy preference for choosing among assigned models.
+ */
+export interface ApiModelRouterSelectionPolicy extends AdditionalDataHolder, Parsable {
+    /**
+     * One of: none, cheapest, fastest
+     */
+    prefer?: ApiModelRouterSelectionPolicy_prefer | null;
+}
+export type ApiModelRouterSelectionPolicy_prefer = (typeof ApiModelRouterSelectionPolicy_preferObject)[keyof typeof ApiModelRouterSelectionPolicy_preferObject];
+/**
+ * Task definition embedded in a model router config.
+ */
+export interface ApiModelRouterTaskDetails extends AdditionalDataHolder, Parsable {
+    /**
+     * Short task description
+     */
+    description?: string | null;
+    /**
+     * Task name
+     */
+    name?: string | null;
+}
+/**
+ * Model router policy
+ */
+export interface ApiModelRouterTaskPolicy extends AdditionalDataHolder, Parsable {
+    /**
+     * Task definition embedded in a model router config.
+     */
+    customTask?: ApiModelRouterTaskDetails | null;
+    /**
+     * Models assigned to the task
+     */
+    models?: string[] | null;
+    /**
+     * Selection policy preference for choosing among assigned models.
+     */
+    selectionPolicy?: ApiModelRouterSelectionPolicy | null;
+    /**
+     * Task slug
+     */
+    taskSlug?: string | null;
+}
+/**
+ * Task preset that can be referenced by slug in model router policies.
+ */
+export interface ApiModelRouterTaskPreset extends AdditionalDataHolder, Parsable {
+    /**
+     * Higher-level grouping used by the UI
+     */
+    category?: string | null;
+    /**
+     * Task description
+     */
+    description?: string | null;
+    /**
+     * Default models assigned to this task
+     */
+    models?: string[] | null;
+    /**
+     * Display name
+     */
+    name?: string | null;
+    /**
+     * Selection policy preference for choosing among assigned models.
+     */
+    selectionPolicy?: ApiModelRouterSelectionPolicy | null;
+    /**
+     * Lightweight labels for filtering
+     */
+    tags?: string[] | null;
+    /**
+     * Task slug
+     */
+    taskSlug?: string | null;
 }
 export type ApiModelUsecase = (typeof ApiModelUsecaseObject)[keyof typeof ApiModelUsecaseObject];
 /**
@@ -4307,6 +4555,44 @@ export interface ApiUpdateModelAPIKeyOutput extends AdditionalDataHolder, Parsab
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
 }
 /**
+ * Information about updating a model router
+ */
+export interface ApiUpdateModelRouterInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Model router description
+     */
+    description?: string | null;
+    /**
+     * Fallback models
+     */
+    fallbackModels?: string[] | null;
+    /**
+     * Model router name
+     */
+    name?: string | null;
+    /**
+     * Router policies
+     */
+    policies?: ApiModelRouterTaskPolicy[] | null;
+    /**
+     * Target regions for the router
+     */
+    regions?: string[] | null;
+    /**
+     * Model router id
+     */
+    uuid?: string | null;
+}
+/**
+ * Information about an updated model router
+ */
+export interface ApiUpdateModelRouterOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model router
+     */
+    modelRouter?: ApiModelRouter | null;
+}
+/**
  * UpdateOpenAIAPIKeyInputPublic is used to update an existing OpenAI API key for a specific agent.
  */
 export interface ApiUpdateOpenAIAPIKeyInputPublic extends AdditionalDataHolder, Parsable {
@@ -4621,6 +4907,71 @@ export interface App_alert_spec extends AdditionalDataHolder, Parsable {
 export type App_alert_spec_operator = (typeof App_alert_spec_operatorObject)[keyof typeof App_alert_spec_operatorObject];
 export type App_alert_spec_rule = (typeof App_alert_spec_ruleObject)[keyof typeof App_alert_spec_ruleObject];
 export type App_alert_spec_window = (typeof App_alert_spec_windowObject)[keyof typeof App_alert_spec_windowObject];
+/**
+ * Configuration for automatically scaling this component based on metrics.
+ */
+export interface App_autoscaling_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * The maximum amount of instances for this component. Maximum 250. Consider using a larger instance size if your application requires more than 250 instances.
+     */
+    maxInstanceCount?: number | null;
+    /**
+     * The metrics that the component is scaled on.
+     */
+    metrics?: App_autoscaling_spec_metrics | null;
+    /**
+     * The minimum amount of instances for this component.
+     */
+    minInstanceCount?: number | null;
+}
+/**
+ * The metrics that the component is scaled on.
+ */
+export interface App_autoscaling_spec_metrics extends AdditionalDataHolder, Parsable {
+    /**
+     * Settings for scaling the component based on CPU utilization.
+     */
+    cpu?: App_autoscaling_spec_metrics_cpu | null;
+}
+/**
+ * Settings for scaling the component based on CPU utilization.
+ */
+export interface App_autoscaling_spec_metrics_cpu extends AdditionalDataHolder, Parsable {
+    /**
+     * The average target CPU utilization for the component.
+     */
+    percent?: number | null;
+}
+export interface App_autoscaling_spec_service extends App_autoscaling_spec, Parsable {
+}
+export interface App_autoscaling_spec_service_metrics extends AdditionalDataHolder, Parsable {
+    /**
+     * Settings for scaling the component based on request duration.
+     */
+    requestDuration?: App_autoscaling_spec_service_metrics_request_duration | null;
+    /**
+     * Settings for scaling the component based on requests per second.
+     */
+    requestsPerSecond?: App_autoscaling_spec_service_metrics_requests_per_second | null;
+}
+/**
+ * Settings for scaling the component based on request duration.
+ */
+export interface App_autoscaling_spec_service_metrics_request_duration extends AdditionalDataHolder, Parsable {
+    /**
+     * The p95 target request duration in milliseconds for the component.
+     */
+    p95Milliseconds?: number | null;
+}
+/**
+ * Settings for scaling the component based on requests per second.
+ */
+export interface App_autoscaling_spec_service_metrics_requests_per_second extends AdditionalDataHolder, Parsable {
+    /**
+     * The target number of requests per second per instance for the component.
+     */
+    perInstance?: number | null;
+}
 export interface App_component_base extends AdditionalDataHolder, Parsable {
     /**
      * The bitbucket property
@@ -5174,10 +5525,6 @@ export interface App_job_invocations extends Pagination, Parsable {
 }
 export interface App_job_spec extends AdditionalDataHolder, Parsable {
     /**
-     * Configuration for automatically scaling this component based on metrics.
-     */
-    autoscaling?: App_job_spec_autoscaling | null;
-    /**
      * The bitbucket property
      */
     bitbucket?: Apps_bitbucket_source_spec | null;
@@ -5245,41 +5592,6 @@ export interface App_job_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_job_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_job_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_job_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_job_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_job_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_job_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export type App_job_spec_instance_size_slug = string;
 export type App_job_spec_kind = (typeof App_job_spec_kindObject)[keyof typeof App_job_spec_kindObject];
@@ -5500,9 +5812,9 @@ export interface App_route_spec extends AdditionalDataHolder, Parsable {
 }
 export interface App_service_spec extends AdditionalDataHolder, Parsable {
     /**
-     * Configuration for automatically scaling this component based on metrics.
+     * The autoscaling property
      */
-    autoscaling?: App_service_spec_autoscaling | null;
+    autoscaling?: App_autoscaling_spec_service | null;
     /**
      * The bitbucket property
      */
@@ -5596,41 +5908,6 @@ export interface App_service_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_service_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_service_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_service_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_service_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_service_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_service_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export interface App_service_spec_health_check extends AdditionalDataHolder, Parsable {
     /**
@@ -5795,7 +6072,7 @@ export interface App_worker_spec extends AdditionalDataHolder, Parsable {
     /**
      * Configuration for automatically scaling this component based on metrics.
      */
-    autoscaling?: App_worker_spec_autoscaling | null;
+    autoscaling?: App_autoscaling_spec | null;
     /**
      * The bitbucket property
      */
@@ -5864,41 +6141,6 @@ export interface App_worker_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_worker_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_worker_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_worker_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_worker_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_worker_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_worker_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export type App_worker_spec_instance_size_slug = string;
 export interface App_worker_spec_termination extends AdditionalDataHolder, Parsable {
@@ -9111,6 +9353,24 @@ export function createApiCreateModelAPIKeyOutputFromDiscriminatorValue(parseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateModelRouterInputPublic}
+ */
+// @ts-ignore
+export function createApiCreateModelRouterInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateModelRouterInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateModelRouterOutput}
+ */
+// @ts-ignore
+export function createApiCreateModelRouterOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateModelRouterOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCreateOpenAIAPIKeyInputPublic}
  */
 // @ts-ignore
@@ -9215,6 +9475,15 @@ export function createApiDeleteKnowledgeBaseOutputFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createApiDeleteModelAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiDeleteModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteModelRouterOutput}
+ */
+// @ts-ignore
+export function createApiDeleteModelRouterOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteModelRouterOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -9494,6 +9763,15 @@ export function createApiGetKnowledgeBaseIndexingJobOutputFromDiscriminatorValue
 // @ts-ignore
 export function createApiGetKnowledgeBaseOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiGetKnowledgeBaseOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetModelRouterOutput}
+ */
+// @ts-ignore
+export function createApiGetModelRouterOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetModelRouterOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -9822,6 +10100,33 @@ export function createApiListModelAPIKeysOutputFromDiscriminatorValue(parseNode:
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelRouterPresetsOutput}
+ */
+// @ts-ignore
+export function createApiListModelRouterPresetsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelRouterPresetsOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelRoutersOutput}
+ */
+// @ts-ignore
+export function createApiListModelRoutersOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelRoutersOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelRouterTaskPresetsOutput}
+ */
+// @ts-ignore
+export function createApiListModelRouterTaskPresetsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelRouterTaskPresetsOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListModelsOutputPublic}
  */
 // @ts-ignore
@@ -9908,6 +10213,69 @@ export function createApiModelProviderKeyInfoFromDiscriminatorValue(parseNode: P
 // @ts-ignore
 export function createApiModelPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiModelPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterConfig}
+ */
+// @ts-ignore
+export function createApiModelRouterConfigFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterConfig;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouter}
+ */
+// @ts-ignore
+export function createApiModelRouterFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouter;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterPreset}
+ */
+// @ts-ignore
+export function createApiModelRouterPresetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterPreset;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterSelectionPolicy}
+ */
+// @ts-ignore
+export function createApiModelRouterSelectionPolicyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterSelectionPolicy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterTaskDetails}
+ */
+// @ts-ignore
+export function createApiModelRouterTaskDetailsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterTaskDetails;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterTaskPolicy}
+ */
+// @ts-ignore
+export function createApiModelRouterTaskPolicyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterTaskPolicy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelRouterTaskPreset}
+ */
+// @ts-ignore
+export function createApiModelRouterTaskPresetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelRouterTaskPreset;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -10335,6 +10703,24 @@ export function createApiUpdateModelAPIKeyOutputFromDiscriminatorValue(parseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateModelRouterInputPublic}
+ */
+// @ts-ignore
+export function createApiUpdateModelRouterInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateModelRouterInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateModelRouterOutput}
+ */
+// @ts-ignore
+export function createApiUpdateModelRouterOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateModelRouterOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiUpdateOpenAIAPIKeyInputPublic}
  */
 // @ts-ignore
@@ -10448,6 +10834,69 @@ export function createApp_alert_specFromDiscriminatorValue(parseNode: ParseNode 
 // @ts-ignore
 export function createApp_alertFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApp_alert;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_metrics_cpu}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_metrics_cpu;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_metrics}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_metrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics_request_duration}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metrics_request_durationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics_request_duration;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics_requests_per_second}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metrics_requests_per_secondFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics_requests_per_second;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_serviceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec}
+ */
+// @ts-ignore
+export function createApp_autoscaling_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -10740,33 +11189,6 @@ export function createApp_job_invocationsFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {string}
  */
 // @ts-ignore
@@ -10929,33 +11351,6 @@ export function createApp_route_specFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_service_spec_health_check}
  */
 // @ts-ignore
@@ -11015,33 +11410,6 @@ export function createApp_static_site_specFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createApp_variable_definitionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApp_variable_definition;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -17855,6 +18223,32 @@ export function deserializeIntoApiCreateModelAPIKeyOutput(apiCreateModelAPIKeyOu
 }
 /**
  * The deserialization information for the current model
+ * @param ApiCreateModelRouterInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateModelRouterInputPublic(apiCreateModelRouterInputPublic: Partial<ApiCreateModelRouterInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { apiCreateModelRouterInputPublic.description = n.getStringValue(); },
+        "fallback_models": n => { apiCreateModelRouterInputPublic.fallbackModels = n.getCollectionOfPrimitiveValues<string>(); },
+        "name": n => { apiCreateModelRouterInputPublic.name = n.getStringValue(); },
+        "policies": n => { apiCreateModelRouterInputPublic.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
+        "regions": n => { apiCreateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiCreateModelRouterOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateModelRouterOutput(apiCreateModelRouterOutput: Partial<ApiCreateModelRouterOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "model_router": n => { apiCreateModelRouterOutput.modelRouter = n.getObjectValue<ApiModelRouter>(createApiModelRouterFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCreateOpenAIAPIKeyInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -17989,6 +18383,17 @@ export function deserializeIntoApiDeleteKnowledgeBaseOutput(apiDeleteKnowledgeBa
 export function deserializeIntoApiDeleteModelAPIKeyOutput(apiDeleteModelAPIKeyOutput: Partial<ApiDeleteModelAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiDeleteModelAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiModelAPIKeyInfo>(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDeleteModelRouterOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteModelRouterOutput(apiDeleteModelRouterOutput: Partial<ApiDeleteModelRouterOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "uuid": n => { apiDeleteModelRouterOutput.uuid = n.getStringValue(); },
     }
 }
 /**
@@ -18412,6 +18817,17 @@ export function deserializeIntoApiGetKnowledgeBaseOutput(apiGetKnowledgeBaseOutp
     return {
         "database_status": n => { apiGetKnowledgeBaseOutput.databaseStatus = n.getEnumValue<DbaasClusterStatus>(DbaasClusterStatusObject) ?? DbaasClusterStatusObject.CREATING; },
         "knowledge_base": n => { apiGetKnowledgeBaseOutput.knowledgeBase = n.getObjectValue<ApiKnowledgeBase>(createApiKnowledgeBaseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGetModelRouterOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetModelRouterOutput(apiGetModelRouterOutput: Partial<ApiGetModelRouterOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "model_router": n => { apiGetModelRouterOutput.modelRouter = n.getObjectValue<ApiModelRouter>(createApiModelRouterFromDiscriminatorValue); },
     }
 }
 /**
@@ -18909,6 +19325,45 @@ export function deserializeIntoApiListModelAPIKeysOutput(apiListModelAPIKeysOutp
 }
 /**
  * The deserialization information for the current model
+ * @param ApiListModelRouterPresetsOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelRouterPresetsOutput(apiListModelRouterPresetsOutput: Partial<ApiListModelRouterPresetsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "links": n => { apiListModelRouterPresetsOutput.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListModelRouterPresetsOutput.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
+        "presets": n => { apiListModelRouterPresetsOutput.presets = n.getCollectionOfObjectValues<ApiModelRouterPreset>(createApiModelRouterPresetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiListModelRoutersOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelRoutersOutput(apiListModelRoutersOutput: Partial<ApiListModelRoutersOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "links": n => { apiListModelRoutersOutput.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListModelRoutersOutput.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
+        "model_routers": n => { apiListModelRoutersOutput.modelRouters = n.getCollectionOfObjectValues<ApiModelRouter>(createApiModelRouterFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiListModelRouterTaskPresetsOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelRouterTaskPresetsOutput(apiListModelRouterTaskPresetsOutput: Partial<ApiListModelRouterTaskPresetsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "links": n => { apiListModelRouterTaskPresetsOutput.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListModelRouterTaskPresetsOutput.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
+        "tasks": n => { apiListModelRouterTaskPresetsOutput.tasks = n.getCollectionOfObjectValues<ApiModelRouterTaskPreset>(createApiModelRouterTaskPresetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiListModelsOutputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -19062,6 +19517,104 @@ export function deserializeIntoApiModelPublic(apiModelPublic: Partial<ApiModelPu
         "url": n => { apiModelPublic.url = n.getStringValue(); },
         "uuid": n => { apiModelPublic.uuid = n.getStringValue(); },
         "version": n => { apiModelPublic.version = n.getObjectValue<ApiModelVersion>(createApiModelVersionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouter The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouter(apiModelRouter: Partial<ApiModelRouter> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { apiModelRouter.config = n.getObjectValue<ApiModelRouterConfig>(createApiModelRouterConfigFromDiscriminatorValue); },
+        "created_at": n => { apiModelRouter.createdAt = n.getDateValue(); },
+        "description": n => { apiModelRouter.description = n.getStringValue(); },
+        "name": n => { apiModelRouter.name = n.getStringValue(); },
+        "regions": n => { apiModelRouter.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "updated_at": n => { apiModelRouter.updatedAt = n.getDateValue(); },
+        "uuid": n => { apiModelRouter.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterConfig The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterConfig(apiModelRouterConfig: Partial<ApiModelRouterConfig> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "fallback_models": n => { apiModelRouterConfig.fallbackModels = n.getCollectionOfPrimitiveValues<string>(); },
+        "policies": n => { apiModelRouterConfig.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterPreset The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterPreset(apiModelRouterPreset: Partial<ApiModelRouterPreset> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { apiModelRouterPreset.config = n.getObjectValue<ApiModelRouterConfig>(createApiModelRouterConfigFromDiscriminatorValue); },
+        "display_name": n => { apiModelRouterPreset.displayName = n.getStringValue(); },
+        "long_description": n => { apiModelRouterPreset.longDescription = n.getStringValue(); },
+        "short_description": n => { apiModelRouterPreset.shortDescription = n.getStringValue(); },
+        "slug": n => { apiModelRouterPreset.slug = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterSelectionPolicy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterSelectionPolicy(apiModelRouterSelectionPolicy: Partial<ApiModelRouterSelectionPolicy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "prefer": n => { apiModelRouterSelectionPolicy.prefer = n.getEnumValue<ApiModelRouterSelectionPolicy_prefer>(ApiModelRouterSelectionPolicy_preferObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterTaskDetails The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterTaskDetails(apiModelRouterTaskDetails: Partial<ApiModelRouterTaskDetails> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { apiModelRouterTaskDetails.description = n.getStringValue(); },
+        "name": n => { apiModelRouterTaskDetails.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterTaskPolicy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterTaskPolicy(apiModelRouterTaskPolicy: Partial<ApiModelRouterTaskPolicy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "custom_task": n => { apiModelRouterTaskPolicy.customTask = n.getObjectValue<ApiModelRouterTaskDetails>(createApiModelRouterTaskDetailsFromDiscriminatorValue); },
+        "models": n => { apiModelRouterTaskPolicy.models = n.getCollectionOfPrimitiveValues<string>(); },
+        "selection_policy": n => { apiModelRouterTaskPolicy.selectionPolicy = n.getObjectValue<ApiModelRouterSelectionPolicy>(createApiModelRouterSelectionPolicyFromDiscriminatorValue); },
+        "task_slug": n => { apiModelRouterTaskPolicy.taskSlug = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelRouterTaskPreset The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelRouterTaskPreset(apiModelRouterTaskPreset: Partial<ApiModelRouterTaskPreset> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "category": n => { apiModelRouterTaskPreset.category = n.getStringValue(); },
+        "description": n => { apiModelRouterTaskPreset.description = n.getStringValue(); },
+        "models": n => { apiModelRouterTaskPreset.models = n.getCollectionOfPrimitiveValues<string>(); },
+        "name": n => { apiModelRouterTaskPreset.name = n.getStringValue(); },
+        "selection_policy": n => { apiModelRouterTaskPreset.selectionPolicy = n.getObjectValue<ApiModelRouterSelectionPolicy>(createApiModelRouterSelectionPolicyFromDiscriminatorValue); },
+        "tags": n => { apiModelRouterTaskPreset.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "task_slug": n => { apiModelRouterTaskPreset.taskSlug = n.getStringValue(); },
     }
 }
 /**
@@ -19685,6 +20238,33 @@ export function deserializeIntoApiUpdateModelAPIKeyOutput(apiUpdateModelAPIKeyOu
 }
 /**
  * The deserialization information for the current model
+ * @param ApiUpdateModelRouterInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateModelRouterInputPublic(apiUpdateModelRouterInputPublic: Partial<ApiUpdateModelRouterInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { apiUpdateModelRouterInputPublic.description = n.getStringValue(); },
+        "fallback_models": n => { apiUpdateModelRouterInputPublic.fallbackModels = n.getCollectionOfPrimitiveValues<string>(); },
+        "name": n => { apiUpdateModelRouterInputPublic.name = n.getStringValue(); },
+        "policies": n => { apiUpdateModelRouterInputPublic.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
+        "regions": n => { apiUpdateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "uuid": n => { apiUpdateModelRouterInputPublic.uuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUpdateModelRouterOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateModelRouterOutput(apiUpdateModelRouterOutput: Partial<ApiUpdateModelRouterOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "model_router": n => { apiUpdateModelRouterOutput.modelRouter = n.getObjectValue<ApiModelRouter>(createApiModelRouterFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiUpdateOpenAIAPIKeyInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -19887,6 +20467,86 @@ export function deserializeIntoApp_alert_spec(app_alert_spec: Partial<App_alert_
         "rule": n => { app_alert_spec.rule = n.getEnumValue<App_alert_spec_rule>(App_alert_spec_ruleObject) ?? App_alert_spec_ruleObject.UNSPECIFIED_RULE; },
         "value": n => { app_alert_spec.value = n.getNumberValue(); },
         "window": n => { app_alert_spec.window = n.getEnumValue<App_alert_spec_window>(App_alert_spec_windowObject) ?? App_alert_spec_windowObject.UNSPECIFIED_WINDOW; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec(app_autoscaling_spec: Partial<App_autoscaling_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "max_instance_count": n => { app_autoscaling_spec.maxInstanceCount = n.getNumberValue(); },
+        "metrics": n => { app_autoscaling_spec.metrics = n.getObjectValue<App_autoscaling_spec_metrics>(createApp_autoscaling_spec_metricsFromDiscriminatorValue); },
+        "min_instance_count": n => { app_autoscaling_spec.minInstanceCount = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_metrics The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_metrics(app_autoscaling_spec_metrics: Partial<App_autoscaling_spec_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cpu": n => { app_autoscaling_spec_metrics.cpu = n.getObjectValue<App_autoscaling_spec_metrics_cpu>(createApp_autoscaling_spec_metrics_cpuFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_metrics_cpu The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_metrics_cpu(app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "percent": n => { app_autoscaling_spec_metrics_cpu.percent = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service(app_autoscaling_spec_service: Partial<App_autoscaling_spec_service> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoApp_autoscaling_spec(app_autoscaling_spec_service),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics(app_autoscaling_spec_service_metrics: Partial<App_autoscaling_spec_service_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "request_duration": n => { app_autoscaling_spec_service_metrics.requestDuration = n.getObjectValue<App_autoscaling_spec_service_metrics_request_duration>(createApp_autoscaling_spec_service_metrics_request_durationFromDiscriminatorValue); },
+        "requests_per_second": n => { app_autoscaling_spec_service_metrics.requestsPerSecond = n.getObjectValue<App_autoscaling_spec_service_metrics_requests_per_second>(createApp_autoscaling_spec_service_metrics_requests_per_secondFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics_request_duration The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics_request_duration(app_autoscaling_spec_service_metrics_request_duration: Partial<App_autoscaling_spec_service_metrics_request_duration> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "p95_milliseconds": n => { app_autoscaling_spec_service_metrics_request_duration.p95Milliseconds = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics_requests_per_second The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics_requests_per_second(app_autoscaling_spec_service_metrics_requests_per_second: Partial<App_autoscaling_spec_service_metrics_requests_per_second> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "per_instance": n => { app_autoscaling_spec_service_metrics_requests_per_second.perInstance = n.getNumberValue(); },
     }
 }
 /**
@@ -20329,7 +20989,6 @@ export function deserializeIntoApp_job_invocations(app_job_invocations: Partial<
 // @ts-ignore
 export function deserializeIntoApp_job_spec(app_job_spec: Partial<App_job_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_job_spec.autoscaling = n.getObjectValue<App_job_spec_autoscaling>(createApp_job_spec_autoscalingFromDiscriminatorValue); },
         "bitbucket": n => { app_job_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_job_spec.buildCommand = n.getStringValue(); },
         "dockerfile_path": n => { app_job_spec.dockerfilePath = n.getStringValue(); },
@@ -20347,41 +21006,6 @@ export function deserializeIntoApp_job_spec(app_job_spec: Partial<App_job_spec> 
         "run_command": n => { app_job_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_job_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_job_spec.termination = n.getObjectValue<App_job_spec_termination>(createApp_job_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling(app_job_spec_autoscaling: Partial<App_job_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_job_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_job_spec_autoscaling.metrics = n.getObjectValue<App_job_spec_autoscaling_metrics>(createApp_job_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_job_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling_metrics(app_job_spec_autoscaling_metrics: Partial<App_job_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_job_spec_autoscaling_metrics.cpu = n.getObjectValue<App_job_spec_autoscaling_metrics_cpu>(createApp_job_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling_metrics_cpu(app_job_spec_autoscaling_metrics_cpu: Partial<App_job_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_job_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -20592,7 +21216,7 @@ export function deserializeIntoApp_route_spec(app_route_spec: Partial<App_route_
 // @ts-ignore
 export function deserializeIntoApp_service_spec(app_service_spec: Partial<App_service_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_service_spec.autoscaling = n.getObjectValue<App_service_spec_autoscaling>(createApp_service_spec_autoscalingFromDiscriminatorValue); },
+        "autoscaling": n => { app_service_spec.autoscaling = n.getObjectValue<App_autoscaling_spec_service>(createApp_autoscaling_spec_serviceFromDiscriminatorValue); },
         "bitbucket": n => { app_service_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_service_spec.buildCommand = n.getStringValue(); },
         "cors": n => { app_service_spec.cors = n.getObjectValue<Apps_cors_policy>(createApps_cors_policyFromDiscriminatorValue); },
@@ -20616,41 +21240,6 @@ export function deserializeIntoApp_service_spec(app_service_spec: Partial<App_se
         "run_command": n => { app_service_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_service_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_service_spec.termination = n.getObjectValue<App_service_spec_termination>(createApp_service_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling(app_service_spec_autoscaling: Partial<App_service_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_service_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_service_spec_autoscaling.metrics = n.getObjectValue<App_service_spec_autoscaling_metrics>(createApp_service_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_service_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling_metrics(app_service_spec_autoscaling_metrics: Partial<App_service_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_service_spec_autoscaling_metrics.cpu = n.getObjectValue<App_service_spec_autoscaling_metrics_cpu>(createApp_service_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling_metrics_cpu(app_service_spec_autoscaling_metrics_cpu: Partial<App_service_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_service_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -20747,7 +21336,7 @@ export function deserializeIntoApp_variable_definition(app_variable_definition: 
 // @ts-ignore
 export function deserializeIntoApp_worker_spec(app_worker_spec: Partial<App_worker_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_worker_spec.autoscaling = n.getObjectValue<App_worker_spec_autoscaling>(createApp_worker_spec_autoscalingFromDiscriminatorValue); },
+        "autoscaling": n => { app_worker_spec.autoscaling = n.getObjectValue<App_autoscaling_spec>(createApp_autoscaling_specFromDiscriminatorValue); },
         "bitbucket": n => { app_worker_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_worker_spec.buildCommand = n.getStringValue(); },
         "dockerfile_path": n => { app_worker_spec.dockerfilePath = n.getStringValue(); },
@@ -20765,41 +21354,6 @@ export function deserializeIntoApp_worker_spec(app_worker_spec: Partial<App_work
         "run_command": n => { app_worker_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_worker_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_worker_spec.termination = n.getObjectValue<App_worker_spec_termination>(createApp_worker_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling(app_worker_spec_autoscaling: Partial<App_worker_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_worker_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_worker_spec_autoscaling.metrics = n.getObjectValue<App_worker_spec_autoscaling_metrics>(createApp_worker_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_worker_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling_metrics(app_worker_spec_autoscaling_metrics: Partial<App_worker_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_worker_spec_autoscaling_metrics.cpu = n.getObjectValue<App_worker_spec_autoscaling_metrics_cpu>(createApp_worker_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling_metrics_cpu(app_worker_spec_autoscaling_metrics_cpu: Partial<App_worker_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_worker_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -34566,6 +35120,34 @@ export function serializeApiCreateModelAPIKeyOutput(writer: SerializationWriter,
 }
 /**
  * Serializes information the current object
+ * @param ApiCreateModelRouterInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateModelRouterInputPublic(writer: SerializationWriter, apiCreateModelRouterInputPublic: Partial<ApiCreateModelRouterInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateModelRouterInputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", apiCreateModelRouterInputPublic.description);
+    writer.writeCollectionOfPrimitiveValues<string>("fallback_models", apiCreateModelRouterInputPublic.fallbackModels);
+    writer.writeStringValue("name", apiCreateModelRouterInputPublic.name);
+    writer.writeCollectionOfObjectValues<ApiModelRouterTaskPolicy>("policies", apiCreateModelRouterInputPublic.policies, serializeApiModelRouterTaskPolicy);
+    writer.writeCollectionOfPrimitiveValues<string>("regions", apiCreateModelRouterInputPublic.regions);
+    writer.writeAdditionalData(apiCreateModelRouterInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiCreateModelRouterOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateModelRouterOutput(writer: SerializationWriter, apiCreateModelRouterOutput: Partial<ApiCreateModelRouterOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateModelRouterOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouter>("model_router", apiCreateModelRouterOutput.modelRouter, serializeApiModelRouter);
+    writer.writeAdditionalData(apiCreateModelRouterOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCreateOpenAIAPIKeyInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -34713,6 +35295,18 @@ export function serializeApiDeleteModelAPIKeyOutput(writer: SerializationWriter,
     if (!apiDeleteModelAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiModelAPIKeyInfo>("api_key_info", apiDeleteModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
     writer.writeAdditionalData(apiDeleteModelAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDeleteModelRouterOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteModelRouterOutput(writer: SerializationWriter, apiDeleteModelRouterOutput: Partial<ApiDeleteModelRouterOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteModelRouterOutput || isSerializingDerivedType) { return; }
+    writer.writeStringValue("uuid", apiDeleteModelRouterOutput.uuid);
+    writer.writeAdditionalData(apiDeleteModelRouterOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -35167,6 +35761,18 @@ export function serializeApiGetKnowledgeBaseOutput(writer: SerializationWriter, 
     writer.writeEnumValue<DbaasClusterStatus>("database_status", apiGetKnowledgeBaseOutput.databaseStatus ?? DbaasClusterStatusObject.CREATING);
     writer.writeObjectValue<ApiKnowledgeBase>("knowledge_base", apiGetKnowledgeBaseOutput.knowledgeBase, serializeApiKnowledgeBase);
     writer.writeAdditionalData(apiGetKnowledgeBaseOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGetModelRouterOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetModelRouterOutput(writer: SerializationWriter, apiGetModelRouterOutput: Partial<ApiGetModelRouterOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetModelRouterOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouter>("model_router", apiGetModelRouterOutput.modelRouter, serializeApiModelRouter);
+    writer.writeAdditionalData(apiGetModelRouterOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -35699,6 +36305,48 @@ export function serializeApiListModelAPIKeysOutput(writer: SerializationWriter, 
 }
 /**
  * Serializes information the current object
+ * @param ApiListModelRouterPresetsOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelRouterPresetsOutput(writer: SerializationWriter, apiListModelRouterPresetsOutput: Partial<ApiListModelRouterPresetsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelRouterPresetsOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiLinks>("links", apiListModelRouterPresetsOutput.links, serializeApiLinks);
+    writer.writeObjectValue<ApiMeta>("meta", apiListModelRouterPresetsOutput.meta, serializeApiMeta);
+    writer.writeCollectionOfObjectValues<ApiModelRouterPreset>("presets", apiListModelRouterPresetsOutput.presets, serializeApiModelRouterPreset);
+    writer.writeAdditionalData(apiListModelRouterPresetsOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiListModelRoutersOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelRoutersOutput(writer: SerializationWriter, apiListModelRoutersOutput: Partial<ApiListModelRoutersOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelRoutersOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiLinks>("links", apiListModelRoutersOutput.links, serializeApiLinks);
+    writer.writeObjectValue<ApiMeta>("meta", apiListModelRoutersOutput.meta, serializeApiMeta);
+    writer.writeCollectionOfObjectValues<ApiModelRouter>("model_routers", apiListModelRoutersOutput.modelRouters, serializeApiModelRouter);
+    writer.writeAdditionalData(apiListModelRoutersOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiListModelRouterTaskPresetsOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelRouterTaskPresetsOutput(writer: SerializationWriter, apiListModelRouterTaskPresetsOutput: Partial<ApiListModelRouterTaskPresetsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelRouterTaskPresetsOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiLinks>("links", apiListModelRouterTaskPresetsOutput.links, serializeApiLinks);
+    writer.writeObjectValue<ApiMeta>("meta", apiListModelRouterTaskPresetsOutput.meta, serializeApiMeta);
+    writer.writeCollectionOfObjectValues<ApiModelRouterTaskPreset>("tasks", apiListModelRouterTaskPresetsOutput.tasks, serializeApiModelRouterTaskPreset);
+    writer.writeAdditionalData(apiListModelRouterTaskPresetsOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiListModelsOutputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -35864,6 +36512,111 @@ export function serializeApiModelPublic(writer: SerializationWriter, apiModelPub
     writer.writeStringValue("uuid", apiModelPublic.uuid);
     writer.writeObjectValue<ApiModelVersion>("version", apiModelPublic.version, serializeApiModelVersion);
     writer.writeAdditionalData(apiModelPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouter The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouter(writer: SerializationWriter, apiModelRouter: Partial<ApiModelRouter> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouter || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouterConfig>("config", apiModelRouter.config, serializeApiModelRouterConfig);
+    writer.writeDateValue("created_at", apiModelRouter.createdAt);
+    writer.writeStringValue("description", apiModelRouter.description);
+    writer.writeStringValue("name", apiModelRouter.name);
+    writer.writeCollectionOfPrimitiveValues<string>("regions", apiModelRouter.regions);
+    writer.writeDateValue("updated_at", apiModelRouter.updatedAt);
+    writer.writeStringValue("uuid", apiModelRouter.uuid);
+    writer.writeAdditionalData(apiModelRouter.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterConfig The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterConfig(writer: SerializationWriter, apiModelRouterConfig: Partial<ApiModelRouterConfig> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterConfig || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("fallback_models", apiModelRouterConfig.fallbackModels);
+    writer.writeCollectionOfObjectValues<ApiModelRouterTaskPolicy>("policies", apiModelRouterConfig.policies, serializeApiModelRouterTaskPolicy);
+    writer.writeAdditionalData(apiModelRouterConfig.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterPreset The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterPreset(writer: SerializationWriter, apiModelRouterPreset: Partial<ApiModelRouterPreset> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterPreset || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouterConfig>("config", apiModelRouterPreset.config, serializeApiModelRouterConfig);
+    writer.writeStringValue("display_name", apiModelRouterPreset.displayName);
+    writer.writeStringValue("long_description", apiModelRouterPreset.longDescription);
+    writer.writeStringValue("short_description", apiModelRouterPreset.shortDescription);
+    writer.writeStringValue("slug", apiModelRouterPreset.slug);
+    writer.writeAdditionalData(apiModelRouterPreset.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterSelectionPolicy The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterSelectionPolicy(writer: SerializationWriter, apiModelRouterSelectionPolicy: Partial<ApiModelRouterSelectionPolicy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterSelectionPolicy || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<ApiModelRouterSelectionPolicy_prefer>("prefer", apiModelRouterSelectionPolicy.prefer);
+    writer.writeAdditionalData(apiModelRouterSelectionPolicy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterTaskDetails The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterTaskDetails(writer: SerializationWriter, apiModelRouterTaskDetails: Partial<ApiModelRouterTaskDetails> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterTaskDetails || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", apiModelRouterTaskDetails.description);
+    writer.writeStringValue("name", apiModelRouterTaskDetails.name);
+    writer.writeAdditionalData(apiModelRouterTaskDetails.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterTaskPolicy The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterTaskPolicy(writer: SerializationWriter, apiModelRouterTaskPolicy: Partial<ApiModelRouterTaskPolicy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterTaskPolicy || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouterTaskDetails>("custom_task", apiModelRouterTaskPolicy.customTask, serializeApiModelRouterTaskDetails);
+    writer.writeCollectionOfPrimitiveValues<string>("models", apiModelRouterTaskPolicy.models);
+    writer.writeObjectValue<ApiModelRouterSelectionPolicy>("selection_policy", apiModelRouterTaskPolicy.selectionPolicy, serializeApiModelRouterSelectionPolicy);
+    writer.writeStringValue("task_slug", apiModelRouterTaskPolicy.taskSlug);
+    writer.writeAdditionalData(apiModelRouterTaskPolicy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelRouterTaskPreset The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelRouterTaskPreset(writer: SerializationWriter, apiModelRouterTaskPreset: Partial<ApiModelRouterTaskPreset> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelRouterTaskPreset || isSerializingDerivedType) { return; }
+    writer.writeStringValue("category", apiModelRouterTaskPreset.category);
+    writer.writeStringValue("description", apiModelRouterTaskPreset.description);
+    writer.writeCollectionOfPrimitiveValues<string>("models", apiModelRouterTaskPreset.models);
+    writer.writeStringValue("name", apiModelRouterTaskPreset.name);
+    writer.writeObjectValue<ApiModelRouterSelectionPolicy>("selection_policy", apiModelRouterTaskPreset.selectionPolicy, serializeApiModelRouterSelectionPolicy);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", apiModelRouterTaskPreset.tags);
+    writer.writeStringValue("task_slug", apiModelRouterTaskPreset.taskSlug);
+    writer.writeAdditionalData(apiModelRouterTaskPreset.additionalData);
 }
 /**
  * Serializes information the current object
@@ -36533,6 +37286,35 @@ export function serializeApiUpdateModelAPIKeyOutput(writer: SerializationWriter,
 }
 /**
  * Serializes information the current object
+ * @param ApiUpdateModelRouterInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateModelRouterInputPublic(writer: SerializationWriter, apiUpdateModelRouterInputPublic: Partial<ApiUpdateModelRouterInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateModelRouterInputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", apiUpdateModelRouterInputPublic.description);
+    writer.writeCollectionOfPrimitiveValues<string>("fallback_models", apiUpdateModelRouterInputPublic.fallbackModels);
+    writer.writeStringValue("name", apiUpdateModelRouterInputPublic.name);
+    writer.writeCollectionOfObjectValues<ApiModelRouterTaskPolicy>("policies", apiUpdateModelRouterInputPublic.policies, serializeApiModelRouterTaskPolicy);
+    writer.writeCollectionOfPrimitiveValues<string>("regions", apiUpdateModelRouterInputPublic.regions);
+    writer.writeStringValue("uuid", apiUpdateModelRouterInputPublic.uuid);
+    writer.writeAdditionalData(apiUpdateModelRouterInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUpdateModelRouterOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateModelRouterOutput(writer: SerializationWriter, apiUpdateModelRouterOutput: Partial<ApiUpdateModelRouterOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateModelRouterOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelRouter>("model_router", apiUpdateModelRouterOutput.modelRouter, serializeApiModelRouter);
+    writer.writeAdditionalData(apiUpdateModelRouterOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiUpdateOpenAIAPIKeyInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -36735,6 +37517,92 @@ export function serializeApp_alert_spec(writer: SerializationWriter, app_alert_s
     writer.writeNumberValue("value", app_alert_spec.value);
     writer.writeEnumValue<App_alert_spec_window>("window", app_alert_spec.window ?? App_alert_spec_windowObject.UNSPECIFIED_WINDOW);
     writer.writeAdditionalData(app_alert_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec(writer: SerializationWriter, app_autoscaling_spec: Partial<App_autoscaling_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("max_instance_count", app_autoscaling_spec.maxInstanceCount);
+    writer.writeObjectValue<App_autoscaling_spec_metrics>("metrics", app_autoscaling_spec.metrics, serializeApp_autoscaling_spec_metrics);
+    writer.writeNumberValue("min_instance_count", app_autoscaling_spec.minInstanceCount);
+    writer.writeAdditionalData(app_autoscaling_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_metrics The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_metrics(writer: SerializationWriter, app_autoscaling_spec_metrics: Partial<App_autoscaling_spec_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_metrics || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_autoscaling_spec_metrics_cpu>("cpu", app_autoscaling_spec_metrics.cpu, serializeApp_autoscaling_spec_metrics_cpu);
+    writer.writeAdditionalData(app_autoscaling_spec_metrics.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_metrics_cpu The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_metrics_cpu(writer: SerializationWriter, app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_metrics_cpu || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("percent", app_autoscaling_spec_metrics_cpu.percent);
+    writer.writeAdditionalData(app_autoscaling_spec_metrics_cpu.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service(writer: SerializationWriter, app_autoscaling_spec_service: Partial<App_autoscaling_spec_service> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service || isSerializingDerivedType) { return; }
+    serializeApp_autoscaling_spec(writer, app_autoscaling_spec_service, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics(writer: SerializationWriter, app_autoscaling_spec_service_metrics: Partial<App_autoscaling_spec_service_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_autoscaling_spec_service_metrics_request_duration>("request_duration", app_autoscaling_spec_service_metrics.requestDuration, serializeApp_autoscaling_spec_service_metrics_request_duration);
+    writer.writeObjectValue<App_autoscaling_spec_service_metrics_requests_per_second>("requests_per_second", app_autoscaling_spec_service_metrics.requestsPerSecond, serializeApp_autoscaling_spec_service_metrics_requests_per_second);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics_request_duration The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics_request_duration(writer: SerializationWriter, app_autoscaling_spec_service_metrics_request_duration: Partial<App_autoscaling_spec_service_metrics_request_duration> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics_request_duration || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("p95_milliseconds", app_autoscaling_spec_service_metrics_request_duration.p95Milliseconds);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics_request_duration.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics_requests_per_second The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics_requests_per_second(writer: SerializationWriter, app_autoscaling_spec_service_metrics_requests_per_second: Partial<App_autoscaling_spec_service_metrics_requests_per_second> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics_requests_per_second || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("per_instance", app_autoscaling_spec_service_metrics_requests_per_second.perInstance);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics_requests_per_second.additionalData);
 }
 /**
  * Serializes information the current object
@@ -37205,7 +38073,6 @@ export function serializeApp_job_invocations(writer: SerializationWriter, app_jo
 // @ts-ignore
 export function serializeApp_job_spec(writer: SerializationWriter, app_job_spec: Partial<App_job_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_job_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_job_spec_autoscaling>("autoscaling", app_job_spec.autoscaling, serializeApp_job_spec_autoscaling);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_job_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_job_spec.buildCommand);
     writer.writeStringValue("dockerfile_path", app_job_spec.dockerfilePath);
@@ -37226,44 +38093,6 @@ export function serializeApp_job_spec(writer: SerializationWriter, app_job_spec:
     writer.writeStringValue("source_dir", app_job_spec.sourceDir);
     writer.writeObjectValue<App_job_spec_termination>("termination", app_job_spec.termination, serializeApp_job_spec_termination);
     writer.writeAdditionalData(app_job_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling(writer: SerializationWriter, app_job_spec_autoscaling: Partial<App_job_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_job_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_job_spec_autoscaling_metrics>("metrics", app_job_spec_autoscaling.metrics, serializeApp_job_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_job_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_job_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling_metrics(writer: SerializationWriter, app_job_spec_autoscaling_metrics: Partial<App_job_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_job_spec_autoscaling_metrics_cpu>("cpu", app_job_spec_autoscaling_metrics.cpu, serializeApp_job_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_job_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_job_spec_autoscaling_metrics_cpu: Partial<App_job_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_job_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_job_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -37504,7 +38333,7 @@ export function serializeApp_route_spec(writer: SerializationWriter, app_route_s
 // @ts-ignore
 export function serializeApp_service_spec(writer: SerializationWriter, app_service_spec: Partial<App_service_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_service_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_service_spec_autoscaling>("autoscaling", app_service_spec.autoscaling, serializeApp_service_spec_autoscaling);
+    writer.writeObjectValue<App_autoscaling_spec_service>("autoscaling", app_service_spec.autoscaling, serializeApp_autoscaling_spec_service);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_service_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_service_spec.buildCommand);
     writer.writeObjectValue<Apps_cors_policy>("cors", app_service_spec.cors, serializeApps_cors_policy);
@@ -37531,44 +38360,6 @@ export function serializeApp_service_spec(writer: SerializationWriter, app_servi
     writer.writeStringValue("source_dir", app_service_spec.sourceDir);
     writer.writeObjectValue<App_service_spec_termination>("termination", app_service_spec.termination, serializeApp_service_spec_termination);
     writer.writeAdditionalData(app_service_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling(writer: SerializationWriter, app_service_spec_autoscaling: Partial<App_service_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_service_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_service_spec_autoscaling_metrics>("metrics", app_service_spec_autoscaling.metrics, serializeApp_service_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_service_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_service_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling_metrics(writer: SerializationWriter, app_service_spec_autoscaling_metrics: Partial<App_service_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_service_spec_autoscaling_metrics_cpu>("cpu", app_service_spec_autoscaling_metrics.cpu, serializeApp_service_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_service_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_service_spec_autoscaling_metrics_cpu: Partial<App_service_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_service_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_service_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -37682,7 +38473,7 @@ export function serializeApp_variable_definition(writer: SerializationWriter, ap
 // @ts-ignore
 export function serializeApp_worker_spec(writer: SerializationWriter, app_worker_spec: Partial<App_worker_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_worker_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_worker_spec_autoscaling>("autoscaling", app_worker_spec.autoscaling, serializeApp_worker_spec_autoscaling);
+    writer.writeObjectValue<App_autoscaling_spec>("autoscaling", app_worker_spec.autoscaling, serializeApp_autoscaling_spec);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_worker_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_worker_spec.buildCommand);
     writer.writeStringValue("dockerfile_path", app_worker_spec.dockerfilePath);
@@ -37703,44 +38494,6 @@ export function serializeApp_worker_spec(writer: SerializationWriter, app_worker
     writer.writeStringValue("source_dir", app_worker_spec.sourceDir);
     writer.writeObjectValue<App_worker_spec_termination>("termination", app_worker_spec.termination, serializeApp_worker_spec_termination);
     writer.writeAdditionalData(app_worker_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling(writer: SerializationWriter, app_worker_spec_autoscaling: Partial<App_worker_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_worker_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_worker_spec_autoscaling_metrics>("metrics", app_worker_spec_autoscaling.metrics, serializeApp_worker_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_worker_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_worker_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling_metrics(writer: SerializationWriter, app_worker_spec_autoscaling_metrics: Partial<App_worker_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_worker_spec_autoscaling_metrics_cpu>("cpu", app_worker_spec_autoscaling_metrics.cpu, serializeApp_worker_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_worker_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_worker_spec_autoscaling_metrics_cpu: Partial<App_worker_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_worker_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_worker_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -47018,6 +47771,14 @@ export const ApiModelProviderObject = {
     MODEL_PROVIDER_OPENAI: "MODEL_PROVIDER_OPENAI",
 } as const;
 /**
+ * One of: none, cheapest, fastest
+ */
+export const ApiModelRouterSelectionPolicy_preferObject = {
+    None: "none",
+    Cheapest: "cheapest",
+    Fastest: "fastest",
+} as const;
+/**
  * - MODEL_USECASE_UNKNOWN: The use case of the model is unknown - MODEL_USECASE_AGENT: The model maybe used in an agent - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models) - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails - MODEL_USECASE_REASONING: The model usecase for reasoning - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference
  */
 export const ApiModelUsecaseObject = {
@@ -47084,6 +47845,8 @@ export const App_alert_spec_ruleObject = {
     FUNCTIONS_AVERAGE_WAIT_TIME_MS: "FUNCTIONS_AVERAGE_WAIT_TIME_MS",
     FUNCTIONS_ERROR_COUNT: "FUNCTIONS_ERROR_COUNT",
     FUNCTIONS_GB_RATE_PER_SECOND: "FUNCTIONS_GB_RATE_PER_SECOND",
+    REQUESTS_PER_SECOND: "REQUESTS_PER_SECOND",
+    REQUEST_DURATION_P95_MS: "REQUEST_DURATION_P95_MS",
 } as const;
 export const App_alert_spec_windowObject = {
     UNSPECIFIED_WINDOW: "UNSPECIFIED_WINDOW",

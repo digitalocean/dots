@@ -6,6 +6,8 @@ import { createApiListModelsOutputPublicFromDiscriminatorValue, createErrorEscap
 // @ts-ignore
 import { Api_keysRequestBuilderNavigationMetadata, Api_keysRequestBuilderRequestsMetadata, type Api_keysRequestBuilder } from './api_keys/index.js';
 // @ts-ignore
+import { RoutersRequestBuilderNavigationMetadata, RoutersRequestBuilderRequestsMetadata, type RoutersRequestBuilder } from './routers/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 export type GetUsecasesQueryParameterType = (typeof GetUsecasesQueryParameterTypeObject)[keyof typeof GetUsecasesQueryParameterTypeObject];
@@ -17,6 +19,10 @@ export interface ModelsRequestBuilder extends BaseRequestBuilder<ModelsRequestBu
      * The api_keys property
      */
     get api_keys(): Api_keysRequestBuilder;
+    /**
+     * The routers property
+     */
+    get routers(): RoutersRequestBuilder;
     /**
      * To list all models, send a GET request to `/v2/gen-ai/models`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -83,6 +89,10 @@ export const ModelsRequestBuilderNavigationMetadata: Record<Exclude<keyof Models
     api_keys: {
         requestsMetadata: Api_keysRequestBuilderRequestsMetadata,
         navigationMetadata: Api_keysRequestBuilderNavigationMetadata,
+    },
+    routers: {
+        requestsMetadata: RoutersRequestBuilderRequestsMetadata,
+        navigationMetadata: RoutersRequestBuilderNavigationMetadata,
     },
 };
 /**
