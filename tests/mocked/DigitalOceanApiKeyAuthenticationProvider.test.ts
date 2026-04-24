@@ -1,8 +1,7 @@
 
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { RequestInformation } from "@microsoft/kiota-abstractions";
-// @ts-expect-error: Importing JSON for dynamic version in test
-import pkg from '../../package.json' assert { type: "json" };
+import pkg from '../../package.json' with { type: "json" };
 
 describe("DigitalOceanApiKeyAuthenticationProvider", () => {
     it("should add the User-Agent header to every request", async () => {

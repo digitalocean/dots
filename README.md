@@ -3,7 +3,7 @@
 
 ## Getting Started
 #### Prerequisites 
-- [NodeJS 18 or above](https://nodejs.org/en/)
+- [NodeJS 20.10 or above](https://nodejs.org/en/)
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources.
 - `"type": "module"` in your package.json (for ES module support)

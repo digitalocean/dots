@@ -20,6 +20,9 @@
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.10.0"
+  },
   "keywords": [
     "digitalocean",
     "typescript",
