@@ -12,7 +12,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 
 ### Prerequisites
 
-* NodeJs version: >= 18 
+* NodeJs version: >= 20.10 
 * [npm](https://www.npmjs.com/): To manage TypeScript/JavaScript dependencies
 * [Kiota](https://github.com/microsoft/kiota): The tool that generates the client libraries for accessing RESTful web services.
 
@@ -68,7 +68,7 @@ DoTs is a generated client. This section will walk you through generating the cl
 We use `jest` to define and run the tests.
 
 **_Requirements_**
-- [NodeJS 18 or above](https://nodejs.org/en/)
+- [NodeJS 20.10 or above](https://nodejs.org/en/)
 - [TypeScript 5 or above](https://www.typescriptlang.org/)
 - [Jest 30 or above](https://www.npmjs.com/package/jest) 
 - A DigitalOcean account with an active subscription. Along with a DigitalOcean token with proper permissions to manage DigitalOcean resources (for integration testing).
