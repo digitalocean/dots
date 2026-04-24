@@ -4621,6 +4621,71 @@ export interface App_alert_spec extends AdditionalDataHolder, Parsable {
 export type App_alert_spec_operator = (typeof App_alert_spec_operatorObject)[keyof typeof App_alert_spec_operatorObject];
 export type App_alert_spec_rule = (typeof App_alert_spec_ruleObject)[keyof typeof App_alert_spec_ruleObject];
 export type App_alert_spec_window = (typeof App_alert_spec_windowObject)[keyof typeof App_alert_spec_windowObject];
+/**
+ * Configuration for automatically scaling this component based on metrics.
+ */
+export interface App_autoscaling_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * The maximum amount of instances for this component. Maximum 250. Consider using a larger instance size if your application requires more than 250 instances.
+     */
+    maxInstanceCount?: number | null;
+    /**
+     * The metrics that the component is scaled on.
+     */
+    metrics?: App_autoscaling_spec_metrics | null;
+    /**
+     * The minimum amount of instances for this component.
+     */
+    minInstanceCount?: number | null;
+}
+/**
+ * The metrics that the component is scaled on.
+ */
+export interface App_autoscaling_spec_metrics extends AdditionalDataHolder, Parsable {
+    /**
+     * Settings for scaling the component based on CPU utilization.
+     */
+    cpu?: App_autoscaling_spec_metrics_cpu | null;
+}
+/**
+ * Settings for scaling the component based on CPU utilization.
+ */
+export interface App_autoscaling_spec_metrics_cpu extends AdditionalDataHolder, Parsable {
+    /**
+     * The average target CPU utilization for the component.
+     */
+    percent?: number | null;
+}
+export interface App_autoscaling_spec_service extends App_autoscaling_spec, Parsable {
+}
+export interface App_autoscaling_spec_service_metrics extends AdditionalDataHolder, Parsable {
+    /**
+     * Settings for scaling the component based on request duration.
+     */
+    requestDuration?: App_autoscaling_spec_service_metrics_request_duration | null;
+    /**
+     * Settings for scaling the component based on requests per second.
+     */
+    requestsPerSecond?: App_autoscaling_spec_service_metrics_requests_per_second | null;
+}
+/**
+ * Settings for scaling the component based on request duration.
+ */
+export interface App_autoscaling_spec_service_metrics_request_duration extends AdditionalDataHolder, Parsable {
+    /**
+     * The p95 target request duration in milliseconds for the component.
+     */
+    p95Milliseconds?: number | null;
+}
+/**
+ * Settings for scaling the component based on requests per second.
+ */
+export interface App_autoscaling_spec_service_metrics_requests_per_second extends AdditionalDataHolder, Parsable {
+    /**
+     * The target number of requests per second per instance for the component.
+     */
+    perInstance?: number | null;
+}
 export interface App_component_base extends AdditionalDataHolder, Parsable {
     /**
      * The bitbucket property
@@ -5174,10 +5239,6 @@ export interface App_job_invocations extends Pagination, Parsable {
 }
 export interface App_job_spec extends AdditionalDataHolder, Parsable {
     /**
-     * Configuration for automatically scaling this component based on metrics.
-     */
-    autoscaling?: App_job_spec_autoscaling | null;
-    /**
      * The bitbucket property
      */
     bitbucket?: Apps_bitbucket_source_spec | null;
@@ -5245,41 +5306,6 @@ export interface App_job_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_job_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_job_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_job_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_job_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_job_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_job_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export type App_job_spec_instance_size_slug = string;
 export type App_job_spec_kind = (typeof App_job_spec_kindObject)[keyof typeof App_job_spec_kindObject];
@@ -5500,9 +5526,9 @@ export interface App_route_spec extends AdditionalDataHolder, Parsable {
 }
 export interface App_service_spec extends AdditionalDataHolder, Parsable {
     /**
-     * Configuration for automatically scaling this component based on metrics.
+     * The autoscaling property
      */
-    autoscaling?: App_service_spec_autoscaling | null;
+    autoscaling?: App_autoscaling_spec_service | null;
     /**
      * The bitbucket property
      */
@@ -5596,41 +5622,6 @@ export interface App_service_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_service_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_service_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_service_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_service_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_service_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_service_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export interface App_service_spec_health_check extends AdditionalDataHolder, Parsable {
     /**
@@ -5795,7 +5786,7 @@ export interface App_worker_spec extends AdditionalDataHolder, Parsable {
     /**
      * Configuration for automatically scaling this component based on metrics.
      */
-    autoscaling?: App_worker_spec_autoscaling | null;
+    autoscaling?: App_autoscaling_spec | null;
     /**
      * The bitbucket property
      */
@@ -5864,41 +5855,6 @@ export interface App_worker_spec extends AdditionalDataHolder, Parsable {
      * The termination property
      */
     termination?: App_worker_spec_termination | null;
-}
-/**
- * Configuration for automatically scaling this component based on metrics.
- */
-export interface App_worker_spec_autoscaling extends AdditionalDataHolder, Parsable {
-    /**
-     * The maximum amount of instances for this component. Must be more than min_instance_count.
-     */
-    maxInstanceCount?: number | null;
-    /**
-     * The metrics that the component is scaled on.
-     */
-    metrics?: App_worker_spec_autoscaling_metrics | null;
-    /**
-     * The minimum amount of instances for this component. Must be less than max_instance_count.
-     */
-    minInstanceCount?: number | null;
-}
-/**
- * The metrics that the component is scaled on.
- */
-export interface App_worker_spec_autoscaling_metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * Settings for scaling the component based on CPU utilization.
-     */
-    cpu?: App_worker_spec_autoscaling_metrics_cpu | null;
-}
-/**
- * Settings for scaling the component based on CPU utilization.
- */
-export interface App_worker_spec_autoscaling_metrics_cpu extends AdditionalDataHolder, Parsable {
-    /**
-     * The average target CPU utilization for the component.
-     */
-    percent?: number | null;
 }
 export type App_worker_spec_instance_size_slug = string;
 export interface App_worker_spec_termination extends AdditionalDataHolder, Parsable {
@@ -10452,6 +10408,69 @@ export function createApp_alertFromDiscriminatorValue(parseNode: ParseNode | und
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_metrics_cpu}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_metrics_cpu;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_metrics}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_metrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics_request_duration}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metrics_request_durationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics_request_duration;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics_requests_per_second}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metrics_requests_per_secondFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics_requests_per_second;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service_metrics}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_service_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service_metrics;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec_service}
+ */
+// @ts-ignore
+export function createApp_autoscaling_spec_serviceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec_service;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {App_autoscaling_spec}
+ */
+// @ts-ignore
+export function createApp_autoscaling_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApp_autoscaling_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_component_base}
  */
 // @ts-ignore
@@ -10740,33 +10759,6 @@ export function createApp_job_invocationsFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_job_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_job_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_job_spec_autoscaling;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {string}
  */
 // @ts-ignore
@@ -10929,33 +10921,6 @@ export function createApp_route_specFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_service_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_service_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_service_spec_autoscaling;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {App_service_spec_health_check}
  */
 // @ts-ignore
@@ -11015,33 +10980,6 @@ export function createApp_static_site_specFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createApp_variable_definitionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApp_variable_definition;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling_metrics_cpu}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscaling_metrics_cpuFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling_metrics_cpu;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling_metrics}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscaling_metricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling_metrics;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {App_worker_spec_autoscaling}
- */
-// @ts-ignore
-export function createApp_worker_spec_autoscalingFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApp_worker_spec_autoscaling;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19891,6 +19829,86 @@ export function deserializeIntoApp_alert_spec(app_alert_spec: Partial<App_alert_
 }
 /**
  * The deserialization information for the current model
+ * @param App_autoscaling_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec(app_autoscaling_spec: Partial<App_autoscaling_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "max_instance_count": n => { app_autoscaling_spec.maxInstanceCount = n.getNumberValue(); },
+        "metrics": n => { app_autoscaling_spec.metrics = n.getObjectValue<App_autoscaling_spec_metrics>(createApp_autoscaling_spec_metricsFromDiscriminatorValue); },
+        "min_instance_count": n => { app_autoscaling_spec.minInstanceCount = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_metrics The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_metrics(app_autoscaling_spec_metrics: Partial<App_autoscaling_spec_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cpu": n => { app_autoscaling_spec_metrics.cpu = n.getObjectValue<App_autoscaling_spec_metrics_cpu>(createApp_autoscaling_spec_metrics_cpuFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_metrics_cpu The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_metrics_cpu(app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "percent": n => { app_autoscaling_spec_metrics_cpu.percent = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service(app_autoscaling_spec_service: Partial<App_autoscaling_spec_service> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoApp_autoscaling_spec(app_autoscaling_spec_service),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics(app_autoscaling_spec_service_metrics: Partial<App_autoscaling_spec_service_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "request_duration": n => { app_autoscaling_spec_service_metrics.requestDuration = n.getObjectValue<App_autoscaling_spec_service_metrics_request_duration>(createApp_autoscaling_spec_service_metrics_request_durationFromDiscriminatorValue); },
+        "requests_per_second": n => { app_autoscaling_spec_service_metrics.requestsPerSecond = n.getObjectValue<App_autoscaling_spec_service_metrics_requests_per_second>(createApp_autoscaling_spec_service_metrics_requests_per_secondFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics_request_duration The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics_request_duration(app_autoscaling_spec_service_metrics_request_duration: Partial<App_autoscaling_spec_service_metrics_request_duration> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "p95_milliseconds": n => { app_autoscaling_spec_service_metrics_request_duration.p95Milliseconds = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param App_autoscaling_spec_service_metrics_requests_per_second The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApp_autoscaling_spec_service_metrics_requests_per_second(app_autoscaling_spec_service_metrics_requests_per_second: Partial<App_autoscaling_spec_service_metrics_requests_per_second> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "per_instance": n => { app_autoscaling_spec_service_metrics_requests_per_second.perInstance = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param App_component_base The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -20329,7 +20347,6 @@ export function deserializeIntoApp_job_invocations(app_job_invocations: Partial<
 // @ts-ignore
 export function deserializeIntoApp_job_spec(app_job_spec: Partial<App_job_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_job_spec.autoscaling = n.getObjectValue<App_job_spec_autoscaling>(createApp_job_spec_autoscalingFromDiscriminatorValue); },
         "bitbucket": n => { app_job_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_job_spec.buildCommand = n.getStringValue(); },
         "dockerfile_path": n => { app_job_spec.dockerfilePath = n.getStringValue(); },
@@ -20347,41 +20364,6 @@ export function deserializeIntoApp_job_spec(app_job_spec: Partial<App_job_spec> 
         "run_command": n => { app_job_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_job_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_job_spec.termination = n.getObjectValue<App_job_spec_termination>(createApp_job_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling(app_job_spec_autoscaling: Partial<App_job_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_job_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_job_spec_autoscaling.metrics = n.getObjectValue<App_job_spec_autoscaling_metrics>(createApp_job_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_job_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling_metrics(app_job_spec_autoscaling_metrics: Partial<App_job_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_job_spec_autoscaling_metrics.cpu = n.getObjectValue<App_job_spec_autoscaling_metrics_cpu>(createApp_job_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_job_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_job_spec_autoscaling_metrics_cpu(app_job_spec_autoscaling_metrics_cpu: Partial<App_job_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_job_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -20592,7 +20574,7 @@ export function deserializeIntoApp_route_spec(app_route_spec: Partial<App_route_
 // @ts-ignore
 export function deserializeIntoApp_service_spec(app_service_spec: Partial<App_service_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_service_spec.autoscaling = n.getObjectValue<App_service_spec_autoscaling>(createApp_service_spec_autoscalingFromDiscriminatorValue); },
+        "autoscaling": n => { app_service_spec.autoscaling = n.getObjectValue<App_autoscaling_spec_service>(createApp_autoscaling_spec_serviceFromDiscriminatorValue); },
         "bitbucket": n => { app_service_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_service_spec.buildCommand = n.getStringValue(); },
         "cors": n => { app_service_spec.cors = n.getObjectValue<Apps_cors_policy>(createApps_cors_policyFromDiscriminatorValue); },
@@ -20616,41 +20598,6 @@ export function deserializeIntoApp_service_spec(app_service_spec: Partial<App_se
         "run_command": n => { app_service_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_service_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_service_spec.termination = n.getObjectValue<App_service_spec_termination>(createApp_service_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling(app_service_spec_autoscaling: Partial<App_service_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_service_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_service_spec_autoscaling.metrics = n.getObjectValue<App_service_spec_autoscaling_metrics>(createApp_service_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_service_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling_metrics(app_service_spec_autoscaling_metrics: Partial<App_service_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_service_spec_autoscaling_metrics.cpu = n.getObjectValue<App_service_spec_autoscaling_metrics_cpu>(createApp_service_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_service_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_service_spec_autoscaling_metrics_cpu(app_service_spec_autoscaling_metrics_cpu: Partial<App_service_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_service_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -20747,7 +20694,7 @@ export function deserializeIntoApp_variable_definition(app_variable_definition: 
 // @ts-ignore
 export function deserializeIntoApp_worker_spec(app_worker_spec: Partial<App_worker_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "autoscaling": n => { app_worker_spec.autoscaling = n.getObjectValue<App_worker_spec_autoscaling>(createApp_worker_spec_autoscalingFromDiscriminatorValue); },
+        "autoscaling": n => { app_worker_spec.autoscaling = n.getObjectValue<App_autoscaling_spec>(createApp_autoscaling_specFromDiscriminatorValue); },
         "bitbucket": n => { app_worker_spec.bitbucket = n.getObjectValue<Apps_bitbucket_source_spec>(createApps_bitbucket_source_specFromDiscriminatorValue); },
         "build_command": n => { app_worker_spec.buildCommand = n.getStringValue(); },
         "dockerfile_path": n => { app_worker_spec.dockerfilePath = n.getStringValue(); },
@@ -20765,41 +20712,6 @@ export function deserializeIntoApp_worker_spec(app_worker_spec: Partial<App_work
         "run_command": n => { app_worker_spec.runCommand = n.getStringValue(); },
         "source_dir": n => { app_worker_spec.sourceDir = n.getStringValue(); },
         "termination": n => { app_worker_spec.termination = n.getObjectValue<App_worker_spec_termination>(createApp_worker_spec_terminationFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling(app_worker_spec_autoscaling: Partial<App_worker_spec_autoscaling> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "max_instance_count": n => { app_worker_spec_autoscaling.maxInstanceCount = n.getNumberValue(); },
-        "metrics": n => { app_worker_spec_autoscaling.metrics = n.getObjectValue<App_worker_spec_autoscaling_metrics>(createApp_worker_spec_autoscaling_metricsFromDiscriminatorValue); },
-        "min_instance_count": n => { app_worker_spec_autoscaling.minInstanceCount = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling_metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling_metrics(app_worker_spec_autoscaling_metrics: Partial<App_worker_spec_autoscaling_metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "cpu": n => { app_worker_spec_autoscaling_metrics.cpu = n.getObjectValue<App_worker_spec_autoscaling_metrics_cpu>(createApp_worker_spec_autoscaling_metrics_cpuFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param App_worker_spec_autoscaling_metrics_cpu The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApp_worker_spec_autoscaling_metrics_cpu(app_worker_spec_autoscaling_metrics_cpu: Partial<App_worker_spec_autoscaling_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "percent": n => { app_worker_spec_autoscaling_metrics_cpu.percent = n.getNumberValue(); },
     }
 }
 /**
@@ -36738,6 +36650,92 @@ export function serializeApp_alert_spec(writer: SerializationWriter, app_alert_s
 }
 /**
  * Serializes information the current object
+ * @param App_autoscaling_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec(writer: SerializationWriter, app_autoscaling_spec: Partial<App_autoscaling_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("max_instance_count", app_autoscaling_spec.maxInstanceCount);
+    writer.writeObjectValue<App_autoscaling_spec_metrics>("metrics", app_autoscaling_spec.metrics, serializeApp_autoscaling_spec_metrics);
+    writer.writeNumberValue("min_instance_count", app_autoscaling_spec.minInstanceCount);
+    writer.writeAdditionalData(app_autoscaling_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_metrics The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_metrics(writer: SerializationWriter, app_autoscaling_spec_metrics: Partial<App_autoscaling_spec_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_metrics || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_autoscaling_spec_metrics_cpu>("cpu", app_autoscaling_spec_metrics.cpu, serializeApp_autoscaling_spec_metrics_cpu);
+    writer.writeAdditionalData(app_autoscaling_spec_metrics.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_metrics_cpu The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_metrics_cpu(writer: SerializationWriter, app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_metrics_cpu || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("percent", app_autoscaling_spec_metrics_cpu.percent);
+    writer.writeAdditionalData(app_autoscaling_spec_metrics_cpu.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service(writer: SerializationWriter, app_autoscaling_spec_service: Partial<App_autoscaling_spec_service> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service || isSerializingDerivedType) { return; }
+    serializeApp_autoscaling_spec(writer, app_autoscaling_spec_service, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics(writer: SerializationWriter, app_autoscaling_spec_service_metrics: Partial<App_autoscaling_spec_service_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<App_autoscaling_spec_service_metrics_request_duration>("request_duration", app_autoscaling_spec_service_metrics.requestDuration, serializeApp_autoscaling_spec_service_metrics_request_duration);
+    writer.writeObjectValue<App_autoscaling_spec_service_metrics_requests_per_second>("requests_per_second", app_autoscaling_spec_service_metrics.requestsPerSecond, serializeApp_autoscaling_spec_service_metrics_requests_per_second);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics_request_duration The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics_request_duration(writer: SerializationWriter, app_autoscaling_spec_service_metrics_request_duration: Partial<App_autoscaling_spec_service_metrics_request_duration> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics_request_duration || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("p95_milliseconds", app_autoscaling_spec_service_metrics_request_duration.p95Milliseconds);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics_request_duration.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param App_autoscaling_spec_service_metrics_requests_per_second The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApp_autoscaling_spec_service_metrics_requests_per_second(writer: SerializationWriter, app_autoscaling_spec_service_metrics_requests_per_second: Partial<App_autoscaling_spec_service_metrics_requests_per_second> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!app_autoscaling_spec_service_metrics_requests_per_second || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("per_instance", app_autoscaling_spec_service_metrics_requests_per_second.perInstance);
+    writer.writeAdditionalData(app_autoscaling_spec_service_metrics_requests_per_second.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param App_component_base The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -37205,7 +37203,6 @@ export function serializeApp_job_invocations(writer: SerializationWriter, app_jo
 // @ts-ignore
 export function serializeApp_job_spec(writer: SerializationWriter, app_job_spec: Partial<App_job_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_job_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_job_spec_autoscaling>("autoscaling", app_job_spec.autoscaling, serializeApp_job_spec_autoscaling);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_job_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_job_spec.buildCommand);
     writer.writeStringValue("dockerfile_path", app_job_spec.dockerfilePath);
@@ -37226,44 +37223,6 @@ export function serializeApp_job_spec(writer: SerializationWriter, app_job_spec:
     writer.writeStringValue("source_dir", app_job_spec.sourceDir);
     writer.writeObjectValue<App_job_spec_termination>("termination", app_job_spec.termination, serializeApp_job_spec_termination);
     writer.writeAdditionalData(app_job_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling(writer: SerializationWriter, app_job_spec_autoscaling: Partial<App_job_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_job_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_job_spec_autoscaling_metrics>("metrics", app_job_spec_autoscaling.metrics, serializeApp_job_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_job_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_job_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling_metrics(writer: SerializationWriter, app_job_spec_autoscaling_metrics: Partial<App_job_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_job_spec_autoscaling_metrics_cpu>("cpu", app_job_spec_autoscaling_metrics.cpu, serializeApp_job_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_job_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_job_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_job_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_job_spec_autoscaling_metrics_cpu: Partial<App_job_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_job_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_job_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_job_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -37504,7 +37463,7 @@ export function serializeApp_route_spec(writer: SerializationWriter, app_route_s
 // @ts-ignore
 export function serializeApp_service_spec(writer: SerializationWriter, app_service_spec: Partial<App_service_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_service_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_service_spec_autoscaling>("autoscaling", app_service_spec.autoscaling, serializeApp_service_spec_autoscaling);
+    writer.writeObjectValue<App_autoscaling_spec_service>("autoscaling", app_service_spec.autoscaling, serializeApp_autoscaling_spec_service);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_service_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_service_spec.buildCommand);
     writer.writeObjectValue<Apps_cors_policy>("cors", app_service_spec.cors, serializeApps_cors_policy);
@@ -37531,44 +37490,6 @@ export function serializeApp_service_spec(writer: SerializationWriter, app_servi
     writer.writeStringValue("source_dir", app_service_spec.sourceDir);
     writer.writeObjectValue<App_service_spec_termination>("termination", app_service_spec.termination, serializeApp_service_spec_termination);
     writer.writeAdditionalData(app_service_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling(writer: SerializationWriter, app_service_spec_autoscaling: Partial<App_service_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_service_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_service_spec_autoscaling_metrics>("metrics", app_service_spec_autoscaling.metrics, serializeApp_service_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_service_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_service_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling_metrics(writer: SerializationWriter, app_service_spec_autoscaling_metrics: Partial<App_service_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_service_spec_autoscaling_metrics_cpu>("cpu", app_service_spec_autoscaling_metrics.cpu, serializeApp_service_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_service_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_service_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_service_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_service_spec_autoscaling_metrics_cpu: Partial<App_service_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_service_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_service_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_service_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -37682,7 +37603,7 @@ export function serializeApp_variable_definition(writer: SerializationWriter, ap
 // @ts-ignore
 export function serializeApp_worker_spec(writer: SerializationWriter, app_worker_spec: Partial<App_worker_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_worker_spec || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_worker_spec_autoscaling>("autoscaling", app_worker_spec.autoscaling, serializeApp_worker_spec_autoscaling);
+    writer.writeObjectValue<App_autoscaling_spec>("autoscaling", app_worker_spec.autoscaling, serializeApp_autoscaling_spec);
     writer.writeObjectValue<Apps_bitbucket_source_spec>("bitbucket", app_worker_spec.bitbucket, serializeApps_bitbucket_source_spec);
     writer.writeStringValue("build_command", app_worker_spec.buildCommand);
     writer.writeStringValue("dockerfile_path", app_worker_spec.dockerfilePath);
@@ -37703,44 +37624,6 @@ export function serializeApp_worker_spec(writer: SerializationWriter, app_worker
     writer.writeStringValue("source_dir", app_worker_spec.sourceDir);
     writer.writeObjectValue<App_worker_spec_termination>("termination", app_worker_spec.termination, serializeApp_worker_spec_termination);
     writer.writeAdditionalData(app_worker_spec.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling(writer: SerializationWriter, app_worker_spec_autoscaling: Partial<App_worker_spec_autoscaling> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("max_instance_count", app_worker_spec_autoscaling.maxInstanceCount);
-    writer.writeObjectValue<App_worker_spec_autoscaling_metrics>("metrics", app_worker_spec_autoscaling.metrics, serializeApp_worker_spec_autoscaling_metrics);
-    writer.writeNumberValue("min_instance_count", app_worker_spec_autoscaling.minInstanceCount);
-    writer.writeAdditionalData(app_worker_spec_autoscaling.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling_metrics The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling_metrics(writer: SerializationWriter, app_worker_spec_autoscaling_metrics: Partial<App_worker_spec_autoscaling_metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling_metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<App_worker_spec_autoscaling_metrics_cpu>("cpu", app_worker_spec_autoscaling_metrics.cpu, serializeApp_worker_spec_autoscaling_metrics_cpu);
-    writer.writeAdditionalData(app_worker_spec_autoscaling_metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param App_worker_spec_autoscaling_metrics_cpu The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApp_worker_spec_autoscaling_metrics_cpu(writer: SerializationWriter, app_worker_spec_autoscaling_metrics_cpu: Partial<App_worker_spec_autoscaling_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!app_worker_spec_autoscaling_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_worker_spec_autoscaling_metrics_cpu.percent);
-    writer.writeAdditionalData(app_worker_spec_autoscaling_metrics_cpu.additionalData);
 }
 /**
  * Serializes information the current object
@@ -47084,6 +46967,8 @@ export const App_alert_spec_ruleObject = {
     FUNCTIONS_AVERAGE_WAIT_TIME_MS: "FUNCTIONS_AVERAGE_WAIT_TIME_MS",
     FUNCTIONS_ERROR_COUNT: "FUNCTIONS_ERROR_COUNT",
     FUNCTIONS_GB_RATE_PER_SECOND: "FUNCTIONS_GB_RATE_PER_SECOND",
+    REQUESTS_PER_SECOND: "REQUESTS_PER_SECOND",
+    REQUEST_DURATION_P95_MS: "REQUEST_DURATION_P95_MS",
 } as const;
 export const App_alert_spec_windowObject = {
     UNSPECIFIED_WINDOW: "UNSPECIFIED_WINDOW",
