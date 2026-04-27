@@ -60,7 +60,105 @@ function resolveSchema(schemaOrRef) {
 }
 
 function segmentToCamel(seg) {
-    return seg.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+    return seg.replace(/[-_]([a-zA-Z])/g, (_, c) => c.toUpperCase());
+}
+
+/**
+ * Split an absolute path into:
+ *   prefix — literal segments before any `{param}`        → used for property nesting
+ *   params — `{param}` names in declaration order         → become positional method args
+ *   suffix — literal segments after the LAST `{param}`    → action verb (e.g. "cancel", "results")
+ *
+ * Examples:
+ *   /v1/batches                       → { prefix: ["batches"],            params: [],          suffix: [] }
+ *   /v1/batches/files                 → { prefix: ["batches","files"],    params: [],          suffix: [] }
+ *   /v1/batches/files/{file_id}       → { prefix: ["batches","files"],    params: ["file_id"], suffix: [] }
+ *   /v1/batches/{batch_id}            → { prefix: ["batches"],            params: ["batch_id"],suffix: [] }
+ *   /v1/batches/{batch_id}/cancel     → { prefix: ["batches"],            params: ["batch_id"],suffix: ["cancel"] }
+ *   /v1/chat/completions              → { prefix: ["chat","completions"], params: [],          suffix: [] }
+ */
+function classifyPath(p) {
+    const segs = p.replace(/^\/v1\//, "").split("/");
+    const prefix = [];
+    const params = [];
+    const suffix = [];
+    let seenParam = false;
+    for (const s of segs) {
+        const m = /^\{(.+)\}$/.exec(s);
+        if (m) {
+            params.push(m[1]);
+            seenParam = true;
+        } else if (seenParam) {
+            suffix.push(s);
+        } else {
+            prefix.push(s);
+        }
+    }
+    return { prefix, params, suffix };
+}
+
+/**
+ * Derive an idiomatic method name from (HTTP verb, classification).
+ * Mirrors the conventions used by OpenAI/Stripe-style SDKs.
+ *
+ *   suffix non-empty                → camelCased last suffix segment ("cancel", "results")
+ *   suffix empty, params non-empty  → GET=retrieve · DELETE=del · PUT/PATCH=update · POST=create
+ *   suffix empty, params empty      → GET=list     · POST=create  · PUT/PATCH=update · DELETE=del
+ */
+function deriveMethodName(httpMethod, params, suffix) {
+    if (suffix.length > 0) {
+        return segmentToCamel(suffix[suffix.length - 1]);
+    }
+    if (params.length > 0) {
+        switch (httpMethod) {
+            case "get":    return "retrieve";
+            case "delete": return "del";
+            case "put":
+            case "patch":  return "update";
+            case "post":   return "create";
+        }
+    }
+    switch (httpMethod) {
+        case "get":    return "list";
+        case "post":   return "create";
+        case "put":
+        case "patch":  return "update";
+        case "delete": return "del";
+    }
+    return "call";
+}
+
+/**
+ * Build a string-concatenation expression that reproduces a path with its
+ * `{param}` segments substituted via encodeURIComponent on a camelCased local
+ * variable of the same name.
+ *
+ *   "/v1/batches"                       → '"/v1/batches"'
+ *   "/v1/batches/{batch_id}"            → '"/v1/batches/" + encodeURIComponent(batchId)'
+ *   "/v1/batches/{batch_id}/cancel"     → '"/v1/batches/" + encodeURIComponent(batchId) + "/cancel"'
+ */
+function pathTemplate(p) {
+    const segs = p.split("/").slice(1); // drop leading "" (path is absolute)
+    const tokens = [];
+    let pending = "";
+    for (const s of segs) {
+        const m = /^\{(.+)\}$/.exec(s);
+        if (m) {
+            pending += "/";
+            tokens.push({ kind: "lit", text: pending });
+            pending = "";
+            tokens.push({ kind: "param", name: segmentToCamel(m[1]) });
+        } else {
+            pending += "/" + s;
+        }
+    }
+    if (pending) tokens.push({ kind: "lit", text: pending });
+    if (tokens.length === 1 && tokens[0].kind === "lit") {
+        return JSON.stringify(tokens[0].text);
+    }
+    return tokens
+        .map(t => t.kind === "lit" ? JSON.stringify(t.text) : "encodeURIComponent(" + t.name + ")")
+        .join(" + ");
 }
 
 /* ───────── 1. collect inference paths & base URLs ───────── */
@@ -136,10 +234,16 @@ function getResponseSchema(op) {
     return null;
 }
 
+// Collect every Serverless-Inference operation across all paths. A single
+// path can declare multiple verbs (e.g. /v1/batches has both GET and POST),
+// so we no longer break after the first verb.
 const endpoints = [];
 
 for (const p of paths) {
     const pathItem = doc.paths[p];
+    const cls = classifyPath(p);
+    const camelPrefix = cls.prefix.map(segmentToCamel);
+
     for (const httpMethod of ["get", "post", "put", "patch", "delete"]) {
         const op = pathItem?.[httpMethod];
         if (!isServerlessInferenceOp(op)) continue;
@@ -148,21 +252,21 @@ for (const p of paths) {
         const resSchema = getResponseSchema(op);
         const supportsStreaming = reqSchema?.properties?.stream !== undefined;
         const hasOutputArray = resSchema?.properties?.output?.type === "array";
-
-        // Derive group parts: /v1/chat/completions → ["chat","completions"]
-        const segments = p.replace(/^\/v1\//, "").split("/").map(segmentToCamel);
-        const methodName = httpMethod === "get" ? "list" : "create";
+        const hasRequestBody = !!reqSchema;
+        const methodName = deriveMethodName(httpMethod, cls.params, cls.suffix);
 
         endpoints.push({
             path: p,
             httpMethod,
-            segments,         // property nesting on InferenceClient
+            prefix: camelPrefix,            // property nesting on InferenceClient
+            params: cls.params,             // path-param names (snake_case as in spec)
+            suffix: cls.suffix,             // action segment(s), if any
             methodName,
+            pathExpr: pathTemplate(p),      // emission-ready path expression
+            hasRequestBody,
             supportsStreaming,
-            hasOutputArray,   // needs output_text aggregation
+            hasOutputArray,                 // needs output_text aggregation
         });
-
-        break; // one method per path
     }
 }
 
@@ -203,16 +307,21 @@ export function createDigitalOceanInferenceClient(
 
 /* ───────── 4. emit src/inference-gen/InferenceClient.ts ───────── */
 
-// Build a tree from segments → endpoint
-// e.g. ["chat","completions"] → { chat: { completions: { __ep: {...} } } }
+// Build a tree from each endpoint's literal prefix → property nesting.
+// Path-param segments do NOT become properties; they are method args.
+//
+// Multiple endpoints can share the same prefix (e.g. /v1/batches has GET=list,
+// POST=create, plus its parameterised children retrieve/cancel/results — all
+// rooted at prefix=["batches"]). Each endpoint's emitted method goes into the
+// `__methods` array on the leaf node.
 const tree = {};
 for (const ep of endpoints) {
     let node = tree;
-    for (let i = 0; i < ep.segments.length; i++) {
-        const seg = ep.segments[i];
+    for (let i = 0; i < ep.prefix.length; i++) {
+        const seg = ep.prefix[i];
         if (!node[seg]) node[seg] = {};
-        if (i === ep.segments.length - 1) {
-            node[seg].__ep = ep;
+        if (i === ep.prefix.length - 1) {
+            (node[seg].__methods ??= []).push(ep);
         } else {
             if (!node[seg].__children) node[seg].__children = {};
             node = node[seg].__children;
@@ -220,71 +329,109 @@ for (const ep of endpoints) {
     }
 }
 
+/**
+ * Emit a single method (the JS shape `name: async (...args) => { ... },`).
+ * Generic over: 0..N path params, optional query string (GET), optional
+ * JSON body (POST/PUT/PATCH), and optional streaming.
+ */
 function emitMethodBody(ep, indent) {
-    const q = JSON.stringify(ep.path);
+    const httpVerb = ep.httpMethod.toUpperCase();
+    const pathExpr = ep.pathExpr;
+
+    // Positional path-param signature: each param becomes `<camelName>: string`.
+    const pathArgs = ep.params.map(n => `${segmentToCamel(n)}: string`);
+
+    // ── GET: path args + optional query object ──
     if (ep.httpMethod === "get") {
+        const args = [...pathArgs, "query?: Record<string, any>"];
         return (
-            `${indent}${ep.methodName}: async (): Promise<any> => {\n` +
-            `${indent}    return this._fetch(${q}, "GET");\n` +
+            `${indent}${ep.methodName}: async (${args.join(", ")}): Promise<any> => {\n` +
+            `${indent}    const _qs = query\n` +
+            `${indent}        ? "?" + Object.entries(query)\n` +
+            `${indent}            .filter(([, v]) => v !== undefined && v !== null && v !== "")\n` +
+            `${indent}            .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))\n` +
+            `${indent}            .join("&")\n` +
+            `${indent}        : "";\n` +
+            `${indent}    return this._fetch(${pathExpr} + _qs, "GET");\n` +
             `${indent}},\n`
         );
     }
-    if (ep.supportsStreaming && ep.hasOutputArray) {
+
+    // ── DELETE: path args only (no body) ──
+    if (ep.httpMethod === "delete") {
+        const args = pathArgs;
         return (
-            `${indent}${ep.methodName}: async (\n` +
-            `${indent}    params: Record<string, any>,\n` +
-            `${indent}    streamCallbacks?: InferenceStreamCallbacks,\n` +
-            `${indent}): Promise<any> => {\n` +
+            `${indent}${ep.methodName}: async (${args.join(", ")}): Promise<any> => {\n` +
+            `${indent}    return this._fetch(${pathExpr}, "DELETE");\n` +
+            `${indent}},\n`
+        );
+    }
+
+    // ── POST/PUT/PATCH ──
+    // Streaming variant: supportsStreaming AND no path params (streaming is a
+    // body-driven feature on root-shaped paths like /v1/chat/completions).
+    if (ep.supportsStreaming && ep.params.length === 0) {
+        const aggregateOutputText = ep.hasOutputArray;
+        const args = ["params: Record<string, any>", "streamCallbacks?: InferenceStreamCallbacks"];
+        let body =
             `${indent}    if (params.stream === true) {\n` +
-            `${indent}        const s = this._sse(${q}, params);\n` +
+            `${indent}        const s = this._sse(${pathExpr}, params);\n` +
             `${indent}        if (streamCallbacks?.onData) { await s.consume(streamCallbacks); return; }\n` +
             `${indent}        return s;\n` +
-            `${indent}    }\n` +
-            `${indent}    const res = await this._fetch(${q}, "POST", params);\n` +
-            `${indent}    let _ot = "";\n` +
-            `${indent}    if (Array.isArray(res?.output)) {\n` +
-            `${indent}        for (const item of res.output) {\n` +
-            `${indent}            if (item?.type === "message" && Array.isArray(item.content)) {\n` +
-            `${indent}                for (const part of item.content) {\n` +
-            `${indent}                    if (part?.type === "output_text" && typeof part.text === "string") _ot += part.text;\n` +
-            `${indent}                }\n` +
-            `${indent}            }\n` +
-            `${indent}        }\n` +
-            `${indent}    }\n` +
-            `${indent}    res.output_text = _ot;\n` +
-            `${indent}    return res;\n` +
-            `${indent}},\n`
-        );
-    }
-    if (ep.supportsStreaming) {
+            `${indent}    }\n`;
+        if (aggregateOutputText) {
+            body +=
+                `${indent}    const res = await this._fetch(${pathExpr}, "${httpVerb}", params);\n` +
+                `${indent}    let _ot = "";\n` +
+                `${indent}    if (Array.isArray(res?.output)) {\n` +
+                `${indent}        for (const item of res.output) {\n` +
+                `${indent}            if (item?.type === "message" && Array.isArray(item.content)) {\n` +
+                `${indent}                for (const part of item.content) {\n` +
+                `${indent}                    if (part?.type === "output_text" && typeof part.text === "string") _ot += part.text;\n` +
+                `${indent}                }\n` +
+                `${indent}            }\n` +
+                `${indent}        }\n` +
+                `${indent}    }\n` +
+                `${indent}    res.output_text = _ot;\n` +
+                `${indent}    return res;\n`;
+        } else {
+            body += `${indent}    return this._fetch(${pathExpr}, "${httpVerb}", params);\n`;
+        }
         return (
             `${indent}${ep.methodName}: async (\n` +
-            `${indent}    params: Record<string, any>,\n` +
-            `${indent}    streamCallbacks?: InferenceStreamCallbacks,\n` +
+            `${indent}    ${args.join(",\n" + indent + "    ")},\n` +
             `${indent}): Promise<any> => {\n` +
-            `${indent}    if (params.stream === true) {\n` +
-            `${indent}        const s = this._sse(${q}, params);\n` +
-            `${indent}        if (streamCallbacks?.onData) { await s.consume(streamCallbacks); return; }\n` +
-            `${indent}        return s;\n` +
-            `${indent}    }\n` +
-            `${indent}    return this._fetch(${q}, "POST", params);\n` +
+            body +
             `${indent}},\n`
         );
     }
+
+    // Body-required vs body-optional. Path-param-bearing actions (e.g. cancel)
+    // typically have no body; root POSTs (e.g. create) require one.
+    const bodyArg = ep.hasRequestBody
+        ? "params: Record<string, any>"
+        : "params?: Record<string, any>";
+    const args = [...pathArgs, bodyArg];
+    const bodyExpr = ep.hasRequestBody ? "params" : "params ?? undefined";
+
     return (
-        `${indent}${ep.methodName}: async (params: Record<string, any>): Promise<any> => {\n` +
-        `${indent}    return this._fetch(${q}, "POST", params);\n` +
+        `${indent}${ep.methodName}: async (${args.join(", ")}): Promise<any> => {\n` +
+        `${indent}    return this._fetch(${pathExpr}, "${httpVerb}", ${bodyExpr});\n` +
         `${indent}},\n`
     );
 }
 
-// Recursively emit the property tree
+/**
+ * Recursively emit the property tree. Each tree node may carry:
+ *   __methods  — endpoints whose prefix terminates at this node
+ *   __children — sub-groups under this node
+ */
 function emitNode(obj, depth) {
     let out = "";
     const baseIndent = "    ".repeat(depth + 1);
     for (const [key, node] of Object.entries(obj)) {
         if (key.startsWith("__")) continue;
-        const ep = node.__ep;
+        const methods = node.__methods ?? [];
         const children = node.__children;
         const hasChildren = children && Object.keys(children).length > 0;
 
@@ -294,7 +441,9 @@ function emitNode(obj, depth) {
             out += `${baseIndent}${key}: {\n`;
         }
 
-        if (ep) out += emitMethodBody(ep, baseIndent + "    ");
+        for (const ep of methods) {
+            out += emitMethodBody(ep, baseIndent + "    ");
+        }
         if (hasChildren) out += emitNode(children, depth + 1);
         // Inject OpenAI-compat aliases into specific groups
         if (key === "images" && imagesAliasCode) out += imagesAliasCode + "\n";
@@ -323,6 +472,66 @@ if (imagesGenPath) {
         ): Promise<any> => {
             return this.images.generations.create(params, streamCallbacks);
         },`;
+}
+
+// /v1/batches/files (POST) and /v1/batches/{batch_id}/results (GET) cover the
+// upload-intent and download-envelope steps, but OpenAI consumers reach for
+// `client.files.create(...)` and `client.files.content(...)`. The DO server
+// has no top-level /v1/files namespace, so we expose a thin alias group that
+// forwards to the batch-scoped endpoints — keeping backward compatibility
+// with the existing client.batches.files.create / client.batches.results.
+const hasBatchFilesCreate = paths.includes("/v1/batches/files");
+const hasBatchResults = paths.some(p => /^\/v1\/batches\/\{[^}]+\}\/results$/.test(p));
+let filesAliasCode = "";
+if (hasBatchFilesCreate || hasBatchResults) {
+    const aliasParts = [];
+    if (hasBatchFilesCreate) {
+        aliasParts.push(`        /**
+         * OpenAI-compat alias for \`client.batches.files.create({ file_name })\`.
+         * DO returns \`{ file_id, upload_url }\`; \`PUT\` the JSONL bytes to
+         * \`upload_url\` before calling \`client.batches.create(...)\`.
+         */
+        create: async (params: { file_name: string; [k: string]: any }): Promise<any> => {
+            return this.batches.files.create(params);
+        },`);
+    }
+    if (hasBatchResults) {
+        aliasParts.push(`        /**
+         * OpenAI-compat alias for \`client.batches.results(batchId)\`. Resolves
+         * the result envelope, follows the presigned download URL, and returns
+         * the raw \`fetch\` Response — matching OpenAI's
+         * \`client.files.content(fileId)\` shape (call \`.text()\` / \`.body\` /
+         * \`.json()\` on it).
+         */
+        content: async (batchId: string): Promise<Response> => {
+            const result = await this.batches.results(batchId);
+            const url =
+                result?.download?.presigned_url
+                ?? result?.output_file_url
+                ?? result?.output_url;
+            if (!url) {
+                throw new Error(
+                    "No download URL available (result_available=" +
+                    String(result?.result_available) + ")",
+                );
+            }
+            const res = await fetch(url);
+            if (!res.ok) {
+                const text = await res.text().catch(() => "");
+                throw new Error("Download failed: HTTP " + res.status + ": " + res.statusText + (text ? " — " + text : ""));
+            }
+            return res;
+        },`);
+    }
+    filesAliasCode = `
+    /**
+     * OpenAI-compat surface. Each method forwards to its
+     * \`client.batches.*\` counterpart — both surfaces remain available.
+     */
+    public readonly files = {
+${aliasParts.join("\n")}
+    };
+`;
 }
 
 const methodsCode = emitNode(tree, 0);
@@ -561,7 +770,7 @@ export class InferenceClient {
         return new SSEStream(this._baseUrl + path, this._apiKey, body);
     }
 
-${methodsCode}${asyncAliasCode}}
+${methodsCode}${filesAliasCode}${asyncAliasCode}}
 
 export default InferenceClient;
 `;
@@ -576,7 +785,7 @@ console.log(`postgen-inference: wrote ${path.relative(dotsRoot, indexFile)} (${p
 
 const clientFile = path.join(outDir, "InferenceClient.ts");
 fs.writeFileSync(clientFile, clientBody, "utf8");
-const methodSummary = endpoints.map(e => e.segments.join(".") + "." + e.methodName).join(", ");
+const methodSummary = endpoints.map(e => e.prefix.join(".") + "." + e.methodName).join(", ");
 console.log(`postgen-inference: wrote ${path.relative(dotsRoot, clientFile)} (${endpoints.length} methods: ${methodSummary})`);
 
 /* ───────── 6. patch index.ts to re-export inference ───────── */
