@@ -4,6 +4,8 @@
 // @ts-ignore
 import { ApiRequestBuilderNavigationMetadata, type ApiRequestBuilder } from './api/index.js';
 // @ts-ignore
+import { type Upload_urlRequestBuilder, Upload_urlRequestBuilderRequestsMetadata } from './upload_url/index.js';
+// @ts-ignore
 import { type V1RequestBuilder, V1RequestBuilderNavigationMetadata } from './v1/index.js';
 // @ts-ignore
 import { type V2RequestBuilder, V2RequestBuilderNavigationMetadata } from './v2/index.js';
@@ -61,6 +63,10 @@ export interface DigitalOceanClient extends BaseRequestBuilder<DigitalOceanClien
      */
     get api(): ApiRequestBuilder;
     /**
+     * The Upload_url property
+     */
+    get upload_url(): Upload_urlRequestBuilder;
+    /**
      * The v1 property
      */
     get v1(): V1RequestBuilder;
@@ -79,6 +85,9 @@ export const DigitalOceanClientUriTemplate = "{+baseurl}";
 export const DigitalOceanClientNavigationMetadata: Record<Exclude<keyof DigitalOceanClient, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     api: {
         navigationMetadata: ApiRequestBuilderNavigationMetadata,
+    },
+    upload_url: {
+        requestsMetadata: Upload_urlRequestBuilderRequestsMetadata,
     },
     v1: {
         navigationMetadata: V1RequestBuilderNavigationMetadata,

@@ -4,6 +4,8 @@
 // @ts-ignore
 import { AsyncInvokeRequestBuilderRequestsMetadata, type AsyncInvokeRequestBuilder } from './asyncInvoke/index.js';
 // @ts-ignore
+import { BatchesRequestBuilderNavigationMetadata, BatchesRequestBuilderRequestsMetadata, type BatchesRequestBuilder } from './batches/index.js';
+// @ts-ignore
 import { ChatRequestBuilderNavigationMetadata, type ChatRequestBuilder } from './chat/index.js';
 // @ts-ignore
 import { EmbeddingsRequestBuilderRequestsMetadata, type EmbeddingsRequestBuilder } from './embeddings/index.js';
@@ -26,6 +28,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      * The asyncInvoke property
      */
     get asyncInvoke(): AsyncInvokeRequestBuilder;
+    /**
+     * The batches property
+     */
+    get batches(): BatchesRequestBuilder;
     /**
      * The chat property
      */
@@ -61,6 +67,10 @@ export const V1RequestBuilderUriTemplate = "{+baseurl}/v1";
 export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     asyncInvoke: {
         requestsMetadata: AsyncInvokeRequestBuilderRequestsMetadata,
+    },
+    batches: {
+        requestsMetadata: BatchesRequestBuilderRequestsMetadata,
+        navigationMetadata: BatchesRequestBuilderNavigationMetadata,
     },
     chat: {
         navigationMetadata: ChatRequestBuilderNavigationMetadata,

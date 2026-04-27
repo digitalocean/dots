@@ -192,6 +192,47 @@ export class InferenceClient {
         },
     };
 
+    public readonly batches = {
+        list: async (query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/batches" + _qs, "GET");
+        },
+        create: async (params: Record<string, any>): Promise<any> => {
+            return this._fetch("/v1/batches", "POST", params);
+        },
+        retrieve: async (batchId: string, query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/batches/" + encodeURIComponent(batchId) + _qs, "GET");
+        },
+        cancel: async (batchId: string, params?: Record<string, any>): Promise<any> => {
+            return this._fetch("/v1/batches/" + encodeURIComponent(batchId) + "/cancel", "POST", params ?? undefined);
+        },
+        results: async (batchId: string, query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/batches/" + encodeURIComponent(batchId) + "/results" + _qs, "GET");
+        },
+        files: {
+            create: async (params: Record<string, any>): Promise<any> => {
+                return this._fetch("/v1/batches/files", "POST", params);
+            },
+        },
+    };
+
     public readonly chat = {
         completions: {
             create: async (
@@ -253,8 +294,14 @@ export class InferenceClient {
     };
 
     public readonly models = {
-        list: async (): Promise<any> => {
-            return this._fetch("/v1/models", "GET");
+        list: async (query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/models" + _qs, "GET");
         },
     };
 
@@ -284,6 +331,47 @@ export class InferenceClient {
         },
     };
 
+
+    /**
+     * OpenAI-compat surface. Each method forwards to its
+     * `client.batches.*` counterpart — both surfaces remain available.
+     */
+    public readonly files = {
+        /**
+         * OpenAI-compat alias for `client.batches.files.create({ file_name })`.
+         * DO returns `{ file_id, upload_url }`; `PUT` the JSONL bytes to
+         * `upload_url` before calling `client.batches.create(...)`.
+         */
+        create: async (params: { file_name: string; [k: string]: any }): Promise<any> => {
+            return this.batches.files.create(params);
+        },
+        /**
+         * OpenAI-compat alias for `client.batches.results(batchId)`. Resolves
+         * the result envelope, follows the presigned download URL, and returns
+         * the raw `fetch` Response — matching OpenAI's
+         * `client.files.content(fileId)` shape (call `.text()` / `.body` /
+         * `.json()` on it).
+         */
+        content: async (batchId: string): Promise<Response> => {
+            const result = await this.batches.results(batchId);
+            const url =
+                result?.download?.presigned_url
+                ?? result?.output_file_url
+                ?? result?.output_url;
+            if (!url) {
+                throw new Error(
+                    "No download URL available (result_available=" +
+                    String(result?.result_available) + ")",
+                );
+            }
+            const res = await fetch(url);
+            if (!res.ok) {
+                const text = await res.text().catch(() => "");
+                throw new Error("Download failed: HTTP " + res.status + ": " + res.statusText + (text ? " — " + text : ""));
+            }
+            return res;
+        },
+    };
 
     public readonly audio = {
         /** Async audio generation (e.g. fal-ai/stable-audio-25/text-to-audio). */

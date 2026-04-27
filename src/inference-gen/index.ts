@@ -12,6 +12,11 @@ import { DigitalOceanApiKeyAuthenticationProvider } from "../dots/DigitalOceanAp
 
 export const INFERENCE_OPENAPI_PATHS = [
     "/v1/async-invoke",
+    "/v1/batches",
+    "/v1/batches/files",
+    "/v1/batches/{batch_id}",
+    "/v1/batches/{batch_id}/cancel",
+    "/v1/batches/{batch_id}/results",
     "/v1/chat/completions",
     "/v1/embeddings",
     "/v1/images/generations",
