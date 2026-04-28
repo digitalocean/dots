@@ -6,6 +6,8 @@ import { AgentsRequestBuilderNavigationMetadata, AgentsRequestBuilderRequestsMet
 // @ts-ignore
 import { AnthropicRequestBuilderNavigationMetadata, type AnthropicRequestBuilder } from './anthropic/index.js';
 // @ts-ignore
+import { Custom_modelsRequestBuilderNavigationMetadata, Custom_modelsRequestBuilderRequestsMetadata, type Custom_modelsRequestBuilder } from './custom_models/index.js';
+// @ts-ignore
 import { Evaluation_datasetsRequestBuilderNavigationMetadata, Evaluation_datasetsRequestBuilderRequestsMetadata, type Evaluation_datasetsRequestBuilder } from './evaluation_datasets/index.js';
 // @ts-ignore
 import { Evaluation_metricsRequestBuilderRequestsMetadata, type Evaluation_metricsRequestBuilder } from './evaluation_metrics/index.js';
@@ -17,6 +19,12 @@ import { Evaluation_test_casesRequestBuilderNavigationMetadata, Evaluation_test_
 import { Indexing_jobsRequestBuilderNavigationMetadata, Indexing_jobsRequestBuilderRequestsMetadata, type Indexing_jobsRequestBuilder } from './indexing_jobs/index.js';
 // @ts-ignore
 import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequestBuilderRequestsMetadata, type Knowledge_basesRequestBuilder } from './knowledge_bases/index.js';
+// @ts-ignore
+import { Model_evaluation_metricsRequestBuilderRequestsMetadata, type Model_evaluation_metricsRequestBuilder } from './model_evaluation_metrics/index.js';
+// @ts-ignore
+import { Model_evaluation_runsRequestBuilderNavigationMetadata, Model_evaluation_runsRequestBuilderRequestsMetadata, type Model_evaluation_runsRequestBuilder } from './model_evaluation_runs/index.js';
+// @ts-ignore
+import { Model_evaluationRequestBuilderNavigationMetadata, type Model_evaluationRequestBuilder } from './model_evaluation/index.js';
 // @ts-ignore
 import { ModelsRequestBuilderNavigationMetadata, ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from './modelsRequests/index.js';
 // @ts-ignore
@@ -45,6 +53,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get anthropic(): AnthropicRequestBuilder;
     /**
+     * The custom_models property
+     */
+    get custom_models(): Custom_modelsRequestBuilder;
+    /**
      * The evaluation_datasets property
      */
     get evaluation_datasets(): Evaluation_datasetsRequestBuilder;
@@ -68,6 +80,18 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      * The knowledge_bases property
      */
     get knowledge_bases(): Knowledge_basesRequestBuilder;
+    /**
+     * The model_evaluation property
+     */
+    get model_evaluation(): Model_evaluationRequestBuilder;
+    /**
+     * The model_evaluation_metrics property
+     */
+    get model_evaluation_metrics(): Model_evaluation_metricsRequestBuilder;
+    /**
+     * The model_evaluation_runs property
+     */
+    get model_evaluation_runs(): Model_evaluation_runsRequestBuilder;
     /**
      * The models property
      */
@@ -108,6 +132,10 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     anthropic: {
         navigationMetadata: AnthropicRequestBuilderNavigationMetadata,
     },
+    custom_models: {
+        requestsMetadata: Custom_modelsRequestBuilderRequestsMetadata,
+        navigationMetadata: Custom_modelsRequestBuilderNavigationMetadata,
+    },
     evaluation_datasets: {
         requestsMetadata: Evaluation_datasetsRequestBuilderRequestsMetadata,
         navigationMetadata: Evaluation_datasetsRequestBuilderNavigationMetadata,
@@ -134,6 +162,16 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     models: {
         requestsMetadata: ModelsRequestBuilderRequestsMetadata,
         navigationMetadata: ModelsRequestBuilderNavigationMetadata,
+    },
+    model_evaluation: {
+        navigationMetadata: Model_evaluationRequestBuilderNavigationMetadata,
+    },
+    model_evaluation_metrics: {
+        requestsMetadata: Model_evaluation_metricsRequestBuilderRequestsMetadata,
+    },
+    model_evaluation_runs: {
+        requestsMetadata: Model_evaluation_runsRequestBuilderRequestsMetadata,
+        navigationMetadata: Model_evaluation_runsRequestBuilderNavigationMetadata,
     },
     oauth2: {
         navigationMetadata: Oauth2RequestBuilderNavigationMetadata,
