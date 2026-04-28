@@ -819,3 +819,40 @@ if (rootSrc.includes(INFERENCE_MARKER)) {
 }
 fs.writeFileSync(rootIndex, rootSrc, "utf8");
 console.log("postgen-inference: patched index.ts with inference exports");
+
+/* ───────── 7. patch Kiota serialization bugs in models ───────── */
+// Kiota generates `writeCollectionOfObjectValues` for union-typed array
+// fields like `Embeddings_request.input` (which is `string | string[]`).
+// This wraps each plain string in `{}` braces, producing malformed JSON.
+// The correct call for an array of strings is `writeCollectionOfPrimitiveValues`.
+
+const modelFiles = [
+    path.join(dotsRoot, "src", "dots", "models", "index.ts"),
+    path.join(dotsRoot, "src", "dots", "models", "index.js"),
+];
+
+const serializationFixes = [
+    {
+        // serializeEmbeddings_request — `input` field (string[])
+        from: /writer\.writeCollectionOfObjectValues\b([^(]*)\("input",\s*embeddings_request\.input[^,]*,\s*serializeEmbeddings_request_input\)/g,
+        to: `writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input)`,
+        label: "Embeddings_request.input",
+    },
+];
+
+for (const filePath of modelFiles) {
+    if (!fs.existsSync(filePath)) continue;
+    let src = fs.readFileSync(filePath, "utf8");
+    let patched = false;
+    for (const fix of serializationFixes) {
+        if (fix.from.test(src)) {
+            fix.from.lastIndex = 0;
+            src = src.replace(fix.from, fix.to);
+            patched = true;
+            console.log(`postgen-inference: patched ${fix.label} in ${path.relative(dotsRoot, filePath)}`);
+        }
+    }
+    if (patched) {
+        fs.writeFileSync(filePath, src, "utf8");
+    }
+}
