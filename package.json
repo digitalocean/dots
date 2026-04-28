@@ -64,6 +64,6 @@
     "@microsoft/kiota-bundle": "^1.0.0-preview.9",
     "@microsoft/kiota-http-fetchlibrary": "^1.0.0-preview.97",
     "dotenv": "^17.2.0",
-    "uuid": "^11.1.0"
+    "uuid": "^14.0.0"
   }
 }
