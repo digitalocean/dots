@@ -6,6 +6,8 @@ import { createApiCreateEvaluationDatasetOutputFromDiscriminatorValue, createErr
 // @ts-ignore
 import { File_upload_presigned_urlsRequestBuilderRequestsMetadata, type File_upload_presigned_urlsRequestBuilder } from './file_upload_presigned_urls/index.js';
 // @ts-ignore
+import { type WithDataset_uuItemRequestBuilder, WithDataset_uuItemRequestBuilderNavigationMetadata } from './item/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -16,6 +18,12 @@ export interface Evaluation_datasetsRequestBuilder extends BaseRequestBuilder<Ev
      * The file_upload_presigned_urls property
      */
     get file_upload_presigned_urls(): File_upload_presigned_urlsRequestBuilder;
+    /**
+     * Gets an item from the ApiSdk.v2.genAi.evaluation_datasets.item collection
+     * @param dataset_uuid UUID of the evaluation dataset.
+     * @returns {WithDataset_uuItemRequestBuilder}
+     */
+     byDataset_uuid(dataset_uuid: string) : WithDataset_uuItemRequestBuilder;
     /**
      * To create an evaluation dataset, send a POST request to `/v2/gen-ai/evaluation_datasets`.
      * @param body Creates an evaluation dataset for an agent
@@ -44,6 +52,10 @@ export const Evaluation_datasetsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-a
  * Metadata for all the navigation properties in the request builder.
  */
 export const Evaluation_datasetsRequestBuilderNavigationMetadata: Record<Exclude<keyof Evaluation_datasetsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    byDataset_uuid: {
+        navigationMetadata: WithDataset_uuItemRequestBuilderNavigationMetadata,
+        pathParametersMappings: ["dataset_uuid"],
+    },
     file_upload_presigned_urls: {
         requestsMetadata: File_upload_presigned_urlsRequestBuilderRequestsMetadata,
     },

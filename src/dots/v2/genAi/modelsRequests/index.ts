@@ -6,6 +6,8 @@ import { createApiListModelsOutputPublicFromDiscriminatorValue, createErrorEscap
 // @ts-ignore
 import { Api_keysRequestBuilderNavigationMetadata, Api_keysRequestBuilderRequestsMetadata, type Api_keysRequestBuilder } from './api_keys/index.js';
 // @ts-ignore
+import { CatalogRequestBuilderNavigationMetadata, CatalogRequestBuilderRequestsMetadata, type CatalogRequestBuilder } from './catalog/index.js';
+// @ts-ignore
 import { RoutersRequestBuilderNavigationMetadata, RoutersRequestBuilderRequestsMetadata, type RoutersRequestBuilder } from './routers/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
@@ -19,6 +21,10 @@ export interface ModelsRequestBuilder extends BaseRequestBuilder<ModelsRequestBu
      * The api_keys property
      */
     get api_keys(): Api_keysRequestBuilder;
+    /**
+     * The catalog property
+     */
+    get catalog(): CatalogRequestBuilder;
     /**
      * The routers property
      */
@@ -89,6 +95,10 @@ export const ModelsRequestBuilderNavigationMetadata: Record<Exclude<keyof Models
     api_keys: {
         requestsMetadata: Api_keysRequestBuilderRequestsMetadata,
         navigationMetadata: Api_keysRequestBuilderNavigationMetadata,
+    },
+    catalog: {
+        requestsMetadata: CatalogRequestBuilderRequestsMetadata,
+        navigationMetadata: CatalogRequestBuilderNavigationMetadata,
     },
     routers: {
         requestsMetadata: RoutersRequestBuilderRequestsMetadata,
