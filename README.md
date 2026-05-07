@@ -1,6 +1,8 @@
 # DoTs
 `DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
+> **New in v1.11.0** — `DoTs` now ships first-class support for DigitalOcean Serverless Inference: streaming chat completions, image generation, and model listing. Jump to [AI & Inference](#ai--inference) for usage, or browse runnable scripts in [`examples/inference/`](./examples/inference).
+
 ## Getting Started
 #### Prerequisites 
 - [NodeJS 20.10 or above](https://nodejs.org/en/)
@@ -83,6 +85,113 @@ Done!
 
 More working examples can be found in `dots/examples`. 
 
+## **AI & Inference**
+
+> Added in **v1.11.0**. Talk to DigitalOcean Serverless Inference directly from `DoTs` — streaming chat, image generation, model listing, and more.
+
+### Authentication
+
+Inference APIs are gated by a separate credential from the v2 control-plane token. You must use **one** of the following:
+
+- A **DigitalOcean Personal Access Token (PAT) with _full access_ scope** — read/write across all resources, including GenAI/Inference. Tokens scoped only to specific resource types will be rejected.
+- A **Model Access Key** issued from the DigitalOcean Cloud console under *GenAI Platform → Model Access Keys*. These are the recommended credential for production workloads since they're scoped only to inference.
+
+The credential is passed as `apiKey` to `InferenceClient`. The same `DIGITALOCEAN_TOKEN` env var used elsewhere in this README works here **only if** that PAT has full-access scope; otherwise use a Model Access Key.
+
+```typescript
+import { InferenceClient } from "@digitalocean/dots";
+
+const client = new InferenceClient({
+    apiKey: process.env.DIGITALOCEAN_TOKEN!, // full-access PAT or Model Access Key
+});
+```
+
+### Streaming chat completions
+
+```typescript
+import { InferenceClient } from "@digitalocean/dots";
+
+const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+
+const stream = await client.chat.completions.create({
+    model: "llama3.3-70b-instruct",
+    messages: [{ role: "user", content: "Write two short lines about DigitalOcean." }],
+    stream: true,
+});
+
+for await (const chunk of stream) {
+    process.stdout.write(chunk.choices?.[0]?.delta?.content ?? "");
+}
+process.stdout.write("\n");
+```
+
+Callback-style streaming is also supported:
+
+```typescript
+await client.chat.completions.create(
+    { model: "llama3.3-70b-instruct", messages, stream: true },
+    {
+        onData: (chunk) => process.stdout.write(chunk.choices?.[0]?.delta?.content ?? ""),
+        onComplete: () => console.log("\n[done]"),
+        onError: (err) => console.error(err),
+    },
+);
+```
+
+### Image generation
+
+```typescript
+import { InferenceClient } from "@digitalocean/dots";
+
+const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+
+const result = await client.images.generate({
+    model: "stable-diffusion-3.5-large", // any image model from `client.models.list()`
+    prompt: "An isometric illustration of a serverless data center, soft pastel colors",
+    n: 1,
+    size: "1024x1024",
+});
+
+const img = result.data?.[0];
+if (img?.url) {
+    console.log(img.url);
+} else if (img?.b64_json) {
+    // Stable Diffusion returns base64 — decode and save to disk.
+    const fs = await import("node:fs");
+    fs.writeFileSync("generated-image.png", Buffer.from(img.b64_json, "base64"));
+    console.log("Saved generated-image.png");
+}
+```
+
+### Listing available models
+
+```typescript
+import { InferenceClient } from "@digitalocean/dots";
+
+const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+
+const models = await client.models.list();
+for (const m of models.data ?? []) {
+    console.log(`${m.id}\t${m.owned_by ?? ""}`);
+}
+```
+
+Minimal, runnable versions of all three snippets live under [`examples/inference/`](./examples/inference):
+
+- [`chat-streaming.ts`](./examples/inference/chat-streaming.ts) — streams a chat completion and prints tokens as they arrive.
+- [`image-generation.ts`](./examples/inference/image-generation.ts) — generates a single image with `stable-diffusion-3.5-large`. Prints the URL if the model returns one, otherwise decodes the base64 payload and writes `generated-image.png`.
+- [`models-list.ts`](./examples/inference/models-list.ts) — lists the IDs of all models you can call.
+
+Each script is a few lines long and only needs `DIGITALOCEAN_TOKEN` set:
+
+```shell
+DIGITALOCEAN_TOKEN=... npx tsx examples/inference/chat-streaming.ts
+DIGITALOCEAN_TOKEN=... npx tsx examples/inference/image-generation.ts
+DIGITALOCEAN_TOKEN=... npx tsx examples/inference/models-list.ts
+```
+
+> Seeing `HTTP 401: Unauthorized — Unable to authenticate you`? The token you supplied is either empty, expired, or scoped to specific resources only. Resource-scoped PATs cannot call the inference gateway — use a full-access PAT or a Model Access Key.
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.
@@ -90,6 +199,23 @@ More working examples can be found in `dots/examples`.
 -  This is an existing issue with our code generated tool, Kiota
 -  More details about this issue can be found [here](https://github.com/microsoft/kiota/issues/4549)
 
+
+## **Roadmap**
+
+`DoTs` covers the DigitalOcean control plane today, and we're actively expanding the AI/Inference surface. Upcoming and in-flight work:
+
+- **Inference**
+    - Expanded coverage of Serverless Inference endpoints (responses API, embeddings, audio, async image generation).
+    - First-class typings for inference request/response shapes (currently typed loosely as `Record<string, any>` for forward-compat).
+    - Helpers for the GenAI Platform control plane: agents, knowledge bases, and Model Access Key management.
+    - Built-in retries, rate-limit handling, and structured error types for inference calls.
+- **Dedicated Inference**
+    - Convenience wrappers for provisioning and managing dedicated inference endpoints and tokens.
+- **DX**
+    - Better generated docs and end-to-end examples for both control-plane and inference workflows.
+    - Expanded examples under `examples/` (including additional `examples/inference/` scripts).
+
+Have a use case you'd like prioritized? [Open an issue](https://github.com/digitalocean/dots/issues) and let us know.
 
 ## **Contributing**
 >We welcome contributions! Feel free to get involved in developing this client by visiting our [Contribuing Guide](CONTRIBUTING.md) for detailed information and guidelines.
