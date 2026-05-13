@@ -6914,7 +6914,7 @@ export interface App_ingress_spec_rule_routing_redirect extends AdditionalDataHo
  */
 export interface App_ingress_spec_rule_string_match_exact extends AdditionalDataHolder, Parsable {
     /**
-     * The exact property
+     * Exact string match. An empty string is a valid value and will be serialized explicitly rather than being omitted from the payload.
      */
     exact?: string | null;
 }
@@ -8270,7 +8270,7 @@ export interface Apps_rollback_app_request extends AdditionalDataHolder, Parsabl
 }
 export interface Apps_string_match extends AdditionalDataHolder, Parsable {
     /**
-     * Exact string match. Only 1 of `exact`, `prefix`, or `regex` must be set.
+     * Exact string match. Only 1 of `exact`, `prefix`, or `regex` must be set. An empty string is a valid value and will be serialized explicitly rather than being omitted from the payload.
      */
     exact?: string | null;
     /**
@@ -8765,7 +8765,7 @@ export interface Batch extends AdditionalDataHolder, Parsable {
 }
 export type Batch_completion_window = (typeof Batch_completion_windowObject)[keyof typeof Batch_completion_windowObject];
 /**
- * Request body for creating a batch inference job.
+ * Request body for creating a batch inference job.When `provider` is `openai`, `endpoint` is required and must be one of `/v1/responses` or `/v1/chat/completions`. When `provider` is `anthropic`, `endpoint` must be omitted — the Anthropic Message Batches API does not need a per-job endpoint.
  */
 export interface Batch_create_request extends AdditionalDataHolder, Parsable {
     /**
@@ -8773,7 +8773,7 @@ export interface Batch_create_request extends AdditionalDataHolder, Parsable {
      */
     completionWindow?: Batch_create_request_completion_window | null;
     /**
-     * Inference endpoint each request is dispatched to. When `provider` is `openai`, must match the `url` on every JSONL line.
+     * Inference endpoint each request is dispatched to. **Required when `provider` is `openai` and must match the `url` on every JSONL line. Must be omitted when `provider` is `anthropic`.**
      */
     endpoint?: Batch_create_request_endpoint | null;
     /**
@@ -8789,7 +8789,7 @@ export interface Batch_create_request extends AdditionalDataHolder, Parsable {
      */
     provider?: Batch_create_request_provider | null;
     /**
-     * Client-supplied idempotency key. Retries with the same value return the existing job.
+     * Client-supplied idempotency key. Retries with the same value return the existing job instead of creating a duplicate.
      */
     requestId?: string | null;
 }
@@ -9633,7 +9633,7 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     endpoint?: string | null;
     /**
-     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. When omitted on create, the default is version-dependent; for DOKS 1.36.0 and later, the default is true; for earlier versions, the default is false.
      */
     ha?: boolean | null;
     /**
@@ -9757,7 +9757,7 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      */
     endpoint?: string | null;
     /**
-     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. When omitted on create, the default is version-dependent; for DOKS 1.36.0 and later, the default is true; for earlier versions, the default is false.
      */
     ha?: boolean | null;
     /**
@@ -9899,7 +9899,7 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      */
     controlPlaneFirewall?: Control_plane_firewall | null;
     /**
-     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+     * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. When omitted on create, the default is version-dependent; for DOKS 1.36.0 and later, the default is true; for earlier versions, the default is false.
      */
     ha?: boolean | null;
     /**
@@ -17421,6 +17421,24 @@ export function createOpensearch_logsinkFromDiscriminatorValue(parseNode: ParseN
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Options_options_advanced_mysql}
+ */
+// @ts-ignore
+export function createOptions_options_advanced_mysqlFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoOptions_options_advanced_mysql;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Options_options_advanced_pg}
+ */
+// @ts-ignore
+export function createOptions_options_advanced_pgFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoOptions_options_advanced_pg;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Options_options_kafka}
  */
 // @ts-ignore
@@ -18878,7 +18896,7 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     doSettings?: Do_settings | null;
     /**
-     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, "valkey" for Valkey, "advanced_pg" for PostgreSQL Advanced Edition, and "advanced_mysql" for MySQL Advanced Edition. Advanced Edition engines are currently in public preview.
      */
     engine?: Database_cluster_engine | null;
     /**
@@ -18993,7 +19011,7 @@ export interface Database_cluster_read extends AdditionalDataHolder, Parsable {
      */
     doSettings?: Do_settings | null;
     /**
-     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+     * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, "valkey" for Valkey, "advanced_pg" for PostgreSQL Advanced Edition, and "advanced_mysql" for MySQL Advanced Edition. Advanced Edition engines are currently in public preview.
      */
     engine?: Database_cluster_read_engine | null;
     /**
@@ -30480,6 +30498,8 @@ export function deserializeIntoOptions(options: Partial<Options> | undefined = {
 // @ts-ignore
 export function deserializeIntoOptions_options(options_options: Partial<Options_options> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "advanced_mysql": n => { options_options.advancedMysql = n.getObjectValue<Options_options_advanced_mysql>(createOptions_options_advanced_mysqlFromDiscriminatorValue); },
+        "advanced_pg": n => { options_options.advancedPg = n.getObjectValue<Options_options_advanced_pg>(createOptions_options_advanced_pgFromDiscriminatorValue); },
         "kafka": n => { options_options.kafka = n.getObjectValue<Options_options_kafka>(createOptions_options_kafkaFromDiscriminatorValue); },
         "mongodb": n => { options_options.mongodb = n.getObjectValue<Options_options_mongodb>(createOptions_options_mongodbFromDiscriminatorValue); },
         "mysql": n => { options_options.mysql = n.getObjectValue<Options_options_mysql>(createOptions_options_mysqlFromDiscriminatorValue); },
@@ -30487,6 +30507,32 @@ export function deserializeIntoOptions_options(options_options: Partial<Options_
         "pg": n => { options_options.pg = n.getObjectValue<Options_options_pg>(createOptions_options_pgFromDiscriminatorValue); },
         "redis": n => { options_options.redis = n.getObjectValue<Options_options_redis>(createOptions_options_redisFromDiscriminatorValue); },
         "valkey": n => { options_options.valkey = n.getObjectValue<Options_options_valkey>(createOptions_options_valkeyFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Options_options_advanced_mysql The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoOptions_options_advanced_mysql(options_options_advanced_mysql: Partial<Options_options_advanced_mysql> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "layouts": n => { options_options_advanced_mysql.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
+        "regions": n => { options_options_advanced_mysql.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "versions": n => { options_options_advanced_mysql.versions = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Options_options_advanced_pg The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoOptions_options_advanced_pg(options_options_advanced_pg: Partial<Options_options_advanced_pg> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "layouts": n => { options_options_advanced_pg.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
+        "regions": n => { options_options_advanced_pg.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "versions": n => { options_options_advanced_pg.versions = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -30588,6 +30634,8 @@ export function deserializeIntoOptions_options_valkey(options_options_valkey: Pa
 // @ts-ignore
 export function deserializeIntoOptions_version_availability(options_version_availability: Partial<Options_version_availability> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "advanced_mysql": n => { options_version_availability.advancedMysql = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
+        "advanced_pg": n => { options_version_availability.advancedPg = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "kafka": n => { options_version_availability.kafka = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "mongodb": n => { options_version_availability.mongodb = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "mysql": n => { options_version_availability.mysql = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
@@ -36131,6 +36179,14 @@ export interface Options extends AdditionalDataHolder, Parsable {
 }
 export interface Options_options extends AdditionalDataHolder, Parsable {
     /**
+     * The advanced_mysql property
+     */
+    advancedMysql?: Options_options_advanced_mysql | null;
+    /**
+     * The advanced_pg property
+     */
+    advancedPg?: Options_options_advanced_pg | null;
+    /**
      * The kafka property
      */
     kafka?: Options_options_kafka | null;
@@ -36158,6 +36214,34 @@ export interface Options_options extends AdditionalDataHolder, Parsable {
      * The valkey property
      */
     valkey?: Options_options_valkey | null;
+}
+export interface Options_options_advanced_mysql extends AdditionalDataHolder, Parsable {
+    /**
+     * An array of objects, each indicating the node sizes (otherwise referred to as slugs) that are available with various numbers of nodes in the database cluster. Each slugs denotes the node's identifier, CPU, and RAM (in that order).
+     */
+    layouts?: Database_layout_option[] | null;
+    /**
+     * An array of strings containing the names of available regions
+     */
+    regions?: string[] | null;
+    /**
+     * An array of strings containing the names of available regions
+     */
+    versions?: string[] | null;
+}
+export interface Options_options_advanced_pg extends AdditionalDataHolder, Parsable {
+    /**
+     * An array of objects, each indicating the node sizes (otherwise referred to as slugs) that are available with various numbers of nodes in the database cluster. Each slugs denotes the node's identifier, CPU, and RAM (in that order).
+     */
+    layouts?: Database_layout_option[] | null;
+    /**
+     * An array of strings containing the names of available regions
+     */
+    regions?: string[] | null;
+    /**
+     * An array of strings containing the names of available regions
+     */
+    versions?: string[] | null;
 }
 export interface Options_options_kafka extends AdditionalDataHolder, Parsable {
     /**
@@ -36258,6 +36342,14 @@ export interface Options_options_valkey extends AdditionalDataHolder, Parsable {
     versions?: string[] | null;
 }
 export interface Options_version_availability extends AdditionalDataHolder, Parsable {
+    /**
+     * An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
+     */
+    advancedMysql?: Database_version_availability[] | null;
+    /**
+     * An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
+     */
+    advancedPg?: Database_version_availability[] | null;
     /**
      * An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
      */
@@ -46585,7 +46677,7 @@ export function serializeEmbeddings_request(writer: SerializationWriter, embeddi
         writer.writeStringValue("input", embeddings_request.input as string);
     }
     else {
-        writer.writeCollectionOfObjectValues<string>("input", embeddings_request.input as string[] | undefined | null, serializeEmbeddings_request_input);
+        writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input);
     }
     writer.writeStringValue("model", embeddings_request.model);
     writer.writeStringValue("user", embeddings_request.user);
@@ -49131,6 +49223,8 @@ export function serializeOptions(writer: SerializationWriter, options: Partial<O
 // @ts-ignore
 export function serializeOptions_options(writer: SerializationWriter, options_options: Partial<Options_options> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!options_options || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Options_options_advanced_mysql>("advanced_mysql", options_options.advancedMysql, serializeOptions_options_advanced_mysql);
+    writer.writeObjectValue<Options_options_advanced_pg>("advanced_pg", options_options.advancedPg, serializeOptions_options_advanced_pg);
     writer.writeObjectValue<Options_options_kafka>("kafka", options_options.kafka, serializeOptions_options_kafka);
     writer.writeObjectValue<Options_options_mongodb>("mongodb", options_options.mongodb, serializeOptions_options_mongodb);
     writer.writeObjectValue<Options_options_mysql>("mysql", options_options.mysql, serializeOptions_options_mysql);
@@ -49139,6 +49233,28 @@ export function serializeOptions_options(writer: SerializationWriter, options_op
     writer.writeObjectValue<Options_options_redis>("redis", options_options.redis, serializeOptions_options_redis);
     writer.writeObjectValue<Options_options_valkey>("valkey", options_options.valkey, serializeOptions_options_valkey);
     writer.writeAdditionalData(options_options.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Options_options_advanced_mysql The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOptions_options_advanced_mysql(writer: SerializationWriter, options_options_advanced_mysql: Partial<Options_options_advanced_mysql> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!options_options_advanced_mysql || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(options_options_advanced_mysql.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Options_options_advanced_pg The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOptions_options_advanced_pg(writer: SerializationWriter, options_options_advanced_pg: Partial<Options_options_advanced_pg> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!options_options_advanced_pg || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(options_options_advanced_pg.additionalData);
 }
 /**
  * Serializes information the current object
@@ -49226,6 +49342,8 @@ export function serializeOptions_options_valkey(writer: SerializationWriter, opt
 // @ts-ignore
 export function serializeOptions_version_availability(writer: SerializationWriter, options_version_availability: Partial<Options_version_availability> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!options_version_availability || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Database_version_availability>("advanced_mysql", options_version_availability.advancedMysql, serializeDatabase_version_availability);
+    writer.writeCollectionOfObjectValues<Database_version_availability>("advanced_pg", options_version_availability.advancedPg, serializeDatabase_version_availability);
     writer.writeCollectionOfObjectValues<Database_version_availability>("kafka", options_version_availability.kafka, serializeDatabase_version_availability);
     writer.writeCollectionOfObjectValues<Database_version_availability>("mongodb", options_version_availability.mongodb, serializeDatabase_version_availability);
     writer.writeCollectionOfObjectValues<Database_version_availability>("mysql", options_version_availability.mysql, serializeDatabase_version_availability);
@@ -52981,12 +53099,11 @@ export const Batch_create_request_completion_windowObject = {
     TwoFourh: "24h",
 } as const;
 /**
- * Inference endpoint each request is dispatched to. When `provider` is `openai`, must match the `url` on every JSONL line.
+ * Inference endpoint each request is dispatched to. **Required when `provider` is `openai` and must match the `url` on every JSONL line. Must be omitted when `provider` is `anthropic`.**
  */
 export const Batch_create_request_endpointObject = {
+    V1Responses: "/v1/responses",
     V1ChatCompletions: "/v1/chat/completions",
-    V1Embeddings: "/v1/embeddings",
-    V1Messages: "/v1/messages",
 } as const;
 /**
  * The inference provider whose JSONL schema the input file conforms to. `openai` follows the OpenAI Batch API input schema (`custom_id`, `method`, `url`, `body`); `anthropic` follows the Anthropic Message Batches JSONL conventions.
@@ -53230,7 +53347,7 @@ export const CustomModelSourceTypeObject = {
     SOURCE_TYPE_FINE_TUNING: "SOURCE_TYPE_FINE_TUNING",
 } as const;
 /**
- * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+ * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, "valkey" for Valkey, "advanced_pg" for PostgreSQL Advanced Edition, and "advanced_mysql" for MySQL Advanced Edition. Advanced Edition engines are currently in public preview.
  */
 export const Database_cluster_engineObject = {
     Pg: "pg",
@@ -53240,9 +53357,11 @@ export const Database_cluster_engineObject = {
     Mongodb: "mongodb",
     Kafka: "kafka",
     Opensearch: "opensearch",
+    Advanced_pg: "advanced_pg",
+    Advanced_mysql: "advanced_mysql",
 } as const;
 /**
- * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+ * A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, "valkey" for Valkey, "advanced_pg" for PostgreSQL Advanced Edition, and "advanced_mysql" for MySQL Advanced Edition. Advanced Edition engines are currently in public preview.
  */
 export const Database_cluster_read_engineObject = {
     Pg: "pg",
@@ -53252,6 +53371,8 @@ export const Database_cluster_read_engineObject = {
     Mongodb: "mongodb",
     Kafka: "kafka",
     Opensearch: "opensearch",
+    Advanced_pg: "advanced_pg",
+    Advanced_mysql: "advanced_mysql",
 } as const;
 /**
  * A string representing the current status of the database cluster.
