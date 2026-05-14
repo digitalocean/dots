@@ -20,7 +20,7 @@ export interface Custom_modelsRequestBuilder extends BaseRequestBuilder<Custom_m
     get importEscaped(): ImportRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.genAi.custom_models.item collection
-     * @param uuid UUID of the custom model to delete
+     * @param uuid UUID of the custom model to retrieve
      * @returns {WithUuItemRequestBuilder}
      */
      byUuid(uuid: string) : WithUuItemRequestBuilder;
