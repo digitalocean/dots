@@ -37,7 +37,7 @@ export interface BatchesRequestBuilder extends BaseRequestBuilder<BatchesRequest
      get(requestConfiguration?: RequestConfiguration<BatchesRequestBuilderGetQueryParameters> | undefined) : Promise<Batch_list_response | undefined>;
     /**
      * Submits a batch job against a previously uploaded JSONL input file. The upload must have completed before this call; otherwise the request is rejected.Supply a unique `request_id` to make the submission idempotent — retries with the same value return the existing job. When `provider` is `openai`, the `url` on each JSONL line must match `endpoint`.
-     * @param body Request body for creating a batch inference job.
+     * @param body Request body for creating a batch inference job.When `provider` is `openai`, `endpoint` is required and must be one of `/v1/responses` or `/v1/chat/completions`. When `provider` is `anthropic`, `endpoint` must be omitted — the Anthropic Message Batches API does not need a per-job endpoint.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Batch>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -59,7 +59,7 @@ export interface BatchesRequestBuilder extends BaseRequestBuilder<BatchesRequest
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<BatchesRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
      * Submits a batch job against a previously uploaded JSONL input file. The upload must have completed before this call; otherwise the request is rejected.Supply a unique `request_id` to make the submission idempotent — retries with the same value return the existing job. When `provider` is `openai`, the `url` on each JSONL line must match `endpoint`.
-     * @param body Request body for creating a batch inference job.
+     * @param body Request body for creating a batch inference job.When `provider` is `openai`, `endpoint` is required and must be one of `/v1/responses` or `/v1/chat/completions`. When `provider` is `anthropic`, `endpoint` must be omitted — the Anthropic Message Batches API does not need a per-job endpoint.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -77,11 +77,16 @@ export interface BatchesRequestBuilderGetQueryParameters {
      * Maximum number of batches to return per page.
      */
     limit?: number;
+    /**
+     * Optional filter restricting results to batches in the given lifecycle state.
+     */
+    status?: GetStatusQueryParameterType;
 }
+export type GetStatusQueryParameterType = (typeof GetStatusQueryParameterTypeObject)[keyof typeof GetStatusQueryParameterTypeObject];
 /**
  * Uri template for the request builder.
  */
-export const BatchesRequestBuilderUriTemplate = "{+baseurl}/v1/batches{?after*,limit*}";
+export const BatchesRequestBuilderUriTemplate = "{+baseurl}/v1/batches{?after*,limit*,status*}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */
@@ -133,5 +138,15 @@ export const BatchesRequestBuilderRequestsMetadata: RequestsMetadata = {
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
+export const GetStatusQueryParameterTypeObject = {
+    Validating: "validating",
+    In_progress: "in_progress",
+    Finalizing: "finalizing",
+    Completed: "completed",
+    Failed: "failed",
+    Expired: "expired",
+    Cancelling: "cancelling",
+    Cancelled: "cancelled",
+} as const;
 /* tslint:enable */
 /* eslint-enable */
