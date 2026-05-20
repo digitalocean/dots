@@ -6841,6 +6841,10 @@ export interface App_health_response extends AdditionalDataHolder, Parsable {
  */
 export interface App_ingress_spec extends AdditionalDataHolder, Parsable {
     /**
+     * Optional HTTPS URL of a custom error page to display when the app is unreachable. Thepage is shown in a full-viewport iframe. The target must allow framing: avoid`X-Frame-Options: DENY` and a restrictive `Content-Security-Policy` `frame-ancestors`that blocks the platform. If omitted, the default platform error page is used.
+     */
+    customErrorPageUrl?: string | null;
+    /**
      * Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects.
      */
     rules?: App_ingress_spec_rule[] | null;
@@ -24289,6 +24293,7 @@ export function deserializeIntoApp_health_response(app_health_response: Partial<
 // @ts-ignore
 export function deserializeIntoApp_ingress_spec(app_ingress_spec: Partial<App_ingress_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "custom_error_page_url": n => { app_ingress_spec.customErrorPageUrl = n.getStringValue(); },
         "rules": n => { app_ingress_spec.rules = n.getCollectionOfObjectValues<App_ingress_spec_rule>(createApp_ingress_spec_ruleFromDiscriminatorValue); },
     }
 }
@@ -42638,6 +42643,7 @@ export function serializeApp_health_response(writer: SerializationWriter, app_he
 // @ts-ignore
 export function serializeApp_ingress_spec(writer: SerializationWriter, app_ingress_spec: Partial<App_ingress_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_ingress_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("custom_error_page_url", app_ingress_spec.customErrorPageUrl);
     writer.writeCollectionOfObjectValues<App_ingress_spec_rule>("rules", app_ingress_spec.rules, serializeApp_ingress_spec_rule);
     writer.writeAdditionalData(app_ingress_spec.additionalData);
 }
