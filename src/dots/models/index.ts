@@ -9690,6 +9690,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     serviceSubnet?: string | null;
     /**
+     * An object specifying Single Sign-On (SSO) configuration for the Kubernetes cluster.
+     */
+    sso?: Sso | null;
+    /**
      * An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster.
      */
     status?: Cluster_status | null;
@@ -9818,6 +9822,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      */
     serviceSubnet?: string | null;
     /**
+     * An object specifying Single Sign-On (SSO) configuration for the Kubernetes cluster.
+     */
+    sso?: Sso | null;
+    /**
      * An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster.
      */
     status?: Cluster_read_status | null;
@@ -9931,6 +9939,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      * An object specifying whether the routing-agent component should be enabled for the Kubernetes cluster.
      */
     routingAgent?: Routing_agent | null;
+    /**
+     * An object specifying Single Sign-On (SSO) configuration for the Kubernetes cluster.
+     */
+    sso?: Sso | null;
     /**
      * A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes.
      */
@@ -18275,6 +18287,15 @@ export function createSshKeysFromDiscriminatorValue(parseNode: ParseNode | undef
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sso}
+ */
+// @ts-ignore
+export function createSsoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSso;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {State}
  */
 // @ts-ignore
@@ -26374,6 +26395,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "registry_enabled": n => { cluster.registryEnabled = n.getBooleanValue(); },
         "routing_agent": n => { cluster.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "service_subnet": n => { cluster.serviceSubnet = n.getStringValue(); },
+        "sso": n => { cluster.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
         "status": n => { cluster.status = n.getObjectValue<Cluster_status>(createCluster_statusFromDiscriminatorValue); },
         "surge_upgrade": n => { cluster.surgeUpgrade = n.getBooleanValue(); },
         "tags": n => { cluster.tags = n.getCollectionOfPrimitiveValues<string>(); },
@@ -26424,6 +26446,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "registry_enabled": n => { cluster_read.registryEnabled = n.getBooleanValue(); },
         "routing_agent": n => { cluster_read.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "service_subnet": n => { cluster_read.serviceSubnet = n.getStringValue(); },
+        "sso": n => { cluster_read.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
         "status": n => { cluster_read.status = n.getObjectValue<Cluster_read_status>(createCluster_read_statusFromDiscriminatorValue); },
         "surge_upgrade": n => { cluster_read.surgeUpgrade = n.getBooleanValue(); },
         "tags": n => { cluster_read.tags = n.getCollectionOfPrimitiveValues<string>(); },
@@ -26498,6 +26521,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "nvidia_gpu_device_plugin": n => { cluster_update.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
+        "sso": n => { cluster_update.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
         "surge_upgrade": n => { cluster_update.surgeUpgrade = n.getBooleanValue(); },
         "tags": n => { cluster_update.tags = n.getCollectionOfPrimitiveValues<string>(); },
     }
@@ -31770,6 +31794,20 @@ export function deserializeIntoSshKeys(sshKeys: Partial<SshKeys> | undefined = {
         "id": n => { sshKeys.id = n.getNumberValue(); },
         "name": n => { sshKeys.name = n.getStringValue(); },
         "public_key": n => { sshKeys.publicKey = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sso The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSso(sso: Partial<Sso> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "client_id": n => { sso.clientId = n.getStringValue(); },
+        "enabled": n => { sso.enabled = n.getBooleanValue(); },
+        "issuer_url": n => { sso.issuerUrl = n.getStringValue(); },
+        "required": n => { sso.required = n.getBooleanValue(); },
     }
 }
 /**
@@ -44881,6 +44919,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeStringValue("region", cluster.region);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster.routingAgent, serializeRouting_agent);
     writer.writeStringValue("service_subnet", cluster.serviceSubnet);
+    writer.writeObjectValue<Sso>("sso", cluster.sso, serializeSso);
     writer.writeBooleanValue("surge_upgrade", cluster.surgeUpgrade);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster.tags);
     writer.writeStringValue("version", cluster.version);
@@ -44927,6 +44966,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_read.registries);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_read.routingAgent, serializeRouting_agent);
     writer.writeStringValue("service_subnet", cluster_read.serviceSubnet);
+    writer.writeObjectValue<Sso>("sso", cluster_read.sso, serializeSso);
     writer.writeBooleanValue("surge_upgrade", cluster_read.surgeUpgrade);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_read.tags);
     writer.writeStringValue("version", cluster_read.version);
@@ -45004,6 +45044,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_update.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
+    writer.writeObjectValue<Sso>("sso", cluster_update.sso, serializeSso);
     writer.writeBooleanValue("surge_upgrade", cluster_update.surgeUpgrade);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_update.tags);
     writer.writeAdditionalData(cluster_update.additionalData);
@@ -50559,6 +50600,21 @@ export function serializeSshKeys(writer: SerializationWriter, sshKeys: Partial<S
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sso The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSso(writer: SerializationWriter, sso: Partial<Sso> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sso || isSerializingDerivedType) { return; }
+    writer.writeStringValue("client_id", sso.clientId);
+    writer.writeBooleanValue("enabled", sso.enabled);
+    writer.writeStringValue("issuer_url", sso.issuerUrl);
+    writer.writeBooleanValue("required", sso.required);
+    writer.writeAdditionalData(sso.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param State The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -51511,6 +51567,27 @@ export interface SshKeys extends AdditionalDataHolder, Parsable {
      * The entire public key string that was uploaded. Embedded into the root user's `authorized_keys` file if you include this key during Droplet creation.
      */
     publicKey?: string | null;
+}
+/**
+ * An object specifying Single Sign-On (SSO) configuration for the Kubernetes cluster.
+ */
+export interface Sso extends AdditionalDataHolder, Parsable {
+    /**
+     * The OIDC client ID registered with the identity provider. Required when`enabled` is `true`.
+     */
+    clientId?: string | null;
+    /**
+     * Indicates whether SSO authentication is enabled for the cluster.
+     */
+    enabled?: boolean | null;
+    /**
+     * The OIDC issuer URL for the identity provider. Required when `enabled` is`true`.
+     */
+    issuerUrl?: string | null;
+    /**
+     * Indicates whether any non-SSO forms of authentication are disallowed.Can only be set to `true` when `enabled` is`true`.
+     */
+    required?: boolean | null;
 }
 export interface State extends AdditionalDataHolder, Parsable {
     /**
