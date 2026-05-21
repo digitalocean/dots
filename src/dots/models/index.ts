@@ -6841,6 +6841,10 @@ export interface App_health_response extends AdditionalDataHolder, Parsable {
  */
 export interface App_ingress_spec extends AdditionalDataHolder, Parsable {
     /**
+     * Optional HTTPS URL of a custom error page to display when the app is unreachable. Thepage is shown in a full-viewport iframe. The target must allow framing: avoid`X-Frame-Options: DENY` and a restrictive `Content-Security-Policy` `frame-ancestors`that blocks the platform. If omitted, the default platform error page is used.
+     */
+    customErrorPageUrl?: string | null;
+    /**
      * Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects.
      */
     rules?: App_ingress_spec_rule[] | null;
@@ -9717,6 +9721,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet to attach worker nodes to. When omitted oncreate, the default subnet for the VPC is used. This value cannot be changedafter the cluster is created.`vpc_uuid` must also be set.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object specifying custom cluster autoscaler configuration.
@@ -9849,6 +9857,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet worker nodes are attached to. When unset, thedefault subnet for the VPC is used.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster.
@@ -24289,6 +24301,7 @@ export function deserializeIntoApp_health_response(app_health_response: Partial<
 // @ts-ignore
 export function deserializeIntoApp_ingress_spec(app_ingress_spec: Partial<App_ingress_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "custom_error_page_url": n => { app_ingress_spec.customErrorPageUrl = n.getStringValue(); },
         "rules": n => { app_ingress_spec.rules = n.getCollectionOfObjectValues<App_ingress_spec_rule>(createApp_ingress_spec_ruleFromDiscriminatorValue); },
     }
 }
@@ -26402,6 +26415,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "updated_at": n => { cluster.updatedAt = n.getDateValue(); },
         "version": n => { cluster.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -26453,6 +26467,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "updated_at": n => { cluster_read.updatedAt = n.getDateValue(); },
         "version": n => { cluster_read.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster_read.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster_read.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -42638,6 +42653,7 @@ export function serializeApp_health_response(writer: SerializationWriter, app_he
 // @ts-ignore
 export function serializeApp_ingress_spec(writer: SerializationWriter, app_ingress_spec: Partial<App_ingress_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_ingress_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("custom_error_page_url", app_ingress_spec.customErrorPageUrl);
     writer.writeCollectionOfObjectValues<App_ingress_spec_rule>("rules", app_ingress_spec.rules, serializeApp_ingress_spec_rule);
     writer.writeAdditionalData(app_ingress_spec.additionalData);
 }
@@ -44924,6 +44940,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster.tags);
     writer.writeStringValue("version", cluster.version);
     writer.writeGuidValue("vpc_uuid", cluster.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster.workerSubnetUuid);
     writer.writeAdditionalData(cluster.additionalData);
 }
 /**
@@ -44971,6 +44988,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_read.tags);
     writer.writeStringValue("version", cluster_read.version);
     writer.writeGuidValue("vpc_uuid", cluster_read.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster_read.workerSubnetUuid);
     writer.writeAdditionalData(cluster_read.additionalData);
 }
 /**
