@@ -3023,6 +3023,12 @@ export interface ApiGetModelCatalogCardOutput extends AdditionalDataHolder, Pars
      */
     data?: ApiModelCatalogCard | null;
 }
+export interface ApiGetModelEvaluationPresetOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model Evaluation Preset - a saved, reusable configuration for model evaluation runs.
+     */
+    preset?: ApiModelEvaluationPreset | null;
+}
 export interface ApiGetModelEvaluationRunOutput extends AdditionalDataHolder, Parsable {
     /**
      * Links to other pages
@@ -3876,6 +3882,12 @@ export interface ApiListModelEvaluationMetricsOutput extends AdditionalDataHolde
      */
     metrics?: ApiEvaluationMetric[] | null;
 }
+export interface ApiListModelEvaluationPresetsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * List of explicitly saved evaluation presets (reusable configs).
+     */
+    presets?: ApiModelEvaluationPreset[] | null;
+}
 export interface ApiListModelEvaluationRunsOutput extends AdditionalDataHolder, Parsable {
     /**
      * Links to other pages
@@ -4409,6 +4421,47 @@ export interface ApiModelEndpoint extends AdditionalDataHolder, Parsable {
      * The endpoint path (e.g. /chat/responses)
      */
     endpoint?: string | null;
+}
+/**
+ * Model Evaluation Preset - a saved, reusable configuration for model evaluation runs.
+ */
+export interface ApiModelEvaluationPreset extends AdditionalDataHolder, Parsable {
+    /**
+     * Timestamp when the preset was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The dataset_name property
+     */
+    datasetName?: string | null;
+    /**
+     * Dataset used for evaluation.
+     */
+    datasetUuid?: string | null;
+    /**
+     * UUID of the evaluation preset.
+     */
+    evalPresetUuid?: string | null;
+    /**
+     * The judge_model_name property
+     */
+    judgeModelName?: string | null;
+    /**
+     * Judge model used to score responses.
+     */
+    judgeModelUuid?: string | null;
+    /**
+     * Metrics selected for this preset.
+     */
+    metrics?: ApiEvaluationMetric[] | null;
+    /**
+     * Name of the evaluation preset.
+     */
+    name?: string | null;
+    /**
+     * The star_metric property
+     */
+    starMetric?: ApiStarMetric | null;
 }
 /**
  * Result for a single prompt in a model evaluation run.
@@ -6840,6 +6893,10 @@ export interface App_health_response extends AdditionalDataHolder, Parsable {
  * Specification for app ingress configurations.
  */
 export interface App_ingress_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Optional HTTPS URL of a custom error page to display when the app is unreachable. Thepage is shown in a full-viewport iframe. The target must allow framing: avoid`X-Frame-Options: DENY` and a restrictive `Content-Security-Policy` `frame-ancestors`that blocks the platform. If omitted, the default platform error page is used.
+     */
+    customErrorPageUrl?: string | null;
     /**
      * Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects.
      */
@@ -9717,6 +9774,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet to attach worker nodes to. When omitted oncreate, the default subnet for the VPC is used. This value cannot be changedafter the cluster is created.`vpc_uuid` must also be set.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object specifying custom cluster autoscaler configuration.
@@ -9849,6 +9910,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet worker nodes are attached to. When unset, thedefault subnet for the VPC is used.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster.
@@ -11678,6 +11743,15 @@ export function createApiGetModelCatalogCardOutputFromDiscriminatorValue(parseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetModelEvaluationPresetOutput}
+ */
+// @ts-ignore
+export function createApiGetModelEvaluationPresetOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetModelEvaluationPresetOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetModelEvaluationRunOutput}
  */
 // @ts-ignore
@@ -12092,6 +12166,15 @@ export function createApiListModelEvaluationMetricsOutputFromDiscriminatorValue(
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelEvaluationPresetsOutput}
+ */
+// @ts-ignore
+export function createApiListModelEvaluationPresetsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelEvaluationPresetsOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListModelEvaluationRunsOutput}
  */
 // @ts-ignore
@@ -12286,6 +12369,15 @@ export function createApiModelCatalogEntryFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createApiModelEndpointFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiModelEndpoint;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelEvaluationPreset}
+ */
+// @ts-ignore
+export function createApiModelEvaluationPresetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelEvaluationPreset;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -21625,6 +21717,17 @@ export function deserializeIntoApiGetModelCatalogCardOutput(apiGetModelCatalogCa
 }
 /**
  * The deserialization information for the current model
+ * @param ApiGetModelEvaluationPresetOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetModelEvaluationPresetOutput(apiGetModelEvaluationPresetOutput: Partial<ApiGetModelEvaluationPresetOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "preset": n => { apiGetModelEvaluationPresetOutput.preset = n.getObjectValue<ApiModelEvaluationPreset>(createApiModelEvaluationPresetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiGetModelEvaluationRunOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -22252,6 +22355,17 @@ export function deserializeIntoApiListModelEvaluationMetricsOutput(apiListModelE
 }
 /**
  * The deserialization information for the current model
+ * @param ApiListModelEvaluationPresetsOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelEvaluationPresetsOutput(apiListModelEvaluationPresetsOutput: Partial<ApiListModelEvaluationPresetsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "presets": n => { apiListModelEvaluationPresetsOutput.presets = n.getCollectionOfObjectValues<ApiModelEvaluationPreset>(createApiModelEvaluationPresetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiListModelEvaluationRunsOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -22585,6 +22699,25 @@ export function deserializeIntoApiModelEndpoint(apiModelEndpoint: Partial<ApiMod
     return {
         "capabilities": n => { apiModelEndpoint.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
         "endpoint": n => { apiModelEndpoint.endpoint = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelEvaluationPreset The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelEvaluationPreset(apiModelEvaluationPreset: Partial<ApiModelEvaluationPreset> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { apiModelEvaluationPreset.createdAt = n.getDateValue(); },
+        "dataset_name": n => { apiModelEvaluationPreset.datasetName = n.getStringValue(); },
+        "dataset_uuid": n => { apiModelEvaluationPreset.datasetUuid = n.getStringValue(); },
+        "eval_preset_uuid": n => { apiModelEvaluationPreset.evalPresetUuid = n.getStringValue(); },
+        "judge_model_name": n => { apiModelEvaluationPreset.judgeModelName = n.getStringValue(); },
+        "judge_model_uuid": n => { apiModelEvaluationPreset.judgeModelUuid = n.getStringValue(); },
+        "metrics": n => { apiModelEvaluationPreset.metrics = n.getCollectionOfObjectValues<ApiEvaluationMetric>(createApiEvaluationMetricFromDiscriminatorValue); },
+        "name": n => { apiModelEvaluationPreset.name = n.getStringValue(); },
+        "star_metric": n => { apiModelEvaluationPreset.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
     }
 }
 /**
@@ -24289,6 +24422,7 @@ export function deserializeIntoApp_health_response(app_health_response: Partial<
 // @ts-ignore
 export function deserializeIntoApp_ingress_spec(app_ingress_spec: Partial<App_ingress_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "custom_error_page_url": n => { app_ingress_spec.customErrorPageUrl = n.getStringValue(); },
         "rules": n => { app_ingress_spec.rules = n.getCollectionOfObjectValues<App_ingress_spec_rule>(createApp_ingress_spec_ruleFromDiscriminatorValue); },
     }
 }
@@ -26402,6 +26536,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "updated_at": n => { cluster.updatedAt = n.getDateValue(); },
         "version": n => { cluster.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -26453,6 +26588,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "updated_at": n => { cluster_read.updatedAt = n.getDateValue(); },
         "version": n => { cluster_read.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster_read.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster_read.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -39801,6 +39937,18 @@ export function serializeApiGetModelCatalogCardOutput(writer: SerializationWrite
 }
 /**
  * Serializes information the current object
+ * @param ApiGetModelEvaluationPresetOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetModelEvaluationPresetOutput(writer: SerializationWriter, apiGetModelEvaluationPresetOutput: Partial<ApiGetModelEvaluationPresetOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetModelEvaluationPresetOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelEvaluationPreset>("preset", apiGetModelEvaluationPresetOutput.preset, serializeApiModelEvaluationPreset);
+    writer.writeAdditionalData(apiGetModelEvaluationPresetOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiGetModelEvaluationRunOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -40474,6 +40622,18 @@ export function serializeApiListModelEvaluationMetricsOutput(writer: Serializati
 }
 /**
  * Serializes information the current object
+ * @param ApiListModelEvaluationPresetsOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelEvaluationPresetsOutput(writer: SerializationWriter, apiListModelEvaluationPresetsOutput: Partial<ApiListModelEvaluationPresetsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelEvaluationPresetsOutput || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiModelEvaluationPreset>("presets", apiListModelEvaluationPresetsOutput.presets, serializeApiModelEvaluationPreset);
+    writer.writeAdditionalData(apiListModelEvaluationPresetsOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiListModelEvaluationRunsOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -40832,6 +40992,26 @@ export function serializeApiModelEndpoint(writer: SerializationWriter, apiModelE
     writer.writeCollectionOfPrimitiveValues<string>("capabilities", apiModelEndpoint.capabilities);
     writer.writeStringValue("endpoint", apiModelEndpoint.endpoint);
     writer.writeAdditionalData(apiModelEndpoint.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelEvaluationPreset The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelEvaluationPreset(writer: SerializationWriter, apiModelEvaluationPreset: Partial<ApiModelEvaluationPreset> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelEvaluationPreset || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", apiModelEvaluationPreset.createdAt);
+    writer.writeStringValue("dataset_name", apiModelEvaluationPreset.datasetName);
+    writer.writeStringValue("dataset_uuid", apiModelEvaluationPreset.datasetUuid);
+    writer.writeStringValue("eval_preset_uuid", apiModelEvaluationPreset.evalPresetUuid);
+    writer.writeStringValue("judge_model_name", apiModelEvaluationPreset.judgeModelName);
+    writer.writeStringValue("judge_model_uuid", apiModelEvaluationPreset.judgeModelUuid);
+    writer.writeCollectionOfObjectValues<ApiEvaluationMetric>("metrics", apiModelEvaluationPreset.metrics, serializeApiEvaluationMetric);
+    writer.writeStringValue("name", apiModelEvaluationPreset.name);
+    writer.writeObjectValue<ApiStarMetric>("star_metric", apiModelEvaluationPreset.starMetric, serializeApiStarMetric);
+    writer.writeAdditionalData(apiModelEvaluationPreset.additionalData);
 }
 /**
  * Serializes information the current object
@@ -42638,6 +42818,7 @@ export function serializeApp_health_response(writer: SerializationWriter, app_he
 // @ts-ignore
 export function serializeApp_ingress_spec(writer: SerializationWriter, app_ingress_spec: Partial<App_ingress_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_ingress_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("custom_error_page_url", app_ingress_spec.customErrorPageUrl);
     writer.writeCollectionOfObjectValues<App_ingress_spec_rule>("rules", app_ingress_spec.rules, serializeApp_ingress_spec_rule);
     writer.writeAdditionalData(app_ingress_spec.additionalData);
 }
@@ -44924,6 +45105,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster.tags);
     writer.writeStringValue("version", cluster.version);
     writer.writeGuidValue("vpc_uuid", cluster.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster.workerSubnetUuid);
     writer.writeAdditionalData(cluster.additionalData);
 }
 /**
@@ -44971,6 +45153,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_read.tags);
     writer.writeStringValue("version", cluster_read.version);
     writer.writeGuidValue("vpc_uuid", cluster_read.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster_read.workerSubnetUuid);
     writer.writeAdditionalData(cluster_read.additionalData);
 }
 /**
