@@ -196,7 +196,7 @@ export interface SnapshotsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const SnapshotsRequestBuilderUriTemplate = "{+baseurl}/v2/volumes/{volume_id}/snapshots{?page*,per_page*}";
+export const SnapshotsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

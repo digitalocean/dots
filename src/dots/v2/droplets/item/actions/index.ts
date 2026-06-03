@@ -206,7 +206,7 @@ export function serializeActionsPostResponse(writer: SerializationWriter, action
 /**
  * Uri template for the request builder.
  */
-export const ActionsRequestBuilderUriTemplate = "{+baseurl}/v2/droplets/{droplet_id}/actions{?page*,per_page*}";
+export const ActionsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

@@ -163,7 +163,7 @@ export function serializeProjectsPostResponse(writer: SerializationWriter, proje
 /**
  * Uri template for the request builder.
  */
-export const ProjectsRequestBuilderUriTemplate = "{+baseurl}/v2/projects{?page*,per_page*}";
+export const ProjectsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

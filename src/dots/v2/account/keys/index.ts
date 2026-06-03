@@ -157,7 +157,7 @@ export function serializeKeysPostResponse(writer: SerializationWriter, keysPostR
 /**
  * Uri template for the request builder.
  */
-export const KeysRequestBuilderUriTemplate = "{+baseurl}/v2/account/keys{?page*,per_page*}";
+export const KeysRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

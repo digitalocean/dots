@@ -148,7 +148,7 @@ export interface App_ItemRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const App_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}{?name*}";
+export const App_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */

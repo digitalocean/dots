@@ -97,7 +97,7 @@ export interface AppsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const AppsRequestBuilderUriTemplate = "{+baseurl}/v2/apps{?page*,per_page*,with_projects*}";
+export const AppsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

@@ -215,7 +215,7 @@ export function serializeRecordsPostResponse(writer: SerializationWriter, record
 /**
  * Uri template for the request builder.
  */
-export const RecordsRequestBuilderUriTemplate = "{+baseurl}/v2/domains/{domain_name}/records{?name*,page*,per_page*,type*}";
+export const RecordsRequestBuilderUriTemplate = "";
 export const GetTypeQueryParameterTypeObject = {
     A: "A",
     AAAA: "AAAA",

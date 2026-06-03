@@ -67,7 +67,7 @@ export interface AgentsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const AgentsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/workspaces/{workspace_uuid}/agents{?only_deployed*,page*,per_page*}";
+export const AgentsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

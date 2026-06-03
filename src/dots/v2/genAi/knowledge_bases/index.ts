@@ -77,7 +77,7 @@ export interface Knowledge_basesRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Knowledge_basesRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/knowledge_bases{?page*,per_page*}";
+export const Knowledge_basesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

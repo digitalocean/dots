@@ -170,7 +170,7 @@ export function serializeImagesPostResponse(writer: SerializationWriter, imagesP
 /**
  * Uri template for the request builder.
  */
-export const ImagesRequestBuilderUriTemplate = "{+baseurl}/v2/images{?page*,per_page*,private*,tag_name*,type*}";
+export const ImagesRequestBuilderUriTemplate = "";
 export const GetTypeQueryParameterTypeObject = {
     Application: "application",
     Distribution: "distribution",

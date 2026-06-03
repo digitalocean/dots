@@ -159,7 +159,7 @@ export interface TokensRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const TokensRequestBuilderUriTemplate = "{+baseurl}/v2/dedicated-inferences/{dedicated_inference_id}/tokens{?page*,per_page*}";
+export const TokensRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

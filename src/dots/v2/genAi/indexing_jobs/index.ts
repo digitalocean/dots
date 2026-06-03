@@ -71,7 +71,7 @@ export interface Indexing_jobsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Indexing_jobsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/indexing_jobs{?page*,per_page*}";
+export const Indexing_jobsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

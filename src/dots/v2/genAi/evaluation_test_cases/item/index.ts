@@ -65,7 +65,7 @@ export interface Evaluation_test_case_uuItemRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Evaluation_test_case_uuItemRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/evaluation_test_cases/{evaluation_test_case_uu%2Did}{?evaluation_test_case_version*}";
+export const Evaluation_test_case_uuItemRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

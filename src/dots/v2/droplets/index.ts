@@ -405,7 +405,7 @@ export function serializeDropletsPostResponseMember2_links(writer: Serialization
 /**
  * Uri template for the request builder.
  */
-export const DropletsRequestBuilderUriTemplate = "{+baseurl}/v2/droplets{?name*,page*,per_page*,tag_name*,type*}";
+export const DropletsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
@@ -444,7 +444,7 @@ export const DropletsRequestBuilderNavigationMetadata: Record<Exclude<keyof Drop
  */
 export const DropletsRequestBuilderRequestsMetadata: RequestsMetadata = {
     delete: {
-        uriTemplate: DropletsRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/droplets?tag_name={tag_name}",
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -457,7 +457,7 @@ export const DropletsRequestBuilderRequestsMetadata: RequestsMetadata = {
         queryParametersMapper: DropletsRequestBuilderDeleteQueryParametersMapper,
     },
     get: {
-        uriTemplate: DropletsRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/droplets{?name*,page*,per_page*,tag_name*,type*}",
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -470,7 +470,7 @@ export const DropletsRequestBuilderRequestsMetadata: RequestsMetadata = {
         queryParametersMapper: DropletsRequestBuilderGetQueryParametersMapper,
     },
     post: {
-        uriTemplate: DropletsRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/droplets",
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

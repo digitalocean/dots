@@ -291,7 +291,7 @@ export function serializeDedicatedInferencesPostResponse(writer: SerializationWr
 /**
  * Uri template for the request builder.
  */
-export const DedicatedInferencesRequestBuilderUriTemplate = "{+baseurl}/v2/dedicated-inferences{?page*,per_page*,region*}";
+export const DedicatedInferencesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

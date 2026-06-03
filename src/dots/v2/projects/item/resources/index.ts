@@ -151,7 +151,7 @@ export function serializeResourcesPostResponse(writer: SerializationWriter, reso
 /**
  * Uri template for the request builder.
  */
-export const ResourcesRequestBuilderUriTemplate = "{+baseurl}/v2/projects/{project_id}/resources{?page*,per_page*}";
+export const ResourcesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

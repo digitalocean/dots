@@ -170,7 +170,7 @@ export function serializeScansPostResponse(writer: SerializationWriter, scansPos
 /**
  * Uri template for the request builder.
  */
-export const ScansRequestBuilderUriTemplate = "{+baseurl}/v2/security/scans{?page*,per_page*}";
+export const ScansRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

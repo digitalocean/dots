@@ -214,7 +214,7 @@ export interface VpcsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const VpcsRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs{?page*,per_page*}";
+export const VpcsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

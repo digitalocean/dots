@@ -71,7 +71,7 @@ export interface KeysRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const KeysRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/openai/keys{?page*,per_page*}";
+export const KeysRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

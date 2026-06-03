@@ -157,7 +157,7 @@ export function serializeDomainsPostResponse(writer: SerializationWriter, domain
 /**
  * Uri template for the request builder.
  */
-export const DomainsRequestBuilderUriTemplate = "{+baseurl}/v2/domains{?page*,per_page*}";
+export const DomainsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

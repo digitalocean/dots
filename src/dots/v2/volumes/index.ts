@@ -241,7 +241,7 @@ export interface VolumesRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const VolumesRequestBuilderUriTemplate = "{+baseurl}/v2/volumes{?name*,page*,per_page*,region*}";
+export const VolumesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

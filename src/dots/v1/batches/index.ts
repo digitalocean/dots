@@ -86,7 +86,7 @@ export type GetStatusQueryParameterType = (typeof GetStatusQueryParameterTypeObj
 /**
  * Uri template for the request builder.
  */
-export const BatchesRequestBuilderUriTemplate = "{+baseurl}/v1/batches{?after*,limit*,status*}";
+export const BatchesRequestBuilderUriTemplate = "";
 /**
  * Metadata for all the navigation properties in the request builder.
  */

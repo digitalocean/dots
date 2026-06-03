@@ -157,7 +157,7 @@ export function serializeEndpointsPostResponse(writer: SerializationWriter, endp
 /**
  * Uri template for the request builder.
  */
-export const EndpointsRequestBuilderUriTemplate = "{+baseurl}/v2/cdn/endpoints{?page*,per_page*}";
+export const EndpointsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

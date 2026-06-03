@@ -194,7 +194,7 @@ export function serializeDatabasesPostResponse(writer: SerializationWriter, data
 /**
  * Uri template for the request builder.
  */
-export const DatabasesRequestBuilderUriTemplate = "{+baseurl}/v2/databases{?tag_name*}";
+export const DatabasesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

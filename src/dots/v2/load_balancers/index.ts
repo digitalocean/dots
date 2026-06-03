@@ -157,7 +157,7 @@ export function serializeLoad_balancersPostResponse(writer: SerializationWriter,
 /**
  * Uri template for the request builder.
  */
-export const Load_balancersRequestBuilderUriTemplate = "{+baseurl}/v2/load_balancers{?page*,per_page*}";
+export const Load_balancersRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

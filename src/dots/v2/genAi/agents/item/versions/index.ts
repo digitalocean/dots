@@ -63,7 +63,7 @@ export interface VersionsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const VersionsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/agents/{agent_uu%2Did}/versions{?page*,per_page*}";
+export const VersionsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
