@@ -71,7 +71,7 @@ export interface Data_sourcesRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Data_sourcesRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/knowledge_bases/{knowledge_base_uu%2Did}/data_sources{?page*,per_page*}";
+export const Data_sourcesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

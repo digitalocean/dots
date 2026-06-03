@@ -157,7 +157,7 @@ export function serializeAlertsPostResponse(writer: SerializationWriter, alertsP
 /**
  * Uri template for the request builder.
  */
-export const AlertsRequestBuilderUriTemplate = "{+baseurl}/v2/monitoring/alerts{?page*,per_page*}";
+export const AlertsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

@@ -170,7 +170,7 @@ export function serializeByoip_prefixesPostResponse(writer: SerializationWriter,
 /**
  * Uri template for the request builder.
  */
-export const Byoip_prefixesRequestBuilderUriTemplate = "{+baseurl}/v2/byoip_prefixes{?page*,per_page*}";
+export const Byoip_prefixesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

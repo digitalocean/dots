@@ -71,7 +71,7 @@ export interface Api_keysRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Api_keysRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/models/api_keys{?page*,per_page*}";
+export const Api_keysRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

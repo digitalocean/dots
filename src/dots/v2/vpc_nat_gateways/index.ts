@@ -176,7 +176,7 @@ export interface Vpc_nat_gatewaysRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Vpc_nat_gatewaysRequestBuilderUriTemplate = "{+baseurl}/v2/vpc_nat_gateways{?name*,page*,per_page*,region*,state*,type*}";
+export const Vpc_nat_gatewaysRequestBuilderUriTemplate = "";
 export const GetRegionQueryParameterTypeObject = {
     Nyc1: "nyc1",
     Nyc2: "nyc2",

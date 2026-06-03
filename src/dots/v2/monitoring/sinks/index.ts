@@ -154,7 +154,7 @@ export interface SinksRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const SinksRequestBuilderUriTemplate = "{+baseurl}/v2/monitoring/sinks{?resource_id*}";
+export const SinksRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

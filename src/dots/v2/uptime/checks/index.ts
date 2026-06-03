@@ -191,7 +191,7 @@ export function serializeChecksPostResponse(writer: SerializationWriter, checksP
 /**
  * Uri template for the request builder.
  */
-export const ChecksRequestBuilderUriTemplate = "{+baseurl}/v2/uptime/checks{?page*,per_page*}";
+export const ChecksRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

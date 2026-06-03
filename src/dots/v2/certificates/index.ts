@@ -194,7 +194,7 @@ export function serializeCertificatesPostResponse(writer: SerializationWriter, c
 /**
  * Uri template for the request builder.
  */
-export const CertificatesRequestBuilderUriTemplate = "{+baseurl}/v2/certificates{?name*,page*,per_page*}";
+export const CertificatesRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

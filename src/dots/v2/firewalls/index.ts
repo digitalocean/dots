@@ -158,7 +158,7 @@ export function serializeFirewallsPostResponse(writer: SerializationWriter, fire
 /**
  * Uri template for the request builder.
  */
-export const FirewallsRequestBuilderUriTemplate = "{+baseurl}/v2/firewalls{?page*,per_page*}";
+export const FirewallsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

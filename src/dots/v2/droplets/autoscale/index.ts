@@ -161,7 +161,7 @@ export function serializeAutoscalePostResponse(writer: SerializationWriter, auto
 /**
  * Uri template for the request builder.
  */
-export const AutoscaleRequestBuilderUriTemplate = "{+baseurl}/v2/droplets/autoscale{?name*,page*,per_page*}";
+export const AutoscaleRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

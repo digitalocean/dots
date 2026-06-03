@@ -97,7 +97,7 @@ export function serializeClusterlintPostResponse(writer: SerializationWriter, cl
 /**
  * Uri template for the request builder.
  */
-export const ClusterlintRequestBuilderUriTemplate = "{+baseurl}/v2/kubernetes/clusters/{cluster_id}/clusterlint{?run_id*}";
+export const ClusterlintRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

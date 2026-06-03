@@ -240,7 +240,7 @@ export function serializeReserved_ipsPostResponse_links(writer: SerializationWri
 /**
  * Uri template for the request builder.
  */
-export const Reserved_ipsRequestBuilderUriTemplate = "{+baseurl}/v2/reserved_ips{?page*,per_page*}";
+export const Reserved_ipsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

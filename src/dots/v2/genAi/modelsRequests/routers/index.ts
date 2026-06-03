@@ -83,7 +83,7 @@ export interface RoutersRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const RoutersRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/models/routers{?page*,per_page*}";
+export const RoutersRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

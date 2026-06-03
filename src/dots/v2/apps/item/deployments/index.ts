@@ -76,7 +76,7 @@ export type GetDeployment_typesQueryParameterType = (typeof GetDeployment_typesQ
 /**
  * Uri template for the request builder.
  */
-export const DeploymentsRequestBuilderUriTemplate = "{+baseurl}/v2/apps/{app_%2Did}/deployments{?deployment_types*,page*,per_page*}";
+export const DeploymentsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

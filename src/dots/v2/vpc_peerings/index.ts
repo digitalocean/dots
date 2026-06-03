@@ -206,7 +206,7 @@ export interface Vpc_peeringsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const Vpc_peeringsRequestBuilderUriTemplate = "{+baseurl}/v2/vpc_peerings{?page*,per_page*,region*}";
+export const Vpc_peeringsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

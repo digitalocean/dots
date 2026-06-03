@@ -263,7 +263,7 @@ export function serializeReserved_ipv6PostResponse_reserved_ipv6(writer: Seriali
 /**
  * Uri template for the request builder.
  */
-export const Reserved_ipv6RequestBuilderUriTemplate = "{+baseurl}/v2/reserved_ipv6{?page*,per_page*}";
+export const Reserved_ipv6RequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

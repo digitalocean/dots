@@ -157,7 +157,7 @@ export function serializeClustersPostResponse(writer: SerializationWriter, clust
 /**
  * Uri template for the request builder.
  */
-export const ClustersRequestBuilderUriTemplate = "{+baseurl}/v2/kubernetes/clusters{?page*,per_page*}";
+export const ClustersRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

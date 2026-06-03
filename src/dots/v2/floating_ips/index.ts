@@ -240,7 +240,7 @@ export function serializeFloating_ipsPostResponse_links(writer: SerializationWri
 /**
  * Uri template for the request builder.
  */
-export const Floating_ipsRequestBuilderUriTemplate = "{+baseurl}/v2/floating_ips{?page*,per_page*}";
+export const Floating_ipsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

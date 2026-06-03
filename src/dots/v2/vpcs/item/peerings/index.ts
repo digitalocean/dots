@@ -203,7 +203,7 @@ export function serializePeeringsPostResponse(writer: SerializationWriter, peeri
 /**
  * Uri template for the request builder.
  */
-export const PeeringsRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_id}/peerings{?page*,per_page*}";
+export const PeeringsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

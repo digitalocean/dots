@@ -158,7 +158,7 @@ export interface TagsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const TagsRequestBuilderUriTemplate = "{+baseurl}/v2/tags{?page*,per_page*}";
+export const TagsRequestBuilderUriTemplate = "";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
