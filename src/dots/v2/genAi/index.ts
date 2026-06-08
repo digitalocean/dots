@@ -22,6 +22,8 @@ import { Knowledge_basesRequestBuilderNavigationMetadata, Knowledge_basesRequest
 // @ts-ignore
 import { Model_evaluation_metricsRequestBuilderRequestsMetadata, type Model_evaluation_metricsRequestBuilder } from './model_evaluation_metrics/index.js';
 // @ts-ignore
+import { Model_evaluation_presetsRequestBuilderNavigationMetadata, Model_evaluation_presetsRequestBuilderRequestsMetadata, type Model_evaluation_presetsRequestBuilder } from './model_evaluation_presets/index.js';
+// @ts-ignore
 import { Model_evaluation_runsRequestBuilderNavigationMetadata, Model_evaluation_runsRequestBuilderRequestsMetadata, type Model_evaluation_runsRequestBuilder } from './model_evaluation_runs/index.js';
 // @ts-ignore
 import { Model_evaluationRequestBuilderNavigationMetadata, type Model_evaluationRequestBuilder } from './model_evaluation/index.js';
@@ -88,6 +90,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      * The model_evaluation_metrics property
      */
     get model_evaluation_metrics(): Model_evaluation_metricsRequestBuilder;
+    /**
+     * The model_evaluation_presets property
+     */
+    get model_evaluation_presets(): Model_evaluation_presetsRequestBuilder;
     /**
      * The model_evaluation_runs property
      */
@@ -168,6 +174,10 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     },
     model_evaluation_metrics: {
         requestsMetadata: Model_evaluation_metricsRequestBuilderRequestsMetadata,
+    },
+    model_evaluation_presets: {
+        requestsMetadata: Model_evaluation_presetsRequestBuilderRequestsMetadata,
+        navigationMetadata: Model_evaluation_presetsRequestBuilderNavigationMetadata,
     },
     model_evaluation_runs: {
         requestsMetadata: Model_evaluation_runsRequestBuilderRequestsMetadata,
