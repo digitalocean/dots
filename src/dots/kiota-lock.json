@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "317F2536F3EA57BD34DBFF57F6AFCCA5FD2A495AB5E66D9D86A56CCCF00E47F29526136AA36764E0F1DB9B8E4491E081C7183DFEE5CE592D2FB835CA4272055E",
+  "descriptionHash": "B609D6350C9CE0C3B75044E2C367330ABED6D4358020FF7048A9B94BF01A8CE7E804761170A82A86C2A4733F8DFC811D20D823D374611B09A93A23C364220263",
   "descriptionLocation": "../../DigitalOcean-public.v2.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.31.1",
+  "kiotaVersion": "1.32.2",
   "clientClassName": "DigitalOceanClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "ApiSdk",
