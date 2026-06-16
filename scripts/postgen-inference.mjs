@@ -4,6 +4,12 @@
  *   1. src/inference-gen/index.ts       — paths, base URL, factory (Kiota-based, for v1.* usage)
  *   2. src/inference-gen/InferenceClient.ts — OpenAI-compatible wrapper (standalone, no Kiota)
  *
+ * NOTE: src/inference-gen/inference.ts is the public namespace barrel for the
+ * `@digitalocean/dots/inference` subpath export. It is HAND-WRITTEN and must
+ * NOT be regenerated here — it only re-exports `*` from InferenceClient.ts and
+ * index.ts, so any new endpoint picked up by this script is automatically
+ * reachable through that namespace with no edits required.
+ *
  * The InferenceClient uses direct fetch() — NOT Kiota — so responses keep their
  * native snake_case field names matching the OpenAI Node SDK exactly.
  *
