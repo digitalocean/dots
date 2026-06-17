@@ -8,6 +8,10 @@ import { type WithEval_run_uuItemRequestBuilder, WithEval_run_uuItemRequestBuild
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
+export type GetCandidate_typesQueryParameterType = (typeof GetCandidate_typesQueryParameterTypeObject)[keyof typeof GetCandidate_typesQueryParameterTypeObject];
+export type GetSort_byQueryParameterType = (typeof GetSort_byQueryParameterTypeObject)[keyof typeof GetSort_byQueryParameterTypeObject];
+export type GetSort_directionQueryParameterType = (typeof GetSort_directionQueryParameterTypeObject)[keyof typeof GetSort_directionQueryParameterTypeObject];
+export type GetStatusesQueryParameterType = (typeof GetStatusesQueryParameterTypeObject)[keyof typeof GetStatusesQueryParameterTypeObject];
 export type GetStatusQueryParameterType = (typeof GetStatusQueryParameterTypeObject)[keyof typeof GetStatusQueryParameterTypeObject];
 /**
  * Builds and executes requests for operations under /v2/gen-ai/model_evaluation_runs
@@ -61,6 +65,10 @@ export interface Model_evaluation_runsRequestBuilder extends BaseRequestBuilder<
  */
 export interface Model_evaluation_runsRequestBuilderGetQueryParameters {
     /**
+     * Filter by one or more candidate model source types(serverless, dedicated, router). Empty means no candidate-type filter.
+     */
+    candidateTypes?: GetCandidate_typesQueryParameterType[];
+    /**
      * UUID of the evaluation preset to filter by.
      */
     evalPresetUuid?: string;
@@ -73,14 +81,56 @@ export interface Model_evaluation_runsRequestBuilderGetQueryParameters {
      */
     perPage?: number;
     /**
+     * Free-text search across the eval run name, candidate model name anddataset name (case-insensitive substring match). Empty means no search.
+     */
+    search?: string;
+    /**
+     * Field to sort by. Defaults to creation date when unspecified.
+     */
+    sortBy?: GetSort_byQueryParameterType;
+    /**
+     * Sort direction. Defaults to descending when unspecified.
+     */
+    sortDirection?: GetSort_directionQueryParameterType;
+    /**
      * Filter by evaluation run status.
      */
     status?: GetStatusQueryParameterType;
+    /**
+     * Filter by one or more statuses. Empty means no status filter.
+     */
+    statuses?: GetStatusesQueryParameterType[];
 }
 /**
  * Uri template for the request builder.
  */
-export const Model_evaluation_runsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/model_evaluation_runs{?eval_preset_uuid*,page*,per_page*,status*}";
+export const Model_evaluation_runsRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/model_evaluation_runs{?candidate_types*,eval_preset_uuid*,page*,per_page*,search*,sort_by*,sort_direction*,status*,statuses*}";
+export const GetCandidate_typesQueryParameterTypeObject = {
+    CANDIDATE_MODEL_SOURCE_SERVERLESS: "CANDIDATE_MODEL_SOURCE_SERVERLESS",
+    CANDIDATE_MODEL_SOURCE_DEDICATED: "CANDIDATE_MODEL_SOURCE_DEDICATED",
+    CANDIDATE_MODEL_SOURCE_ROUTER: "CANDIDATE_MODEL_SOURCE_ROUTER",
+} as const;
+export const GetSort_byQueryParameterTypeObject = {
+    MODEL_EVALUATION_RUN_SORT_FIELD_UNSPECIFIED: "MODEL_EVALUATION_RUN_SORT_FIELD_UNSPECIFIED",
+    MODEL_EVALUATION_RUN_SORT_FIELD_CREATED_AT: "MODEL_EVALUATION_RUN_SORT_FIELD_CREATED_AT",
+    MODEL_EVALUATION_RUN_SORT_FIELD_STATUS: "MODEL_EVALUATION_RUN_SORT_FIELD_STATUS",
+} as const;
+export const GetSort_directionQueryParameterTypeObject = {
+    SORT_DIRECTION_UNSPECIFIED: "SORT_DIRECTION_UNSPECIFIED",
+    SORT_DIRECTION_ASC: "SORT_DIRECTION_ASC",
+    SORT_DIRECTION_DESC: "SORT_DIRECTION_DESC",
+} as const;
+export const GetStatusesQueryParameterTypeObject = {
+    MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED: "MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED",
+    MODEL_EVALUATION_RUN_QUEUED: "MODEL_EVALUATION_RUN_QUEUED",
+    MODEL_EVALUATION_RUN_RUNNING_DATASET: "MODEL_EVALUATION_RUN_RUNNING_DATASET",
+    MODEL_EVALUATION_RUN_EVALUATING_RESULTS: "MODEL_EVALUATION_RUN_EVALUATING_RESULTS",
+    MODEL_EVALUATION_RUN_CANCELLING: "MODEL_EVALUATION_RUN_CANCELLING",
+    MODEL_EVALUATION_RUN_CANCELLED: "MODEL_EVALUATION_RUN_CANCELLED",
+    MODEL_EVALUATION_RUN_SUCCESSFUL: "MODEL_EVALUATION_RUN_SUCCESSFUL",
+    MODEL_EVALUATION_RUN_PARTIALLY_SUCCESSFUL: "MODEL_EVALUATION_RUN_PARTIALLY_SUCCESSFUL",
+    MODEL_EVALUATION_RUN_FAILED: "MODEL_EVALUATION_RUN_FAILED",
+} as const;
 export const GetStatusQueryParameterTypeObject = {
     MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED: "MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED",
     MODEL_EVALUATION_RUN_QUEUED: "MODEL_EVALUATION_RUN_QUEUED",
@@ -96,8 +146,11 @@ export const GetStatusQueryParameterTypeObject = {
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
 const Model_evaluation_runsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "candidateTypes": "candidate_types",
     "evalPresetUuid": "eval_preset_uuid",
     "perPage": "per_page",
+    "sortBy": "sort_by",
+    "sortDirection": "sort_direction",
 };
 /**
  * Metadata for all the navigation properties in the request builder.
