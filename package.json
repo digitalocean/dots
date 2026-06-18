@@ -4,6 +4,12 @@
   "version": "1.16.0",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./inference": "./src/inference-gen/inference.js",
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:mock": "node --experimental-vm-modules node_modules/.bin/jest --testPathPatterns=mock",

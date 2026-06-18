@@ -5,15 +5,23 @@
  *   DIGITALOCEAN_TOKEN=...  npx tsx examples/inference/image-generation.ts
  *
  * The token must be a full-access DigitalOcean PAT (or a Model Access Key).
+ *
+ * Imports use the new `@digitalocean/dots/inference` namespace. Downstream
+ * consumers (after publish) write:
+ *
+ *     import { Client } from "@digitalocean/dots/inference";
+ *
+ * The legacy `import { InferenceClient } from "@digitalocean/dots"` import is
+ * still supported — Client and InferenceClient are the same constructor.
  */
-import { InferenceClient } from "../../index.js";
+import { Client } from "../../src/inference-gen/inference.js";
 
 const apiKey = process.env.DIGITALOCEAN_TOKEN;
 if (!apiKey) {
     throw new Error("DIGITALOCEAN_TOKEN not set");
 }
 
-const client = new InferenceClient({ apiKey });
+const client = new Client({ apiKey });
 
 const result = await client.images.generate({
     model: "stable-diffusion-3.5-large",

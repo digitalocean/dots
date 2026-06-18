@@ -1,7 +1,9 @@
 # DoTs
 `DoTs` is the official DigitalOcean Typescript Client based on the DO OpenAPIv3 specification. 
 
-> **New in v1.11.0** — `DoTs` now ships first-class support for DigitalOcean Serverless Inference: streaming chat completions, image generation, and model listing. Jump to [AI & Inference](#ai--inference) for usage, or browse runnable scripts in [`examples/inference/`](./examples/inference).
+> **New** — Inference now lives in its own namespace: `import { Client } from "@digitalocean/dots/inference"`. The legacy `import { InferenceClient } from "@digitalocean/dots"` is still fully supported (`Client` and `InferenceClient` are the same constructor). Jump to [AI & Inference](#ai--inference) for usage.
+>
+> **New in v1.11.0** — `DoTs` ships first-class support for DigitalOcean Serverless Inference: streaming chat completions, image generation, and model listing. Browse runnable scripts in [`examples/inference/`](./examples/inference).
 
 ## Getting Started
 #### Prerequisites 
@@ -96,12 +98,12 @@ Inference APIs are gated by a separate credential from the v2 control-plane toke
 - A **DigitalOcean Personal Access Token (PAT) with _full access_ scope** — read/write across all resources, including GenAI/Inference. Tokens scoped only to specific resource types will be rejected.
 - A **Model Access Key** issued from the DigitalOcean Cloud console under *GenAI Platform → Model Access Keys*. These are the recommended credential for production workloads since they're scoped only to inference.
 
-The credential is passed as `apiKey` to `InferenceClient`. The same `DIGITALOCEAN_TOKEN` env var used elsewhere in this README works here **only if** that PAT has full-access scope; otherwise use a Model Access Key.
+The credential is passed as `apiKey` to the inference `Client`. The same `DIGITALOCEAN_TOKEN` env var used elsewhere in this README works here **only if** that PAT has full-access scope; otherwise use a Model Access Key.
 
 ```typescript
-import { InferenceClient } from "@digitalocean/dots";
+import { Client } from "@digitalocean/dots/inference";
 
-const client = new InferenceClient({
+const client = new Client({
     apiKey: process.env.DIGITALOCEAN_TOKEN!, // full-access PAT or Model Access Key
 });
 ```
@@ -109,9 +111,9 @@ const client = new InferenceClient({
 ### Streaming chat completions
 
 ```typescript
-import { InferenceClient } from "@digitalocean/dots";
+import { Client } from "@digitalocean/dots/inference";
 
-const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+const client = new Client({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
 
 const stream = await client.chat.completions.create({
     model: "llama3.3-70b-instruct",
@@ -141,9 +143,9 @@ await client.chat.completions.create(
 ### Image generation
 
 ```typescript
-import { InferenceClient } from "@digitalocean/dots";
+import { Client } from "@digitalocean/dots/inference";
 
-const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+const client = new Client({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
 
 const result = await client.images.generate({
     model: "stable-diffusion-3.5-large", // any image model from `client.models.list()`
@@ -166,9 +168,9 @@ if (img?.url) {
 ### Listing available models
 
 ```typescript
-import { InferenceClient } from "@digitalocean/dots";
+import { Client } from "@digitalocean/dots/inference";
 
-const client = new InferenceClient({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
+const client = new Client({ apiKey: process.env.DIGITALOCEAN_TOKEN! });
 
 const models = await client.models.list();
 for (const m of models.data ?? []) {
@@ -176,15 +178,43 @@ for (const m of models.data ?? []) {
 }
 ```
 
-Minimal, runnable versions of all three snippets live under [`examples/inference/`](./examples/inference):
+### Import styles (all equivalent)
 
+The new `@digitalocean/dots/inference` subpath supports all the usual import shapes — pick whichever matches your project's conventions. Every form below resolves to the **same** constructor (`Client === InferenceClient`), so you can mix and match without any runtime difference:
+
+```typescript
+// Named import — closest to `from pydo.inference import client`
+import { Client } from "@digitalocean/dots/inference";
+
+// Namespace import — gives you Client, ClientOptions, SSEStream, etc. in one bag
+import * as inference from "@digitalocean/dots/inference";
+const c = new inference.Client({ apiKey });
+
+// Default import
+import Client from "@digitalocean/dots/inference";
+
+// Legacy name still reachable through the new subpath
+import { InferenceClient } from "@digitalocean/dots/inference";
+
+// Original root import — unchanged, still fully supported
+import { InferenceClient } from "@digitalocean/dots";
+```
+
+> **Backward compatibility.** The legacy `import { InferenceClient } from "@digitalocean/dots"` continues to work exactly as before. No existing code needs to change. New endpoints added to the OpenAPI spec land automatically in both surfaces — you'll never need to edit `src/inference-gen/inference.ts` to expose them.
+
+### Runnable examples
+
+Minimal, runnable versions of every snippet above live under [`examples/inference/`](./examples/inference):
+
+- [`namespace-usage.ts`](./examples/inference/namespace-usage.ts) — exercises the new `@digitalocean/dots/inference` namespace end-to-end (identity check, `models.list`, non-streaming chat, streaming chat, embeddings).
 - [`chat-streaming.ts`](./examples/inference/chat-streaming.ts) — streams a chat completion and prints tokens as they arrive.
 - [`image-generation.ts`](./examples/inference/image-generation.ts) — generates a single image with `stable-diffusion-3.5-large`. Prints the URL if the model returns one, otherwise decodes the base64 payload and writes `generated-image.png`.
 - [`models-list.ts`](./examples/inference/models-list.ts) — lists the IDs of all models you can call.
 
-Each script is a few lines long and only needs `DIGITALOCEAN_TOKEN` set:
+Each script only needs `DIGITALOCEAN_TOKEN` set:
 
 ```shell
+DIGITALOCEAN_TOKEN=... npx tsx examples/inference/namespace-usage.ts
 DIGITALOCEAN_TOKEN=... npx tsx examples/inference/chat-streaming.ts
 DIGITALOCEAN_TOKEN=... npx tsx examples/inference/image-generation.ts
 DIGITALOCEAN_TOKEN=... npx tsx examples/inference/models-list.ts
