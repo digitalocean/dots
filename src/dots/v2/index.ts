@@ -76,6 +76,8 @@ import { TagsRequestBuilderNavigationMetadata, TagsRequestBuilderRequestsMetadat
 // @ts-ignore
 import { type UptimeRequestBuilder, UptimeRequestBuilderNavigationMetadata } from './uptime/index.js';
 // @ts-ignore
+import { type VectorDatabasesRequestBuilder, VectorDatabasesRequestBuilderNavigationMetadata, VectorDatabasesRequestBuilderRequestsMetadata } from './vectorDatabases/index.js';
+// @ts-ignore
 import { type VolumesRequestBuilder, VolumesRequestBuilderNavigationMetadata, VolumesRequestBuilderRequestsMetadata } from './volumes/index.js';
 // @ts-ignore
 import { type Vpc_nat_gatewaysRequestBuilder, Vpc_nat_gatewaysRequestBuilderNavigationMetadata, Vpc_nat_gatewaysRequestBuilderRequestsMetadata } from './vpc_nat_gateways/index.js';
@@ -239,6 +241,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get uptime(): UptimeRequestBuilder;
     /**
+     * The vectorDatabases property
+     */
+    get vectorDatabases(): VectorDatabasesRequestBuilder;
+    /**
      * The volumes property
      */
     get volumes(): VolumesRequestBuilder;
@@ -395,6 +401,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     },
     uptime: {
         navigationMetadata: UptimeRequestBuilderNavigationMetadata,
+    },
+    vectorDatabases: {
+        requestsMetadata: VectorDatabasesRequestBuilderRequestsMetadata,
+        navigationMetadata: VectorDatabasesRequestBuilderNavigationMetadata,
     },
     volumes: {
         requestsMetadata: VolumesRequestBuilderRequestsMetadata,
