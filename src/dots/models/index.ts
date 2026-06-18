@@ -18790,6 +18790,177 @@ export function createValkey_advanced_configFromDiscriminatorValue(parseNode: Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbBackup}
+ */
+// @ts-ignore
+export function createVectordbBackupFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbBackup;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbCreateVectorDBRequest}
+ */
+// @ts-ignore
+export function createVectordbCreateVectorDBRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbCreateVectorDBRequest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbCreateVectorDBResponse}
+ */
+// @ts-ignore
+export function createVectordbCreateVectorDBResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbCreateVectorDBResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbGetRestoreStatusResponse}
+ */
+// @ts-ignore
+export function createVectordbGetRestoreStatusResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbGetRestoreStatusResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbGetVectorDBAdminCredentialsResponse}
+ */
+// @ts-ignore
+export function createVectordbGetVectorDBAdminCredentialsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbGetVectorDBAdminCredentialsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbGetVectorDBResponse}
+ */
+// @ts-ignore
+export function createVectordbGetVectorDBResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbGetVectorDBResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbListBackupsResponse}
+ */
+// @ts-ignore
+export function createVectordbListBackupsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbListBackupsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbListVectorDBsResponse}
+ */
+// @ts-ignore
+export function createVectordbListVectorDBsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbListVectorDBsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbResizeVectorDBRequest}
+ */
+// @ts-ignore
+export function createVectordbResizeVectorDBRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbResizeVectorDBRequest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbResizeVectorDBResponse}
+ */
+// @ts-ignore
+export function createVectordbResizeVectorDBResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbResizeVectorDBResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbRestoreBackupRequest}
+ */
+// @ts-ignore
+export function createVectordbRestoreBackupRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbRestoreBackupRequest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbRestoreBackupResponse}
+ */
+// @ts-ignore
+export function createVectordbRestoreBackupResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbRestoreBackupResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbUpdateVectorDBRequest}
+ */
+// @ts-ignore
+export function createVectordbUpdateVectorDBRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbUpdateVectorDBRequest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbUpdateVectorDBResponse}
+ */
+// @ts-ignore
+export function createVectordbUpdateVectorDBResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbUpdateVectorDBResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbUpdateVectorDBTagsRequest}
+ */
+// @ts-ignore
+export function createVectordbUpdateVectorDBTagsRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbUpdateVectorDBTagsRequest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbUpdateVectorDBTagsResponse}
+ */
+// @ts-ignore
+export function createVectordbUpdateVectorDBTagsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbUpdateVectorDBTagsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbVectorDBConfig}
+ */
+// @ts-ignore
+export function createVectordbVectorDBConfigFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbVectorDBConfig;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbVectorDBEndpoints}
+ */
+// @ts-ignore
+export function createVectordbVectorDBEndpointsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbVectorDBEndpoints;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {VectordbVectorDB}
+ */
+// @ts-ignore
+export function createVectordbVectorDBFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVectordbVectorDB;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Version2}
  */
 // @ts-ignore
@@ -32549,6 +32720,248 @@ export function deserializeIntoValkey_advanced_config(valkey_advanced_config: Pa
         "valkey_pubsub_client_output_buffer_limit": n => { valkey_advanced_config.valkeyPubsubClientOutputBufferLimit = n.getNumberValue(); },
         "valkey_ssl": n => { valkey_advanced_config.valkeySsl = n.getBooleanValue(); },
         "valkey_timeout": n => { valkey_advanced_config.valkeyTimeout = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbBackup The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbBackup(vectordbBackup: Partial<VectordbBackup> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backup_id": n => { vectordbBackup.backupId = n.getStringValue(); },
+        "completed_at": n => { vectordbBackup.completedAt = n.getDateValue(); },
+        "started_at": n => { vectordbBackup.startedAt = n.getDateValue(); },
+        "status": n => { vectordbBackup.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbCreateVectorDBRequest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbCreateVectorDBRequest(vectordbCreateVectorDBRequest: Partial<VectordbCreateVectorDBRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { vectordbCreateVectorDBRequest.name = n.getStringValue(); },
+        "project_id": n => { vectordbCreateVectorDBRequest.projectId = n.getStringValue(); },
+        "region": n => { vectordbCreateVectorDBRequest.region = n.getStringValue(); },
+        "size": n => { vectordbCreateVectorDBRequest.size = n.getStringValue(); },
+        "tags": n => { vectordbCreateVectorDBRequest.tags = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbCreateVectorDBResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbCreateVectorDBResponse(vectordbCreateVectorDBResponse: Partial<VectordbCreateVectorDBResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vector_db": n => { vectordbCreateVectorDBResponse.vectorDb = n.getObjectValue<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbGetRestoreStatusResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbGetRestoreStatusResponse(vectordbGetRestoreStatusResponse: Partial<VectordbGetRestoreStatusResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backup_id": n => { vectordbGetRestoreStatusResponse.backupId = n.getStringValue(); },
+        "error": n => { vectordbGetRestoreStatusResponse.errorEscaped = n.getStringValue(); },
+        "status": n => { vectordbGetRestoreStatusResponse.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbGetVectorDBAdminCredentialsResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbGetVectorDBAdminCredentialsResponse(vectordbGetVectorDBAdminCredentialsResponse: Partial<VectordbGetVectorDBAdminCredentialsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "api_token": n => { vectordbGetVectorDBAdminCredentialsResponse.apiToken = n.getStringValue(); },
+        "user_id": n => { vectordbGetVectorDBAdminCredentialsResponse.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbGetVectorDBResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbGetVectorDBResponse(vectordbGetVectorDBResponse: Partial<VectordbGetVectorDBResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vector_db": n => { vectordbGetVectorDBResponse.vectorDb = n.getObjectValue<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbListBackupsResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbListBackupsResponse(vectordbListBackupsResponse: Partial<VectordbListBackupsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backups": n => { vectordbListBackupsResponse.backups = n.getCollectionOfObjectValues<VectordbBackup>(createVectordbBackupFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbListVectorDBsResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbListVectorDBsResponse(vectordbListVectorDBsResponse: Partial<VectordbListVectorDBsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "total": n => { vectordbListVectorDBsResponse.total = n.getNumberValue(); },
+        "vector_dbs": n => { vectordbListVectorDBsResponse.vectorDbs = n.getCollectionOfObjectValues<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbResizeVectorDBRequest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbResizeVectorDBRequest(vectordbResizeVectorDBRequest: Partial<VectordbResizeVectorDBRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { vectordbResizeVectorDBRequest.id = n.getStringValue(); },
+        "size": n => { vectordbResizeVectorDBRequest.size = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbResizeVectorDBResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbResizeVectorDBResponse(vectordbResizeVectorDBResponse: Partial<VectordbResizeVectorDBResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vector_db": n => { vectordbResizeVectorDBResponse.vectorDb = n.getObjectValue<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbRestoreBackupRequest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbRestoreBackupRequest(vectordbRestoreBackupRequest: Partial<VectordbRestoreBackupRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backup_id": n => { vectordbRestoreBackupRequest.backupId = n.getStringValue(); },
+        "id": n => { vectordbRestoreBackupRequest.id = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbRestoreBackupResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbRestoreBackupResponse(vectordbRestoreBackupResponse: Partial<VectordbRestoreBackupResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backup_id": n => { vectordbRestoreBackupResponse.backupId = n.getStringValue(); },
+        "status": n => { vectordbRestoreBackupResponse.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbUpdateVectorDBRequest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbUpdateVectorDBRequest(vectordbUpdateVectorDBRequest: Partial<VectordbUpdateVectorDBRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { vectordbUpdateVectorDBRequest.config = n.getObjectValue<VectordbVectorDBConfig>(createVectordbVectorDBConfigFromDiscriminatorValue); },
+        "id": n => { vectordbUpdateVectorDBRequest.id = n.getStringValue(); },
+        "project_id": n => { vectordbUpdateVectorDBRequest.projectId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbUpdateVectorDBResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbUpdateVectorDBResponse(vectordbUpdateVectorDBResponse: Partial<VectordbUpdateVectorDBResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vector_db": n => { vectordbUpdateVectorDBResponse.vectorDb = n.getObjectValue<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbUpdateVectorDBTagsRequest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbUpdateVectorDBTagsRequest(vectordbUpdateVectorDBTagsRequest: Partial<VectordbUpdateVectorDBTagsRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { vectordbUpdateVectorDBTagsRequest.id = n.getStringValue(); },
+        "tags": n => { vectordbUpdateVectorDBTagsRequest.tags = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbUpdateVectorDBTagsResponse The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbUpdateVectorDBTagsResponse(vectordbUpdateVectorDBTagsResponse: Partial<VectordbUpdateVectorDBTagsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vector_db": n => { vectordbUpdateVectorDBTagsResponse.vectorDb = n.getObjectValue<VectordbVectorDB>(createVectordbVectorDBFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbVectorDB The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbVectorDB(vectordbVectorDB: Partial<VectordbVectorDB> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { vectordbVectorDB.config = n.getObjectValue<VectordbVectorDBConfig>(createVectordbVectorDBConfigFromDiscriminatorValue); },
+        "created_at": n => { vectordbVectorDB.createdAt = n.getDateValue(); },
+        "endpoints": n => { vectordbVectorDB.endpoints = n.getObjectValue<VectordbVectorDBEndpoints>(createVectordbVectorDBEndpointsFromDiscriminatorValue); },
+        "forked_from_id": n => { vectordbVectorDB.forkedFromId = n.getStringValue(); },
+        "id": n => { vectordbVectorDB.id = n.getStringValue(); },
+        "last_restore_id": n => { vectordbVectorDB.lastRestoreId = n.getStringValue(); },
+        "name": n => { vectordbVectorDB.name = n.getStringValue(); },
+        "owner_uuid": n => { vectordbVectorDB.ownerUuid = n.getStringValue(); },
+        "project_id": n => { vectordbVectorDB.projectId = n.getStringValue(); },
+        "region": n => { vectordbVectorDB.region = n.getStringValue(); },
+        "size": n => { vectordbVectorDB.size = n.getStringValue(); },
+        "status": n => { vectordbVectorDB.status = n.getStringValue(); },
+        "tags": n => { vectordbVectorDB.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "updated_at": n => { vectordbVectorDB.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbVectorDBConfig The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbVectorDBConfig(vectordbVectorDBConfig: Partial<VectordbVectorDBConfig> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "default_quantization": n => { vectordbVectorDBConfig.defaultQuantization = n.getStringValue(); },
+        "enable_auto_schema": n => { vectordbVectorDBConfig.enableAutoSchema = n.getBooleanValue(); },
+        "weaviate_version": n => { vectordbVectorDBConfig.weaviateVersion = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param VectordbVectorDBEndpoints The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoVectordbVectorDBEndpoints(vectordbVectorDBEndpoints: Partial<VectordbVectorDBEndpoints> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "grpc": n => { vectordbVectorDBEndpoints.grpc = n.getStringValue(); },
+        "http": n => { vectordbVectorDBEndpoints.http = n.getStringValue(); },
     }
 }
 /**
@@ -51515,6 +51928,267 @@ export function serializeValkey_advanced_config(writer: SerializationWriter, val
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbBackup The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbBackup(writer: SerializationWriter, vectordbBackup: Partial<VectordbBackup> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbBackup || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backup_id", vectordbBackup.backupId);
+    writer.writeDateValue("completed_at", vectordbBackup.completedAt);
+    writer.writeDateValue("started_at", vectordbBackup.startedAt);
+    writer.writeStringValue("status", vectordbBackup.status);
+    writer.writeAdditionalData(vectordbBackup.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbCreateVectorDBRequest The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbCreateVectorDBRequest(writer: SerializationWriter, vectordbCreateVectorDBRequest: Partial<VectordbCreateVectorDBRequest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbCreateVectorDBRequest || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", vectordbCreateVectorDBRequest.name);
+    writer.writeStringValue("project_id", vectordbCreateVectorDBRequest.projectId);
+    writer.writeStringValue("region", vectordbCreateVectorDBRequest.region);
+    writer.writeStringValue("size", vectordbCreateVectorDBRequest.size);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", vectordbCreateVectorDBRequest.tags);
+    writer.writeAdditionalData(vectordbCreateVectorDBRequest.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbCreateVectorDBResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbCreateVectorDBResponse(writer: SerializationWriter, vectordbCreateVectorDBResponse: Partial<VectordbCreateVectorDBResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbCreateVectorDBResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDB>("vector_db", vectordbCreateVectorDBResponse.vectorDb, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbCreateVectorDBResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbGetRestoreStatusResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbGetRestoreStatusResponse(writer: SerializationWriter, vectordbGetRestoreStatusResponse: Partial<VectordbGetRestoreStatusResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbGetRestoreStatusResponse || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backup_id", vectordbGetRestoreStatusResponse.backupId);
+    writer.writeStringValue("error", vectordbGetRestoreStatusResponse.errorEscaped);
+    writer.writeStringValue("status", vectordbGetRestoreStatusResponse.status);
+    writer.writeAdditionalData(vectordbGetRestoreStatusResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbGetVectorDBAdminCredentialsResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbGetVectorDBAdminCredentialsResponse(writer: SerializationWriter, vectordbGetVectorDBAdminCredentialsResponse: Partial<VectordbGetVectorDBAdminCredentialsResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbGetVectorDBAdminCredentialsResponse || isSerializingDerivedType) { return; }
+    writer.writeStringValue("api_token", vectordbGetVectorDBAdminCredentialsResponse.apiToken);
+    writer.writeStringValue("user_id", vectordbGetVectorDBAdminCredentialsResponse.userId);
+    writer.writeAdditionalData(vectordbGetVectorDBAdminCredentialsResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbGetVectorDBResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbGetVectorDBResponse(writer: SerializationWriter, vectordbGetVectorDBResponse: Partial<VectordbGetVectorDBResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbGetVectorDBResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDB>("vector_db", vectordbGetVectorDBResponse.vectorDb, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbGetVectorDBResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbListBackupsResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbListBackupsResponse(writer: SerializationWriter, vectordbListBackupsResponse: Partial<VectordbListBackupsResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbListBackupsResponse || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<VectordbBackup>("backups", vectordbListBackupsResponse.backups, serializeVectordbBackup);
+    writer.writeAdditionalData(vectordbListBackupsResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbListVectorDBsResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbListVectorDBsResponse(writer: SerializationWriter, vectordbListVectorDBsResponse: Partial<VectordbListVectorDBsResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbListVectorDBsResponse || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("total", vectordbListVectorDBsResponse.total);
+    writer.writeCollectionOfObjectValues<VectordbVectorDB>("vector_dbs", vectordbListVectorDBsResponse.vectorDbs, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbListVectorDBsResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbResizeVectorDBRequest The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbResizeVectorDBRequest(writer: SerializationWriter, vectordbResizeVectorDBRequest: Partial<VectordbResizeVectorDBRequest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbResizeVectorDBRequest || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", vectordbResizeVectorDBRequest.id);
+    writer.writeStringValue("size", vectordbResizeVectorDBRequest.size);
+    writer.writeAdditionalData(vectordbResizeVectorDBRequest.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbResizeVectorDBResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbResizeVectorDBResponse(writer: SerializationWriter, vectordbResizeVectorDBResponse: Partial<VectordbResizeVectorDBResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbResizeVectorDBResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDB>("vector_db", vectordbResizeVectorDBResponse.vectorDb, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbResizeVectorDBResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbRestoreBackupRequest The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbRestoreBackupRequest(writer: SerializationWriter, vectordbRestoreBackupRequest: Partial<VectordbRestoreBackupRequest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbRestoreBackupRequest || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backup_id", vectordbRestoreBackupRequest.backupId);
+    writer.writeStringValue("id", vectordbRestoreBackupRequest.id);
+    writer.writeAdditionalData(vectordbRestoreBackupRequest.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbRestoreBackupResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbRestoreBackupResponse(writer: SerializationWriter, vectordbRestoreBackupResponse: Partial<VectordbRestoreBackupResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbRestoreBackupResponse || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backup_id", vectordbRestoreBackupResponse.backupId);
+    writer.writeStringValue("status", vectordbRestoreBackupResponse.status);
+    writer.writeAdditionalData(vectordbRestoreBackupResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbUpdateVectorDBRequest The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbUpdateVectorDBRequest(writer: SerializationWriter, vectordbUpdateVectorDBRequest: Partial<VectordbUpdateVectorDBRequest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbUpdateVectorDBRequest || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDBConfig>("config", vectordbUpdateVectorDBRequest.config, serializeVectordbVectorDBConfig);
+    writer.writeStringValue("id", vectordbUpdateVectorDBRequest.id);
+    writer.writeStringValue("project_id", vectordbUpdateVectorDBRequest.projectId);
+    writer.writeAdditionalData(vectordbUpdateVectorDBRequest.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbUpdateVectorDBResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbUpdateVectorDBResponse(writer: SerializationWriter, vectordbUpdateVectorDBResponse: Partial<VectordbUpdateVectorDBResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbUpdateVectorDBResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDB>("vector_db", vectordbUpdateVectorDBResponse.vectorDb, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbUpdateVectorDBResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbUpdateVectorDBTagsRequest The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbUpdateVectorDBTagsRequest(writer: SerializationWriter, vectordbUpdateVectorDBTagsRequest: Partial<VectordbUpdateVectorDBTagsRequest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbUpdateVectorDBTagsRequest || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", vectordbUpdateVectorDBTagsRequest.id);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", vectordbUpdateVectorDBTagsRequest.tags);
+    writer.writeAdditionalData(vectordbUpdateVectorDBTagsRequest.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbUpdateVectorDBTagsResponse The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbUpdateVectorDBTagsResponse(writer: SerializationWriter, vectordbUpdateVectorDBTagsResponse: Partial<VectordbUpdateVectorDBTagsResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbUpdateVectorDBTagsResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDB>("vector_db", vectordbUpdateVectorDBTagsResponse.vectorDb, serializeVectordbVectorDB);
+    writer.writeAdditionalData(vectordbUpdateVectorDBTagsResponse.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbVectorDB The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbVectorDB(writer: SerializationWriter, vectordbVectorDB: Partial<VectordbVectorDB> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbVectorDB || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<VectordbVectorDBConfig>("config", vectordbVectorDB.config, serializeVectordbVectorDBConfig);
+    writer.writeDateValue("created_at", vectordbVectorDB.createdAt);
+    writer.writeObjectValue<VectordbVectorDBEndpoints>("endpoints", vectordbVectorDB.endpoints, serializeVectordbVectorDBEndpoints);
+    writer.writeStringValue("forked_from_id", vectordbVectorDB.forkedFromId);
+    writer.writeStringValue("id", vectordbVectorDB.id);
+    writer.writeStringValue("last_restore_id", vectordbVectorDB.lastRestoreId);
+    writer.writeStringValue("name", vectordbVectorDB.name);
+    writer.writeStringValue("owner_uuid", vectordbVectorDB.ownerUuid);
+    writer.writeStringValue("project_id", vectordbVectorDB.projectId);
+    writer.writeStringValue("region", vectordbVectorDB.region);
+    writer.writeStringValue("size", vectordbVectorDB.size);
+    writer.writeStringValue("status", vectordbVectorDB.status);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", vectordbVectorDB.tags);
+    writer.writeDateValue("updated_at", vectordbVectorDB.updatedAt);
+    writer.writeAdditionalData(vectordbVectorDB.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbVectorDBConfig The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbVectorDBConfig(writer: SerializationWriter, vectordbVectorDBConfig: Partial<VectordbVectorDBConfig> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbVectorDBConfig || isSerializingDerivedType) { return; }
+    writer.writeStringValue("default_quantization", vectordbVectorDBConfig.defaultQuantization);
+    writer.writeBooleanValue("enable_auto_schema", vectordbVectorDBConfig.enableAutoSchema);
+    writer.writeStringValue("weaviate_version", vectordbVectorDBConfig.weaviateVersion);
+    writer.writeAdditionalData(vectordbVectorDBConfig.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param VectordbVectorDBEndpoints The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeVectordbVectorDBEndpoints(writer: SerializationWriter, vectordbVectorDBEndpoints: Partial<VectordbVectorDBEndpoints> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vectordbVectorDBEndpoints || isSerializingDerivedType) { return; }
+    writer.writeStringValue("grpc", vectordbVectorDBEndpoints.grpc);
+    writer.writeStringValue("http", vectordbVectorDBEndpoints.http);
+    writer.writeAdditionalData(vectordbVectorDBEndpoints.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Version2 The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -52540,6 +53214,264 @@ export interface Valkey_advanced_config extends AdditionalDataHolder, Parsable {
 }
 export type Valkey_advanced_config_valkey_acl_channels_default = (typeof Valkey_advanced_config_valkey_acl_channels_defaultObject)[keyof typeof Valkey_advanced_config_valkey_acl_channels_defaultObject];
 export type Valkey_advanced_config_valkey_persistence = (typeof Valkey_advanced_config_valkey_persistenceObject)[keyof typeof Valkey_advanced_config_valkey_persistenceObject];
+/**
+ * Backup represents a single backup of a vector database.
+ */
+export interface VectordbBackup extends AdditionalDataHolder, Parsable {
+    /**
+     * Unique identifier for the backup (e.g., "vectordb-{uuid}-20240101-120000").
+     */
+    backupId?: string | null;
+    /**
+     * Timestamp when the backup process completed.
+     */
+    completedAt?: Date | null;
+    /**
+     * Timestamp when the backup process started.
+     */
+    startedAt?: Date | null;
+    /**
+     * Status of the backup: SUCCESS.
+     */
+    status?: string | null;
+}
+export interface VectordbCreateVectorDBRequest extends AdditionalDataHolder, Parsable {
+    /**
+     * Required. Human-readable name for the database.
+     */
+    name?: string | null;
+    /**
+     * Required. ID of the project to create the vector database in.
+     */
+    projectId?: string | null;
+    /**
+     * Required. Region slug where the database will be provisioned.
+     */
+    region?: string | null;
+    /**
+     * Required. Resource tier: small, medium, or large.
+     */
+    size?: string | null;
+    /**
+     * A set of arbitrary tags to organize your vector database
+     */
+    tags?: string[] | null;
+}
+export interface VectordbCreateVectorDBResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDB represents a provisioned vector database instance.
+     */
+    vectorDb?: VectordbVectorDB | null;
+}
+export interface VectordbGetRestoreStatusResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * The backup ID being restored.
+     */
+    backupId?: string | null;
+    /**
+     * Error message if the restore failed.
+     */
+    errorEscaped?: string | null;
+    /**
+     * Current status: STARTED, TRANSFERRING, TRANSFERRED, FINALIZING, SUCCESS, FAILED, CANCELLING, CANCELED.
+     */
+    status?: string | null;
+}
+export interface VectordbGetVectorDBAdminCredentialsResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * API token for that user.
+     */
+    apiToken?: string | null;
+    /**
+     * Database user id from the cluster secret (opaque; matches what was provisioned).
+     */
+    userId?: string | null;
+}
+export interface VectordbGetVectorDBResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDB represents a provisioned vector database instance.
+     */
+    vectorDb?: VectordbVectorDB | null;
+}
+export interface VectordbListBackupsResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * List of available backups.
+     */
+    backups?: VectordbBackup[] | null;
+}
+export interface VectordbListVectorDBsResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * The total property
+     */
+    total?: number | null;
+    /**
+     * The vector_dbs property
+     */
+    vectorDbs?: VectordbVectorDB[] | null;
+}
+export interface VectordbResizeVectorDBRequest extends AdditionalDataHolder, Parsable {
+    /**
+     * Required. ID of the vector database to resize.
+     */
+    id?: string | null;
+    /**
+     * Required. Target resource tier: small, medium, or large.
+     */
+    size?: string | null;
+}
+export interface VectordbResizeVectorDBResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDB represents a provisioned vector database instance.
+     */
+    vectorDb?: VectordbVectorDB | null;
+}
+export interface VectordbRestoreBackupRequest extends AdditionalDataHolder, Parsable {
+    /**
+     * Required. ID of the backup to restore from.
+     */
+    backupId?: string | null;
+    /**
+     * Required. ID of the vector database.
+     */
+    id?: string | null;
+}
+export interface VectordbRestoreBackupResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * The backup ID being restored.
+     */
+    backupId?: string | null;
+    /**
+     * Initial status of the restore operation (e.g., "STARTED").
+     */
+    status?: string | null;
+}
+export interface VectordbUpdateVectorDBRequest extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDBConfig holds optional, advanced cluster settings.
+     */
+    config?: VectordbVectorDBConfig | null;
+    /**
+     * ID of the vector database.
+     */
+    id?: string | null;
+    /**
+     * Optional. New project UUID to assign the database to.
+     */
+    projectId?: string | null;
+}
+export interface VectordbUpdateVectorDBResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDB represents a provisioned vector database instance.
+     */
+    vectorDb?: VectordbVectorDB | null;
+}
+export interface VectordbUpdateVectorDBTagsRequest extends AdditionalDataHolder, Parsable {
+    /**
+     * Required. ID of the vector database to update tags for.
+     */
+    id?: string | null;
+    /**
+     * Tags to set on the vector database. Replaces all existing tags.
+     */
+    tags?: string[] | null;
+}
+export interface VectordbUpdateVectorDBTagsResponse extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDB represents a provisioned vector database instance.
+     */
+    vectorDb?: VectordbVectorDB | null;
+}
+/**
+ * VectorDB represents a provisioned vector database instance.
+ */
+export interface VectordbVectorDB extends AdditionalDataHolder, Parsable {
+    /**
+     * VectorDBConfig holds optional, advanced cluster settings.
+     */
+    config?: VectordbVectorDBConfig | null;
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * VectorDBEndpoints contains the connection endpoints for a vector database instance.
+     */
+    endpoints?: VectordbVectorDBEndpoints | null;
+    /**
+     * ID of the vector database this instance was forked from. Empty when theinstance was created directly via CreateVectorDB. Read-only and set bythe platform at fork time; never modifiable through UpdateVectorDB.
+     */
+    forkedFromId?: string | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * Backup_id of the most recent restore initiated against this instance.Empty if no restore has ever been triggered. Lets callers recover theidentifier of an in-flight or last-completed restore without havingto retain the RestoreBackupResponse themselves. Use it withGetRestoreStatus to fetch the live status.
+     */
+    lastRestoreId?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The owner_uuid property
+     */
+    ownerUuid?: string | null;
+    /**
+     * Project this database belongs to.
+     */
+    projectId?: string | null;
+    /**
+     * The region property
+     */
+    region?: string | null;
+    /**
+     * Resource tier: small, medium, or large.
+     */
+    size?: string | null;
+    /**
+     * Lifecycle state: pending, creating, active, errored, or deleting.
+     */
+    status?: string | null;
+    /**
+     * The tags property
+     */
+    tags?: string[] | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+}
+/**
+ * VectorDBConfig holds optional, advanced cluster settings.
+ */
+export interface VectordbVectorDBConfig extends AdditionalDataHolder, Parsable {
+    /**
+     * Default vector compression for new collections: rq, pq, bq, or sq. Empty means platform default (rq).
+     */
+    defaultQuantization?: string | null;
+    /**
+     * The enable_auto_schema property
+     */
+    enableAutoSchema?: boolean | null;
+    /**
+     * The Vector Database version running on the cluster.
+     */
+    weaviateVersion?: string | null;
+}
+/**
+ * VectorDBEndpoints contains the connection endpoints for a vector database instance.
+ */
+export interface VectordbVectorDBEndpoints extends AdditionalDataHolder, Parsable {
+    /**
+     * Endpoint for gRPC connections (e.g. "my-db-tor1-a1b2c3d4-grpc.weaviate.ondigitalocean.com:443").
+     */
+    grpc?: string | null;
+    /**
+     * Endpoint for HTTPS connections (e.g. "https://my-db-tor1-a1b2c3d4.weaviate.ondigitalocean.com").
+     */
+    http?: string | null;
+}
 export interface Version2 extends AdditionalDataHolder, Parsable {
     /**
      * A string representing the version of the database engine in use for the cluster.
