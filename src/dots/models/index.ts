@@ -1591,6 +1591,18 @@ export interface ApiCancelKnowledgeBaseIndexingJobOutput extends AdditionalDataH
      */
     job?: ApiIndexingJob | null;
 }
+export interface ApiCancelModelEvaluationRunInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * UUID of the model evaluation run to cancel. Returned by `CreateModelEvaluationRun`and listed via `ListModelEvaluationRuns`. The run must be in a non-terminal status(queued, running_dataset, or evaluating_results); already-terminal runs return anerror.
+     */
+    evalRunUuid?: string | null;
+}
+export interface ApiCancelModelEvaluationRunOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model Evaluation Run Summary - lightweight view used in run history list.
+     */
+    run?: ApiModelEvaluationRunSummary | null;
+}
 /**
  * Inference configuration for the candidate model during evaluation.
  */
@@ -1989,12 +2001,6 @@ export interface ApiCreateModelAPIKeyInputPublic extends AdditionalDataHolder, P
      */
     name?: string | null;
 }
-export interface ApiCreateModelAPIKeyOutput extends AdditionalDataHolder, Parsable {
-    /**
-     * Model API Key Info
-     */
-    apiKeyInfo?: ApiModelAPIKeyInfo | null;
-}
 /**
  * Public request for presigned upload URLs for model evaluation dataset files.
  */
@@ -2350,6 +2356,11 @@ export interface ApiDeleteCustomModelOutputPublic extends AdditionalDataHolder, 
 }
 export type ApiDeleteCustomModelStatus = (typeof ApiDeleteCustomModelStatusObject)[keyof typeof ApiDeleteCustomModelStatusObject];
 /**
+ * Response for a delete evaluation dataset request.
+ */
+export interface ApiDeleteEvaluationDatasetOutput extends AdditionalDataHolder, Parsable {
+}
+/**
  * Information about a newly deleted knowledge base data source
  */
 export interface ApiDeleteKnowledgeBaseDataSourceOutput extends AdditionalDataHolder, Parsable {
@@ -2377,6 +2388,19 @@ export interface ApiDeleteModelAPIKeyOutput extends AdditionalDataHolder, Parsab
      */
     apiKeyInfo?: ApiModelAPIKeyInfo | null;
 }
+export interface ApiDeleteModelEvaluationPresetOutput extends AdditionalDataHolder, Parsable {
+}
+export interface ApiDeleteModelEvaluationRunOutputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Error message if deletion failed
+     */
+    errorEscaped?: string | null;
+    /**
+     * Status of delete operation
+     */
+    status?: ApiDeleteModelEvaluationRunStatus | null;
+}
+export type ApiDeleteModelEvaluationRunStatus = (typeof ApiDeleteModelEvaluationRunStatusObject)[keyof typeof ApiDeleteModelEvaluationRunStatusObject];
 /**
  * Information about a deleted model router
  */
@@ -3022,6 +3046,12 @@ export interface ApiGetModelCatalogCardOutput extends AdditionalDataHolder, Pars
      * Detail view for GetModelCatalogCard
      */
     data?: ApiModelCatalogCard | null;
+}
+export interface ApiGetModelEvaluationPresetOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Model Evaluation Preset - a saved, reusable configuration for model evaluation runs.
+     */
+    preset?: ApiModelEvaluationPreset | null;
 }
 export interface ApiGetModelEvaluationRunOutput extends AdditionalDataHolder, Parsable {
     /**
@@ -3765,6 +3795,15 @@ export interface ApiListCustomModelsOutputPublic extends AdditionalDataHolder, P
      */
     models?: ApiCustomModel[] | null;
 }
+/**
+ * Output for listing evaluation datasets.
+ */
+export interface ApiListEvaluationDatasetsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The list of evaluation datasets.
+     */
+    evaluationDatasets?: ApiEvaluationDataset[] | null;
+}
 export interface ApiListEvaluationMetricsOutput extends AdditionalDataHolder, Parsable {
     /**
      * The metrics property
@@ -3876,7 +3915,21 @@ export interface ApiListModelEvaluationMetricsOutput extends AdditionalDataHolde
      */
     metrics?: ApiEvaluationMetric[] | null;
 }
+export interface ApiListModelEvaluationPresetsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * List of explicitly saved evaluation presets (reusable configs).
+     */
+    presets?: ApiModelEvaluationPreset[] | null;
+}
 export interface ApiListModelEvaluationRunsOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * Full set of candidate model source types the FE can offer in thecandidate-type filter UI.
+     */
+    availableCandidateTypes?: ApiCandidateModelSource[] | null;
+    /**
+     * Full set of statuses the FE can offer in the status filter UI. Returnedon every list call so clients never need to hardcode the enum values.
+     */
+    availableStatuses?: ApiModelEvaluationRunStatus[] | null;
     /**
      * Links to other pages
      */
@@ -4409,6 +4462,47 @@ export interface ApiModelEndpoint extends AdditionalDataHolder, Parsable {
      * The endpoint path (e.g. /chat/responses)
      */
     endpoint?: string | null;
+}
+/**
+ * Model Evaluation Preset - a saved, reusable configuration for model evaluation runs.
+ */
+export interface ApiModelEvaluationPreset extends AdditionalDataHolder, Parsable {
+    /**
+     * Timestamp when the preset was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The dataset_name property
+     */
+    datasetName?: string | null;
+    /**
+     * Dataset used for evaluation.
+     */
+    datasetUuid?: string | null;
+    /**
+     * UUID of the evaluation preset.
+     */
+    evalPresetUuid?: string | null;
+    /**
+     * The judge_model_name property
+     */
+    judgeModelName?: string | null;
+    /**
+     * Judge model used to score responses.
+     */
+    judgeModelUuid?: string | null;
+    /**
+     * Metrics selected for this preset.
+     */
+    metrics?: ApiEvaluationMetric[] | null;
+    /**
+     * Name of the evaluation preset.
+     */
+    name?: string | null;
+    /**
+     * The star_metric property
+     */
+    starMetric?: ApiStarMetric | null;
 }
 /**
  * Result for a single prompt in a model evaluation run.
@@ -5891,9 +5985,25 @@ export interface ApiUpdateCustomModelMetadataInputPublic extends AdditionalDataH
      */
     description?: string | null;
     /**
+     * Input modalities supported (e.g., text, image)
+     */
+    inputModalities?: string[] | null;
+    /**
+     * License under which the model is distributed
+     */
+    license?: string | null;
+    /**
      * The name property
      */
     name?: string | null;
+    /**
+     * Output modalities supported (e.g., text, image)
+     */
+    outputModalities?: string[] | null;
+    /**
+     * Number of parameters in the model
+     */
+    parameters?: string | null;
     /**
      * User-defined tags for organizing models
      */
@@ -6840,6 +6950,10 @@ export interface App_health_response extends AdditionalDataHolder, Parsable {
  * Specification for app ingress configurations.
  */
 export interface App_ingress_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Optional HTTPS URL of a custom error page to display when the app is unreachable. Thepage is shown in a full-viewport iframe. The target must allow framing: avoid`X-Frame-Options: DENY` and a restrictive `Content-Security-Policy` `frame-ancestors`that blocks the platform. If omitted, the default platform error page is used.
+     */
+    customErrorPageUrl?: string | null;
     /**
      * Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects.
      */
@@ -9634,6 +9748,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     controlPlaneFirewall?: Control_plane_firewall | null;
     /**
+     * An object specifying whether the Cluster Proportional Autoscaler (CPA) add-on for CoreDNS should be enabled for the Kubernetes cluster.
+     */
+    corednsAutoscaler?: Coredns_autoscaler | null;
+    /**
      * A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created.
      */
     createdAt?: Date | null;
@@ -9717,6 +9835,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet to attach worker nodes to. When omitted oncreate, the default subnet for the VPC is used. This value cannot be changedafter the cluster is created.`vpc_uuid` must also be set.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object specifying custom cluster autoscaler configuration.
@@ -9761,6 +9883,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * An object specifying the control plane firewall for the Kubernetes cluster. Control plane firewall is in early availability (invite only).
      */
     controlPlaneFirewall?: Control_plane_firewall | null;
+    /**
+     * An object specifying whether the Cluster Proportional Autoscaler (CPA) add-on for CoreDNS should be enabled for the Kubernetes cluster.
+     */
+    corednsAutoscaler?: Coredns_autoscaler | null;
     /**
      * A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created.
      */
@@ -9849,6 +9975,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
      */
     vpcUuid?: Guid | null;
+    /**
+     * The UUID of the VPC subnet worker nodes are attached to. When unset, thedefault subnet for the VPC is used.<br><br>Requires `vpc:read` scope.
+     */
+    workerSubnetUuid?: Guid | null;
 }
 /**
  * An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster.
@@ -9915,6 +10045,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      * An object specifying the control plane firewall for the Kubernetes cluster. Control plane firewall is in early availability (invite only).
      */
     controlPlaneFirewall?: Control_plane_firewall | null;
+    /**
+     * An object specifying whether the Cluster Proportional Autoscaler (CPA) add-on for CoreDNS should be enabled for the Kubernetes cluster.
+     */
+    corednsAutoscaler?: Coredns_autoscaler | null;
     /**
      * A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. When omitted on create, the default is version-dependent; for DOKS 1.36.0 and later, the default is true; for earlier versions, the default is false.
      */
@@ -10137,6 +10271,15 @@ export interface Control_plane_firewall extends AdditionalDataHolder, Parsable {
     allowedAddresses?: string[] | null;
     /**
      * Indicates whether the control plane firewall is enabled.
+     */
+    enabled?: boolean | null;
+}
+/**
+ * An object specifying whether the Cluster Proportional Autoscaler (CPA) add-on for CoreDNS should be enabled for the Kubernetes cluster.
+ */
+export interface Coredns_autoscaler extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the CoreDNS Cluster Proportional Autoscaler add-on is enabled.
      */
     enabled?: boolean | null;
 }
@@ -10967,6 +11110,24 @@ export function createApiCancelKnowledgeBaseIndexingJobOutputFromDiscriminatorVa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCancelModelEvaluationRunInputPublic}
+ */
+// @ts-ignore
+export function createApiCancelModelEvaluationRunInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCancelModelEvaluationRunInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCancelModelEvaluationRunOutput}
+ */
+// @ts-ignore
+export function createApiCancelModelEvaluationRunOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCancelModelEvaluationRunOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCandidateInferenceConfig}
  */
 // @ts-ignore
@@ -11156,15 +11317,6 @@ export function createApiCreateModelAPIKeyInputPublicFromDiscriminatorValue(pars
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {ApiCreateModelAPIKeyOutput}
- */
-// @ts-ignore
-export function createApiCreateModelAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoApiCreateModelAPIKeyOutput;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCreateModelEvalDatasetUploadPresignedUrlsInputPublic}
  */
 // @ts-ignore
@@ -11327,6 +11479,15 @@ export function createApiDeleteCustomModelOutputPublicFromDiscriminatorValue(par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteEvaluationDatasetOutput}
+ */
+// @ts-ignore
+export function createApiDeleteEvaluationDatasetOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteEvaluationDatasetOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiDeleteKnowledgeBaseDataSourceOutput}
  */
 // @ts-ignore
@@ -11350,6 +11511,24 @@ export function createApiDeleteKnowledgeBaseOutputFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createApiDeleteModelAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiDeleteModelAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteModelEvaluationPresetOutput}
+ */
+// @ts-ignore
+export function createApiDeleteModelEvaluationPresetOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteModelEvaluationPresetOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteModelEvaluationRunOutputPublic}
+ */
+// @ts-ignore
+export function createApiDeleteModelEvaluationRunOutputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteModelEvaluationRunOutputPublic;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -11678,6 +11857,15 @@ export function createApiGetModelCatalogCardOutputFromDiscriminatorValue(parseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetModelEvaluationPresetOutput}
+ */
+// @ts-ignore
+export function createApiGetModelEvaluationPresetOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetModelEvaluationPresetOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetModelEvaluationRunOutput}
  */
 // @ts-ignore
@@ -11993,6 +12181,15 @@ export function createApiListCustomModelsOutputPublicFromDiscriminatorValue(pars
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListEvaluationDatasetsOutput}
+ */
+// @ts-ignore
+export function createApiListEvaluationDatasetsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListEvaluationDatasetsOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListEvaluationMetricsOutput}
  */
 // @ts-ignore
@@ -12088,6 +12285,15 @@ export function createApiListModelCatalogOutputFromDiscriminatorValue(parseNode:
 // @ts-ignore
 export function createApiListModelEvaluationMetricsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiListModelEvaluationMetricsOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelEvaluationPresetsOutput}
+ */
+// @ts-ignore
+export function createApiListModelEvaluationPresetsOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelEvaluationPresetsOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -12286,6 +12492,15 @@ export function createApiModelCatalogEntryFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createApiModelEndpointFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiModelEndpoint;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelEvaluationPreset}
+ */
+// @ts-ignore
+export function createApiModelEvaluationPresetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelEvaluationPreset;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -14923,6 +15138,15 @@ export function createConnection_poolsFromDiscriminatorValue(parseNode: ParseNod
 // @ts-ignore
 export function createControl_plane_firewallFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoControl_plane_firewall;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Coredns_autoscaler}
+ */
+// @ts-ignore
+export function createCoredns_autoscalerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCoredns_autoscaler;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -20558,6 +20782,28 @@ export function deserializeIntoApiCancelKnowledgeBaseIndexingJobOutput(apiCancel
 }
 /**
  * The deserialization information for the current model
+ * @param ApiCancelModelEvaluationRunInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCancelModelEvaluationRunInputPublic(apiCancelModelEvaluationRunInputPublic: Partial<ApiCancelModelEvaluationRunInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "eval_run_uuid": n => { apiCancelModelEvaluationRunInputPublic.evalRunUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiCancelModelEvaluationRunOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCancelModelEvaluationRunOutput(apiCancelModelEvaluationRunOutput: Partial<ApiCancelModelEvaluationRunOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "run": n => { apiCancelModelEvaluationRunOutput.run = n.getObjectValue<ApiModelEvaluationRunSummary>(createApiModelEvaluationRunSummaryFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCandidateInferenceConfig The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -20845,17 +21091,6 @@ export function deserializeIntoApiCreateModelAPIKeyInputPublic(apiCreateModelAPI
 }
 /**
  * The deserialization information for the current model
- * @param ApiCreateModelAPIKeyOutput The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoApiCreateModelAPIKeyOutput(apiCreateModelAPIKeyOutput: Partial<ApiCreateModelAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "api_key_info": n => { apiCreateModelAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiModelAPIKeyInfo>(createApiModelAPIKeyInfoFromDiscriminatorValue); },
-    }
-}
-/**
- * The deserialization information for the current model
  * @param ApiCreateModelEvalDatasetUploadPresignedUrlsInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21106,6 +21341,16 @@ export function deserializeIntoApiDeleteCustomModelOutputPublic(apiDeleteCustomM
 }
 /**
  * The deserialization information for the current model
+ * @param ApiDeleteEvaluationDatasetOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteEvaluationDatasetOutput(apiDeleteEvaluationDatasetOutput: Partial<ApiDeleteEvaluationDatasetOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiDeleteKnowledgeBaseDataSourceOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21136,6 +21381,28 @@ export function deserializeIntoApiDeleteKnowledgeBaseOutput(apiDeleteKnowledgeBa
 export function deserializeIntoApiDeleteModelAPIKeyOutput(apiDeleteModelAPIKeyOutput: Partial<ApiDeleteModelAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiDeleteModelAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiModelAPIKeyInfo>(createApiModelAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDeleteModelEvaluationPresetOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteModelEvaluationPresetOutput(apiDeleteModelEvaluationPresetOutput: Partial<ApiDeleteModelEvaluationPresetOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDeleteModelEvaluationRunOutputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteModelEvaluationRunOutputPublic(apiDeleteModelEvaluationRunOutputPublic: Partial<ApiDeleteModelEvaluationRunOutputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "error": n => { apiDeleteModelEvaluationRunOutputPublic.errorEscaped = n.getStringValue(); },
+        "status": n => { apiDeleteModelEvaluationRunOutputPublic.status = n.getEnumValue<ApiDeleteModelEvaluationRunStatus>(ApiDeleteModelEvaluationRunStatusObject) ?? ApiDeleteModelEvaluationRunStatusObject.DELETE_MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED; },
     }
 }
 /**
@@ -21621,6 +21888,17 @@ export function deserializeIntoApiGetKnowledgeBaseOutput(apiGetKnowledgeBaseOutp
 export function deserializeIntoApiGetModelCatalogCardOutput(apiGetModelCatalogCardOutput: Partial<ApiGetModelCatalogCardOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "data": n => { apiGetModelCatalogCardOutput.data = n.getObjectValue<ApiModelCatalogCard>(createApiModelCatalogCardFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGetModelEvaluationPresetOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetModelEvaluationPresetOutput(apiGetModelEvaluationPresetOutput: Partial<ApiGetModelEvaluationPresetOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "preset": n => { apiGetModelEvaluationPresetOutput.preset = n.getObjectValue<ApiModelEvaluationPreset>(createApiModelEvaluationPresetFromDiscriminatorValue); },
     }
 }
 /**
@@ -22122,6 +22400,17 @@ export function deserializeIntoApiListCustomModelsOutputPublic(apiListCustomMode
 }
 /**
  * The deserialization information for the current model
+ * @param ApiListEvaluationDatasetsOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListEvaluationDatasetsOutput(apiListEvaluationDatasetsOutput: Partial<ApiListEvaluationDatasetsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "evaluation_datasets": n => { apiListEvaluationDatasetsOutput.evaluationDatasets = n.getCollectionOfObjectValues<ApiEvaluationDataset>(createApiEvaluationDatasetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiListEvaluationMetricsOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -22252,12 +22541,25 @@ export function deserializeIntoApiListModelEvaluationMetricsOutput(apiListModelE
 }
 /**
  * The deserialization information for the current model
+ * @param ApiListModelEvaluationPresetsOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelEvaluationPresetsOutput(apiListModelEvaluationPresetsOutput: Partial<ApiListModelEvaluationPresetsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "presets": n => { apiListModelEvaluationPresetsOutput.presets = n.getCollectionOfObjectValues<ApiModelEvaluationPreset>(createApiModelEvaluationPresetFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiListModelEvaluationRunsOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoApiListModelEvaluationRunsOutput(apiListModelEvaluationRunsOutput: Partial<ApiListModelEvaluationRunsOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "available_candidate_types": n => { apiListModelEvaluationRunsOutput.availableCandidateTypes = n.getCollectionOfEnumValues<ApiCandidateModelSource>(ApiCandidateModelSourceObject); },
+        "available_statuses": n => { apiListModelEvaluationRunsOutput.availableStatuses = n.getCollectionOfEnumValues<ApiModelEvaluationRunStatus>(ApiModelEvaluationRunStatusObject); },
         "links": n => { apiListModelEvaluationRunsOutput.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
         "meta": n => { apiListModelEvaluationRunsOutput.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
         "runs": n => { apiListModelEvaluationRunsOutput.runs = n.getCollectionOfObjectValues<ApiModelEvaluationRunSummary>(createApiModelEvaluationRunSummaryFromDiscriminatorValue); },
@@ -22585,6 +22887,25 @@ export function deserializeIntoApiModelEndpoint(apiModelEndpoint: Partial<ApiMod
     return {
         "capabilities": n => { apiModelEndpoint.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
         "endpoint": n => { apiModelEndpoint.endpoint = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelEvaluationPreset The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelEvaluationPreset(apiModelEvaluationPreset: Partial<ApiModelEvaluationPreset> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { apiModelEvaluationPreset.createdAt = n.getDateValue(); },
+        "dataset_name": n => { apiModelEvaluationPreset.datasetName = n.getStringValue(); },
+        "dataset_uuid": n => { apiModelEvaluationPreset.datasetUuid = n.getStringValue(); },
+        "eval_preset_uuid": n => { apiModelEvaluationPreset.evalPresetUuid = n.getStringValue(); },
+        "judge_model_name": n => { apiModelEvaluationPreset.judgeModelName = n.getStringValue(); },
+        "judge_model_uuid": n => { apiModelEvaluationPreset.judgeModelUuid = n.getStringValue(); },
+        "metrics": n => { apiModelEvaluationPreset.metrics = n.getCollectionOfObjectValues<ApiEvaluationMetric>(createApiEvaluationMetricFromDiscriminatorValue); },
+        "name": n => { apiModelEvaluationPreset.name = n.getStringValue(); },
+        "star_metric": n => { apiModelEvaluationPreset.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
     }
 }
 /**
@@ -23568,7 +23889,11 @@ export function deserializeIntoApiUpdateAnthropicAPIKeyOutput(apiUpdateAnthropic
 export function deserializeIntoApiUpdateCustomModelMetadataInputPublic(apiUpdateCustomModelMetadataInputPublic: Partial<ApiUpdateCustomModelMetadataInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { apiUpdateCustomModelMetadataInputPublic.description = n.getStringValue(); },
+        "input_modalities": n => { apiUpdateCustomModelMetadataInputPublic.inputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "license": n => { apiUpdateCustomModelMetadataInputPublic.license = n.getStringValue(); },
         "name": n => { apiUpdateCustomModelMetadataInputPublic.name = n.getStringValue(); },
+        "output_modalities": n => { apiUpdateCustomModelMetadataInputPublic.outputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "parameters": n => { apiUpdateCustomModelMetadataInputPublic.parameters = n.getStringValue(); },
         "tags": n => { apiUpdateCustomModelMetadataInputPublic.tags = n.getObjectValue<CustomModelTags>(createCustomModelTagsFromDiscriminatorValue); },
         "uuid": n => { apiUpdateCustomModelMetadataInputPublic.uuid = n.getStringValue(); },
     }
@@ -24289,6 +24614,7 @@ export function deserializeIntoApp_health_response(app_health_response: Partial<
 // @ts-ignore
 export function deserializeIntoApp_ingress_spec(app_ingress_spec: Partial<App_ingress_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "custom_error_page_url": n => { app_ingress_spec.customErrorPageUrl = n.getStringValue(); },
         "rules": n => { app_ingress_spec.rules = n.getCollectionOfObjectValues<App_ingress_spec_rule>(createApp_ingress_spec_ruleFromDiscriminatorValue); },
     }
 }
@@ -26381,6 +26707,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "cluster_autoscaler_configuration": n => { cluster.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster.clusterSubnet = n.getStringValue(); },
         "control_plane_firewall": n => { cluster.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
+        "coredns_autoscaler": n => { cluster.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
         "created_at": n => { cluster.createdAt = n.getDateValue(); },
         "endpoint": n => { cluster.endpoint = n.getStringValue(); },
         "ha": n => { cluster.ha = n.getBooleanValue(); },
@@ -26402,6 +26729,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "updated_at": n => { cluster.updatedAt = n.getDateValue(); },
         "version": n => { cluster.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -26431,6 +26759,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "cluster_autoscaler_configuration": n => { cluster_read.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster_read.clusterSubnet = n.getStringValue(); },
         "control_plane_firewall": n => { cluster_read.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
+        "coredns_autoscaler": n => { cluster_read.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
         "created_at": n => { cluster_read.createdAt = n.getDateValue(); },
         "endpoint": n => { cluster_read.endpoint = n.getStringValue(); },
         "ha": n => { cluster_read.ha = n.getBooleanValue(); },
@@ -26453,6 +26782,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "updated_at": n => { cluster_read.updatedAt = n.getDateValue(); },
         "version": n => { cluster_read.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster_read.vpcUuid = n.getGuidValue(); },
+        "worker_subnet_uuid": n => { cluster_read.workerSubnetUuid = n.getGuidValue(); },
     }
 }
 /**
@@ -26515,6 +26845,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "auto_upgrade": n => { cluster_update.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_update.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "control_plane_firewall": n => { cluster_update.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
+        "coredns_autoscaler": n => { cluster_update.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
         "ha": n => { cluster_update.ha = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster_update.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_update.name = n.getStringValue(); },
@@ -26663,6 +26994,17 @@ export function deserializeIntoControl_plane_firewall(control_plane_firewall: Pa
     return {
         "allowed_addresses": n => { control_plane_firewall.allowedAddresses = n.getCollectionOfPrimitiveValues<string>(); },
         "enabled": n => { control_plane_firewall.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Coredns_autoscaler The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCoredns_autoscaler(coredns_autoscaler: Partial<Coredns_autoscaler> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { coredns_autoscaler.enabled = n.getBooleanValue(); },
     }
 }
 /**
@@ -29433,8 +29775,9 @@ export function deserializeIntoMember(member: Partial<Member> | undefined = {}) 
         "created_at": n => { member.createdAt = n.getDateValue(); },
         "current_utilization": n => { member.currentUtilization = n.getObjectValue<Member_current_utilization>(createMember_current_utilizationFromDiscriminatorValue); },
         "droplet_id": n => { member.dropletId = n.getNumberValue(); },
-        "health_status": n => { member.healthStatus = n.getStringValue(); },
+        "health_status": n => { member.healthStatus = n.getEnumValue<Member_health_status>(Member_health_statusObject); },
         "status": n => { member.status = n.getEnumValue<Member_status>(Member_statusObject); },
+        "unhealthy_reason": n => { member.unhealthyReason = n.getStringValue(); },
         "updated_at": n => { member.updatedAt = n.getDateValue(); },
     }
 }
@@ -34843,11 +35186,15 @@ export interface Member extends AdditionalDataHolder, Parsable {
     /**
      * The health status of the Droplet.
      */
-    healthStatus?: string | null;
+    healthStatus?: Member_health_status | null;
     /**
      * The power status of the Droplet.
      */
     status?: Member_status | null;
+    /**
+     * A human-readable description of why the Droplet is unhealthy. Onlypresent when `health_status` is `unhealthy`.
+     */
+    unhealthyReason?: string | null;
     /**
      * The last updated time of the Droplet in ISO8601 combined date and time format.
      */
@@ -34863,6 +35210,7 @@ export interface Member_current_utilization extends AdditionalDataHolder, Parsab
      */
     memory?: number | null;
 }
+export type Member_health_status = (typeof Member_health_statusObject)[keyof typeof Member_health_statusObject];
 export type Member_status = (typeof Member_statusObject)[keyof typeof Member_statusObject];
 /**
  * One turn in the conversation. Roles are `user` or `assistant` (no `system` role; use the top-level `system` field). Content may be a string (equivalent to a single text block) or an array of content blocks.
@@ -38655,6 +39003,30 @@ export function serializeApiCancelKnowledgeBaseIndexingJobOutput(writer: Seriali
 }
 /**
  * Serializes information the current object
+ * @param ApiCancelModelEvaluationRunInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCancelModelEvaluationRunInputPublic(writer: SerializationWriter, apiCancelModelEvaluationRunInputPublic: Partial<ApiCancelModelEvaluationRunInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCancelModelEvaluationRunInputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("eval_run_uuid", apiCancelModelEvaluationRunInputPublic.evalRunUuid);
+    writer.writeAdditionalData(apiCancelModelEvaluationRunInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiCancelModelEvaluationRunOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCancelModelEvaluationRunOutput(writer: SerializationWriter, apiCancelModelEvaluationRunOutput: Partial<ApiCancelModelEvaluationRunOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCancelModelEvaluationRunOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelEvaluationRunSummary>("run", apiCancelModelEvaluationRunOutput.run, serializeApiModelEvaluationRunSummary);
+    writer.writeAdditionalData(apiCancelModelEvaluationRunOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCandidateInferenceConfig The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -38963,18 +39335,6 @@ export function serializeApiCreateModelAPIKeyInputPublic(writer: SerializationWr
 }
 /**
  * Serializes information the current object
- * @param ApiCreateModelAPIKeyOutput The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeApiCreateModelAPIKeyOutput(writer: SerializationWriter, apiCreateModelAPIKeyOutput: Partial<ApiCreateModelAPIKeyOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!apiCreateModelAPIKeyOutput || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<ApiModelAPIKeyInfo>("api_key_info", apiCreateModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
-    writer.writeAdditionalData(apiCreateModelAPIKeyOutput.additionalData);
-}
-/**
- * Serializes information the current object
  * @param ApiCreateModelEvalDatasetUploadPresignedUrlsInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -39243,6 +39603,17 @@ export function serializeApiDeleteCustomModelOutputPublic(writer: SerializationW
 }
 /**
  * Serializes information the current object
+ * @param ApiDeleteEvaluationDatasetOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteEvaluationDatasetOutput(writer: SerializationWriter, apiDeleteEvaluationDatasetOutput: Partial<ApiDeleteEvaluationDatasetOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteEvaluationDatasetOutput || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(apiDeleteEvaluationDatasetOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiDeleteKnowledgeBaseDataSourceOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -39277,6 +39648,30 @@ export function serializeApiDeleteModelAPIKeyOutput(writer: SerializationWriter,
     if (!apiDeleteModelAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiModelAPIKeyInfo>("api_key_info", apiDeleteModelAPIKeyOutput.apiKeyInfo, serializeApiModelAPIKeyInfo);
     writer.writeAdditionalData(apiDeleteModelAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDeleteModelEvaluationPresetOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteModelEvaluationPresetOutput(writer: SerializationWriter, apiDeleteModelEvaluationPresetOutput: Partial<ApiDeleteModelEvaluationPresetOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteModelEvaluationPresetOutput || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(apiDeleteModelEvaluationPresetOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDeleteModelEvaluationRunOutputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteModelEvaluationRunOutputPublic(writer: SerializationWriter, apiDeleteModelEvaluationRunOutputPublic: Partial<ApiDeleteModelEvaluationRunOutputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteModelEvaluationRunOutputPublic || isSerializingDerivedType) { return; }
+    writer.writeStringValue("error", apiDeleteModelEvaluationRunOutputPublic.errorEscaped);
+    writer.writeEnumValue<ApiDeleteModelEvaluationRunStatus>("status", apiDeleteModelEvaluationRunOutputPublic.status ?? ApiDeleteModelEvaluationRunStatusObject.DELETE_MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED);
+    writer.writeAdditionalData(apiDeleteModelEvaluationRunOutputPublic.additionalData);
 }
 /**
  * Serializes information the current object
@@ -39798,6 +40193,18 @@ export function serializeApiGetModelCatalogCardOutput(writer: SerializationWrite
     if (!apiGetModelCatalogCardOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiModelCatalogCard>("data", apiGetModelCatalogCardOutput.data, serializeApiModelCatalogCard);
     writer.writeAdditionalData(apiGetModelCatalogCardOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGetModelEvaluationPresetOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetModelEvaluationPresetOutput(writer: SerializationWriter, apiGetModelEvaluationPresetOutput: Partial<ApiGetModelEvaluationPresetOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetModelEvaluationPresetOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelEvaluationPreset>("preset", apiGetModelEvaluationPresetOutput.preset, serializeApiModelEvaluationPreset);
+    writer.writeAdditionalData(apiGetModelEvaluationPresetOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -40333,6 +40740,18 @@ export function serializeApiListCustomModelsOutputPublic(writer: SerializationWr
 }
 /**
  * Serializes information the current object
+ * @param ApiListEvaluationDatasetsOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListEvaluationDatasetsOutput(writer: SerializationWriter, apiListEvaluationDatasetsOutput: Partial<ApiListEvaluationDatasetsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListEvaluationDatasetsOutput || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiEvaluationDataset>("evaluation_datasets", apiListEvaluationDatasetsOutput.evaluationDatasets, serializeApiEvaluationDataset);
+    writer.writeAdditionalData(apiListEvaluationDatasetsOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiListEvaluationMetricsOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -40474,6 +40893,18 @@ export function serializeApiListModelEvaluationMetricsOutput(writer: Serializati
 }
 /**
  * Serializes information the current object
+ * @param ApiListModelEvaluationPresetsOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelEvaluationPresetsOutput(writer: SerializationWriter, apiListModelEvaluationPresetsOutput: Partial<ApiListModelEvaluationPresetsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelEvaluationPresetsOutput || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiModelEvaluationPreset>("presets", apiListModelEvaluationPresetsOutput.presets, serializeApiModelEvaluationPreset);
+    writer.writeAdditionalData(apiListModelEvaluationPresetsOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiListModelEvaluationRunsOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -40481,6 +40912,10 @@ export function serializeApiListModelEvaluationMetricsOutput(writer: Serializati
 // @ts-ignore
 export function serializeApiListModelEvaluationRunsOutput(writer: SerializationWriter, apiListModelEvaluationRunsOutput: Partial<ApiListModelEvaluationRunsOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiListModelEvaluationRunsOutput || isSerializingDerivedType) { return; }
+    if(apiListModelEvaluationRunsOutput.availableCandidateTypes)
+    writer.writeCollectionOfEnumValues<ApiCandidateModelSource>("available_candidate_types", apiListModelEvaluationRunsOutput.availableCandidateTypes);
+    if(apiListModelEvaluationRunsOutput.availableStatuses)
+    writer.writeCollectionOfEnumValues<ApiModelEvaluationRunStatus>("available_statuses", apiListModelEvaluationRunsOutput.availableStatuses);
     writer.writeObjectValue<ApiLinks>("links", apiListModelEvaluationRunsOutput.links, serializeApiLinks);
     writer.writeObjectValue<ApiMeta>("meta", apiListModelEvaluationRunsOutput.meta, serializeApiMeta);
     writer.writeCollectionOfObjectValues<ApiModelEvaluationRunSummary>("runs", apiListModelEvaluationRunsOutput.runs, serializeApiModelEvaluationRunSummary);
@@ -40832,6 +41267,26 @@ export function serializeApiModelEndpoint(writer: SerializationWriter, apiModelE
     writer.writeCollectionOfPrimitiveValues<string>("capabilities", apiModelEndpoint.capabilities);
     writer.writeStringValue("endpoint", apiModelEndpoint.endpoint);
     writer.writeAdditionalData(apiModelEndpoint.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelEvaluationPreset The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelEvaluationPreset(writer: SerializationWriter, apiModelEvaluationPreset: Partial<ApiModelEvaluationPreset> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelEvaluationPreset || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", apiModelEvaluationPreset.createdAt);
+    writer.writeStringValue("dataset_name", apiModelEvaluationPreset.datasetName);
+    writer.writeStringValue("dataset_uuid", apiModelEvaluationPreset.datasetUuid);
+    writer.writeStringValue("eval_preset_uuid", apiModelEvaluationPreset.evalPresetUuid);
+    writer.writeStringValue("judge_model_name", apiModelEvaluationPreset.judgeModelName);
+    writer.writeStringValue("judge_model_uuid", apiModelEvaluationPreset.judgeModelUuid);
+    writer.writeCollectionOfObjectValues<ApiEvaluationMetric>("metrics", apiModelEvaluationPreset.metrics, serializeApiEvaluationMetric);
+    writer.writeStringValue("name", apiModelEvaluationPreset.name);
+    writer.writeObjectValue<ApiStarMetric>("star_metric", apiModelEvaluationPreset.starMetric, serializeApiStarMetric);
+    writer.writeAdditionalData(apiModelEvaluationPreset.additionalData);
 }
 /**
  * Serializes information the current object
@@ -41883,7 +42338,11 @@ export function serializeApiUpdateAnthropicAPIKeyOutput(writer: SerializationWri
 export function serializeApiUpdateCustomModelMetadataInputPublic(writer: SerializationWriter, apiUpdateCustomModelMetadataInputPublic: Partial<ApiUpdateCustomModelMetadataInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiUpdateCustomModelMetadataInputPublic || isSerializingDerivedType) { return; }
     writer.writeStringValue("description", apiUpdateCustomModelMetadataInputPublic.description);
+    writer.writeCollectionOfPrimitiveValues<string>("input_modalities", apiUpdateCustomModelMetadataInputPublic.inputModalities);
+    writer.writeStringValue("license", apiUpdateCustomModelMetadataInputPublic.license);
     writer.writeStringValue("name", apiUpdateCustomModelMetadataInputPublic.name);
+    writer.writeCollectionOfPrimitiveValues<string>("output_modalities", apiUpdateCustomModelMetadataInputPublic.outputModalities);
+    writer.writeStringValue("parameters", apiUpdateCustomModelMetadataInputPublic.parameters);
     writer.writeObjectValue<CustomModelTags>("tags", apiUpdateCustomModelMetadataInputPublic.tags, serializeCustomModelTags);
     writer.writeStringValue("uuid", apiUpdateCustomModelMetadataInputPublic.uuid);
     writer.writeAdditionalData(apiUpdateCustomModelMetadataInputPublic.additionalData);
@@ -42638,6 +43097,7 @@ export function serializeApp_health_response(writer: SerializationWriter, app_he
 // @ts-ignore
 export function serializeApp_ingress_spec(writer: SerializationWriter, app_ingress_spec: Partial<App_ingress_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_ingress_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("custom_error_page_url", app_ingress_spec.customErrorPageUrl);
     writer.writeCollectionOfObjectValues<App_ingress_spec_rule>("rules", app_ingress_spec.rules, serializeApp_ingress_spec_rule);
     writer.writeAdditionalData(app_ingress_spec.additionalData);
 }
@@ -44910,6 +45370,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster.controlPlaneFirewall, serializeControl_plane_firewall);
+    writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster.ha);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
@@ -44924,6 +45385,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster.tags);
     writer.writeStringValue("version", cluster.version);
     writer.writeGuidValue("vpc_uuid", cluster.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster.workerSubnetUuid);
     writer.writeAdditionalData(cluster.additionalData);
 }
 /**
@@ -44956,6 +45418,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_read.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster_read.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_read.controlPlaneFirewall, serializeControl_plane_firewall);
+    writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_read.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster_read.ha);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_read.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_read.name);
@@ -44971,6 +45434,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_read.tags);
     writer.writeStringValue("version", cluster_read.version);
     writer.writeGuidValue("vpc_uuid", cluster_read.vpcUuid);
+    writer.writeGuidValue("worker_subnet_uuid", cluster_read.workerSubnetUuid);
     writer.writeAdditionalData(cluster_read.additionalData);
 }
 /**
@@ -45038,6 +45502,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeBooleanValue("auto_upgrade", cluster_update.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_update.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_update.controlPlaneFirewall, serializeControl_plane_firewall);
+    writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_update.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster_update.ha);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_update.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_update.name);
@@ -45196,6 +45661,18 @@ export function serializeControl_plane_firewall(writer: SerializationWriter, con
     writer.writeCollectionOfPrimitiveValues<string>("allowed_addresses", control_plane_firewall.allowedAddresses);
     writer.writeBooleanValue("enabled", control_plane_firewall.enabled);
     writer.writeAdditionalData(control_plane_firewall.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Coredns_autoscaler The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCoredns_autoscaler(writer: SerializationWriter, coredns_autoscaler: Partial<Coredns_autoscaler> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!coredns_autoscaler || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", coredns_autoscaler.enabled);
+    writer.writeAdditionalData(coredns_autoscaler.additionalData);
 }
 /**
  * Serializes information the current object
@@ -48118,8 +48595,9 @@ export function serializeMember(writer: SerializationWriter, member: Partial<Mem
     writer.writeDateValue("created_at", member.createdAt);
     writer.writeObjectValue<Member_current_utilization>("current_utilization", member.currentUtilization, serializeMember_current_utilization);
     writer.writeNumberValue("droplet_id", member.dropletId);
-    writer.writeStringValue("health_status", member.healthStatus);
+    writer.writeEnumValue<Member_health_status>("health_status", member.healthStatus);
     writer.writeEnumValue<Member_status>("status", member.status);
+    writer.writeStringValue("unhealthy_reason", member.unhealthyReason);
     writer.writeDateValue("updated_at", member.updatedAt);
     writer.writeAdditionalData(member.additionalData);
 }
@@ -52781,6 +53259,14 @@ export const ApiDeleteCustomModelStatusObject = {
     DELETE_CUSTOM_MODEL_STATUS_SUCCESS: "DELETE_CUSTOM_MODEL_STATUS_SUCCESS",
     DELETE_CUSTOM_MODEL_STATUS_FAIL: "DELETE_CUSTOM_MODEL_STATUS_FAIL",
 } as const;
+/**
+ * Status of delete operation
+ */
+export const ApiDeleteModelEvaluationRunStatusObject = {
+    DELETE_MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED: "DELETE_MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED",
+    DELETE_MODEL_EVALUATION_RUN_STATUS_SUCCESS: "DELETE_MODEL_EVALUATION_RUN_STATUS_SUCCESS",
+    DELETE_MODEL_EVALUATION_RUN_STATUS_FAIL: "DELETE_MODEL_EVALUATION_RUN_STATUS_FAIL",
+} as const;
 export const ApiDeploymentStatusObject = {
     STATUS_UNKNOWN: "STATUS_UNKNOWN",
     STATUS_WAITING_FOR_DEPLOYMENT: "STATUS_WAITING_FOR_DEPLOYMENT",
@@ -54081,6 +54567,13 @@ export const Maintenance_policy_dayObject = {
     Friday: "friday",
     Saturday: "saturday",
     Sunday: "sunday",
+} as const;
+/**
+ * The health status of the Droplet.
+ */
+export const Member_health_statusObject = {
+    Healthy: "healthy",
+    Unhealthy: "unhealthy",
 } as const;
 /**
  * The power status of the Droplet.
