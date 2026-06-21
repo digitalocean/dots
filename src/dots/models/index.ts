@@ -4602,6 +4602,10 @@ export interface ApiModelEvaluationRunDetail extends AdditionalDataHolder, Parsa
      */
     name?: string | null;
     /**
+     * Per-phase progress for a model evaluation run. The candidate phase invokes thecandidate model once per dataset row; the judge phase scores eachcandidate-success row with the configured metrics. Counts grow as the runadvances; compare against total_rows to render a progress bar.
+     */
+    progress?: ApiModelEvaluationRunProgress | null;
+    /**
      * Aggregated result summary for a completed model evaluation run.
      */
     resultSummary?: ApiModelEvaluationRunResultSummary | null;
@@ -4617,6 +4621,23 @@ export interface ApiModelEvaluationRunDetail extends AdditionalDataHolder, Parsa
      * Model Evaluation Run Statuses
      */
     status?: ApiModelEvaluationRunStatus | null;
+}
+/**
+ * Per-phase progress for a model evaluation run. The candidate phase invokes thecandidate model once per dataset row; the judge phase scores eachcandidate-success row with the configured metrics. Counts grow as the runadvances; compare against total_rows to render a progress bar.
+ */
+export interface ApiModelEvaluationRunProgress extends AdditionalDataHolder, Parsable {
+    /**
+     * Dataset rows whose candidate model call has completed (success or failure).
+     */
+    candidateRowsEvaluated?: number | null;
+    /**
+     * Candidate-success rows the judge has finished (scored or skipped). Caps atthe number of candidate successes, which may be below total_rows.
+     */
+    judgeRowsEvaluated?: number | null;
+    /**
+     * Total dataset rows for the run, sourced from the evaluation dataset.
+     */
+    totalRows?: number | null;
 }
 /**
  * Aggregated result summary for a completed model evaluation run.
@@ -4704,6 +4725,10 @@ export interface ApiModelEvaluationRunSummary extends AdditionalDataHolder, Pars
      * Name of the evaluation run.
      */
     name?: string | null;
+    /**
+     * Per-phase progress for a model evaluation run. The candidate phase invokes thecandidate model once per dataset row; the judge phase scores eachcandidate-success row with the configured metrics. Counts grow as the runadvances; compare against total_rows to render a progress bar.
+     */
+    progress?: ApiModelEvaluationRunProgress | null;
     /**
      * Model Evaluation Run Statuses
      */
@@ -12519,6 +12544,15 @@ export function createApiModelEvaluationResultFromDiscriminatorValue(parseNode: 
 // @ts-ignore
 export function createApiModelEvaluationRunDetailFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiModelEvaluationRunDetail;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelEvaluationRunProgress}
+ */
+// @ts-ignore
+export function createApiModelEvaluationRunProgressFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelEvaluationRunProgress;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -23119,10 +23153,24 @@ export function deserializeIntoApiModelEvaluationRunDetail(apiModelEvaluationRun
         "judge_model_uuid": n => { apiModelEvaluationRunDetail.judgeModelUuid = n.getStringValue(); },
         "metrics": n => { apiModelEvaluationRunDetail.metrics = n.getCollectionOfObjectValues<ApiEvaluationMetric>(createApiEvaluationMetricFromDiscriminatorValue); },
         "name": n => { apiModelEvaluationRunDetail.name = n.getStringValue(); },
+        "progress": n => { apiModelEvaluationRunDetail.progress = n.getObjectValue<ApiModelEvaluationRunProgress>(createApiModelEvaluationRunProgressFromDiscriminatorValue); },
         "result_summary": n => { apiModelEvaluationRunDetail.resultSummary = n.getObjectValue<ApiModelEvaluationRunResultSummary>(createApiModelEvaluationRunResultSummaryFromDiscriminatorValue); },
         "star_metric": n => { apiModelEvaluationRunDetail.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
         "started_at": n => { apiModelEvaluationRunDetail.startedAt = n.getDateValue(); },
         "status": n => { apiModelEvaluationRunDetail.status = n.getEnumValue<ApiModelEvaluationRunStatus>(ApiModelEvaluationRunStatusObject) ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelEvaluationRunProgress The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelEvaluationRunProgress(apiModelEvaluationRunProgress: Partial<ApiModelEvaluationRunProgress> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "candidate_rows_evaluated": n => { apiModelEvaluationRunProgress.candidateRowsEvaluated = n.getNumberValue(); },
+        "judge_rows_evaluated": n => { apiModelEvaluationRunProgress.judgeRowsEvaluated = n.getNumberValue(); },
+        "total_rows": n => { apiModelEvaluationRunProgress.totalRows = n.getNumberValue(); },
     }
 }
 /**
@@ -23162,6 +23210,7 @@ export function deserializeIntoApiModelEvaluationRunSummary(apiModelEvaluationRu
         "judge_model_name": n => { apiModelEvaluationRunSummary.judgeModelName = n.getStringValue(); },
         "judge_model_uuid": n => { apiModelEvaluationRunSummary.judgeModelUuid = n.getStringValue(); },
         "name": n => { apiModelEvaluationRunSummary.name = n.getStringValue(); },
+        "progress": n => { apiModelEvaluationRunSummary.progress = n.getObjectValue<ApiModelEvaluationRunProgress>(createApiModelEvaluationRunProgressFromDiscriminatorValue); },
         "status": n => { apiModelEvaluationRunSummary.status = n.getEnumValue<ApiModelEvaluationRunStatus>(ApiModelEvaluationRunStatusObject) ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED; },
     }
 }
@@ -41743,11 +41792,26 @@ export function serializeApiModelEvaluationRunDetail(writer: SerializationWriter
     writer.writeStringValue("judge_model_uuid", apiModelEvaluationRunDetail.judgeModelUuid);
     writer.writeCollectionOfObjectValues<ApiEvaluationMetric>("metrics", apiModelEvaluationRunDetail.metrics, serializeApiEvaluationMetric);
     writer.writeStringValue("name", apiModelEvaluationRunDetail.name);
+    writer.writeObjectValue<ApiModelEvaluationRunProgress>("progress", apiModelEvaluationRunDetail.progress, serializeApiModelEvaluationRunProgress);
     writer.writeObjectValue<ApiModelEvaluationRunResultSummary>("result_summary", apiModelEvaluationRunDetail.resultSummary, serializeApiModelEvaluationRunResultSummary);
     writer.writeObjectValue<ApiStarMetric>("star_metric", apiModelEvaluationRunDetail.starMetric, serializeApiStarMetric);
     writer.writeDateValue("started_at", apiModelEvaluationRunDetail.startedAt);
     writer.writeEnumValue<ApiModelEvaluationRunStatus>("status", apiModelEvaluationRunDetail.status ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED);
     writer.writeAdditionalData(apiModelEvaluationRunDetail.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelEvaluationRunProgress The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelEvaluationRunProgress(writer: SerializationWriter, apiModelEvaluationRunProgress: Partial<ApiModelEvaluationRunProgress> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelEvaluationRunProgress || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("candidate_rows_evaluated", apiModelEvaluationRunProgress.candidateRowsEvaluated);
+    writer.writeNumberValue("judge_rows_evaluated", apiModelEvaluationRunProgress.judgeRowsEvaluated);
+    writer.writeNumberValue("total_rows", apiModelEvaluationRunProgress.totalRows);
+    writer.writeAdditionalData(apiModelEvaluationRunProgress.additionalData);
 }
 /**
  * Serializes information the current object
@@ -41788,6 +41852,7 @@ export function serializeApiModelEvaluationRunSummary(writer: SerializationWrite
     writer.writeStringValue("judge_model_name", apiModelEvaluationRunSummary.judgeModelName);
     writer.writeStringValue("judge_model_uuid", apiModelEvaluationRunSummary.judgeModelUuid);
     writer.writeStringValue("name", apiModelEvaluationRunSummary.name);
+    writer.writeObjectValue<ApiModelEvaluationRunProgress>("progress", apiModelEvaluationRunSummary.progress, serializeApiModelEvaluationRunProgress);
     writer.writeEnumValue<ApiModelEvaluationRunStatus>("status", apiModelEvaluationRunSummary.status ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED);
     writer.writeAdditionalData(apiModelEvaluationRunSummary.additionalData);
 }

@@ -1,6 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@db19d6d (2026-06-18T08:01:18Z)
-Target commit: digitalocean/openapi@65127f6 (2026-06-18T13:11:42Z)
+Current commit: digitalocean/openapi@65127f6 (2026-06-18T13:11:42Z)
+Target commit: digitalocean/openapi@14f1f34 (2026-06-21T06:25:08Z)
 
-* digitalocean/openapi#1188: Generate vector databases OpenAPI spec from proto (KBAAS-426) - 2026-06-18T13:11:42Z []
+* digitalocean/openapi#1190: Add progress to model evaluation run schemas - 2026-06-21T06:25:08Z []
