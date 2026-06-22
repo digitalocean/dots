@@ -30767,6 +30767,7 @@ export function deserializeIntoNfs_response(nfs_response: Partial<Nfs_response> 
         "id": n => { nfs_response.id = n.getStringValue(); },
         "mount_path": n => { nfs_response.mountPath = n.getStringValue(); },
         "name": n => { nfs_response.name = n.getStringValue(); },
+        "performance_tier": n => { nfs_response.performanceTier = n.getStringValue(); },
         "region": n => { nfs_response.region = n.getStringValue(); },
         "size_gib": n => { nfs_response.sizeGib = n.getNumberValue(); },
         "status": n => { nfs_response.status = n.getEnumValue<Nfs_response_status>(Nfs_response_statusObject); },
@@ -36519,6 +36520,10 @@ export interface Nfs_response extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
     /**
+     * The performance tier of the share.
+     */
+    performanceTier?: string | null;
+    /**
      * The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
      */
     region?: string | null;
@@ -36527,7 +36532,7 @@ export interface Nfs_response extends AdditionalDataHolder, Parsable {
      */
     sizeGib?: number | null;
     /**
-     * The current status of the share.
+     * The current status of the share. `INACTIVE` means the share exists but isnot attached to any VPC.
      */
     status?: Nfs_response_status | null;
     /**
@@ -49899,6 +49904,7 @@ export function serializeNfs_response(writer: SerializationWriter, nfs_response:
     writer.writeStringValue("host", nfs_response.host);
     writer.writeStringValue("mount_path", nfs_response.mountPath);
     writer.writeStringValue("name", nfs_response.name);
+    writer.writeStringValue("performance_tier", nfs_response.performanceTier);
     writer.writeStringValue("region", nfs_response.region);
     writer.writeNumberValue("size_gib", nfs_response.sizeGib);
     writer.writeCollectionOfPrimitiveValues<string>("vpc_ids", nfs_response.vpcIds);
@@ -55762,11 +55768,12 @@ export const Nfs_actions_response_action_statusObject = {
     Errored: "errored",
 } as const;
 /**
- * The current status of the share.
+ * The current status of the share. `INACTIVE` means the share exists but isnot attached to any VPC.
  */
 export const Nfs_response_statusObject = {
     CREATING: "CREATING",
     ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
     FAILED: "FAILED",
     DELETED: "DELETED",
 } as const;
