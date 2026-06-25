@@ -61,6 +61,131 @@ export interface Access_key_create_response extends Access_key, Parsable {
      */
     secret?: string | null;
 }
+/**
+ * Response returned after starting an access point mutation.
+ */
+export interface Access_point_action_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Represents an NFS access point resource.
+     */
+    accessPoint?: Access_point_response | null;
+    /**
+     * The action that was submitted.
+     */
+    action?: Nfs_action2 | null;
+}
+/**
+ * Response containing a single access point.
+ */
+export interface Access_point_get_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Represents an NFS access point resource.
+     */
+    accessPoint?: Access_point_response | null;
+}
+/**
+ * Response containing a list of access points.
+ */
+export interface Access_point_list_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Array of access point objects.
+     */
+    accessPoints?: Access_point_response[] | null;
+}
+/**
+ * Payload for creating a new access point on a share.
+ */
+export interface Access_point_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+     */
+    accessPolicy?: Access_policy | null;
+    /**
+     * The name for the access point. Must be unique per share. Must be 2–63characters and match `^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$`.The name `default` is reserved (case-insensitive) for the implicit defaultaccess point created with each share.
+     */
+    name?: string | null;
+    /**
+     * The export sub-path. Must start with `/`, must not be exactly `/` (reservedfor the default access point), must be at most 1024 characters, may containonly alphanumerics, `-`, `_`, `.`, and `/`, and must not contain `..` pathsegments.
+     */
+    path?: string | null;
+    /**
+     * Required. The VPC this access point will be pinned to. A storage gateway isprovisioned (or reused) in this VPC, and the access point becomes mountable fromthis VPC regardless of whether the parent share is currently attached to it.
+     */
+    vpcId?: string | null;
+}
+/**
+ * Represents an NFS access point resource.
+ */
+export interface Access_point_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+     */
+    accessPolicy?: Access_policy | null;
+    /**
+     * The timestamp when the access point was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The unique identifier of the access point.
+     */
+    id?: Guid | null;
+    /**
+     * Whether this is the share's default access point.
+     */
+    isDefault?: boolean | null;
+    /**
+     * The human-readable name of the access point. Must be unique per share.
+     */
+    name?: string | null;
+    /**
+     * The export sub-path for this access point (always starts with `/`).
+     */
+    path?: string | null;
+    /**
+     * The unique identifier of the share this access point belongs to.
+     */
+    shareId?: Guid | null;
+    /**
+     * The current lifecycle status of an access point. There is no ACCESS_POINT_DELETING state:DELETE soft-deletes the access point synchronously (mirroring share deletion);the response of a delete request returns the access point already in ACCESS_POINT_DELETED.
+     */
+    status?: Access_point_response_status | null;
+    /**
+     * The timestamp when the access point was last updated. May be empty while theaccess point is still being created.
+     */
+    updatedAt?: string | null;
+    /**
+     * The VPC this access point is pinned to. Omitted on the default access point.Every non-default access point owns its own storage gateway in this VPC andis independent of the parent share's VPC lifecycle.
+     */
+    vpcId?: string | null;
+}
+export type Access_point_response_status = (typeof Access_point_response_statusObject)[keyof typeof Access_point_response_statusObject];
+/**
+ * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+ */
+export interface Access_policy extends AdditionalDataHolder, Parsable {
+    /**
+     * GID used for squashed users. Currently only 65534 is supported.
+     */
+    anongid?: number | null;
+    /**
+     * UID used for squashed users. Currently only 65534 is supported.
+     */
+    anonuid?: number | null;
+    /**
+     * Whether identity enforcement is enabled for this export.
+     */
+    identityEnforcementEnabled?: boolean | null;
+    /**
+     * Allowed NFS protocols for this export.
+     */
+    protocols?: Access_policy_protocols[] | null;
+    /**
+     * The squash mode applied to the access point export.
+     */
+    squashConfig?: Access_policy_squash_config | null;
+}
+export type Access_policy_protocols = (typeof Access_policy_protocolsObject)[keyof typeof Access_policy_protocolsObject];
+export type Access_policy_squash_config = (typeof Access_policy_squash_configObject)[keyof typeof Access_policy_squash_configObject];
 export interface Account extends AdditionalDataHolder, Parsable {
     /**
      * The total number of Droplets current user or team may have active at one time.<br><br>Requires `droplet:read` scope.
@@ -10685,6 +10810,60 @@ export function createAccess_keyFromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_action_response}
+ */
+// @ts-ignore
+export function createAccess_point_action_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_action_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_get_response}
+ */
+// @ts-ignore
+export function createAccess_point_get_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_get_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_list_response}
+ */
+// @ts-ignore
+export function createAccess_point_list_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_list_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_request}
+ */
+// @ts-ignore
+export function createAccess_point_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_response}
+ */
+// @ts-ignore
+export function createAccess_point_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_policy}
+ */
+// @ts-ignore
+export function createAccess_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_policy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Account_team}
  */
 // @ts-ignore
@@ -17448,6 +17627,15 @@ export function createNfs_action_switch_performance_tierFromDiscriminatorValue(p
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action2}
+ */
+// @ts-ignore
+export function createNfs_action2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_action}
  */
 // @ts-ignore
@@ -17457,20 +17645,20 @@ export function createNfs_actionFromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Nfs_actions_response_action}
- */
-// @ts-ignore
-export function createNfs_actions_response_actionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoNfs_actions_response_action;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_actions_response}
  */
 // @ts-ignore
 export function createNfs_actions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoNfs_actions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_api_error}
+ */
+// @ts-ignore
+export function createNfs_api_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_api_error;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -20167,6 +20355,89 @@ export function deserializeIntoAccess_key_create_response(access_key_create_resp
     return {
         ...deserializeIntoAccess_key(access_key_create_response),
         "secret": n => { access_key_create_response.secret = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_action_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_action_response(access_point_action_response: Partial<Access_point_action_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_point": n => { access_point_action_response.accessPoint = n.getObjectValue<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+        "action": n => { access_point_action_response.action = n.getObjectValue<Nfs_action2>(createNfs_action2FromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_get_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_get_response(access_point_get_response: Partial<Access_point_get_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_point": n => { access_point_get_response.accessPoint = n.getObjectValue<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_list_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_list_response(access_point_list_response: Partial<Access_point_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_points": n => { access_point_list_response.accessPoints = n.getCollectionOfObjectValues<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_request(access_point_request: Partial<Access_point_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_policy": n => { access_point_request.accessPolicy = n.getObjectValue<Access_policy>(createAccess_policyFromDiscriminatorValue); },
+        "name": n => { access_point_request.name = n.getStringValue(); },
+        "path": n => { access_point_request.path = n.getStringValue(); },
+        "vpc_id": n => { access_point_request.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_response(access_point_response: Partial<Access_point_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_policy": n => { access_point_response.accessPolicy = n.getObjectValue<Access_policy>(createAccess_policyFromDiscriminatorValue); },
+        "created_at": n => { access_point_response.createdAt = n.getDateValue(); },
+        "id": n => { access_point_response.id = n.getGuidValue(); },
+        "is_default": n => { access_point_response.isDefault = n.getBooleanValue(); },
+        "name": n => { access_point_response.name = n.getStringValue(); },
+        "path": n => { access_point_response.path = n.getStringValue(); },
+        "share_id": n => { access_point_response.shareId = n.getGuidValue(); },
+        "status": n => { access_point_response.status = n.getEnumValue<Access_point_response_status>(Access_point_response_statusObject); },
+        "updated_at": n => { access_point_response.updatedAt = n.getStringValue(); },
+        "vpc_id": n => { access_point_response.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_policy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_policy(access_policy: Partial<Access_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "anongid": n => { access_policy.anongid = n.getNumberValue(); },
+        "anonuid": n => { access_policy.anonuid = n.getNumberValue(); },
+        "identity_enforcement_enabled": n => { access_policy.identityEnforcementEnabled = n.getBooleanValue(); },
+        "protocols": n => { access_policy.protocols = n.getCollectionOfEnumValues<Access_policy_protocols>(Access_policy_protocolsObject); },
+        "squash_config": n => { access_policy.squashConfig = n.getEnumValue<Access_policy_squash_config>(Access_policy_squash_configObject); },
     }
 }
 /**
@@ -30681,29 +30952,42 @@ export function deserializeIntoNfs_action_switch_performance_tier_params(nfs_act
 }
 /**
  * The deserialization information for the current model
+ * @param Nfs_action2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action2(nfs_action2: Partial<Nfs_action2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { nfs_action2.id = n.getStringValue(); },
+        "region_slug": n => { nfs_action2.regionSlug = n.getStringValue(); },
+        "resource_id": n => { nfs_action2.resourceId = n.getGuidValue(); },
+        "resource_type": n => { nfs_action2.resourceType = n.getEnumValue<Nfs_action2_resource_type>(Nfs_action2_resource_typeObject); },
+        "started_at": n => { nfs_action2.startedAt = n.getDateValue(); },
+        "status": n => { nfs_action2.status = n.getEnumValue<Nfs_action2_status>(Nfs_action2_statusObject); },
+        "type": n => { nfs_action2.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Nfs_actions_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoNfs_actions_response(nfs_actions_response: Partial<Nfs_actions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "action": n => { nfs_actions_response.action = n.getObjectValue<Nfs_actions_response_action>(createNfs_actions_response_actionFromDiscriminatorValue); },
+        "action": n => { nfs_actions_response.action = n.getObjectValue<Nfs_action2>(createNfs_action2FromDiscriminatorValue); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param Nfs_actions_response_action The instance to deserialize into.
+ * @param Nfs_api_error The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoNfs_actions_response_action(nfs_actions_response_action: Partial<Nfs_actions_response_action> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoNfs_api_error(nfs_api_error: Partial<Nfs_api_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "region_slug": n => { nfs_actions_response_action.regionSlug = n.getStringValue(); },
-        "resource_id": n => { nfs_actions_response_action.resourceId = n.getGuidValue(); },
-        "resource_type": n => { nfs_actions_response_action.resourceType = n.getEnumValue<Nfs_actions_response_action_resource_type>(Nfs_actions_response_action_resource_typeObject); },
-        "started_at": n => { nfs_actions_response_action.startedAt = n.getDateValue(); },
-        "status": n => { nfs_actions_response_action.status = n.getEnumValue<Nfs_actions_response_action_status>(Nfs_actions_response_action_statusObject); },
-        "type": n => { nfs_actions_response_action.type = n.getStringValue(); },
+        "code": n => { nfs_api_error.code = n.getStringValue(); },
+        "message": n => { nfs_api_error.messageEscaped = n.getStringValue(); },
     }
 }
 /**
@@ -30762,6 +31046,7 @@ export function deserializeIntoNfs_request(nfs_request: Partial<Nfs_request> | u
 // @ts-ignore
 export function deserializeIntoNfs_response(nfs_response: Partial<Nfs_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "access_points": n => { nfs_response.accessPoints = n.getCollectionOfObjectValues<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
         "created_at": n => { nfs_response.createdAt = n.getDateValue(); },
         "host": n => { nfs_response.host = n.getStringValue(); },
         "id": n => { nfs_response.id = n.getStringValue(); },
@@ -36419,18 +36704,13 @@ export interface Nfs_action_switch_performance_tier_params extends AdditionalDat
 }
 export type Nfs_action_type = (typeof Nfs_action_typeObject)[keyof typeof Nfs_action_typeObject];
 /**
- * Action response of an NFS share.
- */
-export interface Nfs_actions_response extends AdditionalDataHolder, Parsable {
-    /**
-     * The action that was submitted.
-     */
-    action?: Nfs_actions_response_action | null;
-}
-/**
  * The action that was submitted.
  */
-export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsable {
+export interface Nfs_action2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The unique identifier of the action.
+     */
+    id?: string | null;
     /**
      * The DigitalOcean region slug where the resource is located.
      */
@@ -36440,9 +36720,9 @@ export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsa
      */
     resourceId?: Guid | null;
     /**
-     * The type of resource on which the action is being performed.
+     * The type of resource on which the action is being performed. Access pointmutations return `SHARE` with `resource_id` set to the access point UUID.
      */
-    resourceType?: Nfs_actions_response_action_resource_type | null;
+    resourceType?: Nfs_action2_resource_type | null;
     /**
      * The timestamp when the action was started.
      */
@@ -36450,14 +36730,36 @@ export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsa
     /**
      * The current status of the action.
      */
-    status?: Nfs_actions_response_action_status | null;
+    status?: Nfs_action2_status | null;
     /**
-     * The type of action being performed.
+     * The type of action being performed. Share actions use values such as`RESIZE_SHARE` and `CREATE_SHARE`. Access point mutations use`CREATE_ACCESS_POINT` and `DELETE_ACCESS_POINT`.
      */
     type?: string | null;
 }
-export type Nfs_actions_response_action_resource_type = (typeof Nfs_actions_response_action_resource_typeObject)[keyof typeof Nfs_actions_response_action_resource_typeObject];
-export type Nfs_actions_response_action_status = (typeof Nfs_actions_response_action_statusObject)[keyof typeof Nfs_actions_response_action_statusObject];
+export type Nfs_action2_resource_type = (typeof Nfs_action2_resource_typeObject)[keyof typeof Nfs_action2_resource_typeObject];
+export type Nfs_action2_status = (typeof Nfs_action2_statusObject)[keyof typeof Nfs_action2_statusObject];
+/**
+ * Action response of an NFS share.
+ */
+export interface Nfs_actions_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The action that was submitted.
+     */
+    action?: Nfs_action2 | null;
+}
+/**
+ * A standard NFS API error response object.
+ */
+export interface Nfs_api_error extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * A service-defined error code.
+     */
+    code?: string | null;
+    /**
+     * A human-readable description of the error.
+     */
+    messageEscaped?: string | null;
+}
 export interface Nfs_create_response extends AdditionalDataHolder, Parsable {
     /**
      * The share property
@@ -36499,6 +36801,10 @@ export interface Nfs_request extends AdditionalDataHolder, Parsable {
     vpcIds?: string[] | null;
 }
 export interface Nfs_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Access points configured on this share. The default access point is returned first.
+     */
+    accessPoints?: Access_point_response[] | null;
     /**
      * Timestamp for when the NFS share was created.
      */
@@ -38560,6 +38866,90 @@ export function serializeAccess_key_create_request(writer: SerializationWriter, 
 export function serializeAccess_key_create_response(writer: SerializationWriter, access_key_create_response: Partial<Access_key_create_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!access_key_create_response || isSerializingDerivedType) { return; }
     serializeAccess_key(writer, access_key_create_response, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_action_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_action_response(writer: SerializationWriter, access_point_action_response: Partial<Access_point_action_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_action_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_point_response>("access_point", access_point_action_response.accessPoint, serializeAccess_point_response);
+    writer.writeObjectValue<Nfs_action2>("action", access_point_action_response.action, serializeNfs_action2);
+    writer.writeAdditionalData(access_point_action_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_get_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_get_response(writer: SerializationWriter, access_point_get_response: Partial<Access_point_get_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_get_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_point_response>("access_point", access_point_get_response.accessPoint, serializeAccess_point_response);
+    writer.writeAdditionalData(access_point_get_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_list_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_list_response(writer: SerializationWriter, access_point_list_response: Partial<Access_point_list_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_list_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Access_point_response>("access_points", access_point_list_response.accessPoints, serializeAccess_point_response);
+    writer.writeAdditionalData(access_point_list_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_request(writer: SerializationWriter, access_point_request: Partial<Access_point_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_policy>("access_policy", access_point_request.accessPolicy, serializeAccess_policy);
+    writer.writeStringValue("name", access_point_request.name);
+    writer.writeStringValue("path", access_point_request.path);
+    writer.writeStringValue("vpc_id", access_point_request.vpcId);
+    writer.writeAdditionalData(access_point_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_response(writer: SerializationWriter, access_point_response: Partial<Access_point_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_policy>("access_policy", access_point_response.accessPolicy, serializeAccess_policy);
+    writer.writeStringValue("name", access_point_response.name);
+    writer.writeStringValue("path", access_point_response.path);
+    writer.writeStringValue("vpc_id", access_point_response.vpcId);
+    writer.writeAdditionalData(access_point_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_policy The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_policy(writer: SerializationWriter, access_policy: Partial<Access_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_policy || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("anongid", access_policy.anongid);
+    writer.writeNumberValue("anonuid", access_policy.anonuid);
+    writer.writeBooleanValue("identity_enforcement_enabled", access_policy.identityEnforcementEnabled);
+    if(access_policy.protocols)
+    writer.writeCollectionOfEnumValues<Access_policy_protocols>("protocols", access_policy.protocols);
+    writer.writeEnumValue<Access_policy_squash_config>("squash_config", access_policy.squashConfig);
+    writer.writeAdditionalData(access_policy.additionalData);
 }
 /**
  * Serializes information the current object
@@ -49814,31 +50204,45 @@ export function serializeNfs_action_switch_performance_tier_params(writer: Seria
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action2(writer: SerializationWriter, nfs_action2: Partial<Nfs_action2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action2 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", nfs_action2.id);
+    writer.writeStringValue("region_slug", nfs_action2.regionSlug);
+    writer.writeGuidValue("resource_id", nfs_action2.resourceId);
+    writer.writeEnumValue<Nfs_action2_resource_type>("resource_type", nfs_action2.resourceType);
+    writer.writeDateValue("started_at", nfs_action2.startedAt);
+    writer.writeEnumValue<Nfs_action2_status>("status", nfs_action2.status);
+    writer.writeStringValue("type", nfs_action2.type);
+    writer.writeAdditionalData(nfs_action2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Nfs_actions_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
 export function serializeNfs_actions_response(writer: SerializationWriter, nfs_actions_response: Partial<Nfs_actions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!nfs_actions_response || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Nfs_actions_response_action>("action", nfs_actions_response.action, serializeNfs_actions_response_action);
+    writer.writeObjectValue<Nfs_action2>("action", nfs_actions_response.action, serializeNfs_action2);
     writer.writeAdditionalData(nfs_actions_response.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Nfs_actions_response_action The instance to serialize from.
+ * @param Nfs_api_error The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNfs_actions_response_action(writer: SerializationWriter, nfs_actions_response_action: Partial<Nfs_actions_response_action> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!nfs_actions_response_action || isSerializingDerivedType) { return; }
-    writer.writeStringValue("region_slug", nfs_actions_response_action.regionSlug);
-    writer.writeGuidValue("resource_id", nfs_actions_response_action.resourceId);
-    writer.writeEnumValue<Nfs_actions_response_action_resource_type>("resource_type", nfs_actions_response_action.resourceType);
-    writer.writeDateValue("started_at", nfs_actions_response_action.startedAt);
-    writer.writeEnumValue<Nfs_actions_response_action_status>("status", nfs_actions_response_action.status);
-    writer.writeStringValue("type", nfs_actions_response_action.type);
-    writer.writeAdditionalData(nfs_actions_response_action.additionalData);
+export function serializeNfs_api_error(writer: SerializationWriter, nfs_api_error: Partial<Nfs_api_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_api_error || isSerializingDerivedType) { return; }
+    writer.writeStringValue("code", nfs_api_error.code);
+    writer.writeStringValue("message", nfs_api_error.messageEscaped);
+    writer.writeAdditionalData(nfs_api_error.additionalData);
 }
 /**
  * Serializes information the current object
@@ -49901,6 +50305,7 @@ export function serializeNfs_request(writer: SerializationWriter, nfs_request: P
 // @ts-ignore
 export function serializeNfs_response(writer: SerializationWriter, nfs_response: Partial<Nfs_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!nfs_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Access_point_response>("access_points", nfs_response.accessPoints, serializeAccess_point_response);
     writer.writeStringValue("host", nfs_response.host);
     writer.writeStringValue("mount_path", nfs_response.mountPath);
     writer.writeStringValue("name", nfs_response.name);
@@ -53970,6 +54375,27 @@ export const Accelerator_config_spec_statusObject = {
     Active: "active",
 } as const;
 /**
+ * The current lifecycle status of an access point. There is no ACCESS_POINT_DELETING state:DELETE soft-deletes the access point synchronously (mirroring share deletion);the response of a delete request returns the access point already in ACCESS_POINT_DELETED.
+ */
+export const Access_point_response_statusObject = {
+    ACCESS_POINT_CREATING: "ACCESS_POINT_CREATING",
+    ACCESS_POINT_ACTIVE: "ACCESS_POINT_ACTIVE",
+    ACCESS_POINT_FAILED: "ACCESS_POINT_FAILED",
+    ACCESS_POINT_DELETED: "ACCESS_POINT_DELETED",
+} as const;
+export const Access_policy_protocolsObject = {
+    NFS4: "NFS4",
+    NFS: "NFS",
+} as const;
+/**
+ * The squash mode applied to the access point export.
+ */
+export const Access_policy_squash_configObject = {
+    NO_SQUASH: "NO_SQUASH",
+    ROOT_SQUASH: "ROOT_SQUASH",
+    ALL_SQUASH: "ALL_SQUASH",
+} as const;
+/**
  * This value is one of "active", "warning" or "locked".
  */
 export const Account_statusObject = {
@@ -55753,19 +56179,19 @@ export const Nfs_action_typeObject = {
     Switch_performance_tier: "switch_performance_tier",
 } as const;
 /**
- * The type of resource on which the action is being performed.
+ * The type of resource on which the action is being performed. Access pointmutations return `SHARE` with `resource_id` set to the access point UUID.
  */
-export const Nfs_actions_response_action_resource_typeObject = {
-    Network_file_share: "network_file_share",
-    Network_file_share_snapshot: "network_file_share_snapshot",
+export const Nfs_action2_resource_typeObject = {
+    SHARE: "SHARE",
+    SNAPSHOT: "SNAPSHOT",
 } as const;
 /**
  * The current status of the action.
  */
-export const Nfs_actions_response_action_statusObject = {
-    InProgress: "in-progress",
-    Completed: "completed",
-    Errored: "errored",
+export const Nfs_action2_statusObject = {
+    IN_PROGRESS: "IN_PROGRESS",
+    COMPLETED: "COMPLETED",
+    ACTION_FAILED: "ACTION_FAILED",
 } as const;
 /**
  * The current status of the share. `INACTIVE` means the share exists but isnot attached to any VPC.
