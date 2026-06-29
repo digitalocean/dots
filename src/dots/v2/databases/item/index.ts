@@ -14,6 +14,8 @@ import { ConfigRequestBuilderRequestsMetadata, type ConfigRequestBuilder } from 
 // @ts-ignore
 import { DbsRequestBuilderNavigationMetadata, DbsRequestBuilderRequestsMetadata, type DbsRequestBuilder } from './dbs/index.js';
 // @ts-ignore
+import { Do_settingsRequestBuilderRequestsMetadata, type Do_settingsRequestBuilder } from './do_settings/index.js';
+// @ts-ignore
 import { EventsRequestBuilderRequestsMetadata, type EventsRequestBuilder } from './events/index.js';
 // @ts-ignore
 import { Eviction_policyRequestBuilderRequestsMetadata, type Eviction_policyRequestBuilder } from './eviction_policy/index.js';
@@ -112,6 +114,10 @@ export interface WithDatabase_cluster_uuItemRequestBuilder extends BaseRequestBu
      * The dbs property
      */
     get dbs(): DbsRequestBuilder;
+    /**
+     * The do_settings property
+     */
+    get do_settings(): Do_settingsRequestBuilder;
     /**
      * The events property
      */
@@ -237,6 +243,9 @@ export const WithDatabase_cluster_uuItemRequestBuilderNavigationMetadata: Record
     dbs: {
         requestsMetadata: DbsRequestBuilderRequestsMetadata,
         navigationMetadata: DbsRequestBuilderNavigationMetadata,
+    },
+    do_settings: {
+        requestsMetadata: Do_settingsRequestBuilderRequestsMetadata,
     },
     events: {
         requestsMetadata: EventsRequestBuilderRequestsMetadata,
