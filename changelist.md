@@ -1,6 +1,9 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@14f1f34 (2026-06-21T06:25:08Z)
-Target commit: digitalocean/openapi@52a2d77 (2026-06-22T15:34:23Z)
+Current commit: digitalocean/openapi@52a2d77 (2026-06-22T15:34:23Z)
+Target commit: digitalocean/openapi@0ddc604 (2026-07-01T18:57:29Z)
 
-* digitalocean/openapi#1193: Add INACTIVE status and performance_tier to NFS share response model. - 2026-06-22T15:34:23Z []
+* digitalocean/openapi#1196: Add custom evaluation metrics OpenAPI endpoints - 2026-07-01T18:57:29Z []
+* digitalocean/openapi#1195: DBAAS-8142: Add GET/PUT /v2/databases/{uuid}/do_settings - 2026-06-29T10:39:08Z []
+* digitalocean/openapi#1194: public API documentation for Secrets Manager - 2026-06-30T06:58:19Z []
+* digitalocean/openapi#1192: Nfs access point apis - 2026-06-25T13:03:43Z []
