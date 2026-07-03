@@ -2381,6 +2381,10 @@ export interface ApiCustomModel extends AdditionalDataHolder, Parsable {
      */
     description?: string | null;
     /**
+     * Error message if the custom model import or processing failed
+     */
+    errorMessage?: string | null;
+    /**
      * Number of files in the model
      */
     fileCount?: number | null;
@@ -21987,6 +21991,7 @@ export function deserializeIntoApiCustomModel(apiCustomModel: Partial<ApiCustomM
         "cost_estimate_per_month": n => { apiCustomModel.costEstimatePerMonth = n.getNumberValue(); },
         "created_at": n => { apiCustomModel.createdAt = n.getDateValue(); },
         "description": n => { apiCustomModel.description = n.getStringValue(); },
+        "error_message": n => { apiCustomModel.errorMessage = n.getStringValue(); },
         "file_count": n => { apiCustomModel.fileCount = n.getNumberValue(); },
         "input_modalities": n => { apiCustomModel.inputModalities = n.getCollectionOfPrimitiveValues<string>(); },
         "license": n => { apiCustomModel.license = n.getStringValue(); },
@@ -40857,6 +40862,7 @@ export function serializeApiCustomModel(writer: SerializationWriter, apiCustomMo
     writer.writeNumberValue("cost_estimate_per_month", apiCustomModel.costEstimatePerMonth);
     writer.writeDateValue("created_at", apiCustomModel.createdAt);
     writer.writeStringValue("description", apiCustomModel.description);
+    writer.writeStringValue("error_message", apiCustomModel.errorMessage);
     writer.writeNumberValue("file_count", apiCustomModel.fileCount);
     writer.writeCollectionOfPrimitiveValues<string>("input_modalities", apiCustomModel.inputModalities);
     writer.writeStringValue("license", apiCustomModel.license);

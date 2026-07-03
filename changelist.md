@@ -1,10 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@52a2d77 (2026-06-22T15:34:23Z)
-Target commit: digitalocean/openapi@1f9b74b (2026-07-03T08:13:43Z)
+Current commit: digitalocean/openapi@1f9b74b (2026-07-03T08:13:43Z)
+Target commit: digitalocean/openapi@3d7b823 (2026-07-03T11:48:42Z)
 
-* digitalocean/openapi#1197: gen-ai: remove deprecated save_as_preset field - 2026-07-03T08:13:43Z []
-* digitalocean/openapi#1196: Add custom evaluation metrics OpenAPI endpoints - 2026-07-01T18:57:29Z []
-* digitalocean/openapi#1195: DBAAS-8142: Add GET/PUT /v2/databases/{uuid}/do_settings - 2026-06-29T10:39:08Z []
-* digitalocean/openapi#1194: public API documentation for Secrets Manager - 2026-06-30T06:58:19Z []
-* digitalocean/openapi#1192: Nfs access point apis - 2026-06-25T13:03:43Z []
+* digitalocean/openapi#1198: Add custom model error_message field - 2026-07-03T11:48:42Z []
