@@ -6,6 +6,8 @@ import { AgentsRequestBuilderNavigationMetadata, AgentsRequestBuilderRequestsMet
 // @ts-ignore
 import { AnthropicRequestBuilderNavigationMetadata, type AnthropicRequestBuilder } from './anthropic/index.js';
 // @ts-ignore
+import { Custom_evaluation_metricsRequestBuilderNavigationMetadata, Custom_evaluation_metricsRequestBuilderRequestsMetadata, type Custom_evaluation_metricsRequestBuilder } from './custom_evaluation_metrics/index.js';
+// @ts-ignore
 import { Custom_modelsRequestBuilderNavigationMetadata, Custom_modelsRequestBuilderRequestsMetadata, type Custom_modelsRequestBuilder } from './custom_models/index.js';
 // @ts-ignore
 import { Evaluation_datasetsRequestBuilderNavigationMetadata, Evaluation_datasetsRequestBuilderRequestsMetadata, type Evaluation_datasetsRequestBuilder } from './evaluation_datasets/index.js';
@@ -54,6 +56,10 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      * The anthropic property
      */
     get anthropic(): AnthropicRequestBuilder;
+    /**
+     * The custom_evaluation_metrics property
+     */
+    get custom_evaluation_metrics(): Custom_evaluation_metricsRequestBuilder;
     /**
      * The custom_models property
      */
@@ -137,6 +143,10 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     },
     anthropic: {
         navigationMetadata: AnthropicRequestBuilderNavigationMetadata,
+    },
+    custom_evaluation_metrics: {
+        requestsMetadata: Custom_evaluation_metricsRequestBuilderRequestsMetadata,
+        navigationMetadata: Custom_evaluation_metricsRequestBuilderNavigationMetadata,
     },
     custom_models: {
         requestsMetadata: Custom_modelsRequestBuilderRequestsMetadata,

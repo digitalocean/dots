@@ -61,6 +61,131 @@ export interface Access_key_create_response extends Access_key, Parsable {
      */
     secret?: string | null;
 }
+/**
+ * Response returned after starting an access point mutation.
+ */
+export interface Access_point_action_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Represents an NFS access point resource.
+     */
+    accessPoint?: Access_point_response | null;
+    /**
+     * The action that was submitted.
+     */
+    action?: Nfs_action2 | null;
+}
+/**
+ * Response containing a single access point.
+ */
+export interface Access_point_get_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Represents an NFS access point resource.
+     */
+    accessPoint?: Access_point_response | null;
+}
+/**
+ * Response containing a list of access points.
+ */
+export interface Access_point_list_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Array of access point objects.
+     */
+    accessPoints?: Access_point_response[] | null;
+}
+/**
+ * Payload for creating a new access point on a share.
+ */
+export interface Access_point_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+     */
+    accessPolicy?: Access_policy | null;
+    /**
+     * The name for the access point. Must be unique per share. Must be 2–63characters and match `^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$`.The name `default` is reserved (case-insensitive) for the implicit defaultaccess point created with each share.
+     */
+    name?: string | null;
+    /**
+     * The export sub-path. Must start with `/`, must not be exactly `/` (reservedfor the default access point), must be at most 1024 characters, may containonly alphanumerics, `-`, `_`, `.`, and `/`, and must not contain `..` pathsegments.
+     */
+    path?: string | null;
+    /**
+     * Required. The VPC this access point will be pinned to. A storage gateway isprovisioned (or reused) in this VPC, and the access point becomes mountable fromthis VPC regardless of whether the parent share is currently attached to it.
+     */
+    vpcId?: string | null;
+}
+/**
+ * Represents an NFS access point resource.
+ */
+export interface Access_point_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+     */
+    accessPolicy?: Access_policy | null;
+    /**
+     * The timestamp when the access point was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The unique identifier of the access point.
+     */
+    id?: Guid | null;
+    /**
+     * Whether this is the share's default access point.
+     */
+    isDefault?: boolean | null;
+    /**
+     * The human-readable name of the access point. Must be unique per share.
+     */
+    name?: string | null;
+    /**
+     * The export sub-path for this access point (always starts with `/`).
+     */
+    path?: string | null;
+    /**
+     * The unique identifier of the share this access point belongs to.
+     */
+    shareId?: Guid | null;
+    /**
+     * The current lifecycle status of an access point. There is no ACCESS_POINT_DELETING state:DELETE soft-deletes the access point synchronously (mirroring share deletion);the response of a delete request returns the access point already in ACCESS_POINT_DELETED.
+     */
+    status?: Access_point_response_status | null;
+    /**
+     * The timestamp when the access point was last updated. May be empty while theaccess point is still being created.
+     */
+    updatedAt?: string | null;
+    /**
+     * The VPC this access point is pinned to. Omitted on the default access point.Every non-default access point owns its own storage gateway in this VPC andis independent of the parent share's VPC lifecycle.
+     */
+    vpcId?: string | null;
+}
+export type Access_point_response_status = (typeof Access_point_response_statusObject)[keyof typeof Access_point_response_statusObject];
+/**
+ * Provider-agnostic NFS access policy for an access point. Network CIDRs aremanaged by attach, detach, and managed-access workflows and are not part ofthis policy.
+ */
+export interface Access_policy extends AdditionalDataHolder, Parsable {
+    /**
+     * GID used for squashed users. Currently only 65534 is supported.
+     */
+    anongid?: number | null;
+    /**
+     * UID used for squashed users. Currently only 65534 is supported.
+     */
+    anonuid?: number | null;
+    /**
+     * Whether identity enforcement is enabled for this export.
+     */
+    identityEnforcementEnabled?: boolean | null;
+    /**
+     * Allowed NFS protocols for this export.
+     */
+    protocols?: Access_policy_protocols[] | null;
+    /**
+     * The squash mode applied to the access point export.
+     */
+    squashConfig?: Access_policy_squash_config | null;
+}
+export type Access_policy_protocols = (typeof Access_policy_protocolsObject)[keyof typeof Access_policy_protocolsObject];
+export type Access_policy_squash_config = (typeof Access_policy_squash_configObject)[keyof typeof Access_policy_squash_configObject];
 export interface Account extends AdditionalDataHolder, Parsable {
     /**
      * The total number of Droplets current user or team may have active at one time.<br><br>Requires `droplet:read` scope.
@@ -1498,6 +1623,19 @@ export interface ApiAnthropicAPIKeyInfo extends AdditionalDataHolder, Parsable {
     uuid?: string | null;
 }
 /**
+ * A saved model evaluation preset that references a metric. Returned alongsidecustom metrics so you can see which presets depend on the metric; deleting themetric will also delete these presets.
+ */
+export interface ApiAssociatedModelEvaluationPreset extends AdditionalDataHolder, Parsable {
+    /**
+     * Unique identifier of the saved model evaluation preset that references the metric.
+     */
+    evalPresetUuid?: string | null;
+    /**
+     * Display name of the saved model evaluation preset.
+     */
+    name?: string | null;
+}
+/**
  * An alternative way to provide auth information. for internal use only.
  */
 export interface ApiAuditHeader extends AdditionalDataHolder, Parsable {
@@ -1819,6 +1957,26 @@ export interface ApiCreateAnthropicAPIKeyOutput extends AdditionalDataHolder, Pa
      */
     apiKeyInfo?: ApiAnthropicAPIKeyInfo | null;
 }
+export interface ApiCreateCustomEvaluationMetricInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Configuration for a custom model-evaluation metric scored by an LLM judge.Prompt and model response are always included in the judge context.
+     */
+    config?: ApiCustomEvaluationMetricConfig | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The metric_name property
+     */
+    metricName?: string | null;
+}
+export interface ApiCreateCustomEvaluationMetricOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The metric property
+     */
+    metric?: ApiEvaluationMetric | null;
+}
 /**
  * Request for pre-signed URL's to upload files for KB Data Sources
  */
@@ -2052,10 +2210,6 @@ export interface ApiCreateModelEvaluationRunInputPublic extends AdditionalDataHo
      */
     presetName?: string | null;
     /**
-     * If true, saves the inline config as a reusable preset  Ignored when eval_preset_uuid is provided.
-     */
-    saveAsPreset?: boolean | null;
-    /**
      * Source of the run creation (api, sdk, cli).
      */
     source?: string | null;
@@ -2168,6 +2322,31 @@ export interface ApiCreateWorkspaceOutput extends AdditionalDataHolder, Parsable
      * The workspace property
      */
     workspace?: ApiWorkspace | null;
+}
+/**
+ * Configuration for a custom model-evaluation metric scored by an LLM judge.Prompt and model response are always included in the judge context.
+ */
+export interface ApiCustomEvaluationMetricConfig extends AdditionalDataHolder, Parsable {
+    /**
+     * Timestamp when the custom metric was created. Server-assigned; ignored on create/update requests.
+     */
+    createdAt?: Date | null;
+    /**
+     * When set, the custom metric has been deleted and is no longer available for use in evaluations. Server-assigned; ignored on create/update requests.
+     */
+    deletedAt?: Date | null;
+    /**
+     * When true, each row must provide ground truth and it is included in the judge context.When false, ground truth is not required and is not sent to the judge.
+     */
+    requiresGroundTruth?: boolean | null;
+    /**
+     * Instructions for the judge model (multi-line).
+     */
+    scoringPrompt?: string | null;
+    /**
+     * Timestamp when the custom metric was last updated. Server-assigned; ignored on create/update requests.
+     */
+    updatedAt?: Date | null;
 }
 /**
  * Custom model - user-imported model from HuggingFace, Spaces, etc.
@@ -2340,6 +2519,8 @@ export interface ApiDeleteAnthropicAPIKeyOutput extends AdditionalDataHolder, Pa
      * Anthropic API Key Info
      */
     apiKeyInfo?: ApiAnthropicAPIKeyInfo | null;
+}
+export interface ApiDeleteCustomEvaluationMetricOutput extends AdditionalDataHolder, Parsable {
 }
 /**
  * Response containing delete operation status (public)
@@ -2547,9 +2728,17 @@ export interface ApiEvaluationDataset extends AdditionalDataHolder, Parsable {
 export type ApiEvaluationDatasetType = (typeof ApiEvaluationDatasetTypeObject)[keyof typeof ApiEvaluationDatasetTypeObject];
 export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
     /**
+     * Saved model evaluation presets that reference this metric. Populated forcustom metrics so you can see which presets depend on the metric; deletingthe metric will also delete these presets. Empty for built-in metrics.
+     */
+    associatedPresets?: ApiAssociatedModelEvaluationPreset[] | null;
+    /**
      * The category property
      */
     category?: ApiEvaluationMetricCategory | null;
+    /**
+     * Configuration for a custom model-evaluation metric scored by an LLM judge.Prompt and model response are always included in the judge context.
+     */
+    customEvalConfig?: ApiCustomEvaluationMetricConfig | null;
     /**
      * The description property
      */
@@ -2594,6 +2783,10 @@ export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
      * The minimum value for the metric.
      */
     rangeMin?: number | null;
+    /**
+     * Distinguishes platform catalog metrics from user-defined LLM-as-judge metrics.
+     */
+    source?: ApiEvaluationMetricSource | null;
 }
 export type ApiEvaluationMetricCategory = (typeof ApiEvaluationMetricCategoryObject)[keyof typeof ApiEvaluationMetricCategoryObject];
 export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsable {
@@ -2622,6 +2815,7 @@ export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsabl
      */
     stringValue?: string | null;
 }
+export type ApiEvaluationMetricSource = (typeof ApiEvaluationMetricSourceObject)[keyof typeof ApiEvaluationMetricSourceObject];
 export type ApiEvaluationMetricType = (typeof ApiEvaluationMetricTypeObject)[keyof typeof ApiEvaluationMetricTypeObject];
 export type ApiEvaluationMetricValueType = (typeof ApiEvaluationMetricValueTypeObject)[keyof typeof ApiEvaluationMetricValueTypeObject];
 /**
@@ -6000,6 +6194,30 @@ export interface ApiUpdateAnthropicAPIKeyOutput extends AdditionalDataHolder, Pa
      * Anthropic API Key Info
      */
     apiKeyInfo?: ApiAnthropicAPIKeyInfo | null;
+}
+export interface ApiUpdateCustomEvaluationMetricInputPublic extends AdditionalDataHolder, Parsable {
+    /**
+     * Configuration for a custom model-evaluation metric scored by an LLM judge.Prompt and model response are always included in the judge context.
+     */
+    config?: ApiCustomEvaluationMetricConfig | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The metric_name property
+     */
+    metricName?: string | null;
+    /**
+     * The metric_uuid property
+     */
+    metricUuid?: string | null;
+}
+export interface ApiUpdateCustomEvaluationMetricOutput extends AdditionalDataHolder, Parsable {
+    /**
+     * The metric property
+     */
+    metric?: ApiEvaluationMetric | null;
 }
 /**
  * Request to update custom model metadata (public)
@@ -10624,6 +10842,20 @@ export interface Create_response_response_tools extends AdditionalDataHolder, Pa
 export interface Create_response_response_tools_parameters extends AdditionalDataHolder, Parsable {
 }
 export type Create_response_response_tools_type = (typeof Create_response_response_tools_typeObject)[keyof typeof Create_response_response_tools_typeObject];
+export interface Create_secret_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The name of the secret.
+     */
+    name?: string | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The version of the secret after the operation.
+     */
+    version?: number | null;
+}
 export interface Create_trigger extends AdditionalDataHolder, Parsable {
     /**
      * Name of function(action) that exists in the given namespace.
@@ -10681,6 +10913,60 @@ export function createAccess_key_create_responseFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createAccess_keyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAccess_key;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_action_response}
+ */
+// @ts-ignore
+export function createAccess_point_action_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_action_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_get_response}
+ */
+// @ts-ignore
+export function createAccess_point_get_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_get_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_list_response}
+ */
+// @ts-ignore
+export function createAccess_point_list_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_list_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_request}
+ */
+// @ts-ignore
+export function createAccess_point_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_point_response}
+ */
+// @ts-ignore
+export function createAccess_point_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_point_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Access_policy}
+ */
+// @ts-ignore
+export function createAccess_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccess_policy;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -11090,6 +11376,15 @@ export function createApiAnthropicAPIKeyInfoFromDiscriminatorValue(parseNode: Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiAssociatedModelEvaluationPreset}
+ */
+// @ts-ignore
+export function createApiAssociatedModelEvaluationPresetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiAssociatedModelEvaluationPreset;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiAuditHeader}
  */
 // @ts-ignore
@@ -11239,6 +11534,24 @@ export function createApiCreateAnthropicAPIKeyInputPublicFromDiscriminatorValue(
 // @ts-ignore
 export function createApiCreateAnthropicAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiCreateAnthropicAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateCustomEvaluationMetricInputPublic}
+ */
+// @ts-ignore
+export function createApiCreateCustomEvaluationMetricInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateCustomEvaluationMetricInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCreateCustomEvaluationMetricOutput}
+ */
+// @ts-ignore
+export function createApiCreateCustomEvaluationMetricOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCreateCustomEvaluationMetricOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -11441,6 +11754,15 @@ export function createApiCreateWorkspaceOutputFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiCustomEvaluationMetricConfig}
+ */
+// @ts-ignore
+export function createApiCustomEvaluationMetricConfigFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiCustomEvaluationMetricConfig;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiCustomModel_config_json}
  */
 // @ts-ignore
@@ -11491,6 +11813,15 @@ export function createApiDeleteAgentOutputFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createApiDeleteAnthropicAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiDeleteAnthropicAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiDeleteCustomEvaluationMetricOutput}
+ */
+// @ts-ignore
+export function createApiDeleteCustomEvaluationMetricOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiDeleteCustomEvaluationMetricOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -13156,6 +13487,24 @@ export function createApiUpdateAnthropicAPIKeyInputPublicFromDiscriminatorValue(
 // @ts-ignore
 export function createApiUpdateAnthropicAPIKeyOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiUpdateAnthropicAPIKeyOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateCustomEvaluationMetricInputPublic}
+ */
+// @ts-ignore
+export function createApiUpdateCustomEvaluationMetricInputPublicFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateCustomEvaluationMetricInputPublic;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiUpdateCustomEvaluationMetricOutput}
+ */
+// @ts-ignore
+export function createApiUpdateCustomEvaluationMetricOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiUpdateCustomEvaluationMetricOutput;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -15347,6 +15696,15 @@ export function createCreate_response_responseFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_secret_response}
+ */
+// @ts-ignore
+export function createCreate_secret_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_secret_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Create_trigger}
  */
 // @ts-ignore
@@ -17448,6 +17806,15 @@ export function createNfs_action_switch_performance_tierFromDiscriminatorValue(p
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_action2}
+ */
+// @ts-ignore
+export function createNfs_action2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_action2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_action}
  */
 // @ts-ignore
@@ -17457,20 +17824,20 @@ export function createNfs_actionFromDiscriminatorValue(parseNode: ParseNode | un
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Nfs_actions_response_action}
- */
-// @ts-ignore
-export function createNfs_actions_response_actionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoNfs_actions_response_action;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Nfs_actions_response}
  */
 // @ts-ignore
 export function createNfs_actions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoNfs_actions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nfs_api_error}
+ */
+// @ts-ignore
+export function createNfs_api_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNfs_api_error;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18397,6 +18764,42 @@ export function createScheduled_detailsFromDiscriminatorValue(parseNode: ParseNo
 // @ts-ignore
 export function createSchema_registry_connectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSchema_registry_connection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_list_item}
+ */
+// @ts-ignore
+export function createSecret_list_itemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_list_item;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_values}
+ */
+// @ts-ignore
+export function createSecret_valuesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_values;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_version}
+ */
+// @ts-ignore
+export function createSecret_versionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_version;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret}
+ */
+// @ts-ignore
+export function createSecretFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -20171,6 +20574,89 @@ export function deserializeIntoAccess_key_create_response(access_key_create_resp
 }
 /**
  * The deserialization information for the current model
+ * @param Access_point_action_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_action_response(access_point_action_response: Partial<Access_point_action_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_point": n => { access_point_action_response.accessPoint = n.getObjectValue<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+        "action": n => { access_point_action_response.action = n.getObjectValue<Nfs_action2>(createNfs_action2FromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_get_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_get_response(access_point_get_response: Partial<Access_point_get_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_point": n => { access_point_get_response.accessPoint = n.getObjectValue<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_list_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_list_response(access_point_list_response: Partial<Access_point_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_points": n => { access_point_list_response.accessPoints = n.getCollectionOfObjectValues<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_request(access_point_request: Partial<Access_point_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_policy": n => { access_point_request.accessPolicy = n.getObjectValue<Access_policy>(createAccess_policyFromDiscriminatorValue); },
+        "name": n => { access_point_request.name = n.getStringValue(); },
+        "path": n => { access_point_request.path = n.getStringValue(); },
+        "vpc_id": n => { access_point_request.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_point_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_point_response(access_point_response: Partial<Access_point_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "access_policy": n => { access_point_response.accessPolicy = n.getObjectValue<Access_policy>(createAccess_policyFromDiscriminatorValue); },
+        "created_at": n => { access_point_response.createdAt = n.getDateValue(); },
+        "id": n => { access_point_response.id = n.getGuidValue(); },
+        "is_default": n => { access_point_response.isDefault = n.getBooleanValue(); },
+        "name": n => { access_point_response.name = n.getStringValue(); },
+        "path": n => { access_point_response.path = n.getStringValue(); },
+        "share_id": n => { access_point_response.shareId = n.getGuidValue(); },
+        "status": n => { access_point_response.status = n.getEnumValue<Access_point_response_status>(Access_point_response_statusObject); },
+        "updated_at": n => { access_point_response.updatedAt = n.getStringValue(); },
+        "vpc_id": n => { access_point_response.vpcId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Access_policy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccess_policy(access_policy: Partial<Access_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "anongid": n => { access_policy.anongid = n.getNumberValue(); },
+        "anonuid": n => { access_policy.anonuid = n.getNumberValue(); },
+        "identity_enforcement_enabled": n => { access_policy.identityEnforcementEnabled = n.getBooleanValue(); },
+        "protocols": n => { access_policy.protocols = n.getCollectionOfEnumValues<Access_policy_protocols>(Access_policy_protocolsObject); },
+        "squash_config": n => { access_policy.squashConfig = n.getEnumValue<Access_policy_squash_config>(Access_policy_squash_configObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Account The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -20920,6 +21406,18 @@ export function deserializeIntoApiAnthropicAPIKeyInfo(apiAnthropicAPIKeyInfo: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ApiAssociatedModelEvaluationPreset The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiAssociatedModelEvaluationPreset(apiAssociatedModelEvaluationPreset: Partial<ApiAssociatedModelEvaluationPreset> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "eval_preset_uuid": n => { apiAssociatedModelEvaluationPreset.evalPresetUuid = n.getStringValue(); },
+        "name": n => { apiAssociatedModelEvaluationPreset.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiAuditHeader The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21152,6 +21650,30 @@ export function deserializeIntoApiCreateAnthropicAPIKeyOutput(apiCreateAnthropic
 }
 /**
  * The deserialization information for the current model
+ * @param ApiCreateCustomEvaluationMetricInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateCustomEvaluationMetricInputPublic(apiCreateCustomEvaluationMetricInputPublic: Partial<ApiCreateCustomEvaluationMetricInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { apiCreateCustomEvaluationMetricInputPublic.config = n.getObjectValue<ApiCustomEvaluationMetricConfig>(createApiCustomEvaluationMetricConfigFromDiscriminatorValue); },
+        "description": n => { apiCreateCustomEvaluationMetricInputPublic.description = n.getStringValue(); },
+        "metric_name": n => { apiCreateCustomEvaluationMetricInputPublic.metricName = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiCreateCustomEvaluationMetricOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCreateCustomEvaluationMetricOutput(apiCreateCustomEvaluationMetricOutput: Partial<ApiCreateCustomEvaluationMetricOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "metric": n => { apiCreateCustomEvaluationMetricOutput.metric = n.getObjectValue<ApiEvaluationMetric>(createApiEvaluationMetricFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCreateDataSourceFileUploadPresignedUrlsInputPublic The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21323,7 +21845,6 @@ export function deserializeIntoApiCreateModelEvaluationRunInputPublic(apiCreateM
         "metric_uuids": n => { apiCreateModelEvaluationRunInputPublic.metricUuids = n.getCollectionOfPrimitiveValues<string>(); },
         "name": n => { apiCreateModelEvaluationRunInputPublic.name = n.getStringValue(); },
         "preset_name": n => { apiCreateModelEvaluationRunInputPublic.presetName = n.getStringValue(); },
-        "save_as_preset": n => { apiCreateModelEvaluationRunInputPublic.saveAsPreset = n.getBooleanValue(); },
         "source": n => { apiCreateModelEvaluationRunInputPublic.source = n.getStringValue(); },
         "star_metric": n => { apiCreateModelEvaluationRunInputPublic.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
     }
@@ -21438,6 +21959,21 @@ export function deserializeIntoApiCreateWorkspaceOutput(apiCreateWorkspaceOutput
 }
 /**
  * The deserialization information for the current model
+ * @param ApiCustomEvaluationMetricConfig The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiCustomEvaluationMetricConfig(apiCustomEvaluationMetricConfig: Partial<ApiCustomEvaluationMetricConfig> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { apiCustomEvaluationMetricConfig.createdAt = n.getDateValue(); },
+        "deleted_at": n => { apiCustomEvaluationMetricConfig.deletedAt = n.getDateValue(); },
+        "requires_ground_truth": n => { apiCustomEvaluationMetricConfig.requiresGroundTruth = n.getBooleanValue(); },
+        "scoring_prompt": n => { apiCustomEvaluationMetricConfig.scoringPrompt = n.getStringValue(); },
+        "updated_at": n => { apiCustomEvaluationMetricConfig.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiCustomModel The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -21530,6 +22066,16 @@ export function deserializeIntoApiDeleteAgentOutput(apiDeleteAgentOutput: Partia
 export function deserializeIntoApiDeleteAnthropicAPIKeyOutput(apiDeleteAnthropicAPIKeyOutput: Partial<ApiDeleteAnthropicAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiDeleteAnthropicAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiAnthropicAPIKeyInfo>(createApiAnthropicAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiDeleteCustomEvaluationMetricOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiDeleteCustomEvaluationMetricOutput(apiDeleteCustomEvaluationMetricOutput: Partial<ApiDeleteCustomEvaluationMetricOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
     }
 }
 /**
@@ -21743,7 +22289,9 @@ export function deserializeIntoApiEvaluationDataset(apiEvaluationDataset: Partia
 // @ts-ignore
 export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric: Partial<ApiEvaluationMetric> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "associated_presets": n => { apiEvaluationMetric.associatedPresets = n.getCollectionOfObjectValues<ApiAssociatedModelEvaluationPreset>(createApiAssociatedModelEvaluationPresetFromDiscriminatorValue); },
         "category": n => { apiEvaluationMetric.category = n.getEnumValue<ApiEvaluationMetricCategory>(ApiEvaluationMetricCategoryObject) ?? ApiEvaluationMetricCategoryObject.METRIC_CATEGORY_UNSPECIFIED; },
+        "custom_eval_config": n => { apiEvaluationMetric.customEvalConfig = n.getObjectValue<ApiCustomEvaluationMetricConfig>(createApiCustomEvaluationMetricConfigFromDiscriminatorValue); },
         "description": n => { apiEvaluationMetric.description = n.getStringValue(); },
         "evaluation_scope": n => { apiEvaluationMetric.evaluationScope = n.getEnumValue<ApiEvaluationScope>(ApiEvaluationScopeObject) ?? ApiEvaluationScopeObject.EVALUATION_SCOPE_UNSPECIFIED; },
         "inverted": n => { apiEvaluationMetric.inverted = n.getBooleanValue(); },
@@ -21755,6 +22303,7 @@ export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric: Partial<
         "metric_value_type": n => { apiEvaluationMetric.metricValueType = n.getEnumValue<ApiEvaluationMetricValueType>(ApiEvaluationMetricValueTypeObject) ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED; },
         "range_max": n => { apiEvaluationMetric.rangeMax = n.getNumberValue(); },
         "range_min": n => { apiEvaluationMetric.rangeMin = n.getNumberValue(); },
+        "source": n => { apiEvaluationMetric.source = n.getEnumValue<ApiEvaluationMetricSource>(ApiEvaluationMetricSourceObject) ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED; },
     }
 }
 /**
@@ -24098,6 +24647,31 @@ export function deserializeIntoApiUpdateAnthropicAPIKeyInputPublic(apiUpdateAnth
 export function deserializeIntoApiUpdateAnthropicAPIKeyOutput(apiUpdateAnthropicAPIKeyOutput: Partial<ApiUpdateAnthropicAPIKeyOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "api_key_info": n => { apiUpdateAnthropicAPIKeyOutput.apiKeyInfo = n.getObjectValue<ApiAnthropicAPIKeyInfo>(createApiAnthropicAPIKeyInfoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUpdateCustomEvaluationMetricInputPublic The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateCustomEvaluationMetricInputPublic(apiUpdateCustomEvaluationMetricInputPublic: Partial<ApiUpdateCustomEvaluationMetricInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "config": n => { apiUpdateCustomEvaluationMetricInputPublic.config = n.getObjectValue<ApiCustomEvaluationMetricConfig>(createApiCustomEvaluationMetricConfigFromDiscriminatorValue); },
+        "description": n => { apiUpdateCustomEvaluationMetricInputPublic.description = n.getStringValue(); },
+        "metric_name": n => { apiUpdateCustomEvaluationMetricInputPublic.metricName = n.getStringValue(); },
+        "metric_uuid": n => { apiUpdateCustomEvaluationMetricInputPublic.metricUuid = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiUpdateCustomEvaluationMetricOutput The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiUpdateCustomEvaluationMetricOutput(apiUpdateCustomEvaluationMetricOutput: Partial<ApiUpdateCustomEvaluationMetricOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "metric": n => { apiUpdateCustomEvaluationMetricOutput.metric = n.getObjectValue<ApiEvaluationMetric>(createApiEvaluationMetricFromDiscriminatorValue); },
     }
 }
 /**
@@ -27477,6 +28051,19 @@ export function deserializeIntoCreate_response_response_tools_parameters(create_
 }
 /**
  * The deserialization information for the current model
+ * @param Create_secret_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_secret_response(create_secret_response: Partial<Create_secret_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { create_secret_response.name = n.getStringValue(); },
+        "region": n => { create_secret_response.region = n.getStringValue(); },
+        "version": n => { create_secret_response.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Create_trigger The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -30681,29 +31268,42 @@ export function deserializeIntoNfs_action_switch_performance_tier_params(nfs_act
 }
 /**
  * The deserialization information for the current model
+ * @param Nfs_action2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNfs_action2(nfs_action2: Partial<Nfs_action2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { nfs_action2.id = n.getStringValue(); },
+        "region_slug": n => { nfs_action2.regionSlug = n.getStringValue(); },
+        "resource_id": n => { nfs_action2.resourceId = n.getGuidValue(); },
+        "resource_type": n => { nfs_action2.resourceType = n.getEnumValue<Nfs_action2_resource_type>(Nfs_action2_resource_typeObject); },
+        "started_at": n => { nfs_action2.startedAt = n.getDateValue(); },
+        "status": n => { nfs_action2.status = n.getEnumValue<Nfs_action2_status>(Nfs_action2_statusObject); },
+        "type": n => { nfs_action2.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Nfs_actions_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoNfs_actions_response(nfs_actions_response: Partial<Nfs_actions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "action": n => { nfs_actions_response.action = n.getObjectValue<Nfs_actions_response_action>(createNfs_actions_response_actionFromDiscriminatorValue); },
+        "action": n => { nfs_actions_response.action = n.getObjectValue<Nfs_action2>(createNfs_action2FromDiscriminatorValue); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param Nfs_actions_response_action The instance to deserialize into.
+ * @param Nfs_api_error The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoNfs_actions_response_action(nfs_actions_response_action: Partial<Nfs_actions_response_action> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoNfs_api_error(nfs_api_error: Partial<Nfs_api_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "region_slug": n => { nfs_actions_response_action.regionSlug = n.getStringValue(); },
-        "resource_id": n => { nfs_actions_response_action.resourceId = n.getGuidValue(); },
-        "resource_type": n => { nfs_actions_response_action.resourceType = n.getEnumValue<Nfs_actions_response_action_resource_type>(Nfs_actions_response_action_resource_typeObject); },
-        "started_at": n => { nfs_actions_response_action.startedAt = n.getDateValue(); },
-        "status": n => { nfs_actions_response_action.status = n.getEnumValue<Nfs_actions_response_action_status>(Nfs_actions_response_action_statusObject); },
-        "type": n => { nfs_actions_response_action.type = n.getStringValue(); },
+        "code": n => { nfs_api_error.code = n.getStringValue(); },
+        "message": n => { nfs_api_error.messageEscaped = n.getStringValue(); },
     }
 }
 /**
@@ -30762,6 +31362,7 @@ export function deserializeIntoNfs_request(nfs_request: Partial<Nfs_request> | u
 // @ts-ignore
 export function deserializeIntoNfs_response(nfs_response: Partial<Nfs_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "access_points": n => { nfs_response.accessPoints = n.getCollectionOfObjectValues<Access_point_response>(createAccess_point_responseFromDiscriminatorValue); },
         "created_at": n => { nfs_response.createdAt = n.getDateValue(); },
         "host": n => { nfs_response.host = n.getStringValue(); },
         "id": n => { nfs_response.id = n.getStringValue(); },
@@ -32146,6 +32747,62 @@ export function deserializeIntoSchema_registry_connection(schema_registry_connec
         "ssl": n => { schema_registry_connection.ssl = n.getBooleanValue(); },
         "uri": n => { schema_registry_connection.uri = n.getStringValue(); },
         "user": n => { schema_registry_connection.user = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret(secret: Partial<Secret> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret.createdAt = n.getDateValue(); },
+        "delete_requested_at": n => { secret.deleteRequestedAt = n.getDateValue(); },
+        "region": n => { secret.region = n.getStringValue(); },
+        "secret": n => { secret.secret = n.getStringValue(); },
+        "updated_at": n => { secret.updatedAt = n.getDateValue(); },
+        "values": n => { secret.values = n.getObjectValue<Secret_values>(createSecret_valuesFromDiscriminatorValue); },
+        "version": n => { secret.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_list_item The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_list_item(secret_list_item: Partial<Secret_list_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret_list_item.createdAt = n.getDateValue(); },
+        "delete_requested_at": n => { secret_list_item.deleteRequestedAt = n.getDateValue(); },
+        "region": n => { secret_list_item.region = n.getStringValue(); },
+        "secret": n => { secret_list_item.secret = n.getStringValue(); },
+        "updated_at": n => { secret_list_item.updatedAt = n.getDateValue(); },
+        "version": n => { secret_list_item.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_values The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_values(secret_values: Partial<Secret_values> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_version The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_version(secret_version: Partial<Secret_version> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret_version.createdAt = n.getDateValue(); },
+        "updated_at": n => { secret_version.updatedAt = n.getDateValue(); },
+        "version": n => { secret_version.version = n.getNumberValue(); },
     }
 }
 /**
@@ -36419,18 +37076,13 @@ export interface Nfs_action_switch_performance_tier_params extends AdditionalDat
 }
 export type Nfs_action_type = (typeof Nfs_action_typeObject)[keyof typeof Nfs_action_typeObject];
 /**
- * Action response of an NFS share.
- */
-export interface Nfs_actions_response extends AdditionalDataHolder, Parsable {
-    /**
-     * The action that was submitted.
-     */
-    action?: Nfs_actions_response_action | null;
-}
-/**
  * The action that was submitted.
  */
-export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsable {
+export interface Nfs_action2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The unique identifier of the action.
+     */
+    id?: string | null;
     /**
      * The DigitalOcean region slug where the resource is located.
      */
@@ -36440,9 +37092,9 @@ export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsa
      */
     resourceId?: Guid | null;
     /**
-     * The type of resource on which the action is being performed.
+     * The type of resource on which the action is being performed. Access pointmutations return `SHARE` with `resource_id` set to the access point UUID.
      */
-    resourceType?: Nfs_actions_response_action_resource_type | null;
+    resourceType?: Nfs_action2_resource_type | null;
     /**
      * The timestamp when the action was started.
      */
@@ -36450,14 +37102,36 @@ export interface Nfs_actions_response_action extends AdditionalDataHolder, Parsa
     /**
      * The current status of the action.
      */
-    status?: Nfs_actions_response_action_status | null;
+    status?: Nfs_action2_status | null;
     /**
-     * The type of action being performed.
+     * The type of action being performed. Share actions use values such as`RESIZE_SHARE` and `CREATE_SHARE`. Access point mutations use`CREATE_ACCESS_POINT` and `DELETE_ACCESS_POINT`.
      */
     type?: string | null;
 }
-export type Nfs_actions_response_action_resource_type = (typeof Nfs_actions_response_action_resource_typeObject)[keyof typeof Nfs_actions_response_action_resource_typeObject];
-export type Nfs_actions_response_action_status = (typeof Nfs_actions_response_action_statusObject)[keyof typeof Nfs_actions_response_action_statusObject];
+export type Nfs_action2_resource_type = (typeof Nfs_action2_resource_typeObject)[keyof typeof Nfs_action2_resource_typeObject];
+export type Nfs_action2_status = (typeof Nfs_action2_statusObject)[keyof typeof Nfs_action2_statusObject];
+/**
+ * Action response of an NFS share.
+ */
+export interface Nfs_actions_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The action that was submitted.
+     */
+    action?: Nfs_action2 | null;
+}
+/**
+ * A standard NFS API error response object.
+ */
+export interface Nfs_api_error extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * A service-defined error code.
+     */
+    code?: string | null;
+    /**
+     * A human-readable description of the error.
+     */
+    messageEscaped?: string | null;
+}
 export interface Nfs_create_response extends AdditionalDataHolder, Parsable {
     /**
      * The share property
@@ -36499,6 +37173,10 @@ export interface Nfs_request extends AdditionalDataHolder, Parsable {
     vpcIds?: string[] | null;
 }
 export interface Nfs_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Access points configured on this share. The default access point is returned first.
+     */
+    accessPoints?: Access_point_response[] | null;
     /**
      * Timestamp for when the NFS share was created.
      */
@@ -38485,6 +39163,81 @@ export interface Schema_registry_connection extends AdditionalDataHolder, Parsab
      */
     user?: string | null;
 }
+export interface Secret extends AdditionalDataHolder, Parsable {
+    /**
+     * When the secret was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When deletion was requested for the secret.
+     */
+    deleteRequestedAt?: Date | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The name of the secret.
+     */
+    secret?: string | null;
+    /**
+     * When the secret was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * Key-value pairs stored in the secret.
+     */
+    values?: Secret_values | null;
+    /**
+     * The current version of the secret.
+     */
+    version?: number | null;
+}
+export interface Secret_list_item extends AdditionalDataHolder, Parsable {
+    /**
+     * When the secret was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When deletion was requested for the secret.
+     */
+    deleteRequestedAt?: Date | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The name of the secret.
+     */
+    secret?: string | null;
+    /**
+     * When the secret was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * The current version of the secret.
+     */
+    version?: number | null;
+}
+/**
+ * Key-value pairs stored in the secret.
+ */
+export interface Secret_values extends AdditionalDataHolder, Parsable {
+}
+export interface Secret_version extends AdditionalDataHolder, Parsable {
+    /**
+     * When this version was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When this version was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version number.
+     */
+    version?: number | null;
+}
 /**
  * An object containing information about a resource to be scheduled for deletion.
  */
@@ -38560,6 +39313,90 @@ export function serializeAccess_key_create_request(writer: SerializationWriter, 
 export function serializeAccess_key_create_response(writer: SerializationWriter, access_key_create_response: Partial<Access_key_create_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!access_key_create_response || isSerializingDerivedType) { return; }
     serializeAccess_key(writer, access_key_create_response, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_action_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_action_response(writer: SerializationWriter, access_point_action_response: Partial<Access_point_action_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_action_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_point_response>("access_point", access_point_action_response.accessPoint, serializeAccess_point_response);
+    writer.writeObjectValue<Nfs_action2>("action", access_point_action_response.action, serializeNfs_action2);
+    writer.writeAdditionalData(access_point_action_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_get_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_get_response(writer: SerializationWriter, access_point_get_response: Partial<Access_point_get_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_get_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_point_response>("access_point", access_point_get_response.accessPoint, serializeAccess_point_response);
+    writer.writeAdditionalData(access_point_get_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_list_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_list_response(writer: SerializationWriter, access_point_list_response: Partial<Access_point_list_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_list_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Access_point_response>("access_points", access_point_list_response.accessPoints, serializeAccess_point_response);
+    writer.writeAdditionalData(access_point_list_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_request(writer: SerializationWriter, access_point_request: Partial<Access_point_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_policy>("access_policy", access_point_request.accessPolicy, serializeAccess_policy);
+    writer.writeStringValue("name", access_point_request.name);
+    writer.writeStringValue("path", access_point_request.path);
+    writer.writeStringValue("vpc_id", access_point_request.vpcId);
+    writer.writeAdditionalData(access_point_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_point_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_point_response(writer: SerializationWriter, access_point_response: Partial<Access_point_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_point_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Access_policy>("access_policy", access_point_response.accessPolicy, serializeAccess_policy);
+    writer.writeStringValue("name", access_point_response.name);
+    writer.writeStringValue("path", access_point_response.path);
+    writer.writeStringValue("vpc_id", access_point_response.vpcId);
+    writer.writeAdditionalData(access_point_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Access_policy The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccess_policy(writer: SerializationWriter, access_policy: Partial<Access_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!access_policy || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("anongid", access_policy.anongid);
+    writer.writeNumberValue("anonuid", access_policy.anonuid);
+    writer.writeBooleanValue("identity_enforcement_enabled", access_policy.identityEnforcementEnabled);
+    if(access_policy.protocols)
+    writer.writeCollectionOfEnumValues<Access_policy_protocols>("protocols", access_policy.protocols);
+    writer.writeEnumValue<Access_policy_squash_config>("squash_config", access_policy.squashConfig);
+    writer.writeAdditionalData(access_policy.additionalData);
 }
 /**
  * Serializes information the current object
@@ -39398,6 +40235,19 @@ export function serializeApiAnthropicAPIKeyInfo(writer: SerializationWriter, api
 }
 /**
  * Serializes information the current object
+ * @param ApiAssociatedModelEvaluationPreset The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiAssociatedModelEvaluationPreset(writer: SerializationWriter, apiAssociatedModelEvaluationPreset: Partial<ApiAssociatedModelEvaluationPreset> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiAssociatedModelEvaluationPreset || isSerializingDerivedType) { return; }
+    writer.writeStringValue("eval_preset_uuid", apiAssociatedModelEvaluationPreset.evalPresetUuid);
+    writer.writeStringValue("name", apiAssociatedModelEvaluationPreset.name);
+    writer.writeAdditionalData(apiAssociatedModelEvaluationPreset.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiAuditHeader The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -39647,6 +40497,32 @@ export function serializeApiCreateAnthropicAPIKeyOutput(writer: SerializationWri
 }
 /**
  * Serializes information the current object
+ * @param ApiCreateCustomEvaluationMetricInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateCustomEvaluationMetricInputPublic(writer: SerializationWriter, apiCreateCustomEvaluationMetricInputPublic: Partial<ApiCreateCustomEvaluationMetricInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateCustomEvaluationMetricInputPublic || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiCustomEvaluationMetricConfig>("config", apiCreateCustomEvaluationMetricInputPublic.config, serializeApiCustomEvaluationMetricConfig);
+    writer.writeStringValue("description", apiCreateCustomEvaluationMetricInputPublic.description);
+    writer.writeStringValue("metric_name", apiCreateCustomEvaluationMetricInputPublic.metricName);
+    writer.writeAdditionalData(apiCreateCustomEvaluationMetricInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiCreateCustomEvaluationMetricOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCreateCustomEvaluationMetricOutput(writer: SerializationWriter, apiCreateCustomEvaluationMetricOutput: Partial<ApiCreateCustomEvaluationMetricOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCreateCustomEvaluationMetricOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiEvaluationMetric>("metric", apiCreateCustomEvaluationMetricOutput.metric, serializeApiEvaluationMetric);
+    writer.writeAdditionalData(apiCreateCustomEvaluationMetricOutput.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCreateDataSourceFileUploadPresignedUrlsInputPublic The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -39831,7 +40707,6 @@ export function serializeApiCreateModelEvaluationRunInputPublic(writer: Serializ
     writer.writeCollectionOfPrimitiveValues<string>("metric_uuids", apiCreateModelEvaluationRunInputPublic.metricUuids);
     writer.writeStringValue("name", apiCreateModelEvaluationRunInputPublic.name);
     writer.writeStringValue("preset_name", apiCreateModelEvaluationRunInputPublic.presetName);
-    writer.writeBooleanValue("save_as_preset", apiCreateModelEvaluationRunInputPublic.saveAsPreset);
     writer.writeStringValue("source", apiCreateModelEvaluationRunInputPublic.source);
     writer.writeObjectValue<ApiStarMetric>("star_metric", apiCreateModelEvaluationRunInputPublic.starMetric, serializeApiStarMetric);
     writer.writeAdditionalData(apiCreateModelEvaluationRunInputPublic.additionalData);
@@ -39955,6 +40830,19 @@ export function serializeApiCreateWorkspaceOutput(writer: SerializationWriter, a
 }
 /**
  * Serializes information the current object
+ * @param ApiCustomEvaluationMetricConfig The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiCustomEvaluationMetricConfig(writer: SerializationWriter, apiCustomEvaluationMetricConfig: Partial<ApiCustomEvaluationMetricConfig> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiCustomEvaluationMetricConfig || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("requires_ground_truth", apiCustomEvaluationMetricConfig.requiresGroundTruth);
+    writer.writeStringValue("scoring_prompt", apiCustomEvaluationMetricConfig.scoringPrompt);
+    writer.writeAdditionalData(apiCustomEvaluationMetricConfig.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiCustomModel The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -40054,6 +40942,17 @@ export function serializeApiDeleteAnthropicAPIKeyOutput(writer: SerializationWri
     if (!apiDeleteAnthropicAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAnthropicAPIKeyInfo>("api_key_info", apiDeleteAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
     writer.writeAdditionalData(apiDeleteAnthropicAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiDeleteCustomEvaluationMetricOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiDeleteCustomEvaluationMetricOutput(writer: SerializationWriter, apiDeleteCustomEvaluationMetricOutput: Partial<ApiDeleteCustomEvaluationMetricOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiDeleteCustomEvaluationMetricOutput || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(apiDeleteCustomEvaluationMetricOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -40284,7 +41183,9 @@ export function serializeApiEvaluationDataset(writer: SerializationWriter, apiEv
 // @ts-ignore
 export function serializeApiEvaluationMetric(writer: SerializationWriter, apiEvaluationMetric: Partial<ApiEvaluationMetric> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiEvaluationMetric || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiAssociatedModelEvaluationPreset>("associated_presets", apiEvaluationMetric.associatedPresets, serializeApiAssociatedModelEvaluationPreset);
     writer.writeEnumValue<ApiEvaluationMetricCategory>("category", apiEvaluationMetric.category ?? ApiEvaluationMetricCategoryObject.METRIC_CATEGORY_UNSPECIFIED);
+    writer.writeObjectValue<ApiCustomEvaluationMetricConfig>("custom_eval_config", apiEvaluationMetric.customEvalConfig, serializeApiCustomEvaluationMetricConfig);
     writer.writeStringValue("description", apiEvaluationMetric.description);
     writer.writeEnumValue<ApiEvaluationScope>("evaluation_scope", apiEvaluationMetric.evaluationScope ?? ApiEvaluationScopeObject.EVALUATION_SCOPE_UNSPECIFIED);
     writer.writeBooleanValue("inverted", apiEvaluationMetric.inverted);
@@ -40296,6 +41197,7 @@ export function serializeApiEvaluationMetric(writer: SerializationWriter, apiEva
     writer.writeEnumValue<ApiEvaluationMetricValueType>("metric_value_type", apiEvaluationMetric.metricValueType ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED);
     writer.writeNumberValue("range_max", apiEvaluationMetric.rangeMax);
     writer.writeNumberValue("range_min", apiEvaluationMetric.rangeMin);
+    writer.writeEnumValue<ApiEvaluationMetricSource>("source", apiEvaluationMetric.source ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED);
     writer.writeAdditionalData(apiEvaluationMetric.additionalData);
 }
 /**
@@ -42810,6 +43712,33 @@ export function serializeApiUpdateAnthropicAPIKeyOutput(writer: SerializationWri
     if (!apiUpdateAnthropicAPIKeyOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiAnthropicAPIKeyInfo>("api_key_info", apiUpdateAnthropicAPIKeyOutput.apiKeyInfo, serializeApiAnthropicAPIKeyInfo);
     writer.writeAdditionalData(apiUpdateAnthropicAPIKeyOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUpdateCustomEvaluationMetricInputPublic The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateCustomEvaluationMetricInputPublic(writer: SerializationWriter, apiUpdateCustomEvaluationMetricInputPublic: Partial<ApiUpdateCustomEvaluationMetricInputPublic> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateCustomEvaluationMetricInputPublic || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiCustomEvaluationMetricConfig>("config", apiUpdateCustomEvaluationMetricInputPublic.config, serializeApiCustomEvaluationMetricConfig);
+    writer.writeStringValue("description", apiUpdateCustomEvaluationMetricInputPublic.description);
+    writer.writeStringValue("metric_name", apiUpdateCustomEvaluationMetricInputPublic.metricName);
+    writer.writeStringValue("metric_uuid", apiUpdateCustomEvaluationMetricInputPublic.metricUuid);
+    writer.writeAdditionalData(apiUpdateCustomEvaluationMetricInputPublic.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiUpdateCustomEvaluationMetricOutput The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiUpdateCustomEvaluationMetricOutput(writer: SerializationWriter, apiUpdateCustomEvaluationMetricOutput: Partial<ApiUpdateCustomEvaluationMetricOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiUpdateCustomEvaluationMetricOutput || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiEvaluationMetric>("metric", apiUpdateCustomEvaluationMetricOutput.metric, serializeApiEvaluationMetric);
+    writer.writeAdditionalData(apiUpdateCustomEvaluationMetricOutput.additionalData);
 }
 /**
  * Serializes information the current object
@@ -46438,6 +47367,20 @@ export function serializeCreate_response_response_tools_parameters(writer: Seria
 }
 /**
  * Serializes information the current object
+ * @param Create_secret_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_secret_response(writer: SerializationWriter, create_secret_response: Partial<Create_secret_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_secret_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", create_secret_response.name);
+    writer.writeStringValue("region", create_secret_response.region);
+    writer.writeNumberValue("version", create_secret_response.version);
+    writer.writeAdditionalData(create_secret_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Create_trigger The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -49814,31 +50757,45 @@ export function serializeNfs_action_switch_performance_tier_params(writer: Seria
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nfs_action2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNfs_action2(writer: SerializationWriter, nfs_action2: Partial<Nfs_action2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_action2 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", nfs_action2.id);
+    writer.writeStringValue("region_slug", nfs_action2.regionSlug);
+    writer.writeGuidValue("resource_id", nfs_action2.resourceId);
+    writer.writeEnumValue<Nfs_action2_resource_type>("resource_type", nfs_action2.resourceType);
+    writer.writeDateValue("started_at", nfs_action2.startedAt);
+    writer.writeEnumValue<Nfs_action2_status>("status", nfs_action2.status);
+    writer.writeStringValue("type", nfs_action2.type);
+    writer.writeAdditionalData(nfs_action2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Nfs_actions_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
 export function serializeNfs_actions_response(writer: SerializationWriter, nfs_actions_response: Partial<Nfs_actions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!nfs_actions_response || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Nfs_actions_response_action>("action", nfs_actions_response.action, serializeNfs_actions_response_action);
+    writer.writeObjectValue<Nfs_action2>("action", nfs_actions_response.action, serializeNfs_action2);
     writer.writeAdditionalData(nfs_actions_response.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Nfs_actions_response_action The instance to serialize from.
+ * @param Nfs_api_error The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNfs_actions_response_action(writer: SerializationWriter, nfs_actions_response_action: Partial<Nfs_actions_response_action> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!nfs_actions_response_action || isSerializingDerivedType) { return; }
-    writer.writeStringValue("region_slug", nfs_actions_response_action.regionSlug);
-    writer.writeGuidValue("resource_id", nfs_actions_response_action.resourceId);
-    writer.writeEnumValue<Nfs_actions_response_action_resource_type>("resource_type", nfs_actions_response_action.resourceType);
-    writer.writeDateValue("started_at", nfs_actions_response_action.startedAt);
-    writer.writeEnumValue<Nfs_actions_response_action_status>("status", nfs_actions_response_action.status);
-    writer.writeStringValue("type", nfs_actions_response_action.type);
-    writer.writeAdditionalData(nfs_actions_response_action.additionalData);
+export function serializeNfs_api_error(writer: SerializationWriter, nfs_api_error: Partial<Nfs_api_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nfs_api_error || isSerializingDerivedType) { return; }
+    writer.writeStringValue("code", nfs_api_error.code);
+    writer.writeStringValue("message", nfs_api_error.messageEscaped);
+    writer.writeAdditionalData(nfs_api_error.additionalData);
 }
 /**
  * Serializes information the current object
@@ -49901,6 +50858,7 @@ export function serializeNfs_request(writer: SerializationWriter, nfs_request: P
 // @ts-ignore
 export function serializeNfs_response(writer: SerializationWriter, nfs_response: Partial<Nfs_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!nfs_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Access_point_response>("access_points", nfs_response.accessPoints, serializeAccess_point_response);
     writer.writeStringValue("host", nfs_response.host);
     writer.writeStringValue("mount_path", nfs_response.mountPath);
     writer.writeStringValue("name", nfs_response.name);
@@ -51333,6 +52291,66 @@ export function serializeScheduled_details_body(writer: SerializationWriter, sch
 export function serializeSchema_registry_connection(writer: SerializationWriter, schema_registry_connection: Partial<Schema_registry_connection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!schema_registry_connection || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(schema_registry_connection.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret(writer: SerializationWriter, secret: Partial<Secret> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret.createdAt);
+    writer.writeDateValue("delete_requested_at", secret.deleteRequestedAt);
+    writer.writeStringValue("region", secret.region);
+    writer.writeStringValue("secret", secret.secret);
+    writer.writeDateValue("updated_at", secret.updatedAt);
+    writer.writeObjectValue<Secret_values>("values", secret.values, serializeSecret_values);
+    writer.writeNumberValue("version", secret.version);
+    writer.writeAdditionalData(secret.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_list_item The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_list_item(writer: SerializationWriter, secret_list_item: Partial<Secret_list_item> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_list_item || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret_list_item.createdAt);
+    writer.writeDateValue("delete_requested_at", secret_list_item.deleteRequestedAt);
+    writer.writeStringValue("region", secret_list_item.region);
+    writer.writeStringValue("secret", secret_list_item.secret);
+    writer.writeDateValue("updated_at", secret_list_item.updatedAt);
+    writer.writeNumberValue("version", secret_list_item.version);
+    writer.writeAdditionalData(secret_list_item.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_values The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_values(writer: SerializationWriter, secret_values: Partial<Secret_values> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_values || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(secret_values.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_version The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_version(writer: SerializationWriter, secret_version: Partial<Secret_version> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_version || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret_version.createdAt);
+    writer.writeDateValue("updated_at", secret_version.updatedAt);
+    writer.writeNumberValue("version", secret_version.version);
+    writer.writeAdditionalData(secret_version.additionalData);
 }
 /**
  * Serializes information the current object
@@ -53970,6 +54988,27 @@ export const Accelerator_config_spec_statusObject = {
     Active: "active",
 } as const;
 /**
+ * The current lifecycle status of an access point. There is no ACCESS_POINT_DELETING state:DELETE soft-deletes the access point synchronously (mirroring share deletion);the response of a delete request returns the access point already in ACCESS_POINT_DELETED.
+ */
+export const Access_point_response_statusObject = {
+    ACCESS_POINT_CREATING: "ACCESS_POINT_CREATING",
+    ACCESS_POINT_ACTIVE: "ACCESS_POINT_ACTIVE",
+    ACCESS_POINT_FAILED: "ACCESS_POINT_FAILED",
+    ACCESS_POINT_DELETED: "ACCESS_POINT_DELETED",
+} as const;
+export const Access_policy_protocolsObject = {
+    NFS4: "NFS4",
+    NFS: "NFS",
+} as const;
+/**
+ * The squash mode applied to the access point export.
+ */
+export const Access_policy_squash_configObject = {
+    NO_SQUASH: "NO_SQUASH",
+    ROOT_SQUASH: "ROOT_SQUASH",
+    ALL_SQUASH: "ALL_SQUASH",
+} as const;
+/**
  * This value is one of "active", "warning" or "locked".
  */
 export const Account_statusObject = {
@@ -54305,6 +55344,14 @@ export const ApiEvaluationMetricCategoryObject = {
     METRIC_CATEGORY_SAFETY_AND_SECURITY: "METRIC_CATEGORY_SAFETY_AND_SECURITY",
     METRIC_CATEGORY_CONTEXT_QUALITY: "METRIC_CATEGORY_CONTEXT_QUALITY",
     METRIC_CATEGORY_MODEL_FIT: "METRIC_CATEGORY_MODEL_FIT",
+} as const;
+/**
+ * Distinguishes platform catalog metrics from user-defined LLM-as-judge metrics.
+ */
+export const ApiEvaluationMetricSourceObject = {
+    EVALUATION_METRIC_SOURCE_UNSPECIFIED: "EVALUATION_METRIC_SOURCE_UNSPECIFIED",
+    EVALUATION_METRIC_SOURCE_BUILTIN: "EVALUATION_METRIC_SOURCE_BUILTIN",
+    EVALUATION_METRIC_SOURCE_CUSTOM: "EVALUATION_METRIC_SOURCE_CUSTOM",
 } as const;
 export const ApiEvaluationMetricTypeObject = {
     METRIC_TYPE_UNSPECIFIED: "METRIC_TYPE_UNSPECIFIED",
@@ -55753,19 +56800,19 @@ export const Nfs_action_typeObject = {
     Switch_performance_tier: "switch_performance_tier",
 } as const;
 /**
- * The type of resource on which the action is being performed.
+ * The type of resource on which the action is being performed. Access pointmutations return `SHARE` with `resource_id` set to the access point UUID.
  */
-export const Nfs_actions_response_action_resource_typeObject = {
-    Network_file_share: "network_file_share",
-    Network_file_share_snapshot: "network_file_share_snapshot",
+export const Nfs_action2_resource_typeObject = {
+    SHARE: "SHARE",
+    SNAPSHOT: "SNAPSHOT",
 } as const;
 /**
  * The current status of the action.
  */
-export const Nfs_actions_response_action_statusObject = {
-    InProgress: "in-progress",
-    Completed: "completed",
-    Errored: "errored",
+export const Nfs_action2_statusObject = {
+    IN_PROGRESS: "IN_PROGRESS",
+    COMPLETED: "COMPLETED",
+    ACTION_FAILED: "ACTION_FAILED",
 } as const;
 /**
  * The current status of the share. `INACTIVE` means the share exists but isnot attached to any VPC.
