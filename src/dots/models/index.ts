@@ -10337,6 +10337,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
     /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
+    /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
     rdmaSharedDevPlugin?: Rdma_shared_dev_plugin | null;
@@ -10472,6 +10476,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -10614,6 +10622,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -18558,6 +18570,15 @@ export function createOptions_version_availabilityFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createOptionsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoOptions;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {P2p_oci_registry_plugin}
+ */
+// @ts-ignore
+export function createP2p_oci_registry_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoP2p_oci_registry_plugin;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -28036,6 +28057,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "name": n => { cluster.name = n.getStringValue(); },
         "node_pools": n => { cluster.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster.region = n.getStringValue(); },
         "registry_enabled": n => { cluster.registryEnabled = n.getBooleanValue(); },
@@ -28088,6 +28110,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "name": n => { cluster_read.name = n.getStringValue(); },
         "node_pools": n => { cluster_read.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster_read.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_read.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
         "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>(); },
@@ -28169,6 +28192,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "maintenance_policy": n => { cluster_update.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_update.name = n.getStringValue(); },
         "nvidia_gpu_device_plugin": n => { cluster_update.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_update.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "sso": n => { cluster_update.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
@@ -32386,6 +32410,17 @@ export function deserializeIntoOptions_version_availability(options_version_avai
         "pg": n => { options_version_availability.pg = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "redis": n => { options_version_availability.redis = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "valkey": n => { options_version_availability.valkey = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param P2p_oci_registry_plugin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoP2p_oci_registry_plugin(p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { p2p_oci_registry_plugin.enabled = n.getBooleanValue(); },
     }
 }
 /**
@@ -38463,6 +38498,15 @@ export interface Options_version_availability extends AdditionalDataHolder, Pars
      * An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
      */
     valkey?: Database_version_availability[] | null;
+}
+/**
+ * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+ */
+export interface P2p_oci_registry_plugin extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the Peer-to-peer OCI registry component is enabled.
+     */
+    enabled?: boolean | null;
 }
 export interface Page_links extends AdditionalDataHolder, Parsable {
     /**
@@ -47473,6 +47517,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeStringValue("name", cluster.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster.region);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster.routingAgent, serializeRouting_agent);
@@ -47521,6 +47566,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeStringValue("name", cluster_read.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster_read.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_read.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_read.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_read.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster_read.region);
     writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_read.registries);
@@ -47604,6 +47650,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_update.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_update.name);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_update.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_update.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
     writer.writeObjectValue<Sso>("sso", cluster_update.sso, serializeSso);
@@ -52043,6 +52090,18 @@ export function serializeOptions_version_availability(writer: SerializationWrite
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param P2p_oci_registry_plugin The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeP2p_oci_registry_plugin(writer: SerializationWriter, p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!p2p_oci_registry_plugin || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", p2p_oci_registry_plugin.enabled);
+    writer.writeAdditionalData(p2p_oci_registry_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Page_links The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -54882,7 +54941,7 @@ export interface User_settings extends AdditionalDataHolder, Parsable {
      */
     opensearchAcl?: User_settings_opensearch_acl[] | null;
     /**
-     * For Postgres clusters, set to `true` for a user with replication rights.This option is not currently supported for other database engines.
+     * For PostgreSQL clusters, set to `true` to grant the user replicationprivileges. When omitted on create or update, the value defaults to`false` and replication privileges are not granted. This option is notcurrently supported for other database engines.
      */
     pgAllowReplication?: boolean | null;
 }
