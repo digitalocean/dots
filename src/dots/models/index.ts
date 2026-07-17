@@ -10337,6 +10337,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
     /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
+    /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
     rdmaSharedDevPlugin?: Rdma_shared_dev_plugin | null;
@@ -10472,6 +10476,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -10614,6 +10622,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -18558,6 +18570,15 @@ export function createOptions_version_availabilityFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createOptionsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoOptions;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {P2p_oci_registry_plugin}
+ */
+// @ts-ignore
+export function createP2p_oci_registry_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoP2p_oci_registry_plugin;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -28036,6 +28057,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "name": n => { cluster.name = n.getStringValue(); },
         "node_pools": n => { cluster.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster.region = n.getStringValue(); },
         "registry_enabled": n => { cluster.registryEnabled = n.getBooleanValue(); },
@@ -28088,6 +28110,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "name": n => { cluster_read.name = n.getStringValue(); },
         "node_pools": n => { cluster_read.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster_read.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_read.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
         "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>(); },
@@ -28169,6 +28192,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "maintenance_policy": n => { cluster_update.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_update.name = n.getStringValue(); },
         "nvidia_gpu_device_plugin": n => { cluster_update.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_update.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "sso": n => { cluster_update.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
@@ -31523,20 +31547,30 @@ export function deserializeIntoMultiregistry_create(multiregistry_create: Partia
 // @ts-ignore
 export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Partial<Mysql_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "automatic_sp_privileges": n => { mysql_advanced_config.automaticSpPrivileges = n.getBooleanValue(); },
         "backup_hour": n => { mysql_advanced_config.backupHour = n.getNumberValue(); },
         "backup_minute": n => { mysql_advanced_config.backupMinute = n.getNumberValue(); },
         "binlog_retention_period": n => { mysql_advanced_config.binlogRetentionPeriod = n.getNumberValue(); },
         "connect_timeout": n => { mysql_advanced_config.connectTimeout = n.getNumberValue(); },
         "default_time_zone": n => { mysql_advanced_config.defaultTimeZone = n.getStringValue(); },
+        "div_precision_increment": n => { mysql_advanced_config.divPrecisionIncrement = n.getNumberValue(); },
+        "end_markers_in_json": n => { mysql_advanced_config.endMarkersInJson = n.getBooleanValue(); },
+        "eq_range_index_dive_limit": n => { mysql_advanced_config.eqRangeIndexDiveLimit = n.getNumberValue(); },
         "group_concat_max_len": n => { mysql_advanced_config.groupConcatMaxLen = n.getNumberValue(); },
         "information_schema_stats_expiry": n => { mysql_advanced_config.informationSchemaStatsExpiry = n.getNumberValue(); },
         "innodb_change_buffer_max_size": n => { mysql_advanced_config.innodbChangeBufferMaxSize = n.getNumberValue(); },
         "innodb_flush_neighbors": n => { mysql_advanced_config.innodbFlushNeighbors = n.getNumberValue(); },
+        "innodb_ft_enable_stopword": n => { mysql_advanced_config.innodbFtEnableStopword = n.getBooleanValue(); },
+        "innodb_ft_max_token_size": n => { mysql_advanced_config.innodbFtMaxTokenSize = n.getNumberValue(); },
         "innodb_ft_min_token_size": n => { mysql_advanced_config.innodbFtMinTokenSize = n.getNumberValue(); },
+        "innodb_ft_num_word_optimize": n => { mysql_advanced_config.innodbFtNumWordOptimize = n.getNumberValue(); },
+        "innodb_ft_result_cache_limit": n => { mysql_advanced_config.innodbFtResultCacheLimit = n.getNumberValue(); },
         "innodb_ft_server_stopword_table": n => { mysql_advanced_config.innodbFtServerStopwordTable = n.getStringValue(); },
+        "innodb_ft_user_stopword_table": n => { mysql_advanced_config.innodbFtUserStopwordTable = n.getStringValue(); },
         "innodb_lock_wait_timeout": n => { mysql_advanced_config.innodbLockWaitTimeout = n.getNumberValue(); },
         "innodb_log_buffer_size": n => { mysql_advanced_config.innodbLogBufferSize = n.getNumberValue(); },
         "innodb_online_alter_log_max_size": n => { mysql_advanced_config.innodbOnlineAlterLogMaxSize = n.getNumberValue(); },
+        "innodb_optimize_fulltext_only": n => { mysql_advanced_config.innodbOptimizeFulltextOnly = n.getBooleanValue(); },
         "innodb_print_all_deadlocks": n => { mysql_advanced_config.innodbPrintAllDeadlocks = n.getBooleanValue(); },
         "innodb_read_io_threads": n => { mysql_advanced_config.innodbReadIoThreads = n.getNumberValue(); },
         "innodb_rollback_on_timeout": n => { mysql_advanced_config.innodbRollbackOnTimeout = n.getBooleanValue(); },
@@ -31547,17 +31581,23 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "log_output": n => { mysql_advanced_config.logOutput = n.getEnumValue<Mysql_advanced_config_log_output>(Mysql_advanced_config_log_outputObject) ?? Mysql_advanced_config_log_outputObject.NONE; },
         "long_query_time": n => { mysql_advanced_config.longQueryTime = n.getNumberValue(); },
         "max_allowed_packet": n => { mysql_advanced_config.maxAllowedPacket = n.getNumberValue(); },
+        "max_execution_time": n => { mysql_advanced_config.maxExecutionTime = n.getNumberValue(); },
         "max_heap_table_size": n => { mysql_advanced_config.maxHeapTableSize = n.getNumberValue(); },
+        "max_seeks_for_key": n => { mysql_advanced_config.maxSeeksForKey = n.getNumberValue(); },
         "mysql_incremental_backup": n => { mysql_advanced_config.mysqlIncrementalBackup = n.getObjectValue<Mysql_incremental_backup>(createMysql_incremental_backupFromDiscriminatorValue); },
         "net_buffer_length": n => { mysql_advanced_config.netBufferLength = n.getNumberValue(); },
         "net_read_timeout": n => { mysql_advanced_config.netReadTimeout = n.getNumberValue(); },
         "net_write_timeout": n => { mysql_advanced_config.netWriteTimeout = n.getNumberValue(); },
+        "optimizer_prune_level": n => { mysql_advanced_config.optimizerPruneLevel = n.getNumberValue(); },
+        "optimizer_search_depth": n => { mysql_advanced_config.optimizerSearchDepth = n.getNumberValue(); },
+        "optimizer_switch": n => { mysql_advanced_config.optimizerSwitch = n.getStringValue(); },
         "slow_query_log": n => { mysql_advanced_config.slowQueryLog = n.getBooleanValue(); },
         "sort_buffer_size": n => { mysql_advanced_config.sortBufferSize = n.getNumberValue(); },
         "sql_mode": n => { mysql_advanced_config.sqlMode = n.getStringValue(); },
         "sql_require_primary_key": n => { mysql_advanced_config.sqlRequirePrimaryKey = n.getBooleanValue(); },
         "tmp_table_size": n => { mysql_advanced_config.tmpTableSize = n.getNumberValue(); },
         "wait_timeout": n => { mysql_advanced_config.waitTimeout = n.getNumberValue(); },
+        "windowing_use_high_precision": n => { mysql_advanced_config.windowingUseHighPrecision = n.getBooleanValue(); },
     }
 }
 /**
@@ -32386,6 +32426,17 @@ export function deserializeIntoOptions_version_availability(options_version_avai
         "pg": n => { options_version_availability.pg = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "redis": n => { options_version_availability.redis = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
         "valkey": n => { options_version_availability.valkey = n.getCollectionOfObjectValues<Database_version_availability>(createDatabase_version_availabilityFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param P2p_oci_registry_plugin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoP2p_oci_registry_plugin(p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { p2p_oci_registry_plugin.enabled = n.getBooleanValue(); },
     }
 }
 /**
@@ -37270,6 +37321,10 @@ export type Multiregistry_create_region = (typeof Multiregistry_create_regionObj
 export type Multiregistry_create_subscription_tier_slug = (typeof Multiregistry_create_subscription_tier_slugObject)[keyof typeof Multiregistry_create_subscription_tier_slugObject];
 export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
     /**
+     * When enabled, grants `EXECUTE` and `ALTER ROUTINE` privileges to the creator of a stored routine. When disabled, these privileges are not granted automatically.
+     */
+    automaticSpPrivileges?: boolean | null;
+    /**
      * The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
      */
     backupHour?: number | null;
@@ -37290,6 +37345,18 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     defaultTimeZone?: string | null;
     /**
+     * The number of digits by which to increase the scale of the result of division operations performed with the `/` operator.
+     */
+    divPrecisionIncrement?: number | null;
+    /**
+     * When enabled, the JSON output of `EXPLAIN FORMAT=JSON` includes end markers for nested structures.
+     */
+    endMarkersInJson?: boolean | null;
+    /**
+     * The number of equality ranges in an equality comparison condition when the optimizer should switch from using index dives to index statistics.
+     */
+    eqRangeIndexDiveLimit?: number | null;
+    /**
      * The maximum permitted result length, in bytes, for the GROUP_CONCAT() function.
      */
     groupConcatMaxLen?: number | null;
@@ -37306,13 +37373,33 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     innodbFlushNeighbors?: number | null;
     /**
+     * When enabled, the InnoDB FULLTEXT index stopword list is used. Disabled by default when a custom stopword table is configured.
+     */
+    innodbFtEnableStopword?: boolean | null;
+    /**
+     * The maximum length of words that an InnoDB FULLTEXT index stores. Changing this parameter will lead to a restart of the MySQL service.
+     */
+    innodbFtMaxTokenSize?: number | null;
+    /**
      * The minimum length of words that an InnoDB FULLTEXT index stores.
      */
     innodbFtMinTokenSize?: number | null;
     /**
+     * The number of words to process during each OPTIMIZE TABLE operation on an InnoDB FULLTEXT index.
+     */
+    innodbFtNumWordOptimize?: number | null;
+    /**
+     * The InnoDB FULLTEXT index query result cache size limit, in bytes.
+     */
+    innodbFtResultCacheLimit?: number | null;
+    /**
      * The InnoDB FULLTEXT index stopword list for all InnoDB tables.
      */
     innodbFtServerStopwordTable?: string | null;
+    /**
+     * The InnoDB FULLTEXT index stopword list for user-created FULLTEXT indexes. Must be in the form `db_name/table_name`. Set to `null` to clear a previously configured value.
+     */
+    innodbFtUserStopwordTable?: string | null;
     /**
      * The time, in seconds, that an InnoDB transaction waits for a row lock. before giving up.
      */
@@ -37325,6 +37412,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The upper limit, in bytes, of the size of the temporary log files used during online DDL operations for InnoDB tables.
      */
     innodbOnlineAlterLogMaxSize?: number | null;
+    /**
+     * When enabled, OPTIMIZE TABLE rebuilds only the InnoDB FULLTEXT index, not the table itself.
+     */
+    innodbOptimizeFulltextOnly?: boolean | null;
     /**
      * When enabled, records information about all deadlocks in InnoDB user transactions  in the error log. Disabled by default.
      */
@@ -37366,9 +37457,17 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     maxAllowedPacket?: number | null;
     /**
+     * The execution timeout for `SELECT` statements, in milliseconds. A value of `0` disables the timeout (no limit).
+     */
+    maxExecutionTime?: number | null;
+    /**
      * The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size. Default is 16777216 (16M)
      */
     maxHeapTableSize?: number | null;
+    /**
+     * Limits the assumed maximum number of seeks when looking up rows based on a key. Lower values cause the query optimizer to prefer indexes over table scans for non-covering indexes.
+     */
+    maxSeeksForKey?: number | null;
     /**
      * MySQL Incremental Backup configuration settings
      */
@@ -37385,6 +37484,18 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The number of seconds to wait for a block to be written to a connection before aborting the write.
      */
     netWriteTimeout?: number | null;
+    /**
+     * Controls the heuristics applied during query optimization to prune less promising partial plans from the optimizer search space. `0` disables pruning and `1` enables it.
+     */
+    optimizerPruneLevel?: number | null;
+    /**
+     * The maximum depth of search performed by the query optimizer. Smaller values can reduce compilation time for large joins; a value of `0` lets the server automatically pick a reasonable value.
+     */
+    optimizerSearchDepth?: number | null;
+    /**
+     * Controls query optimizer behavior as a comma-separated list of `option=value` pairs, or `default` to restore server defaults. Each value must be `on`, `off`, or `default`.
+     */
+    optimizerSwitch?: string | null;
     /**
      * When enabled, captures slow queries. When disabled, also truncates the mysql.slow_log table. Default is false.
      */
@@ -37409,6 +37520,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The number of seconds the server waits for activity on a noninteractive connection before closing it.
      */
     waitTimeout?: number | null;
+    /**
+     * When enabled, window functions use a higher precision for internal calculations, which can be more accurate but slower.
+     */
+    windowingUseHighPrecision?: boolean | null;
 }
 export type Mysql_advanced_config_internal_tmp_mem_storage_engine = (typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject)[keyof typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject];
 export type Mysql_advanced_config_log_output = (typeof Mysql_advanced_config_log_outputObject)[keyof typeof Mysql_advanced_config_log_outputObject];
@@ -38463,6 +38578,15 @@ export interface Options_version_availability extends AdditionalDataHolder, Pars
      * An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
      */
     valkey?: Database_version_availability[] | null;
+}
+/**
+ * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+ */
+export interface P2p_oci_registry_plugin extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the Peer-to-peer OCI registry component is enabled.
+     */
+    enabled?: boolean | null;
 }
 export interface Page_links extends AdditionalDataHolder, Parsable {
     /**
@@ -47473,6 +47597,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeStringValue("name", cluster.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster.region);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster.routingAgent, serializeRouting_agent);
@@ -47521,6 +47646,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeStringValue("name", cluster_read.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster_read.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_read.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_read.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_read.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster_read.region);
     writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_read.registries);
@@ -47604,6 +47730,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_update.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_update.name);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_update.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_update.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
     writer.writeObjectValue<Sso>("sso", cluster_update.sso, serializeSso);
@@ -51158,20 +51285,30 @@ export function serializeMultiregistry_create(writer: SerializationWriter, multi
 // @ts-ignore
 export function serializeMysql_advanced_config(writer: SerializationWriter, mysql_advanced_config: Partial<Mysql_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!mysql_advanced_config || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("automatic_sp_privileges", mysql_advanced_config.automaticSpPrivileges);
     writer.writeNumberValue("backup_hour", mysql_advanced_config.backupHour);
     writer.writeNumberValue("backup_minute", mysql_advanced_config.backupMinute);
     writer.writeNumberValue("binlog_retention_period", mysql_advanced_config.binlogRetentionPeriod);
     writer.writeNumberValue("connect_timeout", mysql_advanced_config.connectTimeout);
     writer.writeStringValue("default_time_zone", mysql_advanced_config.defaultTimeZone);
+    writer.writeNumberValue("div_precision_increment", mysql_advanced_config.divPrecisionIncrement);
+    writer.writeBooleanValue("end_markers_in_json", mysql_advanced_config.endMarkersInJson);
+    writer.writeNumberValue("eq_range_index_dive_limit", mysql_advanced_config.eqRangeIndexDiveLimit);
     writer.writeNumberValue("group_concat_max_len", mysql_advanced_config.groupConcatMaxLen);
     writer.writeNumberValue("information_schema_stats_expiry", mysql_advanced_config.informationSchemaStatsExpiry);
     writer.writeNumberValue("innodb_change_buffer_max_size", mysql_advanced_config.innodbChangeBufferMaxSize);
     writer.writeNumberValue("innodb_flush_neighbors", mysql_advanced_config.innodbFlushNeighbors);
+    writer.writeBooleanValue("innodb_ft_enable_stopword", mysql_advanced_config.innodbFtEnableStopword);
+    writer.writeNumberValue("innodb_ft_max_token_size", mysql_advanced_config.innodbFtMaxTokenSize);
     writer.writeNumberValue("innodb_ft_min_token_size", mysql_advanced_config.innodbFtMinTokenSize);
+    writer.writeNumberValue("innodb_ft_num_word_optimize", mysql_advanced_config.innodbFtNumWordOptimize);
+    writer.writeNumberValue("innodb_ft_result_cache_limit", mysql_advanced_config.innodbFtResultCacheLimit);
     writer.writeStringValue("innodb_ft_server_stopword_table", mysql_advanced_config.innodbFtServerStopwordTable);
+    writer.writeStringValue("innodb_ft_user_stopword_table", mysql_advanced_config.innodbFtUserStopwordTable);
     writer.writeNumberValue("innodb_lock_wait_timeout", mysql_advanced_config.innodbLockWaitTimeout);
     writer.writeNumberValue("innodb_log_buffer_size", mysql_advanced_config.innodbLogBufferSize);
     writer.writeNumberValue("innodb_online_alter_log_max_size", mysql_advanced_config.innodbOnlineAlterLogMaxSize);
+    writer.writeBooleanValue("innodb_optimize_fulltext_only", mysql_advanced_config.innodbOptimizeFulltextOnly);
     writer.writeBooleanValue("innodb_print_all_deadlocks", mysql_advanced_config.innodbPrintAllDeadlocks);
     writer.writeNumberValue("innodb_read_io_threads", mysql_advanced_config.innodbReadIoThreads);
     writer.writeBooleanValue("innodb_rollback_on_timeout", mysql_advanced_config.innodbRollbackOnTimeout);
@@ -51182,17 +51319,23 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeEnumValue<Mysql_advanced_config_log_output>("log_output", mysql_advanced_config.logOutput ?? Mysql_advanced_config_log_outputObject.NONE);
     writer.writeNumberValue("long_query_time", mysql_advanced_config.longQueryTime);
     writer.writeNumberValue("max_allowed_packet", mysql_advanced_config.maxAllowedPacket);
+    writer.writeNumberValue("max_execution_time", mysql_advanced_config.maxExecutionTime);
     writer.writeNumberValue("max_heap_table_size", mysql_advanced_config.maxHeapTableSize);
+    writer.writeNumberValue("max_seeks_for_key", mysql_advanced_config.maxSeeksForKey);
     writer.writeObjectValue<Mysql_incremental_backup>("mysql_incremental_backup", mysql_advanced_config.mysqlIncrementalBackup, serializeMysql_incremental_backup);
     writer.writeNumberValue("net_buffer_length", mysql_advanced_config.netBufferLength);
     writer.writeNumberValue("net_read_timeout", mysql_advanced_config.netReadTimeout);
     writer.writeNumberValue("net_write_timeout", mysql_advanced_config.netWriteTimeout);
+    writer.writeNumberValue("optimizer_prune_level", mysql_advanced_config.optimizerPruneLevel);
+    writer.writeNumberValue("optimizer_search_depth", mysql_advanced_config.optimizerSearchDepth);
+    writer.writeStringValue("optimizer_switch", mysql_advanced_config.optimizerSwitch);
     writer.writeBooleanValue("slow_query_log", mysql_advanced_config.slowQueryLog);
     writer.writeNumberValue("sort_buffer_size", mysql_advanced_config.sortBufferSize);
     writer.writeStringValue("sql_mode", mysql_advanced_config.sqlMode);
     writer.writeBooleanValue("sql_require_primary_key", mysql_advanced_config.sqlRequirePrimaryKey);
     writer.writeNumberValue("tmp_table_size", mysql_advanced_config.tmpTableSize);
     writer.writeNumberValue("wait_timeout", mysql_advanced_config.waitTimeout);
+    writer.writeBooleanValue("windowing_use_high_precision", mysql_advanced_config.windowingUseHighPrecision);
     writer.writeAdditionalData(mysql_advanced_config.additionalData);
 }
 /**
@@ -52039,6 +52182,18 @@ export function serializeOptions_version_availability(writer: SerializationWrite
     writer.writeCollectionOfObjectValues<Database_version_availability>("redis", options_version_availability.redis, serializeDatabase_version_availability);
     writer.writeCollectionOfObjectValues<Database_version_availability>("valkey", options_version_availability.valkey, serializeDatabase_version_availability);
     writer.writeAdditionalData(options_version_availability.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param P2p_oci_registry_plugin The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeP2p_oci_registry_plugin(writer: SerializationWriter, p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!p2p_oci_registry_plugin || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", p2p_oci_registry_plugin.enabled);
+    writer.writeAdditionalData(p2p_oci_registry_plugin.additionalData);
 }
 /**
  * Serializes information the current object
@@ -54882,7 +55037,7 @@ export interface User_settings extends AdditionalDataHolder, Parsable {
      */
     opensearchAcl?: User_settings_opensearch_acl[] | null;
     /**
-     * For Postgres clusters, set to `true` for a user with replication rights.This option is not currently supported for other database engines.
+     * For PostgreSQL clusters, set to `true` to grant the user replicationprivileges. When omitted on create or update, the value defaults to`false` and replication privileges are not granted. This option is notcurrently supported for other database engines.
      */
     pgAllowReplication?: boolean | null;
 }
