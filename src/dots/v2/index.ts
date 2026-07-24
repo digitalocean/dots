@@ -74,6 +74,8 @@ import { SpacesRequestBuilderNavigationMetadata, type SpacesRequestBuilder } fro
 // @ts-ignore
 import { TagsRequestBuilderNavigationMetadata, TagsRequestBuilderRequestsMetadata, type TagsRequestBuilder } from './tags/index.js';
 // @ts-ignore
+import { ToolbeltsRequestBuilderNavigationMetadata, ToolbeltsRequestBuilderRequestsMetadata, type ToolbeltsRequestBuilder } from './toolbelts/index.js';
+// @ts-ignore
 import { type UptimeRequestBuilder, UptimeRequestBuilderNavigationMetadata } from './uptime/index.js';
 // @ts-ignore
 import { type VectorDatabasesRequestBuilder, VectorDatabasesRequestBuilderNavigationMetadata, VectorDatabasesRequestBuilderRequestsMetadata } from './vectorDatabases/index.js';
@@ -237,6 +239,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get tags(): TagsRequestBuilder;
     /**
+     * The toolbelts property
+     */
+    get toolbelts(): ToolbeltsRequestBuilder;
+    /**
      * The uptime property
      */
     get uptime(): UptimeRequestBuilder;
@@ -398,6 +404,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     tags: {
         requestsMetadata: TagsRequestBuilderRequestsMetadata,
         navigationMetadata: TagsRequestBuilderNavigationMetadata,
+    },
+    toolbelts: {
+        requestsMetadata: ToolbeltsRequestBuilderRequestsMetadata,
+        navigationMetadata: ToolbeltsRequestBuilderNavigationMetadata,
     },
     uptime: {
         navigationMetadata: UptimeRequestBuilderNavigationMetadata,

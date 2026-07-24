@@ -19488,6 +19488,69 @@ export function createTimescaledb_advanced_configFromDiscriminatorValue(parseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_create}
+ */
+// @ts-ignore
+export function createToolbelt_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_response}
+ */
+// @ts-ignore
+export function createToolbelt_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_summary}
+ */
+// @ts-ignore
+export function createToolbelt_summaryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_summary;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_tools}
+ */
+// @ts-ignore
+export function createToolbelt_toolsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_tools;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt}
+ */
+// @ts-ignore
+export function createToolbeltFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelts_pagination}
+ */
+// @ts-ignore
+export function createToolbelts_paginationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelts_pagination;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelts_response}
+ */
+// @ts-ignore
+export function createToolbelts_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelts_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Trigger_info_scheduled_runs}
  */
 // @ts-ignore
@@ -33777,6 +33840,108 @@ export function deserializeIntoTags_resources(tags_resources: Partial<Tags_resou
 export function deserializeIntoTimescaledb_advanced_config(timescaledb_advanced_config: Partial<Timescaledb_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "max_background_workers": n => { timescaledb_advanced_config.maxBackgroundWorkers = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt(toolbelt: Partial<Toolbelt> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { toolbelt.createdAt = n.getDateValue(); },
+        "description": n => { toolbelt.description = n.getStringValue(); },
+        "display_name": n => { toolbelt.displayName = n.getStringValue(); },
+        "name": n => { toolbelt.name = n.getStringValue(); },
+        "reference": n => { toolbelt.reference = n.getStringValue(); },
+        "reference_latest": n => { toolbelt.referenceLatest = n.getStringValue(); },
+        "status": n => { toolbelt.status = n.getEnumValue<Toolbelt_status>(Toolbelt_statusObject); },
+        "tool_count": n => { toolbelt.toolCount = n.getNumberValue(); },
+        "tools": n => { toolbelt.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "updated_at": n => { toolbelt.updatedAt = n.getDateValue(); },
+        "version": n => { toolbelt.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_create(toolbelt_create: Partial<Toolbelt_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { toolbelt_create.description = n.getStringValue(); },
+        "display_name": n => { toolbelt_create.displayName = n.getStringValue(); },
+        "name": n => { toolbelt_create.name = n.getStringValue(); },
+        "tools": n => { toolbelt_create.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "version": n => { toolbelt_create.version = n.getStringValue() ?? "1"; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_response(toolbelt_response: Partial<Toolbelt_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "toolbelt": n => { toolbelt_response.toolbelt = n.getObjectValue<Toolbelt>(createToolbeltFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_summary The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_summary(toolbelt_summary: Partial<Toolbelt_summary> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { toolbelt_summary.description = n.getStringValue(); },
+        "display_name": n => { toolbelt_summary.displayName = n.getStringValue(); },
+        "latest_version": n => { toolbelt_summary.latestVersion = n.getStringValue(); },
+        "name": n => { toolbelt_summary.name = n.getStringValue(); },
+        "reference_latest": n => { toolbelt_summary.referenceLatest = n.getStringValue(); },
+        "status": n => { toolbelt_summary.status = n.getEnumValue<Toolbelt_summary_status>(Toolbelt_summary_statusObject); },
+        "tool_count": n => { toolbelt_summary.toolCount = n.getNumberValue(); },
+        "updated_at": n => { toolbelt_summary.updatedAt = n.getDateValue(); },
+        "version_count": n => { toolbelt_summary.versionCount = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_tools The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_tools(toolbelt_tools: Partial<Toolbelt_tools> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "tools": n => { toolbelt_tools.tools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelts_pagination The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelts_pagination(toolbelts_pagination: Partial<Toolbelts_pagination> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "page": n => { toolbelts_pagination.page = n.getNumberValue(); },
+        "per_page": n => { toolbelts_pagination.perPage = n.getNumberValue(); },
+        "total": n => { toolbelts_pagination.total = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelts_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelts_response(toolbelts_response: Partial<Toolbelts_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "pagination": n => { toolbelts_response.pagination = n.getObjectValue<Toolbelts_pagination>(createToolbelts_paginationFromDiscriminatorValue); },
+        "toolbelts": n => { toolbelts_response.toolbelts = n.getCollectionOfObjectValues<Toolbelt_summary>(createToolbelt_summaryFromDiscriminatorValue); },
     }
 }
 /**
@@ -53514,6 +53679,115 @@ export function serializeTimescaledb_advanced_config(writer: SerializationWriter
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt(writer: SerializationWriter, toolbelt: Partial<Toolbelt> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", toolbelt.createdAt);
+    writer.writeStringValue("description", toolbelt.description);
+    writer.writeStringValue("display_name", toolbelt.displayName);
+    writer.writeStringValue("name", toolbelt.name);
+    writer.writeStringValue("reference", toolbelt.reference);
+    writer.writeStringValue("reference_latest", toolbelt.referenceLatest);
+    writer.writeEnumValue<Toolbelt_status>("status", toolbelt.status);
+    writer.writeNumberValue("tool_count", toolbelt.toolCount);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt.tools);
+    writer.writeDateValue("updated_at", toolbelt.updatedAt);
+    writer.writeStringValue("version", toolbelt.version);
+    writer.writeAdditionalData(toolbelt.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_create(writer: SerializationWriter, toolbelt_create: Partial<Toolbelt_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_create || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", toolbelt_create.description);
+    writer.writeStringValue("display_name", toolbelt_create.displayName);
+    writer.writeStringValue("name", toolbelt_create.name);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt_create.tools);
+    writer.writeStringValue("version", toolbelt_create.version ?? "1");
+    writer.writeAdditionalData(toolbelt_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_response(writer: SerializationWriter, toolbelt_response: Partial<Toolbelt_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Toolbelt>("toolbelt", toolbelt_response.toolbelt, serializeToolbelt);
+    writer.writeAdditionalData(toolbelt_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_summary The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_summary(writer: SerializationWriter, toolbelt_summary: Partial<Toolbelt_summary> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_summary || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", toolbelt_summary.description);
+    writer.writeStringValue("display_name", toolbelt_summary.displayName);
+    writer.writeStringValue("latest_version", toolbelt_summary.latestVersion);
+    writer.writeStringValue("name", toolbelt_summary.name);
+    writer.writeStringValue("reference_latest", toolbelt_summary.referenceLatest);
+    writer.writeEnumValue<Toolbelt_summary_status>("status", toolbelt_summary.status);
+    writer.writeNumberValue("tool_count", toolbelt_summary.toolCount);
+    writer.writeDateValue("updated_at", toolbelt_summary.updatedAt);
+    writer.writeNumberValue("version_count", toolbelt_summary.versionCount);
+    writer.writeAdditionalData(toolbelt_summary.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_tools The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_tools(writer: SerializationWriter, toolbelt_tools: Partial<Toolbelt_tools> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_tools || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt_tools.tools);
+    writer.writeAdditionalData(toolbelt_tools.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelts_pagination The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelts_pagination(writer: SerializationWriter, toolbelts_pagination: Partial<Toolbelts_pagination> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelts_pagination || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("page", toolbelts_pagination.page);
+    writer.writeNumberValue("per_page", toolbelts_pagination.perPage);
+    writer.writeNumberValue("total", toolbelts_pagination.total);
+    writer.writeAdditionalData(toolbelts_pagination.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelts_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelts_response(writer: SerializationWriter, toolbelts_response: Partial<Toolbelts_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelts_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Toolbelts_pagination>("pagination", toolbelts_response.pagination, serializeToolbelts_pagination);
+    writer.writeCollectionOfObjectValues<Toolbelt_summary>("toolbelts", toolbelts_response.toolbelts, serializeToolbelt_summary);
+    writer.writeAdditionalData(toolbelts_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Trigger_info The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -54773,6 +55047,150 @@ export interface Timescaledb_advanced_config extends AdditionalDataHolder, Parsa
      * The number of background workers for timescaledb operations.  Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time.
      */
     maxBackgroundWorkers?: number | null;
+}
+export interface Toolbelt extends AdditionalDataHolder, Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * A reference pinned to this immutable toolbelt version.
+     */
+    reference?: string | null;
+    /**
+     * An unversioned reference to the latest active version.
+     */
+    referenceLatest?: string | null;
+    /**
+     * The status property
+     */
+    status?: Toolbelt_status | null;
+    /**
+     * The tool_count property
+     */
+    toolCount?: number | null;
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Toolbelt_create extends AdditionalDataHolder, Parsable {
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Toolbelt_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The toolbelt property
+     */
+    toolbelt?: Toolbelt | null;
+}
+export type Toolbelt_status = (typeof Toolbelt_statusObject)[keyof typeof Toolbelt_statusObject];
+export interface Toolbelt_summary extends AdditionalDataHolder, Parsable {
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The latest_version property
+     */
+    latestVersion?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The reference_latest property
+     */
+    referenceLatest?: string | null;
+    /**
+     * The status property
+     */
+    status?: Toolbelt_summary_status | null;
+    /**
+     * The tool_count property
+     */
+    toolCount?: number | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version_count property
+     */
+    versionCount?: number | null;
+}
+export type Toolbelt_summary_status = (typeof Toolbelt_summary_statusObject)[keyof typeof Toolbelt_summary_statusObject];
+export interface Toolbelt_tools extends AdditionalDataHolder, Parsable {
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+}
+export interface Toolbelts_pagination extends AdditionalDataHolder, Parsable {
+    /**
+     * The page property
+     */
+    page?: number | null;
+    /**
+     * The per_page property
+     */
+    perPage?: number | null;
+    /**
+     * The total property
+     */
+    total?: number | null;
+}
+export interface Toolbelts_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The pagination property
+     */
+    pagination?: Toolbelts_pagination | null;
+    /**
+     * The toolbelts property
+     */
+    toolbelts?: Toolbelt_summary[] | null;
 }
 export interface Trigger_info extends AdditionalDataHolder, Parsable {
     /**
@@ -57857,6 +58275,14 @@ export const Tags_resource_resources_resource_typeObject = {
     Image: "image",
     Volume: "volume",
     Volume_snapshot: "volume_snapshot",
+} as const;
+export const Toolbelt_statusObject = {
+    Active: "active",
+    Deprecated: "deprecated",
+} as const;
+export const Toolbelt_summary_statusObject = {
+    Active: "active",
+    Deprecated: "deprecated",
 } as const;
 /**
  * Permission set applied to the ACL. 'consume' allows for messages to be consumed from the topic. 'produce' allows for messages to be published to the topic. 'produceconsume' allows for both 'consume' and 'produce' permission. 'admin' allows for 'produceconsume' as well as any operations to administer the topic (delete, update).
