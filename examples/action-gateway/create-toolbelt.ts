@@ -22,3 +22,6 @@ await gateway.toolbelts.byName("search-toolbelt").tools.add.post({
 await gateway.toolbelts.byName("search-toolbelt").tools.remove.post({
     tools: ["exa_web_fetch"],
 });
+
+// Delete the toolbelt when it is no longer needed.
+// await gateway.toolbelts.byName("search-toolbelt").delete();
