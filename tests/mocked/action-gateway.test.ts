@@ -2,9 +2,12 @@ import nock from "nock";
 
 import {
     ActionGatewayClient,
+    ChatCompletionsProvider,
     MessagesProvider,
     ResponsesProvider,
+    SessionsOperations,
 } from "../../src/action-gateway/index.js";
+import type { SessionsRequestBuilder } from "../../src/dots/v2/actionGateway/sessions/index.js";
 
 const API_BASE_URL = "https://api.digitalocean.test";
 const GATEWAY_BASE_URL = "https://actions.do-ai.test";
@@ -37,6 +40,37 @@ function mcpResult(result: unknown) {
 
 describe("Action Gateway", () => {
     afterEach(() => nock.cleanAll());
+
+    it("delegates session creation to the generated public API", async () => {
+        const requests: unknown[] = [];
+        const sessionsApi = {
+            post: async (body: unknown) => {
+                requests.push(body);
+                return sessionResponse();
+            },
+        } as unknown as SessionsRequestBuilder;
+        const sessions = new SessionsOperations(
+            "test-token",
+            new ChatCompletionsProvider(),
+            sessionsApi,
+        );
+
+        const session = await sessions.create({
+            actorId: "user-123",
+            name: "support-session",
+            tools: ["toolbelt:search-toolbelt@1"],
+            config: { preloadTools: ["exa_web_search@v1"] },
+        });
+
+        expect(requests).toEqual([{
+            actorId: "user-123",
+            name: "support-session",
+            policy: { defaultAction: "ask", rules: [] },
+            tools: ["toolbelt:search-toolbelt@1"],
+            config: { preloadTools: ["exa_web_search@v1"] },
+        }]);
+        expect(session.url).toBe(MCP_URL);
+    });
 
     it("creates sessions with typed policy, tools, and config", async () => {
         const api = nock(API_BASE_URL)
