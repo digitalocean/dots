@@ -13,9 +13,9 @@ import {
 } from "../inference-gen/InferenceClient.js";
 
 export const DEFAULT_API_BASE_URL = "https://api.digitalocean.com";
-export const DEFAULT_GATEWAY_BASE_URL = "https://actions.do-ai.run";
 export const SESSION_ID_HEADER = "X-Session-Id";
 export const ACTOR_ID_HEADER = "X-Actor-Id";
+export const MCP_PROTOCOL_VERSION = "2025-06-18";
 
 export const META_SEARCH = "action_search";
 export const META_INVOKE = "action_invoke";
@@ -26,7 +26,7 @@ type JsonObject = Record<string, unknown>;
 export interface PermissionRule {
     tool: string;
     action?: "allow" | "ask" | "deny" | string;
-    match?: JsonObject;
+    match?: Record<string, string>;
 }
 
 export interface Permissions {
@@ -39,6 +39,8 @@ export interface CreateSessionOptions {
     actorId: string;
     name?: string;
     permissions?: Permissions;
+    tools?: string[];
+    config?: JsonObject;
 }
 
 export interface CreateToolbeltOptions {
@@ -53,7 +55,6 @@ export type ToolbeltWithRef = Toolbelt & { readonly ref: string };
 
 export interface ActionGatewayClientOptions extends InferenceClientOptions {
     apiBaseURL?: string;
-    gatewayBaseURL?: string;
     provider?: GatewayProvider;
 }
 
@@ -273,7 +274,7 @@ function normalizePermissions(permissions?: Permissions): Required<Pick<Permissi
         };
     });
     return {
-        defaultAction: permissions?.defaultAction ?? permissions?.default_action ?? "allow",
+        defaultAction: permissions?.defaultAction ?? permissions?.default_action ?? "ask",
         rules,
     };
 }
@@ -376,26 +377,119 @@ const META_TOOLS: ToolDefinition[] = [
 
 class GatewayTransport {
     public readonly sessionId: string;
+    private nextRequestId = 1;
 
     public constructor(
         private readonly apiKey: string,
-        private readonly gatewayBaseURL: string,
+        private readonly endpointURL: string,
         sessionUrn: string,
         private readonly actorId: string,
     ) {
         this.sessionId = externalSessionId(sessionUrn);
     }
 
-    public async request(path: string, method = "GET", body?: JsonObject): Promise<unknown> {
-        return requestJSON(`${this.gatewayBaseURL}${path}`, this.apiKey, {
-            method,
+    public async callTool(name: string, arguments_: JsonObject): Promise<unknown> {
+        const result = await this.rpc("tools/call", { name, arguments: arguments_ });
+        return unwrapMCPToolResult(result);
+    }
+
+    public async listTools(): Promise<ToolDefinition[]> {
+        const result = asObject(await this.rpc("tools/list"));
+        return asArray(result.tools) as ToolDefinition[];
+    }
+
+    public async decideApproval(approvalId: string, decision: "approve" | "deny"): Promise<unknown> {
+        const normalizedApprovalId = approvalId.trim();
+        if (!normalizedApprovalId) throw new Error("approvalId is required");
+        const origin = new URL(this.endpointURL).origin;
+        return requestJSON(`${origin}/approvals/${encodeURIComponent(normalizedApprovalId)}`, this.apiKey, {
+            method: "POST",
             headers: {
                 [SESSION_ID_HEADER]: this.sessionId,
                 [ACTOR_ID_HEADER]: this.actorId,
             },
-            body: body === undefined ? undefined : JSON.stringify(body),
+            body: JSON.stringify({ decision }),
         });
     }
+
+    private async rpc(method: string, params?: JsonObject): Promise<unknown> {
+        const response = await fetch(this.endpointURL, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+                Accept: "application/json, text/event-stream",
+                "Content-Type": "application/json",
+                "MCP-Protocol-Version": MCP_PROTOCOL_VERSION,
+                [SESSION_ID_HEADER]: this.sessionId,
+                [ACTOR_ID_HEADER]: this.actorId,
+            },
+            body: JSON.stringify({
+                jsonrpc: "2.0",
+                id: this.nextRequestId++,
+                method,
+                ...(params === undefined ? {} : { params }),
+            }),
+        });
+        const text = await response.text();
+        const envelope = parseMCPEnvelope(text);
+        if (!response.ok) {
+            throw new GatewayError(
+                String(asObject(envelope).message ?? response.statusText ?? "request failed"),
+                response.status,
+                envelope,
+            );
+        }
+        const error = asObject(asObject(envelope).error);
+        if (Object.keys(error).length > 0) {
+            throw new GatewayError(String(error.message ?? "MCP request failed"), undefined, error);
+        }
+        if (!("result" in asObject(envelope))) {
+            throw new GatewayError("MCP response is missing result", undefined, envelope);
+        }
+        return asObject(envelope).result;
+    }
+}
+
+function parseMCPEnvelope(text: string): unknown {
+    if (!text.trim()) return undefined;
+    if (!text.split("\n").some((line) => line.startsWith("data:"))) return JSON.parse(text);
+    const events = text.split(/\r?\n\r?\n/);
+    for (const event of events) {
+        const data = event.split(/\r?\n/)
+            .filter((line) => line.startsWith("data:"))
+            .map((line) => line.slice(5).trimStart())
+            .join("\n");
+        if (!data) continue;
+        const candidate = JSON.parse(data);
+        if ("result" in asObject(candidate) || "error" in asObject(candidate)) return candidate;
+    }
+    throw new GatewayError("MCP response did not contain a JSON-RPC result");
+}
+
+function unwrapMCPToolResult(payload: unknown): unknown {
+    const result = asObject(payload);
+    if (result.isError) {
+        const structured = asObject(result.structuredContent);
+        const error = asObject(structured.error);
+        throw new GatewayError(String(error.message ?? contentText(result.content) ?? "tool call failed"), undefined, payload);
+    }
+    if ("structuredContent" in result) return result.structuredContent;
+    const text = contentText(result.content);
+    if (text === undefined) return payload;
+    try {
+        return JSON.parse(text);
+    } catch {
+        return text;
+    }
+}
+
+function contentText(content: unknown): string | undefined {
+    const text = asArray(content)
+        .map(asObject)
+        .filter((item) => item.type === "text" && typeof item.text === "string")
+        .map((item) => String(item.text))
+        .join("\n");
+    return text || undefined;
 }
 
 function unwrapToolResult(payload: unknown): unknown {
@@ -417,6 +511,20 @@ function unwrapToolResult(payload: unknown): unknown {
     return payload;
 }
 
+function toolErrorResult(error: GatewayError): JsonObject {
+    const body = asObject(error.body);
+    const structured = asObject(body.structuredContent);
+    const structuredError = asObject(structured.error);
+    const bodyError = asObject(body.error);
+    const details = Object.keys(structuredError).length > 0 ? structuredError : bodyError;
+    return {
+        error: Object.keys(details).length > 0
+            ? { ...details, message: details.message ?? error.message }
+            : { message: error.message },
+        ...(body._meta === undefined ? {} : { _meta: body._meta }),
+    };
+}
+
 function normalizeQueries(input: string | SearchQuery | Array<string | SearchQuery>): SearchQuery[] {
     const queries = Array.isArray(input) ? input : [input];
     if (queries.length < 1 || queries.length > 5) {
@@ -433,20 +541,19 @@ export class ToolsOperations {
 
     public async list(options: { includeAll?: boolean } = {}): Promise<ToolDefinition[]> {
         if (!options.includeAll) return structuredClone(META_TOOLS);
-        const body = asObject(await this.transport.request("/tools"));
-        return (Array.isArray(body.tools) ? body.tools : asArray(body)) as ToolDefinition[];
+        return this.transport.listTools();
     }
 
     public async search(
         queries: string | SearchQuery | Array<string | SearchQuery>,
         options: SearchOptions = {},
     ): Promise<unknown> {
-        return unwrapToolResult(await this.transport.request("/tools/search", "POST", {
+        return this.transport.callTool(META_SEARCH, {
             queries: normalizeQueries(queries),
             ...(options.providers?.length ? { providers: options.providers } : {}),
             ...(options.tags?.length ? { tags: options.tags } : {}),
             ...(options.limit !== undefined ? { limit: options.limit } : {}),
-        }));
+        });
     }
 
     public async invoke(tools: InvokeTool[], options: InvokeOptions = {}): Promise<unknown> {
@@ -458,7 +565,7 @@ export class ToolsOperations {
             if (!name) throw new Error("each invoke entry requires tool");
             return { tool: name, arguments: tool.arguments ?? {} };
         });
-        return this.transport.request("/tools/invoke", "POST", {
+        return this.transport.callTool(META_INVOKE, {
             tools: normalized,
             ...(options.rationale ? { rationale: options.rationale } : {}),
         });
@@ -504,10 +611,10 @@ export class CodeOperations {
 
     public async execute(code: string, options: { thought?: string } = {}): Promise<unknown> {
         if (!code.trim()) throw new Error("code is empty");
-        return unwrapToolResult(await this.transport.request("/code/execute", "POST", {
+        return this.transport.callTool(META_CODE, {
             code,
             ...(options.thought ? { thought: options.thought } : {}),
-        }));
+        });
     }
 }
 
@@ -515,24 +622,35 @@ export class Session {
     public readonly id: string;
     public readonly toolsOperations: ToolsOperations;
     public readonly code: CodeOperations;
+    private readonly transport: GatewayTransport;
 
     public constructor(
         public readonly sessionUrn: string,
         public readonly actorId: string,
         public readonly name: string,
         public readonly policy: Required<Pick<Permissions, "defaultAction" | "rules">>,
-        private readonly gatewayBaseURL: string,
+        private readonly mcpURL: string,
         private readonly provider: GatewayProvider,
         transport: GatewayTransport,
         public readonly raw: JsonObject,
+        public readonly selectedTools: string[],
     ) {
         this.id = externalSessionId(sessionUrn);
+        this.transport = transport;
         this.toolsOperations = new ToolsOperations(transport, provider);
         this.code = new CodeOperations(transport);
     }
 
     public get url(): string {
-        return `${this.gatewayBaseURL}/mcp/session/${this.id}`;
+        return this.mcpURL;
+    }
+
+    public approve(approvalId: string): Promise<unknown> {
+        return this.transport.decideApproval(approvalId, "approve");
+    }
+
+    public deny(approvalId: string): Promise<unknown> {
+        return this.transport.decideApproval(approvalId, "deny");
     }
 
     public tools(options: SessionToolsOptions = {}): Promise<JsonObject[]> {
@@ -547,15 +665,20 @@ export class Session {
 
     public async executeToolCalls(calls: ToolCall[], options: InvokeOptions = {}): Promise<unknown[]> {
         return Promise.all(calls.map(async (call) => {
-            if (call.name === META_SEARCH) return this.toolsOperations.search(asArray(call.arguments.queries) as SearchQuery[], call.arguments as SearchOptions);
-            if (call.name === META_INVOKE) return this.toolsOperations.invoke(asArray(call.arguments.tools) as InvokeTool[], {
-                rationale: String(call.arguments.rationale ?? options.rationale ?? "") || undefined,
-            });
-            if (call.name === META_CODE) {
-                const code = String(call.arguments.code ?? call.arguments.code_to_execute ?? "");
-                return this.code.execute(code, { thought: String(call.arguments.thought ?? "") || undefined });
+            try {
+                if (call.name === META_SEARCH) return await this.toolsOperations.search(asArray(call.arguments.queries) as SearchQuery[], call.arguments as SearchOptions);
+                if (call.name === META_INVOKE) return await this.toolsOperations.invoke(asArray(call.arguments.tools) as InvokeTool[], {
+                    rationale: String(call.arguments.rationale ?? options.rationale ?? "") || undefined,
+                });
+                if (call.name === META_CODE) {
+                    const code = String(call.arguments.code ?? call.arguments.code_to_execute ?? "");
+                    return await this.code.execute(code, { thought: String(call.arguments.thought ?? "") || undefined });
+                }
+                return await this.toolsOperations.invokeOne(call.name, call.arguments, options);
+            } catch (error) {
+                if (error instanceof GatewayError) return toolErrorResult(error);
+                throw error;
             }
-            return this.toolsOperations.invokeOne(call.name, call.arguments, options);
         }));
     }
 }
@@ -564,7 +687,6 @@ export class SessionsOperations {
     public constructor(
         private readonly apiKey: string,
         private readonly apiBaseURL: string,
-        private readonly gatewayBaseURL: string,
         private readonly provider: GatewayProvider,
     ) {}
 
@@ -574,6 +696,9 @@ export class SessionsOperations {
         const suffix = Math.random().toString(16).slice(2, 10);
         const name = options.name ?? `dots-session-${suffix}`;
         const policy = normalizePermissions(options.permissions);
+        if (options.tools !== undefined && !Array.isArray(options.tools)) {
+            throw new TypeError("tools must be an array of tool references");
+        }
         const payload = asObject(await requestJSON(
             `${this.apiBaseURL}/v2/action-gateway/sessions`,
             this.apiKey,
@@ -582,23 +707,29 @@ export class SessionsOperations {
                 body: JSON.stringify({
                     actor_id: actorId,
                     name,
-                    policy_json: JSON.stringify(policy),
+                    policy,
+                    ...(options.tools === undefined ? {} : { tools: options.tools }),
+                    ...(options.config === undefined ? {} : { config: options.config }),
                 }),
             },
         ));
         const raw = asObject(payload.session);
         const sessionUrn = String(raw.sessionUrn ?? raw.session_urn ?? "");
         if (!sessionUrn) throw new GatewayError("session create response is missing sessionUrn", undefined, payload);
-        const transport = new GatewayTransport(this.apiKey, this.gatewayBaseURL, sessionUrn, actorId);
+        const mcpURL = String(payload.mcpUrl ?? payload.mcp_url ?? "");
+        if (!mcpURL) throw new GatewayError("session create response is missing mcpUrl", undefined, payload);
+        const selectedTools = asArray(payload.tools).map(String);
+        const transport = new GatewayTransport(this.apiKey, mcpURL, sessionUrn, actorId);
         return new Session(
             sessionUrn,
             actorId,
             String(raw.name ?? name),
             policy,
-            this.gatewayBaseURL,
+            mcpURL,
             this.provider,
             transport,
             raw,
+            selectedTools,
         );
     }
 }
@@ -614,9 +745,8 @@ export class ActionGatewayClient extends InferenceClient {
         const apiKey = options.apiKey?.trim();
         if (!apiKey) throw new Error("apiKey is required");
         const apiBaseURL = normalizeBaseURL(options.apiBaseURL ?? DEFAULT_API_BASE_URL);
-        const gatewayBaseURL = normalizeBaseURL(options.gatewayBaseURL ?? DEFAULT_GATEWAY_BASE_URL);
         this.provider = options.provider ?? new ChatCompletionsProvider();
-        this.session = new SessionsOperations(apiKey, apiBaseURL, gatewayBaseURL, this.provider);
+        this.session = new SessionsOperations(apiKey, apiBaseURL, this.provider);
         this.sessions = this.session;
 
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(apiKey);

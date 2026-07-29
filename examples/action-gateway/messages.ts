@@ -10,7 +10,16 @@ const gateway = new ActionGatewayClient({
     apiKey,
     provider: new MessagesProvider(),
 });
-const session = await gateway.session.create({ actorId: "end-user-123" });
+const session = await gateway.session.create({
+    actorId: "end-user-123",
+    permissions: {
+        defaultAction: "ask",
+        rules: [
+            { tool: "exa_web_search", action: "allow" },
+            { tool: "exa_web_fetch", action: "allow" },
+        ],
+    },
+});
 
 const response = await inference.messages.create({
     model: "anthropic-claude-sonnet-4",

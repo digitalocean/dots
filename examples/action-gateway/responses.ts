@@ -10,11 +10,17 @@ const gateway = new ActionGatewayClient({
     apiKey,
     provider: new ResponsesProvider(),
 });
-const session = await gateway.session.create({ actorId: "end-user-123" });
+const session = await gateway.session.create({
+    actorId: "end-user-123",
+    permissions: {
+        defaultAction: "ask",
+        rules: [{ tool: "exa_web_search", action: "allow" }],
+    },
+});
 
 const response = await inference.responses.create({
     model: "openai-gpt-4o",
-    input: "What DigitalOcean Droplet sizes are available in NYC3?",
+    input: "Find the latest DigitalOcean news and summarize it.",
     tools: await session.tools(),
 });
 

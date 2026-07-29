@@ -1,8 +1,9 @@
 # Action Gateway
 
 The TypeScript SDK uses a session-first Action Gateway flow. Create a session
-on the DigitalOcean public API, then discover or invoke tools through
-`actions.do-ai.run` with the session and actor headers managed by the SDK.
+on the DigitalOcean public API, then discover or invoke tools through the
+returned session MCP URL with authentication and actor headers managed by the
+SDK.
 
 ```ts
 import { ActionGatewayClient } from "@digitalocean/dots/action_gateway";
@@ -13,9 +14,28 @@ const gateway = new ActionGatewayClient({
 const session = await gateway.session.create({ actorId: "end-user-123" });
 ```
 
-Session creation sends `actor_id`, `name`, and `policy_json` to
-`POST /v2/action-gateway/sessions`. Gateway REST requests use the bare session
-UUID in `X-Session-Id` and the actor in `X-Actor-Id`.
+Session creation sends `actor_id`, `name`, and typed `policy` to
+`POST /v2/action-gateway/sessions`. The default policy action is `ask`. Use the
+optional `tools` field to select tools (omit it for all tools, or pass `[]` for
+none) and `config.preloadTools` to expose concrete tools alongside the three
+meta-tools on the returned MCP endpoint.
+
+```ts
+const session = await gateway.session.create({
+  actorId: "end-user-123",
+  tools: ["exa_web_search@v1"],
+  config: { preloadTools: ["exa_web_search@v1"] },
+});
+
+console.log(session.url); // API-returned mcpUrl
+```
+
+If a policy returns a pending approval, decide it and retry the invocation:
+
+```ts
+await session.approve(approvalId);
+// or: await session.deny(approvalId);
+```
 
 ## Toolbelts
 

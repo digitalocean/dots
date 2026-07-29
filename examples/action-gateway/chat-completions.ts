@@ -4,7 +4,16 @@ import { ActionGatewayClient } from "../../src/action-gateway/index.js";
 const apiKey = process.env.DIGITALOCEAN_TOKEN!;
 const inference = new Client({ apiKey });
 const gateway = new ActionGatewayClient({ apiKey });
-const session = await gateway.session.create({ actorId: "end-user-123" });
+const session = await gateway.session.create({
+    actorId: "end-user-123",
+    permissions: {
+        defaultAction: "ask",
+        rules: [
+            { tool: "exa_web_search", action: "allow" },
+            { tool: "exa_web_fetch", action: "allow" },
+        ],
+    },
+});
 
 const messages: Record<string, unknown>[] = [{
     role: "user",

@@ -10,4 +10,4 @@ const [tools, catalog] = await Promise.all([
     session.toolsOperations.list({ includeAll: true }),
 ]);
 
-console.log(`Loaded ${tools.length} model tools and ${catalog.length} catalog tools.`);
+console.log(`Loaded ${tools.length} model tools and ${catalog.length} session tools.`);

@@ -6,40 +6,8 @@ import { createErrorEscapedFromDiscriminatorValue, createToolbelt_responseFromDi
 // @ts-ignore
 import { ToolsRequestBuilderNavigationMetadata, type ToolsRequestBuilder } from './tools/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithNameDeleteResponse}
- */
-// @ts-ignore
-export function createWithNameDeleteResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithNameDeleteResponse;
-}
-/**
- * The deserialization information for the current model
- * @param WithNameDeleteResponse The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoWithNameDeleteResponse(withNameDeleteResponse: Partial<WithNameDeleteResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-    }
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithNameDeleteResponse The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeWithNameDeleteResponse(writer: SerializationWriter, withNameDeleteResponse: Partial<WithNameDeleteResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withNameDeleteResponse || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(withNameDeleteResponse.additionalData);
-}
-export interface WithNameDeleteResponse extends AdditionalDataHolder, Parsable {
-}
 /**
  * Builds and executes requests for operations under /v2/toolbelts/{name}
  */
@@ -51,14 +19,14 @@ export interface WithNameItemRequestBuilder extends BaseRequestBuilder<WithNameI
     /**
      * Deprecates the latest active version of a toolbelt.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<WithNameDeleteResponse>}
+     * @returns {Promise<Toolbelt_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithNameDeleteResponse | undefined>;
+     delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Toolbelt_response | undefined>;
     /**
      * Retrieves the latest active version or a specified immutable version of a toolbelt.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -119,7 +87,7 @@ export const WithNameItemRequestBuilderRequestsMetadata: RequestsMetadata = {
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
-        responseBodyFactory:  createWithNameDeleteResponseFromDiscriminatorValue,
+        responseBodyFactory:  createToolbelt_responseFromDiscriminatorValue,
     },
     get: {
         uriTemplate: WithNameItemRequestBuilderUriTemplate,

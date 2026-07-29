@@ -8,36 +8,52 @@ import {
 
 const API_BASE_URL = "https://api.digitalocean.test";
 const GATEWAY_BASE_URL = "https://actions.do-ai.test";
+const MCP_URL = `${GATEWAY_BASE_URL}/mcp/session/session-123`;
 
 function client(provider?: MessagesProvider | ResponsesProvider): ActionGatewayClient {
     return new ActionGatewayClient({
         apiKey: "test-token",
         apiBaseURL: API_BASE_URL,
-        gatewayBaseURL: GATEWAY_BASE_URL,
         provider,
     });
+}
+
+function sessionResponse() {
+    return {
+        session: {
+            sessionUrn: "do:managed_agents_session:session-123",
+            name: "support-session",
+            actorId: "user-123",
+            policy: { defaultAction: "ask", rules: [] },
+        },
+        mcpUrl: MCP_URL,
+        tools: ["exa_web_search@v1"],
+    };
+}
+
+function mcpResult(result: unknown) {
+    return { jsonrpc: "2.0", id: 1, result };
 }
 
 describe("Action Gateway", () => {
     afterEach(() => nock.cleanAll());
 
-    it("creates sessions with actor_id, name, and policy_json", async () => {
+    it("creates sessions with typed policy, tools, and config", async () => {
         const api = nock(API_BASE_URL)
             .post("/v2/action-gateway/sessions", (body) => {
-                expect(body.actor_id).toBe("user-123");
-                expect(body.name).toBe("support-session");
-                expect(JSON.parse(body.policy_json)).toEqual({
-                    defaultAction: "ask",
-                    rules: [{ tool: "toolbelt:search-toolbelt@1", action: "allow" }],
+                expect(body).toEqual({
+                    actor_id: "user-123",
+                    name: "support-session",
+                    policy: {
+                        defaultAction: "ask",
+                        rules: [{ tool: "toolbelt:search-toolbelt@1", action: "allow" }],
+                    },
+                    tools: ["toolbelt:search-toolbelt@1"],
+                    config: { preloadTools: ["exa_web_search@v1"] },
                 });
                 return true;
             })
-            .reply(200, {
-                session: {
-                    session_urn: "do:managed_agents_session:session-123",
-                    name: "support-session",
-                },
-            });
+            .reply(200, sessionResponse());
 
         const session = await client().session.create({
             actorId: "user-123",
@@ -46,32 +62,55 @@ describe("Action Gateway", () => {
                 defaultAction: "ask",
                 rules: [{ tool: "toolbelt:search-toolbelt@1", action: "allow" }],
             },
+            tools: ["toolbelt:search-toolbelt@1"],
+            config: { preloadTools: ["exa_web_search@v1"] },
         });
 
         expect(session.id).toBe("session-123");
-        expect(session.url).toBe(`${GATEWAY_BASE_URL}/mcp/session/session-123`);
+        expect(session.url).toBe(MCP_URL);
+        expect(session.selectedTools).toEqual(["exa_web_search@v1"]);
         api.done();
     });
 
-    it("sends bare session and actor headers to gateway REST", async () => {
+    it("defaults session policy to ask", async () => {
+        const api = nock(API_BASE_URL)
+            .post("/v2/action-gateway/sessions", (body) => body.policy.defaultAction === "ask")
+            .reply(200, sessionResponse());
+
+        await client().session.create({ actorId: "user-123" });
+        api.done();
+    });
+
+    it("uses the returned MCP URL with session and actor headers", async () => {
         nock(API_BASE_URL)
             .post("/v2/action-gateway/sessions")
-            .reply(200, { session: { sessionUrn: "do:managed_agents_session:session-123" } });
+            .reply(200, sessionResponse());
         const gateway = nock(GATEWAY_BASE_URL, {
             reqheaders: {
                 "X-Session-Id": "session-123",
                 "X-Actor-Id": "user-123",
+                "MCP-Protocol-Version": "2025-06-18",
             },
         })
-            .post("/tools/invoke", {
-                tools: [{ tool: "exa_web_search", arguments: { query: "DigitalOcean" } }],
+            .post("/mcp/session/session-123", (body) => {
+                expect(body.method).toBe("tools/call");
+                expect(body.params).toEqual({
+                    name: "action_invoke",
+                    arguments: {
+                        tools: [{ tool: "exa_web_search", arguments: { query: "DigitalOcean" } }],
+                    },
+                });
+                return true;
             })
-            .reply(200, {
-                results: [{
-                    tool: "exa_web_search",
-                    result: { status: "succeeded", output: { hits: 3 } },
-                }],
-            });
+            .reply(200, mcpResult({
+                structuredContent: {
+                    results: [{
+                        tool: "exa_web_search",
+                        result: { status: "succeeded", output: { hits: 3 } },
+                    }],
+                },
+                isError: false,
+            }));
 
         const session = await client().session.create({ actorId: "user-123" });
         const result = await session.toolsOperations.invokeOne("exa_web_search", {
@@ -79,6 +118,27 @@ describe("Action Gateway", () => {
         });
 
         expect(result).toEqual({ hits: 3 });
+        gateway.done();
+    });
+
+    it("approves and denies pending invocations", async () => {
+        nock(API_BASE_URL)
+            .post("/v2/action-gateway/sessions")
+            .reply(200, sessionResponse());
+        const gateway = nock(GATEWAY_BASE_URL, {
+            reqheaders: {
+                "X-Session-Id": "session-123",
+                "X-Actor-Id": "user-123",
+            },
+        })
+            .post("/approvals/approval-1", { decision: "approve" })
+            .reply(200, { status: "approved" })
+            .post("/approvals/approval-2", { decision: "deny" })
+            .reply(200, { status: "denied" });
+
+        const session = await client().session.create({ actorId: "user-123" });
+        await expect(session.approve("approval-1")).resolves.toEqual({ status: "approved" });
+        await expect(session.deny("approval-2")).resolves.toEqual({ status: "denied" });
         gateway.done();
     });
 
@@ -143,23 +203,24 @@ describe("Action Gateway", () => {
             .reply(200, { toolbelt });
         nock(API_BASE_URL)
             .delete("/v2/toolbelts/search-toolbelt")
-            .reply(200, {});
+            .reply(200, { toolbelt });
 
         await gateway.toolbelts.get({ queryParameters: { status: "active" } });
         const item = gateway.toolbelts.byName("search-toolbelt");
         await item.get({ queryParameters: { version: "2" } });
         await item.tools.add.post({ tools: ["exa_web_fetch"] });
         await item.tools.remove.post({ tools: ["exa_web_fetch"] });
-        await item.delete();
+        const deleted = await item.delete();
 
+        expect(deleted?.toolbelt?.status).toBe("active");
         expect(nock.isDone()).toBe(true);
     });
 
-    it("formats tools and tool results for every inference surface", async () => {
+    it("formats tools for every inference surface", async () => {
         nock(API_BASE_URL)
             .post("/v2/action-gateway/sessions")
             .times(3)
-            .reply(200, { session: { sessionUrn: "do:managed_agents_session:session-123" } });
+            .reply(200, sessionResponse());
 
         const chatSession = await client().session.create({ actorId: "user-123" });
         expect((await chatSession.tools())[0]).toMatchObject({
@@ -184,16 +245,19 @@ describe("Action Gateway", () => {
         nock(API_BASE_URL)
             .post("/v2/action-gateway/sessions")
             .times(3)
-            .reply(200, { session: { sessionUrn: "do:managed_agents_session:session-123" } });
+            .reply(200, sessionResponse());
         nock(GATEWAY_BASE_URL)
-            .post("/tools/invoke")
+            .post("/mcp/session/session-123")
             .times(3)
-            .reply(200, {
-                results: [{
-                    tool: "exa_web_search",
-                    result: { status: "succeeded", output: { hits: 1 } },
-                }],
-            });
+            .reply(200, mcpResult({
+                structuredContent: {
+                    results: [{
+                        tool: "exa_web_search",
+                        result: { status: "succeeded", output: { hits: 1 } },
+                    }],
+                },
+                isError: false,
+            }));
 
         const chatSession = await client().session.create({ actorId: "user-123" });
         expect(await chatSession.handleToolCalls({
@@ -225,5 +289,63 @@ describe("Action Gateway", () => {
             call_id: "response-1",
             output: '{"hits":1}',
         }]);
+    });
+
+    it("preserves approval metadata in model tool results", async () => {
+        nock(API_BASE_URL)
+            .post("/v2/action-gateway/sessions")
+            .reply(200, sessionResponse());
+        nock(GATEWAY_BASE_URL)
+            .post("/mcp/session/session-123")
+            .reply(200, mcpResult({
+                structuredContent: {
+                    results: [{
+                        tool: "exa_web_search",
+                        result: {
+                            status: "failed",
+                            error: { message: "approval required" },
+                            _meta: {
+                                status: "requires_approval",
+                                approval_id: "approval-123",
+                            },
+                        },
+                    }],
+                },
+                isError: false,
+            }))
+            .post("/mcp/session/session-123")
+            .reply(200, mcpResult({
+                content: [{ type: "text", text: "approval required" }],
+                isError: true,
+                _meta: {
+                    status: "requires_approval",
+                    approval_id: "approval-123",
+                },
+            }));
+
+        const session = await client().session.create({ actorId: "user-123" });
+        const messages = await session.handleToolCalls({
+            choices: [{ message: { tool_calls: [{
+                id: "chat-1",
+                function: { name: "exa_web_search", arguments: '{"query":"DO"}' },
+            }] } }],
+        });
+
+        expect(JSON.parse(String(messages[0].content))).toMatchObject({
+            error: { message: "approval required" },
+            _meta: { approval_id: "approval-123" },
+        });
+
+        const directMessages = await session.handleToolCalls({
+            choices: [{ message: { tool_calls: [{
+                id: "chat-2",
+                function: { name: "action_search", arguments: '{"queries":["search"]}' },
+            }] } }],
+        });
+
+        expect(JSON.parse(String(directMessages[0].content))).toMatchObject({
+            error: { message: "approval required" },
+            _meta: { approval_id: "approval-123" },
+        });
     });
 });
