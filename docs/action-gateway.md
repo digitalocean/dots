@@ -30,6 +30,12 @@ const session = await gateway.session.create({
 console.log(session.url); // API-returned mcpUrl
 ```
 
+The controls are complementary: top-level `tools` selects the catalog visible
+to `action_search` and callable through `action_invoke`, `config.preloadTools`
+also exposes selected concrete tools directly, and `permissions` applies
+`allow`, `ask`, or `deny` when any selected tool is invoked. See
+`examples/action-gateway/session-controls.ts` for a complete configuration.
+
 If a policy returns a pending approval, decide it and retry the invocation:
 
 ```ts
