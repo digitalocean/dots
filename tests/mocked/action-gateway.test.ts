@@ -40,7 +40,7 @@ describe("Action Gateway", () => {
 
     it("creates sessions with typed policy, tools, and config", async () => {
         const api = nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions", (body) => {
+            .post("/v2/sessions", (body) => {
                 expect(body).toEqual({
                     actor_id: "user-123",
                     name: "support-session",
@@ -74,7 +74,7 @@ describe("Action Gateway", () => {
 
     it("defaults session policy to ask", async () => {
         const api = nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions", (body) => body.policy.defaultAction === "ask")
+            .post("/v2/sessions", (body) => body.policy.defaultAction === "ask")
             .reply(200, sessionResponse());
 
         await client().session.create({ actorId: "user-123" });
@@ -83,7 +83,7 @@ describe("Action Gateway", () => {
 
     it("uses the returned MCP URL with session and actor headers", async () => {
         nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions")
+            .post("/v2/sessions")
             .reply(200, sessionResponse());
         const gateway = nock(GATEWAY_BASE_URL, {
             reqheaders: {
@@ -123,7 +123,7 @@ describe("Action Gateway", () => {
 
     it("approves and denies pending invocations", async () => {
         nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions")
+            .post("/v2/sessions")
             .reply(200, sessionResponse());
         const gateway = nock(GATEWAY_BASE_URL, {
             reqheaders: {
@@ -218,7 +218,7 @@ describe("Action Gateway", () => {
 
     it("formats tools for every inference surface", async () => {
         nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions")
+            .post("/v2/sessions")
             .times(3)
             .reply(200, sessionResponse());
 
@@ -243,7 +243,7 @@ describe("Action Gateway", () => {
 
     it("executes and formats model tool calls", async () => {
         nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions")
+            .post("/v2/sessions")
             .times(3)
             .reply(200, sessionResponse());
         nock(GATEWAY_BASE_URL)
@@ -293,7 +293,7 @@ describe("Action Gateway", () => {
 
     it("preserves approval metadata in model tool results", async () => {
         nock(API_BASE_URL)
-            .post("/v2/action-gateway/sessions")
+            .post("/v2/sessions")
             .reply(200, sessionResponse());
         nock(GATEWAY_BASE_URL)
             .post("/mcp/session/session-123")

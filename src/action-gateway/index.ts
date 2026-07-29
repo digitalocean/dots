@@ -3,10 +3,18 @@ import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { createDigitalOceanClient } from "../dots/digitalOceanClient.js";
 import type {
+    Create_session_request,
+    Create_session_request_config,
+    Session_policy_rule,
+    Session_policy_spec,
     Toolbelt,
     Toolbelt_create,
 } from "../dots/models/index.js";
+import type { ConnectionsRequestBuilder } from "../dots/v2/connections/index.js";
+import type { SessionsRequestBuilder } from "../dots/v2/sessions/index.js";
 import type { ToolbeltsRequestBuilder } from "../dots/v2/toolbelts/index.js";
+import type { ToolsRequestBuilder } from "../dots/v2/tools/index.js";
+import type { UsersRequestBuilder } from "../dots/v2/users/index.js";
 import {
     InferenceClient,
     type InferenceClientOptions,
@@ -276,6 +284,25 @@ function normalizePermissions(permissions?: Permissions): Required<Pick<Permissi
     return {
         defaultAction: permissions?.defaultAction ?? permissions?.default_action ?? "ask",
         rules,
+    };
+}
+
+function toSessionPolicy(policy: Required<Pick<Permissions, "defaultAction" | "rules">>): Session_policy_spec {
+    return {
+        defaultAction: policy.defaultAction as Session_policy_spec["defaultAction"],
+        rules: policy.rules.map((rule): Session_policy_rule => ({
+            tool: rule.tool,
+            action: rule.action as Session_policy_rule["action"],
+            ...(rule.match ? { match: { additionalData: rule.match } } : {}),
+        })),
+    };
+}
+
+function toSessionConfig(config: JsonObject): Create_session_request_config {
+    const { preloadTools, ...additionalData } = config;
+    return {
+        ...(preloadTools === undefined ? {} : { preloadTools: preloadTools as string[] }),
+        ...(Object.keys(additionalData).length === 0 ? {} : { additionalData }),
     };
 }
 
@@ -686,8 +713,8 @@ export class Session {
 export class SessionsOperations {
     public constructor(
         private readonly apiKey: string,
-        private readonly apiBaseURL: string,
         private readonly provider: GatewayProvider,
+        private readonly sessionsApi: SessionsRequestBuilder,
     ) {}
 
     public async create(options: CreateSessionOptions): Promise<Session> {
@@ -699,26 +726,20 @@ export class SessionsOperations {
         if (options.tools !== undefined && !Array.isArray(options.tools)) {
             throw new TypeError("tools must be an array of tool references");
         }
-        const payload = asObject(await requestJSON(
-            `${this.apiBaseURL}/v2/action-gateway/sessions`,
-            this.apiKey,
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    actor_id: actorId,
-                    name,
-                    policy,
-                    ...(options.tools === undefined ? {} : { tools: options.tools }),
-                    ...(options.config === undefined ? {} : { config: options.config }),
-                }),
-            },
-        ));
-        const raw = asObject(payload.session);
-        const sessionUrn = String(raw.sessionUrn ?? raw.session_urn ?? "");
+        const body: Create_session_request = {
+            actorId,
+            name,
+            policy: toSessionPolicy(policy),
+            ...(options.tools === undefined ? {} : { tools: options.tools }),
+            ...(options.config === undefined ? {} : { config: toSessionConfig(options.config) }),
+        };
+        const payload = await this.sessionsApi.post(body);
+        const raw = asObject(payload?.session);
+        const sessionUrn = String(payload?.session?.sessionUrn ?? "");
         if (!sessionUrn) throw new GatewayError("session create response is missing sessionUrn", undefined, payload);
-        const mcpURL = String(payload.mcpUrl ?? payload.mcp_url ?? "");
+        const mcpURL = String(payload?.mcpUrl ?? "");
         if (!mcpURL) throw new GatewayError("session create response is missing mcpUrl", undefined, payload);
-        const selectedTools = asArray(payload.tools).map(String);
+        const selectedTools = (payload?.tools ?? []).map(String);
         const transport = new GatewayTransport(this.apiKey, mcpURL, sessionUrn, actorId);
         return new Session(
             sessionUrn,
@@ -737,7 +758,11 @@ export class SessionsOperations {
 export class ActionGatewayClient extends InferenceClient {
     public readonly session: SessionsOperations;
     public readonly sessions: SessionsOperations;
+    public readonly sessionsApi: SessionsRequestBuilder;
+    public readonly tools: ToolsRequestBuilder;
     public readonly toolbelts: ToolbeltsRequestBuilder;
+    public readonly connections: ConnectionsRequestBuilder;
+    public readonly users: UsersRequestBuilder;
     public readonly provider: GatewayProvider;
 
     public constructor(options: ActionGatewayClientOptions) {
@@ -746,13 +771,18 @@ export class ActionGatewayClient extends InferenceClient {
         if (!apiKey) throw new Error("apiKey is required");
         const apiBaseURL = normalizeBaseURL(options.apiBaseURL ?? DEFAULT_API_BASE_URL);
         this.provider = options.provider ?? new ChatCompletionsProvider();
-        this.session = new SessionsOperations(apiKey, apiBaseURL, this.provider);
-        this.sessions = this.session;
 
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(apiKey);
         const adapter = new FetchRequestAdapter(authProvider);
         adapter.baseUrl = apiBaseURL;
-        this.toolbelts = createDigitalOceanClient(adapter).v2.toolbelts;
+        const publicApi = createDigitalOceanClient(adapter).v2;
+        this.sessionsApi = publicApi.sessions;
+        this.tools = publicApi.tools;
+        this.toolbelts = publicApi.toolbelts;
+        this.connections = publicApi.connections;
+        this.users = publicApi.users;
+        this.session = new SessionsOperations(apiKey, this.provider, this.sessionsApi);
+        this.sessions = this.session;
     }
 
     public async createToolbelt(options: CreateToolbeltOptions): Promise<ToolbeltWithRef> {
