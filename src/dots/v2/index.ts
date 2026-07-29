@@ -4,6 +4,8 @@
 // @ts-ignore
 import { AccountRequestBuilderNavigationMetadata, AccountRequestBuilderRequestsMetadata, type AccountRequestBuilder } from './account/index.js';
 // @ts-ignore
+import { ActionGatewayRequestBuilderNavigationMetadata, type ActionGatewayRequestBuilder } from './actionGateway/index.js';
+// @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
 import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } from './addOns/index.js';
@@ -17,8 +19,6 @@ import { Byoip_prefixesRequestBuilderNavigationMetadata, Byoip_prefixesRequestBu
 import { CdnRequestBuilderNavigationMetadata, type CdnRequestBuilder } from './cdn/index.js';
 // @ts-ignore
 import { CertificatesRequestBuilderNavigationMetadata, CertificatesRequestBuilderRequestsMetadata, type CertificatesRequestBuilder } from './certificates/index.js';
-// @ts-ignore
-import { ConnectionsRequestBuilderNavigationMetadata, ConnectionsRequestBuilderRequestsMetadata, type ConnectionsRequestBuilder } from './connections/index.js';
 // @ts-ignore
 import { CustomersRequestBuilderNavigationMetadata, type CustomersRequestBuilder } from './customers/index.js';
 // @ts-ignore
@@ -68,8 +68,6 @@ import { Reserved_ipv6RequestBuilderNavigationMetadata, Reserved_ipv6RequestBuil
 // @ts-ignore
 import { SecurityRequestBuilderNavigationMetadata, type SecurityRequestBuilder } from './security/index.js';
 // @ts-ignore
-import { SessionsRequestBuilderNavigationMetadata, SessionsRequestBuilderRequestsMetadata, type SessionsRequestBuilder } from './sessions/index.js';
-// @ts-ignore
 import { SizesRequestBuilderRequestsMetadata, type SizesRequestBuilder } from './sizes/index.js';
 // @ts-ignore
 import { SnapshotsRequestBuilderNavigationMetadata, SnapshotsRequestBuilderRequestsMetadata, type SnapshotsRequestBuilder } from './snapshots/index.js';
@@ -78,13 +76,7 @@ import { SpacesRequestBuilderNavigationMetadata, type SpacesRequestBuilder } fro
 // @ts-ignore
 import { TagsRequestBuilderNavigationMetadata, TagsRequestBuilderRequestsMetadata, type TagsRequestBuilder } from './tags/index.js';
 // @ts-ignore
-import { ToolbeltsRequestBuilderNavigationMetadata, ToolbeltsRequestBuilderRequestsMetadata, type ToolbeltsRequestBuilder } from './toolbelts/index.js';
-// @ts-ignore
-import { ToolsRequestBuilderNavigationMetadata, ToolsRequestBuilderRequestsMetadata, type ToolsRequestBuilder } from './tools/index.js';
-// @ts-ignore
 import { type UptimeRequestBuilder, UptimeRequestBuilderNavigationMetadata } from './uptime/index.js';
-// @ts-ignore
-import { type UsersRequestBuilder, UsersRequestBuilderNavigationMetadata, UsersRequestBuilderRequestsMetadata } from './users/index.js';
 // @ts-ignore
 import { type VectorDatabasesRequestBuilder, VectorDatabasesRequestBuilderNavigationMetadata, VectorDatabasesRequestBuilderRequestsMetadata } from './vectorDatabases/index.js';
 // @ts-ignore
@@ -106,6 +98,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The account property
      */
     get account(): AccountRequestBuilder;
+    /**
+     * The actionGateway property
+     */
+    get actionGateway(): ActionGatewayRequestBuilder;
     /**
      * The actions property
      */
@@ -134,10 +130,6 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The certificates property
      */
     get certificates(): CertificatesRequestBuilder;
-    /**
-     * The connections property
-     */
-    get connections(): ConnectionsRequestBuilder;
     /**
      * The customers property
      */
@@ -235,10 +227,6 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get security(): SecurityRequestBuilder;
     /**
-     * The sessions property
-     */
-    get sessions(): SessionsRequestBuilder;
-    /**
      * The sizes property
      */
     get sizes(): SizesRequestBuilder;
@@ -255,21 +243,9 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get tags(): TagsRequestBuilder;
     /**
-     * The toolbelts property
-     */
-    get toolbelts(): ToolbeltsRequestBuilder;
-    /**
-     * The tools property
-     */
-    get tools(): ToolsRequestBuilder;
-    /**
      * The uptime property
      */
     get uptime(): UptimeRequestBuilder;
-    /**
-     * The users property
-     */
-    get users(): UsersRequestBuilder;
     /**
      * The vectorDatabases property
      */
@@ -303,6 +279,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: AccountRequestBuilderRequestsMetadata,
         navigationMetadata: AccountRequestBuilderNavigationMetadata,
     },
+    actionGateway: {
+        navigationMetadata: ActionGatewayRequestBuilderNavigationMetadata,
+    },
     actions: {
         requestsMetadata: ActionsRequestBuilderRequestsMetadata,
         navigationMetadata: ActionsRequestBuilderNavigationMetadata,
@@ -327,10 +306,6 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     certificates: {
         requestsMetadata: CertificatesRequestBuilderRequestsMetadata,
         navigationMetadata: CertificatesRequestBuilderNavigationMetadata,
-    },
-    connections: {
-        requestsMetadata: ConnectionsRequestBuilderRequestsMetadata,
-        navigationMetadata: ConnectionsRequestBuilderNavigationMetadata,
     },
     customers: {
         navigationMetadata: CustomersRequestBuilderNavigationMetadata,
@@ -419,10 +394,6 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     security: {
         navigationMetadata: SecurityRequestBuilderNavigationMetadata,
     },
-    sessions: {
-        requestsMetadata: SessionsRequestBuilderRequestsMetadata,
-        navigationMetadata: SessionsRequestBuilderNavigationMetadata,
-    },
     sizes: {
         requestsMetadata: SizesRequestBuilderRequestsMetadata,
     },
@@ -437,20 +408,8 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: TagsRequestBuilderRequestsMetadata,
         navigationMetadata: TagsRequestBuilderNavigationMetadata,
     },
-    toolbelts: {
-        requestsMetadata: ToolbeltsRequestBuilderRequestsMetadata,
-        navigationMetadata: ToolbeltsRequestBuilderNavigationMetadata,
-    },
-    tools: {
-        requestsMetadata: ToolsRequestBuilderRequestsMetadata,
-        navigationMetadata: ToolsRequestBuilderNavigationMetadata,
-    },
     uptime: {
         navigationMetadata: UptimeRequestBuilderNavigationMetadata,
-    },
-    users: {
-        requestsMetadata: UsersRequestBuilderRequestsMetadata,
-        navigationMetadata: UsersRequestBuilderNavigationMetadata,
     },
     vectorDatabases: {
         requestsMetadata: VectorDatabasesRequestBuilderRequestsMetadata,

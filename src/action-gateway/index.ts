@@ -10,11 +10,11 @@ import type {
     Toolbelt,
     Toolbelt_create,
 } from "../dots/models/index.js";
-import type { ConnectionsRequestBuilder } from "../dots/v2/connections/index.js";
-import type { SessionsRequestBuilder } from "../dots/v2/sessions/index.js";
-import type { ToolbeltsRequestBuilder } from "../dots/v2/toolbelts/index.js";
-import type { ToolsRequestBuilder } from "../dots/v2/tools/index.js";
-import type { UsersRequestBuilder } from "../dots/v2/users/index.js";
+import type { ConnectionsRequestBuilder } from "../dots/v2/actionGateway/connections/index.js";
+import type { SessionsRequestBuilder } from "../dots/v2/actionGateway/sessions/index.js";
+import type { ToolbeltsRequestBuilder } from "../dots/v2/actionGateway/toolbelts/index.js";
+import type { ToolsRequestBuilder } from "../dots/v2/actionGateway/tools/index.js";
+import type { UsersRequestBuilder } from "../dots/v2/actionGateway/users/index.js";
 import {
     InferenceClient,
     type InferenceClientOptions,
@@ -775,7 +775,7 @@ export class ActionGatewayClient extends InferenceClient {
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(apiKey);
         const adapter = new FetchRequestAdapter(authProvider);
         adapter.baseUrl = apiBaseURL;
-        const publicApi = createDigitalOceanClient(adapter).v2;
+        const publicApi = createDigitalOceanClient(adapter).v2.actionGateway;
         this.sessionsApi = publicApi.sessions;
         this.tools = publicApi.tools;
         this.toolbelts = publicApi.toolbelts;

@@ -40,7 +40,7 @@ describe("Action Gateway", () => {
 
     it("creates sessions with typed policy, tools, and config", async () => {
         const api = nock(API_BASE_URL)
-            .post("/v2/sessions", (body) => {
+            .post("/v2/action-gateway/sessions", (body) => {
                 expect(body).toEqual({
                     actor_id: "user-123",
                     name: "support-session",
@@ -74,7 +74,7 @@ describe("Action Gateway", () => {
 
     it("defaults session policy to ask", async () => {
         const api = nock(API_BASE_URL)
-            .post("/v2/sessions", (body) => body.policy.defaultAction === "ask")
+            .post("/v2/action-gateway/sessions", (body) => body.policy.defaultAction === "ask")
             .reply(200, sessionResponse());
 
         await client().session.create({ actorId: "user-123" });
@@ -83,7 +83,7 @@ describe("Action Gateway", () => {
 
     it("uses the returned MCP URL with session and actor headers", async () => {
         nock(API_BASE_URL)
-            .post("/v2/sessions")
+            .post("/v2/action-gateway/sessions")
             .reply(200, sessionResponse());
         const gateway = nock(GATEWAY_BASE_URL, {
             reqheaders: {
@@ -123,7 +123,7 @@ describe("Action Gateway", () => {
 
     it("approves and denies pending invocations", async () => {
         nock(API_BASE_URL)
-            .post("/v2/sessions")
+            .post("/v2/action-gateway/sessions")
             .reply(200, sessionResponse());
         const gateway = nock(GATEWAY_BASE_URL, {
             reqheaders: {
@@ -144,7 +144,7 @@ describe("Action Gateway", () => {
 
     it("creates toolbelts through the generated public API", async () => {
         const api = nock(API_BASE_URL)
-            .post("/v2/toolbelts", {
+            .post("/v2/action-gateway/toolbelts", {
                 name: "search-toolbelt",
                 tools: ["exa_web_search", "exa_web_fetch"],
                 version: "1",
@@ -188,21 +188,21 @@ describe("Action Gateway", () => {
         };
 
         nock(API_BASE_URL)
-            .get("/v2/toolbelts")
+            .get("/v2/action-gateway/toolbelts")
             .query({ status: "active" })
             .reply(200, { toolbelts: [], pagination: { page: 1, per_page: 20, total: 0 } });
         nock(API_BASE_URL)
-            .get("/v2/toolbelts/search-toolbelt")
+            .get("/v2/action-gateway/toolbelts/search-toolbelt")
             .query({ version: "2" })
             .reply(200, { toolbelt });
         nock(API_BASE_URL)
-            .post("/v2/toolbelts/search-toolbelt/tools/add", { tools: ["exa_web_fetch"] })
+            .post("/v2/action-gateway/toolbelts/search-toolbelt/tools/add", { tools: ["exa_web_fetch"] })
             .reply(200, { toolbelt });
         nock(API_BASE_URL)
-            .post("/v2/toolbelts/search-toolbelt/tools/remove", { tools: ["exa_web_fetch"] })
+            .post("/v2/action-gateway/toolbelts/search-toolbelt/tools/remove", { tools: ["exa_web_fetch"] })
             .reply(200, { toolbelt });
         nock(API_BASE_URL)
-            .delete("/v2/toolbelts/search-toolbelt")
+            .delete("/v2/action-gateway/toolbelts/search-toolbelt")
             .reply(200, { toolbelt });
 
         await gateway.toolbelts.get({ queryParameters: { status: "active" } });
@@ -218,7 +218,7 @@ describe("Action Gateway", () => {
 
     it("formats tools for every inference surface", async () => {
         nock(API_BASE_URL)
-            .post("/v2/sessions")
+            .post("/v2/action-gateway/sessions")
             .times(3)
             .reply(200, sessionResponse());
 
@@ -243,7 +243,7 @@ describe("Action Gateway", () => {
 
     it("executes and formats model tool calls", async () => {
         nock(API_BASE_URL)
-            .post("/v2/sessions")
+            .post("/v2/action-gateway/sessions")
             .times(3)
             .reply(200, sessionResponse());
         nock(GATEWAY_BASE_URL)
@@ -293,7 +293,7 @@ describe("Action Gateway", () => {
 
     it("preserves approval metadata in model tool results", async () => {
         nock(API_BASE_URL)
-            .post("/v2/sessions")
+            .post("/v2/action-gateway/sessions")
             .reply(200, sessionResponse());
         nock(GATEWAY_BASE_URL)
             .post("/mcp/session/session-123")
