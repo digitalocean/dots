@@ -48,6 +48,8 @@ import { NfsRequestBuilderNavigationMetadata, NfsRequestBuilderRequestsMetadata,
 // @ts-ignore
 import { OneClicksRequestBuilderNavigationMetadata, OneClicksRequestBuilderRequestsMetadata, type OneClicksRequestBuilder } from './oneClicks/index.js';
 // @ts-ignore
+import { OrganizationsRequestBuilderNavigationMetadata, type OrganizationsRequestBuilder } from './organizations/index.js';
+// @ts-ignore
 import { Partner_network_connectRequestBuilderNavigationMetadata, type Partner_network_connectRequestBuilder } from './partner_network_connect/index.js';
 // @ts-ignore
 import { ProjectsRequestBuilderNavigationMetadata, ProjectsRequestBuilderRequestsMetadata, type ProjectsRequestBuilder } from './projects/index.js';
@@ -184,6 +186,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The OneClicks property
      */
     get oneClicks(): OneClicksRequestBuilder;
+    /**
+     * The organizations property
+     */
+    get organizations(): OrganizationsRequestBuilder;
     /**
      * The partner_network_connect property
      */
@@ -352,6 +358,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     oneClicks: {
         requestsMetadata: OneClicksRequestBuilderRequestsMetadata,
         navigationMetadata: OneClicksRequestBuilderNavigationMetadata,
+    },
+    organizations: {
+        navigationMetadata: OrganizationsRequestBuilderNavigationMetadata,
     },
     partner_network_connect: {
         navigationMetadata: Partner_network_connectRequestBuilderNavigationMetadata,
