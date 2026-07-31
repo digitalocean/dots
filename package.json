@@ -6,6 +6,7 @@
   "main": "index.js",
   "exports": {
     ".": "./index.js",
+    "./action_gateway": "./src/action-gateway/index.js",
     "./inference": "./src/inference-gen/inference.js",
     "./package.json": "./package.json",
     "./*": "./*"

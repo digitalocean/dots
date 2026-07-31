@@ -4,6 +4,8 @@
 // @ts-ignore
 import { AccountRequestBuilderNavigationMetadata, AccountRequestBuilderRequestsMetadata, type AccountRequestBuilder } from './account/index.js';
 // @ts-ignore
+import { ActionGatewayRequestBuilderNavigationMetadata, type ActionGatewayRequestBuilder } from './actionGateway/index.js';
+// @ts-ignore
 import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsMetadata, type ActionsRequestBuilder } from './actions/index.js';
 // @ts-ignore
 import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } from './addOns/index.js';
@@ -96,6 +98,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The account property
      */
     get account(): AccountRequestBuilder;
+    /**
+     * The actionGateway property
+     */
+    get actionGateway(): ActionGatewayRequestBuilder;
     /**
      * The actions property
      */
@@ -272,6 +278,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     account: {
         requestsMetadata: AccountRequestBuilderRequestsMetadata,
         navigationMetadata: AccountRequestBuilderNavigationMetadata,
+    },
+    actionGateway: {
+        navigationMetadata: ActionGatewayRequestBuilderNavigationMetadata,
     },
     actions: {
         requestsMetadata: ActionsRequestBuilderRequestsMetadata,

@@ -22,6 +22,15 @@ npm i @digitalocean/dots
 
 https://digitaloceandots.readthedocs.io/en/latest/
 
+#### **Action Gateway**
+
+Use `@digitalocean/dots/action_gateway` for session-bound tools with Chat
+Completions, Messages, and Responses. Toolbelt CRUD is generated from the
+public DigitalOcean OpenAPI specification, with a `createToolbelt` convenience
+method on `ActionGatewayClient`.
+
+See the [Action Gateway guide and TypeScript examples](./examples/action-gateway).
+
 ## **Basic Usage**
 > A quick guide to getting started with client
 #### Authenticating 

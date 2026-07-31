@@ -7372,7 +7372,7 @@ export interface App_event_autoscaling_components extends AdditionalDataHolder, 
 }
 export type App_event_autoscaling_phase = (typeof App_event_autoscaling_phaseObject)[keyof typeof App_event_autoscaling_phaseObject];
 export type App_event_type = (typeof App_event_typeObject)[keyof typeof App_event_typeObject];
-export interface App_events extends Pagination, Parsable {
+export interface App_events extends Pages_pagination, Parsable {
     /**
      * The events property
      */
@@ -7719,7 +7719,7 @@ export interface App_job_invocation_trigger_scheduled_schedule extends Additiona
     timeZone?: string | null;
 }
 export type App_job_invocation_trigger_type = (typeof App_job_invocation_trigger_typeObject)[keyof typeof App_job_invocation_trigger_typeObject];
-export interface App_job_invocations extends Pagination, Parsable {
+export interface App_job_invocations extends Pages_pagination, Parsable {
     /**
      * The job_invocations property
      */
@@ -8409,7 +8409,7 @@ export interface Apps_cors_policy extends AdditionalDataHolder, Parsable {
 }
 export interface Apps_create_app_request extends AdditionalDataHolder, Parsable {
     /**
-     * The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.<br><br>Requires `project:update` scope.
+     * The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.<br><br>Requires `project:assign_resource` scope.
      */
     projectId?: string | null;
     /**
@@ -9178,6 +9178,54 @@ export interface Async_invoke_response extends AdditionalDataHolder, Parsable {
 export interface Async_invoke_response_output extends AdditionalDataHolder, Parsable {
 }
 export type Async_invoke_response_status = (typeof Async_invoke_response_statusObject)[keyof typeof Async_invoke_response_statusObject];
+export interface Auth_injection extends Parsable {
+    /**
+     * The location property
+     */
+    location?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The scheme property
+     */
+    scheme?: string | null;
+}
+export interface Auth_spec extends Parsable {
+    /**
+     * BaseURLResolution declaratively describes a post-token-exchange lookup anOAuth-backed tool needs to compute its real request base_url (e.g. JiraCloud's per-site cloudId indirection). strategy is a oneof so exactly oneresolution kind can ever be set at a time; "http_lookup" is the only kindimplemented today, see action-executor/internal/credentials for thegeneric resolver that executes this recipe.
+     */
+    baseUrlResolution?: Base_url_resolution | null;
+    /**
+     * The credentialBinding property
+     */
+    credentialBinding?: string | null;
+    /**
+     * The credentialRefSource property
+     */
+    credentialRefSource?: string | null;
+    /**
+     * The doManagedCredentialRef property
+     */
+    doManagedCredentialRef?: string | null;
+    /**
+     * The injection property
+     */
+    injection?: Auth_injection | null;
+    /**
+     * The modes property
+     */
+    modes?: string[] | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+}
 export interface Autoscale_pool extends AdditionalDataHolder, Parsable {
     /**
      * The number of active Droplets in the autoscale pool.
@@ -9353,6 +9401,15 @@ export interface Balance extends AdditionalDataHolder, Parsable {
      * Amount used in the current billing period as of the `generated_at` time.
      */
     monthToDateUsage?: string | null;
+}
+/**
+ * BaseURLResolution declaratively describes a post-token-exchange lookup anOAuth-backed tool needs to compute its real request base_url (e.g. JiraCloud's per-site cloudId indirection). strategy is a oneof so exactly oneresolution kind can ever be set at a time; "http_lookup" is the only kindimplemented today, see action-executor/internal/credentials for thegeneric resolver that executes this recipe.
+ */
+export interface Base_url_resolution extends Parsable {
+    /**
+     * HTTPLookupSpec resolves a base_url by calling url (bearer-authenticatedwith the just-exchanged access token), selecting an entry in the JSON array,extracting extract_field from that entry, and substituting it for "{value}"in base_url_template. When match_field and match_value are both set, theyselect the entry. When both are empty, exactly one entry whose own "scopes"array contains required_scopes must exist. Configuring only one match fieldis invalid. Resolution fails fast on zero or multiple compatible entries.
+     */
+    httpLookup?: Http_lookup_spec | null;
 }
 /**
  * A Batch Inference job.
@@ -10271,6 +10328,20 @@ export interface Check_updatable extends AdditionalDataHolder, Parsable {
 }
 export type Check_updatable_regions = (typeof Check_updatable_regionsObject)[keyof typeof Check_updatable_regionsObject];
 export type Check_updatable_type = (typeof Check_updatable_typeObject)[keyof typeof Check_updatable_typeObject];
+export interface Classification extends Parsable {
+    /**
+     * The dataClasses property
+     */
+    dataClasses?: string[] | null;
+    /**
+     * The operation property
+     */
+    operation?: string | null;
+    /**
+     * The risk property
+     */
+    risk?: string | null;
+}
 export interface Cluster extends AdditionalDataHolder, Parsable {
     /**
      * An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
@@ -10336,6 +10407,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -10472,6 +10547,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
     /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
@@ -10615,6 +10694,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
     /**
+     * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+     */
+    p2pOciRegistryPlugin?: P2p_oci_registry_plugin | null;
+    /**
      * An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
      */
     rdmaSharedDevPlugin?: Rdma_shared_dev_plugin | null;
@@ -10748,6 +10831,68 @@ export interface Completion_usage_cache_creation extends AdditionalDataHolder, P
      */
     ephemeral5mInputTokens?: number | null;
 }
+/**
+ * ConnectionAuthorization is present only while a connection is pending. TheUI sends the user to connect_url and polls GetConnection until the connectionbecomes active or expires. The Secrets Manager poll URL is never exposed.
+ */
+export interface Connection_authorization extends Parsable {
+    /**
+     * The connect_url property
+     */
+    connectUrl?: string | null;
+    /**
+     * The expires_at property
+     */
+    expiresAt?: Date | null;
+    /**
+     * The status property
+     */
+    status?: string | null;
+    /**
+     * The verification_code property
+     */
+    verificationCode?: string | null;
+}
+/**
+ * ConnectionParameterSpec describes one non-sensitive value collected whileconfiguring a provider connection. The UI and MCP clients render thesespecifications generically.
+ */
+export interface Connection_parameter_spec extends Parsable {
+    /**
+     * The allowed_host_suffixes property
+     */
+    allowedHostSuffixes?: string[] | null;
+    /**
+     * The allowed_values property
+     */
+    allowedValues?: string[] | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The input_kind property
+     */
+    inputKind?: string | null;
+    /**
+     * The key property
+     */
+    key?: string | null;
+    /**
+     * The label property
+     */
+    label?: string | null;
+    /**
+     * The max_length property
+     */
+    maxLength?: number | null;
+    /**
+     * The normalization property
+     */
+    normalization?: string | null;
+    /**
+     * The required property
+     */
+    required?: boolean | null;
+}
 export interface Connection_pool extends AdditionalDataHolder, Parsable {
     /**
      * The connection property
@@ -10831,6 +10976,36 @@ export interface Coredns_autoscaler extends AdditionalDataHolder, Parsable {
      * Indicates whether the CoreDNS Cluster Proportional Autoscaler add-on is enabled.
      */
     enabled?: boolean | null;
+}
+export interface Create_connection_request extends Parsable {
+    /**
+     * The connection_parameters property
+     */
+    connectionParameters?: Create_connection_request_connection_parameters | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+    /**
+     * The user_id property
+     */
+    userId?: string | null;
+}
+export interface Create_connection_request_connection_parameters extends AdditionalDataHolder, Parsable {
+}
+export interface Create_connection_response extends Parsable {
+    /**
+     * ConnectionAuthorization is present only while a connection is pending. TheUI sends the user to connect_url and polls GetConnection until the connectionbecomes active or expires. The Secrets Manager poll URL is never exposed.
+     */
+    authorization?: Connection_authorization | null;
+    /**
+     * -----------------------------------------------------------------------------OAuth connection resources-----------------------------------------------------------------------------OAuthConnection is the public, team-scoped connection metadata returned tothe UI. It deliberately excludes the team ID, Secrets Manager assignment,actor identifiers, poll URL, and authorization handle.
+     */
+    connection?: Oauth_connection | null;
 }
 /**
  * Request body for image generation.
@@ -11161,6 +11336,51 @@ export interface Create_secret_response extends AdditionalDataHolder, Parsable {
      * The version of the secret after the operation.
      */
     version?: number | null;
+}
+export interface Create_session_request extends Parsable {
+    /**
+     * The actor_id property
+     */
+    actorId?: string | null;
+    /**
+     * Opaque session options. config.preloadTools may contain concrete toolnames (optionally version-pinned) and version-pinned toolbelt references.
+     */
+    config?: Create_session_request_config | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * Invocation policy. Omit to use a default action of ask.
+     */
+    policy?: Session_policy_spec | null;
+    /**
+     * Omitted enables every tool. An explicit empty array enables no tools.Direct tools may be <tool> or <tool>@<version>; toolbelt references mustbe version-pinned as toolbelt:<belt-name>@<version>.
+     */
+    tools?: string[] | null;
+}
+/**
+ * Opaque session options. config.preloadTools may contain concrete toolnames (optionally version-pinned) and version-pinned toolbelt references.
+ */
+export interface Create_session_request_config extends AdditionalDataHolder, Parsable {
+    /**
+     * Concrete tools or pinned toolbelts to expose directly beside the session meta-tools.
+     */
+    preloadTools?: string[] | null;
+}
+export interface Create_session_response extends Parsable {
+    /**
+     * Public session-pinned MCP URL.
+     */
+    mcpUrl?: string | null;
+    /**
+     * A session and the tool-permission policy bound to it.
+     */
+    session?: Public_session_policy | null;
+    /**
+     * Canonical, version-pinned selected tool references.
+     */
+    tools?: string[] | null;
 }
 export interface Create_trigger extends AdditionalDataHolder, Parsable {
     /**
@@ -15237,6 +15457,24 @@ export function createAsync_invoke_responseFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Auth_injection}
+ */
+// @ts-ignore
+export function createAuth_injectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAuth_injection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Auth_spec}
+ */
+// @ts-ignore
+export function createAuth_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAuth_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Autoscale_pool_dynamic_config | Autoscale_pool_static_config}
  */
 // @ts-ignore
@@ -15323,6 +15561,15 @@ export function createBackward_linksFromDiscriminatorValue(parseNode: ParseNode 
 // @ts-ignore
 export function createBalanceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBalance;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Base_url_resolution}
+ */
+// @ts-ignore
+export function createBase_url_resolutionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoBase_url_resolution;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -15741,6 +15988,15 @@ export function createCheckFromDiscriminatorValue(parseNode: ParseNode | undefin
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Classification}
+ */
+// @ts-ignore
+export function createClassificationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoClassification;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Cluster_autoscaler_configuration}
  */
 // @ts-ignore
@@ -15867,6 +16123,24 @@ export function createCompletion_usageFromDiscriminatorValue(parseNode: ParseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Connection_authorization}
+ */
+// @ts-ignore
+export function createConnection_authorizationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoConnection_authorization;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Connection_parameter_spec}
+ */
+// @ts-ignore
+export function createConnection_parameter_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoConnection_parameter_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Connection_pool_update}
  */
 // @ts-ignore
@@ -15908,6 +16182,33 @@ export function createControl_plane_firewallFromDiscriminatorValue(parseNode: Pa
 // @ts-ignore
 export function createCoredns_autoscalerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCoredns_autoscaler;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_connection_request_connection_parameters}
+ */
+// @ts-ignore
+export function createCreate_connection_request_connection_parametersFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_connection_request_connection_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_connection_request}
+ */
+// @ts-ignore
+export function createCreate_connection_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_connection_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_connection_response}
+ */
+// @ts-ignore
+export function createCreate_connection_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_connection_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16079,6 +16380,33 @@ export function createCreate_response_responseFromDiscriminatorValue(parseNode: 
 // @ts-ignore
 export function createCreate_secret_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCreate_secret_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_session_request_config}
+ */
+// @ts-ignore
+export function createCreate_session_request_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_session_request_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_session_request}
+ */
+// @ts-ignore
+export function createCreate_session_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_session_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_session_response}
+ */
+// @ts-ignore
+export function createCreate_session_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_session_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16466,6 +16794,24 @@ export function createDedicated_inference_update_requestFromDiscriminatorValue(p
 // @ts-ignore
 export function createDedicated_inferenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDedicated_inference;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Delete_connection_response}
+ */
+// @ts-ignore
+export function createDelete_connection_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDelete_connection_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Delete_session_response}
+ */
+// @ts-ignore
+export function createDelete_session_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDelete_session_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16947,6 +17293,15 @@ export function createEvents_logsFromDiscriminatorValue(parseNode: ParseNode | u
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Execution_spec}
+ */
+// @ts-ignore
+export function createExecution_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoExecution_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Firewall_pending_changes}
  */
 // @ts-ignore
@@ -17149,6 +17504,24 @@ export function createGenerated_imageFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Get_connection_response}
+ */
+// @ts-ignore
+export function createGet_connection_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoGet_connection_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Get_user_response}
+ */
+// @ts-ignore
+export function createGet_user_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoGet_user_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Glb_settings_cdn}
  */
 // @ts-ignore
@@ -17217,6 +17590,33 @@ export function createHealth_checkFromDiscriminatorValue(parseNode: ParseNode | 
 // @ts-ignore
 export function createHistoryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoHistory;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Hook_spec}
+ */
+// @ts-ignore
+export function createHook_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoHook_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Http_execution}
+ */
+// @ts-ignore
+export function createHttp_executionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoHttp_execution;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Http_lookup_spec}
+ */
+// @ts-ignore
+export function createHttp_lookup_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoHttp_lookup_spec;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -17590,11 +17990,65 @@ export function createLb_firewallFromDiscriminatorValue(parseNode: ParseNode | u
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_connections_response}
+ */
+// @ts-ignore
+export function createList_connections_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_connections_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {List_models_response}
  */
 // @ts-ignore
 export function createList_models_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoList_models_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_providers_response}
+ */
+// @ts-ignore
+export function createList_providers_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_providers_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_sessions_response}
+ */
+// @ts-ignore
+export function createList_sessions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_sessions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_toolkits_response}
+ */
+// @ts-ignore
+export function createList_toolkits_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_toolkits_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_tools_response}
+ */
+// @ts-ignore
+export function createList_tools_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_tools_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_users_response}
+ */
+// @ts-ignore
+export function createList_users_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_users_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -17712,6 +18166,15 @@ export function createLogsink_verboseFromDiscriminatorValue(parseNode: ParseNode
 // @ts-ignore
 export function createMaintenance_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMaintenance_policy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Mcp_execution}
+ */
+// @ts-ignore
+export function createMcp_executionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMcp_execution;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18337,6 +18800,24 @@ export function createNvidia_gpu_device_pluginFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Oauth_connection_connection_parameters}
+ */
+// @ts-ignore
+export function createOauth_connection_connection_parametersFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoOauth_connection_connection_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Oauth_connection}
+ */
+// @ts-ignore
+export function createOauth_connectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoOauth_connection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {OneClicks_create}
  */
 // @ts-ignore
@@ -18562,6 +19043,15 @@ export function createOptionsFromDiscriminatorValue(parseNode: ParseNode | undef
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {P2p_oci_registry_plugin}
+ */
+// @ts-ignore
+export function createP2p_oci_registry_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoP2p_oci_registry_plugin;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Backward_links | Forward_links | Page_links_pagesMember1}
  */
 // @ts-ignore
@@ -18585,6 +19075,15 @@ export function createPage_links_pagesMember1FromDiscriminatorValue(parseNode: P
 // @ts-ignore
 export function createPage_linksFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoPage_links;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Pages_pagination}
+ */
+// @ts-ignore
+export function createPages_paginationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPages_pagination;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18706,6 +19205,15 @@ export function createPgbouncer_advanced_configFromDiscriminatorValue(parseNode:
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Policy_spec}
+ */
+// @ts-ignore
+export function createPolicy_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPolicy_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Postgres_advanced_config}
  */
 // @ts-ignore
@@ -18765,6 +19273,33 @@ export function createProject_baseFromDiscriminatorValue(parseNode: ParseNode | 
 // @ts-ignore
 export function createProjectFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoProject;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_summary}
+ */
+// @ts-ignore
+export function createProvider_summaryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_summary;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Public_session_policy_config}
+ */
+// @ts-ignore
+export function createPublic_session_policy_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPublic_session_policy_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Public_session_policy}
+ */
+// @ts-ignore
+export function createPublic_session_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPublic_session_policy;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18855,6 +19390,15 @@ export function createRegistry_run_gcFromDiscriminatorValue(parseNode: ParseNode
 // @ts-ignore
 export function createRegistryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoRegistry;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Reliability_spec}
+ */
+// @ts-ignore
+export function createReliability_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoReliability_spec;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19074,6 +19618,15 @@ export function createResponse_usageFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Retry_spec}
+ */
+// @ts-ignore
+export function createRetry_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoRetry_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Routing_agent}
  */
 // @ts-ignore
@@ -19187,6 +19740,51 @@ export function createSecretFromDiscriminatorValue(parseNode: ParseNode | undefi
 // @ts-ignore
 export function createSelective_destroy_associated_resourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSelective_destroy_associated_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_policy_rule_match}
+ */
+// @ts-ignore
+export function createSession_policy_rule_matchFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_policy_rule_match;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_policy_rule}
+ */
+// @ts-ignore
+export function createSession_policy_ruleFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_policy_rule;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_policy_spec}
+ */
+// @ts-ignore
+export function createSession_policy_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_policy_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_tool_reference}
+ */
+// @ts-ignore
+export function createSession_tool_referenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_tool_reference;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_tool_selection}
+ */
+// @ts-ignore
+export function createSession_tool_selectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_tool_selection;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19488,6 +20086,159 @@ export function createTimescaledb_advanced_configFromDiscriminatorValue(parseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_annotations}
+ */
+// @ts-ignore
+export function createTool_annotationsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_annotations;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_definition_inputSchema}
+ */
+// @ts-ignore
+export function createTool_definition_inputSchemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_definition_inputSchema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_definition_outputSchema}
+ */
+// @ts-ignore
+export function createTool_definition_outputSchemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_definition_outputSchema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_definition}
+ */
+// @ts-ignore
+export function createTool_definitionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_definition;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_inputSchema}
+ */
+// @ts-ignore
+export function createTool_inputSchemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_inputSchema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_outputSchema}
+ */
+// @ts-ignore
+export function createTool_outputSchemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_outputSchema;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_create}
+ */
+// @ts-ignore
+export function createToolbelt_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_response}
+ */
+// @ts-ignore
+export function createToolbelt_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_summary}
+ */
+// @ts-ignore
+export function createToolbelt_summaryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_summary;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt_tools}
+ */
+// @ts-ignore
+export function createToolbelt_toolsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt_tools;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelt}
+ */
+// @ts-ignore
+export function createToolbeltFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelt;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolbelts_response}
+ */
+// @ts-ignore
+export function createToolbelts_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolbelts_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool}
+ */
+// @ts-ignore
+export function createToolFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Toolkit}
+ */
+// @ts-ignore
+export function createToolkitFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoToolkit;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Transform_spec_input}
+ */
+// @ts-ignore
+export function createTransform_spec_inputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTransform_spec_input;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Transform_spec_output}
+ */
+// @ts-ignore
+export function createTransform_spec_outputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTransform_spec_output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Transform_spec}
+ */
+// @ts-ignore
+export function createTransform_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTransform_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Trigger_info_scheduled_runs}
  */
 // @ts-ignore
@@ -19502,6 +20253,33 @@ export function createTrigger_info_scheduled_runsFromDiscriminatorValue(parseNod
 // @ts-ignore
 export function createTrigger_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoTrigger_info;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Update_connection_parameters_request_connection_parameters}
+ */
+// @ts-ignore
+export function createUpdate_connection_parameters_request_connection_parametersFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUpdate_connection_parameters_request_connection_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Update_connection_parameters_request}
+ */
+// @ts-ignore
+export function createUpdate_connection_parameters_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUpdate_connection_parameters_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Update_connection_parameters_response}
+ */
+// @ts-ignore
+export function createUpdate_connection_parameters_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUpdate_connection_parameters_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19533,11 +20311,29 @@ export function createUpdate_triggerFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {User_kubernetes_cluster_user}
+ * @returns {Usage_meter}
  */
 // @ts-ignore
-export function createUser_kubernetes_cluster_userFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoUser_kubernetes_cluster_user;
+export function createUsage_meterFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUsage_meter;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Usage_spec}
+ */
+// @ts-ignore
+export function createUsage_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUsage_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {User_session}
+ */
+// @ts-ignore
+export function createUser_sessionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUser_session;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19574,6 +20370,24 @@ export function createUser_settings_opensearch_aclFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createUser_settingsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoUser_settings;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {User2_kubernetes_cluster_user}
+ */
+// @ts-ignore
+export function createUser2_kubernetes_cluster_userFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUser2_kubernetes_cluster_user;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {User2}
+ */
+// @ts-ignore
+export function createUser2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUser2;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -20177,7 +20991,7 @@ export interface Database_cluster extends AdditionalDataHolder, Parsable {
      */
     privateNetworkUuid?: string | null;
     /**
-     * The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.<br><br>Requires `project:update` scope.
+     * The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.<br><br>Requires `project:assign_resource` scope.
      */
     projectId?: Guid | null;
     /**
@@ -20896,6 +21710,14 @@ export interface Dedicated_inference_update_request_access_tokens extends Parsab
      * Hugging Face token required for gated models.
      */
     huggingFaceToken?: string | null;
+}
+export interface Delete_connection_response extends Parsable {
+    /**
+     * -----------------------------------------------------------------------------OAuth connection resources-----------------------------------------------------------------------------OAuthConnection is the public, team-scoped connection metadata returned tothe UI. It deliberately excludes the team ID, Secrets Manager assignment,actor identifiers, poll URL, and authorization handle.
+     */
+    connection?: Oauth_connection | null;
+}
+export interface Delete_session_response extends Parsable {
 }
 /**
  * The deserialization information for the current model
@@ -25835,7 +26657,7 @@ export function deserializeIntoApp_event_autoscaling_components(app_event_autosc
 // @ts-ignore
 export function deserializeIntoApp_events(app_events: Partial<App_events> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        ...deserializeIntoPagination(app_events),
+        ...deserializeIntoPages_pagination(app_events),
         "events": n => { app_events.events = n.getCollectionOfObjectValues<App_event>(createApp_eventFromDiscriminatorValue); },
     }
 }
@@ -26124,7 +26946,7 @@ export function deserializeIntoApp_job_invocation_trigger_scheduled_schedule(app
 // @ts-ignore
 export function deserializeIntoApp_job_invocations(app_job_invocations: Partial<App_job_invocations> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        ...deserializeIntoPagination(app_job_invocations),
+        ...deserializeIntoPages_pagination(app_job_invocations),
         "job_invocations": n => { app_job_invocations.jobInvocations = n.getCollectionOfObjectValues<App_job_invocation>(createApp_job_invocationFromDiscriminatorValue); },
     }
 }
@@ -27218,6 +28040,37 @@ export function deserializeIntoAsync_invoke_response_output(async_invoke_respons
 }
 /**
  * The deserialization information for the current model
+ * @param Auth_injection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAuth_injection(auth_injection: Partial<Auth_injection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "location": n => { auth_injection.location = n.getStringValue(); },
+        "name": n => { auth_injection.name = n.getStringValue(); },
+        "scheme": n => { auth_injection.scheme = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Auth_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAuth_spec(auth_spec: Partial<Auth_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "baseUrlResolution": n => { auth_spec.baseUrlResolution = n.getObjectValue<Base_url_resolution>(createBase_url_resolutionFromDiscriminatorValue); },
+        "credentialBinding": n => { auth_spec.credentialBinding = n.getStringValue(); },
+        "credentialRefSource": n => { auth_spec.credentialRefSource = n.getStringValue(); },
+        "doManagedCredentialRef": n => { auth_spec.doManagedCredentialRef = n.getStringValue(); },
+        "injection": n => { auth_spec.injection = n.getObjectValue<Auth_injection>(createAuth_injectionFromDiscriminatorValue); },
+        "modes": n => { auth_spec.modes = n.getCollectionOfPrimitiveValues<string>(); },
+        "provider": n => { auth_spec.provider = n.getStringValue(); },
+        "scopes": n => { auth_spec.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Autoscale_pool The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -27357,6 +28210,17 @@ export function deserializeIntoBalance(balance: Partial<Balance> | undefined = {
         "generated_at": n => { balance.generatedAt = n.getDateValue(); },
         "month_to_date_balance": n => { balance.monthToDateBalance = n.getStringValue(); },
         "month_to_date_usage": n => { balance.monthToDateUsage = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Base_url_resolution The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoBase_url_resolution(base_url_resolution: Partial<Base_url_resolution> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "httpLookup": n => { base_url_resolution.httpLookup = n.getObjectValue<Http_lookup_spec>(createHttp_lookup_specFromDiscriminatorValue); },
     }
 }
 /**
@@ -28014,6 +28878,19 @@ export function deserializeIntoCheck_updatable(check_updatable: Partial<Check_up
 }
 /**
  * The deserialization information for the current model
+ * @param Classification The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoClassification(classification: Partial<Classification> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "dataClasses": n => { classification.dataClasses = n.getCollectionOfPrimitiveValues<string>(); },
+        "operation": n => { classification.operation = n.getStringValue(); },
+        "risk": n => { classification.risk = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Cluster The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -28036,6 +28913,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "name": n => { cluster.name = n.getStringValue(); },
         "node_pools": n => { cluster.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster.region = n.getStringValue(); },
         "registry_enabled": n => { cluster.registryEnabled = n.getBooleanValue(); },
@@ -28088,6 +28966,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "name": n => { cluster_read.name = n.getStringValue(); },
         "node_pools": n => { cluster_read.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster_read.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_read.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
         "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>(); },
@@ -28169,6 +29048,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "maintenance_policy": n => { cluster_update.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_update.name = n.getStringValue(); },
         "nvidia_gpu_device_plugin": n => { cluster_update.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "p2p_oci_registry_plugin": n => { cluster_update.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "sso": n => { cluster_update.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
@@ -28261,6 +29141,39 @@ export function deserializeIntoCompletion_usage_cache_creation(completion_usage_
 }
 /**
  * The deserialization information for the current model
+ * @param Connection_authorization The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoConnection_authorization(connection_authorization: Partial<Connection_authorization> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connect_url": n => { connection_authorization.connectUrl = n.getStringValue(); },
+        "expires_at": n => { connection_authorization.expiresAt = n.getDateValue(); },
+        "status": n => { connection_authorization.status = n.getStringValue(); },
+        "verification_code": n => { connection_authorization.verificationCode = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Connection_parameter_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoConnection_parameter_spec(connection_parameter_spec: Partial<Connection_parameter_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allowed_host_suffixes": n => { connection_parameter_spec.allowedHostSuffixes = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_values": n => { connection_parameter_spec.allowedValues = n.getCollectionOfPrimitiveValues<string>(); },
+        "description": n => { connection_parameter_spec.description = n.getStringValue(); },
+        "input_kind": n => { connection_parameter_spec.inputKind = n.getStringValue(); },
+        "key": n => { connection_parameter_spec.key = n.getStringValue(); },
+        "label": n => { connection_parameter_spec.label = n.getStringValue(); },
+        "max_length": n => { connection_parameter_spec.maxLength = n.getNumberValue(); },
+        "normalization": n => { connection_parameter_spec.normalization = n.getStringValue(); },
+        "required": n => { connection_parameter_spec.required = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Connection_pool The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -28324,6 +29237,42 @@ export function deserializeIntoControl_plane_firewall(control_plane_firewall: Pa
 export function deserializeIntoCoredns_autoscaler(coredns_autoscaler: Partial<Coredns_autoscaler> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "enabled": n => { coredns_autoscaler.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_connection_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_connection_request(create_connection_request: Partial<Create_connection_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connection_parameters": n => { create_connection_request.connectionParameters = n.getObjectValue<Create_connection_request_connection_parameters>(createCreate_connection_request_connection_parametersFromDiscriminatorValue); },
+        "provider": n => { create_connection_request.provider = n.getStringValue(); },
+        "scopes": n => { create_connection_request.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "user_id": n => { create_connection_request.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_connection_request_connection_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_connection_request_connection_parameters(create_connection_request_connection_parameters: Partial<Create_connection_request_connection_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_connection_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_connection_response(create_connection_response: Partial<Create_connection_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "authorization": n => { create_connection_response.authorization = n.getObjectValue<Connection_authorization>(createConnection_authorizationFromDiscriminatorValue); },
+        "connection": n => { create_connection_response.connection = n.getObjectValue<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
     }
 }
 /**
@@ -28585,6 +29534,45 @@ export function deserializeIntoCreate_secret_response(create_secret_response: Pa
         "name": n => { create_secret_response.name = n.getStringValue(); },
         "region": n => { create_secret_response.region = n.getStringValue(); },
         "version": n => { create_secret_response.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_session_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_session_request(create_session_request: Partial<Create_session_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actor_id": n => { create_session_request.actorId = n.getStringValue(); },
+        "config": n => { create_session_request.config = n.getObjectValue<Create_session_request_config>(createCreate_session_request_configFromDiscriminatorValue); },
+        "name": n => { create_session_request.name = n.getStringValue(); },
+        "policy": n => { create_session_request.policy = n.getObjectValue<Session_policy_spec>(createSession_policy_specFromDiscriminatorValue); },
+        "tools": n => { create_session_request.tools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_session_request_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_session_request_config(create_session_request_config: Partial<Create_session_request_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "preloadTools": n => { create_session_request_config.preloadTools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_session_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_session_response(create_session_response: Partial<Create_session_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "mcpUrl": n => { create_session_response.mcpUrl = n.getStringValue(); },
+        "session": n => { create_session_response.session = n.getObjectValue<Public_session_policy>(createPublic_session_policyFromDiscriminatorValue); },
+        "tools": n => { create_session_response.tools = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -29223,6 +30211,27 @@ export function deserializeIntoDedicated_inference_update_request(dedicated_infe
 export function deserializeIntoDedicated_inference_update_request_access_tokens(dedicated_inference_update_request_access_tokens: Partial<Dedicated_inference_update_request_access_tokens> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "hugging_face_token": n => { dedicated_inference_update_request_access_tokens.huggingFaceToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Delete_connection_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDelete_connection_response(delete_connection_response: Partial<Delete_connection_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connection": n => { delete_connection_response.connection = n.getObjectValue<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Delete_session_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDelete_session_response(delete_session_response: Partial<Delete_session_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
     }
 }
 /**
@@ -29895,6 +30904,21 @@ export function deserializeIntoEvents_logs(events_logs: Partial<Events_logs> | u
 }
 /**
  * The deserialization information for the current model
+ * @param Execution_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoExecution_spec(execution_spec: Partial<Execution_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "adapterVersion": n => { execution_spec.adapterVersion = n.getStringValue(); },
+        "configRef": n => { execution_spec.configRef = n.getStringValue(); },
+        "http": n => { execution_spec.http = n.getObjectValue<Http_execution>(createHttp_executionFromDiscriminatorValue); },
+        "mcp": n => { execution_spec.mcp = n.getObjectValue<Mcp_execution>(createMcp_executionFromDiscriminatorValue); },
+        "type": n => { execution_spec.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Firewall The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -30172,6 +31196,29 @@ export function deserializeIntoGenerated_image(generated_image: Partial<Generate
 }
 /**
  * The deserialization information for the current model
+ * @param Get_connection_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoGet_connection_response(get_connection_response: Partial<Get_connection_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "authorization": n => { get_connection_response.authorization = n.getObjectValue<Connection_authorization>(createConnection_authorizationFromDiscriminatorValue); },
+        "connection": n => { get_connection_response.connection = n.getObjectValue<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Get_user_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoGet_user_response(get_user_response: Partial<Get_user_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "user": n => { get_user_response.user = n.getObjectValue<User>(createUserFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Glb_settings The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -30275,6 +31322,53 @@ export function deserializeIntoHistory(history: Partial<History> | undefined = {
         "reason": n => { history.reason = n.getEnumValue<History_reason>(History_reasonObject); },
         "status": n => { history.status = n.getEnumValue<History_status>(History_statusObject); },
         "updated_at": n => { history.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Hook_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoHook_spec(hook_spec: Partial<Hook_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "usage": n => { hook_spec.usage = n.getObjectValue<Usage_spec>(createUsage_specFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Http_execution The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoHttp_execution(http_execution: Partial<Http_execution> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allowedHosts": n => { http_execution.allowedHosts = n.getCollectionOfPrimitiveValues<string>(); },
+        "baseUrl": n => { http_execution.baseUrl = n.getStringValue(); },
+        "method": n => { http_execution.method = n.getStringValue(); },
+        "path": n => { http_execution.path = n.getStringValue(); },
+        "requestEncoding": n => { http_execution.requestEncoding = n.getStringValue(); },
+        "responseFormat": n => { http_execution.responseFormat = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Http_lookup_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoHttp_lookup_spec(http_lookup_spec: Partial<Http_lookup_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "baseUrlTemplate": n => { http_lookup_spec.baseUrlTemplate = n.getStringValue(); },
+        "caseInsensitive": n => { http_lookup_spec.caseInsensitive = n.getBooleanValue(); },
+        "extractField": n => { http_lookup_spec.extractField = n.getStringValue(); },
+        "matchField": n => { http_lookup_spec.matchField = n.getStringValue(); },
+        "matchValue": n => { http_lookup_spec.matchValue = n.getStringValue(); },
+        "match_value_parameter": n => { http_lookup_spec.matchValueParameter = n.getStringValue(); },
+        "method": n => { http_lookup_spec.method = n.getStringValue(); },
+        "requiredScopes": n => { http_lookup_spec.requiredScopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "trimTrailingSlash": n => { http_lookup_spec.trimTrailingSlash = n.getBooleanValue(); },
+        "url": n => { http_lookup_spec.url = n.getStringValue(); },
     }
 }
 /**
@@ -30898,6 +31992,18 @@ export function deserializeIntoLb_firewall(lb_firewall: Partial<Lb_firewall> | u
 }
 /**
  * The deserialization information for the current model
+ * @param List_connections_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_connections_response(list_connections_response: Partial<List_connections_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connections": n => { list_connections_response.connections = n.getCollectionOfObjectValues<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
+        "pagination": n => { list_connections_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param List_models_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -30906,6 +32012,67 @@ export function deserializeIntoList_models_response(list_models_response: Partia
     return {
         "data": n => { list_models_response.data = n.getCollectionOfObjectValues<Model>(createModelFromDiscriminatorValue); },
         "object": n => { list_models_response.object = n.getEnumValue<List_models_response_object>(List_models_response_objectObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_providers_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_providers_response(list_providers_response: Partial<List_providers_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "providers": n => { list_providers_response.providers = n.getCollectionOfObjectValues<Provider_summary>(createProvider_summaryFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_sessions_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_sessions_response(list_sessions_response: Partial<List_sessions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "pagination": n => { list_sessions_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
+        "sessions": n => { list_sessions_response.sessions = n.getCollectionOfObjectValues<Public_session_policy>(createPublic_session_policyFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_toolkits_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_toolkits_response(list_toolkits_response: Partial<List_toolkits_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "toolkits": n => { list_toolkits_response.toolkits = n.getCollectionOfObjectValues<Toolkit>(createToolkitFromDiscriminatorValue); },
+        "version": n => { list_toolkits_response.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_tools_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_tools_response(list_tools_response: Partial<List_tools_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "definitions": n => { list_tools_response.definitions = n.getCollectionOfObjectValues<Tool_definition>(createTool_definitionFromDiscriminatorValue); },
+        "pagination": n => { list_tools_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
+        "tools": n => { list_tools_response.tools = n.getCollectionOfObjectValues<Tool>(createToolFromDiscriminatorValue); },
+        "version": n => { list_tools_response.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_users_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_users_response(list_users_response: Partial<List_users_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "pagination": n => { list_users_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
+        "user_ids": n => { list_users_response.userIds = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -31094,6 +32261,21 @@ export function deserializeIntoMaintenance_policy(maintenance_policy: Partial<Ma
         "day": n => { maintenance_policy.day = n.getEnumValue<Maintenance_policy_day>(Maintenance_policy_dayObject); },
         "duration": n => { maintenance_policy.duration = n.getStringValue(); },
         "start_time": n => { maintenance_policy.startTime = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Mcp_execution The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMcp_execution(mcp_execution: Partial<Mcp_execution> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allowedHosts": n => { mcp_execution.allowedHosts = n.getCollectionOfPrimitiveValues<string>(); },
+        "endpoint": n => { mcp_execution.endpoint = n.getStringValue(); },
+        "serverRef": n => { mcp_execution.serverRef = n.getStringValue(); },
+        "toolName": n => { mcp_execution.toolName = n.getStringValue(); },
+        "transport": n => { mcp_execution.transport = n.getStringValue(); },
     }
 }
 /**
@@ -31523,20 +32705,30 @@ export function deserializeIntoMultiregistry_create(multiregistry_create: Partia
 // @ts-ignore
 export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Partial<Mysql_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "automatic_sp_privileges": n => { mysql_advanced_config.automaticSpPrivileges = n.getBooleanValue(); },
         "backup_hour": n => { mysql_advanced_config.backupHour = n.getNumberValue(); },
         "backup_minute": n => { mysql_advanced_config.backupMinute = n.getNumberValue(); },
         "binlog_retention_period": n => { mysql_advanced_config.binlogRetentionPeriod = n.getNumberValue(); },
         "connect_timeout": n => { mysql_advanced_config.connectTimeout = n.getNumberValue(); },
         "default_time_zone": n => { mysql_advanced_config.defaultTimeZone = n.getStringValue(); },
+        "div_precision_increment": n => { mysql_advanced_config.divPrecisionIncrement = n.getNumberValue(); },
+        "end_markers_in_json": n => { mysql_advanced_config.endMarkersInJson = n.getBooleanValue(); },
+        "eq_range_index_dive_limit": n => { mysql_advanced_config.eqRangeIndexDiveLimit = n.getNumberValue(); },
         "group_concat_max_len": n => { mysql_advanced_config.groupConcatMaxLen = n.getNumberValue(); },
         "information_schema_stats_expiry": n => { mysql_advanced_config.informationSchemaStatsExpiry = n.getNumberValue(); },
         "innodb_change_buffer_max_size": n => { mysql_advanced_config.innodbChangeBufferMaxSize = n.getNumberValue(); },
         "innodb_flush_neighbors": n => { mysql_advanced_config.innodbFlushNeighbors = n.getNumberValue(); },
+        "innodb_ft_enable_stopword": n => { mysql_advanced_config.innodbFtEnableStopword = n.getBooleanValue(); },
+        "innodb_ft_max_token_size": n => { mysql_advanced_config.innodbFtMaxTokenSize = n.getNumberValue(); },
         "innodb_ft_min_token_size": n => { mysql_advanced_config.innodbFtMinTokenSize = n.getNumberValue(); },
+        "innodb_ft_num_word_optimize": n => { mysql_advanced_config.innodbFtNumWordOptimize = n.getNumberValue(); },
+        "innodb_ft_result_cache_limit": n => { mysql_advanced_config.innodbFtResultCacheLimit = n.getNumberValue(); },
         "innodb_ft_server_stopword_table": n => { mysql_advanced_config.innodbFtServerStopwordTable = n.getStringValue(); },
+        "innodb_ft_user_stopword_table": n => { mysql_advanced_config.innodbFtUserStopwordTable = n.getStringValue(); },
         "innodb_lock_wait_timeout": n => { mysql_advanced_config.innodbLockWaitTimeout = n.getNumberValue(); },
         "innodb_log_buffer_size": n => { mysql_advanced_config.innodbLogBufferSize = n.getNumberValue(); },
         "innodb_online_alter_log_max_size": n => { mysql_advanced_config.innodbOnlineAlterLogMaxSize = n.getNumberValue(); },
+        "innodb_optimize_fulltext_only": n => { mysql_advanced_config.innodbOptimizeFulltextOnly = n.getBooleanValue(); },
         "innodb_print_all_deadlocks": n => { mysql_advanced_config.innodbPrintAllDeadlocks = n.getBooleanValue(); },
         "innodb_read_io_threads": n => { mysql_advanced_config.innodbReadIoThreads = n.getNumberValue(); },
         "innodb_rollback_on_timeout": n => { mysql_advanced_config.innodbRollbackOnTimeout = n.getBooleanValue(); },
@@ -31547,17 +32739,23 @@ export function deserializeIntoMysql_advanced_config(mysql_advanced_config: Part
         "log_output": n => { mysql_advanced_config.logOutput = n.getEnumValue<Mysql_advanced_config_log_output>(Mysql_advanced_config_log_outputObject) ?? Mysql_advanced_config_log_outputObject.NONE; },
         "long_query_time": n => { mysql_advanced_config.longQueryTime = n.getNumberValue(); },
         "max_allowed_packet": n => { mysql_advanced_config.maxAllowedPacket = n.getNumberValue(); },
+        "max_execution_time": n => { mysql_advanced_config.maxExecutionTime = n.getNumberValue(); },
         "max_heap_table_size": n => { mysql_advanced_config.maxHeapTableSize = n.getNumberValue(); },
+        "max_seeks_for_key": n => { mysql_advanced_config.maxSeeksForKey = n.getNumberValue(); },
         "mysql_incremental_backup": n => { mysql_advanced_config.mysqlIncrementalBackup = n.getObjectValue<Mysql_incremental_backup>(createMysql_incremental_backupFromDiscriminatorValue); },
         "net_buffer_length": n => { mysql_advanced_config.netBufferLength = n.getNumberValue(); },
         "net_read_timeout": n => { mysql_advanced_config.netReadTimeout = n.getNumberValue(); },
         "net_write_timeout": n => { mysql_advanced_config.netWriteTimeout = n.getNumberValue(); },
+        "optimizer_prune_level": n => { mysql_advanced_config.optimizerPruneLevel = n.getNumberValue(); },
+        "optimizer_search_depth": n => { mysql_advanced_config.optimizerSearchDepth = n.getNumberValue(); },
+        "optimizer_switch": n => { mysql_advanced_config.optimizerSwitch = n.getStringValue(); },
         "slow_query_log": n => { mysql_advanced_config.slowQueryLog = n.getBooleanValue(); },
         "sort_buffer_size": n => { mysql_advanced_config.sortBufferSize = n.getNumberValue(); },
         "sql_mode": n => { mysql_advanced_config.sqlMode = n.getStringValue(); },
         "sql_require_primary_key": n => { mysql_advanced_config.sqlRequirePrimaryKey = n.getBooleanValue(); },
         "tmp_table_size": n => { mysql_advanced_config.tmpTableSize = n.getNumberValue(); },
         "wait_timeout": n => { mysql_advanced_config.waitTimeout = n.getNumberValue(); },
+        "windowing_use_high_precision": n => { mysql_advanced_config.windowingUseHighPrecision = n.getBooleanValue(); },
     }
 }
 /**
@@ -32003,6 +33201,37 @@ export function deserializeIntoNvidia_gpu_device_plugin(nvidia_gpu_device_plugin
 }
 /**
  * The deserialization information for the current model
+ * @param Oauth_connection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoOauth_connection(oauth_connection: Partial<Oauth_connection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connection_parameters": n => { oauth_connection.connectionParameters = n.getObjectValue<Oauth_connection_connection_parameters>(createOauth_connection_connection_parametersFromDiscriminatorValue); },
+        "created_at": n => { oauth_connection.createdAt = n.getDateValue(); },
+        "granted_at": n => { oauth_connection.grantedAt = n.getDateValue(); },
+        "id": n => { oauth_connection.id = n.getStringValue(); },
+        "provider": n => { oauth_connection.provider = n.getStringValue(); },
+        "provider_display_name": n => { oauth_connection.providerDisplayName = n.getStringValue(); },
+        "revoked_at": n => { oauth_connection.revokedAt = n.getDateValue(); },
+        "scopes": n => { oauth_connection.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "status": n => { oauth_connection.status = n.getStringValue(); },
+        "updated_at": n => { oauth_connection.updatedAt = n.getDateValue(); },
+        "user_id": n => { oauth_connection.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Oauth_connection_connection_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoOauth_connection_connection_parameters(oauth_connection_connection_parameters: Partial<Oauth_connection_connection_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param OneClicks The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -32390,6 +33619,17 @@ export function deserializeIntoOptions_version_availability(options_version_avai
 }
 /**
  * The deserialization information for the current model
+ * @param P2p_oci_registry_plugin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoP2p_oci_registry_plugin(p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { p2p_oci_registry_plugin.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Page_links The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -32424,13 +33664,26 @@ export function deserializeIntoPage_links_pagesMember1(page_links_pagesMember1: 
 }
 /**
  * The deserialization information for the current model
+ * @param Pages_pagination The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPages_pagination(pages_pagination: Partial<Pages_pagination> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "links": n => { pages_pagination.links = n.getObjectValue<Page_links>(createPage_linksFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Pagination The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoPagination(pagination: Partial<Pagination> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "links": n => { pagination.links = n.getObjectValue<Page_links>(createPage_linksFromDiscriminatorValue); },
+        "page": n => { pagination.page = n.getNumberValue(); },
+        "per_page": n => { pagination.perPage = n.getNumberValue(); },
+        "total": n => { pagination.total = n.getNumberValue(); },
     }
 }
 /**
@@ -32609,6 +33862,17 @@ export function deserializeIntoPgbouncer_advanced_config(pgbouncer_advanced_conf
 }
 /**
  * The deserialization information for the current model
+ * @param Policy_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPolicy_spec(policy_spec: Partial<Policy_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "permission": n => { policy_spec.permission = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Postgres_advanced_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -32757,6 +34021,50 @@ export function deserializeIntoProject_base(project_base: Partial<Project_base> 
 }
 /**
  * The deserialization information for the current model
+ * @param Provider_summary The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_summary(provider_summary: Partial<Provider_summary> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "auth_type": n => { provider_summary.authType = n.getStringValue(); },
+        "connection_parameters": n => { provider_summary.connectionParameters = n.getCollectionOfObjectValues<Connection_parameter_spec>(createConnection_parameter_specFromDiscriminatorValue); },
+        "description": n => { provider_summary.description = n.getStringValue(); },
+        "display_name": n => { provider_summary.displayName = n.getStringValue(); },
+        "name": n => { provider_summary.name = n.getStringValue(); },
+        "scopes": n => { provider_summary.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Public_session_policy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPublic_session_policy(public_session_policy: Partial<Public_session_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actorId": n => { public_session_policy.actorId = n.getStringValue(); },
+        "config": n => { public_session_policy.config = n.getObjectValue<Public_session_policy_config>(createPublic_session_policy_configFromDiscriminatorValue); },
+        "createdAt": n => { public_session_policy.createdAt = n.getDateValue(); },
+        "name": n => { public_session_policy.name = n.getStringValue(); },
+        "policy": n => { public_session_policy.policy = n.getObjectValue<Session_policy_spec>(createSession_policy_specFromDiscriminatorValue); },
+        "sessionUrn": n => { public_session_policy.sessionUrn = n.getStringValue(); },
+        "tools": n => { public_session_policy.tools = n.getObjectValue<Session_tool_selection>(createSession_tool_selectionFromDiscriminatorValue); },
+        "updatedAt": n => { public_session_policy.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Public_session_policy_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPublic_session_policy_config(public_session_policy_config: Partial<Public_session_policy_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Purge_cache The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -32887,6 +34195,19 @@ export function deserializeIntoRegistry_create(registry_create: Partial<Registry
 export function deserializeIntoRegistry_run_gc(registry_run_gc: Partial<Registry_run_gc> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "type": n => { registry_run_gc.type = n.getEnumValue<Registry_run_gc_type>(Registry_run_gc_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Reliability_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoReliability_spec(reliability_spec: Partial<Reliability_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "maxOutputBytes": n => { reliability_spec.maxOutputBytes = n.getStringValue(); },
+        "retry": n => { reliability_spec.retry = n.getObjectValue<Retry_spec>(createRetry_specFromDiscriminatorValue); },
+        "timeoutMs": n => { reliability_spec.timeoutMs = n.getNumberValue(); },
     }
 }
 /**
@@ -33161,6 +34482,19 @@ export function deserializeIntoResponse_usage_output_tokens_details(response_usa
 }
 /**
  * The deserialization information for the current model
+ * @param Retry_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoRetry_spec(retry_spec: Partial<Retry_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "backoff": n => { retry_spec.backoff = n.getStringValue(); },
+        "maxAttempts": n => { retry_spec.maxAttempts = n.getNumberValue(); },
+        "retryOn": n => { retry_spec.retryOn = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Routing_agent The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -33343,6 +34677,65 @@ export function deserializeIntoSelective_destroy_associated_resource(selective_d
         "snapshots": n => { selective_destroy_associated_resource.snapshots = n.getCollectionOfPrimitiveValues<string>(); },
         "volumes": n => { selective_destroy_associated_resource.volumes = n.getCollectionOfPrimitiveValues<string>(); },
         "volume_snapshots": n => { selective_destroy_associated_resource.volumeSnapshots = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_policy_rule The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_policy_rule(session_policy_rule: Partial<Session_policy_rule> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "action": n => { session_policy_rule.action = n.getEnumValue<Session_policy_action>(Session_policy_actionObject) ?? Session_policy_actionObject.Ask; },
+        "match": n => { session_policy_rule.match = n.getObjectValue<Session_policy_rule_match>(createSession_policy_rule_matchFromDiscriminatorValue); },
+        "tool": n => { session_policy_rule.tool = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_policy_rule_match The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_policy_rule_match(session_policy_rule_match: Partial<Session_policy_rule_match> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_policy_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_policy_spec(session_policy_spec: Partial<Session_policy_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "defaultAction": n => { session_policy_spec.defaultAction = n.getEnumValue<Session_policy_action>(Session_policy_actionObject) ?? Session_policy_actionObject.Ask; },
+        "rules": n => { session_policy_spec.rules = n.getCollectionOfObjectValues<Session_policy_rule>(createSession_policy_ruleFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_tool_reference The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_tool_reference(session_tool_reference: Partial<Session_tool_reference> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { session_tool_reference.kind = n.getEnumValue<Session_tool_reference_kind>(Session_tool_reference_kindObject); },
+        "name": n => { session_tool_reference.name = n.getStringValue(); },
+        "version": n => { session_tool_reference.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_tool_selection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_tool_selection(session_tool_selection: Partial<Session_tool_selection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "references": n => { session_tool_selection.references = n.getCollectionOfObjectValues<Session_tool_reference>(createSession_tool_referenceFromDiscriminatorValue); },
     }
 }
 /**
@@ -33781,6 +35174,250 @@ export function deserializeIntoTimescaledb_advanced_config(timescaledb_advanced_
 }
 /**
  * The deserialization information for the current model
+ * @param Tool The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool(tool: Partial<Tool> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "annotations": n => { tool.annotations = n.getObjectValue<Tool_annotations>(createTool_annotationsFromDiscriminatorValue); },
+        "description": n => { tool.description = n.getStringValue(); },
+        "inputSchema": n => { tool.inputSchema = n.getObjectValue<Tool_inputSchema>(createTool_inputSchemaFromDiscriminatorValue); },
+        "name": n => { tool.name = n.getStringValue(); },
+        "outputSchema": n => { tool.outputSchema = n.getObjectValue<Tool_outputSchema>(createTool_outputSchemaFromDiscriminatorValue); },
+        "parallelizable": n => { tool.parallelizable = n.getBooleanValue(); },
+        "streamingSafe": n => { tool.streamingSafe = n.getBooleanValue(); },
+        "title": n => { tool.title = n.getStringValue(); },
+        "toolkitId": n => { tool.toolkitId = n.getStringValue(); },
+        "toolSlug": n => { tool.toolSlug = n.getStringValue(); },
+        "version": n => { tool.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_annotations The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_annotations(tool_annotations: Partial<Tool_annotations> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "destructiveHint": n => { tool_annotations.destructiveHint = n.getBooleanValue(); },
+        "idempotentHint": n => { tool_annotations.idempotentHint = n.getBooleanValue(); },
+        "openWorldHint": n => { tool_annotations.openWorldHint = n.getBooleanValue(); },
+        "readOnlyHint": n => { tool_annotations.readOnlyHint = n.getBooleanValue(); },
+        "title": n => { tool_annotations.title = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_definition The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_definition(tool_definition: Partial<Tool_definition> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "annotations": n => { tool_definition.annotations = n.getObjectValue<Tool_annotations>(createTool_annotationsFromDiscriminatorValue); },
+        "auth": n => { tool_definition.auth = n.getObjectValue<Auth_spec>(createAuth_specFromDiscriminatorValue); },
+        "classification": n => { tool_definition.classification = n.getObjectValue<Classification>(createClassificationFromDiscriminatorValue); },
+        "description": n => { tool_definition.description = n.getStringValue(); },
+        "execution": n => { tool_definition.execution = n.getObjectValue<Execution_spec>(createExecution_specFromDiscriminatorValue); },
+        "flipperName": n => { tool_definition.flipperName = n.getStringValue(); },
+        "hooks": n => { tool_definition.hooks = n.getObjectValue<Hook_spec>(createHook_specFromDiscriminatorValue); },
+        "inputSchema": n => { tool_definition.inputSchema = n.getObjectValue<Tool_definition_inputSchema>(createTool_definition_inputSchemaFromDiscriminatorValue); },
+        "name": n => { tool_definition.name = n.getStringValue(); },
+        "outputSchema": n => { tool_definition.outputSchema = n.getObjectValue<Tool_definition_outputSchema>(createTool_definition_outputSchemaFromDiscriminatorValue); },
+        "parallelizable": n => { tool_definition.parallelizable = n.getBooleanValue(); },
+        "policy": n => { tool_definition.policy = n.getObjectValue<Policy_spec>(createPolicy_specFromDiscriminatorValue); },
+        "reliability": n => { tool_definition.reliability = n.getObjectValue<Reliability_spec>(createReliability_specFromDiscriminatorValue); },
+        "schemaVersion": n => { tool_definition.schemaVersion = n.getStringValue(); },
+        "status": n => { tool_definition.status = n.getStringValue(); },
+        "streamingSafe": n => { tool_definition.streamingSafe = n.getBooleanValue(); },
+        "tags": n => { tool_definition.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "title": n => { tool_definition.title = n.getStringValue(); },
+        "toolId": n => { tool_definition.toolId = n.getStringValue(); },
+        "toolkitId": n => { tool_definition.toolkitId = n.getStringValue(); },
+        "toolSlug": n => { tool_definition.toolSlug = n.getStringValue(); },
+        "transform": n => { tool_definition.transform = n.getObjectValue<Transform_spec>(createTransform_specFromDiscriminatorValue); },
+        "version": n => { tool_definition.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_definition_inputSchema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_definition_inputSchema(tool_definition_inputSchema: Partial<Tool_definition_inputSchema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_definition_outputSchema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_definition_outputSchema(tool_definition_outputSchema: Partial<Tool_definition_outputSchema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_inputSchema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_inputSchema(tool_inputSchema: Partial<Tool_inputSchema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_outputSchema The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_outputSchema(tool_outputSchema: Partial<Tool_outputSchema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt(toolbelt: Partial<Toolbelt> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { toolbelt.createdAt = n.getDateValue(); },
+        "description": n => { toolbelt.description = n.getStringValue(); },
+        "display_name": n => { toolbelt.displayName = n.getStringValue(); },
+        "name": n => { toolbelt.name = n.getStringValue(); },
+        "reference": n => { toolbelt.reference = n.getStringValue(); },
+        "reference_latest": n => { toolbelt.referenceLatest = n.getStringValue(); },
+        "status": n => { toolbelt.status = n.getEnumValue<Toolbelt_status>(Toolbelt_statusObject); },
+        "tool_count": n => { toolbelt.toolCount = n.getNumberValue(); },
+        "tools": n => { toolbelt.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "updated_at": n => { toolbelt.updatedAt = n.getDateValue(); },
+        "version": n => { toolbelt.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_create(toolbelt_create: Partial<Toolbelt_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { toolbelt_create.description = n.getStringValue(); },
+        "display_name": n => { toolbelt_create.displayName = n.getStringValue(); },
+        "name": n => { toolbelt_create.name = n.getStringValue(); },
+        "tools": n => { toolbelt_create.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "version": n => { toolbelt_create.version = n.getStringValue() ?? "1"; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_response(toolbelt_response: Partial<Toolbelt_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "toolbelt": n => { toolbelt_response.toolbelt = n.getObjectValue<Toolbelt>(createToolbeltFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_summary The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_summary(toolbelt_summary: Partial<Toolbelt_summary> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { toolbelt_summary.description = n.getStringValue(); },
+        "display_name": n => { toolbelt_summary.displayName = n.getStringValue(); },
+        "latest_version": n => { toolbelt_summary.latestVersion = n.getStringValue(); },
+        "name": n => { toolbelt_summary.name = n.getStringValue(); },
+        "reference_latest": n => { toolbelt_summary.referenceLatest = n.getStringValue(); },
+        "status": n => { toolbelt_summary.status = n.getEnumValue<Toolbelt_summary_status>(Toolbelt_summary_statusObject); },
+        "tool_count": n => { toolbelt_summary.toolCount = n.getNumberValue(); },
+        "updated_at": n => { toolbelt_summary.updatedAt = n.getDateValue(); },
+        "version_count": n => { toolbelt_summary.versionCount = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelt_tools The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelt_tools(toolbelt_tools: Partial<Toolbelt_tools> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "tools": n => { toolbelt_tools.tools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolbelts_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolbelts_response(toolbelts_response: Partial<Toolbelts_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "pagination": n => { toolbelts_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
+        "toolbelts": n => { toolbelts_response.toolbelts = n.getCollectionOfObjectValues<Toolbelt_summary>(createToolbelt_summaryFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Toolkit The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoToolkit(toolkit: Partial<Toolkit> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { toolkit.description = n.getStringValue(); },
+        "id": n => { toolkit.id = n.getStringValue(); },
+        "name": n => { toolkit.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Transform_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTransform_spec(transform_spec: Partial<Transform_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "input": n => { transform_spec.input = n.getObjectValue<Transform_spec_input>(createTransform_spec_inputFromDiscriminatorValue); },
+        "language": n => { transform_spec.language = n.getStringValue(); },
+        "output": n => { transform_spec.output = n.getObjectValue<Transform_spec_output>(createTransform_spec_outputFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Transform_spec_input The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTransform_spec_input(transform_spec_input: Partial<Transform_spec_input> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Transform_spec_output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTransform_spec_output(transform_spec_output: Partial<Transform_spec_output> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Trigger_info The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -33808,6 +35445,39 @@ export function deserializeIntoTrigger_info_scheduled_runs(trigger_info_schedule
     return {
         "last_run_at": n => { trigger_info_scheduled_runs.lastRunAt = n.getStringValue(); },
         "next_run_at": n => { trigger_info_scheduled_runs.nextRunAt = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Update_connection_parameters_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUpdate_connection_parameters_request(update_connection_parameters_request: Partial<Update_connection_parameters_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connection_parameters": n => { update_connection_parameters_request.connectionParameters = n.getObjectValue<Update_connection_parameters_request_connection_parameters>(createUpdate_connection_parameters_request_connection_parametersFromDiscriminatorValue); },
+        "id": n => { update_connection_parameters_request.id = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Update_connection_parameters_request_connection_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUpdate_connection_parameters_request_connection_parameters(update_connection_parameters_request_connection_parameters: Partial<Update_connection_parameters_request_connection_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Update_connection_parameters_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUpdate_connection_parameters_response(update_connection_parameters_response: Partial<Update_connection_parameters_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connection": n => { update_connection_parameters_response.connection = n.getObjectValue<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
     }
 }
 /**
@@ -33848,25 +35518,54 @@ export function deserializeIntoUpdate_trigger(update_trigger: Partial<Update_tri
 }
 /**
  * The deserialization information for the current model
+ * @param Usage_meter The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUsage_meter(usage_meter: Partial<Usage_meter> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "quantitySource": n => { usage_meter.quantitySource = n.getStringValue(); },
+        "sku": n => { usage_meter.sku = n.getStringValue(); },
+        "unit": n => { usage_meter.unit = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Usage_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUsage_spec(usage_spec: Partial<Usage_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "billable": n => { usage_spec.billable = n.getBooleanValue(); },
+        "meters": n => { usage_spec.meters = n.getCollectionOfObjectValues<Usage_meter>(createUsage_meterFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param User The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoUser(user: Partial<User> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "kubernetes_cluster_user": n => { user.kubernetesClusterUser = n.getObjectValue<User_kubernetes_cluster_user>(createUser_kubernetes_cluster_userFromDiscriminatorValue); },
+        "connections": n => { user.connections = n.getCollectionOfObjectValues<Oauth_connection>(createOauth_connectionFromDiscriminatorValue); },
+        "sessions": n => { user.sessions = n.getCollectionOfObjectValues<User_session>(createUser_sessionFromDiscriminatorValue); },
+        "user_id": n => { user.userId = n.getStringValue(); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param User_kubernetes_cluster_user The instance to deserialize into.
+ * @param User_session The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoUser_kubernetes_cluster_user(user_kubernetes_cluster_user: Partial<User_kubernetes_cluster_user> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoUser_session(user_session: Partial<User_session> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "groups": n => { user_kubernetes_cluster_user.groups = n.getCollectionOfPrimitiveValues<string>(); },
-        "username": n => { user_kubernetes_cluster_user.username = n.getStringValue(); },
+        "created_at": n => { user_session.createdAt = n.getDateValue(); },
+        "name": n => { user_session.name = n.getStringValue(); },
+        "session_urn": n => { user_session.sessionUrn = n.getStringValue(); },
+        "updated_at": n => { user_session.updatedAt = n.getDateValue(); },
     }
 }
 /**
@@ -33918,6 +35617,29 @@ export function deserializeIntoUser_settings_opensearch_acl(user_settings_opense
     return {
         "index": n => { user_settings_opensearch_acl.index = n.getStringValue(); },
         "permission": n => { user_settings_opensearch_acl.permission = n.getEnumValue<User_settings_opensearch_acl_permission>(User_settings_opensearch_acl_permissionObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param User2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUser2(user2: Partial<User2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kubernetes_cluster_user": n => { user2.kubernetesClusterUser = n.getObjectValue<User2_kubernetes_cluster_user>(createUser2_kubernetes_cluster_userFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param User2_kubernetes_cluster_user The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUser2_kubernetes_cluster_user(user2_kubernetes_cluster_user: Partial<User2_kubernetes_cluster_user> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "groups": n => { user2_kubernetes_cluster_user.groups = n.getCollectionOfPrimitiveValues<string>(); },
+        "username": n => { user2_kubernetes_cluster_user.username = n.getStringValue(); },
     }
 }
 /**
@@ -34609,7 +36331,7 @@ export interface Disk_info extends AdditionalDataHolder, Parsable {
      */
     size?: Disk_info_size | null;
     /**
-     * The type of disk. All Droplets contain a `local` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+     * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
      */
     type?: Disk_info_type | null;
 }
@@ -35205,6 +36927,28 @@ export interface Events_logs extends AdditionalDataHolder, Parsable {
 }
 export type Events_logs_event_type = (typeof Events_logs_event_typeObject)[keyof typeof Events_logs_event_typeObject];
 export type Eviction_policy_model = (typeof Eviction_policy_modelObject)[keyof typeof Eviction_policy_modelObject];
+export interface Execution_spec extends Parsable {
+    /**
+     * The adapterVersion property
+     */
+    adapterVersion?: string | null;
+    /**
+     * The configRef property
+     */
+    configRef?: string | null;
+    /**
+     * The http property
+     */
+    http?: Http_execution | null;
+    /**
+     * MCPExecution describes how to invoke a tool that is fronted by a remoteMCP server (as opposed to a plain HTTP endpoint). endpoint is the remoteMCP server's URL, tool_name is the name the remote server expects ontools/call (may differ from this tool's registry name), transportselects the wire protocol ("streamable_http" is the only kind implementedtoday), and server_ref is an opaque label identifying the remote serverfor logging/metrics/allowlisting.
+     */
+    mcp?: Mcp_execution | null;
+    /**
+     * The type property
+     */
+    type?: string | null;
+}
 export interface Firewall extends Firewall_rules, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the firewall was created.
@@ -35514,6 +37258,22 @@ export interface Generated_image extends AdditionalDataHolder, Parsable {
      */
     revisedPrompt?: string | null;
 }
+export interface Get_connection_response extends Parsable {
+    /**
+     * ConnectionAuthorization is present only while a connection is pending. TheUI sends the user to connect_url and polls GetConnection until the connectionbecomes active or expires. The Secrets Manager poll URL is never exposed.
+     */
+    authorization?: Connection_authorization | null;
+    /**
+     * -----------------------------------------------------------------------------OAuth connection resources-----------------------------------------------------------------------------OAuthConnection is the public, team-scoped connection metadata returned tothe UI. It deliberately excludes the team ID, Secrets Manager assignment,actor identifiers, poll URL, and authorization handle.
+     */
+    connection?: Oauth_connection | null;
+}
+export interface Get_user_response extends Parsable {
+    /**
+     * User is a derived, team-scoped view across sessions and OAuth connections.
+     */
+    user?: User | null;
+}
 /**
  * An object specifying forwarding configurations for a Global load balancer.
  */
@@ -35657,6 +37417,83 @@ export interface History extends AdditionalDataHolder, Parsable {
 }
 export type History_reason = (typeof History_reasonObject)[keyof typeof History_reasonObject];
 export type History_status = (typeof History_statusObject)[keyof typeof History_statusObject];
+export interface Hook_spec extends Parsable {
+    /**
+     * The usage property
+     */
+    usage?: Usage_spec | null;
+}
+export interface Http_execution extends Parsable {
+    /**
+     * The allowedHosts property
+     */
+    allowedHosts?: string[] | null;
+    /**
+     * The baseUrl property
+     */
+    baseUrl?: string | null;
+    /**
+     * The method property
+     */
+    method?: string | null;
+    /**
+     * The path property
+     */
+    path?: string | null;
+    /**
+     * The requestEncoding property
+     */
+    requestEncoding?: string | null;
+    /**
+     * The responseFormat property
+     */
+    responseFormat?: string | null;
+}
+/**
+ * HTTPLookupSpec resolves a base_url by calling url (bearer-authenticatedwith the just-exchanged access token), selecting an entry in the JSON array,extracting extract_field from that entry, and substituting it for "{value}"in base_url_template. When match_field and match_value are both set, theyselect the entry. When both are empty, exactly one entry whose own "scopes"array contains required_scopes must exist. Configuring only one match fieldis invalid. Resolution fails fast on zero or multiple compatible entries.
+ */
+export interface Http_lookup_spec extends Parsable {
+    /**
+     * The baseUrlTemplate property
+     */
+    baseUrlTemplate?: string | null;
+    /**
+     * The caseInsensitive property
+     */
+    caseInsensitive?: boolean | null;
+    /**
+     * The extractField property
+     */
+    extractField?: string | null;
+    /**
+     * The matchField property
+     */
+    matchField?: string | null;
+    /**
+     * The matchValue property
+     */
+    matchValue?: string | null;
+    /**
+     * The match_value_parameter property
+     */
+    matchValueParameter?: string | null;
+    /**
+     * The method property
+     */
+    method?: string | null;
+    /**
+     * The requiredScopes property
+     */
+    requiredScopes?: string[] | null;
+    /**
+     * The trimTrailingSlash property
+     */
+    trimTrailingSlash?: boolean | null;
+    /**
+     * The url property
+     */
+    url?: string | null;
+}
 export interface Image extends AdditionalDataHolder, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the image was created.
@@ -36596,6 +38433,16 @@ export interface Lb_firewall extends AdditionalDataHolder, Parsable {
      */
     deny?: string[] | null;
 }
+export interface List_connections_response extends Parsable {
+    /**
+     * The connections property
+     */
+    connections?: Oauth_connection[] | null;
+    /**
+     * The pagination property
+     */
+    pagination?: Pagination | null;
+}
 /**
  * Response listing available models.
  */
@@ -36610,6 +38457,60 @@ export interface List_models_response extends AdditionalDataHolder, Parsable {
     object?: List_models_response_object | null;
 }
 export type List_models_response_object = (typeof List_models_response_objectObject)[keyof typeof List_models_response_objectObject];
+export interface List_providers_response extends Parsable {
+    /**
+     * The providers property
+     */
+    providers?: Provider_summary[] | null;
+}
+export interface List_sessions_response extends Parsable {
+    /**
+     * The pagination property
+     */
+    pagination?: Pagination | null;
+    /**
+     * The sessions property
+     */
+    sessions?: Public_session_policy[] | null;
+}
+export interface List_toolkits_response extends Parsable {
+    /**
+     * The toolkits property
+     */
+    toolkits?: Toolkit[] | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface List_tools_response extends Parsable {
+    /**
+     * The definitions property
+     */
+    definitions?: Tool_definition[] | null;
+    /**
+     * The pagination property
+     */
+    pagination?: Pagination | null;
+    /**
+     * The tools property
+     */
+    tools?: Tool[] | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface List_users_response extends Parsable {
+    /**
+     * The pagination property
+     */
+    pagination?: Pagination | null;
+    /**
+     * The user_ids property
+     */
+    userIds?: string[] | null;
+}
 export interface Load_balancer extends Load_balancer_base, Parsable {
     /**
      * An array containing the IDs of the Droplets assigned to the load balancer.
@@ -36815,6 +38716,31 @@ export interface Maintenance_policy extends AdditionalDataHolder, Parsable {
     startTime?: string | null;
 }
 export type Maintenance_policy_day = (typeof Maintenance_policy_dayObject)[keyof typeof Maintenance_policy_dayObject];
+/**
+ * MCPExecution describes how to invoke a tool that is fronted by a remoteMCP server (as opposed to a plain HTTP endpoint). endpoint is the remoteMCP server's URL, tool_name is the name the remote server expects ontools/call (may differ from this tool's registry name), transportselects the wire protocol ("streamable_http" is the only kind implementedtoday), and server_ref is an opaque label identifying the remote serverfor logging/metrics/allowlisting.
+ */
+export interface Mcp_execution extends Parsable {
+    /**
+     * The allowedHosts property
+     */
+    allowedHosts?: string[] | null;
+    /**
+     * The endpoint property
+     */
+    endpoint?: string | null;
+    /**
+     * The serverRef property
+     */
+    serverRef?: string | null;
+    /**
+     * The toolName property
+     */
+    toolName?: string | null;
+    /**
+     * The transport property
+     */
+    transport?: string | null;
+}
 export interface Member extends AdditionalDataHolder, Parsable {
     /**
      * The creation time of the Droplet in ISO8601 combined date and time format.
@@ -37270,6 +39196,10 @@ export type Multiregistry_create_region = (typeof Multiregistry_create_regionObj
 export type Multiregistry_create_subscription_tier_slug = (typeof Multiregistry_create_subscription_tier_slugObject)[keyof typeof Multiregistry_create_subscription_tier_slugObject];
 export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
     /**
+     * When enabled, grants `EXECUTE` and `ALTER ROUTINE` privileges to the creator of a stored routine. When disabled, these privileges are not granted automatically.
+     */
+    automaticSpPrivileges?: boolean | null;
+    /**
      * The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
      */
     backupHour?: number | null;
@@ -37290,6 +39220,18 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     defaultTimeZone?: string | null;
     /**
+     * The number of digits by which to increase the scale of the result of division operations performed with the `/` operator.
+     */
+    divPrecisionIncrement?: number | null;
+    /**
+     * When enabled, the JSON output of `EXPLAIN FORMAT=JSON` includes end markers for nested structures.
+     */
+    endMarkersInJson?: boolean | null;
+    /**
+     * The number of equality ranges in an equality comparison condition when the optimizer should switch from using index dives to index statistics.
+     */
+    eqRangeIndexDiveLimit?: number | null;
+    /**
      * The maximum permitted result length, in bytes, for the GROUP_CONCAT() function.
      */
     groupConcatMaxLen?: number | null;
@@ -37306,13 +39248,33 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     innodbFlushNeighbors?: number | null;
     /**
+     * When enabled, the InnoDB FULLTEXT index stopword list is used. Disabled by default when a custom stopword table is configured.
+     */
+    innodbFtEnableStopword?: boolean | null;
+    /**
+     * The maximum length of words that an InnoDB FULLTEXT index stores. Changing this parameter will lead to a restart of the MySQL service.
+     */
+    innodbFtMaxTokenSize?: number | null;
+    /**
      * The minimum length of words that an InnoDB FULLTEXT index stores.
      */
     innodbFtMinTokenSize?: number | null;
     /**
+     * The number of words to process during each OPTIMIZE TABLE operation on an InnoDB FULLTEXT index.
+     */
+    innodbFtNumWordOptimize?: number | null;
+    /**
+     * The InnoDB FULLTEXT index query result cache size limit, in bytes.
+     */
+    innodbFtResultCacheLimit?: number | null;
+    /**
      * The InnoDB FULLTEXT index stopword list for all InnoDB tables.
      */
     innodbFtServerStopwordTable?: string | null;
+    /**
+     * The InnoDB FULLTEXT index stopword list for user-created FULLTEXT indexes. Must be in the form `db_name/table_name`. Set to `null` to clear a previously configured value.
+     */
+    innodbFtUserStopwordTable?: string | null;
     /**
      * The time, in seconds, that an InnoDB transaction waits for a row lock. before giving up.
      */
@@ -37325,6 +39287,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The upper limit, in bytes, of the size of the temporary log files used during online DDL operations for InnoDB tables.
      */
     innodbOnlineAlterLogMaxSize?: number | null;
+    /**
+     * When enabled, OPTIMIZE TABLE rebuilds only the InnoDB FULLTEXT index, not the table itself.
+     */
+    innodbOptimizeFulltextOnly?: boolean | null;
     /**
      * When enabled, records information about all deadlocks in InnoDB user transactions  in the error log. Disabled by default.
      */
@@ -37366,9 +39332,17 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      */
     maxAllowedPacket?: number | null;
     /**
+     * The execution timeout for `SELECT` statements, in milliseconds. A value of `0` disables the timeout (no limit).
+     */
+    maxExecutionTime?: number | null;
+    /**
      * The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size. Default is 16777216 (16M)
      */
     maxHeapTableSize?: number | null;
+    /**
+     * Limits the assumed maximum number of seeks when looking up rows based on a key. Lower values cause the query optimizer to prefer indexes over table scans for non-covering indexes.
+     */
+    maxSeeksForKey?: number | null;
     /**
      * MySQL Incremental Backup configuration settings
      */
@@ -37385,6 +39359,18 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The number of seconds to wait for a block to be written to a connection before aborting the write.
      */
     netWriteTimeout?: number | null;
+    /**
+     * Controls the heuristics applied during query optimization to prune less promising partial plans from the optimizer search space. `0` disables pruning and `1` enables it.
+     */
+    optimizerPruneLevel?: number | null;
+    /**
+     * The maximum depth of search performed by the query optimizer. Smaller values can reduce compilation time for large joins; a value of `0` lets the server automatically pick a reasonable value.
+     */
+    optimizerSearchDepth?: number | null;
+    /**
+     * Controls query optimizer behavior as a comma-separated list of `option=value` pairs, or `default` to restore server defaults. Each value must be `on`, `off`, or `default`.
+     */
+    optimizerSwitch?: string | null;
     /**
      * When enabled, captures slow queries. When disabled, also truncates the mysql.slow_log table. Default is false.
      */
@@ -37409,6 +39395,10 @@ export interface Mysql_advanced_config extends AdditionalDataHolder, Parsable {
      * The number of seconds the server waits for activity on a noninteractive connection before closing it.
      */
     waitTimeout?: number | null;
+    /**
+     * When enabled, window functions use a higher precision for internal calculations, which can be more accurate but slower.
+     */
+    windowingUseHighPrecision?: boolean | null;
 }
 export type Mysql_advanced_config_internal_tmp_mem_storage_engine = (typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject)[keyof typeof Mysql_advanced_config_internal_tmp_mem_storage_engineObject];
 export type Mysql_advanced_config_log_output = (typeof Mysql_advanced_config_log_outputObject)[keyof typeof Mysql_advanced_config_log_outputObject];
@@ -37857,6 +39847,57 @@ export interface Nvidia_gpu_device_plugin extends AdditionalDataHolder, Parsable
      * Indicates whether the Nvidia GPU Device Plugin is enabled.
      */
     enabled?: boolean | null;
+}
+/**
+ * -----------------------------------------------------------------------------OAuth connection resources-----------------------------------------------------------------------------OAuthConnection is the public, team-scoped connection metadata returned tothe UI. It deliberately excludes the team ID, Secrets Manager assignment,actor identifiers, poll URL, and authorization handle.
+ */
+export interface Oauth_connection extends Parsable {
+    /**
+     * The connection_parameters property
+     */
+    connectionParameters?: Oauth_connection_connection_parameters | null;
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * The granted_at property
+     */
+    grantedAt?: Date | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * The provider_display_name property
+     */
+    providerDisplayName?: string | null;
+    /**
+     * The revoked_at property
+     */
+    revokedAt?: Date | null;
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+    /**
+     * The status property
+     */
+    status?: string | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * The user_id property
+     */
+    userId?: string | null;
+}
+export interface Oauth_connection_connection_parameters extends AdditionalDataHolder, Parsable {
 }
 export interface OneClicks extends AdditionalDataHolder, Parsable {
     /**
@@ -38464,6 +40505,15 @@ export interface Options_version_availability extends AdditionalDataHolder, Pars
      */
     valkey?: Database_version_availability[] | null;
 }
+/**
+ * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
+ */
+export interface P2p_oci_registry_plugin extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the Peer-to-peer OCI registry component is enabled.
+     */
+    enabled?: boolean | null;
+}
 export interface Page_links extends AdditionalDataHolder, Parsable {
     /**
      * The pages property
@@ -38473,11 +40523,25 @@ export interface Page_links extends AdditionalDataHolder, Parsable {
 export type Page_links_pages = Backward_links | Forward_links | Page_links_pagesMember1;
 export interface Page_links_pagesMember1 extends AdditionalDataHolder, Parsable {
 }
-export interface Pagination extends AdditionalDataHolder, Parsable {
+export interface Pages_pagination extends AdditionalDataHolder, Parsable {
     /**
      * The links property
      */
     links?: Page_links | null;
+}
+export interface Pagination extends Parsable {
+    /**
+     * The page property
+     */
+    page?: number | null;
+    /**
+     * The per_page property
+     */
+    perPage?: number | null;
+    /**
+     * The total property
+     */
+    total?: number | null;
 }
 export interface Partner_attachment extends AdditionalDataHolder, Parsable {
     /**
@@ -38739,6 +40803,12 @@ export interface Pgbouncer_advanced_config extends AdditionalDataHolder, Parsabl
 }
 export type Pgbouncer_advanced_config_autodb_pool_mode = (typeof Pgbouncer_advanced_config_autodb_pool_modeObject)[keyof typeof Pgbouncer_advanced_config_autodb_pool_modeObject];
 export type Pgbouncer_advanced_config_ignore_startup_parameters = (typeof Pgbouncer_advanced_config_ignore_startup_parametersObject)[keyof typeof Pgbouncer_advanced_config_ignore_startup_parametersObject];
+export interface Policy_spec extends Parsable {
+    /**
+     * The permission property
+     */
+    permission?: string | null;
+}
 export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable {
     /**
      * Specifies a fraction, in a decimal value, of the table size to add to autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE. The default is 0.2 (20% of table size).
@@ -39070,6 +41140,74 @@ export interface Project_base extends AdditionalDataHolder, Parsable {
     updatedAt?: Date | null;
 }
 export type Project_base_environment = (typeof Project_base_environmentObject)[keyof typeof Project_base_environmentObject];
+export interface Provider_summary extends Parsable {
+    /**
+     * The auth_type property
+     */
+    authType?: string | null;
+    /**
+     * The connection_parameters property
+     */
+    connectionParameters?: Connection_parameter_spec[] | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+}
+/**
+ * A session and the tool-permission policy bound to it.
+ */
+export interface Public_session_policy extends Parsable {
+    /**
+     * actor_id is empty when the session is not bound to an actor.
+     */
+    actorId?: string | null;
+    /**
+     * Preserved as an opaque object. Gateway currently interpretsconfig.preloadTools to add selected direct tools to the session MCP.
+     */
+    config?: Public_session_policy_config | null;
+    /**
+     * The createdAt property
+     */
+    createdAt?: Date | null;
+    /**
+     * name is the required human-readable session name.
+     */
+    name?: string | null;
+    /**
+     * SessionPolicySpec is the Gateway-relevant subset of a session's permissionpolicy. Filesystem and network policy remain enforced by the sandbox.
+     */
+    policy?: Session_policy_spec | null;
+    /**
+     * The sessionUrn property
+     */
+    sessionUrn?: string | null;
+    /**
+     * Omitted when the request omitted tools (all tools). A present selectionwith no references represents tools: [].
+     */
+    tools?: Session_tool_selection | null;
+    /**
+     * The updatedAt property
+     */
+    updatedAt?: Date | null;
+}
+/**
+ * Preserved as an opaque object. Gateway currently interpretsconfig.preloadTools to add selected direct tools to the session MCP.
+ */
+export interface Public_session_policy_config extends AdditionalDataHolder, Parsable {
+}
 export interface Purge_cache extends AdditionalDataHolder, Parsable {
     /**
      * An array of strings containing the path to the content to be purged from the CDN cache.
@@ -39236,6 +41374,20 @@ export interface Registry_run_gc extends AdditionalDataHolder, Parsable {
     type?: Registry_run_gc_type | null;
 }
 export type Registry_run_gc_type = (typeof Registry_run_gc_typeObject)[keyof typeof Registry_run_gc_typeObject];
+export interface Reliability_spec extends Parsable {
+    /**
+     * The maxOutputBytes property
+     */
+    maxOutputBytes?: string | null;
+    /**
+     * The retry property
+     */
+    retry?: Retry_spec | null;
+    /**
+     * The timeoutMs property
+     */
+    timeoutMs?: number | null;
+}
 export interface Repository extends AdditionalDataHolder, Parsable {
     /**
      * The latest_tag property
@@ -39516,6 +41668,20 @@ export interface Response_usage_output_tokens_details extends AdditionalDataHold
      * The number of tool output tokens.
      */
     toolOutputTokens?: number | null;
+}
+export interface Retry_spec extends Parsable {
+    /**
+     * The backoff property
+     */
+    backoff?: string | null;
+    /**
+     * The maxAttempts property
+     */
+    maxAttempts?: number | null;
+    /**
+     * The retryOn property
+     */
+    retryOn?: string[] | null;
 }
 /**
  * An object specifying whether the routing-agent component should be enabled for the Kubernetes cluster.
@@ -45090,7 +47256,7 @@ export function serializeApp_event_autoscaling_components(writer: SerializationW
 // @ts-ignore
 export function serializeApp_events(writer: SerializationWriter, app_events: Partial<App_events> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_events || isSerializingDerivedType) { return; }
-    serializePagination(writer, app_events, isSerializingDerivedType)
+    serializePages_pagination(writer, app_events, isSerializingDerivedType)
     writer.writeCollectionOfObjectValues<App_event>("events", app_events.events, serializeApp_event);
 }
 /**
@@ -45400,7 +47566,7 @@ export function serializeApp_job_invocation_trigger_scheduled_schedule(writer: S
 // @ts-ignore
 export function serializeApp_job_invocations(writer: SerializationWriter, app_job_invocations: Partial<App_job_invocations> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_job_invocations || isSerializingDerivedType) { return; }
-    serializePagination(writer, app_job_invocations, isSerializingDerivedType)
+    serializePages_pagination(writer, app_job_invocations, isSerializingDerivedType)
     writer.writeCollectionOfObjectValues<App_job_invocation>("job_invocations", app_job_invocations.jobInvocations, serializeApp_job_invocation);
 }
 /**
@@ -46605,6 +48771,37 @@ export function serializeAsync_invoke_response_output(writer: SerializationWrite
 }
 /**
  * Serializes information the current object
+ * @param Auth_injection The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAuth_injection(writer: SerializationWriter, auth_injection: Partial<Auth_injection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!auth_injection || isSerializingDerivedType) { return; }
+    writer.writeStringValue("location", auth_injection.location);
+    writer.writeStringValue("name", auth_injection.name);
+    writer.writeStringValue("scheme", auth_injection.scheme);
+}
+/**
+ * Serializes information the current object
+ * @param Auth_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAuth_spec(writer: SerializationWriter, auth_spec: Partial<Auth_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!auth_spec || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Base_url_resolution>("baseUrlResolution", auth_spec.baseUrlResolution, serializeBase_url_resolution);
+    writer.writeStringValue("credentialBinding", auth_spec.credentialBinding);
+    writer.writeStringValue("credentialRefSource", auth_spec.credentialRefSource);
+    writer.writeStringValue("doManagedCredentialRef", auth_spec.doManagedCredentialRef);
+    writer.writeObjectValue<Auth_injection>("injection", auth_spec.injection, serializeAuth_injection);
+    writer.writeCollectionOfPrimitiveValues<string>("modes", auth_spec.modes);
+    writer.writeStringValue("provider", auth_spec.provider);
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", auth_spec.scopes);
+}
+/**
+ * Serializes information the current object
  * @param Autoscale_pool The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -46751,6 +48948,17 @@ export function serializeBalance(writer: SerializationWriter, balance: Partial<B
     writer.writeStringValue("month_to_date_balance", balance.monthToDateBalance);
     writer.writeStringValue("month_to_date_usage", balance.monthToDateUsage);
     writer.writeAdditionalData(balance.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Base_url_resolution The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeBase_url_resolution(writer: SerializationWriter, base_url_resolution: Partial<Base_url_resolution> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!base_url_resolution || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Http_lookup_spec>("httpLookup", base_url_resolution.httpLookup, serializeHttp_lookup_spec);
 }
 /**
  * Serializes information the current object
@@ -47454,6 +49662,19 @@ export function serializeCheck_updatable(writer: SerializationWriter, check_upda
 }
 /**
  * Serializes information the current object
+ * @param Classification The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeClassification(writer: SerializationWriter, classification: Partial<Classification> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!classification || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("dataClasses", classification.dataClasses);
+    writer.writeStringValue("operation", classification.operation);
+    writer.writeStringValue("risk", classification.risk);
+}
+/**
+ * Serializes information the current object
  * @param Cluster The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -47473,6 +49694,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeStringValue("name", cluster.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster.region);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster.routingAgent, serializeRouting_agent);
@@ -47521,6 +49743,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeStringValue("name", cluster_read.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster_read.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_read.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_read.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_read.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster_read.region);
     writer.writeCollectionOfPrimitiveValues<string>("registries", cluster_read.registries);
@@ -47604,6 +49827,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_update.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_update.name);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_update.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_update.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
     writer.writeObjectValue<Sso>("sso", cluster_update.sso, serializeSso);
@@ -47702,6 +49926,39 @@ export function serializeCompletion_usage_cache_creation(writer: SerializationWr
 }
 /**
  * Serializes information the current object
+ * @param Connection_authorization The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeConnection_authorization(writer: SerializationWriter, connection_authorization: Partial<Connection_authorization> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!connection_authorization || isSerializingDerivedType) { return; }
+    writer.writeStringValue("connect_url", connection_authorization.connectUrl);
+    writer.writeDateValue("expires_at", connection_authorization.expiresAt);
+    writer.writeStringValue("status", connection_authorization.status);
+    writer.writeStringValue("verification_code", connection_authorization.verificationCode);
+}
+/**
+ * Serializes information the current object
+ * @param Connection_parameter_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeConnection_parameter_spec(writer: SerializationWriter, connection_parameter_spec: Partial<Connection_parameter_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!connection_parameter_spec || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("allowed_host_suffixes", connection_parameter_spec.allowedHostSuffixes);
+    writer.writeCollectionOfPrimitiveValues<string>("allowed_values", connection_parameter_spec.allowedValues);
+    writer.writeStringValue("description", connection_parameter_spec.description);
+    writer.writeStringValue("input_kind", connection_parameter_spec.inputKind);
+    writer.writeStringValue("key", connection_parameter_spec.key);
+    writer.writeStringValue("label", connection_parameter_spec.label);
+    writer.writeNumberValue("max_length", connection_parameter_spec.maxLength);
+    writer.writeStringValue("normalization", connection_parameter_spec.normalization);
+    writer.writeBooleanValue("required", connection_parameter_spec.required);
+}
+/**
+ * Serializes information the current object
  * @param Connection_pool The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -47770,6 +50027,43 @@ export function serializeCoredns_autoscaler(writer: SerializationWriter, coredns
     if (!coredns_autoscaler || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("enabled", coredns_autoscaler.enabled);
     writer.writeAdditionalData(coredns_autoscaler.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_connection_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_connection_request(writer: SerializationWriter, create_connection_request: Partial<Create_connection_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_connection_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Create_connection_request_connection_parameters>("connection_parameters", create_connection_request.connectionParameters, serializeCreate_connection_request_connection_parameters);
+    writer.writeStringValue("provider", create_connection_request.provider);
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", create_connection_request.scopes);
+    writer.writeStringValue("user_id", create_connection_request.userId);
+}
+/**
+ * Serializes information the current object
+ * @param Create_connection_request_connection_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_connection_request_connection_parameters(writer: SerializationWriter, create_connection_request_connection_parameters: Partial<Create_connection_request_connection_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_connection_request_connection_parameters || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(create_connection_request_connection_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_connection_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_connection_response(writer: SerializationWriter, create_connection_response: Partial<Create_connection_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_connection_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Connection_authorization>("authorization", create_connection_response.authorization, serializeConnection_authorization);
+    writer.writeObjectValue<Oauth_connection>("connection", create_connection_response.connection, serializeOauth_connection);
 }
 /**
  * Serializes information the current object
@@ -48063,6 +50357,46 @@ export function serializeCreate_secret_response(writer: SerializationWriter, cre
     writer.writeStringValue("region", create_secret_response.region);
     writer.writeNumberValue("version", create_secret_response.version);
     writer.writeAdditionalData(create_secret_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_session_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_session_request(writer: SerializationWriter, create_session_request: Partial<Create_session_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_session_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("actor_id", create_session_request.actorId);
+    writer.writeObjectValue<Create_session_request_config>("config", create_session_request.config, serializeCreate_session_request_config);
+    writer.writeStringValue("name", create_session_request.name);
+    writer.writeObjectValue<Session_policy_spec>("policy", create_session_request.policy, serializeSession_policy_spec);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", create_session_request.tools);
+}
+/**
+ * Serializes information the current object
+ * @param Create_session_request_config The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_session_request_config(writer: SerializationWriter, create_session_request_config: Partial<Create_session_request_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_session_request_config || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("preloadTools", create_session_request_config.preloadTools);
+    writer.writeAdditionalData(create_session_request_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_session_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_session_response(writer: SerializationWriter, create_session_response: Partial<Create_session_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_session_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("mcpUrl", create_session_response.mcpUrl);
+    writer.writeObjectValue<Public_session_policy>("session", create_session_response.session, serializePublic_session_policy);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", create_session_response.tools);
 }
 /**
  * Serializes information the current object
@@ -48683,6 +51017,27 @@ export function serializeDedicated_inference_update_request(writer: Serializatio
 export function serializeDedicated_inference_update_request_access_tokens(writer: SerializationWriter, dedicated_inference_update_request_access_tokens: Partial<Dedicated_inference_update_request_access_tokens> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!dedicated_inference_update_request_access_tokens || isSerializingDerivedType) { return; }
     writer.writeStringValue("hugging_face_token", dedicated_inference_update_request_access_tokens.huggingFaceToken);
+}
+/**
+ * Serializes information the current object
+ * @param Delete_connection_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDelete_connection_response(writer: SerializationWriter, delete_connection_response: Partial<Delete_connection_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!delete_connection_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Oauth_connection>("connection", delete_connection_response.connection, serializeOauth_connection);
+}
+/**
+ * Serializes information the current object
+ * @param Delete_session_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDelete_session_response(writer: SerializationWriter, delete_session_response: Partial<Delete_session_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!delete_session_response || isSerializingDerivedType) { return; }
 }
 /**
  * Serializes information the current object
@@ -49347,7 +51702,7 @@ export function serializeEmbeddings_request(writer: SerializationWriter, embeddi
         writer.writeStringValue("input", embeddings_request.input as string);
     }
     else {
-        writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input);
+        writer.writeCollectionOfObjectValues<string>("input", embeddings_request.input as string[] | undefined | null, serializeEmbeddings_request_input);
     }
     writer.writeStringValue("model", embeddings_request.model);
     writer.writeStringValue("user", embeddings_request.user);
@@ -49438,6 +51793,21 @@ export function serializeEvents_logs(writer: SerializationWriter, events_logs: P
     writer.writeEnumValue<Events_logs_event_type>("event_type", events_logs.eventType);
     writer.writeStringValue("id", events_logs.id);
     writer.writeAdditionalData(events_logs.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Execution_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeExecution_spec(writer: SerializationWriter, execution_spec: Partial<Execution_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!execution_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("adapterVersion", execution_spec.adapterVersion);
+    writer.writeStringValue("configRef", execution_spec.configRef);
+    writer.writeObjectValue<Http_execution>("http", execution_spec.http, serializeHttp_execution);
+    writer.writeObjectValue<Mcp_execution>("mcp", execution_spec.mcp, serializeMcp_execution);
+    writer.writeStringValue("type", execution_spec.type);
 }
 /**
  * Serializes information the current object
@@ -49736,6 +52106,29 @@ export function serializeGenerated_image(writer: SerializationWriter, generated_
 }
 /**
  * Serializes information the current object
+ * @param Get_connection_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeGet_connection_response(writer: SerializationWriter, get_connection_response: Partial<Get_connection_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!get_connection_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Connection_authorization>("authorization", get_connection_response.authorization, serializeConnection_authorization);
+    writer.writeObjectValue<Oauth_connection>("connection", get_connection_response.connection, serializeOauth_connection);
+}
+/**
+ * Serializes information the current object
+ * @param Get_user_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeGet_user_response(writer: SerializationWriter, get_user_response: Partial<Get_user_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!get_user_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<User>("user", get_user_response.user, serializeUser);
+}
+/**
+ * Serializes information the current object
  * @param Glb_settings The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -49848,6 +52241,53 @@ export function serializeHistory(writer: SerializationWriter, history: Partial<H
     writer.writeEnumValue<History_status>("status", history.status);
     writer.writeDateValue("updated_at", history.updatedAt);
     writer.writeAdditionalData(history.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Hook_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeHook_spec(writer: SerializationWriter, hook_spec: Partial<Hook_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!hook_spec || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Usage_spec>("usage", hook_spec.usage, serializeUsage_spec);
+}
+/**
+ * Serializes information the current object
+ * @param Http_execution The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeHttp_execution(writer: SerializationWriter, http_execution: Partial<Http_execution> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!http_execution || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("allowedHosts", http_execution.allowedHosts);
+    writer.writeStringValue("baseUrl", http_execution.baseUrl);
+    writer.writeStringValue("method", http_execution.method);
+    writer.writeStringValue("path", http_execution.path);
+    writer.writeStringValue("requestEncoding", http_execution.requestEncoding);
+    writer.writeStringValue("responseFormat", http_execution.responseFormat);
+}
+/**
+ * Serializes information the current object
+ * @param Http_lookup_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeHttp_lookup_spec(writer: SerializationWriter, http_lookup_spec: Partial<Http_lookup_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!http_lookup_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("baseUrlTemplate", http_lookup_spec.baseUrlTemplate);
+    writer.writeBooleanValue("caseInsensitive", http_lookup_spec.caseInsensitive);
+    writer.writeStringValue("extractField", http_lookup_spec.extractField);
+    writer.writeStringValue("matchField", http_lookup_spec.matchField);
+    writer.writeStringValue("matchValue", http_lookup_spec.matchValue);
+    writer.writeStringValue("match_value_parameter", http_lookup_spec.matchValueParameter);
+    writer.writeStringValue("method", http_lookup_spec.method);
+    writer.writeCollectionOfPrimitiveValues<string>("requiredScopes", http_lookup_spec.requiredScopes);
+    writer.writeBooleanValue("trimTrailingSlash", http_lookup_spec.trimTrailingSlash);
+    writer.writeStringValue("url", http_lookup_spec.url);
 }
 /**
  * Serializes information the current object
@@ -50500,6 +52940,18 @@ export function serializeLb_firewall(writer: SerializationWriter, lb_firewall: P
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_connections_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_connections_response(writer: SerializationWriter, list_connections_response: Partial<List_connections_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_connections_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Oauth_connection>("connections", list_connections_response.connections, serializeOauth_connection);
+    writer.writeObjectValue<Pagination>("pagination", list_connections_response.pagination, serializePagination);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param List_models_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -50509,6 +52961,67 @@ export function serializeList_models_response(writer: SerializationWriter, list_
     writer.writeCollectionOfObjectValues<Model>("data", list_models_response.data, serializeModel);
     writer.writeEnumValue<List_models_response_object>("object", list_models_response.object);
     writer.writeAdditionalData(list_models_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_providers_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_providers_response(writer: SerializationWriter, list_providers_response: Partial<List_providers_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_providers_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Provider_summary>("providers", list_providers_response.providers, serializeProvider_summary);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_sessions_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_sessions_response(writer: SerializationWriter, list_sessions_response: Partial<List_sessions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_sessions_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Pagination>("pagination", list_sessions_response.pagination, serializePagination);
+    writer.writeCollectionOfObjectValues<Public_session_policy>("sessions", list_sessions_response.sessions, serializePublic_session_policy);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_toolkits_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_toolkits_response(writer: SerializationWriter, list_toolkits_response: Partial<List_toolkits_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_toolkits_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Toolkit>("toolkits", list_toolkits_response.toolkits, serializeToolkit);
+    writer.writeStringValue("version", list_toolkits_response.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_tools_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_tools_response(writer: SerializationWriter, list_tools_response: Partial<List_tools_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_tools_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Tool_definition>("definitions", list_tools_response.definitions, serializeTool_definition);
+    writer.writeObjectValue<Pagination>("pagination", list_tools_response.pagination, serializePagination);
+    writer.writeCollectionOfObjectValues<Tool>("tools", list_tools_response.tools, serializeTool);
+    writer.writeStringValue("version", list_tools_response.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_users_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_users_response(writer: SerializationWriter, list_users_response: Partial<List_users_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_users_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Pagination>("pagination", list_users_response.pagination, serializePagination);
+    writer.writeCollectionOfPrimitiveValues<string>("user_ids", list_users_response.userIds);
 }
 /**
  * Serializes information the current object
@@ -50693,6 +53206,21 @@ export function serializeMaintenance_policy(writer: SerializationWriter, mainten
     writer.writeEnumValue<Maintenance_policy_day>("day", maintenance_policy.day);
     writer.writeStringValue("start_time", maintenance_policy.startTime);
     writer.writeAdditionalData(maintenance_policy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Mcp_execution The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMcp_execution(writer: SerializationWriter, mcp_execution: Partial<Mcp_execution> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!mcp_execution || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("allowedHosts", mcp_execution.allowedHosts);
+    writer.writeStringValue("endpoint", mcp_execution.endpoint);
+    writer.writeStringValue("serverRef", mcp_execution.serverRef);
+    writer.writeStringValue("toolName", mcp_execution.toolName);
+    writer.writeStringValue("transport", mcp_execution.transport);
 }
 /**
  * Serializes information the current object
@@ -51158,20 +53686,30 @@ export function serializeMultiregistry_create(writer: SerializationWriter, multi
 // @ts-ignore
 export function serializeMysql_advanced_config(writer: SerializationWriter, mysql_advanced_config: Partial<Mysql_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!mysql_advanced_config || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("automatic_sp_privileges", mysql_advanced_config.automaticSpPrivileges);
     writer.writeNumberValue("backup_hour", mysql_advanced_config.backupHour);
     writer.writeNumberValue("backup_minute", mysql_advanced_config.backupMinute);
     writer.writeNumberValue("binlog_retention_period", mysql_advanced_config.binlogRetentionPeriod);
     writer.writeNumberValue("connect_timeout", mysql_advanced_config.connectTimeout);
     writer.writeStringValue("default_time_zone", mysql_advanced_config.defaultTimeZone);
+    writer.writeNumberValue("div_precision_increment", mysql_advanced_config.divPrecisionIncrement);
+    writer.writeBooleanValue("end_markers_in_json", mysql_advanced_config.endMarkersInJson);
+    writer.writeNumberValue("eq_range_index_dive_limit", mysql_advanced_config.eqRangeIndexDiveLimit);
     writer.writeNumberValue("group_concat_max_len", mysql_advanced_config.groupConcatMaxLen);
     writer.writeNumberValue("information_schema_stats_expiry", mysql_advanced_config.informationSchemaStatsExpiry);
     writer.writeNumberValue("innodb_change_buffer_max_size", mysql_advanced_config.innodbChangeBufferMaxSize);
     writer.writeNumberValue("innodb_flush_neighbors", mysql_advanced_config.innodbFlushNeighbors);
+    writer.writeBooleanValue("innodb_ft_enable_stopword", mysql_advanced_config.innodbFtEnableStopword);
+    writer.writeNumberValue("innodb_ft_max_token_size", mysql_advanced_config.innodbFtMaxTokenSize);
     writer.writeNumberValue("innodb_ft_min_token_size", mysql_advanced_config.innodbFtMinTokenSize);
+    writer.writeNumberValue("innodb_ft_num_word_optimize", mysql_advanced_config.innodbFtNumWordOptimize);
+    writer.writeNumberValue("innodb_ft_result_cache_limit", mysql_advanced_config.innodbFtResultCacheLimit);
     writer.writeStringValue("innodb_ft_server_stopword_table", mysql_advanced_config.innodbFtServerStopwordTable);
+    writer.writeStringValue("innodb_ft_user_stopword_table", mysql_advanced_config.innodbFtUserStopwordTable);
     writer.writeNumberValue("innodb_lock_wait_timeout", mysql_advanced_config.innodbLockWaitTimeout);
     writer.writeNumberValue("innodb_log_buffer_size", mysql_advanced_config.innodbLogBufferSize);
     writer.writeNumberValue("innodb_online_alter_log_max_size", mysql_advanced_config.innodbOnlineAlterLogMaxSize);
+    writer.writeBooleanValue("innodb_optimize_fulltext_only", mysql_advanced_config.innodbOptimizeFulltextOnly);
     writer.writeBooleanValue("innodb_print_all_deadlocks", mysql_advanced_config.innodbPrintAllDeadlocks);
     writer.writeNumberValue("innodb_read_io_threads", mysql_advanced_config.innodbReadIoThreads);
     writer.writeBooleanValue("innodb_rollback_on_timeout", mysql_advanced_config.innodbRollbackOnTimeout);
@@ -51182,17 +53720,23 @@ export function serializeMysql_advanced_config(writer: SerializationWriter, mysq
     writer.writeEnumValue<Mysql_advanced_config_log_output>("log_output", mysql_advanced_config.logOutput ?? Mysql_advanced_config_log_outputObject.NONE);
     writer.writeNumberValue("long_query_time", mysql_advanced_config.longQueryTime);
     writer.writeNumberValue("max_allowed_packet", mysql_advanced_config.maxAllowedPacket);
+    writer.writeNumberValue("max_execution_time", mysql_advanced_config.maxExecutionTime);
     writer.writeNumberValue("max_heap_table_size", mysql_advanced_config.maxHeapTableSize);
+    writer.writeNumberValue("max_seeks_for_key", mysql_advanced_config.maxSeeksForKey);
     writer.writeObjectValue<Mysql_incremental_backup>("mysql_incremental_backup", mysql_advanced_config.mysqlIncrementalBackup, serializeMysql_incremental_backup);
     writer.writeNumberValue("net_buffer_length", mysql_advanced_config.netBufferLength);
     writer.writeNumberValue("net_read_timeout", mysql_advanced_config.netReadTimeout);
     writer.writeNumberValue("net_write_timeout", mysql_advanced_config.netWriteTimeout);
+    writer.writeNumberValue("optimizer_prune_level", mysql_advanced_config.optimizerPruneLevel);
+    writer.writeNumberValue("optimizer_search_depth", mysql_advanced_config.optimizerSearchDepth);
+    writer.writeStringValue("optimizer_switch", mysql_advanced_config.optimizerSwitch);
     writer.writeBooleanValue("slow_query_log", mysql_advanced_config.slowQueryLog);
     writer.writeNumberValue("sort_buffer_size", mysql_advanced_config.sortBufferSize);
     writer.writeStringValue("sql_mode", mysql_advanced_config.sqlMode);
     writer.writeBooleanValue("sql_require_primary_key", mysql_advanced_config.sqlRequirePrimaryKey);
     writer.writeNumberValue("tmp_table_size", mysql_advanced_config.tmpTableSize);
     writer.writeNumberValue("wait_timeout", mysql_advanced_config.waitTimeout);
+    writer.writeBooleanValue("windowing_use_high_precision", mysql_advanced_config.windowingUseHighPrecision);
     writer.writeAdditionalData(mysql_advanced_config.additionalData);
 }
 /**
@@ -51665,6 +54209,38 @@ export function serializeNvidia_gpu_device_plugin(writer: SerializationWriter, n
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Oauth_connection The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOauth_connection(writer: SerializationWriter, oauth_connection: Partial<Oauth_connection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!oauth_connection || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Oauth_connection_connection_parameters>("connection_parameters", oauth_connection.connectionParameters, serializeOauth_connection_connection_parameters);
+    writer.writeDateValue("created_at", oauth_connection.createdAt);
+    writer.writeDateValue("granted_at", oauth_connection.grantedAt);
+    writer.writeStringValue("id", oauth_connection.id);
+    writer.writeStringValue("provider", oauth_connection.provider);
+    writer.writeStringValue("provider_display_name", oauth_connection.providerDisplayName);
+    writer.writeDateValue("revoked_at", oauth_connection.revokedAt);
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", oauth_connection.scopes);
+    writer.writeStringValue("status", oauth_connection.status);
+    writer.writeDateValue("updated_at", oauth_connection.updatedAt);
+    writer.writeStringValue("user_id", oauth_connection.userId);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Oauth_connection_connection_parameters The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOauth_connection_connection_parameters(writer: SerializationWriter, oauth_connection_connection_parameters: Partial<Oauth_connection_connection_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!oauth_connection_connection_parameters || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(oauth_connection_connection_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param OneClicks The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -52043,6 +54619,18 @@ export function serializeOptions_version_availability(writer: SerializationWrite
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param P2p_oci_registry_plugin The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeP2p_oci_registry_plugin(writer: SerializationWriter, p2p_oci_registry_plugin: Partial<P2p_oci_registry_plugin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!p2p_oci_registry_plugin || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", p2p_oci_registry_plugin.enabled);
+    writer.writeAdditionalData(p2p_oci_registry_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Page_links The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -52078,14 +54666,27 @@ export function serializePage_links_pagesMember1(writer: SerializationWriter, pa
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Pages_pagination The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePages_pagination(writer: SerializationWriter, pages_pagination: Partial<Pages_pagination> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!pages_pagination || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Page_links>("links", pages_pagination.links, serializePage_links);
+    writer.writeAdditionalData(pages_pagination.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Pagination The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
 export function serializePagination(writer: SerializationWriter, pagination: Partial<Pagination> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!pagination || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Page_links>("links", pagination.links, serializePage_links);
-    writer.writeAdditionalData(pagination.additionalData);
+    writer.writeNumberValue("page", pagination.page);
+    writer.writeNumberValue("per_page", pagination.perPage);
+    writer.writeNumberValue("total", pagination.total);
 }
 /**
  * Serializes information the current object
@@ -52271,6 +54872,17 @@ export function serializePgbouncer_advanced_config(writer: SerializationWriter, 
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Policy_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePolicy_spec(writer: SerializationWriter, policy_spec: Partial<Policy_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!policy_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("permission", policy_spec.permission);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Postgres_advanced_config The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -52420,6 +55032,51 @@ export function serializeProject_base(writer: SerializationWriter, project_base:
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_summary The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_summary(writer: SerializationWriter, provider_summary: Partial<Provider_summary> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_summary || isSerializingDerivedType) { return; }
+    writer.writeStringValue("auth_type", provider_summary.authType);
+    writer.writeCollectionOfObjectValues<Connection_parameter_spec>("connection_parameters", provider_summary.connectionParameters, serializeConnection_parameter_spec);
+    writer.writeStringValue("description", provider_summary.description);
+    writer.writeStringValue("display_name", provider_summary.displayName);
+    writer.writeStringValue("name", provider_summary.name);
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", provider_summary.scopes);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Public_session_policy The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePublic_session_policy(writer: SerializationWriter, public_session_policy: Partial<Public_session_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!public_session_policy || isSerializingDerivedType) { return; }
+    writer.writeStringValue("actorId", public_session_policy.actorId);
+    writer.writeObjectValue<Public_session_policy_config>("config", public_session_policy.config, serializePublic_session_policy_config);
+    writer.writeDateValue("createdAt", public_session_policy.createdAt);
+    writer.writeStringValue("name", public_session_policy.name);
+    writer.writeObjectValue<Session_policy_spec>("policy", public_session_policy.policy, serializeSession_policy_spec);
+    writer.writeStringValue("sessionUrn", public_session_policy.sessionUrn);
+    writer.writeObjectValue<Session_tool_selection>("tools", public_session_policy.tools, serializeSession_tool_selection);
+    writer.writeDateValue("updatedAt", public_session_policy.updatedAt);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Public_session_policy_config The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePublic_session_policy_config(writer: SerializationWriter, public_session_policy_config: Partial<Public_session_policy_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!public_session_policy_config || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(public_session_policy_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Purge_cache The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -52556,6 +55213,19 @@ export function serializeRegistry_run_gc(writer: SerializationWriter, registry_r
     if (!registry_run_gc || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Registry_run_gc_type>("type", registry_run_gc.type);
     writer.writeAdditionalData(registry_run_gc.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Reliability_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeReliability_spec(writer: SerializationWriter, reliability_spec: Partial<Reliability_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!reliability_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("maxOutputBytes", reliability_spec.maxOutputBytes);
+    writer.writeObjectValue<Retry_spec>("retry", reliability_spec.retry, serializeRetry_spec);
+    writer.writeNumberValue("timeoutMs", reliability_spec.timeoutMs);
 }
 /**
  * Serializes information the current object
@@ -52863,6 +55533,19 @@ export function serializeResponse_usage_output_tokens_details(writer: Serializat
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Retry_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeRetry_spec(writer: SerializationWriter, retry_spec: Partial<Retry_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!retry_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("backoff", retry_spec.backoff);
+    writer.writeNumberValue("maxAttempts", retry_spec.maxAttempts);
+    writer.writeCollectionOfPrimitiveValues<string>("retryOn", retry_spec.retryOn);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Routing_agent The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -53052,6 +55735,66 @@ export function serializeSelective_destroy_associated_resource(writer: Serializa
     writer.writeCollectionOfPrimitiveValues<string>("volumes", selective_destroy_associated_resource.volumes);
     writer.writeCollectionOfPrimitiveValues<string>("volume_snapshots", selective_destroy_associated_resource.volumeSnapshots);
     writer.writeAdditionalData(selective_destroy_associated_resource.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_policy_rule The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_policy_rule(writer: SerializationWriter, session_policy_rule: Partial<Session_policy_rule> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_policy_rule || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Session_policy_action>("action", session_policy_rule.action ?? Session_policy_actionObject.Ask);
+    writer.writeObjectValue<Session_policy_rule_match>("match", session_policy_rule.match, serializeSession_policy_rule_match);
+    writer.writeStringValue("tool", session_policy_rule.tool);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_policy_rule_match The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_policy_rule_match(writer: SerializationWriter, session_policy_rule_match: Partial<Session_policy_rule_match> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_policy_rule_match || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(session_policy_rule_match.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_policy_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_policy_spec(writer: SerializationWriter, session_policy_spec: Partial<Session_policy_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_policy_spec || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Session_policy_action>("defaultAction", session_policy_spec.defaultAction ?? Session_policy_actionObject.Ask);
+    writer.writeCollectionOfObjectValues<Session_policy_rule>("rules", session_policy_spec.rules, serializeSession_policy_rule);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_tool_reference The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_tool_reference(writer: SerializationWriter, session_tool_reference: Partial<Session_tool_reference> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_tool_reference || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Session_tool_reference_kind>("kind", session_tool_reference.kind);
+    writer.writeStringValue("name", session_tool_reference.name);
+    writer.writeStringValue("version", session_tool_reference.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_tool_selection The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_tool_selection(writer: SerializationWriter, session_tool_selection: Partial<Session_tool_selection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_tool_selection || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Session_tool_reference>("references", session_tool_selection.references, serializeSession_tool_reference);
 }
 /**
  * Serializes information the current object
@@ -53514,6 +56257,256 @@ export function serializeTimescaledb_advanced_config(writer: SerializationWriter
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool(writer: SerializationWriter, tool: Partial<Tool> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Tool_annotations>("annotations", tool.annotations, serializeTool_annotations);
+    writer.writeStringValue("description", tool.description);
+    writer.writeObjectValue<Tool_inputSchema>("inputSchema", tool.inputSchema, serializeTool_inputSchema);
+    writer.writeStringValue("name", tool.name);
+    writer.writeObjectValue<Tool_outputSchema>("outputSchema", tool.outputSchema, serializeTool_outputSchema);
+    writer.writeBooleanValue("parallelizable", tool.parallelizable);
+    writer.writeBooleanValue("streamingSafe", tool.streamingSafe);
+    writer.writeStringValue("title", tool.title);
+    writer.writeStringValue("toolkitId", tool.toolkitId);
+    writer.writeStringValue("toolSlug", tool.toolSlug);
+    writer.writeStringValue("version", tool.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_annotations The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_annotations(writer: SerializationWriter, tool_annotations: Partial<Tool_annotations> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_annotations || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("destructiveHint", tool_annotations.destructiveHint);
+    writer.writeBooleanValue("idempotentHint", tool_annotations.idempotentHint);
+    writer.writeBooleanValue("openWorldHint", tool_annotations.openWorldHint);
+    writer.writeBooleanValue("readOnlyHint", tool_annotations.readOnlyHint);
+    writer.writeStringValue("title", tool_annotations.title);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_definition The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_definition(writer: SerializationWriter, tool_definition: Partial<Tool_definition> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_definition || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Tool_annotations>("annotations", tool_definition.annotations, serializeTool_annotations);
+    writer.writeObjectValue<Auth_spec>("auth", tool_definition.auth, serializeAuth_spec);
+    writer.writeObjectValue<Classification>("classification", tool_definition.classification, serializeClassification);
+    writer.writeStringValue("description", tool_definition.description);
+    writer.writeObjectValue<Execution_spec>("execution", tool_definition.execution, serializeExecution_spec);
+    writer.writeStringValue("flipperName", tool_definition.flipperName);
+    writer.writeObjectValue<Hook_spec>("hooks", tool_definition.hooks, serializeHook_spec);
+    writer.writeObjectValue<Tool_definition_inputSchema>("inputSchema", tool_definition.inputSchema, serializeTool_definition_inputSchema);
+    writer.writeStringValue("name", tool_definition.name);
+    writer.writeObjectValue<Tool_definition_outputSchema>("outputSchema", tool_definition.outputSchema, serializeTool_definition_outputSchema);
+    writer.writeBooleanValue("parallelizable", tool_definition.parallelizable);
+    writer.writeObjectValue<Policy_spec>("policy", tool_definition.policy, serializePolicy_spec);
+    writer.writeObjectValue<Reliability_spec>("reliability", tool_definition.reliability, serializeReliability_spec);
+    writer.writeStringValue("schemaVersion", tool_definition.schemaVersion);
+    writer.writeStringValue("status", tool_definition.status);
+    writer.writeBooleanValue("streamingSafe", tool_definition.streamingSafe);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", tool_definition.tags);
+    writer.writeStringValue("title", tool_definition.title);
+    writer.writeStringValue("toolId", tool_definition.toolId);
+    writer.writeStringValue("toolkitId", tool_definition.toolkitId);
+    writer.writeStringValue("toolSlug", tool_definition.toolSlug);
+    writer.writeObjectValue<Transform_spec>("transform", tool_definition.transform, serializeTransform_spec);
+    writer.writeStringValue("version", tool_definition.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_definition_inputSchema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_definition_inputSchema(writer: SerializationWriter, tool_definition_inputSchema: Partial<Tool_definition_inputSchema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_definition_inputSchema || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(tool_definition_inputSchema.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_definition_outputSchema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_definition_outputSchema(writer: SerializationWriter, tool_definition_outputSchema: Partial<Tool_definition_outputSchema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_definition_outputSchema || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(tool_definition_outputSchema.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_inputSchema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_inputSchema(writer: SerializationWriter, tool_inputSchema: Partial<Tool_inputSchema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_inputSchema || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(tool_inputSchema.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_outputSchema The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_outputSchema(writer: SerializationWriter, tool_outputSchema: Partial<Tool_outputSchema> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_outputSchema || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(tool_outputSchema.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt(writer: SerializationWriter, toolbelt: Partial<Toolbelt> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", toolbelt.createdAt);
+    writer.writeStringValue("description", toolbelt.description);
+    writer.writeStringValue("display_name", toolbelt.displayName);
+    writer.writeStringValue("name", toolbelt.name);
+    writer.writeStringValue("reference", toolbelt.reference);
+    writer.writeStringValue("reference_latest", toolbelt.referenceLatest);
+    writer.writeEnumValue<Toolbelt_status>("status", toolbelt.status);
+    writer.writeNumberValue("tool_count", toolbelt.toolCount);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt.tools);
+    writer.writeDateValue("updated_at", toolbelt.updatedAt);
+    writer.writeStringValue("version", toolbelt.version);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_create(writer: SerializationWriter, toolbelt_create: Partial<Toolbelt_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_create || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", toolbelt_create.description);
+    writer.writeStringValue("display_name", toolbelt_create.displayName);
+    writer.writeStringValue("name", toolbelt_create.name);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt_create.tools);
+    writer.writeStringValue("version", toolbelt_create.version ?? "1");
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_response(writer: SerializationWriter, toolbelt_response: Partial<Toolbelt_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Toolbelt>("toolbelt", toolbelt_response.toolbelt, serializeToolbelt);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_summary The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_summary(writer: SerializationWriter, toolbelt_summary: Partial<Toolbelt_summary> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_summary || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", toolbelt_summary.description);
+    writer.writeStringValue("display_name", toolbelt_summary.displayName);
+    writer.writeStringValue("latest_version", toolbelt_summary.latestVersion);
+    writer.writeStringValue("name", toolbelt_summary.name);
+    writer.writeStringValue("reference_latest", toolbelt_summary.referenceLatest);
+    writer.writeEnumValue<Toolbelt_summary_status>("status", toolbelt_summary.status);
+    writer.writeNumberValue("tool_count", toolbelt_summary.toolCount);
+    writer.writeDateValue("updated_at", toolbelt_summary.updatedAt);
+    writer.writeNumberValue("version_count", toolbelt_summary.versionCount);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelt_tools The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelt_tools(writer: SerializationWriter, toolbelt_tools: Partial<Toolbelt_tools> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelt_tools || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("tools", toolbelt_tools.tools);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolbelts_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolbelts_response(writer: SerializationWriter, toolbelts_response: Partial<Toolbelts_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolbelts_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Pagination>("pagination", toolbelts_response.pagination, serializePagination);
+    writer.writeCollectionOfObjectValues<Toolbelt_summary>("toolbelts", toolbelts_response.toolbelts, serializeToolbelt_summary);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Toolkit The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeToolkit(writer: SerializationWriter, toolkit: Partial<Toolkit> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!toolkit || isSerializingDerivedType) { return; }
+    writer.writeStringValue("description", toolkit.description);
+    writer.writeStringValue("id", toolkit.id);
+    writer.writeStringValue("name", toolkit.name);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Transform_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTransform_spec(writer: SerializationWriter, transform_spec: Partial<Transform_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!transform_spec || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Transform_spec_input>("input", transform_spec.input, serializeTransform_spec_input);
+    writer.writeStringValue("language", transform_spec.language);
+    writer.writeObjectValue<Transform_spec_output>("output", transform_spec.output, serializeTransform_spec_output);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Transform_spec_input The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTransform_spec_input(writer: SerializationWriter, transform_spec_input: Partial<Transform_spec_input> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!transform_spec_input || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(transform_spec_input.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Transform_spec_output The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTransform_spec_output(writer: SerializationWriter, transform_spec_output: Partial<Transform_spec_output> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!transform_spec_output || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(transform_spec_output.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Trigger_info The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -53543,6 +56536,40 @@ export function serializeTrigger_info_scheduled_runs(writer: SerializationWriter
     writer.writeStringValue("last_run_at", trigger_info_scheduled_runs.lastRunAt);
     writer.writeStringValue("next_run_at", trigger_info_scheduled_runs.nextRunAt);
     writer.writeAdditionalData(trigger_info_scheduled_runs.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Update_connection_parameters_request The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUpdate_connection_parameters_request(writer: SerializationWriter, update_connection_parameters_request: Partial<Update_connection_parameters_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!update_connection_parameters_request || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Update_connection_parameters_request_connection_parameters>("connection_parameters", update_connection_parameters_request.connectionParameters, serializeUpdate_connection_parameters_request_connection_parameters);
+    writer.writeStringValue("id", update_connection_parameters_request.id);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Update_connection_parameters_request_connection_parameters The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUpdate_connection_parameters_request_connection_parameters(writer: SerializationWriter, update_connection_parameters_request_connection_parameters: Partial<Update_connection_parameters_request_connection_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!update_connection_parameters_request_connection_parameters || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(update_connection_parameters_request_connection_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Update_connection_parameters_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUpdate_connection_parameters_response(writer: SerializationWriter, update_connection_parameters_response: Partial<Update_connection_parameters_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!update_connection_parameters_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Oauth_connection>("connection", update_connection_parameters_response.connection, serializeOauth_connection);
 }
 /**
  * Serializes information the current object
@@ -53586,27 +56613,54 @@ export function serializeUpdate_trigger(writer: SerializationWriter, update_trig
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Usage_meter The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUsage_meter(writer: SerializationWriter, usage_meter: Partial<Usage_meter> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!usage_meter || isSerializingDerivedType) { return; }
+    writer.writeStringValue("quantitySource", usage_meter.quantitySource);
+    writer.writeStringValue("sku", usage_meter.sku);
+    writer.writeStringValue("unit", usage_meter.unit);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Usage_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUsage_spec(writer: SerializationWriter, usage_spec: Partial<Usage_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!usage_spec || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("billable", usage_spec.billable);
+    writer.writeCollectionOfObjectValues<Usage_meter>("meters", usage_spec.meters, serializeUsage_meter);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param User The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
 export function serializeUser(writer: SerializationWriter, user: Partial<User> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!user || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<User_kubernetes_cluster_user>("kubernetes_cluster_user", user.kubernetesClusterUser, serializeUser_kubernetes_cluster_user);
-    writer.writeAdditionalData(user.additionalData);
+    writer.writeCollectionOfObjectValues<Oauth_connection>("connections", user.connections, serializeOauth_connection);
+    writer.writeCollectionOfObjectValues<User_session>("sessions", user.sessions, serializeUser_session);
+    writer.writeStringValue("user_id", user.userId);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param User_kubernetes_cluster_user The instance to serialize from.
+ * @param User_session The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUser_kubernetes_cluster_user(writer: SerializationWriter, user_kubernetes_cluster_user: Partial<User_kubernetes_cluster_user> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!user_kubernetes_cluster_user || isSerializingDerivedType) { return; }
-    writer.writeCollectionOfPrimitiveValues<string>("groups", user_kubernetes_cluster_user.groups);
-    writer.writeStringValue("username", user_kubernetes_cluster_user.username);
-    writer.writeAdditionalData(user_kubernetes_cluster_user.additionalData);
+export function serializeUser_session(writer: SerializationWriter, user_session: Partial<User_session> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!user_session || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", user_session.createdAt);
+    writer.writeStringValue("name", user_session.name);
+    writer.writeStringValue("session_urn", user_session.sessionUrn);
+    writer.writeDateValue("updated_at", user_session.updatedAt);
 }
 /**
  * Serializes information the current object
@@ -53662,6 +56716,31 @@ export function serializeUser_settings_opensearch_acl(writer: SerializationWrite
     writer.writeStringValue("index", user_settings_opensearch_acl.index);
     writer.writeEnumValue<User_settings_opensearch_acl_permission>("permission", user_settings_opensearch_acl.permission);
     writer.writeAdditionalData(user_settings_opensearch_acl.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param User2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUser2(writer: SerializationWriter, user2: Partial<User2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!user2 || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<User2_kubernetes_cluster_user>("kubernetes_cluster_user", user2.kubernetesClusterUser, serializeUser2_kubernetes_cluster_user);
+    writer.writeAdditionalData(user2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param User2_kubernetes_cluster_user The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUser2_kubernetes_cluster_user(writer: SerializationWriter, user2_kubernetes_cluster_user: Partial<User2_kubernetes_cluster_user> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!user2_kubernetes_cluster_user || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("groups", user2_kubernetes_cluster_user.groups);
+    writer.writeStringValue("username", user2_kubernetes_cluster_user.username);
+    writer.writeAdditionalData(user2_kubernetes_cluster_user.additionalData);
 }
 /**
  * Serializes information the current object
@@ -54278,6 +57357,60 @@ export function serializeVpc_peering_updatable(writer: SerializationWriter, vpc_
     writer.writeStringValue("name", vpc_peering_updatable.name);
     writer.writeAdditionalData(vpc_peering_updatable.additionalData);
 }
+export type Session_policy_action = (typeof Session_policy_actionObject)[keyof typeof Session_policy_actionObject];
+/**
+ * SessionPolicyRule applies an action to a tool or version-pinned toolbelt.action must be allow, ask, or deny. match optionally narrows the rule tocalls with matching arguments.
+ */
+export interface Session_policy_rule extends Parsable {
+    /**
+     * SessionPolicyAction is the disposition applied to a tool call. Lowercasevalues are canonical so ProtoJSON matches the public REST vocabulary; theprefixed aliases preserve compatibility for existing protobuf clients.
+     */
+    action?: Session_policy_action | null;
+    /**
+     * The match property
+     */
+    match?: Session_policy_rule_match | null;
+    /**
+     * The tool property
+     */
+    tool?: string | null;
+}
+export interface Session_policy_rule_match extends AdditionalDataHolder, Parsable {
+}
+/**
+ * SessionPolicySpec is the Gateway-relevant subset of a session's permissionpolicy. Filesystem and network policy remain enforced by the sandbox.
+ */
+export interface Session_policy_spec extends Parsable {
+    /**
+     * SessionPolicyAction is the disposition applied to a tool call. Lowercasevalues are canonical so ProtoJSON matches the public REST vocabulary; theprefixed aliases preserve compatibility for existing protobuf clients.
+     */
+    defaultAction?: Session_policy_action | null;
+    /**
+     * The rules property
+     */
+    rules?: Session_policy_rule[] | null;
+}
+export interface Session_tool_reference extends Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Session_tool_reference_kind | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export type Session_tool_reference_kind = (typeof Session_tool_reference_kindObject)[keyof typeof Session_tool_reference_kindObject];
+export interface Session_tool_selection extends Parsable {
+    /**
+     * The references property
+     */
+    references?: Session_tool_reference[] | null;
+}
 export interface Settings extends AdditionalDataHolder, Parsable {
     /**
      * The plan_downgrades property
@@ -54774,6 +57907,338 @@ export interface Timescaledb_advanced_config extends AdditionalDataHolder, Parsa
      */
     maxBackgroundWorkers?: number | null;
 }
+export interface Tool extends Parsable {
+    /**
+     * The annotations property
+     */
+    annotations?: Tool_annotations | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The inputSchema property
+     */
+    inputSchema?: Tool_inputSchema | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The outputSchema property
+     */
+    outputSchema?: Tool_outputSchema | null;
+    /**
+     * The parallelizable property
+     */
+    parallelizable?: boolean | null;
+    /**
+     * The streamingSafe property
+     */
+    streamingSafe?: boolean | null;
+    /**
+     * The title property
+     */
+    title?: string | null;
+    /**
+     * The toolkitId property
+     */
+    toolkitId?: string | null;
+    /**
+     * tool_slug is the provider-qualified, stable tool identifier"<toolkit_id>_<name>". Pass this value back verbatim to the toolbeltadd/remove endpoints; clients should treat it as opaque rather thanreconstructing it from toolkit_id and name.
+     */
+    toolSlug?: string | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Tool_annotations extends Parsable {
+    /**
+     * The destructiveHint property
+     */
+    destructiveHint?: boolean | null;
+    /**
+     * The idempotentHint property
+     */
+    idempotentHint?: boolean | null;
+    /**
+     * The openWorldHint property
+     */
+    openWorldHint?: boolean | null;
+    /**
+     * The readOnlyHint property
+     */
+    readOnlyHint?: boolean | null;
+    /**
+     * The title property
+     */
+    title?: string | null;
+}
+export interface Tool_definition extends Parsable {
+    /**
+     * The annotations property
+     */
+    annotations?: Tool_annotations | null;
+    /**
+     * The auth property
+     */
+    auth?: Auth_spec | null;
+    /**
+     * The classification property
+     */
+    classification?: Classification | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The execution property
+     */
+    execution?: Execution_spec | null;
+    /**
+     * The flipperName property
+     */
+    flipperName?: string | null;
+    /**
+     * The hooks property
+     */
+    hooks?: Hook_spec | null;
+    /**
+     * The inputSchema property
+     */
+    inputSchema?: Tool_definition_inputSchema | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The outputSchema property
+     */
+    outputSchema?: Tool_definition_outputSchema | null;
+    /**
+     * The parallelizable property
+     */
+    parallelizable?: boolean | null;
+    /**
+     * The policy property
+     */
+    policy?: Policy_spec | null;
+    /**
+     * The reliability property
+     */
+    reliability?: Reliability_spec | null;
+    /**
+     * The schemaVersion property
+     */
+    schemaVersion?: string | null;
+    /**
+     * The status property
+     */
+    status?: string | null;
+    /**
+     * The streamingSafe property
+     */
+    streamingSafe?: boolean | null;
+    /**
+     * The tags property
+     */
+    tags?: string[] | null;
+    /**
+     * The title property
+     */
+    title?: string | null;
+    /**
+     * The toolId property
+     */
+    toolId?: string | null;
+    /**
+     * The toolkitId property
+     */
+    toolkitId?: string | null;
+    /**
+     * tool_slug is the provider-qualified, stable tool identifier"<toolkit_id>_<name>". Pass this value back verbatim to the toolbeltadd/remove endpoints; clients should treat it as opaque.
+     */
+    toolSlug?: string | null;
+    /**
+     * The transform property
+     */
+    transform?: Transform_spec | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Tool_definition_inputSchema extends AdditionalDataHolder, Parsable {
+}
+export interface Tool_definition_outputSchema extends AdditionalDataHolder, Parsable {
+}
+export interface Tool_inputSchema extends AdditionalDataHolder, Parsable {
+}
+export interface Tool_outputSchema extends AdditionalDataHolder, Parsable {
+}
+export interface Toolbelt extends Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * A reference pinned to this immutable toolbelt version.
+     */
+    reference?: string | null;
+    /**
+     * An unversioned reference to the latest active version.
+     */
+    referenceLatest?: string | null;
+    /**
+     * The status property
+     */
+    status?: Toolbelt_status | null;
+    /**
+     * The tool_count property
+     */
+    toolCount?: number | null;
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Toolbelt_create extends Parsable {
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+    /**
+     * The version property
+     */
+    version?: string | null;
+}
+export interface Toolbelt_response extends Parsable {
+    /**
+     * The toolbelt property
+     */
+    toolbelt?: Toolbelt | null;
+}
+export type Toolbelt_status = (typeof Toolbelt_statusObject)[keyof typeof Toolbelt_statusObject];
+export interface Toolbelt_summary extends Parsable {
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The display_name property
+     */
+    displayName?: string | null;
+    /**
+     * The latest_version property
+     */
+    latestVersion?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The reference_latest property
+     */
+    referenceLatest?: string | null;
+    /**
+     * The status property
+     */
+    status?: Toolbelt_summary_status | null;
+    /**
+     * The tool_count property
+     */
+    toolCount?: number | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version_count property
+     */
+    versionCount?: number | null;
+}
+export type Toolbelt_summary_status = (typeof Toolbelt_summary_statusObject)[keyof typeof Toolbelt_summary_statusObject];
+export interface Toolbelt_tools extends Parsable {
+    /**
+     * The tools property
+     */
+    tools?: string[] | null;
+}
+export interface Toolbelts_response extends Parsable {
+    /**
+     * The pagination property
+     */
+    pagination?: Pagination | null;
+    /**
+     * The toolbelts property
+     */
+    toolbelts?: Toolbelt_summary[] | null;
+}
+export interface Toolkit extends Parsable {
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+}
+export interface Transform_spec extends Parsable {
+    /**
+     * The input property
+     */
+    input?: Transform_spec_input | null;
+    /**
+     * The language property
+     */
+    language?: string | null;
+    /**
+     * The output property
+     */
+    output?: Transform_spec_output | null;
+}
+export interface Transform_spec_input extends AdditionalDataHolder, Parsable {
+}
+export interface Transform_spec_output extends AdditionalDataHolder, Parsable {
+}
 export interface Trigger_info extends AdditionalDataHolder, Parsable {
     /**
      * UTC time string.
@@ -54822,6 +58287,24 @@ export interface Trigger_info_scheduled_runs extends AdditionalDataHolder, Parsa
      */
     nextRunAt?: string | null;
 }
+export interface Update_connection_parameters_request extends Parsable {
+    /**
+     * The connection_parameters property
+     */
+    connectionParameters?: Update_connection_parameters_request_connection_parameters | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+}
+export interface Update_connection_parameters_request_connection_parameters extends AdditionalDataHolder, Parsable {
+}
+export interface Update_connection_parameters_response extends Parsable {
+    /**
+     * -----------------------------------------------------------------------------OAuth connection resources-----------------------------------------------------------------------------OAuthConnection is the public, team-scoped connection metadata returned tothe UI. It deliberately excludes the team ID, Secrets Manager assignment,actor identifiers, poll URL, and authorization handle.
+     */
+    connection?: Oauth_connection | null;
+}
 export interface Update_endpoint extends AdditionalDataHolder, Parsable {
     /**
      * The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
@@ -54852,21 +58335,64 @@ export interface Update_trigger extends AdditionalDataHolder, Parsable {
      */
     scheduledDetails?: Scheduled_details | null;
 }
-export interface User extends AdditionalDataHolder, Parsable {
+export interface Usage_meter extends Parsable {
     /**
-     * The kubernetes_cluster_user property
+     * The quantitySource property
      */
-    kubernetesClusterUser?: User_kubernetes_cluster_user | null;
+    quantitySource?: string | null;
+    /**
+     * The sku property
+     */
+    sku?: string | null;
+    /**
+     * The unit property
+     */
+    unit?: string | null;
 }
-export interface User_kubernetes_cluster_user extends AdditionalDataHolder, Parsable {
+export interface Usage_spec extends Parsable {
     /**
-     * A list of in-cluster groups that the user belongs to.
+     * When usage metadata is present, false prevents billing. Omitting usagemetadata leaves consumers' legacy billing classification unchanged.
      */
-    groups?: string[] | null;
+    billable?: boolean | null;
     /**
-     * The username for the cluster admin user.
+     * The meters property
      */
-    username?: string | null;
+    meters?: Usage_meter[] | null;
+}
+/**
+ * User is a derived, team-scoped view across sessions and OAuth connections.
+ */
+export interface User extends Parsable {
+    /**
+     * The connections property
+     */
+    connections?: Oauth_connection[] | null;
+    /**
+     * The sessions property
+     */
+    sessions?: User_session[] | null;
+    /**
+     * The user_id property
+     */
+    userId?: string | null;
+}
+export interface User_session extends Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The session_urn property
+     */
+    sessionUrn?: string | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
 }
 export interface User_settings extends AdditionalDataHolder, Parsable {
     /**
@@ -54882,7 +58408,7 @@ export interface User_settings extends AdditionalDataHolder, Parsable {
      */
     opensearchAcl?: User_settings_opensearch_acl[] | null;
     /**
-     * For Postgres clusters, set to `true` for a user with replication rights.This option is not currently supported for other database engines.
+     * For PostgreSQL clusters, set to `true` to grant the user replicationprivileges. When omitted on create or update, the value defaults to`false` and replication privileges are not granted. This option is notcurrently supported for other database engines.
      */
     pgAllowReplication?: boolean | null;
 }
@@ -54926,6 +58452,22 @@ export interface User_settings_opensearch_acl extends AdditionalDataHolder, Pars
     permission?: User_settings_opensearch_acl_permission | null;
 }
 export type User_settings_opensearch_acl_permission = (typeof User_settings_opensearch_acl_permissionObject)[keyof typeof User_settings_opensearch_acl_permissionObject];
+export interface User2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kubernetes_cluster_user property
+     */
+    kubernetesClusterUser?: User2_kubernetes_cluster_user | null;
+}
+export interface User2_kubernetes_cluster_user extends AdditionalDataHolder, Parsable {
+    /**
+     * A list of in-cluster groups that the user belongs to.
+     */
+    groups?: string[] | null;
+    /**
+     * The username for the cluster admin user.
+     */
+    username?: string | null;
+}
 export interface Validate_registry extends AdditionalDataHolder, Parsable {
     /**
      * A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
@@ -56863,10 +60405,11 @@ export const Destination_typeObject = {
     Opensearch_ext: "opensearch_ext",
 } as const;
 /**
- * The type of disk. All Droplets contain a `local` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+ * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
  */
 export const Disk_info_typeObject = {
     Local: "local",
+    Remote: "remote",
     Scratch: "scratch",
 } as const;
 /**
@@ -57827,6 +61370,18 @@ export const Scan_statusObject = {
     SCAN_NOT_RUN: "SCAN_NOT_RUN",
 } as const;
 /**
+ * SessionPolicyAction is the disposition applied to a tool call. Lowercasevalues are canonical so ProtoJSON matches the public REST vocabulary; theprefixed aliases preserve compatibility for existing protobuf clients.
+ */
+export const Session_policy_actionObject = {
+    Allow: "allow",
+    Ask: "ask",
+    Deny: "deny",
+} as const;
+export const Session_tool_reference_kindObject = {
+    SESSION_TOOL_REFERENCE_KIND_TOOL: "SESSION_TOOL_REFERENCE_KIND_TOOL",
+    SESSION_TOOL_REFERENCE_KIND_TOOLBELT: "SESSION_TOOL_REFERENCE_KIND_TOOLBELT",
+} as const;
+/**
  * The type of resource that the snapshot originated from.
  */
 export const Snapshots_resource_typeObject = {
@@ -57857,6 +61412,14 @@ export const Tags_resource_resources_resource_typeObject = {
     Image: "image",
     Volume: "volume",
     Volume_snapshot: "volume_snapshot",
+} as const;
+export const Toolbelt_statusObject = {
+    Active: "active",
+    Deprecated: "deprecated",
+} as const;
+export const Toolbelt_summary_statusObject = {
+    Active: "active",
+    Deprecated: "deprecated",
 } as const;
 /**
  * Permission set applied to the ACL. 'consume' allows for messages to be consumed from the topic. 'produce' allows for messages to be published to the topic. 'produceconsume' allows for both 'consume' and 'produce' permission. 'admin' allows for 'produceconsume' as well as any operations to administer the topic (delete, update).
