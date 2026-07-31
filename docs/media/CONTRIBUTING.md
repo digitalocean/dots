@@ -145,3 +145,13 @@ number for the tag.
 
 1. Once the release process completes, review the draft release for correctness and publish the release.  
 Ensure the release has been marked `Latest`.
+
+## Beta releasing `dots`
+
+Ship a feature-branch build to limited customers without going through GA on `main`.
+
+1. Push your feature branch, then run `make beta_tag`.
+   - Tags `vX.Y.Z-beta.N` from the current `package.json` version (e.g. `1.12.0` → `v1.12.0-beta.1`, then `v1.12.0-beta.2`).
+   - Does not change `package.json` or affect GA (`make tag` / `latest`).
+2. The `beta-release` workflow publishes to npm under the `beta` dist-tag and creates a GitHub prerelease.
+3. Install with `npm i @digitalocean/dots@beta` or pin e.g. `@digitalocean/dots@1.12.0-beta.1`.
