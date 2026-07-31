@@ -155,6 +155,36 @@ describe("Action Gateway", () => {
         gateway.done();
     });
 
+    it("accepts tool_slug from the META_INVOKE schema", async () => {
+        nock(API_BASE_URL)
+            .post("/v2/action-gateway/sessions")
+            .reply(200, sessionResponse());
+        const gateway = nock(GATEWAY_BASE_URL)
+            .post("/mcp/session/session-123", (body) => {
+                expect(body.params.arguments.tools).toEqual([
+                    { tool: "exa_web_search", arguments: { query: "DigitalOcean" } },
+                ]);
+                return true;
+            })
+            .reply(200, mcpResult({ structuredContent: { results: [] }, isError: false }));
+
+        const session = await client().session.create({ actorId: "user-123" });
+        await session.toolsOperations.invoke([
+            { tool_slug: "exa_web_search", arguments: { query: "DigitalOcean" } },
+        ]);
+
+        gateway.done();
+    });
+
+    it("rejects a returned mcpUrl that would send the token in cleartext", async () => {
+        nock(API_BASE_URL)
+            .post("/v2/action-gateway/sessions")
+            .reply(200, { ...sessionResponse(), mcpUrl: "http://actions.do-ai.test/mcp/session/session-123" });
+
+        await expect(client().session.create({ actorId: "user-123" }))
+            .rejects.toThrow(/non-HTTPS mcpUrl/);
+    });
+
     it("approves and denies pending invocations", async () => {
         nock(API_BASE_URL)
             .post("/v2/action-gateway/sessions")

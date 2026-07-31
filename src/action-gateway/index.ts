@@ -103,6 +103,8 @@ export interface SearchOptions {
 export interface InvokeTool {
     tool?: string;
     toolSlug?: string;
+    /** Snake-case alias advertised by the {@link META_INVOKE} JSON schema. */
+    tool_slug?: string;
     arguments?: JsonObject;
 }
 
@@ -272,6 +274,34 @@ function externalSessionId(sessionUrn: string): string {
     return sessionUrn.split(":").at(-1) ?? sessionUrn;
 }
 
+function isLoopbackHost(hostname: string): boolean {
+    return hostname === "localhost"
+        || hostname === "127.0.0.1"
+        || hostname === "[::1]"
+        || hostname.endsWith(".localhost");
+}
+
+/**
+ * Gateway requests carry the DigitalOcean API token, so refuse an `mcpUrl` that
+ * would put it on the wire in cleartext. Loopback endpoints stay usable for
+ * local gateway development.
+ */
+function assertTransportURL(mcpURL: string, payload: unknown): void {
+    let url: URL;
+    try {
+        url = new URL(mcpURL);
+    } catch {
+        throw new GatewayError(`session create response returned an invalid mcpUrl: ${mcpURL}`, undefined, payload);
+    }
+    if (url.protocol === "https:") return;
+    if (url.protocol === "http:" && isLoopbackHost(url.hostname)) return;
+    throw new GatewayError(
+        `session create response returned a non-HTTPS mcpUrl: ${mcpURL}`,
+        undefined,
+        payload,
+    );
+}
+
 function normalizePermissions(permissions?: Permissions): Required<Pick<Permissions, "defaultAction" | "rules">> {
     const rules = (permissions?.rules ?? []).map((rule) => {
         if (!rule.tool) throw new Error("each permissions rule requires tool");
@@ -308,13 +338,13 @@ function toSessionConfig(config: JsonObject): Create_session_request_config {
 
 async function requestJSON(
     url: string,
-    apiKey: string,
+    apiKey: string | undefined,
     init: RequestInit,
 ): Promise<unknown> {
     const response = await fetch(url, {
         ...init,
         headers: {
-            Authorization: `Bearer ${apiKey}`,
+            ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
             Accept: "application/json",
             "Content-Type": "application/json",
             ...init.headers,
@@ -588,7 +618,7 @@ export class ToolsOperations {
             throw new Error("invoke accepts between 1 and 10 tools");
         }
         const normalized = tools.map((tool) => {
-            const name = tool.tool ?? tool.toolSlug;
+            const name = tool.tool ?? tool.toolSlug ?? tool.tool_slug;
             if (!name) throw new Error("each invoke entry requires tool");
             return { tool: name, arguments: tool.arguments ?? {} };
         });
@@ -739,6 +769,7 @@ export class SessionsOperations {
         if (!sessionUrn) throw new GatewayError("session create response is missing sessionUrn", undefined, payload);
         const mcpURL = String(payload?.mcpUrl ?? "");
         if (!mcpURL) throw new GatewayError("session create response is missing mcpUrl", undefined, payload);
+        assertTransportURL(mcpURL, payload);
         const selectedTools = (payload?.tools ?? []).map(String);
         const transport = new GatewayTransport(this.apiKey, mcpURL, sessionUrn, actorId);
         return new Session(

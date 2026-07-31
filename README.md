@@ -29,8 +29,7 @@ Completions, Messages, and Responses. Toolbelt CRUD is generated from the
 public DigitalOcean OpenAPI specification, with a `createToolbelt` convenience
 method on `ActionGatewayClient`.
 
-See the [Action Gateway guide](docs/action-gateway.md) and
-[TypeScript examples](examples/action-gateway/).
+See the [Action Gateway guide and TypeScript examples](./examples/action-gateway).
 
 ## **Basic Usage**
 > A quick guide to getting started with client
