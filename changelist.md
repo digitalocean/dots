@@ -1,13 +1,6 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@7e5b46e (2026-07-08T11:33:21Z)
-Target commit: digitalocean/openapi@87e82da (2026-07-31T17:01:27Z)
+Current commit: digitalocean/openapi@87e82da (2026-07-31T17:01:27Z)
+Target commit: digitalocean/openapi@8c740d3 (2026-08-03T13:22:47Z)
 
-* digitalocean/openapi#1210: Hide Secrets Manager from public API docs until GA - 2026-07-31T17:01:27Z []
-* digitalocean/openapi#1208: Complete databases firewall PUT description (PDOCS-4399) - 2026-07-29T06:25:53Z []
-* digitalocean/openapi#1206: Update spec to support project:assign_resource standardization - 2026-07-27T08:45:08Z []
-* digitalocean/openapi#1205: update disk_info enum - 2026-07-23T11:57:48Z []
-* digitalocean/openapi#1204: teamgroups api list and create team openapi spec - 2026-07-30T12:41:36Z []
-* digitalocean/openapi#1203: [DBAAS-8887] Add 16 new MySQL advanced config parameters - 2026-07-17T07:54:47Z []
-* digitalocean/openapi#1202: DBAAS-8634: Document pg_allow_replication optional default and update path - 2026-07-16T09:12:20Z []
-* digitalocean/openapi#1201: Add p2p_oci_registry_plugin to k8s response - 2026-07-09T14:24:10Z []
+* digitalocean/openapi#1211: doks: document the isolated_workers field - 2026-08-03T13:22:47Z []
