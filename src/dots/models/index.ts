@@ -10321,6 +10321,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     ipv4?: string | null;
     /**
+     * A boolean value indicating whether worker nodes in the cluster are not assigned public IP addresses. When omitted on create, the default value is false. When enabled, a NAT gateway must exist in the VPC where the cluster is created.
+     */
+    isolatedWorkers?: boolean | null;
+    /**
      * An object specifying the maintenance window policy for the Kubernetes cluster.
      */
     maintenancePolicy?: Maintenance_policy | null;
@@ -10460,6 +10464,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
      */
     ipv4?: string | null;
+    /**
+     * A boolean value indicating whether worker nodes in the cluster are not assigned public IP addresses. When omitted on create, the default value is false. When enabled, a NAT gateway must exist in the VPC where the cluster is created.
+     */
+    isolatedWorkers?: boolean | null;
     /**
      * An object specifying the maintenance window policy for the Kubernetes cluster.
      */
@@ -28053,6 +28061,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "ha": n => { cluster.ha = n.getBooleanValue(); },
         "id": n => { cluster.id = n.getGuidValue(); },
         "ipv4": n => { cluster.ipv4 = n.getStringValue(); },
+        "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster.name = n.getStringValue(); },
         "node_pools": n => { cluster.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
@@ -28106,6 +28115,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "ha": n => { cluster_read.ha = n.getBooleanValue(); },
         "id": n => { cluster_read.id = n.getGuidValue(); },
         "ipv4": n => { cluster_read.ipv4 = n.getStringValue(); },
+        "isolated_workers": n => { cluster_read.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster_read.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_read.name = n.getStringValue(); },
         "node_pools": n => { cluster_read.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
@@ -34645,7 +34655,7 @@ export interface Disk_info extends AdditionalDataHolder, Parsable {
      */
     size?: Disk_info_size | null;
     /**
-     * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+     * The type of disk. All Droplets contain a `local` or `boot` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
      */
     type?: Disk_info_type | null;
 }
@@ -47541,6 +47551,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster.ha);
+    writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster.nodePools, serializeKubernetes_node_pool);
@@ -47590,6 +47601,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_read.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_read.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster_read.ha);
+    writer.writeBooleanValue("isolated_workers", cluster_read.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_read.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_read.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster_read.nodePools, serializeKubernetes_node_pool);
@@ -56959,11 +56971,11 @@ export const Destination_typeObject = {
     Opensearch_ext: "opensearch_ext",
 } as const;
 /**
- * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+ * The type of disk. All Droplets contain a `local` or `boot` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
  */
 export const Disk_info_typeObject = {
     Local: "local",
-    Remote: "remote",
+    Boot: "boot",
     Scratch: "scratch",
 } as const;
 /**
