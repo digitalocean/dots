@@ -758,6 +758,15 @@ export interface Amd_gpu_device_plugin extends AdditionalDataHolder, Parsable {
     enabled?: boolean | null;
 }
 /**
+ * An object specifying whether the AMD GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `amd_gpu_device_plugin`.
+ */
+export interface Amd_gpu_dra_driver extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the AMD GPU DRA Driver is enabled.
+     */
+    enabled?: boolean | null;
+}
+/**
  * An Agent
  */
 export interface ApiAgent extends AdditionalDataHolder, Parsable {
@@ -4144,6 +4153,30 @@ export interface ApiListModelAPIKeysOutput extends AdditionalDataHolder, Parsabl
 }
 export interface ApiListModelCatalogOutput extends AdditionalDataHolder, Parsable {
     /**
+     * All deployment availability values the client can offer in the availability filter UI.
+     */
+    availableAvailability?: string[] | null;
+    /**
+     * All badge values the client can offer in the badges filter UI.
+     */
+    availableBadges?: string[] | null;
+    /**
+     * All model type values the client can offer in the type filter UI.
+     */
+    availableModelTypes?: string[] | null;
+    /**
+     * All provider values the client can offer in the provider filter UI.
+     */
+    availableProviders?: string[] | null;
+    /**
+     * All sort-by field values the client can offer in the sort UI.
+     */
+    availableSortBy?: ApiModelCatalogSortBy[] | null;
+    /**
+     * All sort-direction values the client can offer in the sort UI.
+     */
+    availableSortDirections?: ApiSortDirection[] | null;
+    /**
      * The data property
      */
     data?: ApiModelCatalogEntry[] | null;
@@ -4746,6 +4779,7 @@ export interface ApiModelCatalogEntry extends AdditionalDataHolder, Parsable {
  */
 export interface ApiModelCatalogEntry_benchmark_score extends AdditionalDataHolder, Parsable {
 }
+export type ApiModelCatalogSortBy = (typeof ApiModelCatalogSortByObject)[keyof typeof ApiModelCatalogSortByObject];
 /**
  * An available endpoint for a model and its capabilities
  */
@@ -5983,6 +6017,7 @@ export interface ApiScheduledIndexingInfo extends AdditionalDataHolder, Parsable
      */
     uuid?: string | null;
 }
+export type ApiSortDirection = (typeof ApiSortDirectionObject)[keyof typeof ApiSortDirectionObject];
 /**
  * Spaces Bucket Data Source
  */
@@ -10281,6 +10316,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
     /**
+     * An object specifying whether the AMD GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `amd_gpu_device_plugin`.
+     */
+    amdGpuDraDriver?: Amd_gpu_dra_driver | null;
+    /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
     autoUpgrade?: boolean | null;
@@ -10321,6 +10360,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     ipv4?: string | null;
     /**
+     * A boolean value indicating whether worker nodes in the cluster are not assigned public IP addresses. When omitted on create, the default value is false. When enabled, a NAT gateway must exist in the VPC where the cluster is created.
+     */
+    isolatedWorkers?: boolean | null;
+    /**
      * An object specifying the maintenance window policy for the Kubernetes cluster.
      */
     maintenancePolicy?: Maintenance_policy | null;
@@ -10336,6 +10379,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the NVIDIA GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `nvidia_gpu_device_plugin`.
+     */
+    nvidiaGpuDraDriver?: Nvidia_gpu_dra_driver | null;
     /**
      * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
      */
@@ -10421,6 +10468,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      */
     amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
     /**
+     * An object specifying whether the AMD GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `amd_gpu_device_plugin`.
+     */
+    amdGpuDraDriver?: Amd_gpu_dra_driver | null;
+    /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
     autoUpgrade?: boolean | null;
@@ -10461,6 +10512,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      */
     ipv4?: string | null;
     /**
+     * A boolean value indicating whether worker nodes in the cluster are not assigned public IP addresses. When omitted on create, the default value is false. When enabled, a NAT gateway must exist in the VPC where the cluster is created.
+     */
+    isolatedWorkers?: boolean | null;
+    /**
      * An object specifying the maintenance window policy for the Kubernetes cluster.
      */
     maintenancePolicy?: Maintenance_policy | null;
@@ -10476,6 +10531,10 @@ export interface Cluster_read extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the NVIDIA GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `nvidia_gpu_device_plugin`.
+     */
+    nvidiaGpuDraDriver?: Nvidia_gpu_dra_driver | null;
     /**
      * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
      */
@@ -10591,6 +10650,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      */
     amdGpuDevicePlugin?: Amd_gpu_device_plugin | null;
     /**
+     * An object specifying whether the AMD GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `amd_gpu_device_plugin`.
+     */
+    amdGpuDraDriver?: Amd_gpu_dra_driver | null;
+    /**
      * A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
      */
     autoUpgrade?: boolean | null;
@@ -10622,6 +10685,10 @@ export interface Cluster_update extends AdditionalDataHolder, Parsable {
      * An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool.
      */
     nvidiaGpuDevicePlugin?: Nvidia_gpu_device_plugin | null;
+    /**
+     * An object specifying whether the NVIDIA GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `nvidia_gpu_device_plugin`.
+     */
+    nvidiaGpuDraDriver?: Nvidia_gpu_dra_driver | null;
     /**
      * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
      */
@@ -11501,6 +11568,15 @@ export function createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorVal
 // @ts-ignore
 export function createAmd_gpu_device_pluginFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAmd_gpu_device_plugin;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Amd_gpu_dra_driver}
+ */
+// @ts-ignore
+export function createAmd_gpu_dra_driverFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAmd_gpu_dra_driver;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -18367,6 +18443,15 @@ export function createNvidia_gpu_device_pluginFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Nvidia_gpu_dra_driver}
+ */
+// @ts-ignore
+export function createNvidia_gpu_dra_driverFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNvidia_gpu_dra_driver;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {OneClicks_create}
  */
 // @ts-ignore
@@ -21390,6 +21475,17 @@ export function deserializeIntoAmd_gpu_device_plugin(amd_gpu_device_plugin: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Amd_gpu_dra_driver The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAmd_gpu_dra_driver(amd_gpu_dra_driver: Partial<Amd_gpu_dra_driver> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { amd_gpu_dra_driver.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiAgent The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -23689,6 +23785,12 @@ export function deserializeIntoApiListModelAPIKeysOutput(apiListModelAPIKeysOutp
 // @ts-ignore
 export function deserializeIntoApiListModelCatalogOutput(apiListModelCatalogOutput: Partial<ApiListModelCatalogOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "available_availability": n => { apiListModelCatalogOutput.availableAvailability = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_badges": n => { apiListModelCatalogOutput.availableBadges = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_model_types": n => { apiListModelCatalogOutput.availableModelTypes = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_providers": n => { apiListModelCatalogOutput.availableProviders = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_sort_by": n => { apiListModelCatalogOutput.availableSortBy = n.getCollectionOfEnumValues<ApiModelCatalogSortBy>(ApiModelCatalogSortByObject); },
+        "available_sort_directions": n => { apiListModelCatalogOutput.availableSortDirections = n.getCollectionOfEnumValues<ApiSortDirection>(ApiSortDirectionObject); },
         "data": n => { apiListModelCatalogOutput.data = n.getCollectionOfObjectValues<ApiModelCatalogEntry>(createApiModelCatalogEntryFromDiscriminatorValue); },
         "meta": n => { apiListModelCatalogOutput.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
     }
@@ -28043,6 +28145,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
     return {
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
+        "amd_gpu_dra_driver": n => { cluster.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster.clusterSubnet = n.getStringValue(); },
@@ -28053,10 +28156,12 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "ha": n => { cluster.ha = n.getBooleanValue(); },
         "id": n => { cluster.id = n.getGuidValue(); },
         "ipv4": n => { cluster.ipv4 = n.getStringValue(); },
+        "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster.name = n.getStringValue(); },
         "node_pools": n => { cluster.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "nvidia_gpu_dra_driver": n => { cluster.nvidiaGpuDraDriver = n.getObjectValue<Nvidia_gpu_dra_driver>(createNvidia_gpu_dra_driverFromDiscriminatorValue); },
         "p2p_oci_registry_plugin": n => { cluster.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster.region = n.getStringValue(); },
@@ -28096,6 +28201,7 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
     return {
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster_read.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster_read.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
+        "amd_gpu_dra_driver": n => { cluster_read.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster_read.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_read.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster_read.clusterSubnet = n.getStringValue(); },
@@ -28106,10 +28212,12 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "ha": n => { cluster_read.ha = n.getBooleanValue(); },
         "id": n => { cluster_read.id = n.getGuidValue(); },
         "ipv4": n => { cluster_read.ipv4 = n.getStringValue(); },
+        "isolated_workers": n => { cluster_read.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster_read.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_read.name = n.getStringValue(); },
         "node_pools": n => { cluster_read.nodePools = n.getCollectionOfObjectValues<Kubernetes_node_pool>(createKubernetes_node_poolFromDiscriminatorValue); },
         "nvidia_gpu_device_plugin": n => { cluster_read.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "nvidia_gpu_dra_driver": n => { cluster_read.nvidiaGpuDraDriver = n.getObjectValue<Nvidia_gpu_dra_driver>(createNvidia_gpu_dra_driverFromDiscriminatorValue); },
         "p2p_oci_registry_plugin": n => { cluster_read.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
@@ -28184,6 +28292,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
     return {
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster_update.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster_update.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
+        "amd_gpu_dra_driver": n => { cluster_update.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
         "auto_upgrade": n => { cluster_update.autoUpgrade = n.getBooleanValue(); },
         "cluster_autoscaler_configuration": n => { cluster_update.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "control_plane_firewall": n => { cluster_update.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
@@ -28192,6 +28301,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "maintenance_policy": n => { cluster_update.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_update.name = n.getStringValue(); },
         "nvidia_gpu_device_plugin": n => { cluster_update.nvidiaGpuDevicePlugin = n.getObjectValue<Nvidia_gpu_device_plugin>(createNvidia_gpu_device_pluginFromDiscriminatorValue); },
+        "nvidia_gpu_dra_driver": n => { cluster_update.nvidiaGpuDraDriver = n.getObjectValue<Nvidia_gpu_dra_driver>(createNvidia_gpu_dra_driverFromDiscriminatorValue); },
         "p2p_oci_registry_plugin": n => { cluster_update.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
@@ -30794,6 +30904,7 @@ export function deserializeIntoKubernetes_node_pool(kubernetes_node_pool: Partia
     return {
         "auto_scale": n => { kubernetes_node_pool.autoScale = n.getBooleanValue(); },
         "count": n => { kubernetes_node_pool.count = n.getNumberValue(); },
+        "gpu_partition_mode": n => { kubernetes_node_pool.gpuPartitionMode = n.getEnumValue<Kubernetes_node_pool_gpu_partition_mode>(Kubernetes_node_pool_gpu_partition_modeObject); },
         "id": n => { kubernetes_node_pool.id = n.getGuidValue(); },
         "labels": n => { kubernetes_node_pool.labels = n.getObjectValue<Kubernetes_node_pool_labels>(createKubernetes_node_pool_labelsFromDiscriminatorValue); },
         "max_nodes": n => { kubernetes_node_pool.maxNodes = n.getNumberValue(); },
@@ -32050,6 +32161,17 @@ export function deserializeIntoNotification_slack(notification_slack: Partial<No
 export function deserializeIntoNvidia_gpu_device_plugin(nvidia_gpu_device_plugin: Partial<Nvidia_gpu_device_plugin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "enabled": n => { nvidia_gpu_device_plugin.enabled = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Nvidia_gpu_dra_driver The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoNvidia_gpu_dra_driver(nvidia_gpu_dra_driver: Partial<Nvidia_gpu_dra_driver> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "enabled": n => { nvidia_gpu_dra_driver.enabled = n.getBooleanValue(); },
     }
 }
 /**
@@ -34645,7 +34767,7 @@ export interface Disk_info extends AdditionalDataHolder, Parsable {
      */
     size?: Disk_info_size | null;
     /**
-     * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+     * The type of disk. All Droplets contain a `local` or `boot` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
      */
     type?: Disk_info_type | null;
 }
@@ -36462,6 +36584,10 @@ export interface Kubernetes_node_pool extends AdditionalDataHolder, Parsable {
      */
     count?: number | null;
     /**
+     * The AMD GPU partition mode for this node pool. Only applicable to AMD GPU sizes that support partitioning. Immutable after the node pool is created. When omitted, the GPUs in the pool are left unpartitioned.
+     */
+    gpuPartitionMode?: Kubernetes_node_pool_gpu_partition_mode | null;
+    /**
      * A unique ID that can be used to identify and reference a specific node pool.
      */
     id?: Guid | null;
@@ -36498,6 +36624,7 @@ export interface Kubernetes_node_pool extends AdditionalDataHolder, Parsable {
      */
     taints?: Kubernetes_node_pool_taint[] | null;
 }
+export type Kubernetes_node_pool_gpu_partition_mode = (typeof Kubernetes_node_pool_gpu_partition_modeObject)[keyof typeof Kubernetes_node_pool_gpu_partition_modeObject];
 /**
  * An object of key/value mappings specifying labels to apply to all nodes in a pool. Labels will automatically be applied to all existing nodes and any subsequent nodes added to the pool. Note that when a label is removed, it is not deleted from the nodes in the pool.
  */
@@ -37955,6 +38082,15 @@ export interface Notification_slack extends AdditionalDataHolder, Parsable {
 export interface Nvidia_gpu_device_plugin extends AdditionalDataHolder, Parsable {
     /**
      * Indicates whether the Nvidia GPU Device Plugin is enabled.
+     */
+    enabled?: boolean | null;
+}
+/**
+ * An object specifying whether the NVIDIA GPU DRA Driver should be enabled in the Kubernetes cluster. Mutually exclusive with `nvidia_gpu_device_plugin`.
+ */
+export interface Nvidia_gpu_dra_driver extends AdditionalDataHolder, Parsable {
+    /**
+     * Indicates whether the NVIDIA GPU DRA Driver is enabled.
      */
     enabled?: boolean | null;
 }
@@ -40392,6 +40528,18 @@ export function serializeAmd_gpu_device_plugin(writer: SerializationWriter, amd_
     if (!amd_gpu_device_plugin || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("enabled", amd_gpu_device_plugin.enabled);
     writer.writeAdditionalData(amd_gpu_device_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Amd_gpu_dra_driver The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAmd_gpu_dra_driver(writer: SerializationWriter, amd_gpu_dra_driver: Partial<Amd_gpu_dra_driver> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!amd_gpu_dra_driver || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", amd_gpu_dra_driver.enabled);
+    writer.writeAdditionalData(amd_gpu_dra_driver.additionalData);
 }
 /**
  * Serializes information the current object
@@ -42857,6 +43005,14 @@ export function serializeApiListModelAPIKeysOutput(writer: SerializationWriter, 
 // @ts-ignore
 export function serializeApiListModelCatalogOutput(writer: SerializationWriter, apiListModelCatalogOutput: Partial<ApiListModelCatalogOutput> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apiListModelCatalogOutput || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("available_availability", apiListModelCatalogOutput.availableAvailability);
+    writer.writeCollectionOfPrimitiveValues<string>("available_badges", apiListModelCatalogOutput.availableBadges);
+    writer.writeCollectionOfPrimitiveValues<string>("available_model_types", apiListModelCatalogOutput.availableModelTypes);
+    writer.writeCollectionOfPrimitiveValues<string>("available_providers", apiListModelCatalogOutput.availableProviders);
+    if(apiListModelCatalogOutput.availableSortBy)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogSortBy>("available_sort_by", apiListModelCatalogOutput.availableSortBy);
+    if(apiListModelCatalogOutput.availableSortDirections)
+    writer.writeCollectionOfEnumValues<ApiSortDirection>("available_sort_directions", apiListModelCatalogOutput.availableSortDirections);
     writer.writeCollectionOfObjectValues<ApiModelCatalogEntry>("data", apiListModelCatalogOutput.data, serializeApiModelCatalogEntry);
     writer.writeObjectValue<ApiMeta>("meta", apiListModelCatalogOutput.meta, serializeApiMeta);
     writer.writeAdditionalData(apiListModelCatalogOutput.additionalData);
@@ -47535,16 +47691,19 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     if (!cluster || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
+    writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
     writer.writeBooleanValue("auto_upgrade", cluster.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster.ha);
+    writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<Nvidia_gpu_dra_driver>("nvidia_gpu_dra_driver", cluster.nvidiaGpuDraDriver, serializeNvidia_gpu_dra_driver);
     writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster.region);
@@ -47584,16 +47743,19 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     if (!cluster_read || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_read.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_read.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
+    writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster_read.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
     writer.writeBooleanValue("auto_upgrade", cluster_read.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_read.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster_read.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_read.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_read.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("ha", cluster_read.ha);
+    writer.writeBooleanValue("isolated_workers", cluster_read.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_read.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_read.name);
     writer.writeCollectionOfObjectValues<Kubernetes_node_pool>("node_pools", cluster_read.nodePools, serializeKubernetes_node_pool);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_read.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<Nvidia_gpu_dra_driver>("nvidia_gpu_dra_driver", cluster_read.nvidiaGpuDraDriver, serializeNvidia_gpu_dra_driver);
     writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_read.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_read.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeStringValue("region", cluster_read.region);
@@ -47670,6 +47832,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     if (!cluster_update || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_update.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_update.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
+    writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster_update.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
     writer.writeBooleanValue("auto_upgrade", cluster_update.autoUpgrade);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_update.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_update.controlPlaneFirewall, serializeControl_plane_firewall);
@@ -47678,6 +47841,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_update.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_update.name);
     writer.writeObjectValue<Nvidia_gpu_device_plugin>("nvidia_gpu_device_plugin", cluster_update.nvidiaGpuDevicePlugin, serializeNvidia_gpu_device_plugin);
+    writer.writeObjectValue<Nvidia_gpu_dra_driver>("nvidia_gpu_dra_driver", cluster_update.nvidiaGpuDraDriver, serializeNvidia_gpu_dra_driver);
     writer.writeObjectValue<P2p_oci_registry_plugin>("p2p_oci_registry_plugin", cluster_update.p2pOciRegistryPlugin, serializeP2p_oci_registry_plugin);
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
@@ -50440,6 +50604,7 @@ export function serializeKubernetes_node_pool(writer: SerializationWriter, kuber
     if (!kubernetes_node_pool || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("auto_scale", kubernetes_node_pool.autoScale);
     writer.writeNumberValue("count", kubernetes_node_pool.count);
+    writer.writeEnumValue<Kubernetes_node_pool_gpu_partition_mode>("gpu_partition_mode", kubernetes_node_pool.gpuPartitionMode);
     writer.writeObjectValue<Kubernetes_node_pool_labels>("labels", kubernetes_node_pool.labels, serializeKubernetes_node_pool_labels);
     writer.writeNumberValue("max_nodes", kubernetes_node_pool.maxNodes);
     writer.writeNumberValue("min_nodes", kubernetes_node_pool.minNodes);
@@ -51763,6 +51928,18 @@ export function serializeNvidia_gpu_device_plugin(writer: SerializationWriter, n
     if (!nvidia_gpu_device_plugin || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("enabled", nvidia_gpu_device_plugin.enabled);
     writer.writeAdditionalData(nvidia_gpu_device_plugin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Nvidia_gpu_dra_driver The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeNvidia_gpu_dra_driver(writer: SerializationWriter, nvidia_gpu_dra_driver: Partial<Nvidia_gpu_dra_driver> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nvidia_gpu_dra_driver || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", nvidia_gpu_dra_driver.enabled);
+    writer.writeAdditionalData(nvidia_gpu_dra_driver.additionalData);
 }
 /**
  * Serializes information the current object
@@ -56212,6 +56389,14 @@ export const ApiModelBillingModeObject = {
     MODEL_BILLING_MODE_BATCH: "MODEL_BILLING_MODE_BATCH",
 } as const;
 /**
+ * Field on which to sort model catalog results. - MODEL_CATALOG_SORT_BY_CREATED_AT: Default: sort by creation date. - MODEL_CATALOG_SORT_BY_NAME: Sort by the model's display name (case-insensitive). - MODEL_CATALOG_SORT_BY_PRICE: Sort by input token price.
+ */
+export const ApiModelCatalogSortByObject = {
+    MODEL_CATALOG_SORT_BY_CREATED_AT: "MODEL_CATALOG_SORT_BY_CREATED_AT",
+    MODEL_CATALOG_SORT_BY_NAME: "MODEL_CATALOG_SORT_BY_NAME",
+    MODEL_CATALOG_SORT_BY_PRICE: "MODEL_CATALOG_SORT_BY_PRICE",
+} as const;
+/**
  * Model Evaluation Run Statuses
  */
 export const ApiModelEvaluationRunStatusObject = {
@@ -56285,6 +56470,14 @@ export const ApiRetrievalMethodObject = {
     RETRIEVAL_METHOD_STEP_BACK: "RETRIEVAL_METHOD_STEP_BACK",
     RETRIEVAL_METHOD_SUB_QUERIES: "RETRIEVAL_METHOD_SUB_QUERIES",
     RETRIEVAL_METHOD_NONE: "RETRIEVAL_METHOD_NONE",
+} as const;
+/**
+ * Sort direction shared by list endpoints that support sorting.
+ */
+export const ApiSortDirectionObject = {
+    SORT_DIRECTION_UNSPECIFIED: "SORT_DIRECTION_UNSPECIFIED",
+    SORT_DIRECTION_ASC: "SORT_DIRECTION_ASC",
+    SORT_DIRECTION_DESC: "SORT_DIRECTION_DESC",
 } as const;
 /**
  * Types of spans in a trace
@@ -56959,11 +57152,11 @@ export const Destination_typeObject = {
     Opensearch_ext: "opensearch_ext",
 } as const;
 /**
- * The type of disk. All Droplets contain a `local` or `remote` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+ * The type of disk. All Droplets contain a `local` or `boot` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
  */
 export const Disk_info_typeObject = {
     Local: "local",
-    Remote: "remote",
+    Boot: "boot",
     Scratch: "scratch",
 } as const;
 /**
@@ -57343,6 +57536,13 @@ export const Kafka_topic_verbose_stateObject = {
     Configuring: "configuring",
     Deleting: "deleting",
     Unknown: "unknown",
+} as const;
+/**
+ * The AMD GPU partition mode for this node pool. Only applicable to AMD GPU sizes that support partitioning. Immutable after the node pool is created. When omitted, the GPUs in the pool are left unpartitioned.
+ */
+export const Kubernetes_node_pool_gpu_partition_modeObject = {
+    AMD_PARTITION_MODE_SPX_NPS1: "AMD_PARTITION_MODE_SPX_NPS1",
+    AMD_PARTITION_MODE_DPX_NPS2: "AMD_PARTITION_MODE_DPX_NPS2",
 } as const;
 /**
  * How the node reacts to pods that it won't tolerate. Available effect values are `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
