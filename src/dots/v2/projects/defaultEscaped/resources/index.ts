@@ -84,7 +84,7 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ResourcesGetResponse | undefined>;
     /**
-     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
+     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both `project:assign_resource` and `<resource>:read` scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:assign_resource` and `droplet:read` scopes. The `project:update` scope also grants `project:assign_resource`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ResourcesPostResponse>}
@@ -102,7 +102,7 @@ export interface ResourcesRequestBuilder extends BaseRequestBuilder<ResourcesReq
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
+     * To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.You must have both `project:assign_resource` and `<resource>:read` scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:assign_resource` and `droplet:read` scopes. The `project:update` scope also grants `project:assign_resource`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

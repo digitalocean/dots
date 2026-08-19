@@ -11323,19 +11323,28 @@ export interface Create_response_response_tools extends AdditionalDataHolder, Pa
 export interface Create_response_response_tools_parameters extends AdditionalDataHolder, Parsable {
 }
 export type Create_response_response_tools_type = (typeof Create_response_response_tools_typeObject)[keyof typeof Create_response_response_tools_typeObject];
-export interface Create_secret_response extends AdditionalDataHolder, Parsable {
+/**
+ * The team resource returned when a team is created in an organization.
+ */
+export interface Create_team extends AdditionalDataHolder, Parsable {
     /**
-     * The name of the secret.
+     * The human-readable name for the newly created team.
      */
     name?: string | null;
     /**
-     * The region where the secret is stored.
+     * A unique universal identifier for the newly created team.
      */
-    region?: string | null;
+    uuid?: Guid | null;
+}
+export interface Create_team_request extends AdditionalDataHolder, Parsable {
     /**
-     * The version of the secret after the operation.
+     * Optional invitations to send when creating the team. Each invitation includes an email address and a role. The `owner` role cannot be assigned via invitation.
      */
-    version?: number | null;
+    invitations?: Team_invitation[] | null;
+    /**
+     * The human-readable name for the team to create.
+     */
+    name?: string | null;
 }
 export interface Create_session_request extends Parsable {
     /**
@@ -16375,11 +16384,20 @@ export function createCreate_response_responseFromDiscriminatorValue(parseNode: 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Create_secret_response}
+ * @returns {Create_team_request}
  */
 // @ts-ignore
-export function createCreate_secret_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoCreate_secret_response;
+export function createCreate_team_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_team_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_team}
+ */
+// @ts-ignore
+export function createCreate_teamFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_team;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -19043,6 +19061,15 @@ export function createOptionsFromDiscriminatorValue(parseNode: ParseNode | undef
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Organization_team}
+ */
+// @ts-ignore
+export function createOrganization_teamFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoOrganization_team;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {P2p_oci_registry_plugin}
  */
 // @ts-ignore
@@ -19699,42 +19726,6 @@ export function createSchema_registry_connectionFromDiscriminatorValue(parseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Secret_list_item}
- */
-// @ts-ignore
-export function createSecret_list_itemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSecret_list_item;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Secret_values}
- */
-// @ts-ignore
-export function createSecret_valuesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSecret_values;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Secret_version}
- */
-// @ts-ignore
-export function createSecret_versionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSecret_version;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Secret}
- */
-// @ts-ignore
-export function createSecretFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSecret;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Selective_destroy_associated_resource}
  */
 // @ts-ignore
@@ -20073,6 +20064,15 @@ export function createTags_resourcesFromDiscriminatorValue(parseNode: ParseNode 
 // @ts-ignore
 export function createTagsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoTags;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Team_invitation}
+ */
+// @ts-ignore
+export function createTeam_invitationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTeam_invitation;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -29525,15 +29525,26 @@ export function deserializeIntoCreate_response_response_tools_parameters(create_
 }
 /**
  * The deserialization information for the current model
- * @param Create_secret_response The instance to deserialize into.
+ * @param Create_team The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoCreate_secret_response(create_secret_response: Partial<Create_secret_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoCreate_team(create_team: Partial<Create_team> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "name": n => { create_secret_response.name = n.getStringValue(); },
-        "region": n => { create_secret_response.region = n.getStringValue(); },
-        "version": n => { create_secret_response.version = n.getNumberValue(); },
+        "name": n => { create_team.name = n.getStringValue(); },
+        "uuid": n => { create_team.uuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_team_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_team_request(create_team_request: Partial<Create_team_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "invitations": n => { create_team_request.invitations = n.getCollectionOfObjectValues<Team_invitation>(createTeam_invitationFromDiscriminatorValue); },
+        "name": n => { create_team_request.name = n.getStringValue(); },
     }
 }
 /**
@@ -33619,6 +33630,24 @@ export function deserializeIntoOptions_version_availability(options_version_avai
 }
 /**
  * The deserialization information for the current model
+ * @param Organization_team The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoOrganization_team(organization_team: Partial<Organization_team> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "company": n => { organization_team.company = n.getStringValue(); },
+        "email": n => { organization_team.email = n.getStringValue(); },
+        "id": n => { organization_team.id = n.getNumberValue(); },
+        "joined_organization_at": n => { organization_team.joinedOrganizationAt = n.getDateValue(); },
+        "member_count": n => { organization_team.memberCount = n.getNumberValue(); },
+        "name": n => { organization_team.name = n.getStringValue(); },
+        "status": n => { organization_team.status = n.getEnumValue<Organization_team_status>(Organization_team_statusObject); },
+        "uuid": n => { organization_team.uuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param P2p_oci_registry_plugin The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -34610,62 +34639,6 @@ export function deserializeIntoSchema_registry_connection(schema_registry_connec
 }
 /**
  * The deserialization information for the current model
- * @param Secret The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSecret(secret: Partial<Secret> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "created_at": n => { secret.createdAt = n.getDateValue(); },
-        "delete_requested_at": n => { secret.deleteRequestedAt = n.getDateValue(); },
-        "region": n => { secret.region = n.getStringValue(); },
-        "secret": n => { secret.secret = n.getStringValue(); },
-        "updated_at": n => { secret.updatedAt = n.getDateValue(); },
-        "values": n => { secret.values = n.getObjectValue<Secret_values>(createSecret_valuesFromDiscriminatorValue); },
-        "version": n => { secret.version = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param Secret_list_item The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSecret_list_item(secret_list_item: Partial<Secret_list_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "created_at": n => { secret_list_item.createdAt = n.getDateValue(); },
-        "delete_requested_at": n => { secret_list_item.deleteRequestedAt = n.getDateValue(); },
-        "region": n => { secret_list_item.region = n.getStringValue(); },
-        "secret": n => { secret_list_item.secret = n.getStringValue(); },
-        "updated_at": n => { secret_list_item.updatedAt = n.getDateValue(); },
-        "version": n => { secret_list_item.version = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param Secret_values The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSecret_values(secret_values: Partial<Secret_values> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-    }
-}
-/**
- * The deserialization information for the current model
- * @param Secret_version The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSecret_version(secret_version: Partial<Secret_version> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "created_at": n => { secret_version.createdAt = n.getDateValue(); },
-        "updated_at": n => { secret_version.updatedAt = n.getDateValue(); },
-        "version": n => { secret_version.version = n.getNumberValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
  * @param Selective_destroy_associated_resource The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -35159,6 +35132,18 @@ export function deserializeIntoTags_resources(tags_resources: Partial<Tags_resou
         "imgages": n => { tags_resources.imgages = n.getObjectValue<Tags_metadata>(createTags_metadataFromDiscriminatorValue); },
         "volumes": n => { tags_resources.volumes = n.getObjectValue<Tags_metadata>(createTags_metadataFromDiscriminatorValue); },
         "volume_snapshots": n => { tags_resources.volumeSnapshots = n.getObjectValue<Tags_metadata>(createTags_metadataFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Team_invitation The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTeam_invitation(team_invitation: Partial<Team_invitation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "email": n => { team_invitation.email = n.getStringValue(); },
+        "role": n => { team_invitation.role = n.getEnumValue<Team_invitation_role>(Team_invitation_roleObject); },
     }
 }
 /**
@@ -40506,6 +40491,44 @@ export interface Options_version_availability extends AdditionalDataHolder, Pars
     valkey?: Database_version_availability[] | null;
 }
 /**
+ * A team that belongs to an organization.
+ */
+export interface Organization_team extends AdditionalDataHolder, Parsable {
+    /**
+     * The company name associated with the team, if set.
+     */
+    company?: string | null;
+    /**
+     * The email address associated with the team.
+     */
+    email?: string | null;
+    /**
+     * A unique identifier for the team.
+     */
+    id?: number | null;
+    /**
+     * A time value given in ISO8601 combined date and time format that represents when the team joined the organization.
+     */
+    joinedOrganizationAt?: Date | null;
+    /**
+     * The number of members on the team.
+     */
+    memberCount?: number | null;
+    /**
+     * The human-readable name for the team.
+     */
+    name?: string | null;
+    /**
+     * The team's membership status within the organization.
+     */
+    status?: Organization_team_status | null;
+    /**
+     * A unique universal identifier for the team.
+     */
+    uuid?: Guid | null;
+}
+export type Organization_team_status = (typeof Organization_team_statusObject)[keyof typeof Organization_team_statusObject];
+/**
  * An object specifying whether the Peer-to-peer OCI registry component should be enabled for the Kubernetes cluster.
  */
 export interface P2p_oci_registry_plugin extends AdditionalDataHolder, Parsable {
@@ -41853,81 +41876,6 @@ export interface Schema_registry_connection extends AdditionalDataHolder, Parsab
      * The default user for the schema registry.<br><br>Requires `database:view_credentials` scope.
      */
     user?: string | null;
-}
-export interface Secret extends AdditionalDataHolder, Parsable {
-    /**
-     * When the secret was created.
-     */
-    createdAt?: Date | null;
-    /**
-     * When deletion was requested for the secret.
-     */
-    deleteRequestedAt?: Date | null;
-    /**
-     * The region where the secret is stored.
-     */
-    region?: string | null;
-    /**
-     * The name of the secret.
-     */
-    secret?: string | null;
-    /**
-     * When the secret was last updated.
-     */
-    updatedAt?: Date | null;
-    /**
-     * Key-value pairs stored in the secret.
-     */
-    values?: Secret_values | null;
-    /**
-     * The current version of the secret.
-     */
-    version?: number | null;
-}
-export interface Secret_list_item extends AdditionalDataHolder, Parsable {
-    /**
-     * When the secret was created.
-     */
-    createdAt?: Date | null;
-    /**
-     * When deletion was requested for the secret.
-     */
-    deleteRequestedAt?: Date | null;
-    /**
-     * The region where the secret is stored.
-     */
-    region?: string | null;
-    /**
-     * The name of the secret.
-     */
-    secret?: string | null;
-    /**
-     * When the secret was last updated.
-     */
-    updatedAt?: Date | null;
-    /**
-     * The current version of the secret.
-     */
-    version?: number | null;
-}
-/**
- * Key-value pairs stored in the secret.
- */
-export interface Secret_values extends AdditionalDataHolder, Parsable {
-}
-export interface Secret_version extends AdditionalDataHolder, Parsable {
-    /**
-     * When this version was created.
-     */
-    createdAt?: Date | null;
-    /**
-     * When this version was last updated.
-     */
-    updatedAt?: Date | null;
-    /**
-     * The version number.
-     */
-    version?: number | null;
 }
 /**
  * An object containing information about a resource to be scheduled for deletion.
@@ -50346,17 +50294,28 @@ export function serializeCreate_response_response_tools_parameters(writer: Seria
 }
 /**
  * Serializes information the current object
- * @param Create_secret_response The instance to serialize from.
+ * @param Create_team The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCreate_secret_response(writer: SerializationWriter, create_secret_response: Partial<Create_secret_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!create_secret_response || isSerializingDerivedType) { return; }
-    writer.writeStringValue("name", create_secret_response.name);
-    writer.writeStringValue("region", create_secret_response.region);
-    writer.writeNumberValue("version", create_secret_response.version);
-    writer.writeAdditionalData(create_secret_response.additionalData);
+export function serializeCreate_team(writer: SerializationWriter, create_team: Partial<Create_team> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_team || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", create_team.name);
+    writer.writeAdditionalData(create_team.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_team_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_team_request(writer: SerializationWriter, create_team_request: Partial<Create_team_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_team_request || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Team_invitation>("invitations", create_team_request.invitations, serializeTeam_invitation);
+    writer.writeStringValue("name", create_team_request.name);
+    writer.writeAdditionalData(create_team_request.additionalData);
 }
 /**
  * Serializes information the current object
@@ -54619,6 +54578,21 @@ export function serializeOptions_version_availability(writer: SerializationWrite
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Organization_team The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeOrganization_team(writer: SerializationWriter, organization_team: Partial<Organization_team> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!organization_team || isSerializingDerivedType) { return; }
+    writer.writeStringValue("company", organization_team.company);
+    writer.writeStringValue("email", organization_team.email);
+    writer.writeStringValue("name", organization_team.name);
+    writer.writeEnumValue<Organization_team_status>("status", organization_team.status);
+    writer.writeAdditionalData(organization_team.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param P2p_oci_registry_plugin The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -55663,66 +55637,6 @@ export function serializeSchema_registry_connection(writer: SerializationWriter,
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Secret The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSecret(writer: SerializationWriter, secret: Partial<Secret> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!secret || isSerializingDerivedType) { return; }
-    writer.writeDateValue("created_at", secret.createdAt);
-    writer.writeDateValue("delete_requested_at", secret.deleteRequestedAt);
-    writer.writeStringValue("region", secret.region);
-    writer.writeStringValue("secret", secret.secret);
-    writer.writeDateValue("updated_at", secret.updatedAt);
-    writer.writeObjectValue<Secret_values>("values", secret.values, serializeSecret_values);
-    writer.writeNumberValue("version", secret.version);
-    writer.writeAdditionalData(secret.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Secret_list_item The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSecret_list_item(writer: SerializationWriter, secret_list_item: Partial<Secret_list_item> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!secret_list_item || isSerializingDerivedType) { return; }
-    writer.writeDateValue("created_at", secret_list_item.createdAt);
-    writer.writeDateValue("delete_requested_at", secret_list_item.deleteRequestedAt);
-    writer.writeStringValue("region", secret_list_item.region);
-    writer.writeStringValue("secret", secret_list_item.secret);
-    writer.writeDateValue("updated_at", secret_list_item.updatedAt);
-    writer.writeNumberValue("version", secret_list_item.version);
-    writer.writeAdditionalData(secret_list_item.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Secret_values The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSecret_values(writer: SerializationWriter, secret_values: Partial<Secret_values> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!secret_values || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(secret_values.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Secret_version The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSecret_version(writer: SerializationWriter, secret_version: Partial<Secret_version> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!secret_version || isSerializingDerivedType) { return; }
-    writer.writeDateValue("created_at", secret_version.createdAt);
-    writer.writeDateValue("updated_at", secret_version.updatedAt);
-    writer.writeNumberValue("version", secret_version.version);
-    writer.writeAdditionalData(secret_version.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Selective_destroy_associated_resource The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -56241,6 +56155,19 @@ export function serializeTags_resources(writer: SerializationWriter, tags_resour
     writer.writeObjectValue<Tags_metadata>("imgages", tags_resources.imgages, serializeTags_metadata);
     writer.writeObjectValue<Tags_metadata>("volumes", tags_resources.volumes, serializeTags_metadata);
     writer.writeObjectValue<Tags_metadata>("volume_snapshots", tags_resources.volumeSnapshots, serializeTags_metadata);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Team_invitation The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTeam_invitation(writer: SerializationWriter, team_invitation: Partial<Team_invitation> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!team_invitation || isSerializingDerivedType) { return; }
+    writer.writeStringValue("email", team_invitation.email);
+    writer.writeEnumValue<Team_invitation_role>("role", team_invitation.role);
+    writer.writeAdditionalData(team_invitation.additionalData);
 }
 /**
  * Serializes information the current object
@@ -57898,6 +57825,20 @@ export interface Tags_resources extends Parsable, Tags_metadata {
      */
     volumeSnapshots?: Tags_metadata | null;
 }
+/**
+ * An invitation to join a newly created team.
+ */
+export interface Team_invitation extends AdditionalDataHolder, Parsable {
+    /**
+     * The email address of the user to invite.
+     */
+    email?: string | null;
+    /**
+     * The role to assign to the invited user. The `owner` role cannot be assigned via invitation.
+     */
+    role?: Team_invitation_role | null;
+}
+export type Team_invitation_role = (typeof Team_invitation_roleObject)[keyof typeof Team_invitation_roleObject];
 /**
  * TimescaleDB extension configuration values
  */
@@ -61139,6 +61080,13 @@ export const Opensearch_index_statusObject = {
     None: "none",
 } as const;
 /**
+ * The team's membership status within the organization.
+ */
+export const Organization_team_statusObject = {
+    Joined: "joined",
+    Pending: "pending",
+} as const;
+/**
  * Optional redundancy zone for the partner attachment.
  */
 export const Partner_attachment_writable_redundancy_zoneObject = {
@@ -61420,6 +61368,16 @@ export const Toolbelt_statusObject = {
 export const Toolbelt_summary_statusObject = {
     Active: "active",
     Deprecated: "deprecated",
+} as const;
+/**
+ * The role to assign to the invited user. The `owner` role cannot be assigned via invitation.
+ */
+export const Team_invitation_roleObject = {
+    Member: "member",
+    Biller: "biller",
+    BillingViewer: "billing viewer",
+    ResourceViewer: "resource viewer",
+    Modifier: "modifier",
 } as const;
 /**
  * Permission set applied to the ACL. 'consume' allows for messages to be consumed from the topic. 'produce' allows for messages to be published to the topic. 'produceconsume' allows for both 'consume' and 'produce' permission. 'admin' allows for 'produceconsume' as well as any operations to administer the topic (delete, update).

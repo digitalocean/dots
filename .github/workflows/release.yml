@@ -1,5 +1,6 @@
 name: tagged-release
 
+# GA only: exact vX.Y.Z tags. Beta tags (vX.Y.Z-beta.N) use beta-release.yml.
 on:
   push:
     tags:

@@ -74,10 +74,16 @@ generate: dev-dependencies
 	node scripts/postgen-inference.mjs "$(SPEC_FILE)"
 
 .PHONY: tag
-tag: ## Tags a release
+tag: ## Tags a GA release (vX.Y.Z from package.json)
 	@echo "==> ORIGIN=${ORIGIN} COMMIT=${COMMIT} tag"
 	@echo ""
 	@ORIGIN=${ORIGIN} scripts/tag.sh
+
+.PHONY: beta_tag
+beta_tag: ## Tags a beta release (vX.Y.Z-beta.N) from the current branch
+	@echo "==> ORIGIN=${ORIGIN} COMMIT=${COMMIT} beta_tag"
+	@echo ""
+	@ORIGIN=${ORIGIN} scripts/beta_tag.sh
 
 .PHONY: _install_github_release_notes
 _install_github_release_notes:
