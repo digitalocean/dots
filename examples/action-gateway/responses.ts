@@ -1,14 +1,9 @@
-import { Client } from "../../src/inference-gen/inference.js";
-import {
-    ActionGatewayClient,
-    ResponsesProvider,
-} from "../../src/action-gateway/index.js";
+import { ActionGatewayClient } from "../../src/action-gateway/index.js";
 
 const apiKey = process.env.DIGITALOCEAN_TOKEN!;
-const inference = new Client({ apiKey });
 const gateway = new ActionGatewayClient({
     apiKey,
-    provider: new ResponsesProvider(),
+    provider: "responses",
 });
 const session = await gateway.session.create({
     actorId: "end-user-123",
@@ -18,7 +13,7 @@ const session = await gateway.session.create({
     },
 });
 
-const response = await inference.responses.create({
+const response = await gateway.responses.create({
     model: "openai-gpt-4o",
     input: "Find the latest DigitalOcean news and summarize it.",
     tools: await session.tools(),

@@ -3,6 +3,7 @@ import nock from "nock";
 import {
     ActionGatewayClient,
     ChatCompletionsProvider,
+    type GatewayProviderName,
     MessagesProvider,
     ResponsesProvider,
     SessionsOperations,
@@ -13,7 +14,7 @@ const API_BASE_URL = "https://api.digitalocean.test";
 const GATEWAY_BASE_URL = "https://actions.do-ai.test";
 const MCP_URL = `${GATEWAY_BASE_URL}/mcp/session/session-123`;
 
-function client(provider?: MessagesProvider | ResponsesProvider): ActionGatewayClient {
+function client(provider?: MessagesProvider | ResponsesProvider | GatewayProviderName): ActionGatewayClient {
     return new ActionGatewayClient({
         apiKey: "test-token",
         apiBaseURL: API_BASE_URL,
@@ -268,11 +269,15 @@ describe("Action Gateway", () => {
             input_schema: { type: "object" },
         });
 
-        const responsesSession = await client(new ResponsesProvider()).session.create({ actorId: "user-123" });
-        expect((await responsesSession.tools())[0]).toMatchObject({
+        const responsesSession = await client("responses").session.create({ actorId: "user-123" });
+        const responseTools = await responsesSession.tools();
+        expect(responseTools[0]).toMatchObject({
             type: "function",
             name: "action_search",
+            parameters: { type: "object" },
         });
+        expect(responseTools[0]).not.toHaveProperty("function");
+        expect(JSON.stringify(responseTools)).not.toMatch(/Composio|tool_slug|code_to_execute/);
     });
 
     it("executes and formats model tool calls", async () => {

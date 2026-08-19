@@ -63,7 +63,7 @@ export type ToolbeltWithRef = Toolbelt & { readonly ref: string };
 
 export interface ActionGatewayClientOptions extends InferenceClientOptions {
     apiBaseURL?: string;
-    provider?: GatewayProvider;
+    provider?: GatewayProvider | GatewayProviderName;
 }
 
 export interface ToolDefinition {
@@ -111,6 +111,8 @@ export interface InvokeOptions {
 }
 
 export type ToolResultMessage = JsonObject;
+
+export type GatewayProviderName = "chat.completions" | "messages" | "responses";
 
 export interface GatewayProvider {
     readonly name: string;
@@ -263,6 +265,13 @@ export class ResponsesProvider implements GatewayProvider {
     }
 }
 
+function resolveProvider(provider: GatewayProvider | GatewayProviderName | undefined): GatewayProvider {
+    if (provider === undefined || provider === "chat.completions") return new ChatCompletionsProvider();
+    if (provider === "messages") return new MessagesProvider();
+    if (provider === "responses") return new ResponsesProvider();
+    return provider;
+}
+
 function normalizeBaseURL(value: string): string {
     const url = value.trim().replace(/\/+$/, "");
     return url.includes("://") ? url : `https://${url}`;
@@ -377,9 +386,9 @@ const META_TOOLS: ToolDefinition[] = [
                         type: "object",
                         properties: {
                             tool: { type: "string" },
-                            tool_slug: { type: "string" },
                             arguments: { type: "object" },
                         },
+                        required: ["tool"],
                     },
                 },
                 rationale: { type: "string", maxLength: 512 },
@@ -395,9 +404,9 @@ const META_TOOLS: ToolDefinition[] = [
             type: "object",
             properties: {
                 code: { type: "string" },
-                code_to_execute: { type: "string" },
                 thought: { type: "string" },
             },
+            required: ["code"],
         },
     },
 ];
@@ -770,7 +779,7 @@ export class ActionGatewayClient extends InferenceClient {
         const apiKey = options.apiKey?.trim();
         if (!apiKey) throw new Error("apiKey is required");
         const apiBaseURL = normalizeBaseURL(options.apiBaseURL ?? DEFAULT_API_BASE_URL);
-        this.provider = options.provider ?? new ChatCompletionsProvider();
+        this.provider = resolveProvider(options.provider);
 
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(apiKey);
         const adapter = new FetchRequestAdapter(authProvider);

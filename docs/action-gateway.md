@@ -43,6 +43,31 @@ await session.approve(approvalId);
 // or: await session.deny(approvalId);
 ```
 
+## Inference API formats
+
+Select the inference API when creating the client so `session.tools()` and
+`session.handleToolCalls()` use the matching wire format. The default is
+`chat.completions`; Responses uses top-level `name` and `parameters` fields:
+
+```ts
+const gateway = new ActionGatewayClient({
+  apiKey: process.env.DIGITALOCEAN_TOKEN!,
+  provider: "responses",
+});
+const session = await gateway.session.create({ actorId: "end-user-123" });
+
+const response = await gateway.responses.create({
+  model: "openai-gpt-4o",
+  input: "Find the latest DigitalOcean news and summarize it.",
+  tools: await session.tools(),
+});
+
+const toolOutputs = await session.handleToolCalls(response);
+```
+
+Use `provider: "messages"` for the Messages API. Provider instances remain
+supported for custom integrations.
+
 ## Toolbelts
 
 Toolbelts are public DigitalOcean API resources, so CRUD operations are
