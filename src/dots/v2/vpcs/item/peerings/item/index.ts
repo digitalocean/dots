@@ -70,7 +70,7 @@ export function serializeWithVpc_peering_PatchResponse(writer: SerializationWrit
     writer.writeAdditionalData(withVpc_peering_PatchResponse.additionalData);
 }
 /**
- * Builds and executes requests for operations under /v2/vpcs/{vpc_id}/peerings/{vpc_peering_id}
+ * Builds and executes requests for operations under /v2/vpcs/{vpc_-id}/peerings/{vpc_peering_id}
  */
 export interface WithVpc_peering_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_peering_ItemRequestBuilder> {
     /**
@@ -104,7 +104,7 @@ export interface WithVpc_peering_PatchResponse extends AdditionalDataHolder, Par
 /**
  * Uri template for the request builder.
  */
-export const WithVpc_peering_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_id}/peerings/{vpc_peering_id}";
+export const WithVpc_peering_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_%2Did}/peerings/{vpc_peering_id}";
 /**
  * Metadata for all the requests in the request builder.
  */

@@ -8,6 +8,10 @@ import { Billing_historyRequestBuilderRequestsMetadata, type Billing_historyRequ
 // @ts-ignore
 import { InvoicesRequestBuilderNavigationMetadata, InvoicesRequestBuilderRequestsMetadata, type InvoicesRequestBuilder } from './invoices/index.js';
 // @ts-ignore
+import { Prepayment_configRequestBuilderRequestsMetadata, type Prepayment_configRequestBuilder } from './prepayment_config/index.js';
+// @ts-ignore
+import { Prepayment_statusRequestBuilderRequestsMetadata, type Prepayment_statusRequestBuilder } from './prepayment_status/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -26,6 +30,14 @@ export interface MyRequestBuilder extends BaseRequestBuilder<MyRequestBuilder> {
      * The invoices property
      */
     get invoices(): InvoicesRequestBuilder;
+    /**
+     * The prepayment_config property
+     */
+    get prepayment_config(): Prepayment_configRequestBuilder;
+    /**
+     * The prepayment_status property
+     */
+    get prepayment_status(): Prepayment_statusRequestBuilder;
 }
 /**
  * Uri template for the request builder.
@@ -44,6 +56,12 @@ export const MyRequestBuilderNavigationMetadata: Record<Exclude<keyof MyRequestB
     invoices: {
         requestsMetadata: InvoicesRequestBuilderRequestsMetadata,
         navigationMetadata: InvoicesRequestBuilderNavigationMetadata,
+    },
+    prepayment_config: {
+        requestsMetadata: Prepayment_configRequestBuilderRequestsMetadata,
+    },
+    prepayment_status: {
+        requestsMetadata: Prepayment_statusRequestBuilderRequestsMetadata,
     },
 };
 /* tslint:enable */

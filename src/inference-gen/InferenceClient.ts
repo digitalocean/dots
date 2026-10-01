@@ -331,6 +331,12 @@ export class InferenceClient {
         },
     };
 
+    public readonly systemone = {
+        create: async (params: Record<string, any>): Promise<any> => {
+            return this._fetch("/v1/systemone", "POST", params);
+        },
+    };
+
 
     /**
      * OpenAI-compat surface. Each method forwards to its

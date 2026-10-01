@@ -132,7 +132,7 @@ describe("VPCs API Mock Tests", () => {
 
         nock(baseUrl).get("/v2/vpcs/5a4981aa-9653-4bd1-bef5-d6bff52042e4").reply(200, expected);
 
-        const getResp = await client.v2.vpcs.byVpc_id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").get();
+        const getResp = await client.v2.vpcs.byVpc_Id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").get();
         expect(getResp).toEqual(typeExpected);
     });
 
@@ -169,7 +169,7 @@ describe("VPCs API Mock Tests", () => {
             default: true,
         }).reply(200, expected);
 
-        const updateResp = await client.v2.vpcs.byVpc_id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").put({
+        const updateResp = await client.v2.vpcs.byVpc_Id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").put({
             name: "env.prod-vpc",
             description: "VPC for production environment",
             defaultEscaped: true,
@@ -211,7 +211,7 @@ describe("VPCs API Mock Tests", () => {
             default: true,
         }).reply(200, expected);
 
-        const patchResp = await client.v2.vpcs.byVpc_id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").patch({
+        const patchResp = await client.v2.vpcs.byVpc_Id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").patch({
             name: "env.prod-vpc",
             description: "VPC for production environment",
             defaultEscaped: true,
@@ -223,7 +223,7 @@ describe("VPCs API Mock Tests", () => {
     it("should mock the VPC deletion operation", async () => {
         nock(baseUrl).delete("/v2/vpcs/5a4981aa-9653-4bd1-bef5-d6bff52042e4").reply(204);
 
-        const delResp = await client.v2.vpcs.byVpc_id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").delete();
+        const delResp = await client.v2.vpcs.byVpc_Id("5a4981aa-9653-4bd1-bef5-d6bff52042e4").delete();
         expect(delResp).toBeUndefined();
     });
 
@@ -283,7 +283,7 @@ describe("VPCs API Mock Tests", () => {
 
         nock(baseUrl).get("/v2/vpcs/1/members").reply(200, expected);
 
-        const listResp = await client.v2.vpcs.byVpc_id("1").members.get();
+        const listResp = await client.v2.vpcs.byVpc_Id("1").members.get();
         expect(listResp).toEqual(typeExpected);
     });
 });

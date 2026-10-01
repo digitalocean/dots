@@ -236,6 +236,7 @@ describe("Firewalls API", () => {
             name: "firewall",
             inbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "80",
                     sources: {
@@ -243,6 +244,7 @@ describe("Firewalls API", () => {
                     },
                 },
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "22",
                     sources: { tags: ["gateway"], addresses: ["18.0.0.0/8"] },
@@ -250,6 +252,7 @@ describe("Firewalls API", () => {
             ],
             outbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "80",
                     destinations: { addresses: ["0.0.0.0/0", "::/0"] },
@@ -367,6 +370,7 @@ describe("Firewalls API", () => {
             name: "frontend-firewall",
             inbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "8080",
                     sources: {
@@ -374,6 +378,7 @@ describe("Firewalls API", () => {
                     },
                 },
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "22",
                     sources: { tags: ["gateway"], addresses: ["18.0.0.0/8"] },
@@ -381,6 +386,7 @@ describe("Firewalls API", () => {
             ],
             outbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "8080",
                     destinations: { addresses: ["0.0.0.0/0", "::/0"] },
@@ -536,10 +542,11 @@ describe("Firewalls API", () => {
 
         const addRulesReqNock = {
             inbound_rules: [
-                { protocol: "tcp", ports: "3306", sources: { droplet_ids: [49696269] } }
+                { action: "allow", protocol: "tcp", ports: "3306", sources: { droplet_ids: [49696269] } }
             ],
             outbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "3306",
                     destinations: { droplet_ids: [49696269] },
@@ -570,10 +577,11 @@ describe("Firewalls API", () => {
 
         const deleteRulesReqNock = {
             inbound_rules: [
-                { protocol: "tcp", ports: "3306", sources: { droplet_ids: [49696269] } }
+                { action: "allow", protocol: "tcp", ports: "3306", sources: { droplet_ids: [49696269] } }
             ],
             outbound_rules: [
                 {
+                    action: "allow",
                     protocol: "tcp",
                     ports: "3306",
                     destinations: { droplet_ids: [49696269] },

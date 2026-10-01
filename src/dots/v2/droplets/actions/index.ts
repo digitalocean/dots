@@ -18,7 +18,7 @@ export interface ActionsPostResponse extends AdditionalDataHolder, Parsable {
  */
 export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequestBuilder> {
     /**
-     * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6`- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
+     * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6` (**Warning:** The Droplet must be powered off before enabling IPv6 on an existing Droplet.)- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ActionsPostResponse>}
@@ -29,7 +29,7 @@ export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequest
      */
      post(body: Droplet_action | Droplet_action_snapshot, requestConfiguration?: RequestConfiguration<ActionsRequestBuilderPostQueryParameters> | undefined) : Promise<ActionsPostResponse | undefined>;
     /**
-     * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6`- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
+     * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6` (**Warning:** The Droplet must be powered off before enabling IPv6 on an existing Droplet.)- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -37,7 +37,7 @@ export interface ActionsRequestBuilder extends BaseRequestBuilder<ActionsRequest
      toPostRequestInformation(body: Droplet_action | Droplet_action_snapshot, requestConfiguration?: RequestConfiguration<ActionsRequestBuilderPostQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6`- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
+ * Some actions can be performed in bulk on tagged Droplets. The actions can beinitiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` withthe action arguments.Only a sub-set of action types are supported:- `power_cycle`- `power_on`- `power_off`- `shutdown`- `enable_ipv6` (**Warning:** The Droplet must be powered off before enabling IPv6 on an existing Droplet.)- `enable_backups`- `disable_backups`- `snapshot` (also requires `image:create` permission)
  */
 export interface ActionsRequestBuilderPostQueryParameters {
     /**

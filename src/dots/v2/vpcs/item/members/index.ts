@@ -28,6 +28,7 @@ export function deserializeIntoMembersGetResponse(membersGetResponse: Partial<Me
         "meta": n => { membersGetResponse.meta = n.getObjectValue<Meta_properties>(createMeta_propertiesFromDiscriminatorValue); },
     }
 }
+export type GetResource_typeQueryParameterType = (typeof GetResource_typeQueryParameterTypeObject)[keyof typeof GetResource_typeQueryParameterTypeObject];
 export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The links property
@@ -43,7 +44,7 @@ export interface MembersGetResponse extends AdditionalDataHolder, Parsable {
     meta?: Meta_properties | null;
 }
 /**
- * Builds and executes requests for operations under /v2/vpcs/{vpc_id}/members
+ * Builds and executes requests for operations under /v2/vpcs/{vpc_-id}/members
  */
 export interface MembersRequestBuilder extends BaseRequestBuilder<MembersRequestBuilder> {
     /**
@@ -79,7 +80,7 @@ export interface MembersRequestBuilderGetQueryParameters {
     /**
      * Used to filter VPC members by a resource type.
      */
-    resourceType?: string;
+    resourceType?: GetResource_typeQueryParameterType;
 }
 /**
  * Serializes information the current object
@@ -98,7 +99,16 @@ export function serializeMembersGetResponse(writer: SerializationWriter, members
 /**
  * Uri template for the request builder.
  */
-export const MembersRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_id}/members{?page*,per_page*,resource_type*}";
+export const MembersRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_%2Did}/members{?page*,per_page*,resource_type*}";
+export const GetResource_typeQueryParameterTypeObject = {
+    Droplet: "droplet",
+    Loadbalancer: "loadbalancer",
+    Kubernetes: "kubernetes",
+    Dbaas: "dbaas",
+    Nat_gateway: "nat_gateway",
+    App: "app",
+    Nfs_share: "nfs_share",
+} as const;
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

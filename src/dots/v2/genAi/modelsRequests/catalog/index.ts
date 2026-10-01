@@ -40,13 +40,68 @@ export interface CatalogRequestBuilder extends BaseRequestBuilder<CatalogRequest
  * Returns all available models.
  */
 export interface CatalogRequestBuilderGetQueryParameters {
+    /**
+     * Filter by deployment availability. Multiple values use OR semantics.Accepted values: `serverless`, `dedicated`.
+     */
+    availability?: string[];
+    /**
+     * Filter by badge. Multiple values use OR semantics.Accepted values: `featured`, `new`, `preview`.
+     */
+    badges?: string[];
+    /**
+     * Deprecated. Use `per_page` instead.
+     */
     limit?: number;
+    /**
+     * Filter by model type. Multiple values use OR semantics.Accepted values: `chat`, `embedding`, `image`, `reasoning`, `coding`, `audio`, `reranking`.
+     */
+    modelType?: string[];
+    /**
+     * Page number for pagination.
+     */
     page?: number;
+    /**
+     * Number of items per page. Replaces the deprecated `limit` field.
+     */
+    perPage?: number;
+    /**
+     * Filter by model creator/developer. Multiple values use OR semantics.Values are data-driven; use `available_providers` from the response to discover valid options.
+     */
+    provider?: string[];
+    /**
+     * Partial, case-insensitive match on the model's display name.
+     */
+    search?: string;
+    /**
+     * Field to sort results by. Default is `MODEL_CATALOG_SORT_BY_CREATED_AT`. - MODEL_CATALOG_SORT_BY_CREATED_AT: Default: sort by creation date. - MODEL_CATALOG_SORT_BY_NAME: Sort by the model's display name (case-insensitive). - MODEL_CATALOG_SORT_BY_PRICE: Sort by input token price.
+     */
+    sortBy?: GetSort_byQueryParameterType;
+    /**
+     * Sort direction. Defaults to descending when unspecified.
+     */
+    sortDirection?: GetSort_directionQueryParameterType;
+    /**
+     * Filter by pre-defined use case. When unspecified, no use-case filter is applied.Accepted values: `MODEL_CATALOG_USE_CASE_CODING`, `MODEL_CATALOG_USE_CASE_AGENTS`,`MODEL_CATALOG_USE_CASE_AUDIO`, `MODEL_CATALOG_USE_CASE_IMAGE`,`MODEL_CATALOG_USE_CASE_EMBEDDING`, `MODEL_CATALOG_USE_CASE_VIDEO`. - MODEL_CATALOG_USE_CASE_UNSPECIFIED: No use-case filter applied; return all models. - MODEL_CATALOG_USE_CASE_CODING: Coding-optimized models: model_type = coding, or usecases include coding,agentic_coding, or code_generation. - MODEL_CATALOG_USE_CASE_AGENTS: Agent-building models: usecases include tool_calling, agentic,agent_platform, agentic_workflows, or agentic_coding. - MODEL_CATALOG_USE_CASE_AUDIO: Audio models: model_type is audio, or usecases include audio,text_to_speech, or voice_cloning, or output modalities include audio. - MODEL_CATALOG_USE_CASE_IMAGE: Image models: model_type is image, or usecases include image_generation,text_to_image, or ideogram, or output modalities include image. - MODEL_CATALOG_USE_CASE_VIDEO: Video models: usecases include video_generation or text_to_video, oroutput modalities include video. - MODEL_CATALOG_USE_CASE_EMBEDDING: Embedding and reranking models: model_type is embedding or reranking, orusecases include vectorization or reranking.
+     */
+    useCase?: GetUse_caseQueryParameterType;
 }
+export type GetSort_byQueryParameterType = (typeof GetSort_byQueryParameterTypeObject)[keyof typeof GetSort_byQueryParameterTypeObject];
+export type GetSort_directionQueryParameterType = (typeof GetSort_directionQueryParameterTypeObject)[keyof typeof GetSort_directionQueryParameterTypeObject];
+export type GetUse_caseQueryParameterType = (typeof GetUse_caseQueryParameterTypeObject)[keyof typeof GetUse_caseQueryParameterTypeObject];
 /**
  * Uri template for the request builder.
  */
-export const CatalogRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/models/catalog{?limit*,page*}";
+export const CatalogRequestBuilderUriTemplate = "{+baseurl}/v2/gen-ai/models/catalog{?availability*,badges*,limit*,model_type*,page*,per_page*,provider*,search*,sort_by*,sort_direction*,use_case*}";
+/**
+ * Mapper for query parameters from symbol name to serialization name represented as a constant.
+ */
+const CatalogRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "modelType": "model_type",
+    "perPage": "per_page",
+    "sortBy": "sort_by",
+    "sortDirection": "sort_direction",
+    "useCase": "use_case",
+};
 /**
  * Metadata for all the navigation properties in the request builder.
  */
@@ -72,7 +127,27 @@ export const CatalogRequestBuilderRequestsMetadata: RequestsMetadata = {
         },
         adapterMethodName: "send",
         responseBodyFactory:  createApiListModelCatalogOutputFromDiscriminatorValue,
+        queryParametersMapper: CatalogRequestBuilderGetQueryParametersMapper,
     },
 };
+export const GetSort_byQueryParameterTypeObject = {
+    MODEL_CATALOG_SORT_BY_CREATED_AT: "MODEL_CATALOG_SORT_BY_CREATED_AT",
+    MODEL_CATALOG_SORT_BY_NAME: "MODEL_CATALOG_SORT_BY_NAME",
+    MODEL_CATALOG_SORT_BY_PRICE: "MODEL_CATALOG_SORT_BY_PRICE",
+} as const;
+export const GetSort_directionQueryParameterTypeObject = {
+    SORT_DIRECTION_UNSPECIFIED: "SORT_DIRECTION_UNSPECIFIED",
+    SORT_DIRECTION_ASC: "SORT_DIRECTION_ASC",
+    SORT_DIRECTION_DESC: "SORT_DIRECTION_DESC",
+} as const;
+export const GetUse_caseQueryParameterTypeObject = {
+    MODEL_CATALOG_USE_CASE_UNSPECIFIED: "MODEL_CATALOG_USE_CASE_UNSPECIFIED",
+    MODEL_CATALOG_USE_CASE_CODING: "MODEL_CATALOG_USE_CASE_CODING",
+    MODEL_CATALOG_USE_CASE_AGENTS: "MODEL_CATALOG_USE_CASE_AGENTS",
+    MODEL_CATALOG_USE_CASE_AUDIO: "MODEL_CATALOG_USE_CASE_AUDIO",
+    MODEL_CATALOG_USE_CASE_IMAGE: "MODEL_CATALOG_USE_CASE_IMAGE",
+    MODEL_CATALOG_USE_CASE_VIDEO: "MODEL_CATALOG_USE_CASE_VIDEO",
+    MODEL_CATALOG_USE_CASE_EMBEDDING: "MODEL_CATALOG_USE_CASE_EMBEDDING",
+} as const;
 /* tslint:enable */
 /* eslint-enable */
