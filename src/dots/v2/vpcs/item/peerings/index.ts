@@ -102,7 +102,7 @@ export interface PeeringsPostResponse extends AdditionalDataHolder, Parsable {
     peering?: Vpc_peering | null;
 }
 /**
- * Builds and executes requests for operations under /v2/vpcs/{vpc_id}/peerings
+ * Builds and executes requests for operations under /v2/vpcs/{vpc_-id}/peerings
  */
 export interface PeeringsRequestBuilder extends BaseRequestBuilder<PeeringsRequestBuilder> {
     /**
@@ -203,7 +203,7 @@ export function serializePeeringsPostResponse(writer: SerializationWriter, peeri
 /**
  * Uri template for the request builder.
  */
-export const PeeringsRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_id}/peerings{?page*,per_page*}";
+export const PeeringsRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_%2Did}/peerings{?page*,per_page*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

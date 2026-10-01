@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createVpcFromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeVpc, type ErrorEscaped, type Meta_properties, type Page_links, type Vpc } from '../../models/index.js';
 // @ts-ignore
-import { type WithVpc_ItemRequestBuilder, WithVpc_ItemRequestBuilderNavigationMetadata, WithVpc_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+import { type Vpc_ItemRequestBuilder, Vpc_ItemRequestBuilderNavigationMetadata, Vpc_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
@@ -158,10 +158,10 @@ export interface VpcsPostResponse extends AdditionalDataHolder, Parsable {
 export interface VpcsRequestBuilder extends BaseRequestBuilder<VpcsRequestBuilder> {
     /**
      * Gets an item from the ApiSdk.v2.vpcs.item collection
-     * @param vpc_id A unique identifier for a VPC.
-     * @returns {WithVpc_ItemRequestBuilder}
+     * @param vpc_Id A unique identifier for a VPC.
+     * @returns {Vpc_ItemRequestBuilder}
      */
-     byVpc_id(vpc_id: Guid) : WithVpc_ItemRequestBuilder;
+     byVpc_Id(vpc_Id: Guid) : Vpc_ItemRequestBuilder;
     /**
      * To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -225,10 +225,10 @@ const VpcsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
  * Metadata for all the navigation properties in the request builder.
  */
 export const VpcsRequestBuilderNavigationMetadata: Record<Exclude<keyof VpcsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
-    byVpc_id: {
-        requestsMetadata: WithVpc_ItemRequestBuilderRequestsMetadata,
-        navigationMetadata: WithVpc_ItemRequestBuilderNavigationMetadata,
-        pathParametersMappings: ["vpc_id"],
+    byVpc_Id: {
+        requestsMetadata: Vpc_ItemRequestBuilderRequestsMetadata,
+        navigationMetadata: Vpc_ItemRequestBuilderNavigationMetadata,
+        pathParametersMappings: ["vpc_%2Did"],
     },
 };
 /**

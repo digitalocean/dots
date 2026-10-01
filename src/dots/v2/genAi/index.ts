@@ -38,7 +38,13 @@ import { OpenaiRequestBuilderNavigationMetadata, type OpenaiRequestBuilder } fro
 // @ts-ignore
 import { RegionsRequestBuilderRequestsMetadata, type RegionsRequestBuilder } from './regions/index.js';
 // @ts-ignore
+import { Scenario_libraryRequestBuilderNavigationMetadata, Scenario_libraryRequestBuilderRequestsMetadata, type Scenario_libraryRequestBuilder } from './scenario_library/index.js';
+// @ts-ignore
+import { Scenario_setsRequestBuilderNavigationMetadata, Scenario_setsRequestBuilderRequestsMetadata, type Scenario_setsRequestBuilder } from './scenario_sets/index.js';
+// @ts-ignore
 import { ScheduledIndexingRequestBuilderNavigationMetadata, ScheduledIndexingRequestBuilderRequestsMetadata, type ScheduledIndexingRequestBuilder } from './scheduledIndexing/index.js';
+// @ts-ignore
+import { Simulation_runsRequestBuilderNavigationMetadata, Simulation_runsRequestBuilderRequestsMetadata, type Simulation_runsRequestBuilder } from './simulation_runs/index.js';
 // @ts-ignore
 import { type WorkspacesRequestBuilder, WorkspacesRequestBuilderNavigationMetadata, WorkspacesRequestBuilderRequestsMetadata } from './workspaces/index.js';
 // @ts-ignore
@@ -121,9 +127,21 @@ export interface GenAiRequestBuilder extends BaseRequestBuilder<GenAiRequestBuil
      */
     get regions(): RegionsRequestBuilder;
     /**
+     * The scenario_library property
+     */
+    get scenario_library(): Scenario_libraryRequestBuilder;
+    /**
+     * The scenario_sets property
+     */
+    get scenario_sets(): Scenario_setsRequestBuilder;
+    /**
      * The scheduledIndexing property
      */
     get scheduledIndexing(): ScheduledIndexingRequestBuilder;
+    /**
+     * The simulation_runs property
+     */
+    get simulation_runs(): Simulation_runsRequestBuilder;
     /**
      * The workspaces property
      */
@@ -202,9 +220,21 @@ export const GenAiRequestBuilderNavigationMetadata: Record<Exclude<keyof GenAiRe
     regions: {
         requestsMetadata: RegionsRequestBuilderRequestsMetadata,
     },
+    scenario_library: {
+        requestsMetadata: Scenario_libraryRequestBuilderRequestsMetadata,
+        navigationMetadata: Scenario_libraryRequestBuilderNavigationMetadata,
+    },
+    scenario_sets: {
+        requestsMetadata: Scenario_setsRequestBuilderRequestsMetadata,
+        navigationMetadata: Scenario_setsRequestBuilderNavigationMetadata,
+    },
     scheduledIndexing: {
         requestsMetadata: ScheduledIndexingRequestBuilderRequestsMetadata,
         navigationMetadata: ScheduledIndexingRequestBuilderNavigationMetadata,
+    },
+    simulation_runs: {
+        requestsMetadata: Simulation_runsRequestBuilderRequestsMetadata,
+        navigationMetadata: Simulation_runsRequestBuilderNavigationMetadata,
     },
     workspaces: {
         requestsMetadata: WorkspacesRequestBuilderRequestsMetadata,

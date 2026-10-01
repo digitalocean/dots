@@ -18,6 +18,8 @@ import { ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from 
 // @ts-ignore
 import { ResponsesRequestBuilderRequestsMetadata, type ResponsesRequestBuilder } from './responses/index.js';
 // @ts-ignore
+import { SystemoneRequestBuilderRequestsMetadata, type SystemoneRequestBuilder } from './systemone/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -56,6 +58,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      * The responses property
      */
     get responses(): ResponsesRequestBuilder;
+    /**
+     * The systemone property
+     */
+    get systemone(): SystemoneRequestBuilder;
 }
 /**
  * Uri template for the request builder.
@@ -89,6 +95,9 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     },
     responses: {
         requestsMetadata: ResponsesRequestBuilderRequestsMetadata,
+    },
+    systemone: {
+        requestsMetadata: SystemoneRequestBuilderRequestsMetadata,
     },
 };
 /* tslint:enable */

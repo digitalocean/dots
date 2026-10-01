@@ -92,7 +92,7 @@ export interface Load_balancersRequestBuilder extends BaseRequestBuilder<Load_ba
      get(requestConfiguration?: RequestConfiguration<Load_balancersRequestBuilderGetQueryParameters> | undefined) : Promise<Load_balancersGetResponse | undefined>;
     /**
      * To create a new load balancer instance, send a POST request to`/v2/load_balancers`.You can specify the Droplets that will sit behind the load balancer using oneof two methods:* Set `droplet_ids` to a list of specific Droplet IDs.* Set `tag` to the name of a tag. All Droplets with this tag applied will be  assigned to the load balancer. Additional Droplets will be automatically  assigned as they are tagged.These methods are mutually exclusive.
-     * @param body The request body
+     * @param body The request schema for creating a load balancer. This is the same as the update schema with the addition of the create-only `ip` field, which assigns a Bring Your Own IP (BYOIP) address to the load balancer.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Load_balancersPostResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -109,7 +109,7 @@ export interface Load_balancersRequestBuilder extends BaseRequestBuilder<Load_ba
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<Load_balancersRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
      * To create a new load balancer instance, send a POST request to`/v2/load_balancers`.You can specify the Droplets that will sit behind the load balancer using oneof two methods:* Set `droplet_ids` to a list of specific Droplet IDs.* Set `tag` to the name of a tag. All Droplets with this tag applied will be  assigned to the load balancer. Additional Droplets will be automatically  assigned as they are tagged.These methods are mutually exclusive.
-     * @param body The request body
+     * @param body The request schema for creating a load balancer. This is the same as the update schema with the addition of the create-only `ip` field, which assigns a Bring Your Own IP (BYOIP) address to the load balancer.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

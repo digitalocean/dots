@@ -22,7 +22,8 @@ export const INFERENCE_OPENAPI_PATHS = [
     "/v1/images/generations",
     "/v1/messages",
     "/v1/models",
-    "/v1/responses"
+    "/v1/responses",
+    "/v1/systemone"
 ] as const;
 
 export const DEFAULT_INFERENCE_BASE_URL = "https://inference.do-ai.run";

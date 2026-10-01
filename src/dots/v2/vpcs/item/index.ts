@@ -8,186 +8,190 @@ import { MembersRequestBuilderRequestsMetadata, type MembersRequestBuilder } fro
 // @ts-ignore
 import { PeeringsRequestBuilderNavigationMetadata, PeeringsRequestBuilderRequestsMetadata, type PeeringsRequestBuilder } from './peerings/index.js';
 // @ts-ignore
+import { RoutesRequestBuilderRequestsMetadata, type RoutesRequestBuilder } from './routes/index.js';
+// @ts-ignore
+import { SubnetsRequestBuilderNavigationMetadata, SubnetsRequestBuilderRequestsMetadata, type SubnetsRequestBuilder } from './subnets/index.js';
+// @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithVpc_GetResponse}
+ * @returns {Vpc_GetResponse}
  */
 // @ts-ignore
-export function createWithVpc_GetResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithVpc_GetResponse;
+export function createVpc_GetResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_GetResponse;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithVpc_PatchRequestBody}
+ * @returns {Vpc_PatchRequestBody}
  */
 // @ts-ignore
-export function createWithVpc_PatchRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithVpc_PatchRequestBody;
+export function createVpc_PatchRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_PatchRequestBody;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithVpc_PatchResponse}
+ * @returns {Vpc_PatchResponse}
  */
 // @ts-ignore
-export function createWithVpc_PatchResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithVpc_PatchResponse;
+export function createVpc_PatchResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_PatchResponse;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithVpc_PutRequestBody}
+ * @returns {Vpc_PutRequestBody}
  */
 // @ts-ignore
-export function createWithVpc_PutRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithVpc_PutRequestBody;
+export function createVpc_PutRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_PutRequestBody;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithVpc_PutResponse}
+ * @returns {Vpc_PutResponse}
  */
 // @ts-ignore
-export function createWithVpc_PutResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithVpc_PutResponse;
+export function createVpc_PutResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoVpc_PutResponse;
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_GetResponse The instance to deserialize into.
+ * @param Vpc_GetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithVpc_GetResponse(withVpc_GetResponse: Partial<WithVpc_GetResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoVpc_GetResponse(vpc_GetResponse: Partial<Vpc_GetResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "vpc": n => { withVpc_GetResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
+        "vpc": n => { vpc_GetResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PatchRequestBody The instance to deserialize into.
+ * @param Vpc_PatchRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithVpc_PatchRequestBody(withVpc_PatchRequestBody: Partial<WithVpc_PatchRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoVpc_PatchRequestBody(vpc_PatchRequestBody: Partial<Vpc_PatchRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "default": n => { withVpc_PatchRequestBody.defaultEscaped = n.getBooleanValue(); },
-        "description": n => { withVpc_PatchRequestBody.description = n.getStringValue(); },
-        "name": n => { withVpc_PatchRequestBody.name = n.getStringValue(); },
+        "default": n => { vpc_PatchRequestBody.defaultEscaped = n.getBooleanValue(); },
+        "description": n => { vpc_PatchRequestBody.description = n.getStringValue(); },
+        "name": n => { vpc_PatchRequestBody.name = n.getStringValue(); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PatchResponse The instance to deserialize into.
+ * @param Vpc_PatchResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithVpc_PatchResponse(withVpc_PatchResponse: Partial<WithVpc_PatchResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoVpc_PatchResponse(vpc_PatchResponse: Partial<Vpc_PatchResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "vpc": n => { withVpc_PatchResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
+        "vpc": n => { vpc_PatchResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PutRequestBody The instance to deserialize into.
+ * @param Vpc_PutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithVpc_PutRequestBody(withVpc_PutRequestBody: Partial<WithVpc_PutRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoVpc_PutRequestBody(vpc_PutRequestBody: Partial<Vpc_PutRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "default": n => { withVpc_PutRequestBody.defaultEscaped = n.getBooleanValue(); },
-        "description": n => { withVpc_PutRequestBody.description = n.getStringValue(); },
-        "name": n => { withVpc_PutRequestBody.name = n.getStringValue(); },
+        "default": n => { vpc_PutRequestBody.defaultEscaped = n.getBooleanValue(); },
+        "description": n => { vpc_PutRequestBody.description = n.getStringValue(); },
+        "name": n => { vpc_PutRequestBody.name = n.getStringValue(); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param WithVpc_PutResponse The instance to deserialize into.
+ * @param Vpc_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithVpc_PutResponse(withVpc_PutResponse: Partial<WithVpc_PutResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoVpc_PutResponse(vpc_PutResponse: Partial<Vpc_PutResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "vpc": n => { withVpc_PutResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
+        "vpc": n => { vpc_PutResponse.vpc = n.getObjectValue<Vpc>(createVpcFromDiscriminatorValue); },
     }
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_GetResponse The instance to serialize from.
+ * @param Vpc_GetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_GetResponse(writer: SerializationWriter, withVpc_GetResponse: Partial<WithVpc_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_GetResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_GetResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_GetResponse.additionalData);
+export function serializeVpc_GetResponse(writer: SerializationWriter, vpc_GetResponse: Partial<Vpc_GetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_GetResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc>("vpc", vpc_GetResponse.vpc, serializeVpc);
+    writer.writeAdditionalData(vpc_GetResponse.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PatchRequestBody The instance to serialize from.
+ * @param Vpc_PatchRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PatchRequestBody(writer: SerializationWriter, withVpc_PatchRequestBody: Partial<WithVpc_PatchRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PatchRequestBody || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("default", withVpc_PatchRequestBody.defaultEscaped);
-    writer.writeStringValue("description", withVpc_PatchRequestBody.description);
-    writer.writeStringValue("name", withVpc_PatchRequestBody.name);
-    writer.writeAdditionalData(withVpc_PatchRequestBody.additionalData);
+export function serializeVpc_PatchRequestBody(writer: SerializationWriter, vpc_PatchRequestBody: Partial<Vpc_PatchRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_PatchRequestBody || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("default", vpc_PatchRequestBody.defaultEscaped);
+    writer.writeStringValue("description", vpc_PatchRequestBody.description);
+    writer.writeStringValue("name", vpc_PatchRequestBody.name);
+    writer.writeAdditionalData(vpc_PatchRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PatchResponse The instance to serialize from.
+ * @param Vpc_PatchResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PatchResponse(writer: SerializationWriter, withVpc_PatchResponse: Partial<WithVpc_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PatchResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_PatchResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_PatchResponse.additionalData);
+export function serializeVpc_PatchResponse(writer: SerializationWriter, vpc_PatchResponse: Partial<Vpc_PatchResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_PatchResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc>("vpc", vpc_PatchResponse.vpc, serializeVpc);
+    writer.writeAdditionalData(vpc_PatchResponse.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PutRequestBody The instance to serialize from.
+ * @param Vpc_PutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PutRequestBody(writer: SerializationWriter, withVpc_PutRequestBody: Partial<WithVpc_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("default", withVpc_PutRequestBody.defaultEscaped);
-    writer.writeStringValue("description", withVpc_PutRequestBody.description);
-    writer.writeStringValue("name", withVpc_PutRequestBody.name);
-    writer.writeAdditionalData(withVpc_PutRequestBody.additionalData);
+export function serializeVpc_PutRequestBody(writer: SerializationWriter, vpc_PutRequestBody: Partial<Vpc_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_PutRequestBody || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("default", vpc_PutRequestBody.defaultEscaped);
+    writer.writeStringValue("description", vpc_PutRequestBody.description);
+    writer.writeStringValue("name", vpc_PutRequestBody.name);
+    writer.writeAdditionalData(vpc_PutRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithVpc_PutResponse The instance to serialize from.
+ * @param Vpc_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithVpc_PutResponse(writer: SerializationWriter, withVpc_PutResponse: Partial<WithVpc_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withVpc_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Vpc>("vpc", withVpc_PutResponse.vpc, serializeVpc);
-    writer.writeAdditionalData(withVpc_PutResponse.additionalData);
+export function serializeVpc_PutResponse(writer: SerializationWriter, vpc_PutResponse: Partial<Vpc_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!vpc_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Vpc>("vpc", vpc_PutResponse.vpc, serializeVpc);
+    writer.writeAdditionalData(vpc_PutResponse.additionalData);
 }
-export interface WithVpc_GetResponse extends AdditionalDataHolder, Parsable {
+export interface Vpc_GetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The vpc property
      */
     vpc?: Vpc | null;
 }
 /**
- * Builds and executes requests for operations under /v2/vpcs/{vpc_id}
+ * Builds and executes requests for operations under /v2/vpcs/{vpc_-id}
  */
-export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_ItemRequestBuilder> {
+export interface Vpc_ItemRequestBuilder extends BaseRequestBuilder<Vpc_ItemRequestBuilder> {
     /**
      * The members property
      */
@@ -196,6 +200,14 @@ export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_I
      * The peerings property
      */
     get peerings(): PeeringsRequestBuilder;
+    /**
+     * The routes property
+     */
+    get routes(): RoutesRequestBuilder;
+    /**
+     * The subnets property
+     */
+    get subnets(): SubnetsRequestBuilder;
     /**
      * To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 statuscode with no body will be returned in response to a successful request.The default VPC for a region can not be deleted. Additionally, a VPC can onlybe deleted if it does not contain any member resources. Attempting to deletea region's default VPC or a VPC that still has members will result in a403 Forbidden error response.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -209,38 +221,38 @@ export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_I
     /**
      * To show information about an existing VPC, send a GET request to `/v2/vpcs/$VPC_ID`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<WithVpc_GetResponse>}
+     * @returns {Promise<Vpc_GetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithVpc_GetResponse | undefined>;
+     get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Vpc_GetResponse | undefined>;
     /**
      * To update a subset of information about a VPC, send a PATCH request to`/v2/vpcs/$VPC_ID`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<WithVpc_PatchResponse>}
+     * @returns {Promise<Vpc_PatchResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     patch(body: WithVpc_PatchRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithVpc_PatchResponse | undefined>;
+     patch(body: Vpc_PatchRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Vpc_PatchResponse | undefined>;
     /**
      * To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<WithVpc_PutResponse>}
+     * @returns {Promise<Vpc_PutResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     put(body: WithVpc_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithVpc_PutResponse | undefined>;
+     put(body: Vpc_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Vpc_PutResponse | undefined>;
     /**
      * To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 statuscode with no body will be returned in response to a successful request.The default VPC for a region can not be deleted. Additionally, a VPC can onlybe deleted if it does not contain any member resources. Attempting to deletea region's default VPC or a VPC that still has members will result in a403 Forbidden error response.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -259,16 +271,16 @@ export interface WithVpc_ItemRequestBuilder extends BaseRequestBuilder<WithVpc_I
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
-     toPatchRequestInformation(body: WithVpc_PatchRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
+     toPatchRequestInformation(body: Vpc_PatchRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
      * To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
-     toPutRequestInformation(body: WithVpc_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
+     toPutRequestInformation(body: Vpc_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable {
+export interface Vpc_PatchRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
@@ -282,13 +294,13 @@ export interface WithVpc_PatchRequestBody extends AdditionalDataHolder, Parsable
      */
     name?: string | null;
 }
-export interface WithVpc_PatchResponse extends AdditionalDataHolder, Parsable {
+export interface Vpc_PatchResponse extends AdditionalDataHolder, Parsable {
     /**
      * The vpc property
      */
     vpc?: Vpc | null;
 }
-export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
+export interface Vpc_PutRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
      */
@@ -302,7 +314,7 @@ export interface WithVpc_PutRequestBody extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
 }
-export interface WithVpc_PutResponse extends AdditionalDataHolder, Parsable {
+export interface Vpc_PutResponse extends AdditionalDataHolder, Parsable {
     /**
      * The vpc property
      */
@@ -311,11 +323,11 @@ export interface WithVpc_PutResponse extends AdditionalDataHolder, Parsable {
 /**
  * Uri template for the request builder.
  */
-export const WithVpc_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_id}";
+export const Vpc_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/vpcs/{vpc_%2Did}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */
-export const WithVpc_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithVpc_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+export const Vpc_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof Vpc_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     members: {
         requestsMetadata: MembersRequestBuilderRequestsMetadata,
     },
@@ -323,13 +335,20 @@ export const WithVpc_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof 
         requestsMetadata: PeeringsRequestBuilderRequestsMetadata,
         navigationMetadata: PeeringsRequestBuilderNavigationMetadata,
     },
+    routes: {
+        requestsMetadata: RoutesRequestBuilderRequestsMetadata,
+    },
+    subnets: {
+        requestsMetadata: SubnetsRequestBuilderRequestsMetadata,
+        navigationMetadata: SubnetsRequestBuilderNavigationMetadata,
+    },
 };
 /**
  * Metadata for all the requests in the request builder.
  */
-export const WithVpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
+export const Vpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
     delete: {
-        uriTemplate: WithVpc_ItemRequestBuilderUriTemplate,
+        uriTemplate: Vpc_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -341,7 +360,7 @@ export const WithVpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
         adapterMethodName: "sendNoResponseContent",
     },
     get: {
-        uriTemplate: WithVpc_ItemRequestBuilderUriTemplate,
+        uriTemplate: Vpc_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -351,10 +370,10 @@ export const WithVpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
-        responseBodyFactory:  createWithVpc_GetResponseFromDiscriminatorValue,
+        responseBodyFactory:  createVpc_GetResponseFromDiscriminatorValue,
     },
     patch: {
-        uriTemplate: WithVpc_ItemRequestBuilderUriTemplate,
+        uriTemplate: Vpc_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -364,13 +383,13 @@ export const WithVpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
-        responseBodyFactory:  createWithVpc_PatchResponseFromDiscriminatorValue,
+        responseBodyFactory:  createVpc_PatchResponseFromDiscriminatorValue,
         requestBodyContentType: "application/json",
-        requestBodySerializer: serializeWithVpc_PatchRequestBody,
+        requestBodySerializer: serializeVpc_PatchRequestBody,
         requestInformationContentSetMethod: "setContentFromParsable",
     },
     put: {
-        uriTemplate: WithVpc_ItemRequestBuilderUriTemplate,
+        uriTemplate: Vpc_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -380,9 +399,9 @@ export const WithVpc_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
-        responseBodyFactory:  createWithVpc_PutResponseFromDiscriminatorValue,
+        responseBodyFactory:  createVpc_PutResponseFromDiscriminatorValue,
         requestBodyContentType: "application/json",
-        requestBodySerializer: serializeWithVpc_PutRequestBody,
+        requestBodySerializer: serializeVpc_PutRequestBody,
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };

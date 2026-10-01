@@ -1,13 +1,32 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@7e5b46e (2026-07-08T11:33:21Z)
-Target commit: digitalocean/openapi@87e82da (2026-07-31T17:01:27Z)
+Current commit: digitalocean/openapi@87e82da (2026-07-31T17:01:27Z)
+Target commit: digitalocean/openapi@643c6bf (2026-10-01T12:32:37Z)
 
-* digitalocean/openapi#1210: Hide Secrets Manager from public API docs until GA - 2026-07-31T17:01:27Z []
-* digitalocean/openapi#1208: Complete databases firewall PUT description (PDOCS-4399) - 2026-07-29T06:25:53Z []
-* digitalocean/openapi#1206: Update spec to support project:assign_resource standardization - 2026-07-27T08:45:08Z []
-* digitalocean/openapi#1205: update disk_info enum - 2026-07-23T11:57:48Z []
-* digitalocean/openapi#1204: teamgroups api list and create team openapi spec - 2026-07-30T12:41:36Z []
-* digitalocean/openapi#1203: [DBAAS-8887] Add 16 new MySQL advanced config parameters - 2026-07-17T07:54:47Z []
-* digitalocean/openapi#1202: DBAAS-8634: Document pg_allow_replication optional default and update path - 2026-07-16T09:12:20Z []
-* digitalocean/openapi#1201: Add p2p_oci_registry_plugin to k8s response - 2026-07-09T14:24:10Z []
+* digitalocean/openapi#1245: Fix load balancer schemas for Kiota client generation - 2026-10-01T12:32:37Z []
+* digitalocean/openapi#1241: Cobs 1289 insights notification channels - 2026-10-01T08:45:30Z []
+* digitalocean/openapi#1239: Clarify that MongoDB user roles cannot be updated via the API - 2026-10-01T00:00:40Z []
+* digitalocean/openapi#1238: Rename GradientAI Platform tag to Agent Platform API - 2026-09-29T15:20:03Z []
+* digitalocean/openapi#1237: Update sandbox_size structure - 2026-09-30T07:45:06Z []
+* digitalocean/openapi#1236: Add systemone API for SI - 2026-09-28T13:58:50Z []
+* digitalocean/openapi#1235: Syncing Model Evaluation fields from gen-ai Public API - 2026-09-30T16:23:10Z []
+* digitalocean/openapi#1234: Document all public Action Gateway Tool Registry endpoints - 2026-09-30T14:30:38Z []
+* digitalocean/openapi#1232: add missing resource types for list members filter - 2026-09-22T19:47:47Z []
+* digitalocean/openapi#1231: Sanitize database OpenAPI example credentials - 2026-09-22T06:25:20Z []
+* digitalocean/openapi#1230: NETPROD: add api documentations for vpc subnets and routes - 2026-09-22T16:59:10Z []
+* digitalocean/openapi#1229: LBAAS: add subnet uuid to nat-gw and LBs - 2026-09-21T14:56:14Z []
+* digitalocean/openapi#1228: DBAAS-9233: document pgaudit on Postgres advanced config - 2026-09-18T07:03:05Z []
+* digitalocean/openapi#1227: Add subnet_uuid field to droplet model request and response examples  - 2026-09-22T14:39:29Z []
+* digitalocean/openapi#1223: billing: document public prepayment config and status endpoints - 2026-09-16T05:40:18Z []
+* digitalocean/openapi#1222: firewall: accept and return action optionally - 2026-09-15T11:02:36Z []
+* digitalocean/openapi#1221: Document Gradient AI simulation and scenario set APIs - 2026-09-15T09:06:35Z []
+* digitalocean/openapi#1220: Extending nfs_csi_plugin field in Kubernetes cluster. - 2026-09-23T11:05:59Z []
+* digitalocean/openapi#1219: Fix required scope names on twelve endpoints - 2026-09-10T04:00:58Z []
+* digitalocean/openapi#1218: Fix list backups response description key (ADVMY-10) - 2026-09-07T09:02:17Z []
+* digitalocean/openapi#1217: Document power-off requirement for enable_ipv6 droplet action - 2026-09-07T08:46:15Z []
+* digitalocean/openapi#1216: updated specs for byoip - 2026-09-03T06:43:34Z []
+* digitalocean/openapi#1215: Add DRA and gpu partition mode for GPU - 2026-08-14T15:11:56Z []
+* digitalocean/openapi#1214: MS-1141: Update docs for List Model Catalog search, filters, paginati… - 2026-08-12T12:41:22Z []
+* digitalocean/openapi#1212: update disk_info enum members - 2026-08-07T11:15:16Z []
+* digitalocean/openapi#1211: doks: document the isolated_workers field - 2026-08-03T13:22:47Z []
+* digitalocean/openapi#1209: Add Action Gateway public APIs - 2026-09-23T14:10:00Z []
