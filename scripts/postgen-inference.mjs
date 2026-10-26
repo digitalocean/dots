@@ -453,6 +453,7 @@ function emitNode(obj, depth) {
         if (hasChildren) out += emitNode(children, depth + 1);
         // Inject OpenAI-compat aliases into specific groups
         if (key === "images" && imagesAliasCode) out += imagesAliasCode + "\n";
+        if (key === "audio" && audioGenerateAliasCode) out += audioGenerateAliasCode + "\n";
 
         if (depth === 0) {
             out += `    };\n\n`;
@@ -540,24 +541,22 @@ ${aliasParts.join("\n")}
 `;
 }
 
-const methodsCode = emitNode(tree, 0);
-
 /* ─── async-invoke convenience aliases ─── */
-// /v1/async-invoke is one path but supports 3 use-cases (image, audio, TTS)
-// with different input shapes. Detect it from the spec and emit typed wrappers.
+// If path tree already has `audio` (/v1/audio/*), inject generate only — avoid a duplicate top-level audio.
 
 const asyncInvokePath = paths.find(p => p === "/v1/async-invoke");
-let asyncAliasCode = "";
-if (asyncInvokePath) {
-    asyncAliasCode = `
-    public readonly audio = {
+const treeHasAudio = Boolean(tree.audio);
+
+const audioGenerateMethod = `
         /** Async audio generation (e.g. fal-ai/stable-audio-25/text-to-audio). */
         generate: async (params: { model_id: string; prompt: string; seconds_total?: number; [k: string]: any }): Promise<any> => {
             return this._fetch("/v1/async-invoke", "POST", {
                 model_id: params.model_id,
                 input: { prompt: params.prompt, seconds_total: params.seconds_total },
             });
-        },
+        },`;
+
+const audioSpeechViaAsync = `
         speech: {
             /** Text-to-speech (e.g. fal-ai/playai/tts/v3). */
             create: async (params: { model_id: string; input: string; [k: string]: any }): Promise<any> => {
@@ -566,9 +565,23 @@ if (asyncInvokePath) {
                     input: { text: params.input },
                 });
             },
-        },
-    };
+        },`;
 
+let audioGenerateAliasCode = "";
+let asyncAliasCode = "";
+if (asyncInvokePath) {
+    if (treeHasAudio) {
+        audioGenerateAliasCode = audioGenerateMethod;
+    } else {
+        asyncAliasCode += `
+    public readonly audio = {
+${audioGenerateMethod}
+${audioSpeechViaAsync}
+    };
+`;
+    }
+
+    asyncAliasCode += `
     public readonly async_images = {
         /** Async image generation (e.g. fal-ai/fast-sdxl, fal-ai/flux/schnell). */
         generate: async (params: { model_id: string; prompt: string; num_images?: number; num_inference_steps?: number; guidance_scale?: number; output_format?: string; enable_safety_checker?: boolean; [k: string]: any }): Promise<any> => {
@@ -587,6 +600,8 @@ if (asyncInvokePath) {
     };
 `;
 }
+
+const methodsCode = emitNode(tree, 0);
 
 const clientBody = `/* eslint-disable */
 /* tslint:disable */
@@ -827,10 +842,8 @@ fs.writeFileSync(rootIndex, rootSrc, "utf8");
 console.log("postgen-inference: patched index.ts with inference exports");
 
 /* ───────── 7. patch Kiota serialization bugs in models ───────── */
-// Kiota generates `writeCollectionOfObjectValues` for union-typed array
-// fields like `Embeddings_request.input` (which is `string | string[]`).
-// This wraps each plain string in `{}` braces, producing malformed JSON.
-// The correct call for an array of strings is `writeCollectionOfPrimitiveValues`.
+// Embeddings input: object-collection writer → primitive collection.
+// anyOf of arrays (e.g. prom_query_data.result): writeObjectValue → writeCollectionOfObjectValues.
 
 const modelFiles = [
     path.join(dotsRoot, "src", "dots", "models", "index.ts"),
@@ -839,12 +852,48 @@ const modelFiles = [
 
 const serializationFixes = [
     {
-        // serializeEmbeddings_request — `input` field (string[])
         from: /writer\.writeCollectionOfObjectValues\b([^(]*)\("input",\s*embeddings_request\.input[^,]*,\s*serializeEmbeddings_request_input\)/g,
         to: `writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input)`,
         label: "Embeddings_request.input",
     },
 ];
+
+/** Rewrite writeObjectValue for props typed as Foo[] | Bar[] | … */
+function patchAnyOfArrayWriteObjectValues(src) {
+    const arrayUnionFields = new Set();
+
+    const ifaceRe = /export interface (\w+) \{([^]*?)\}/g;
+    let im;
+    while ((im = ifaceRe.exec(src)) !== null) {
+        const ifaceName = im[1];
+        const body = im[2];
+        const varName = ifaceName.charAt(0).toLowerCase() + ifaceName.slice(1);
+        const propRe = /^\s*(?:readonly\s+)?(\w+)\??:\s*([^;]+);/gm;
+        let pm;
+        while ((pm = propRe.exec(body)) !== null) {
+            const prop = pm[1];
+            const type = pm[2].replace(/\s+/g, " ").trim();
+            const arrayMarks = type.match(/\[\]/g);
+            if (arrayMarks && arrayMarks.length >= 2 && type.includes("|")) {
+                arrayUnionFields.add(`${varName}.${prop}`);
+            }
+        }
+    }
+
+    if (arrayUnionFields.size === 0) return { src, count: 0 };
+
+    let count = 0;
+    const next = src.replace(
+        /writer\.writeObjectValue(<[^>]*>)?\("([^"]+)",\s*(\w+)\.(\w+),\s*(serialize\w+)\)/g,
+        (match, typeArgs, jsonName, varName, propName, serializer) => {
+            if (!arrayUnionFields.has(`${varName}.${propName}`)) return match;
+            count += 1;
+            const typeParam = typeArgs || "";
+            return `writer.writeCollectionOfObjectValues${typeParam}("${jsonName}", ${varName}.${propName} as any, ${serializer} as any)`;
+        },
+    );
+    return { src: next, count };
+}
 
 for (const filePath of modelFiles) {
     if (!fs.existsSync(filePath)) continue;
@@ -857,6 +906,14 @@ for (const filePath of modelFiles) {
             patched = true;
             console.log(`postgen-inference: patched ${fix.label} in ${path.relative(dotsRoot, filePath)}`);
         }
+    }
+    const anyOfPatch = patchAnyOfArrayWriteObjectValues(src);
+    if (anyOfPatch.count > 0) {
+        src = anyOfPatch.src;
+        patched = true;
+        console.log(
+            `postgen-inference: patched ${anyOfPatch.count} anyOf array-union writeObjectValue call(s) in ${path.relative(dotsRoot, filePath)}`,
+        );
     }
     if (patched) {
         fs.writeFileSync(filePath, src, "utf8");
