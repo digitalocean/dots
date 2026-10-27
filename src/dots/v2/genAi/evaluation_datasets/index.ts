@@ -141,8 +141,6 @@ export const Evaluation_datasetsRequestBuilderRequestsMetadata: RequestsMetadata
 };
 export const GetDataset_typeQueryParameterTypeObject = {
     EVALUATION_DATASET_TYPE_UNKNOWN: "EVALUATION_DATASET_TYPE_UNKNOWN",
-    EVALUATION_DATASET_TYPE_ADK: "EVALUATION_DATASET_TYPE_ADK",
-    EVALUATION_DATASET_TYPE_NON_ADK: "EVALUATION_DATASET_TYPE_NON_ADK",
     EVALUATION_DATASET_TYPE_MODEL: "EVALUATION_DATASET_TYPE_MODEL",
 } as const;
 /* tslint:enable */

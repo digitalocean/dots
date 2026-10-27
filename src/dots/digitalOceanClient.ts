@@ -4,6 +4,12 @@
 // @ts-ignore
 import { ApiRequestBuilderNavigationMetadata, type ApiRequestBuilder } from './api/index.js';
 // @ts-ignore
+import { ApprovalsRequestBuilderNavigationMetadata, type ApprovalsRequestBuilder } from './approvals/index.js';
+// @ts-ignore
+import { CodeRequestBuilderNavigationMetadata, type CodeRequestBuilder } from './code/index.js';
+// @ts-ignore
+import { ToolsRequestBuilderNavigationMetadata, ToolsRequestBuilderRequestsMetadata, type ToolsRequestBuilder } from './tools/index.js';
+// @ts-ignore
 import { type Upload_urlRequestBuilder, Upload_urlRequestBuilderRequestsMetadata } from './upload_url/index.js';
 // @ts-ignore
 import { type V1RequestBuilder, V1RequestBuilderNavigationMetadata } from './v1/index.js';
@@ -63,6 +69,18 @@ export interface DigitalOceanClient extends BaseRequestBuilder<DigitalOceanClien
      */
     get api(): ApiRequestBuilder;
     /**
+     * The approvals property
+     */
+    get approvals(): ApprovalsRequestBuilder;
+    /**
+     * The code property
+     */
+    get code(): CodeRequestBuilder;
+    /**
+     * The tools property
+     */
+    get tools(): ToolsRequestBuilder;
+    /**
      * The Upload_url property
      */
     get upload_url(): Upload_urlRequestBuilder;
@@ -85,6 +103,16 @@ export const DigitalOceanClientUriTemplate = "{+baseurl}";
 export const DigitalOceanClientNavigationMetadata: Record<Exclude<keyof DigitalOceanClient, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     api: {
         navigationMetadata: ApiRequestBuilderNavigationMetadata,
+    },
+    approvals: {
+        navigationMetadata: ApprovalsRequestBuilderNavigationMetadata,
+    },
+    code: {
+        navigationMetadata: CodeRequestBuilderNavigationMetadata,
+    },
+    tools: {
+        requestsMetadata: ToolsRequestBuilderRequestsMetadata,
+        navigationMetadata: ToolsRequestBuilderNavigationMetadata,
     },
     upload_url: {
         requestsMetadata: Upload_urlRequestBuilderRequestsMetadata,

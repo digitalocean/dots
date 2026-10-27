@@ -192,6 +192,22 @@ export class InferenceClient {
         },
     };
 
+    public readonly audio = {
+        speech: {
+            create: async (params: Record<string, any>): Promise<any> => {
+                return this._fetch("/v1/audio/speech", "POST", params);
+            },
+        },
+
+        /** Async audio generation (e.g. fal-ai/stable-audio-25/text-to-audio). */
+        generate: async (params: { model_id: string; prompt: string; seconds_total?: number; [k: string]: any }): Promise<any> => {
+            return this._fetch("/v1/async-invoke", "POST", {
+                model_id: params.model_id,
+                input: { prompt: params.prompt, seconds_total: params.seconds_total },
+            });
+        },
+    };
+
     public readonly batches = {
         list: async (query?: Record<string, any>): Promise<any> => {
             const _qs = query
@@ -337,6 +353,30 @@ export class InferenceClient {
         },
     };
 
+    public readonly videos = {
+        create: async (params: Record<string, any>): Promise<any> => {
+            return this._fetch("/v1/videos", "POST", params);
+        },
+        retrieve: async (videoId: string, query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/videos/" + encodeURIComponent(videoId) + _qs, "GET");
+        },
+        content: async (videoId: string, query?: Record<string, any>): Promise<any> => {
+            const _qs = query
+                ? "?" + Object.entries(query)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== "")
+                    .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(String(v)))
+                    .join("&")
+                : "";
+            return this._fetch("/v1/videos/" + encodeURIComponent(videoId) + "/content" + _qs, "GET");
+        },
+    };
+
 
     /**
      * OpenAI-compat surface. Each method forwards to its
@@ -376,25 +416,6 @@ export class InferenceClient {
                 throw new Error("Download failed: HTTP " + res.status + ": " + res.statusText + (text ? " — " + text : ""));
             }
             return res;
-        },
-    };
-
-    public readonly audio = {
-        /** Async audio generation (e.g. fal-ai/stable-audio-25/text-to-audio). */
-        generate: async (params: { model_id: string; prompt: string; seconds_total?: number; [k: string]: any }): Promise<any> => {
-            return this._fetch("/v1/async-invoke", "POST", {
-                model_id: params.model_id,
-                input: { prompt: params.prompt, seconds_total: params.seconds_total },
-            });
-        },
-        speech: {
-            /** Text-to-speech (e.g. fal-ai/playai/tts/v3). */
-            create: async (params: { model_id: string; input: string; [k: string]: any }): Promise<any> => {
-                return this._fetch("/v1/async-invoke", "POST", {
-                    model_id: params.model_id,
-                    input: { text: params.input },
-                });
-            },
         },
     };
 

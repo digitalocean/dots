@@ -12,6 +12,7 @@ import { DigitalOceanApiKeyAuthenticationProvider } from "../dots/DigitalOceanAp
 
 export const INFERENCE_OPENAPI_PATHS = [
     "/v1/async-invoke",
+    "/v1/audio/speech",
     "/v1/batches",
     "/v1/batches/files",
     "/v1/batches/{batch_id}",
@@ -23,7 +24,10 @@ export const INFERENCE_OPENAPI_PATHS = [
     "/v1/messages",
     "/v1/models",
     "/v1/responses",
-    "/v1/systemone"
+    "/v1/systemone",
+    "/v1/videos",
+    "/v1/videos/{video_id}",
+    "/v1/videos/{video_id}/content"
 ] as const;
 
 export const DEFAULT_INFERENCE_BASE_URL = "https://inference.do-ai.run";

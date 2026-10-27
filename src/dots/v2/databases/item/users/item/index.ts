@@ -140,12 +140,13 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithUsernameGetResponse | undefined>;
     /**
-     * To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`with the desired settings.**Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,you must recreate a new user.For PostgreSQL clusters, you can update `settings.pg_allow_replication` to enable ordisable replication privileges for the user. When omitted, the value defaults to `false`.For Kafka and OpenSearch clusters, additional options can be configured in the`settings` object (for example, topic or index ACLs).Updating users is not supported for MongoDB clusters. MongoDB roles and databaseaccess are set with `settings.mongo_user_settings` when creating a user and cannotbe changed afterward; recreate the user to apply different roles or databases.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the name of the updated database user, along with the `settings` object thathas been updated.
+     * To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`with the desired settings.**Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,you must recreate a new user.For PostgreSQL clusters, you can update `settings.pg_allow_replication` to enable ordisable replication privileges for the user. When omitted, the value defaults to `false`.For Kafka and OpenSearch clusters, additional options can be configured in the`settings` object (for example, topic or index ACLs).Updating users is supported for PostgreSQL, Kafka, and OpenSearch clusters. Forother engines, the request returns a 422. MongoDB roles and database access areset with `settings.mongo_user_settings` when creating a user and cannot bechanged afterward; recreate the user to apply different roles or databases.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the name of the updated database user, along with the `settings` object thathas been updated.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithUsernamePutResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
+     * @throws {ErrorEscaped} error when the service returns a 422 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
@@ -164,7 +165,7 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`with the desired settings.**Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,you must recreate a new user.For PostgreSQL clusters, you can update `settings.pg_allow_replication` to enable ordisable replication privileges for the user. When omitted, the value defaults to `false`.For Kafka and OpenSearch clusters, additional options can be configured in the`settings` object (for example, topic or index ACLs).Updating users is not supported for MongoDB clusters. MongoDB roles and databaseaccess are set with `settings.mongo_user_settings` when creating a user and cannotbe changed afterward; recreate the user to apply different roles or databases.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the name of the updated database user, along with the `settings` object thathas been updated.
+     * To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`with the desired settings.**Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,you must recreate a new user.For PostgreSQL clusters, you can update `settings.pg_allow_replication` to enable ordisable replication privileges for the user. When omitted, the value defaults to `false`.For Kafka and OpenSearch clusters, additional options can be configured in the`settings` object (for example, topic or index ACLs).Updating users is supported for PostgreSQL, Kafka, and OpenSearch clusters. Forother engines, the request returns a 422. MongoDB roles and database access areset with `settings.mongo_user_settings` when creating a user and cannot bechanged afterward; recreate the user to apply different roles or databases.The response will be a JSON object with a key called `user`. The value of this will be anobject that contains the name of the updated database user, along with the `settings` object thathas been updated.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -173,7 +174,7 @@ export interface WithUsernameItemRequestBuilder extends BaseRequestBuilder<WithU
 }
 export interface WithUsernamePutRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * User settings that can be updated via the Update a Database User endpoint.Supported for PostgreSQL, Kafka, and OpenSearch clusters. MongoDB user rolesand database access (`mongo_user_settings`) cannot be updated after creation;recreate the user to change them.
+     * User settings that can be updated via the Update a Database User endpoint.Supported for PostgreSQL, Kafka, and OpenSearch clusters. For other engines,the request returns a 422. MongoDB user roles and database access(`mongo_user_settings`) cannot be updated after creation; recreate the userto change them.
      */
     settings?: User_settings_update | null;
 }
@@ -230,6 +231,7 @@ export const WithUsernameItemRequestBuilderRequestsMetadata: RequestsMetadata = 
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             404: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            422: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
