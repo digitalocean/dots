@@ -737,6 +737,10 @@ export interface Agent_consent extends AdditionalDataHolder, Parsable {
      */
     enabled?: boolean | null;
     /**
+     * Same as agent_id. Dual-emitted during the rename.
+     */
+    environmentId?: Guid | null;
+    /**
      * The unique numeric identifier for the consent record.
      */
     id?: number | null;
@@ -13325,6 +13329,10 @@ export interface Consent_record extends AdditionalDataHolder, Parsable {
      */
     enabled?: boolean | null;
     /**
+     * Same as agent_id when present. Dual-emitted during the rename; omitted when agent_id is empty.
+     */
+    environmentId?: string | null;
+    /**
      * The unique numeric identifier for the consent record.
      */
     id?: number | null;
@@ -13397,15 +13405,20 @@ export interface Create_cron_config extends AdditionalDataHolder, Parsable {
  */
 export interface Create_deletion_request extends Parsable {
     /**
-     * The Harness Runtime Environment Config ID of the environment whose conversations should be deleted. This is the environment's `agent_id`. Required when `type` is `agent`; must be omitted when `type` is `inference`.
+     * Deprecated alias for `environment_id`. Accepted for backward compatibility; must equal `environment_id` when both are set. Both set and different returns 400. Required when `type` is `agent` if `environment_id` is omitted; must be omitted when `type` is `inference`.
+     * @deprecated 
      */
     agentId?: Guid | null;
+    /**
+     * The Harness Runtime Environment Config ID of the environment whose conversations should be deleted. Required when `type` is `agent` if `agent_id` is omitted; must be omitted when `type` is `inference`. Prefer this over `agent_id`.
+     */
+    environmentId?: Guid | null;
     /**
      * The team whose data should be deleted. Must match the authenticated team.
      */
     teamId?: number | null;
     /**
-     * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`).
+     * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`).
      */
     type?: Create_deletion_request_type | null;
 }
@@ -13415,13 +13428,18 @@ export type Create_deletion_request_type = (typeof Create_deletion_request_typeO
  */
 export interface Create_export_request extends AdditionalDataHolder, Parsable {
     /**
-     * The environment whose data should be exported. For Harness Runtime, this is the Environment Config ID. Required when `type` is `agent`; must be omitted when `type` is `inference`.
+     * Deprecated alias for `environment_id`. Accepted for backward compatibility; must equal `environment_id` when both are set. Both set and different returns 400. Required when `type` is `agent` if `environment_id` is omitted; must be omitted when `type` is `inference`.
+     * @deprecated 
      */
     agentId?: Guid | null;
     /**
      * Include only sessions that started at or before this timestamp.
      */
     endTime?: Date | null;
+    /**
+     * The environment whose data should be exported. For Harness Runtime, this is the Environment Config ID. Required when `type` is `agent` if `agent_id` is omitted; must be omitted when `type` is `inference`. Prefer this over `agent_id`.
+     */
+    environmentId?: Guid | null;
     /**
      * Optional list of specific session IDs to include in the export.
      */
@@ -13435,7 +13453,7 @@ export interface Create_export_request extends AdditionalDataHolder, Parsable {
      */
     startTime?: Date | null;
     /**
-     * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`). Defaults to `agent` when `agent_id` is provided and to `inference` when it is omitted.
+     * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`). Defaults to `agent` when `environment_id` or `agent_id` is provided and to `inference` when both are omitted.
      */
     type?: Create_export_request_type | null;
 }
@@ -27986,6 +28004,10 @@ export interface Deletion_job extends AdditionalDataHolder, Parsable {
      */
     deletionId?: string | null;
     /**
+     * Same as agent_id when present. Dual-emitted during the rename; omitted when agent_id is omitted.
+     */
+    environmentId?: Guid | null;
+    /**
      * Error message if the deletion failed, or null otherwise.
      */
     errorMessage?: string | null;
@@ -28489,6 +28511,7 @@ export function deserializeIntoAgent_consent(agent_consent: Partial<Agent_consen
     return {
         "agent_id": n => { agent_consent.agentId = n.getGuidValue(); },
         "enabled": n => { agent_consent.enabled = n.getBooleanValue(); },
+        "environment_id": n => { agent_consent.environmentId = n.getGuidValue(); },
         "id": n => { agent_consent.id = n.getNumberValue(); },
         "source": n => { agent_consent.source = n.getEnumValue<Agent_consent_source>(Agent_consent_sourceObject); },
         "team_id": n => { agent_consent.teamId = n.getNumberValue(); },
@@ -37095,6 +37118,7 @@ export function deserializeIntoConsent_record(consent_record: Partial<Consent_re
     return {
         "agent_id": n => { consent_record.agentId = n.getStringValue(); },
         "enabled": n => { consent_record.enabled = n.getBooleanValue(); },
+        "environment_id": n => { consent_record.environmentId = n.getStringValue(); },
         "id": n => { consent_record.id = n.getNumberValue(); },
         "source": n => { consent_record.source = n.getEnumValue<Consent_record_source>(Consent_record_sourceObject); },
         "team_id": n => { consent_record.teamId = n.getNumberValue(); },
@@ -37167,6 +37191,7 @@ export function deserializeIntoCreate_cron_config(create_cron_config: Partial<Cr
 export function deserializeIntoCreate_deletion_request(create_deletion_request: Partial<Create_deletion_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_id": n => { create_deletion_request.agentId = n.getGuidValue(); },
+        "environment_id": n => { create_deletion_request.environmentId = n.getGuidValue(); },
         "team_id": n => { create_deletion_request.teamId = n.getNumberValue(); },
         "type": n => { create_deletion_request.type = n.getEnumValue<Create_deletion_request_type>(Create_deletion_request_typeObject); },
     }
@@ -37181,6 +37206,7 @@ export function deserializeIntoCreate_export_request(create_export_request: Part
     return {
         "agent_id": n => { create_export_request.agentId = n.getGuidValue(); },
         "end_time": n => { create_export_request.endTime = n.getDateValue(); },
+        "environment_id": n => { create_export_request.environmentId = n.getGuidValue(); },
         "session_ids": n => { create_export_request.sessionIds = n.getCollectionOfPrimitiveValues<Guid>(); },
         "signal_type": n => { create_export_request.signalType = n.getCollectionOfPrimitiveValues<string>(); },
         "start_time": n => { create_export_request.startTime = n.getDateValue(); },
@@ -38352,6 +38378,7 @@ export function deserializeIntoDeletion_job(deletion_job: Partial<Deletion_job> 
         "completed_at": n => { deletion_job.completedAt = n.getNumberValue(); },
         "created_at": n => { deletion_job.createdAt = n.getNumberValue(); },
         "deletion_id": n => { deletion_job.deletionId = n.getStringValue(); },
+        "environment_id": n => { deletion_job.environmentId = n.getGuidValue(); },
         "error_message": n => { deletion_job.errorMessage = n.getStringValue(); },
         "started_at": n => { deletion_job.startedAt = n.getNumberValue(); },
         "status": n => { deletion_job.status = n.getEnumValue<Deletion_job_status>(Deletion_job_statusObject); },
@@ -39192,6 +39219,7 @@ export function deserializeIntoExport_job(export_job: Partial<Export_job> | unde
         "agent_id": n => { export_job.agentId = n.getGuidValue(); },
         "completed_at": n => { export_job.completedAt = n.getNumberValue(); },
         "created_at": n => { export_job.createdAt = n.getNumberValue(); },
+        "environment_id": n => { export_job.environmentId = n.getGuidValue(); },
         "error_message": n => { export_job.errorMessage = n.getStringValue(); },
         "expires_at": n => { export_job.expiresAt = n.getNumberValue(); },
         "export_id": n => { export_job.exportId = n.getGuidValue(); },
@@ -39743,6 +39771,7 @@ export function deserializeIntoGlb_settings_region_priorities(glb_settings_regio
 export function deserializeIntoGpu_info(gpu_info: Partial<Gpu_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "count": n => { gpu_info.count = n.getNumberValue(); },
+        "fabric": n => { gpu_info.fabric = n.getBooleanValue(); },
         "model": n => { gpu_info.model = n.getStringValue(); },
         "vram": n => { gpu_info.vram = n.getObjectValue<Gpu_info_vram>(createGpu_info_vramFromDiscriminatorValue); },
     }
@@ -48653,6 +48682,10 @@ export interface Export_job extends AdditionalDataHolder, Parsable {
      */
     createdAt?: number | null;
     /**
+     * Same as agent_id. Dual-emitted during the rename.
+     */
+    environmentId?: Guid | null;
+    /**
      * Error message if the export failed, or null on success.
      */
     errorMessage?: string | null;
@@ -49223,6 +49256,10 @@ export interface Gpu_info extends AdditionalDataHolder, Parsable {
      * The number of GPUs allocated to the Droplet.
      */
     count?: number | null;
+    /**
+     * If GPU fabric networking is enabled.
+     */
+    fabric?: boolean | null;
     /**
      * The model of the GPU.
      */
@@ -56415,6 +56452,7 @@ export function serializeAgent_consent(writer: SerializationWriter, agent_consen
     if (!agent_consent || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", agent_consent.agentId);
     writer.writeBooleanValue("enabled", agent_consent.enabled);
+    writer.writeGuidValue("environment_id", agent_consent.environmentId);
     writer.writeNumberValue("id", agent_consent.id);
     writer.writeEnumValue<Agent_consent_source>("source", agent_consent.source);
     writer.writeNumberValue("team_id", agent_consent.teamId);
@@ -65631,6 +65669,7 @@ export function serializeConsent_record(writer: SerializationWriter, consent_rec
     if (!consent_record || isSerializingDerivedType) { return; }
     writer.writeStringValue("agent_id", consent_record.agentId);
     writer.writeBooleanValue("enabled", consent_record.enabled);
+    writer.writeStringValue("environment_id", consent_record.environmentId);
     writer.writeNumberValue("id", consent_record.id);
     writer.writeEnumValue<Consent_record_source>("source", consent_record.source);
     writer.writeNumberValue("team_id", consent_record.teamId);
@@ -65709,6 +65748,7 @@ export function serializeCreate_cron_config(writer: SerializationWriter, create_
 export function serializeCreate_deletion_request(writer: SerializationWriter, create_deletion_request: Partial<Create_deletion_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!create_deletion_request || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", create_deletion_request.agentId);
+    writer.writeGuidValue("environment_id", create_deletion_request.environmentId);
     writer.writeNumberValue("team_id", create_deletion_request.teamId);
     writer.writeEnumValue<Create_deletion_request_type>("type", create_deletion_request.type);
 }
@@ -65723,6 +65763,7 @@ export function serializeCreate_export_request(writer: SerializationWriter, crea
     if (!create_export_request || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", create_export_request.agentId);
     writer.writeDateValue("end_time", create_export_request.endTime);
+    writer.writeGuidValue("environment_id", create_export_request.environmentId);
     writer.writeCollectionOfPrimitiveValues<Guid>("session_ids", create_export_request.sessionIds);
     writer.writeCollectionOfPrimitiveValues<string>("signal_type", create_export_request.signalType);
     writer.writeDateValue("start_time", create_export_request.startTime);
@@ -66925,6 +66966,7 @@ export function serializeDeletion_job(writer: SerializationWriter, deletion_job:
     writer.writeNumberValue("completed_at", deletion_job.completedAt);
     writer.writeNumberValue("created_at", deletion_job.createdAt);
     writer.writeStringValue("deletion_id", deletion_job.deletionId);
+    writer.writeGuidValue("environment_id", deletion_job.environmentId);
     writer.writeStringValue("error_message", deletion_job.errorMessage);
     writer.writeNumberValue("started_at", deletion_job.startedAt);
     writer.writeEnumValue<Deletion_job_status>("status", deletion_job.status);
@@ -67864,6 +67906,7 @@ export function serializeExport_job(writer: SerializationWriter, export_job: Par
     writer.writeGuidValue("agent_id", export_job.agentId);
     writer.writeNumberValue("completed_at", export_job.completedAt);
     writer.writeNumberValue("created_at", export_job.createdAt);
+    writer.writeGuidValue("environment_id", export_job.environmentId);
     writer.writeStringValue("error_message", export_job.errorMessage);
     writer.writeNumberValue("expires_at", export_job.expiresAt);
     writer.writeGuidValue("export_id", export_job.exportId);
@@ -68456,6 +68499,7 @@ export function serializeGlb_settings_region_priorities(writer: SerializationWri
 export function serializeGpu_info(writer: SerializationWriter, gpu_info: Partial<Gpu_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!gpu_info || isSerializingDerivedType) { return; }
     writer.writeNumberValue("count", gpu_info.count);
+    writer.writeBooleanValue("fabric", gpu_info.fabric);
     writer.writeStringValue("model", gpu_info.model);
     writer.writeObjectValue<Gpu_info_vram>("vram", gpu_info.vram, serializeGpu_info_vram);
     writer.writeAdditionalData(gpu_info.additionalData);
@@ -82076,14 +82120,14 @@ export const Consent_record_sourceObject = {
     Inference: "inference",
 } as const;
 /**
- * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`).
+ * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`).
  */
 export const Create_deletion_request_typeObject = {
     Agent: "agent",
     Inference: "inference",
 } as const;
 /**
- * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`). Defaults to `agent` when `agent_id` is provided and to `inference` when it is omitted.
+ * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`). Defaults to `agent` when `environment_id` or `agent_id` is provided and to `inference` when both are omitted.
  */
 export const Create_export_request_typeObject = {
     Agent: "agent",
