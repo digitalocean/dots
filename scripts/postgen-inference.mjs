@@ -856,13 +856,30 @@ const serializationFixes = [
         to: `writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input)`,
         label: "Embeddings_request.input",
     },
+    {
+        // Insights PromQL anyOf arrays — Kiota emits writeObjectValue against T[] | U[] | …
+        from: /writer\.writeObjectValue(<[^>]*>)?\("result",\s*prom_query_data\.result,\s*serializeProm_query_data_result\)/g,
+        to: `writer.writeCollectionOfObjectValues("result", prom_query_data.result as any, serializeProm_query_data_result as any)`,
+        label: "Prom_query_data.result",
+    },
 ];
 
-/** Rewrite writeObjectValue for props typed as Foo[] | Bar[] | … */
+/** Rewrite writeObjectValue for props typed as Foo[] | Bar[] | … (incl. `extends Parsable`). */
 function patchAnyOfArrayWriteObjectValues(src) {
     const arrayUnionFields = new Set();
+    // Resolve `export type Alias = A[] | B[] | …` so `prop?: Alias | null` is detected.
+    const arrayUnionAliases = new Set();
+    const typeAliasRe = /export type (\w+)\s*=\s*([^;]+);/g;
+    let tm;
+    while ((tm = typeAliasRe.exec(src)) !== null) {
+        const type = tm[2].replace(/\s+/g, " ").trim();
+        const arrayMarks = type.match(/\[\]/g);
+        if (arrayMarks && arrayMarks.length >= 2 && type.includes("|")) {
+            arrayUnionAliases.add(tm[1]);
+        }
+    }
 
-    const ifaceRe = /export interface (\w+) \{([^]*?)\}/g;
+    const ifaceRe = /export interface (\w+)(?:\s+extends\s+[^{]+)?\s*\{([^]*?)\}/g;
     let im;
     while ((im = ifaceRe.exec(src)) !== null) {
         const ifaceName = im[1];
@@ -874,7 +891,11 @@ function patchAnyOfArrayWriteObjectValues(src) {
             const prop = pm[1];
             const type = pm[2].replace(/\s+/g, " ").trim();
             const arrayMarks = type.match(/\[\]/g);
-            if (arrayMarks && arrayMarks.length >= 2 && type.includes("|")) {
+            const isInlineArrayUnion = arrayMarks && arrayMarks.length >= 2 && type.includes("|");
+            const isAliasArrayUnion = [...arrayUnionAliases].some(
+                (alias) => new RegExp(`(?:^|\\W)${alias}(?:\\W|$)`).test(type),
+            );
+            if (isInlineArrayUnion || isAliasArrayUnion) {
                 arrayUnionFields.add(`${varName}.${prop}`);
             }
         }
