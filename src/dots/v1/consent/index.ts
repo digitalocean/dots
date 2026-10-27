@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createConsent_recordFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createList_consentsFromDiscriminatorValue, serializeConsent_record, type Consent_record, type ErrorEscaped, type List_consents } from '../../models/index.js';
 // @ts-ignore
-import { type WithAgent_ItemRequestBuilder, WithAgent_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+import { type WithEnvironment_ItemRequestBuilder, WithEnvironment_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type Guid, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
@@ -26,10 +26,10 @@ export interface ConsentPutResponse extends AdditionalDataHolder, Parsable {
 export interface ConsentRequestBuilder extends BaseRequestBuilder<ConsentRequestBuilder> {
     /**
      * Gets an item from the ApiSdk.v1.consent.item collection
-     * @param agent_id A unique identifier for an environment. For Harness Runtime, this is the Environment Config ID.
-     * @returns {WithAgent_ItemRequestBuilder}
+     * @param environment_id A unique identifier for an environment. For Harness Runtime, this is the Environment Config ID. Formerly named agent_id.
+     * @returns {WithEnvironment_ItemRequestBuilder}
      */
-     byAgent_id(agent_id: Guid) : WithAgent_ItemRequestBuilder;
+     byEnvironment_id(environment_id: Guid) : WithEnvironment_ItemRequestBuilder;
     /**
      * To list all signals consent records for your team, send a GET request to`/v1/consent`. Each record indicates whether signals collection is enabledfor a source: per-environment records (`source: agent`) for Harness Runtime, andthe team-level record (`source: inference`) for Serverless Inference chatcompletions.Pass `?source=agent` or `?source=inference` to return only that source'srecords. When filtered, the response also echoes the `source`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -42,7 +42,7 @@ export interface ConsentRequestBuilder extends BaseRequestBuilder<ConsentRequest
      */
      get(requestConfiguration?: RequestConfiguration<ConsentRequestBuilderGetQueryParameters> | undefined) : Promise<List_consents | undefined>;
     /**
-     * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{agent_id}` instead.
+     * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{environment_id}` instead.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ConsentPutResponse>}
@@ -60,7 +60,7 @@ export interface ConsentRequestBuilder extends BaseRequestBuilder<ConsentRequest
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<ConsentRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{agent_id}` instead.
+     * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{environment_id}` instead.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -77,11 +77,11 @@ export interface ConsentRequestBuilderGetQueryParameters {
     source?: GetSourceQueryParameterType;
 }
 /**
- * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{agent_id}` instead.
+ * To enable or disable signals collection for a source that is consented atthe team level, send a PUT request to `/v1/consent?source=inference` withan `enabled` boolean in the request body. Currently the only team-levelsource is `inference`, which covers Serverless Inference chat completionsmade by your team.To revoke consent, send the same request with `enabled` set to `false`.The `source` query parameter is required. Per-environment consent for HarnessRuntime environments is managed with `PUT /v1/consent/{environment_id}` instead.
  */
 export interface ConsentRequestBuilderPutQueryParameters {
     /**
-     * The consent source to update. Only team-level sources are accepted on this endpoint; currently `inference` (Serverless Inference chat completions). Per-environment consent (`agent`) is managed with `PUT /v1/consent/{agent_id}` instead.
+     * The consent source to update. Only team-level sources are accepted on this endpoint; currently `inference` (Serverless Inference chat completions). Per-environment consent (`agent`) is managed with `PUT /v1/consent/{environment_id}` instead.
      */
     source?: PutSourceQueryParameterType;
 }
@@ -159,9 +159,9 @@ export const ConsentRequestBuilderUriTemplate = "{+baseurl}/v1/consent{?source*}
  * Metadata for all the navigation properties in the request builder.
  */
 export const ConsentRequestBuilderNavigationMetadata: Record<Exclude<keyof ConsentRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
-    byAgent_id: {
-        requestsMetadata: WithAgent_ItemRequestBuilderRequestsMetadata,
-        pathParametersMappings: ["agent_id"],
+    byEnvironment_id: {
+        requestsMetadata: WithEnvironment_ItemRequestBuilderRequestsMetadata,
+        pathParametersMappings: ["environment_id"],
     },
 };
 /**
