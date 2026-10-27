@@ -6,7 +6,7 @@ import { createApiDeleteSimulationRunOutputFromDiscriminatorValue, createApiGetS
 // @ts-ignore
 import { CancelRequestBuilderRequestsMetadata, type CancelRequestBuilder } from './cancel/index.js';
 // @ts-ignore
-import { JourneysRequestBuilderNavigationMetadata, JourneysRequestBuilderRequestsMetadata, type JourneysRequestBuilder } from './journeys/index.js';
+import { EpisodesRequestBuilderNavigationMetadata, EpisodesRequestBuilderRequestsMetadata, type EpisodesRequestBuilder } from './episodes/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -19,9 +19,9 @@ export interface WithRun_uuItemRequestBuilder extends BaseRequestBuilder<WithRun
      */
     get cancel(): CancelRequestBuilder;
     /**
-     * The journeys property
+     * The episodes property
      */
-    get journeys(): JourneysRequestBuilder;
+    get episodes(): EpisodesRequestBuilder;
     /**
      * To delete a simulation run, send a DELETE request to `/v2/gen-ai/simulation_runs/{run_uuid}`. The run must be in a terminal status (`SIMULATION_RUN_STATUS_SUCCEEDED`, `SIMULATION_RUN_STATUS_PARTIALLY_SUCCESSFUL`, `SIMULATION_RUN_STATUS_FAILED`, or `SIMULATION_RUN_STATUS_CANCELLED`). For runs still in progress, cancel the run first, then retry the delete.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -87,9 +87,9 @@ export const WithRun_uuItemRequestBuilderNavigationMetadata: Record<Exclude<keyo
     cancel: {
         requestsMetadata: CancelRequestBuilderRequestsMetadata,
     },
-    journeys: {
-        requestsMetadata: JourneysRequestBuilderRequestsMetadata,
-        navigationMetadata: JourneysRequestBuilderNavigationMetadata,
+    episodes: {
+        requestsMetadata: EpisodesRequestBuilderRequestsMetadata,
+        navigationMetadata: EpisodesRequestBuilderNavigationMetadata,
     },
 };
 /**

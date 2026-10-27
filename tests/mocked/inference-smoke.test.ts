@@ -259,10 +259,9 @@ describe("InferenceClient", () => {
         const client = new InferenceClient({ apiKey: "test-key" });
 
         nock(BASE)
-            .post("/v1/async-invoke", (body: Record<string, unknown>) => {
+            .post("/v1/audio/speech", (body: Record<string, unknown>) => {
                 expect(body.model_id).toBe("fal-ai/playai/tts/v3");
-                const input = body.input as Record<string, unknown>;
-                expect(input.text).toBe("Hello from DigitalOcean");
+                expect(body.input).toBe("Hello from DigitalOcean");
                 return true;
             })
             .reply(200, { request_id: "tts-1", status: "QUEUED" });

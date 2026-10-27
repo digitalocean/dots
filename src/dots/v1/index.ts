@@ -4,9 +4,13 @@
 // @ts-ignore
 import { AsyncInvokeRequestBuilderRequestsMetadata, type AsyncInvokeRequestBuilder } from './asyncInvoke/index.js';
 // @ts-ignore
+import { AudioRequestBuilderNavigationMetadata, type AudioRequestBuilder } from './audio/index.js';
+// @ts-ignore
 import { BatchesRequestBuilderNavigationMetadata, BatchesRequestBuilderRequestsMetadata, type BatchesRequestBuilder } from './batches/index.js';
 // @ts-ignore
 import { ChatRequestBuilderNavigationMetadata, type ChatRequestBuilder } from './chat/index.js';
+// @ts-ignore
+import { ConsentRequestBuilderNavigationMetadata, ConsentRequestBuilderRequestsMetadata, type ConsentRequestBuilder } from './consent/index.js';
 // @ts-ignore
 import { EmbeddingsRequestBuilderRequestsMetadata, type EmbeddingsRequestBuilder } from './embeddings/index.js';
 // @ts-ignore
@@ -18,7 +22,11 @@ import { ModelsRequestBuilderRequestsMetadata, type ModelsRequestBuilder } from 
 // @ts-ignore
 import { ResponsesRequestBuilderRequestsMetadata, type ResponsesRequestBuilder } from './responses/index.js';
 // @ts-ignore
+import { SignalsRequestBuilderNavigationMetadata, type SignalsRequestBuilder } from './signals/index.js';
+// @ts-ignore
 import { SystemoneRequestBuilderRequestsMetadata, type SystemoneRequestBuilder } from './systemone/index.js';
+// @ts-ignore
+import { type VideosRequestBuilder, VideosRequestBuilderNavigationMetadata, VideosRequestBuilderRequestsMetadata } from './videos/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
@@ -31,6 +39,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get asyncInvoke(): AsyncInvokeRequestBuilder;
     /**
+     * The audio property
+     */
+    get audio(): AudioRequestBuilder;
+    /**
      * The batches property
      */
     get batches(): BatchesRequestBuilder;
@@ -38,6 +50,10 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      * The chat property
      */
     get chat(): ChatRequestBuilder;
+    /**
+     * The consent property
+     */
+    get consent(): ConsentRequestBuilder;
     /**
      * The embeddings property
      */
@@ -59,9 +75,17 @@ export interface V1RequestBuilder extends BaseRequestBuilder<V1RequestBuilder> {
      */
     get responses(): ResponsesRequestBuilder;
     /**
+     * The signals property
+     */
+    get signals(): SignalsRequestBuilder;
+    /**
      * The systemone property
      */
     get systemone(): SystemoneRequestBuilder;
+    /**
+     * The videos property
+     */
+    get videos(): VideosRequestBuilder;
 }
 /**
  * Uri template for the request builder.
@@ -74,12 +98,19 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     asyncInvoke: {
         requestsMetadata: AsyncInvokeRequestBuilderRequestsMetadata,
     },
+    audio: {
+        navigationMetadata: AudioRequestBuilderNavigationMetadata,
+    },
     batches: {
         requestsMetadata: BatchesRequestBuilderRequestsMetadata,
         navigationMetadata: BatchesRequestBuilderNavigationMetadata,
     },
     chat: {
         navigationMetadata: ChatRequestBuilderNavigationMetadata,
+    },
+    consent: {
+        requestsMetadata: ConsentRequestBuilderRequestsMetadata,
+        navigationMetadata: ConsentRequestBuilderNavigationMetadata,
     },
     embeddings: {
         requestsMetadata: EmbeddingsRequestBuilderRequestsMetadata,
@@ -96,8 +127,15 @@ export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestB
     responses: {
         requestsMetadata: ResponsesRequestBuilderRequestsMetadata,
     },
+    signals: {
+        navigationMetadata: SignalsRequestBuilderNavigationMetadata,
+    },
     systemone: {
         requestsMetadata: SystemoneRequestBuilderRequestsMetadata,
+    },
+    videos: {
+        requestsMetadata: VideosRequestBuilderRequestsMetadata,
+        navigationMetadata: VideosRequestBuilderNavigationMetadata,
     },
 };
 /* tslint:enable */

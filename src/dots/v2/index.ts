@@ -10,6 +10,8 @@ import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsM
 // @ts-ignore
 import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } from './addOns/index.js';
 // @ts-ignore
+import { AgentsRequestBuilderNavigationMetadata, type AgentsRequestBuilder } from './agents/index.js';
+// @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
 import { BillingRequestBuilderNavigationMetadata, type BillingRequestBuilder } from './billing/index.js';
@@ -40,9 +42,13 @@ import { GenAiRequestBuilderNavigationMetadata, type GenAiRequestBuilder } from 
 // @ts-ignore
 import { ImagesRequestBuilderNavigationMetadata, ImagesRequestBuilderRequestsMetadata, type ImagesRequestBuilder } from './images/index.js';
 // @ts-ignore
+import { InsightsRequestBuilderNavigationMetadata, type InsightsRequestBuilder } from './insights/index.js';
+// @ts-ignore
 import { KubernetesRequestBuilderNavigationMetadata, type KubernetesRequestBuilder } from './kubernetes/index.js';
 // @ts-ignore
 import { Load_balancersRequestBuilderNavigationMetadata, Load_balancersRequestBuilderRequestsMetadata, type Load_balancersRequestBuilder } from './load_balancers/index.js';
+// @ts-ignore
+import { MicrovmsRequestBuilderNavigationMetadata, MicrovmsRequestBuilderRequestsMetadata, type MicrovmsRequestBuilder } from './microvms/index.js';
 // @ts-ignore
 import { MonitoringRequestBuilderNavigationMetadata, type MonitoringRequestBuilder } from './monitoring/index.js';
 // @ts-ignore
@@ -113,6 +119,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get addOns(): AddOnsRequestBuilder;
     /**
+     * The agents property
+     */
+    get agents(): AgentsRequestBuilder;
+    /**
      * The apps property
      */
     get apps(): AppsRequestBuilder;
@@ -173,6 +183,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      */
     get images(): ImagesRequestBuilder;
     /**
+     * The insights property
+     */
+    get insights(): InsightsRequestBuilder;
+    /**
      * The kubernetes property
      */
     get kubernetes(): KubernetesRequestBuilder;
@@ -180,6 +194,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The load_balancers property
      */
     get load_balancers(): Load_balancersRequestBuilder;
+    /**
+     * The microvms property
+     */
+    get microvms(): MicrovmsRequestBuilder;
     /**
      * The monitoring property
      */
@@ -295,6 +313,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     addOns: {
         navigationMetadata: AddOnsRequestBuilderNavigationMetadata,
     },
+    agents: {
+        navigationMetadata: AgentsRequestBuilderNavigationMetadata,
+    },
     apps: {
         requestsMetadata: AppsRequestBuilderRequestsMetadata,
         navigationMetadata: AppsRequestBuilderNavigationMetadata,
@@ -350,12 +371,19 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
         requestsMetadata: ImagesRequestBuilderRequestsMetadata,
         navigationMetadata: ImagesRequestBuilderNavigationMetadata,
     },
+    insights: {
+        navigationMetadata: InsightsRequestBuilderNavigationMetadata,
+    },
     kubernetes: {
         navigationMetadata: KubernetesRequestBuilderNavigationMetadata,
     },
     load_balancers: {
         requestsMetadata: Load_balancersRequestBuilderRequestsMetadata,
         navigationMetadata: Load_balancersRequestBuilderNavigationMetadata,
+    },
+    microvms: {
+        requestsMetadata: MicrovmsRequestBuilderRequestsMetadata,
+        navigationMetadata: MicrovmsRequestBuilderNavigationMetadata,
     },
     monitoring: {
         navigationMetadata: MonitoringRequestBuilderNavigationMetadata,

@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface GenerationsRequestBuilder extends BaseRequestBuilder<GenerationsRequestBuilder> {
     /**
-     * Creates a high-quality image from a text prompt using GPT-IMAGE-1, the latest image generation model with automatic prompt optimization and enhanced visual capabilities.
+     * Creates a high-quality image from a text prompt using GPT-IMAGE-2, the latest image generation model with automatic prompt optimization and enhanced visual capabilities.
      * @param body Request body for image generation.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Images_response>}
@@ -22,7 +22,7 @@ export interface GenerationsRequestBuilder extends BaseRequestBuilder<Generation
      */
      post(body: Create_image_request, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Images_response | undefined>;
     /**
-     * Creates a high-quality image from a text prompt using GPT-IMAGE-1, the latest image generation model with automatic prompt optimization and enhanced visual capabilities.
+     * Creates a high-quality image from a text prompt using GPT-IMAGE-2, the latest image generation model with automatic prompt optimization and enhanced visual capabilities.
      * @param body Request body for image generation.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
