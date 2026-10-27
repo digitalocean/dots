@@ -39743,6 +39743,7 @@ export function deserializeIntoGlb_settings_region_priorities(glb_settings_regio
 export function deserializeIntoGpu_info(gpu_info: Partial<Gpu_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "count": n => { gpu_info.count = n.getNumberValue(); },
+        "fabric": n => { gpu_info.fabric = n.getBooleanValue(); },
         "model": n => { gpu_info.model = n.getStringValue(); },
         "vram": n => { gpu_info.vram = n.getObjectValue<Gpu_info_vram>(createGpu_info_vramFromDiscriminatorValue); },
     }
@@ -49223,6 +49224,10 @@ export interface Gpu_info extends AdditionalDataHolder, Parsable {
      * The number of GPUs allocated to the Droplet.
      */
     count?: number | null;
+    /**
+     * If GPU fabric networking is enabled.
+     */
+    fabric?: boolean | null;
     /**
      * The model of the GPU.
      */
@@ -68456,6 +68461,7 @@ export function serializeGlb_settings_region_priorities(writer: SerializationWri
 export function serializeGpu_info(writer: SerializationWriter, gpu_info: Partial<Gpu_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!gpu_info || isSerializingDerivedType) { return; }
     writer.writeNumberValue("count", gpu_info.count);
+    writer.writeBooleanValue("fabric", gpu_info.fabric);
     writer.writeStringValue("model", gpu_info.model);
     writer.writeObjectValue<Gpu_info_vram>("vram", gpu_info.vram, serializeGpu_info_vram);
     writer.writeAdditionalData(gpu_info.additionalData);
