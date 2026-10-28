@@ -133,11 +133,11 @@ export interface SessionsGetResponse_page_info extends AdditionalDataHolder, Par
     hasNextPage?: boolean | null;
 }
 /**
- * Builds and executes requests for operations under /v1/signals/agents/{agent_id}/sessions
+ * Builds and executes requests for operations under /v1/signals/agents/{environment_id}/sessions
  */
 export interface SessionsRequestBuilder extends BaseRequestBuilder<SessionsRequestBuilder> {
     /**
-     * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{agent_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
+     * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{environment_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SessionsGetResponse>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -148,14 +148,14 @@ export interface SessionsRequestBuilder extends BaseRequestBuilder<SessionsReque
      */
      get(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : Promise<SessionsGetResponse | undefined>;
     /**
-     * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{agent_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
+     * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{environment_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{agent_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
+ * To list signals sessions for a specific environment, send a GET request to`/v1/signals/agents/{environment_id}/sessions`. Results are paginated using cursor-basedpagination with `limit` and `after` parameters.
  */
 export interface SessionsRequestBuilderGetQueryParameters {
     /**
@@ -182,7 +182,7 @@ export interface SessionsRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const SessionsRequestBuilderUriTemplate = "{+baseurl}/v1/signals/agents/{agent_id}/sessions{?after*,end_time*,limit*,signal_type*,start_time*}";
+export const SessionsRequestBuilderUriTemplate = "{+baseurl}/v1/signals/agents/{environment_id}/sessions{?after*,end_time*,limit*,signal_type*,start_time*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */

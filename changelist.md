@@ -1,34 +1,9 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@643c6bf (2026-10-01T12:32:37Z)
-Target commit: digitalocean/openapi@7ec3a27 (2026-10-26T17:08:06Z)
+Current commit: digitalocean/openapi@7ec3a27 (2026-10-26T17:08:06Z)
+Target commit: digitalocean/openapi@79e5c87 (2026-10-28T09:36:45Z)
 
-* digitalocean/openapi#1284: INF-2366: Update image generation examples to GPT Image 2 - 2026-10-26T17:08:06Z []
-* digitalocean/openapi#1278: insights: align spans and traces query contract - 2026-10-21T10:38:49Z []
-* digitalocean/openapi#1277: gen-ai: remove max_tokens from candidate inference config - 2026-10-21T11:14:23Z []
-* digitalocean/openapi#1276: [DBAAS-9354] Document mysql.innodb_adaptive_hash_index in advanced config - 2026-10-21T05:14:51Z []
-* digitalocean/openapi#1274: trim Inference chat/responses to one Go code sample each - 2026-10-19T09:10:15Z []
-* digitalocean/openapi#1272: Add speech and video Inference APIs with multi-language examples - 2026-10-16T08:34:03Z []
-* digitalocean/openapi#1271: add doc for new gpu_operator_ready field on k8saas - 2026-10-15T15:13:26Z []
-* digitalocean/openapi#1270: Document Action Gateway data plane REST APIs - 2026-10-16T07:23:45Z []
-* digitalocean/openapi#1269: Add Insights enablement endpoints - 2026-10-19T05:40:37Z []
-* digitalocean/openapi#1268: Add Go examples for Inference APIs - 2026-10-15T10:38:51Z []
-* digitalocean/openapi#1265: feat(signals): type=inference exports without agent_id - 2026-10-12T11:32:55Z []
-* digitalocean/openapi#1264: Signals spec: rename 'agent' to 'environment' in descriptions (FI-610) - 2026-10-12T11:08:51Z []
-* digitalocean/openapi#1263: docs(FI-609): sync Signals deletion descriptions with product behavior - 2026-10-11T16:38:44Z []
-* digitalocean/openapi#1262: Rename simulation journeys to episodes in the public spec - 2026-10-11T12:47:11Z []
-* digitalocean/openapi#1261: signals: add source to consent records and team-level inference consent PUT - 2026-10-09T19:50:51Z []
-* digitalocean/openapi#1260: Add Signals data deletion endpoints to OpenAPI spec (FI-609) - 2026-10-09T13:18:57Z []
-* digitalocean/openapi#1259: COBS-1353: Add Insights spans search query endpoint - 2026-10-09T11:02:19Z []
-* digitalocean/openapi#1258: signals: remove allowed from public consent GET schema - 2026-10-09T19:26:41Z []
-* digitalocean/openapi#1257: PDOCS-4764: Add MicroVMs Public Preview API - 2026-10-09T19:22:44Z []
-* digitalocean/openapi#1256: COBS-1348: Add Insights traces query OpenAPI - 2026-10-09T11:22:35Z []
-* digitalocean/openapi#1255: Add Hosted Agents /v2/agents OpenAPI (triggers, event stream, port-forward; supersedes #1233) - 2026-10-13T06:33:05Z []
-* digitalocean/openapi#1254: PDOCS-4797: Document project:update scope for app create - 2026-10-08T03:38:12Z [documentation]
-* digitalocean/openapi#1253: Add Signals API endpoints to OpenAPI spec (FI-610) - 2026-10-08T18:25:34Z []
-* digitalocean/openapi#1251: COBS-1342: Add POST methods for Insights PromQL query endpoints - 2026-10-07T05:07:25Z []
-* digitalocean/openapi#1250: COBS-1570: Document notification channel secrets as write-only - 2026-10-06T06:25:57Z []
-* digitalocean/openapi#1249: Remove ADK references from gen-ai evaluation docs - 2026-10-03T09:49:13Z []
-* digitalocean/openapi#1248: Add insights v2 endpoints to openapi - 2026-10-01T17:27:59Z []
-* digitalocean/openapi#1247: Document which engines support updating database users - 2026-10-01T18:05:59Z []
-* digitalocean/openapi#1246: Combined Insights alerts OpenAPI: alert rules, alert instances, and notification channels - 2026-10-01T17:12:18Z []
+* digitalocean/openapi#1289: Raise max model evaluation epochs to 10 - 2026-10-28T09:36:45Z []
+* digitalocean/openapi#1287: ci: pin Python 3.10 in validate-client-generation workflow - 2026-10-27T13:32:55Z []
+* digitalocean/openapi#1286: add fabric boolean to gpu info object - 2026-10-27T15:44:10Z []
+* digitalocean/openapi#1280: FI-686: Signals spec uses environment_id - 2026-10-27T16:35:05Z []
