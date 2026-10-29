@@ -35,7 +35,7 @@ export interface SessionsRequestBuilder extends BaseRequestBuilder<SessionsReque
      */
      get(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : Promise<List_sessions_response | undefined>;
     /**
-     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.
+     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
      * @param body Describes a session to create.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Create_session_response>}
@@ -53,7 +53,7 @@ export interface SessionsRequestBuilder extends BaseRequestBuilder<SessionsReque
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.
+     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
      * @param body Describes a session to create.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
