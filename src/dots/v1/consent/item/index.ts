@@ -9,73 +9,73 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithAgent_PutRequestBody}
+ * @returns {WithEnvironment_PutRequestBody}
  */
 // @ts-ignore
-export function createWithAgent_PutRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithAgent_PutRequestBody;
+export function createWithEnvironment_PutRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoWithEnvironment_PutRequestBody;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {WithAgent_PutResponse}
+ * @returns {WithEnvironment_PutResponse}
  */
 // @ts-ignore
-export function createWithAgent_PutResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoWithAgent_PutResponse;
+export function createWithEnvironment_PutResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoWithEnvironment_PutResponse;
 }
 /**
  * The deserialization information for the current model
- * @param WithAgent_PutRequestBody The instance to deserialize into.
+ * @param WithEnvironment_PutRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithAgent_PutRequestBody(withAgent_PutRequestBody: Partial<WithAgent_PutRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoWithEnvironment_PutRequestBody(withEnvironment_PutRequestBody: Partial<WithEnvironment_PutRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "enabled": n => { withAgent_PutRequestBody.enabled = n.getBooleanValue(); },
+        "enabled": n => { withEnvironment_PutRequestBody.enabled = n.getBooleanValue(); },
     }
 }
 /**
  * The deserialization information for the current model
- * @param WithAgent_PutResponse The instance to deserialize into.
+ * @param WithEnvironment_PutResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
-export function deserializeIntoWithAgent_PutResponse(withAgent_PutResponse: Partial<WithAgent_PutResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoWithEnvironment_PutResponse(withEnvironment_PutResponse: Partial<WithEnvironment_PutResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "consent": n => { withAgent_PutResponse.consent = n.getObjectValue<Consent_record>(createConsent_recordFromDiscriminatorValue); },
+        "consent": n => { withEnvironment_PutResponse.consent = n.getObjectValue<Consent_record>(createConsent_recordFromDiscriminatorValue); },
     }
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAgent_PutRequestBody The instance to serialize from.
+ * @param WithEnvironment_PutRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAgent_PutRequestBody(writer: SerializationWriter, withAgent_PutRequestBody: Partial<WithAgent_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAgent_PutRequestBody || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("enabled", withAgent_PutRequestBody.enabled);
-    writer.writeAdditionalData(withAgent_PutRequestBody.additionalData);
+export function serializeWithEnvironment_PutRequestBody(writer: SerializationWriter, withEnvironment_PutRequestBody: Partial<WithEnvironment_PutRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withEnvironment_PutRequestBody || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("enabled", withEnvironment_PutRequestBody.enabled);
+    writer.writeAdditionalData(withEnvironment_PutRequestBody.additionalData);
 }
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param WithAgent_PutResponse The instance to serialize from.
+ * @param WithEnvironment_PutResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWithAgent_PutResponse(writer: SerializationWriter, withAgent_PutResponse: Partial<WithAgent_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!withAgent_PutResponse || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Consent_record>("consent", withAgent_PutResponse.consent, serializeConsent_record);
-    writer.writeAdditionalData(withAgent_PutResponse.additionalData);
+export function serializeWithEnvironment_PutResponse(writer: SerializationWriter, withEnvironment_PutResponse: Partial<WithEnvironment_PutResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!withEnvironment_PutResponse || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Consent_record>("consent", withEnvironment_PutResponse.consent, serializeConsent_record);
+    writer.writeAdditionalData(withEnvironment_PutResponse.additionalData);
 }
 /**
- * Builds and executes requests for operations under /v1/consent/{agent_id}
+ * Builds and executes requests for operations under /v1/consent/{environment_id}
  */
-export interface WithAgent_ItemRequestBuilder extends BaseRequestBuilder<WithAgent_ItemRequestBuilder> {
+export interface WithEnvironment_ItemRequestBuilder extends BaseRequestBuilder<WithEnvironment_ItemRequestBuilder> {
     /**
-     * To retrieve the consent record for a specific environment, send a GETrequest to `/v1/consent/{agent_id}`. The response includes an `enabled`field indicating whether signals collection is on for this environment.This endpoint only serves per-environment (`source: agent`) records. Team-levelinference consent is read from `GET /v1/consent?source=inference`.
+     * To retrieve the consent record for a specific environment, send a GETrequest to `/v1/consent/{environment_id}`. The response includes an `enabled`field indicating whether signals collection is on for this environment.This endpoint only serves per-environment (`source: agent`) records. Team-levelinference consent is read from `GET /v1/consent?source=inference`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Agent_consent>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -87,10 +87,10 @@ export interface WithAgent_ItemRequestBuilder extends BaseRequestBuilder<WithAge
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Agent_consent | undefined>;
     /**
-     * To enable or disable signals collection for a specific environment, send aPUT request to `/v1/consent/{agent_id}` with an `enabled` boolean in therequest body.This endpoint only manages per-environment (`source: agent`) consent. To manageteam-level consent for Serverless Inference, use`PUT /v1/consent?source=inference` instead.
+     * To enable or disable signals collection for a specific environment, send aPUT request to `/v1/consent/{environment_id}` with an `enabled` boolean in therequest body.This endpoint only manages per-environment (`source: agent`) consent. To manageteam-level consent for Serverless Inference, use`PUT /v1/consent?source=inference` instead.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns {Promise<WithAgent_PutResponse>}
+     * @returns {Promise<WithEnvironment_PutResponse>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
@@ -98,28 +98,28 @@ export interface WithAgent_ItemRequestBuilder extends BaseRequestBuilder<WithAge
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
-     put(body: WithAgent_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithAgent_PutResponse | undefined>;
+     put(body: WithEnvironment_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WithEnvironment_PutResponse | undefined>;
     /**
-     * To retrieve the consent record for a specific environment, send a GETrequest to `/v1/consent/{agent_id}`. The response includes an `enabled`field indicating whether signals collection is on for this environment.This endpoint only serves per-environment (`source: agent`) records. Team-levelinference consent is read from `GET /v1/consent?source=inference`.
+     * To retrieve the consent record for a specific environment, send a GETrequest to `/v1/consent/{environment_id}`. The response includes an `enabled`field indicating whether signals collection is on for this environment.This endpoint only serves per-environment (`source: agent`) records. Team-levelinference consent is read from `GET /v1/consent?source=inference`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
-     * To enable or disable signals collection for a specific environment, send aPUT request to `/v1/consent/{agent_id}` with an `enabled` boolean in therequest body.This endpoint only manages per-environment (`source: agent`) consent. To manageteam-level consent for Serverless Inference, use`PUT /v1/consent?source=inference` instead.
+     * To enable or disable signals collection for a specific environment, send aPUT request to `/v1/consent/{environment_id}` with an `enabled` boolean in therequest body.This endpoint only manages per-environment (`source: agent`) consent. To manageteam-level consent for Serverless Inference, use`PUT /v1/consent?source=inference` instead.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
-     toPutRequestInformation(body: WithAgent_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
+     toPutRequestInformation(body: WithEnvironment_PutRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
-export interface WithAgent_PutRequestBody extends AdditionalDataHolder, Parsable {
+export interface WithEnvironment_PutRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * Whether to enable signals collection for this environment.
      */
     enabled?: boolean | null;
 }
-export interface WithAgent_PutResponse extends AdditionalDataHolder, Parsable {
+export interface WithEnvironment_PutResponse extends AdditionalDataHolder, Parsable {
     /**
      * A consent record indicating whether signals collection is enabled for a source. Records with `source: agent` apply to one environment; the record with `source: inference` applies to the whole team.
      */
@@ -128,13 +128,13 @@ export interface WithAgent_PutResponse extends AdditionalDataHolder, Parsable {
 /**
  * Uri template for the request builder.
  */
-export const WithAgent_ItemRequestBuilderUriTemplate = "{+baseurl}/v1/consent/{agent_id}";
+export const WithEnvironment_ItemRequestBuilderUriTemplate = "{+baseurl}/v1/consent/{environment_id}";
 /**
  * Metadata for all the requests in the request builder.
  */
-export const WithAgent_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
+export const WithEnvironment_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
     get: {
-        uriTemplate: WithAgent_ItemRequestBuilderUriTemplate,
+        uriTemplate: WithEnvironment_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -148,7 +148,7 @@ export const WithAgent_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyFactory:  createAgent_consentFromDiscriminatorValue,
     },
     put: {
-        uriTemplate: WithAgent_ItemRequestBuilderUriTemplate,
+        uriTemplate: WithEnvironment_ItemRequestBuilderUriTemplate,
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -159,9 +159,9 @@ export const WithAgent_ItemRequestBuilderRequestsMetadata: RequestsMetadata = {
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
-        responseBodyFactory:  createWithAgent_PutResponseFromDiscriminatorValue,
+        responseBodyFactory:  createWithEnvironment_PutResponseFromDiscriminatorValue,
         requestBodyContentType: "application/json",
-        requestBodySerializer: serializeWithAgent_PutRequestBody,
+        requestBodySerializer: serializeWithEnvironment_PutRequestBody,
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
