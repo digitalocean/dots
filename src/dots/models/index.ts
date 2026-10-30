@@ -737,6 +737,10 @@ export interface Agent_consent extends AdditionalDataHolder, Parsable {
      */
     enabled?: boolean | null;
     /**
+     * Same as agent_id. Dual-emitted during the rename.
+     */
+    environmentId?: Guid | null;
+    /**
      * The unique numeric identifier for the consent record.
      */
     id?: number | null;
@@ -3018,7 +3022,7 @@ export interface ApiCreateModelEvaluationRunInputPublic extends AdditionalDataHo
      */
     datasetUuid?: string | null;
     /**
-     * Number of times to evaluate each dataset row (n-pass/epochs), so theresult reports avg@k/pass@k/cons@k instead of a single score. Defaultsto 1 when unset. Capped at 3 until throughput/sharding work lands, sinceeach extra epoch roughly multiplies wall-clock run time. Not persistedon presets.
+     * How many times each dataset row is evaluated. Defaults to 1, maximum 10.When more than 1, the results show how consistent the model is acrossattempts (avg@k, pass@k, cons@k). Each extra attempt makes the run takelonger. Not saved in presets.
      */
     epochs?: number | null;
     /**
@@ -11801,6 +11805,43 @@ export interface Ca extends AdditionalDataHolder, Parsable {
      */
     certificate?: string | null;
 }
+/**
+ * Present when this tool accepts cache controls in the session. Unlike the catalog's cache.ttlSeconds, this describes the session's caching opt-in.
+ */
+export interface Cache_advertisement extends AdditionalDataHolder, Parsable {
+    /**
+     * Maximum result age the session allows, or 300 if the session sets no limit. The tool's own cache lifetime can be shorter. Invoke controls use max_age_seconds, not this field's camelCase spelling.
+     */
+    maxAgeSeconds?: number | null;
+}
+/**
+ * Optional per-call caching controls. Send beside arguments, not inside them. Accepted only for tools opted into caching in this session; tool search advertises these tools with a cache field. Omitting controls uses the session's settings. Direct MCP tools/call requests use session settings without overrides; use action_invoke for per-call controls.
+ */
+export interface Cache_controls extends Parsable {
+    /**
+     * Oldest cached result this call accepts, in seconds. Zero bypasses caching. Values above 300 are clamped to 300; larger values cannot increase the session or tool lifetime. This controls accepted result age, not the lifetime of a newly stored entry.
+     */
+    maxAgeSeconds?: number | null;
+    /**
+     * auto uses a sufficiently recent cached result or calls the provider and can store a successful result. bypass skips lookup and storage without clearing or refreshing existing entries.
+     */
+    mode?: Cache_controls_mode | null;
+}
+export type Cache_controls_mode = (typeof Cache_controls_modeObject)[keyof typeof Cache_controls_modeObject];
+/**
+ * Cache outcome. Hits always include this metadata. MISS and BYPASS appear only when the call includes cache controls. Cache hits still incur the gateway invocation charge but not an additional provider charge.
+ */
+export interface Cache_status extends AdditionalDataHolder, Parsable {
+    /**
+     * Age of the cached result in seconds. Present only on a hit.
+     */
+    ageSeconds?: number | null;
+    /**
+     * HIT returned a cached result without calling the provider. MISS found no usable result and called the provider. BYPASS skipped caching.
+     */
+    status?: Cache_status_status | null;
+}
+export type Cache_status_status = (typeof Cache_status_statusObject)[keyof typeof Cache_status_statusObject];
 export interface Cdn_endpoint extends AdditionalDataHolder, Parsable {
     /**
      * The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
@@ -13325,6 +13366,10 @@ export interface Consent_record extends AdditionalDataHolder, Parsable {
      */
     enabled?: boolean | null;
     /**
+     * Same as agent_id when present. Dual-emitted during the rename; omitted when agent_id is empty.
+     */
+    environmentId?: string | null;
+    /**
      * The unique numeric identifier for the consent record.
      */
     id?: number | null;
@@ -13397,15 +13442,20 @@ export interface Create_cron_config extends AdditionalDataHolder, Parsable {
  */
 export interface Create_deletion_request extends Parsable {
     /**
-     * The Harness Runtime Environment Config ID of the environment whose conversations should be deleted. This is the environment's `agent_id`. Required when `type` is `agent`; must be omitted when `type` is `inference`.
+     * Deprecated alias for `environment_id`. Accepted for backward compatibility; must equal `environment_id` when both are set. Both set and different returns 400. Required when `type` is `agent` if `environment_id` is omitted; must be omitted when `type` is `inference`.
+     * @deprecated 
      */
     agentId?: Guid | null;
+    /**
+     * The Harness Runtime Environment Config ID of the environment whose conversations should be deleted. Required when `type` is `agent` if `agent_id` is omitted; must be omitted when `type` is `inference`. Prefer this over `agent_id`.
+     */
+    environmentId?: Guid | null;
     /**
      * The team whose data should be deleted. Must match the authenticated team.
      */
     teamId?: number | null;
     /**
-     * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`).
+     * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`).
      */
     type?: Create_deletion_request_type | null;
 }
@@ -13415,13 +13465,18 @@ export type Create_deletion_request_type = (typeof Create_deletion_request_typeO
  */
 export interface Create_export_request extends AdditionalDataHolder, Parsable {
     /**
-     * The environment whose data should be exported. For Harness Runtime, this is the Environment Config ID. Required when `type` is `agent`; must be omitted when `type` is `inference`.
+     * Deprecated alias for `environment_id`. Accepted for backward compatibility; must equal `environment_id` when both are set. Both set and different returns 400. Required when `type` is `agent` if `environment_id` is omitted; must be omitted when `type` is `inference`.
+     * @deprecated 
      */
     agentId?: Guid | null;
     /**
      * Include only sessions that started at or before this timestamp.
      */
     endTime?: Date | null;
+    /**
+     * The environment whose data should be exported. For Harness Runtime, this is the Environment Config ID. Required when `type` is `agent` if `agent_id` is omitted; must be omitted when `type` is `inference`. Prefer this over `agent_id`.
+     */
+    environmentId?: Guid | null;
     /**
      * Optional list of specific session IDs to include in the export.
      */
@@ -13435,7 +13490,7 @@ export interface Create_export_request extends AdditionalDataHolder, Parsable {
      */
     startTime?: Date | null;
     /**
-     * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`). Defaults to `agent` when `agent_id` is provided and to `inference` when it is omitted.
+     * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`). Defaults to `agent` when `environment_id` or `agent_id` is provided and to `inference` when both are omitted.
      */
     type?: Create_export_request_type | null;
 }
@@ -13756,6 +13811,20 @@ export interface Create_response_response_tools extends AdditionalDataHolder, Pa
 export interface Create_response_response_tools_parameters extends AdditionalDataHolder, Parsable {
 }
 export type Create_response_response_tools_type = (typeof Create_response_response_tools_typeObject)[keyof typeof Create_response_response_tools_typeObject];
+export interface Create_secret_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The name of the secret.
+     */
+    name?: string | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The version of the secret after the operation.
+     */
+    version?: number | null;
+}
 /**
  * Strict application/json CreateSession form. Loads config_id, resolves the config's single internal secret binding, and creates the session. Body capped at 16 KiB; no inline secrets.
  */
@@ -19148,6 +19217,33 @@ export function createByoip_prefixFromDiscriminatorValue(parseNode: ParseNode | 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cache_advertisement}
+ */
+// @ts-ignore
+export function createCache_advertisementFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCache_advertisement;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cache_controls}
+ */
+// @ts-ignore
+export function createCache_controlsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCache_controls;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cache_status}
+ */
+// @ts-ignore
+export function createCache_statusFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCache_status;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Ca}
  */
 // @ts-ignore
@@ -19972,6 +20068,15 @@ export function createCreate_response_response_toolsFromDiscriminatorValue(parse
 // @ts-ignore
 export function createCreate_response_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCreate_response_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_secret_response}
+ */
+// @ts-ignore
+export function createCreate_secret_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_secret_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -24803,11 +24908,47 @@ export function createSearch_tools_resultFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_list_item}
+ */
+// @ts-ignore
+export function createSecret_list_itemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_list_item;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Secret_status}
  */
 // @ts-ignore
 export function createSecret_statusFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSecret_status;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_values}
+ */
+// @ts-ignore
+export function createSecret_valuesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_values;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret_version}
+ */
+// @ts-ignore
+export function createSecret_versionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret_version;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Secret}
+ */
+// @ts-ignore
+export function createSecretFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSecret;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -24835,6 +24976,15 @@ export function createSend_input_requestFromDiscriminatorValue(parseNode: ParseN
 // @ts-ignore
 export function createSend_input_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSend_input_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_cache}
+ */
+// @ts-ignore
+export function createSession_cacheFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_cache;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25573,6 +25723,15 @@ export function createTimescaledb_advanced_configFromDiscriminatorValue(parseNod
 // @ts-ignore
 export function createTool_annotationsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoTool_annotations;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_cache}
+ */
+// @ts-ignore
+export function createTool_cacheFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_cache;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27888,7 +28047,7 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     keepWarm?: boolean | null;
     /**
-     * Timestamp of the most recent event in this session's canonical stream. Drives the inactivity policy that destroys idle sessions.
+     * Timestamp of the most recent event in this session's canonical stream. Drives the inactivity policy that pauses idle sessions.
      */
     lastEventAt?: Date | null;
     /**
@@ -27985,6 +28144,10 @@ export interface Deletion_job extends AdditionalDataHolder, Parsable {
      * The unique identifier for the deletion job (ULID).
      */
     deletionId?: string | null;
+    /**
+     * Same as agent_id when present. Dual-emitted during the rename; omitted when agent_id is omitted.
+     */
+    environmentId?: Guid | null;
     /**
      * Error message if the deletion failed, or null otherwise.
      */
@@ -28489,6 +28652,7 @@ export function deserializeIntoAgent_consent(agent_consent: Partial<Agent_consen
     return {
         "agent_id": n => { agent_consent.agentId = n.getGuidValue(); },
         "enabled": n => { agent_consent.enabled = n.getBooleanValue(); },
+        "environment_id": n => { agent_consent.environmentId = n.getGuidValue(); },
         "id": n => { agent_consent.id = n.getNumberValue(); },
         "source": n => { agent_consent.source = n.getEnumValue<Agent_consent_source>(Agent_consent_sourceObject); },
         "team_id": n => { agent_consent.teamId = n.getNumberValue(); },
@@ -36118,6 +36282,41 @@ export function deserializeIntoCa(ca: Partial<Ca> | undefined = {}) : Record<str
 }
 /**
  * The deserialization information for the current model
+ * @param Cache_advertisement The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCache_advertisement(cache_advertisement: Partial<Cache_advertisement> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "maxAgeSeconds": n => { cache_advertisement.maxAgeSeconds = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Cache_controls The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCache_controls(cache_controls: Partial<Cache_controls> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "max_age_seconds": n => { cache_controls.maxAgeSeconds = n.getNumberValue(); },
+        "mode": n => { cache_controls.mode = n.getEnumValue<Cache_controls_mode>(Cache_controls_modeObject) ?? Cache_controls_modeObject.Auto; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Cache_status The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCache_status(cache_status: Partial<Cache_status> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "age_seconds": n => { cache_status.ageSeconds = n.getNumberValue(); },
+        "status": n => { cache_status.status = n.getEnumValue<Cache_status_status>(Cache_status_statusObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Cdn_endpoint The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -37095,6 +37294,7 @@ export function deserializeIntoConsent_record(consent_record: Partial<Consent_re
     return {
         "agent_id": n => { consent_record.agentId = n.getStringValue(); },
         "enabled": n => { consent_record.enabled = n.getBooleanValue(); },
+        "environment_id": n => { consent_record.environmentId = n.getStringValue(); },
         "id": n => { consent_record.id = n.getNumberValue(); },
         "source": n => { consent_record.source = n.getEnumValue<Consent_record_source>(Consent_record_sourceObject); },
         "team_id": n => { consent_record.teamId = n.getNumberValue(); },
@@ -37167,6 +37367,7 @@ export function deserializeIntoCreate_cron_config(create_cron_config: Partial<Cr
 export function deserializeIntoCreate_deletion_request(create_deletion_request: Partial<Create_deletion_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_id": n => { create_deletion_request.agentId = n.getGuidValue(); },
+        "environment_id": n => { create_deletion_request.environmentId = n.getGuidValue(); },
         "team_id": n => { create_deletion_request.teamId = n.getNumberValue(); },
         "type": n => { create_deletion_request.type = n.getEnumValue<Create_deletion_request_type>(Create_deletion_request_typeObject); },
     }
@@ -37181,6 +37382,7 @@ export function deserializeIntoCreate_export_request(create_export_request: Part
     return {
         "agent_id": n => { create_export_request.agentId = n.getGuidValue(); },
         "end_time": n => { create_export_request.endTime = n.getDateValue(); },
+        "environment_id": n => { create_export_request.environmentId = n.getGuidValue(); },
         "session_ids": n => { create_export_request.sessionIds = n.getCollectionOfPrimitiveValues<Guid>(); },
         "signal_type": n => { create_export_request.signalType = n.getCollectionOfPrimitiveValues<string>(); },
         "start_time": n => { create_export_request.startTime = n.getDateValue(); },
@@ -37433,6 +37635,19 @@ export function deserializeIntoCreate_response_response_tools(create_response_re
 // @ts-ignore
 export function deserializeIntoCreate_response_response_tools_parameters(create_response_response_tools_parameters: Partial<Create_response_response_tools_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_secret_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_secret_response(create_secret_response: Partial<Create_secret_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { create_secret_response.name = n.getStringValue(); },
+        "region": n => { create_secret_response.region = n.getStringValue(); },
+        "version": n => { create_secret_response.version = n.getNumberValue(); },
     }
 }
 /**
@@ -38352,6 +38567,7 @@ export function deserializeIntoDeletion_job(deletion_job: Partial<Deletion_job> 
         "completed_at": n => { deletion_job.completedAt = n.getNumberValue(); },
         "created_at": n => { deletion_job.createdAt = n.getNumberValue(); },
         "deletion_id": n => { deletion_job.deletionId = n.getStringValue(); },
+        "environment_id": n => { deletion_job.environmentId = n.getGuidValue(); },
         "error_message": n => { deletion_job.errorMessage = n.getStringValue(); },
         "started_at": n => { deletion_job.startedAt = n.getNumberValue(); },
         "status": n => { deletion_job.status = n.getEnumValue<Deletion_job_status>(Deletion_job_statusObject); },
@@ -38435,6 +38651,7 @@ export function deserializeIntoDestroyed_associated_resource(destroyed_associate
 // @ts-ignore
 export function deserializeIntoDisk_info(disk_info: Partial<Disk_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "ephemeral": n => { disk_info.ephemeral = n.getBooleanValue(); },
         "size": n => { disk_info.size = n.getObjectValue<Disk_info_size>(createDisk_info_sizeFromDiscriminatorValue); },
         "type": n => { disk_info.type = n.getEnumValue<Disk_info_type>(Disk_info_typeObject); },
     }
@@ -39192,6 +39409,7 @@ export function deserializeIntoExport_job(export_job: Partial<Export_job> | unde
         "agent_id": n => { export_job.agentId = n.getGuidValue(); },
         "completed_at": n => { export_job.completedAt = n.getNumberValue(); },
         "created_at": n => { export_job.createdAt = n.getNumberValue(); },
+        "environment_id": n => { export_job.environmentId = n.getGuidValue(); },
         "error_message": n => { export_job.errorMessage = n.getStringValue(); },
         "expires_at": n => { export_job.expiresAt = n.getNumberValue(); },
         "export_id": n => { export_job.exportId = n.getGuidValue(); },
@@ -39743,6 +39961,7 @@ export function deserializeIntoGlb_settings_region_priorities(glb_settings_regio
 export function deserializeIntoGpu_info(gpu_info: Partial<Gpu_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "count": n => { gpu_info.count = n.getNumberValue(); },
+        "fabric": n => { gpu_info.fabric = n.getBooleanValue(); },
         "model": n => { gpu_info.model = n.getStringValue(); },
         "vram": n => { gpu_info.vram = n.getObjectValue<Gpu_info_vram>(createGpu_info_vramFromDiscriminatorValue); },
     }
@@ -44678,6 +44897,7 @@ export function deserializeIntoSearch_tools_response(search_tools_response: Part
 // @ts-ignore
 export function deserializeIntoSearch_tools_result(search_tools_result: Partial<Search_tools_result> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "cache": n => { search_tools_result.cache = n.getObjectValue<Cache_advertisement>(createCache_advertisementFromDiscriminatorValue); },
         "description": n => { search_tools_result.description = n.getStringValue(); },
         "inputSchema": n => { search_tools_result.inputSchema = n.getObjectValue<Search_tools_result_inputSchema>(createSearch_tools_result_inputSchemaFromDiscriminatorValue); },
         "name": n => { search_tools_result.name = n.getStringValue(); },
@@ -44698,6 +44918,39 @@ export function deserializeIntoSearch_tools_result_inputSchema(search_tools_resu
 }
 /**
  * The deserialization information for the current model
+ * @param Secret The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret(secret: Partial<Secret> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret.createdAt = n.getDateValue(); },
+        "delete_requested_at": n => { secret.deleteRequestedAt = n.getDateValue(); },
+        "region": n => { secret.region = n.getStringValue(); },
+        "secret": n => { secret.secret = n.getStringValue(); },
+        "updated_at": n => { secret.updatedAt = n.getDateValue(); },
+        "values": n => { secret.values = n.getObjectValue<Secret_values>(createSecret_valuesFromDiscriminatorValue); },
+        "version": n => { secret.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_list_item The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_list_item(secret_list_item: Partial<Secret_list_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret_list_item.createdAt = n.getDateValue(); },
+        "delete_requested_at": n => { secret_list_item.deleteRequestedAt = n.getDateValue(); },
+        "region": n => { secret_list_item.region = n.getStringValue(); },
+        "secret": n => { secret_list_item.secret = n.getStringValue(); },
+        "updated_at": n => { secret_list_item.updatedAt = n.getDateValue(); },
+        "version": n => { secret_list_item.version = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Secret_status The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -44705,6 +44958,29 @@ export function deserializeIntoSearch_tools_result_inputSchema(search_tools_resu
 export function deserializeIntoSecret_status(secret_status: Partial<Secret_status> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "configured": n => { secret_status.configured = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_values The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_values(secret_values: Partial<Secret_values> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Secret_version The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSecret_version(secret_version: Partial<Secret_version> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { secret_version.createdAt = n.getDateValue(); },
+        "updated_at": n => { secret_version.updatedAt = n.getDateValue(); },
+        "version": n => { secret_version.version = n.getNumberValue(); },
     }
 }
 /**
@@ -44769,12 +45045,26 @@ export function deserializeIntoSession(session: Partial<Session> | undefined = {
 }
 /**
  * The deserialization information for the current model
+ * @param Session_cache The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_cache(session_cache: Partial<Session_cache> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allEligible": n => { session_cache.allEligible = n.getBooleanValue(); },
+        "maxAgeSeconds": n => { session_cache.maxAgeSeconds = n.getNumberValue(); },
+        "tools": n => { session_cache.tools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Session_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
 export function deserializeIntoSession_config(session_config: Partial<Session_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "cache": n => { session_config.cache = n.getObjectValue<Session_cache>(createSession_cacheFromDiscriminatorValue); },
     }
 }
 /**
@@ -44802,6 +45092,7 @@ export function deserializeIntoSession_create(session_create: Partial<Session_cr
 // @ts-ignore
 export function deserializeIntoSession_create_config(session_create_config: Partial<Session_create_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "cache": n => { session_create_config.cache = n.getObjectValue<Session_cache>(createSession_cacheFromDiscriminatorValue); },
     }
 }
 /**
@@ -45816,6 +46107,17 @@ export function deserializeIntoTool_annotations(tool_annotations: Partial<Tool_a
 }
 /**
  * The deserialization information for the current model
+ * @param Tool_cache The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_cache(tool_cache: Partial<Tool_cache> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "ttlSeconds": n => { tool_cache.ttlSeconds = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Tool_call The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -45823,6 +46125,7 @@ export function deserializeIntoTool_annotations(tool_annotations: Partial<Tool_a
 export function deserializeIntoTool_call(tool_call: Partial<Tool_call> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "arguments": n => { tool_call.arguments = n.getObjectValue<Tool_call_arguments>(createTool_call_argumentsFromDiscriminatorValue); },
+        "cache": n => { tool_call.cache = n.getObjectValue<Cache_controls>(createCache_controlsFromDiscriminatorValue); },
         "tool": n => { tool_call.tool = n.getStringValue(); },
         "version": n => { tool_call.version = n.getStringValue(); },
     }
@@ -45847,6 +46150,7 @@ export function deserializeIntoTool_definition(tool_definition: Partial<Tool_def
     return {
         "annotations": n => { tool_definition.annotations = n.getObjectValue<Tool_annotations>(createTool_annotationsFromDiscriminatorValue); },
         "auth": n => { tool_definition.auth = n.getObjectValue<Tool_definition_auth>(createTool_definition_authFromDiscriminatorValue); },
+        "cache": n => { tool_definition.cache = n.getObjectValue<Tool_cache>(createTool_cacheFromDiscriminatorValue); },
         "description": n => { tool_definition.description = n.getStringValue(); },
         "inputSchema": n => { tool_definition.inputSchema = n.getObjectValue<Tool_definition_inputSchema>(createTool_definition_inputSchemaFromDiscriminatorValue); },
         "name": n => { tool_definition.name = n.getStringValue(); },
@@ -45975,6 +46279,7 @@ export function deserializeIntoTool_result_error(tool_result_error: Partial<Tool
 // @ts-ignore
 export function deserializeIntoTool_result_meta(tool_result_meta: Partial<Tool_result_meta> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "cache": n => { tool_result_meta.cache = n.getObjectValue<Cache_status>(createCache_statusFromDiscriminatorValue); },
     }
 }
 /**
@@ -47857,6 +48162,10 @@ export interface Destroyed_associated_resource extends AdditionalDataHolder, Par
 }
 export interface Disk_info extends AdditionalDataHolder, Parsable {
     /**
+     * Indicates an ephemeral (non-persistent) disk.
+     */
+    ephemeral?: boolean | null;
+    /**
      * The size property
      */
     size?: Disk_info_size | null;
@@ -48653,6 +48962,10 @@ export interface Export_job extends AdditionalDataHolder, Parsable {
      */
     createdAt?: number | null;
     /**
+     * Same as agent_id. Dual-emitted during the rename.
+     */
+    environmentId?: Guid | null;
+    /**
      * Error message if the export failed, or null on success.
      */
     errorMessage?: string | null;
@@ -49223,6 +49536,10 @@ export interface Gpu_info extends AdditionalDataHolder, Parsable {
      * The number of GPUs allocated to the Droplet.
      */
     count?: number | null;
+    /**
+     * If GPU fabric networking is enabled.
+     */
+    fabric?: boolean | null;
     /**
      * The model of the GPU.
      */
@@ -55795,6 +56112,10 @@ export interface Search_tools_response extends AdditionalDataHolder, Parsable {
  */
 export interface Search_tools_result extends AdditionalDataHolder, Parsable {
     /**
+     * Present when this tool accepts cache controls in the session. Unlike the catalog's cache.ttlSeconds, this describes the session's caching opt-in.
+     */
+    cache?: Cache_advertisement | null;
+    /**
      * The description property
      */
     description?: string | null;
@@ -55824,6 +56145,62 @@ export interface Search_tools_result extends AdditionalDataHolder, Parsable {
  */
 export interface Search_tools_result_inputSchema extends AdditionalDataHolder, Parsable {
 }
+export interface Secret extends AdditionalDataHolder, Parsable {
+    /**
+     * When the secret was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When deletion was requested for the secret.
+     */
+    deleteRequestedAt?: Date | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The name of the secret.
+     */
+    secret?: string | null;
+    /**
+     * When the secret was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * Key-value pairs stored in the secret.
+     */
+    values?: Secret_values | null;
+    /**
+     * The current version of the secret.
+     */
+    version?: number | null;
+}
+export interface Secret_list_item extends AdditionalDataHolder, Parsable {
+    /**
+     * When the secret was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When deletion was requested for the secret.
+     */
+    deleteRequestedAt?: Date | null;
+    /**
+     * The region where the secret is stored.
+     */
+    region?: string | null;
+    /**
+     * The name of the secret.
+     */
+    secret?: string | null;
+    /**
+     * When the secret was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * The current version of the secret.
+     */
+    version?: number | null;
+}
 /**
  * Indicates whether a secret credential is configured without exposing itsvalue. Status fields that use this schema are omitted from responses whenthe secret is not set.
  */
@@ -55832,6 +56209,25 @@ export interface Secret_status extends AdditionalDataHolder, Parsable {
      * Whether the secret is configured.
      */
     configured?: boolean | null;
+}
+/**
+ * Key-value pairs stored in the secret.
+ */
+export interface Secret_values extends AdditionalDataHolder, Parsable {
+}
+export interface Secret_version extends AdditionalDataHolder, Parsable {
+    /**
+     * When this version was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * When this version was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * The version number.
+     */
+    version?: number | null;
 }
 /**
  * An object containing information about a resource to be scheduled for deletion.
@@ -56415,6 +56811,7 @@ export function serializeAgent_consent(writer: SerializationWriter, agent_consen
     if (!agent_consent || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", agent_consent.agentId);
     writer.writeBooleanValue("enabled", agent_consent.enabled);
+    writer.writeGuidValue("environment_id", agent_consent.environmentId);
     writer.writeNumberValue("id", agent_consent.id);
     writer.writeEnumValue<Agent_consent_source>("source", agent_consent.source);
     writer.writeNumberValue("team_id", agent_consent.teamId);
@@ -64608,6 +65005,43 @@ export function serializeCa(writer: SerializationWriter, ca: Partial<Ca> | undef
 }
 /**
  * Serializes information the current object
+ * @param Cache_advertisement The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCache_advertisement(writer: SerializationWriter, cache_advertisement: Partial<Cache_advertisement> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cache_advertisement || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("maxAgeSeconds", cache_advertisement.maxAgeSeconds);
+    writer.writeAdditionalData(cache_advertisement.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Cache_controls The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCache_controls(writer: SerializationWriter, cache_controls: Partial<Cache_controls> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cache_controls || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("max_age_seconds", cache_controls.maxAgeSeconds);
+    writer.writeEnumValue<Cache_controls_mode>("mode", cache_controls.mode ?? Cache_controls_modeObject.Auto);
+}
+/**
+ * Serializes information the current object
+ * @param Cache_status The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCache_status(writer: SerializationWriter, cache_status: Partial<Cache_status> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cache_status || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("age_seconds", cache_status.ageSeconds);
+    writer.writeEnumValue<Cache_status_status>("status", cache_status.status);
+    writer.writeAdditionalData(cache_status.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Cdn_endpoint The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -65631,6 +66065,7 @@ export function serializeConsent_record(writer: SerializationWriter, consent_rec
     if (!consent_record || isSerializingDerivedType) { return; }
     writer.writeStringValue("agent_id", consent_record.agentId);
     writer.writeBooleanValue("enabled", consent_record.enabled);
+    writer.writeStringValue("environment_id", consent_record.environmentId);
     writer.writeNumberValue("id", consent_record.id);
     writer.writeEnumValue<Consent_record_source>("source", consent_record.source);
     writer.writeNumberValue("team_id", consent_record.teamId);
@@ -65709,6 +66144,7 @@ export function serializeCreate_cron_config(writer: SerializationWriter, create_
 export function serializeCreate_deletion_request(writer: SerializationWriter, create_deletion_request: Partial<Create_deletion_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!create_deletion_request || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", create_deletion_request.agentId);
+    writer.writeGuidValue("environment_id", create_deletion_request.environmentId);
     writer.writeNumberValue("team_id", create_deletion_request.teamId);
     writer.writeEnumValue<Create_deletion_request_type>("type", create_deletion_request.type);
 }
@@ -65723,6 +66159,7 @@ export function serializeCreate_export_request(writer: SerializationWriter, crea
     if (!create_export_request || isSerializingDerivedType) { return; }
     writer.writeGuidValue("agent_id", create_export_request.agentId);
     writer.writeDateValue("end_time", create_export_request.endTime);
+    writer.writeGuidValue("environment_id", create_export_request.environmentId);
     writer.writeCollectionOfPrimitiveValues<Guid>("session_ids", create_export_request.sessionIds);
     writer.writeCollectionOfPrimitiveValues<string>("signal_type", create_export_request.signalType);
     writer.writeDateValue("start_time", create_export_request.startTime);
@@ -66007,6 +66444,20 @@ export function serializeCreate_response_response_tools(writer: SerializationWri
 export function serializeCreate_response_response_tools_parameters(writer: SerializationWriter, create_response_response_tools_parameters: Partial<Create_response_response_tools_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!create_response_response_tools_parameters || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(create_response_response_tools_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Create_secret_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_secret_response(writer: SerializationWriter, create_secret_response: Partial<Create_secret_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_secret_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", create_secret_response.name);
+    writer.writeStringValue("region", create_secret_response.region);
+    writer.writeNumberValue("version", create_secret_response.version);
+    writer.writeAdditionalData(create_secret_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -66925,6 +67376,7 @@ export function serializeDeletion_job(writer: SerializationWriter, deletion_job:
     writer.writeNumberValue("completed_at", deletion_job.completedAt);
     writer.writeNumberValue("created_at", deletion_job.createdAt);
     writer.writeStringValue("deletion_id", deletion_job.deletionId);
+    writer.writeGuidValue("environment_id", deletion_job.environmentId);
     writer.writeStringValue("error_message", deletion_job.errorMessage);
     writer.writeNumberValue("started_at", deletion_job.startedAt);
     writer.writeEnumValue<Deletion_job_status>("status", deletion_job.status);
@@ -67014,6 +67466,7 @@ export function serializeDestroyed_associated_resource(writer: SerializationWrit
 // @ts-ignore
 export function serializeDisk_info(writer: SerializationWriter, disk_info: Partial<Disk_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!disk_info || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("ephemeral", disk_info.ephemeral);
     writer.writeObjectValue<Disk_info_size>("size", disk_info.size, serializeDisk_info_size);
     writer.writeEnumValue<Disk_info_type>("type", disk_info.type);
     writer.writeAdditionalData(disk_info.additionalData);
@@ -67864,6 +68317,7 @@ export function serializeExport_job(writer: SerializationWriter, export_job: Par
     writer.writeGuidValue("agent_id", export_job.agentId);
     writer.writeNumberValue("completed_at", export_job.completedAt);
     writer.writeNumberValue("created_at", export_job.createdAt);
+    writer.writeGuidValue("environment_id", export_job.environmentId);
     writer.writeStringValue("error_message", export_job.errorMessage);
     writer.writeNumberValue("expires_at", export_job.expiresAt);
     writer.writeGuidValue("export_id", export_job.exportId);
@@ -68456,6 +68910,7 @@ export function serializeGlb_settings_region_priorities(writer: SerializationWri
 export function serializeGpu_info(writer: SerializationWriter, gpu_info: Partial<Gpu_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!gpu_info || isSerializingDerivedType) { return; }
     writer.writeNumberValue("count", gpu_info.count);
+    writer.writeBooleanValue("fabric", gpu_info.fabric);
     writer.writeStringValue("model", gpu_info.model);
     writer.writeObjectValue<Gpu_info_vram>("vram", gpu_info.vram, serializeGpu_info_vram);
     writer.writeAdditionalData(gpu_info.additionalData);
@@ -73648,6 +74103,7 @@ export function serializeSearch_tools_response(writer: SerializationWriter, sear
 // @ts-ignore
 export function serializeSearch_tools_result(writer: SerializationWriter, search_tools_result: Partial<Search_tools_result> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!search_tools_result || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cache_advertisement>("cache", search_tools_result.cache, serializeCache_advertisement);
     writer.writeStringValue("description", search_tools_result.description);
     writer.writeObjectValue<Search_tools_result_inputSchema>("inputSchema", search_tools_result.inputSchema, serializeSearch_tools_result_inputSchema);
     writer.writeStringValue("name", search_tools_result.name);
@@ -73670,6 +74126,41 @@ export function serializeSearch_tools_result_inputSchema(writer: SerializationWr
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret(writer: SerializationWriter, secret: Partial<Secret> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret.createdAt);
+    writer.writeDateValue("delete_requested_at", secret.deleteRequestedAt);
+    writer.writeStringValue("region", secret.region);
+    writer.writeStringValue("secret", secret.secret);
+    writer.writeDateValue("updated_at", secret.updatedAt);
+    writer.writeObjectValue<Secret_values>("values", secret.values, serializeSecret_values);
+    writer.writeNumberValue("version", secret.version);
+    writer.writeAdditionalData(secret.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_list_item The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_list_item(writer: SerializationWriter, secret_list_item: Partial<Secret_list_item> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_list_item || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret_list_item.createdAt);
+    writer.writeDateValue("delete_requested_at", secret_list_item.deleteRequestedAt);
+    writer.writeStringValue("region", secret_list_item.region);
+    writer.writeStringValue("secret", secret_list_item.secret);
+    writer.writeDateValue("updated_at", secret_list_item.updatedAt);
+    writer.writeNumberValue("version", secret_list_item.version);
+    writer.writeAdditionalData(secret_list_item.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Secret_status The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -73678,6 +74169,31 @@ export function serializeSecret_status(writer: SerializationWriter, secret_statu
     if (!secret_status || isSerializingDerivedType) { return; }
     writer.writeBooleanValue("configured", secret_status.configured);
     writer.writeAdditionalData(secret_status.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_values The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_values(writer: SerializationWriter, secret_values: Partial<Secret_values> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_values || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(secret_values.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Secret_version The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSecret_version(writer: SerializationWriter, secret_version: Partial<Secret_version> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!secret_version || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", secret_version.createdAt);
+    writer.writeDateValue("updated_at", secret_version.updatedAt);
+    writer.writeNumberValue("version", secret_version.version);
+    writer.writeAdditionalData(secret_version.additionalData);
 }
 /**
  * Serializes information the current object
@@ -73746,12 +74262,26 @@ export function serializeSession(writer: SerializationWriter, session: Partial<S
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_cache The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_cache(writer: SerializationWriter, session_cache: Partial<Session_cache> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_cache || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("allEligible", session_cache.allEligible);
+    writer.writeNumberValue("maxAgeSeconds", session_cache.maxAgeSeconds);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", session_cache.tools);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Session_config The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
 export function serializeSession_config(writer: SerializationWriter, session_config: Partial<Session_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!session_config || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_cache>("cache", session_config.cache, serializeSession_cache);
     writer.writeAdditionalData(session_config.additionalData);
 }
 /**
@@ -73781,6 +74311,7 @@ export function serializeSession_create(writer: SerializationWriter, session_cre
 // @ts-ignore
 export function serializeSession_create_config(writer: SerializationWriter, session_create_config: Partial<Session_create_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!session_create_config || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_cache>("cache", session_create_config.cache, serializeSession_cache);
     writer.writeAdditionalData(session_create_config.additionalData);
 }
 /**
@@ -74864,6 +75395,18 @@ export function serializeTool_annotations(writer: SerializationWriter, tool_anno
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_cache The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_cache(writer: SerializationWriter, tool_cache: Partial<Tool_cache> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_cache || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("ttlSeconds", tool_cache.ttlSeconds);
+    writer.writeAdditionalData(tool_cache.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Tool_call The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -74871,6 +75414,7 @@ export function serializeTool_annotations(writer: SerializationWriter, tool_anno
 export function serializeTool_call(writer: SerializationWriter, tool_call: Partial<Tool_call> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!tool_call || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Tool_call_arguments>("arguments", tool_call.arguments, serializeTool_call_arguments);
+    writer.writeObjectValue<Cache_controls>("cache", tool_call.cache, serializeCache_controls);
     writer.writeStringValue("tool", tool_call.tool);
     writer.writeStringValue("version", tool_call.version);
     writer.writeAdditionalData(tool_call.additionalData);
@@ -74897,6 +75441,7 @@ export function serializeTool_definition(writer: SerializationWriter, tool_defin
     if (!tool_definition || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Tool_annotations>("annotations", tool_definition.annotations, serializeTool_annotations);
     writer.writeObjectValue<Tool_definition_auth>("auth", tool_definition.auth, serializeTool_definition_auth);
+    writer.writeObjectValue<Tool_cache>("cache", tool_definition.cache, serializeTool_cache);
     writer.writeStringValue("description", tool_definition.description);
     writer.writeObjectValue<Tool_definition_inputSchema>("inputSchema", tool_definition.inputSchema, serializeTool_definition_inputSchema);
     writer.writeStringValue("name", tool_definition.name);
@@ -75035,6 +75580,7 @@ export function serializeTool_result_error(writer: SerializationWriter, tool_res
 // @ts-ignore
 export function serializeTool_result_meta(writer: SerializationWriter, tool_result_meta: Partial<Tool_result_meta> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!tool_result_meta || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Cache_status>("cache", tool_result_meta.cache, serializeCache_status);
     writer.writeAdditionalData(tool_result_meta.additionalData);
 }
 /**
@@ -76979,9 +77525,30 @@ export interface Session extends AdditionalDataHolder, Parsable {
     updatedAt?: Date | null;
 }
 /**
+ * Opts the session into result caching. Omit config.cache to leave caching off. Set exactly one of tools or allEligible. Caching must also be enabled for the team. Tool selection and permission rules still apply to every call.
+ */
+export interface Session_cache extends Parsable {
+    /**
+     * Enables caching for every called tool version with a catalog cache policy, including tools that become eligible after session creation. Do not combine with tools.
+     */
+    allEligible?: boolean | null;
+    /**
+     * Maximum cache lifetime in seconds for this session. Omit to use each tool's lifetime, up to 300 seconds. A smaller tool lifetime or provider response cache header can shorten it. Per-call max_age_seconds can require a fresher result but cannot increase this limit.
+     */
+    maxAgeSeconds?: number | null;
+    /**
+     * Provider-qualified tool slugs to cache. Every listed tool must resolve for the team and have a catalog cache policy, or session creation fails. Use slugs without version suffixes or toolbelt references. An empty array enables no tools.
+     */
+    tools?: string[] | null;
+}
+/**
  * Session options as supplied at creation. Omitted when none were supplied.
  */
 export interface Session_config extends AdditionalDataHolder, Parsable {
+    /**
+     * Opts the session into result caching. Omit config.cache to leave caching off. Set exactly one of tools or allEligible. Caching must also be enabled for the team. Tool selection and permission rules still apply to every call.
+     */
+    cache?: Session_cache | null;
 }
 /**
  * Describes a session to create.
@@ -76992,7 +77559,7 @@ export interface Session_create extends AdditionalDataHolder, Parsable {
      */
     actorId?: string | null;
     /**
-     * Optional session options. config.preloadTools may contain concrete tool names (optionally version-pinned) and version-pinned toolbelt references. config.customInstructions is a string of at most 1000 characters. config.outputViews maps up to 100 tool slugs to the name of an output view to apply to that tool's results.
+     * Optional session options. config.preloadTools may contain concrete tool names (optionally version-pinned) and version-pinned toolbelt references. config.customInstructions is a string of at most 1000 characters. config.outputViews maps up to 100 tool slugs to the name of an output view to apply to that tool's results. config.cache opts eligible tools into result caching for this session.
      */
     config?: Session_create_config | null;
     /**
@@ -77017,9 +77584,13 @@ export interface Session_create extends AdditionalDataHolder, Parsable {
     tools?: string[] | null;
 }
 /**
- * Optional session options. config.preloadTools may contain concrete tool names (optionally version-pinned) and version-pinned toolbelt references. config.customInstructions is a string of at most 1000 characters. config.outputViews maps up to 100 tool slugs to the name of an output view to apply to that tool's results.
+ * Optional session options. config.preloadTools may contain concrete tool names (optionally version-pinned) and version-pinned toolbelt references. config.customInstructions is a string of at most 1000 characters. config.outputViews maps up to 100 tool slugs to the name of an output view to apply to that tool's results. config.cache opts eligible tools into result caching for this session.
  */
 export interface Session_create_config extends AdditionalDataHolder, Parsable {
+    /**
+     * Opts the session into result caching. Omit config.cache to leave caching off. Set exactly one of tools or allEligible. Caching must also be enabled for the team. Tool selection and permission rules still apply to every call.
+     */
+    cache?: Session_cache | null;
 }
 /**
  * A dialogue entry within a session, representing a single turn of conversation.
@@ -78190,11 +78761,24 @@ export interface Tool_annotations extends AdditionalDataHolder, Parsable {
      */
     title?: string | null;
 }
+/**
+ * Catalog cache policy for an eligible read-only, non-destructive tool. Omitted when the tool is not eligible. This does not enable caching for a session; opt in through config.cache at session creation.
+ */
+export interface Tool_cache extends AdditionalDataHolder, Parsable {
+    /**
+     * Maximum cache lifetime in seconds for this tool version.
+     */
+    ttlSeconds?: number | null;
+}
 export interface Tool_call extends AdditionalDataHolder, Parsable {
     /**
      * The tool's arguments, matching its `inputSchema`.
      */
     arguments?: Tool_call_arguments | null;
+    /**
+     * Optional per-call caching controls. Send beside arguments, not inside them. Accepted only for tools opted into caching in this session; tool search advertises these tools with a cache field. Omitting controls uses the session's settings. Direct MCP tools/call requests use session settings without overrides; use action_invoke for per-call controls.
+     */
+    cache?: Cache_controls | null;
     /**
      * The tool name, as returned by `GET /tools` or `POST /tools/search`. Names are case-insensitive.
      */
@@ -78221,6 +78805,10 @@ export interface Tool_definition extends AdditionalDataHolder, Parsable {
      * Names the provider account the tool acts through and the scopes it requests.
      */
     auth?: Tool_definition_auth | null;
+    /**
+     * Catalog cache policy for an eligible read-only, non-destructive tool. Omitted when the tool is not eligible. This does not enable caching for a session; opt in through config.cache at session creation.
+     */
+    cache?: Tool_cache | null;
     /**
      * What the tool does.
      */
@@ -78350,7 +78938,7 @@ export interface Tool_result extends AdditionalDataHolder, Parsable {
      */
     errorEscaped?: Error_envelope | null;
     /**
-     * Additional result metadata. Keys include:- `status`: `requires_approval`, `requires_authorization`, or  `requires_connection_configuration` when the call stopped before  running.- `approval_id`, `tool_name`, `expires_at`, and `decide`: present with  `requires_approval`. `decide` gives the `method`, `path`, and `body`  of the approval request to send. Approve the call, then repeat it  with the same arguments before `expires_at`.- `retry`: `{"attempt_count": N, "exhausted": bool}` when the gateway  retried the call.- `output_view`: the output view applied to the result.
+     * Additional result metadata. Keys include:- `status`: `requires_approval`, `requires_authorization`, or  `requires_connection_configuration` when the call stopped before  running.- `approval_id`, `tool_name`, `expires_at`, and `decide`: present with  `requires_approval`. `decide` gives the `method`, `path`, and `body`  of the approval request to send. Approve the call, then repeat it  with the same arguments before `expires_at`.- `retry`: `{"attempt_count": N, "exhausted": bool}` when the gateway  retried the call.- `output_view`: the output view applied to the result.- `cache`: whether the result came from cache, with its age on a hit.
      */
     meta?: Tool_result_meta | null;
     /**
@@ -78381,9 +78969,13 @@ export interface Tool_result_error extends AdditionalDataHolder, ApiError, Parsa
 }
 export type Tool_result_error_status = (typeof Tool_result_error_statusObject)[keyof typeof Tool_result_error_statusObject];
 /**
- * Additional result metadata. Keys include:- `status`: `requires_approval`, `requires_authorization`, or  `requires_connection_configuration` when the call stopped before  running.- `approval_id`, `tool_name`, `expires_at`, and `decide`: present with  `requires_approval`. `decide` gives the `method`, `path`, and `body`  of the approval request to send. Approve the call, then repeat it  with the same arguments before `expires_at`.- `retry`: `{"attempt_count": N, "exhausted": bool}` when the gateway  retried the call.- `output_view`: the output view applied to the result.
+ * Additional result metadata. Keys include:- `status`: `requires_approval`, `requires_authorization`, or  `requires_connection_configuration` when the call stopped before  running.- `approval_id`, `tool_name`, `expires_at`, and `decide`: present with  `requires_approval`. `decide` gives the `method`, `path`, and `body`  of the approval request to send. Approve the call, then repeat it  with the same arguments before `expires_at`.- `retry`: `{"attempt_count": N, "exhausted": bool}` when the gateway  retried the call.- `output_view`: the output view applied to the result.- `cache`: whether the result came from cache, with its age on a hit.
  */
 export interface Tool_result_meta extends AdditionalDataHolder, Parsable {
+    /**
+     * Cache outcome. Hits always include this metadata. MISS and BYPASS appear only when the call includes cache controls. Cache hits still incur the gateway invocation charge but not an additional provider charge.
+     */
+    cache?: Cache_status | null;
 }
 /**
  * The tool's JSON output. Present when `status` is `succeeded`. Its shape is the tool's output schema, or the output view bound to the tool in the session.
@@ -81871,6 +82463,21 @@ export const Billing_history_typeObject = {
     Reversal: "Reversal",
 } as const;
 /**
+ * auto uses a sufficiently recent cached result or calls the provider and can store a successful result. bypass skips lookup and storage without clearing or refreshing existing entries.
+ */
+export const Cache_controls_modeObject = {
+    Auto: "auto",
+    Bypass: "bypass",
+} as const;
+/**
+ * HIT returned a cached result without calling the provider. MISS found no usable result and called the provider. BYPASS skipped caching.
+ */
+export const Cache_status_statusObject = {
+    HIT: "HIT",
+    MISS: "MISS",
+    BYPASS: "BYPASS",
+} as const;
+/**
  * A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt.
  */
 export const Certificate_create_base_typeObject = {
@@ -82076,14 +82683,14 @@ export const Consent_record_sourceObject = {
     Inference: "inference",
 } as const;
 /**
- * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`).
+ * The scope of the deletion. `agent` deletes Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` deletes Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`).
  */
 export const Create_deletion_request_typeObject = {
     Agent: "agent",
     Inference: "inference",
 } as const;
 /**
- * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `agent_id`. `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `agent_id`). Defaults to `agent` when `agent_id` is provided and to `inference` when it is omitted.
+ * The scope of the export. `agent` exports Signals conversations for one Harness Runtime environment and requires `environment_id` (or deprecated `agent_id`). `inference` exports Serverless Inference Signals conversations for the whole team (team-wide; omit `environment_id` and `agent_id`). Defaults to `agent` when `environment_id` or `agent_id` is provided and to `inference` when both are omitted.
  */
 export const Create_export_request_typeObject = {
     Agent: "agent",

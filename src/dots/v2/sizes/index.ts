@@ -82,6 +82,34 @@ export interface SizesRequestBuilder extends BaseRequestBuilder<SizesRequestBuil
  */
 export interface SizesRequestBuilderGetQueryParameters {
     /**
+     * Filter sizes with an inclusive maximum CPU count
+     */
+    cpuMaximum?: number;
+    /**
+     * Filter sizes with an inclusive minimum CPU count
+     */
+    cpuMinimum?: number;
+    /**
+     * Filter sizes to those with a given GPU fabric setting
+     */
+    gpuFabric?: boolean;
+    /**
+     * Filter sizes with an inclusive maximum GPU count. Zero is allowed to filter to sizes without GPUs.
+     */
+    gpuMaximum?: number;
+    /**
+     * Filter sizes with an inclusive minimum GPU count
+     */
+    gpuMinimum?: number;
+    /**
+     * Filter sizes with an inclusive maximum memory amount (in megabytes)
+     */
+    memoryMaximum?: number;
+    /**
+     * Filter sizes with an inclusive minimum memory amount (in megabytes)
+     */
+    memoryMinimum?: number;
+    /**
      * Which 'page' of paginated results to return.
      */
     page?: number;
@@ -89,16 +117,43 @@ export interface SizesRequestBuilderGetQueryParameters {
      * Number of items returned per page
      */
     perPage?: number;
+    /**
+     * Filter sizes with an inclusive maximum hourly price (in USD)
+     */
+    priceHourlyMaximum?: string;
+    /**
+     * Filter sizes with an inclusive minimum hourly price (in USD)
+     */
+    priceHourlyMinimum?: string;
+    /**
+     * Filter sizes with an inclusive maximum monthly price (in USD)
+     */
+    priceMonthlyMaximum?: string;
+    /**
+     * Filter sizes with an inclusive minimum monthly price (in USD)
+     */
+    priceMonthlyMinimum?: string;
 }
 /**
  * Uri template for the request builder.
  */
-export const SizesRequestBuilderUriTemplate = "{+baseurl}/v2/sizes{?page*,per_page*}";
+export const SizesRequestBuilderUriTemplate = "{+baseurl}/v2/sizes{?cpu_maximum*,cpu_minimum*,gpu_fabric*,gpu_maximum*,gpu_minimum*,memory_maximum*,memory_minimum*,page*,per_page*,price_hourly_maximum*,price_hourly_minimum*,price_monthly_maximum*,price_monthly_minimum*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
 const SizesRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "cpuMaximum": "cpu_maximum",
+    "cpuMinimum": "cpu_minimum",
+    "gpuFabric": "gpu_fabric",
+    "gpuMaximum": "gpu_maximum",
+    "gpuMinimum": "gpu_minimum",
+    "memoryMaximum": "memory_maximum",
+    "memoryMinimum": "memory_minimum",
     "perPage": "per_page",
+    "priceHourlyMaximum": "price_hourly_maximum",
+    "priceHourlyMinimum": "price_hourly_minimum",
+    "priceMonthlyMaximum": "price_monthly_maximum",
+    "priceMonthlyMinimum": "price_monthly_minimum",
 };
 /**
  * Metadata for all the requests in the request builder.
