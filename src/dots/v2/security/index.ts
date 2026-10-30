@@ -4,6 +4,8 @@
 // @ts-ignore
 import { ScansRequestBuilderNavigationMetadata, ScansRequestBuilderRequestsMetadata, type ScansRequestBuilder } from './scans/index.js';
 // @ts-ignore
+import { SecretsRequestBuilderNavigationMetadata, SecretsRequestBuilderRequestsMetadata, type SecretsRequestBuilder } from './secrets/index.js';
+// @ts-ignore
 import { SettingsRequestBuilderNavigationMetadata, SettingsRequestBuilderRequestsMetadata, type SettingsRequestBuilder } from './settings/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
@@ -16,6 +18,10 @@ export interface SecurityRequestBuilder extends BaseRequestBuilder<SecurityReque
      * The scans property
      */
     get scans(): ScansRequestBuilder;
+    /**
+     * The secrets property
+     */
+    get secrets(): SecretsRequestBuilder;
     /**
      * The settings property
      */
@@ -32,6 +38,10 @@ export const SecurityRequestBuilderNavigationMetadata: Record<Exclude<keyof Secu
     scans: {
         requestsMetadata: ScansRequestBuilderRequestsMetadata,
         navigationMetadata: ScansRequestBuilderNavigationMetadata,
+    },
+    secrets: {
+        requestsMetadata: SecretsRequestBuilderRequestsMetadata,
+        navigationMetadata: SecretsRequestBuilderNavigationMetadata,
     },
     settings: {
         requestsMetadata: SettingsRequestBuilderRequestsMetadata,
