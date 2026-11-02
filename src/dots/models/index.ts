@@ -20201,6 +20201,15 @@ export function createCreate_webhook_configFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Credential_parameters}
+ */
+// @ts-ignore
+export function createCredential_parametersFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCredential_parameters;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Credentials}
  */
 // @ts-ignore
@@ -21286,6 +21295,15 @@ export function createExport_options_filtersFromDiscriminatorValue(parseNode: Pa
 // @ts-ignore
 export function createExport_optionsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExport_options;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_info}
+ */
+// @ts-ignore
+export function createFile_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_info;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -24246,6 +24264,78 @@ export function createProm_vector_sampleFromDiscriminatorValue(parseNode: ParseN
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember1}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember1FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember2}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember3}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember3FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember3;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_discovery}
+ */
+// @ts-ignore
+export function createProvider_credential_discoveryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_discovery;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_response}
+ */
+// @ts-ignore
+export function createProvider_credential_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_update}
+ */
+// @ts-ignore
+export function createProvider_credential_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_update;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential}
+ */
+// @ts-ignore
+export function createProvider_credentialFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credentials_list_response}
+ */
+// @ts-ignore
+export function createProvider_credentials_list_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credentials_list_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Provider_health}
  */
 // @ts-ignore
@@ -27058,6 +27148,11 @@ export function createWorkspace_upload_committedFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createWorkspace_upload_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoWorkspace_upload_response;
+}
+/**
+ * Non-secret configuration for API-key providers that declare credential parameters. Validated against the provider's parameter definitions and used to derive base_url. Rejected for other credential kinds.
+ */
+export interface Credential_parameters extends AdditionalDataHolder, Parsable {
 }
 export interface Credentials extends AdditionalDataHolder, Parsable {
     /**
@@ -37831,6 +37926,16 @@ export function deserializeIntoCreate_webhook_config(create_webhook_config: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Credential_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCredential_parameters(credential_parameters: Partial<Credential_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Credentials The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -39470,6 +39575,22 @@ export function deserializeIntoExport_options(export_options: Partial<Export_opt
 export function deserializeIntoExport_options_filters(export_options_filters: Partial<Export_options_filters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "signal_type": n => { export_options_filters.signalType = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param File_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_info(file_info: Partial<File_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gid": n => { file_info.gid = n.getNumberValue(); },
+        "mode": n => { file_info.mode = n.getStringValue(); },
+        "path": n => { file_info.path = n.getStringValue(); },
+        "sha256": n => { file_info.sha256 = n.getStringValue(); },
+        "size_bytes": n => { file_info.sizeBytes = n.getNumberValue(); },
+        "uid": n => { file_info.uid = n.getNumberValue(); },
     }
 }
 /**
@@ -43972,6 +44093,116 @@ export function deserializeIntoProm_string_list_response(prom_string_list_respon
 // @ts-ignore
 export function deserializeIntoProm_vector_sample(prom_vector_sample: Partial<Prom_vector_sample> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential(provider_credential: Partial<Provider_credential> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "base_url": n => { provider_credential.baseUrl = n.getStringValue(); },
+        "created_at": n => { provider_credential.createdAt = n.getDateValue(); },
+        "discovery": n => { provider_credential.discovery = n.getObjectValue<Provider_credential_discovery>(createProvider_credential_discoveryFromDiscriminatorValue); },
+        "display_name": n => { provider_credential.displayName = n.getStringValue(); },
+        "id": n => { provider_credential.id = n.getStringValue(); },
+        "kind": n => { provider_credential.kind = n.getEnumValue<Provider_credential_kind>(Provider_credential_kindObject); },
+        "owning_user_id": n => { provider_credential.owningUserId = n.getStringValue(); },
+        "provider": n => { provider_credential.provider = n.getStringValue(); },
+        "redirect_url": n => { provider_credential.redirectUrl = n.getStringValue(); },
+        "reusable_by_team": n => { provider_credential.reusableByTeam = n.getBooleanValue(); },
+        "scope": n => { provider_credential.scope = n.getEnumValue<Provider_credential_scope>(Provider_credential_scopeObject); },
+        "status": n => { provider_credential.status = n.getEnumValue<Provider_credential_status>(Provider_credential_statusObject); },
+        "updated_at": n => { provider_credential.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember1(provider_credential_createMember1: Partial<Provider_credential_createMember1> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember1.kind = n.getEnumValue<Provider_credential_createMember1_kind>(Provider_credential_createMember1_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember2(provider_credential_createMember2: Partial<Provider_credential_createMember2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember2.kind = n.getEnumValue<Provider_credential_createMember2_kind>(Provider_credential_createMember2_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember3 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember3(provider_credential_createMember3: Partial<Provider_credential_createMember3> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember3.kind = n.getEnumValue<Provider_credential_createMember3_kind>(Provider_credential_createMember3_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_discovery The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_discovery(provider_credential_discovery: Partial<Provider_credential_discovery> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "authorization_url": n => { provider_credential_discovery.authorizationUrl = n.getStringValue(); },
+        "consented_at": n => { provider_credential_discovery.consentedAt = n.getDateValue(); },
+        "consented_by_user_id": n => { provider_credential_discovery.consentedByUserId = n.getStringValue(); },
+        "status": n => { provider_credential_discovery.status = n.getEnumValue<Provider_credential_discovery_status>(Provider_credential_discovery_statusObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_response(provider_credential_response: Partial<Provider_credential_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "credential": n => { provider_credential_response.credential = n.getObjectValue<Provider_credential>(createProvider_credentialFromDiscriminatorValue); },
+        "revoked_connections": n => { provider_credential_response.revokedConnections = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_update(provider_credential_update: Partial<Provider_credential_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "api_key": n => { provider_credential_update.apiKey = n.getStringValue(); },
+        "base_url": n => { provider_credential_update.baseUrl = n.getStringValue(); },
+        "client_id": n => { provider_credential_update.clientId = n.getStringValue(); },
+        "client_secret": n => { provider_credential_update.clientSecret = n.getStringValue(); },
+        "credential_parameters": n => { provider_credential_update.credentialParameters = n.getObjectValue<Credential_parameters>(createCredential_parametersFromDiscriminatorValue); },
+        "display_name": n => { provider_credential_update.displayName = n.getStringValue(); },
+        "reusable_by_team": n => { provider_credential_update.reusableByTeam = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credentials_list_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credentials_list_response(provider_credentials_list_response: Partial<Provider_credentials_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "credentials": n => { provider_credentials_list_response.credentials = n.getCollectionOfObjectValues<Provider_credential>(createProvider_credentialFromDiscriminatorValue); },
     }
 }
 /**
@@ -49040,6 +49271,35 @@ export interface Export_options_filters extends AdditionalDataHolder, Parsable {
      */
     signalType?: string[] | null;
 }
+/**
+ * Metadata of a file written into a MicroVM.
+ */
+export interface File_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The owner group ID.
+     */
+    gid?: number | null;
+    /**
+     * The octal permission bits as written.
+     */
+    mode?: string | null;
+    /**
+     * The absolute path inside the workload container.
+     */
+    path?: string | null;
+    /**
+     * The lowercase hex SHA-256 of the content.
+     */
+    sha256?: string | null;
+    /**
+     * The file size in bytes.
+     */
+    sizeBytes?: number | null;
+    /**
+     * The owner user ID.
+     */
+    uid?: number | null;
+}
 export interface Firewall extends Firewall_rules, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the firewall was created.
@@ -52274,7 +52534,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team.
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`.
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -54955,6 +55215,164 @@ export interface Prom_string_list_response extends AdditionalDataHolder, Parsabl
 }
 export type Prom_string_list_response_status = (typeof Prom_string_list_response_statusObject)[keyof typeof Prom_string_list_response_statusObject];
 export interface Prom_vector_sample extends AdditionalDataHolder, Parsable {
+}
+/**
+ * A stored provider credential. Responses contain metadata only, never API keys, client secrets, or secret storage references.
+ */
+export interface Provider_credential extends AdditionalDataHolder, Parsable {
+    /**
+     * Normalized HTTPS origin for this credential's provider API, when configured.
+     */
+    baseUrl?: string | null;
+    /**
+     * When the credential was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Authorization to discover a team-scoped MCP server's tools, when required. This authorization is not used to invoke tools.
+     */
+    discovery?: Provider_credential_discovery | null;
+    /**
+     * Label, unique among the team's credentials for this provider, ignoring case.
+     */
+    displayName?: string | null;
+    /**
+     * Opaque ID used to select, retrieve, update, or delete the credential.
+     */
+    id?: string | null;
+    /**
+     * Credential type. NONE, NO_AUTH, and USER_API_KEY describe MCP server credentials; NO_AUTH and USER_API_KEY are output-only values.
+     */
+    kind?: Provider_credential_kind | null;
+    /**
+     * DigitalOcean user ID of the creator. Absent for a credential shared with the team.
+     */
+    owningUserId?: string | null;
+    /**
+     * Provider slug.
+     */
+    provider?: string | null;
+    /**
+     * OAuth redirect URI supplied at registration. Empty when using DigitalOcean's callback or when the credential is not an OAuth client.
+     */
+    redirectUrl?: string | null;
+    /**
+     * Whether everyone on the team can see and use the credential instead of only its creator.
+     */
+    reusableByTeam?: boolean | null;
+    /**
+     * Who can use the credential, either its creator (user) or the whole team (team).
+     */
+    scope?: Provider_credential_scope | null;
+    /**
+     * Credential lifecycle state. Disabled credentials cannot be used by existing or new connections and cannot be re-enabled through this API. DELETED is returned only by deletion.
+     */
+    status?: Provider_credential_status | null;
+    /**
+     * When the credential was last modified.
+     */
+    updatedAt?: Date | null;
+}
+export interface Provider_credential_createMember1 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember1_kind | null;
+}
+export type Provider_credential_createMember1_kind = (typeof Provider_credential_createMember1_kindObject)[keyof typeof Provider_credential_createMember1_kindObject];
+export interface Provider_credential_createMember2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember2_kind | null;
+}
+export type Provider_credential_createMember2_kind = (typeof Provider_credential_createMember2_kindObject)[keyof typeof Provider_credential_createMember2_kindObject];
+export interface Provider_credential_createMember3 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember3_kind | null;
+}
+export type Provider_credential_createMember3_kind = (typeof Provider_credential_createMember3_kindObject)[keyof typeof Provider_credential_createMember3_kindObject];
+/**
+ * Team-level MCP tool discovery authorization, not tool invocation authorization.
+ */
+export interface Provider_credential_discovery extends AdditionalDataHolder, Parsable {
+    /**
+     * Where a team owner authorizes discovery. Set only while status is pending.
+     */
+    authorizationUrl?: string | null;
+    /**
+     * When discovery was authorized, if consent has been given.
+     */
+    consentedAt?: Date | null;
+    /**
+     * DigitalOcean user ID of the team owner who authorized discovery, or empty before consent.
+     */
+    consentedByUserId?: string | null;
+    /**
+     * Whether discovery needs authorization, is waiting for it, is active, or has expired.
+     */
+    status?: Provider_credential_discovery_status | null;
+}
+export type Provider_credential_discovery_status = (typeof Provider_credential_discovery_statusObject)[keyof typeof Provider_credential_discovery_statusObject];
+export type Provider_credential_kind = (typeof Provider_credential_kindObject)[keyof typeof Provider_credential_kindObject];
+/**
+ * Credential metadata and the number of connections removed by the operation.
+ */
+export interface Provider_credential_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The registered or deleted credential, without secret material.
+     */
+    credential?: Provider_credential | null;
+    /**
+     * Number of connections deleted with the credential. Always zero for create, get, and update operations.
+     */
+    revokedConnections?: number | null;
+}
+export type Provider_credential_scope = (typeof Provider_credential_scopeObject)[keyof typeof Provider_credential_scopeObject];
+export type Provider_credential_status = (typeof Provider_credential_statusObject)[keyof typeof Provider_credential_statusObject];
+/**
+ * Change only the supplied fields. Omitted fields remain unchanged; no update mask is required. The provider, kind, and redirect_url cannot be changed. Empty secrets and display names are rejected. Connections keep the same credential ID.
+ */
+export interface Provider_credential_update extends AdditionalDataHolder, Parsable {
+    /**
+     * New API key. Only valid for API-key credentials. Never returned.
+     */
+    apiKey?: string | null;
+    /**
+     * New HTTPS origin, validated as on creation. An empty string clears it unless the provider requires an origin. OAuth client updates also require client_id.
+     */
+    baseUrl?: string | null;
+    /**
+     * OAuth clients only. Required when changing client_id, client_secret, or base_url. Must match the originally registered client ID; a different ID is rejected. Register another credential to use a different OAuth client.
+     */
+    clientId?: string | null;
+    /**
+     * New OAuth client secret. Requires client_id. Never returned.
+     */
+    clientSecret?: string | null;
+    /**
+     * Non-secret configuration for API-key providers that declare credential parameters. Validated against the provider's parameter definitions and used to derive base_url. Rejected for other credential kinds.
+     */
+    credentialParameters?: Credential_parameters | null;
+    /**
+     * New label, unique among the team's credentials for this provider, ignoring case.
+     */
+    displayName?: string | null;
+    /**
+     * Set to true to share a credential with the team. Requires team-scoped provider credentials to be enabled and the team owner role to share a private credential. Sharing cannot be undone; false is rejected.
+     */
+    reusableByTeam?: boolean | null;
+}
+/**
+ * Registered credentials visible to the caller, without pagination.
+ */
+export interface Provider_credentials_list_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Credentials ordered by provider and display name, excluding DigitalOcean-owned OAuth applications.
+     */
+    credentials?: Provider_credential[] | null;
 }
 /**
  * Health of one provider, combining its tools.
@@ -66654,6 +67072,17 @@ export function serializeCreate_webhook_config(writer: SerializationWriter, crea
 }
 /**
  * Serializes information the current object
+ * @param Credential_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCredential_parameters(writer: SerializationWriter, credential_parameters: Partial<Credential_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!credential_parameters || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(credential_parameters.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Credentials The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -68386,6 +68815,23 @@ export function serializeExport_options_filters(writer: SerializationWriter, exp
     if (!export_options_filters || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("signal_type", export_options_filters.signalType);
     writer.writeAdditionalData(export_options_filters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_info The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_info(writer: SerializationWriter, file_info: Partial<File_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_info || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("gid", file_info.gid);
+    writer.writeStringValue("mode", file_info.mode);
+    writer.writeStringValue("path", file_info.path);
+    writer.writeStringValue("sha256", file_info.sha256);
+    writer.writeNumberValue("size_bytes", file_info.sizeBytes);
+    writer.writeNumberValue("uid", file_info.uid);
+    writer.writeAdditionalData(file_info.additionalData);
 }
 /**
  * Serializes information the current object
@@ -73114,6 +73560,124 @@ export function serializeProm_string_list_response(writer: SerializationWriter, 
 export function serializeProm_vector_sample(writer: SerializationWriter, prom_vector_sample: Partial<Prom_vector_sample> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!prom_vector_sample || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(prom_vector_sample.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential(writer: SerializationWriter, provider_credential: Partial<Provider_credential> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential || isSerializingDerivedType) { return; }
+    writer.writeStringValue("base_url", provider_credential.baseUrl);
+    writer.writeDateValue("created_at", provider_credential.createdAt);
+    writer.writeObjectValue<Provider_credential_discovery>("discovery", provider_credential.discovery, serializeProvider_credential_discovery);
+    writer.writeStringValue("display_name", provider_credential.displayName);
+    writer.writeStringValue("id", provider_credential.id);
+    writer.writeEnumValue<Provider_credential_kind>("kind", provider_credential.kind);
+    writer.writeStringValue("owning_user_id", provider_credential.owningUserId);
+    writer.writeStringValue("provider", provider_credential.provider);
+    writer.writeStringValue("redirect_url", provider_credential.redirectUrl);
+    writer.writeBooleanValue("reusable_by_team", provider_credential.reusableByTeam);
+    writer.writeEnumValue<Provider_credential_scope>("scope", provider_credential.scope);
+    writer.writeEnumValue<Provider_credential_status>("status", provider_credential.status);
+    writer.writeDateValue("updated_at", provider_credential.updatedAt);
+    writer.writeAdditionalData(provider_credential.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember1 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember1(writer: SerializationWriter, provider_credential_createMember1: Partial<Provider_credential_createMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember1 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember1_kind>("kind", provider_credential_createMember1.kind);
+    writer.writeAdditionalData(provider_credential_createMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember2(writer: SerializationWriter, provider_credential_createMember2: Partial<Provider_credential_createMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember2 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember2_kind>("kind", provider_credential_createMember2.kind);
+    writer.writeAdditionalData(provider_credential_createMember2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember3 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember3(writer: SerializationWriter, provider_credential_createMember3: Partial<Provider_credential_createMember3> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember3 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember3_kind>("kind", provider_credential_createMember3.kind);
+    writer.writeAdditionalData(provider_credential_createMember3.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_discovery The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_discovery(writer: SerializationWriter, provider_credential_discovery: Partial<Provider_credential_discovery> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_discovery || isSerializingDerivedType) { return; }
+    writer.writeStringValue("authorization_url", provider_credential_discovery.authorizationUrl);
+    writer.writeDateValue("consented_at", provider_credential_discovery.consentedAt);
+    writer.writeStringValue("consented_by_user_id", provider_credential_discovery.consentedByUserId);
+    writer.writeEnumValue<Provider_credential_discovery_status>("status", provider_credential_discovery.status);
+    writer.writeAdditionalData(provider_credential_discovery.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_response(writer: SerializationWriter, provider_credential_response: Partial<Provider_credential_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Provider_credential>("credential", provider_credential_response.credential, serializeProvider_credential);
+    writer.writeNumberValue("revoked_connections", provider_credential_response.revokedConnections);
+    writer.writeAdditionalData(provider_credential_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_update(writer: SerializationWriter, provider_credential_update: Partial<Provider_credential_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_update || isSerializingDerivedType) { return; }
+    writer.writeStringValue("api_key", provider_credential_update.apiKey);
+    writer.writeStringValue("base_url", provider_credential_update.baseUrl);
+    writer.writeStringValue("client_id", provider_credential_update.clientId);
+    writer.writeStringValue("client_secret", provider_credential_update.clientSecret);
+    writer.writeObjectValue<Credential_parameters>("credential_parameters", provider_credential_update.credentialParameters, serializeCredential_parameters);
+    writer.writeStringValue("display_name", provider_credential_update.displayName);
+    writer.writeBooleanValue("reusable_by_team", provider_credential_update.reusableByTeam);
+    writer.writeAdditionalData(provider_credential_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credentials_list_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credentials_list_response(writer: SerializationWriter, provider_credentials_list_response: Partial<Provider_credentials_list_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credentials_list_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Provider_credential>("credentials", provider_credentials_list_response.credentials, serializeProvider_credential);
+    writer.writeAdditionalData(provider_credentials_list_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -84071,6 +84635,51 @@ export const Prom_series_response_statusObject = {
 } as const;
 export const Prom_string_list_response_statusObject = {
     Success: "success",
+} as const;
+export const Provider_credential_createMember1_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_API_KEY: "PROVIDER_CREDENTIAL_KIND_API_KEY",
+} as const;
+export const Provider_credential_createMember2_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT: "PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT",
+} as const;
+export const Provider_credential_createMember3_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_NONE: "PROVIDER_CREDENTIAL_KIND_NONE",
+} as const;
+/**
+ * Whether discovery needs authorization, is waiting for it, is active, or has expired.
+ */
+export const Provider_credential_discovery_statusObject = {
+    Not_required: "not_required",
+    Pending: "pending",
+    Active: "active",
+    Expired: "expired",
+} as const;
+/**
+ * Credential type. NONE, NO_AUTH, and USER_API_KEY describe MCP server credentials; NO_AUTH and USER_API_KEY are output-only values.
+ */
+export const Provider_credential_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_UNSPECIFIED: "PROVIDER_CREDENTIAL_KIND_UNSPECIFIED",
+    PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT: "PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT",
+    PROVIDER_CREDENTIAL_KIND_API_KEY: "PROVIDER_CREDENTIAL_KIND_API_KEY",
+    PROVIDER_CREDENTIAL_KIND_NONE: "PROVIDER_CREDENTIAL_KIND_NONE",
+    PROVIDER_CREDENTIAL_KIND_NO_AUTH: "PROVIDER_CREDENTIAL_KIND_NO_AUTH",
+    PROVIDER_CREDENTIAL_KIND_USER_API_KEY: "PROVIDER_CREDENTIAL_KIND_USER_API_KEY",
+} as const;
+/**
+ * Who can use the credential, either its creator (user) or the whole team (team).
+ */
+export const Provider_credential_scopeObject = {
+    User: "user",
+    Team: "team",
+} as const;
+/**
+ * Credential lifecycle state. Disabled credentials cannot be used by existing or new connections and cannot be re-enabled through this API. DELETED is returned only by deletion.
+ */
+export const Provider_credential_statusObject = {
+    PROVIDER_CREDENTIAL_STATUS_UNSPECIFIED: "PROVIDER_CREDENTIAL_STATUS_UNSPECIFIED",
+    PROVIDER_CREDENTIAL_STATUS_ACTIVE: "PROVIDER_CREDENTIAL_STATUS_ACTIVE",
+    PROVIDER_CREDENTIAL_STATUS_DISABLED: "PROVIDER_CREDENTIAL_STATUS_DISABLED",
+    PROVIDER_CREDENTIAL_STATUS_DELETED: "PROVIDER_CREDENTIAL_STATUS_DELETED",
 } as const;
 /**
  * Comparison operator for the filter. Allowed values:- `FILTER_OPERATOR_EQUAL` = equal- `FILTER_OPERATOR_NOT_EQUAL` = `not_equal`- `FILTER_OPERATOR_LESS_THAN` = `less_than`- `FILTER_OPERATOR_LESS_THAN_OR_EQUAL` = `less_than_or_equal`- `FILTER_OPERATOR_GREATER_THAN` = `greater_than`- `FILTER_OPERATOR_GREATER_THAN_OR_EQUAL` = `greater_than_or_equal`
