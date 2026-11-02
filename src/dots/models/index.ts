@@ -21290,6 +21290,15 @@ export function createExport_optionsFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_info}
+ */
+// @ts-ignore
+export function createFile_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_info;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Firewall_pending_changes}
  */
 // @ts-ignore
@@ -39474,6 +39483,22 @@ export function deserializeIntoExport_options_filters(export_options_filters: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param File_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_info(file_info: Partial<File_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gid": n => { file_info.gid = n.getNumberValue(); },
+        "mode": n => { file_info.mode = n.getStringValue(); },
+        "path": n => { file_info.path = n.getStringValue(); },
+        "sha256": n => { file_info.sha256 = n.getStringValue(); },
+        "size_bytes": n => { file_info.sizeBytes = n.getNumberValue(); },
+        "uid": n => { file_info.uid = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Firewall The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -49040,6 +49065,35 @@ export interface Export_options_filters extends AdditionalDataHolder, Parsable {
      */
     signalType?: string[] | null;
 }
+/**
+ * Metadata of a file written into a MicroVM.
+ */
+export interface File_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The owner group ID.
+     */
+    gid?: number | null;
+    /**
+     * The octal permission bits as written.
+     */
+    mode?: string | null;
+    /**
+     * The absolute path inside the workload container.
+     */
+    path?: string | null;
+    /**
+     * The lowercase hex SHA-256 of the content.
+     */
+    sha256?: string | null;
+    /**
+     * The file size in bytes.
+     */
+    sizeBytes?: number | null;
+    /**
+     * The owner user ID.
+     */
+    uid?: number | null;
+}
 export interface Firewall extends Firewall_rules, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the firewall was created.
@@ -52274,7 +52328,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team.
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`.
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -68386,6 +68440,23 @@ export function serializeExport_options_filters(writer: SerializationWriter, exp
     if (!export_options_filters || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("signal_type", export_options_filters.signalType);
     writer.writeAdditionalData(export_options_filters.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_info The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_info(writer: SerializationWriter, file_info: Partial<File_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_info || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("gid", file_info.gid);
+    writer.writeStringValue("mode", file_info.mode);
+    writer.writeStringValue("path", file_info.path);
+    writer.writeStringValue("sha256", file_info.sha256);
+    writer.writeNumberValue("size_bytes", file_info.sizeBytes);
+    writer.writeNumberValue("uid", file_info.uid);
+    writer.writeAdditionalData(file_info.additionalData);
 }
 /**
  * Serializes information the current object
