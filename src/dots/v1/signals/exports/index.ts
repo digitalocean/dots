@@ -123,7 +123,7 @@ export interface ExportsRequestBuilder extends BaseRequestBuilder<ExportsRequest
      */
      get(requestConfiguration?: RequestConfiguration<ExportsRequestBuilderGetQueryParameters> | undefined) : Promise<ExportsGetResponse | undefined>;
     /**
-     * To create a new signals data export, send a POST request to`/v1/signals/exports`. To export one Harness Runtime environment, include its`agent_id` (`type` defaults to `agent`). To export the team's ServerlessInference Signals conversations, set `type` to `inference` and omit`agent_id`. You may optionally filter the export by `signal_type`,`session_ids`, `start_time`, and `end_time`. Use the export options endpointto discover available signal types.The export job runs asynchronously. Poll the get export endpoint to checkits status. When complete, use the download endpoint to retrieve apre-signed URL.
+     * To create a new signals data export, send a POST request to`/v1/signals/exports`. To export one Harness Runtime environment, include its`environment_id` (`type` defaults to `agent`). Deprecated `agent_id` is stillaccepted. To export the team's Serverless Inference Signals conversations, set`type` to `inference` and omit `environment_id` and `agent_id`. You mayoptionally filter the export by `signal_type`,`session_ids`, `start_time`, and `end_time`. Use the export options endpointto discover available signal types.The export job runs asynchronously. Poll the get export endpoint to checkits status. When complete, use the download endpoint to retrieve apre-signed URL.
      * @param body Request body to create a new signals data export.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Export_job>}
@@ -142,7 +142,7 @@ export interface ExportsRequestBuilder extends BaseRequestBuilder<ExportsRequest
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<ExportsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * To create a new signals data export, send a POST request to`/v1/signals/exports`. To export one Harness Runtime environment, include its`agent_id` (`type` defaults to `agent`). To export the team's ServerlessInference Signals conversations, set `type` to `inference` and omit`agent_id`. You may optionally filter the export by `signal_type`,`session_ids`, `start_time`, and `end_time`. Use the export options endpointto discover available signal types.The export job runs asynchronously. Poll the get export endpoint to checkits status. When complete, use the download endpoint to retrieve apre-signed URL.
+     * To create a new signals data export, send a POST request to`/v1/signals/exports`. To export one Harness Runtime environment, include its`environment_id` (`type` defaults to `agent`). Deprecated `agent_id` is stillaccepted. To export the team's Serverless Inference Signals conversations, set`type` to `inference` and omit `environment_id` and `agent_id`. You mayoptionally filter the export by `signal_type`,`session_ids`, `start_time`, and `end_time`. Use the export options endpointto discover available signal types.The export job runs asynchronously. Poll the get export endpoint to checkits status. When complete, use the download endpoint to retrieve apre-signed URL.
      * @param body Request body to create a new signals data export.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -157,6 +157,15 @@ export interface ExportsRequestBuilderGetQueryParameters {
      * An opaque cursor string returned from a previous page. Pass this value to retrieve the next page of results.
      */
     after?: string;
+    /**
+     * Deprecated alias for environment_id. Accepted for backward compatibility; must equal environment_id when both are set. Both set and different returns 400.
+     * @deprecated 
+     */
+    agentId?: Guid;
+    /**
+     * Optional filter by environment ID.
+     */
+    environmentId?: Guid;
     /**
      * Maximum number of items to return per page.
      */
@@ -203,7 +212,14 @@ export function serializeExportsGetResponse_page_info(writer: SerializationWrite
 /**
  * Uri template for the request builder.
  */
-export const ExportsRequestBuilderUriTemplate = "{+baseurl}/v1/signals/exports{?after*,limit*}";
+export const ExportsRequestBuilderUriTemplate = "{+baseurl}/v1/signals/exports{?after*,agent_id*,environment_id*,limit*}";
+/**
+ * Mapper for query parameters from symbol name to serialization name represented as a constant.
+ */
+const ExportsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
+    "agentId": "agent_id",
+    "environmentId": "environment_id",
+};
 /**
  * Metadata for all the navigation properties in the request builder.
  */
@@ -232,6 +248,7 @@ export const ExportsRequestBuilderRequestsMetadata: RequestsMetadata = {
         },
         adapterMethodName: "send",
         responseBodyFactory:  createExportsGetResponseFromDiscriminatorValue,
+        queryParametersMapper: ExportsRequestBuilderGetQueryParametersMapper,
     },
     post: {
         uriTemplate: ExportsRequestBuilderUriTemplate,

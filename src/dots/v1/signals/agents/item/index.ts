@@ -7,9 +7,9 @@ import { SessionsRequestBuilderRequestsMetadata, type SessionsRequestBuilder } f
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
 /**
- * Builds and executes requests for operations under /v1/signals/agents/{agent_id}
+ * Builds and executes requests for operations under /v1/signals/agents/{environment_id}
  */
-export interface WithAgent_ItemRequestBuilder extends BaseRequestBuilder<WithAgent_ItemRequestBuilder> {
+export interface WithEnvironment_ItemRequestBuilder extends BaseRequestBuilder<WithEnvironment_ItemRequestBuilder> {
     /**
      * The sessions property
      */
@@ -18,11 +18,11 @@ export interface WithAgent_ItemRequestBuilder extends BaseRequestBuilder<WithAge
 /**
  * Uri template for the request builder.
  */
-export const WithAgent_ItemRequestBuilderUriTemplate = "{+baseurl}/v1/signals/agents/{agent_id}";
+export const WithEnvironment_ItemRequestBuilderUriTemplate = "{+baseurl}/v1/signals/agents/{environment_id}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */
-export const WithAgent_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithAgent_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+export const WithEnvironment_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithEnvironment_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     sessions: {
         requestsMetadata: SessionsRequestBuilderRequestsMetadata,
     },
