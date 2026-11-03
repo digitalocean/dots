@@ -30,7 +30,7 @@ export function deserializeIntoTransfersPostRequestBody(transfersPostRequestBody
         "is_archive": n => { transfersPostRequestBody.isArchive = n.getBooleanValue(); },
         "path": n => { transfersPostRequestBody.path = n.getStringValue(); },
         "sha256": n => { transfersPostRequestBody.sha256 = n.getStringValue(); },
-        "size_bytes": n => { transfersPostRequestBody.sizeBytes = n.getStringValue(); },
+        "size_bytes": n => { transfersPostRequestBody.sizeBytes = n.getNumberValue(); },
     }
 }
 /**
@@ -47,7 +47,7 @@ export function serializeTransfersPostRequestBody(writer: SerializationWriter, t
     writer.writeBooleanValue("is_archive", transfersPostRequestBody.isArchive);
     writer.writeStringValue("path", transfersPostRequestBody.path);
     writer.writeStringValue("sha256", transfersPostRequestBody.sha256);
-    writer.writeStringValue("size_bytes", transfersPostRequestBody.sizeBytes);
+    writer.writeNumberValue("size_bytes", transfersPostRequestBody.sizeBytes);
     writer.writeAdditionalData(transfersPostRequestBody.additionalData);
 }
 export interface TransfersPostRequestBody extends AdditionalDataHolder, Parsable {
@@ -72,9 +72,9 @@ export interface TransfersPostRequestBody extends AdditionalDataHolder, Parsable
      */
     sha256?: string | null;
     /**
-     * Optional total payload size. Validated against the maximum staged object size (50 GiB); a larger value returns 413.
+     * Optional total payload size, as a JSON number. Validated against the maximum staged object size (50 GiB); a larger value returns 413.
      */
-    sizeBytes?: string | null;
+    sizeBytes?: number | null;
 }
 export type TransfersPostRequestBody_direction = (typeof TransfersPostRequestBody_directionObject)[keyof typeof TransfersPostRequestBody_directionObject];
 /**
@@ -88,7 +88,7 @@ export interface TransfersRequestBuilder extends BaseRequestBuilder<TransfersReq
      */
      byTransfer_id(transfer_id: string) : WithTransfer_ItemRequestBuilder;
     /**
-     * Creates an asynchronous, object-storage-backed transfer for payloads larger than the streaming path supports (> ~50 MiB). Bulk bytes never traverse harness-api: the client PUTs/GETs presigned DO Spaces URLs directly.Set `direction` to `upload` or `download`.- `upload`: responds 201 with `transfer_id` + `part_size`; the client then requests per-part presigned PUT URLs, uploads them to Spaces, and calls `commit`.- `download`: responds 202 with `transfer_id`; the client polls GET until `completed` and then fetches `download_url` from Spaces.Upload and cancel currently return 501 until the sandbox backend RPCs ship; download is live.
+     * Creates an asynchronous, object-storage-backed transfer for payloads larger than the streaming path supports (> ~50 MiB). Bulk bytes never traverse harness-api: the client PUTs/GETs presigned DO Spaces URLs directly.Set `direction` to `upload` or `download`.- `upload`: responds 201 with `transfer_id` + `part_size`; the client then requests per-part presigned PUT URLs, uploads them to Spaces, and calls `commit`.- `download`: responds 202 with `transfer_id`; the client polls GET until `completed` and then fetches `download_url` from Spaces.Upload, download, and cancel are live.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Workspace_transfer_created>}
@@ -108,7 +108,7 @@ export interface TransfersRequestBuilder extends BaseRequestBuilder<TransfersReq
      */
      post(body: TransfersPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Workspace_transfer_created | undefined>;
     /**
-     * Creates an asynchronous, object-storage-backed transfer for payloads larger than the streaming path supports (> ~50 MiB). Bulk bytes never traverse harness-api: the client PUTs/GETs presigned DO Spaces URLs directly.Set `direction` to `upload` or `download`.- `upload`: responds 201 with `transfer_id` + `part_size`; the client then requests per-part presigned PUT URLs, uploads them to Spaces, and calls `commit`.- `download`: responds 202 with `transfer_id`; the client polls GET until `completed` and then fetches `download_url` from Spaces.Upload and cancel currently return 501 until the sandbox backend RPCs ship; download is live.
+     * Creates an asynchronous, object-storage-backed transfer for payloads larger than the streaming path supports (> ~50 MiB). Bulk bytes never traverse harness-api: the client PUTs/GETs presigned DO Spaces URLs directly.Set `direction` to `upload` or `download`.- `upload`: responds 201 with `transfer_id` + `part_size`; the client then requests per-part presigned PUT URLs, uploads them to Spaces, and calls `commit`.- `download`: responds 202 with `transfer_id`; the client polls GET until `completed` and then fetches `download_url` from Spaces.Upload, download, and cancel are live.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

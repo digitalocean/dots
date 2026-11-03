@@ -11850,6 +11850,26 @@ export interface Cache_status extends AdditionalDataHolder, Parsable {
     status?: Cache_status_status | null;
 }
 export type Cache_status_status = (typeof Cache_status_statusObject)[keyof typeof Cache_status_statusObject];
+/**
+ * Optional. An empty body cancels the turn in flight.
+ */
+export interface Cancel_session_turn_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Turn id returned by POST /input. Omit it to cancel whichever turn is in flight.
+     */
+    runId?: string | null;
+}
+export interface Cancel_session_turn_response extends AdditionalDataHolder, Parsable {
+    /**
+     * acked means the agent accepted the interrupt. no_turn means nothing addressable was running. unsupported means this agent cannot be interrupted.
+     */
+    outcome?: Cancel_session_turn_response_outcome | null;
+    /**
+     * The turn the cancel was aimed at. Omitted when an unnamed cancel found no turn.
+     */
+    runId?: string | null;
+}
+export type Cancel_session_turn_response_outcome = (typeof Cancel_session_turn_response_outcomeObject)[keyof typeof Cancel_session_turn_response_outcomeObject];
 export interface Cdn_endpoint extends AdditionalDataHolder, Parsable {
     /**
      * The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
@@ -13566,6 +13586,16 @@ export interface Create_namespace extends AdditionalDataHolder, Parsable {
      * The [datacenter region](https://docs.digitalocean.com/products/platform/availability-matrix/#available-datacenters) in which to create the namespace.
      */
     region?: string | null;
+}
+export interface Create_provider_connection_request extends AdditionalDataHolder, Parsable {
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+    /**
+     * Actor identifier the connection acts for. Not a DigitalOcean user id.
+     */
+    userId?: string | null;
 }
 /**
  * Request body for sending a prompt to a model using the Responses API.
@@ -19265,6 +19295,24 @@ export function createCaFromDiscriminatorValue(parseNode: ParseNode | undefined)
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cancel_session_turn_request}
+ */
+// @ts-ignore
+export function createCancel_session_turn_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCancel_session_turn_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Cancel_session_turn_response}
+ */
+// @ts-ignore
+export function createCancel_session_turn_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCancel_session_turn_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Cdn_endpoint}
  */
 // @ts-ignore
@@ -19940,6 +19988,15 @@ export function createCreate_namespaceFromDiscriminatorValue(parseNode: ParseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_provider_connection_request}
+ */
+// @ts-ignore
+export function createCreate_provider_connection_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_provider_connection_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Create_response_request_inputMember1[] | string}
  */
 // @ts-ignore
@@ -20197,6 +20254,15 @@ export function createCreate_video_requestFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createCreate_webhook_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCreate_webhook_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Credential_parameters}
+ */
+// @ts-ignore
+export function createCredential_parametersFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCredential_parameters;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -21290,6 +21356,15 @@ export function createExport_optionsFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_info}
+ */
+// @ts-ignore
+export function createFile_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_info;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Firewall_pending_changes}
  */
 // @ts-ignore
@@ -21537,6 +21612,15 @@ export function createGet_connection_responseFromDiscriminatorValue(parseNode: P
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Get_image_message_resource_response}
+ */
+// @ts-ignore
+export function createGet_image_message_resource_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoGet_image_message_resource_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Get_ingress_url_response}
  */
 // @ts-ignore
@@ -21740,6 +21824,24 @@ export function createImage_action_baseFromDiscriminatorValue(parseNode: ParseNo
 // @ts-ignore
 export function createImage_action_transferFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoImage_action_transfer;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Image_message_resource}
+ */
+// @ts-ignore
+export function createImage_message_resourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImage_message_resource;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Image_message}
+ */
+// @ts-ignore
+export function createImage_messageFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImage_message;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -22176,6 +22278,15 @@ export function createList_consentsFromDiscriminatorValue(parseNode: ParseNode |
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_image_messages_response}
+ */
+// @ts-ignore
+export function createList_image_messages_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_image_messages_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {List_mcp_server_tools_response}
  */
 // @ts-ignore
@@ -22208,6 +22319,15 @@ export function createList_models_responseFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createList_output_views_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoList_output_views_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_provider_connections_response}
+ */
+// @ts-ignore
+export function createList_provider_connections_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_provider_connections_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -24030,6 +24150,15 @@ export function createPgbouncer_advanced_configFromDiscriminatorValue(parseNode:
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Poll_provider_connect_response}
+ */
+// @ts-ignore
+export function createPoll_provider_connect_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPoll_provider_connect_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Postgres_advanced_config_pgaudit}
  */
 // @ts-ignore
@@ -24242,6 +24371,123 @@ export function createProm_string_list_responseFromDiscriminatorValue(parseNode:
 // @ts-ignore
 export function createProm_vector_sampleFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoProm_vector_sample;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_connection_authorization}
+ */
+// @ts-ignore
+export function createProvider_connection_authorizationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_connection_authorization;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_connection_oauth}
+ */
+// @ts-ignore
+export function createProvider_connection_oauthFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_connection_oauth;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_connection_pagination}
+ */
+// @ts-ignore
+export function createProvider_connection_paginationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_connection_pagination;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_connection_response}
+ */
+// @ts-ignore
+export function createProvider_connection_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_connection_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_connection}
+ */
+// @ts-ignore
+export function createProvider_connectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_connection;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember1}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember1FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember1;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember2}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_createMember3}
+ */
+// @ts-ignore
+export function createProvider_credential_createMember3FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_createMember3;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_discovery}
+ */
+// @ts-ignore
+export function createProvider_credential_discoveryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_discovery;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_response}
+ */
+// @ts-ignore
+export function createProvider_credential_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential_update}
+ */
+// @ts-ignore
+export function createProvider_credential_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential_update;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credential}
+ */
+// @ts-ignore
+export function createProvider_credentialFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credential;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Provider_credentials_list_response}
+ */
+// @ts-ignore
+export function createProvider_credentials_list_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoProvider_credentials_list_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -25519,6 +25765,24 @@ export function createSshKeysFromDiscriminatorValue(parseNode: ParseNode | undef
 // @ts-ignore
 export function createSsoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSso;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Start_provider_connect_request}
+ */
+// @ts-ignore
+export function createStart_provider_connect_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoStart_provider_connect_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Start_provider_connect_response}
+ */
+// @ts-ignore
+export function createStart_provider_connect_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoStart_provider_connect_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27058,6 +27322,11 @@ export function createWorkspace_upload_committedFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createWorkspace_upload_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoWorkspace_upload_response;
+}
+/**
+ * Non-secret configuration for API-key providers that declare credential parameters. Validated against the provider's parameter definitions and used to derive base_url. Rejected for other credential kinds.
+ */
+export interface Credential_parameters extends AdditionalDataHolder, Parsable {
 }
 export interface Credentials extends AdditionalDataHolder, Parsable {
     /**
@@ -36335,6 +36604,29 @@ export function deserializeIntoCache_status(cache_status: Partial<Cache_status> 
 }
 /**
  * The deserialization information for the current model
+ * @param Cancel_session_turn_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCancel_session_turn_request(cancel_session_turn_request: Partial<Cancel_session_turn_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "run_id": n => { cancel_session_turn_request.runId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Cancel_session_turn_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCancel_session_turn_response(cancel_session_turn_response: Partial<Cancel_session_turn_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "outcome": n => { cancel_session_turn_response.outcome = n.getEnumValue<Cancel_session_turn_response_outcome>(Cancel_session_turn_response_outcomeObject); },
+        "run_id": n => { cancel_session_turn_response.runId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Cdn_endpoint The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -37443,6 +37735,18 @@ export function deserializeIntoCreate_namespace(create_namespace: Partial<Create
 }
 /**
  * The deserialization information for the current model
+ * @param Create_provider_connection_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_provider_connection_request(create_provider_connection_request: Partial<Create_provider_connection_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "scopes": n => { create_provider_connection_request.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "user_id": n => { create_provider_connection_request.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Create_response_request The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -37827,6 +38131,16 @@ export function deserializeIntoCreate_video_request(create_video_request: Partia
 export function deserializeIntoCreate_webhook_config(create_webhook_config: Partial<Create_webhook_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "provider": n => { create_webhook_config.provider = n.getEnumValue<Webhook_provider_key>(Webhook_provider_keyObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Credential_parameters The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCredential_parameters(credential_parameters: Partial<Credential_parameters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
     }
 }
 /**
@@ -39474,6 +39788,22 @@ export function deserializeIntoExport_options_filters(export_options_filters: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param File_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_info(file_info: Partial<File_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "gid": n => { file_info.gid = n.getNumberValue(); },
+        "mode": n => { file_info.mode = n.getStringValue(); },
+        "path": n => { file_info.path = n.getStringValue(); },
+        "sha256": n => { file_info.sha256 = n.getStringValue(); },
+        "size_bytes": n => { file_info.sizeBytes = n.getNumberValue(); },
+        "uid": n => { file_info.uid = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Firewall The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -39810,6 +40140,17 @@ export function deserializeIntoGet_connection_response(get_connection_response: 
 }
 /**
  * The deserialization information for the current model
+ * @param Get_image_message_resource_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoGet_image_message_resource_response(get_image_message_resource_response: Partial<Get_image_message_resource_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "resource": n => { get_image_message_resource_response.resource = n.getObjectValue<Image_message_resource>(createImage_message_resourceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Get_ingress_url_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -40116,6 +40457,39 @@ export function deserializeIntoImage_action_transfer(image_action_transfer: Part
     return {
         ...deserializeIntoImage_action_base(image_action_transfer),
         "region": n => { image_action_transfer.region = n.getEnumValue<Region_slug>(Region_slugObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Image_message The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImage_message(image_message: Partial<Image_message> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "message": n => { image_message.message = n.getStringValue(); },
+        "more_info_url": n => { image_message.moreInfoUrl = n.getStringValue(); },
+        "title": n => { image_message.title = n.getStringValue(); },
+        "type": n => { image_message.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Image_message_resource The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImage_message_resource(image_message_resource: Partial<Image_message_resource> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "checkpoint_id": n => { image_message_resource.checkpointId = n.getStringValue(); },
+        "checkpoint_name": n => { image_message_resource.checkpointName = n.getStringValue(); },
+        "image_id": n => { image_message_resource.imageId = n.getStringValue(); },
+        "kind": n => { image_message_resource.kind = n.getEnumValue<Image_message_resource_kind>(Image_message_resource_kindObject); },
+        "messages": n => { image_message_resource.messages = n.getCollectionOfObjectValues<Image_message>(createImage_messageFromDiscriminatorValue); },
+        "resolution_complete": n => { image_message_resource.resolutionComplete = n.getBooleanValue(); },
+        "session_id": n => { image_message_resource.sessionId = n.getStringValue(); },
+        "session_name": n => { image_message_resource.sessionName = n.getStringValue(); },
+        "vulnerable": n => { image_message_resource.vulnerable = n.getBooleanValue(); },
     }
 }
 /**
@@ -40806,6 +41180,18 @@ export function deserializeIntoList_consents(list_consents: Partial<List_consent
 }
 /**
  * The deserialization information for the current model
+ * @param List_image_messages_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_image_messages_response(list_image_messages_response: Partial<List_image_messages_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "next_page_token": n => { list_image_messages_response.nextPageToken = n.getStringValue(); },
+        "resources": n => { list_image_messages_response.resources = n.getCollectionOfObjectValues<Image_message_resource>(createImage_message_resourceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param List_mcp_server_tools_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -40851,6 +41237,18 @@ export function deserializeIntoList_output_views_response(list_output_views_resp
         "tool_id": n => { list_output_views_response.toolId = n.getStringValue(); },
         "version": n => { list_output_views_response.version = n.getStringValue(); },
         "views": n => { list_output_views_response.views = n.getCollectionOfObjectValues<Output_view>(createOutput_viewFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_provider_connections_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_provider_connections_response(list_provider_connections_response: Partial<List_provider_connections_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connections": n => { list_provider_connections_response.connections = n.getCollectionOfObjectValues<Provider_connection>(createProvider_connectionFromDiscriminatorValue); },
+        "pagination": n => { list_provider_connections_response.pagination = n.getObjectValue<Provider_connection_pagination>(createProvider_connection_paginationFromDiscriminatorValue); },
     }
 }
 /**
@@ -43623,6 +44021,19 @@ export function deserializeIntoPgbouncer_advanced_config(pgbouncer_advanced_conf
 }
 /**
  * The deserialization information for the current model
+ * @param Poll_provider_connect_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPoll_provider_connect_response(poll_provider_connect_response: Partial<Poll_provider_connect_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "expires_at": n => { poll_provider_connect_response.expiresAt = n.getDateValue(); },
+        "provider": n => { poll_provider_connect_response.provider = n.getStringValue(); },
+        "status": n => { poll_provider_connect_response.status = n.getEnumValue<Poll_provider_connect_response_status>(Poll_provider_connect_response_statusObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Postgres_advanced_config The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -43972,6 +44383,187 @@ export function deserializeIntoProm_string_list_response(prom_string_list_respon
 // @ts-ignore
 export function deserializeIntoProm_vector_sample(prom_vector_sample: Partial<Prom_vector_sample> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_connection The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_connection(provider_connection: Partial<Provider_connection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { provider_connection.createdAt = n.getDateValue(); },
+        "deletion_protected": n => { provider_connection.deletionProtected = n.getBooleanValue(); },
+        "id": n => { provider_connection.id = n.getStringValue(); },
+        "oauth": n => { provider_connection.oauth = n.getObjectValue<Provider_connection_oauth>(createProvider_connection_oauthFromDiscriminatorValue); },
+        "owning_user_id": n => { provider_connection.owningUserId = n.getStringValue(); },
+        "provider": n => { provider_connection.provider = n.getStringValue(); },
+        "provider_display_name": n => { provider_connection.providerDisplayName = n.getStringValue(); },
+        "status": n => { provider_connection.status = n.getStringValue(); },
+        "updated_at": n => { provider_connection.updatedAt = n.getDateValue(); },
+        "user_id": n => { provider_connection.userId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_connection_authorization The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_connection_authorization(provider_connection_authorization: Partial<Provider_connection_authorization> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connect_url": n => { provider_connection_authorization.connectUrl = n.getStringValue(); },
+        "expires_at": n => { provider_connection_authorization.expiresAt = n.getDateValue(); },
+        "status": n => { provider_connection_authorization.status = n.getStringValue(); },
+        "verification_code": n => { provider_connection_authorization.verificationCode = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_connection_oauth The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_connection_oauth(provider_connection_oauth: Partial<Provider_connection_oauth> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "granted_at": n => { provider_connection_oauth.grantedAt = n.getDateValue(); },
+        "scopes": n => { provider_connection_oauth.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_connection_pagination The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_connection_pagination(provider_connection_pagination: Partial<Provider_connection_pagination> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "page": n => { provider_connection_pagination.page = n.getNumberValue(); },
+        "per_page": n => { provider_connection_pagination.perPage = n.getNumberValue(); },
+        "total": n => { provider_connection_pagination.total = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_connection_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_connection_response(provider_connection_response: Partial<Provider_connection_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "authorization": n => { provider_connection_response.authorization = n.getObjectValue<Provider_connection_authorization>(createProvider_connection_authorizationFromDiscriminatorValue); },
+        "connection": n => { provider_connection_response.connection = n.getObjectValue<Provider_connection>(createProvider_connectionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential(provider_credential: Partial<Provider_credential> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "base_url": n => { provider_credential.baseUrl = n.getStringValue(); },
+        "created_at": n => { provider_credential.createdAt = n.getDateValue(); },
+        "discovery": n => { provider_credential.discovery = n.getObjectValue<Provider_credential_discovery>(createProvider_credential_discoveryFromDiscriminatorValue); },
+        "display_name": n => { provider_credential.displayName = n.getStringValue(); },
+        "id": n => { provider_credential.id = n.getStringValue(); },
+        "kind": n => { provider_credential.kind = n.getEnumValue<Provider_credential_kind>(Provider_credential_kindObject); },
+        "owning_user_id": n => { provider_credential.owningUserId = n.getStringValue(); },
+        "provider": n => { provider_credential.provider = n.getStringValue(); },
+        "redirect_url": n => { provider_credential.redirectUrl = n.getStringValue(); },
+        "reusable_by_team": n => { provider_credential.reusableByTeam = n.getBooleanValue(); },
+        "scope": n => { provider_credential.scope = n.getEnumValue<Provider_credential_scope>(Provider_credential_scopeObject); },
+        "status": n => { provider_credential.status = n.getEnumValue<Provider_credential_status>(Provider_credential_statusObject); },
+        "updated_at": n => { provider_credential.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember1 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember1(provider_credential_createMember1: Partial<Provider_credential_createMember1> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember1.kind = n.getEnumValue<Provider_credential_createMember1_kind>(Provider_credential_createMember1_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember2(provider_credential_createMember2: Partial<Provider_credential_createMember2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember2.kind = n.getEnumValue<Provider_credential_createMember2_kind>(Provider_credential_createMember2_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_createMember3 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_createMember3(provider_credential_createMember3: Partial<Provider_credential_createMember3> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { provider_credential_createMember3.kind = n.getEnumValue<Provider_credential_createMember3_kind>(Provider_credential_createMember3_kindObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_discovery The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_discovery(provider_credential_discovery: Partial<Provider_credential_discovery> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "authorization_url": n => { provider_credential_discovery.authorizationUrl = n.getStringValue(); },
+        "consented_at": n => { provider_credential_discovery.consentedAt = n.getDateValue(); },
+        "consented_by_user_id": n => { provider_credential_discovery.consentedByUserId = n.getStringValue(); },
+        "status": n => { provider_credential_discovery.status = n.getEnumValue<Provider_credential_discovery_status>(Provider_credential_discovery_statusObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_response(provider_credential_response: Partial<Provider_credential_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "credential": n => { provider_credential_response.credential = n.getObjectValue<Provider_credential>(createProvider_credentialFromDiscriminatorValue); },
+        "revoked_connections": n => { provider_credential_response.revokedConnections = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credential_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credential_update(provider_credential_update: Partial<Provider_credential_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "api_key": n => { provider_credential_update.apiKey = n.getStringValue(); },
+        "base_url": n => { provider_credential_update.baseUrl = n.getStringValue(); },
+        "client_id": n => { provider_credential_update.clientId = n.getStringValue(); },
+        "client_secret": n => { provider_credential_update.clientSecret = n.getStringValue(); },
+        "credential_parameters": n => { provider_credential_update.credentialParameters = n.getObjectValue<Credential_parameters>(createCredential_parametersFromDiscriminatorValue); },
+        "display_name": n => { provider_credential_update.displayName = n.getStringValue(); },
+        "reusable_by_team": n => { provider_credential_update.reusableByTeam = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Provider_credentials_list_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoProvider_credentials_list_response(provider_credentials_list_response: Partial<Provider_credentials_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "credentials": n => { provider_credentials_list_response.credentials = n.getCollectionOfObjectValues<Provider_credential>(createProvider_credentialFromDiscriminatorValue); },
     }
 }
 /**
@@ -45794,6 +46386,33 @@ export function deserializeIntoSso(sso: Partial<Sso> | undefined = {}) : Record<
         "enabled": n => { sso.enabled = n.getBooleanValue(); },
         "issuer_url": n => { sso.issuerUrl = n.getStringValue(); },
         "required": n => { sso.required = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Start_provider_connect_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoStart_provider_connect_request(start_provider_connect_request: Partial<Start_provider_connect_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "force_reconnect": n => { start_provider_connect_request.forceReconnect = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Start_provider_connect_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoStart_provider_connect_response(start_provider_connect_response: Partial<Start_provider_connect_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "connect_url": n => { start_provider_connect_response.connectUrl = n.getStringValue(); },
+        "expires_at": n => { start_provider_connect_response.expiresAt = n.getDateValue(); },
+        "poll_url": n => { start_provider_connect_response.pollUrl = n.getStringValue(); },
+        "provider": n => { start_provider_connect_response.provider = n.getStringValue(); },
+        "status": n => { start_provider_connect_response.status = n.getEnumValue<Start_provider_connect_response_status>(Start_provider_connect_response_statusObject); },
+        "verification_code": n => { start_provider_connect_response.verificationCode = n.getStringValue(); },
     }
 }
 /**
@@ -49040,6 +49659,35 @@ export interface Export_options_filters extends AdditionalDataHolder, Parsable {
      */
     signalType?: string[] | null;
 }
+/**
+ * Metadata of a file written into a MicroVM.
+ */
+export interface File_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The owner group ID.
+     */
+    gid?: number | null;
+    /**
+     * The octal permission bits as written.
+     */
+    mode?: string | null;
+    /**
+     * The absolute path inside the workload container.
+     */
+    path?: string | null;
+    /**
+     * The lowercase hex SHA-256 of the content.
+     */
+    sha256?: string | null;
+    /**
+     * The file size in bytes.
+     */
+    sizeBytes?: number | null;
+    /**
+     * The owner user ID.
+     */
+    uid?: number | null;
+}
 export interface Firewall extends Firewall_rules, Parsable {
     /**
      * A time value given in ISO8601 combined date and time format that represents when the firewall was created.
@@ -49401,6 +50049,12 @@ export interface Get_connection_response extends AdditionalDataHolder, Parsable 
      * The connection.
      */
     connection?: Connection | null;
+}
+export interface Get_image_message_resource_response extends AdditionalDataHolder, Parsable {
+    /**
+     * A session or checkpoint and the live notices on its sandbox image. Every key is present. messages is an empty array when the image has no notice.
+     */
+    resource?: Image_message_resource | null;
 }
 export interface Get_ingress_url_response extends AdditionalDataHolder, Parsable {
     /**
@@ -49766,6 +50420,69 @@ export interface Image_action_transfer extends Image_action_base, Parsable {
      */
     region?: Region_slug | null;
 }
+/**
+ * One live notice on a sandbox image.
+ */
+export interface Image_message extends AdditionalDataHolder, Parsable {
+    /**
+     * The message property
+     */
+    message?: string | null;
+    /**
+     * The more_info_url property
+     */
+    moreInfoUrl?: string | null;
+    /**
+     * The title property
+     */
+    title?: string | null;
+    /**
+     * Notice kind. The documented value is vulnerability.
+     */
+    type?: string | null;
+}
+/**
+ * A session or checkpoint and the live notices on its sandbox image. Every key is present. messages is an empty array when the image has no notice.
+ */
+export interface Image_message_resource extends AdditionalDataHolder, Parsable {
+    /**
+     * The checkpoint_id property
+     */
+    checkpointId?: string | null;
+    /**
+     * The checkpoint_name property
+     */
+    checkpointName?: string | null;
+    /**
+     * The image_id property
+     */
+    imageId?: string | null;
+    /**
+     * The kind property
+     */
+    kind?: Image_message_resource_kind | null;
+    /**
+     * The messages property
+     */
+    messages?: Image_message[] | null;
+    /**
+     * The resolution_complete property
+     */
+    resolutionComplete?: boolean | null;
+    /**
+     * The session_id property
+     */
+    sessionId?: string | null;
+    /**
+     * The session_name property
+     */
+    sessionName?: string | null;
+    /**
+     * The vulnerable property
+     */
+    vulnerable?: boolean | null;
+}
+export type Image_message_resource_kind = (typeof Image_message_resource_kindObject)[keyof typeof Image_message_resource_kindObject];
 export interface Image_new_custom extends Image_update, Parsable {
     /**
      * The slug identifier for the region where the resource will initially be  available.
@@ -50764,6 +51481,16 @@ export interface List_consents extends AdditionalDataHolder, Parsable {
     source?: List_consents_source | null;
 }
 export type List_consents_source = (typeof List_consents_sourceObject)[keyof typeof List_consents_sourceObject];
+export interface List_image_messages_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Opaque cursor for the next page. Empty on the last page and on a single-resource lookup.
+     */
+    nextPageToken?: string | null;
+    /**
+     * The resources property
+     */
+    resources?: Image_message_resource[] | null;
+}
 /**
  * Lists an MCP server's discovered tools.
  */
@@ -50820,6 +51547,16 @@ export interface List_output_views_response extends AdditionalDataHolder, Parsab
      * Ordered by tool version, then published views before your team's own, then name.
      */
     views?: Output_view[] | null;
+}
+export interface List_provider_connections_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The connections property
+     */
+    connections?: Provider_connection[] | null;
+    /**
+     * The pagination property
+     */
+    pagination?: Provider_connection_pagination | null;
 }
 /**
  * One page of provider health.
@@ -52274,7 +53011,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team.
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`.
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -54446,6 +55183,21 @@ export interface Pgbouncer_advanced_config extends AdditionalDataHolder, Parsabl
 }
 export type Pgbouncer_advanced_config_autodb_pool_mode = (typeof Pgbouncer_advanced_config_autodb_pool_modeObject)[keyof typeof Pgbouncer_advanced_config_autodb_pool_modeObject];
 export type Pgbouncer_advanced_config_ignore_startup_parameters = (typeof Pgbouncer_advanced_config_ignore_startup_parametersObject)[keyof typeof Pgbouncer_advanced_config_ignore_startup_parametersObject];
+export interface Poll_provider_connect_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The expires_at property
+     */
+    expiresAt?: Date | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * success when login has finished. requires_authorization while it is still outstanding.
+     */
+    status?: Poll_provider_connect_response_status | null;
+}
+export type Poll_provider_connect_response_status = (typeof Poll_provider_connect_response_statusObject)[keyof typeof Poll_provider_connect_response_statusObject];
 export interface Postgres_advanced_config extends AdditionalDataHolder, Parsable {
     /**
      * Specifies a fraction, in a decimal value, of the table size to add to autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE. The default is 0.2 (20% of table size).
@@ -54955,6 +55707,267 @@ export interface Prom_string_list_response extends AdditionalDataHolder, Parsabl
 }
 export type Prom_string_list_response_status = (typeof Prom_string_list_response_statusObject)[keyof typeof Prom_string_list_response_statusObject];
 export interface Prom_vector_sample extends AdditionalDataHolder, Parsable {
+}
+/**
+ * One provider connection. Identifiers only — no token or authorization handle.
+ */
+export interface Provider_connection extends AdditionalDataHolder, Parsable {
+    /**
+     * The created_at property
+     */
+    createdAt?: Date | null;
+    /**
+     * True when an ordinary delete will be refused because an environment config uses it.
+     */
+    deletionProtected?: boolean | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The grant on an OAuth connection. Absent for a connection that has no grant.
+     */
+    oauth?: Provider_connection_oauth | null;
+    /**
+     * DigitalOcean user id of the member who created the connection, when recorded.
+     */
+    owningUserId?: string | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * The provider_display_name property
+     */
+    providerDisplayName?: string | null;
+    /**
+     * pending, active, revoked, or expired. A list does not include revoked connections.
+     */
+    status?: string | null;
+    /**
+     * The updated_at property
+     */
+    updatedAt?: Date | null;
+    /**
+     * Actor identifier the connection acts for. Not a DigitalOcean user id.
+     */
+    userId?: string | null;
+}
+/**
+ * Interactive step a pending connection still needs. Omitted when the connection is active.
+ */
+export interface Provider_connection_authorization extends AdditionalDataHolder, Parsable {
+    /**
+     * The connect_url property
+     */
+    connectUrl?: string | null;
+    /**
+     * The expires_at property
+     */
+    expiresAt?: Date | null;
+    /**
+     * The status property
+     */
+    status?: string | null;
+    /**
+     * The verification_code property
+     */
+    verificationCode?: string | null;
+}
+/**
+ * The grant on an OAuth connection. Absent for a connection that has no grant.
+ */
+export interface Provider_connection_oauth extends AdditionalDataHolder, Parsable {
+    /**
+     * The granted_at property
+     */
+    grantedAt?: Date | null;
+    /**
+     * The scopes property
+     */
+    scopes?: string[] | null;
+}
+export interface Provider_connection_pagination extends AdditionalDataHolder, Parsable {
+    /**
+     * The page property
+     */
+    page?: number | null;
+    /**
+     * The per_page property
+     */
+    perPage?: number | null;
+    /**
+     * The total property
+     */
+    total?: number | null;
+}
+export interface Provider_connection_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Interactive step a pending connection still needs. Omitted when the connection is active.
+     */
+    authorization?: Provider_connection_authorization | null;
+    /**
+     * One provider connection. Identifiers only — no token or authorization handle.
+     */
+    connection?: Provider_connection | null;
+}
+/**
+ * A stored provider credential. Responses contain metadata only, never API keys, client secrets, or secret storage references.
+ */
+export interface Provider_credential extends AdditionalDataHolder, Parsable {
+    /**
+     * Normalized HTTPS origin for this credential's provider API, when configured.
+     */
+    baseUrl?: string | null;
+    /**
+     * When the credential was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Authorization to discover a team-scoped MCP server's tools, when required. This authorization is not used to invoke tools.
+     */
+    discovery?: Provider_credential_discovery | null;
+    /**
+     * Label, unique among the team's credentials for this provider, ignoring case.
+     */
+    displayName?: string | null;
+    /**
+     * Opaque ID used to select, retrieve, update, or delete the credential.
+     */
+    id?: string | null;
+    /**
+     * Credential type. NONE, NO_AUTH, and USER_API_KEY describe MCP server credentials; NO_AUTH and USER_API_KEY are output-only values.
+     */
+    kind?: Provider_credential_kind | null;
+    /**
+     * DigitalOcean user ID of the creator. Absent for a credential shared with the team.
+     */
+    owningUserId?: string | null;
+    /**
+     * Provider slug.
+     */
+    provider?: string | null;
+    /**
+     * OAuth redirect URI supplied at registration. Empty when using DigitalOcean's callback or when the credential is not an OAuth client.
+     */
+    redirectUrl?: string | null;
+    /**
+     * Whether everyone on the team can see and use the credential instead of only its creator.
+     */
+    reusableByTeam?: boolean | null;
+    /**
+     * Who can use the credential, either its creator (user) or the whole team (team).
+     */
+    scope?: Provider_credential_scope | null;
+    /**
+     * Credential lifecycle state. Disabled credentials cannot be used by existing or new connections and cannot be re-enabled through this API. DELETED is returned only by deletion.
+     */
+    status?: Provider_credential_status | null;
+    /**
+     * When the credential was last modified.
+     */
+    updatedAt?: Date | null;
+}
+export interface Provider_credential_createMember1 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember1_kind | null;
+}
+export type Provider_credential_createMember1_kind = (typeof Provider_credential_createMember1_kindObject)[keyof typeof Provider_credential_createMember1_kindObject];
+export interface Provider_credential_createMember2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember2_kind | null;
+}
+export type Provider_credential_createMember2_kind = (typeof Provider_credential_createMember2_kindObject)[keyof typeof Provider_credential_createMember2_kindObject];
+export interface Provider_credential_createMember3 extends AdditionalDataHolder, Parsable {
+    /**
+     * The kind property
+     */
+    kind?: Provider_credential_createMember3_kind | null;
+}
+export type Provider_credential_createMember3_kind = (typeof Provider_credential_createMember3_kindObject)[keyof typeof Provider_credential_createMember3_kindObject];
+/**
+ * Team-level MCP tool discovery authorization, not tool invocation authorization.
+ */
+export interface Provider_credential_discovery extends AdditionalDataHolder, Parsable {
+    /**
+     * Where a team owner authorizes discovery. Set only while status is pending.
+     */
+    authorizationUrl?: string | null;
+    /**
+     * When discovery was authorized, if consent has been given.
+     */
+    consentedAt?: Date | null;
+    /**
+     * DigitalOcean user ID of the team owner who authorized discovery, or empty before consent.
+     */
+    consentedByUserId?: string | null;
+    /**
+     * Whether discovery needs authorization, is waiting for it, is active, or has expired.
+     */
+    status?: Provider_credential_discovery_status | null;
+}
+export type Provider_credential_discovery_status = (typeof Provider_credential_discovery_statusObject)[keyof typeof Provider_credential_discovery_statusObject];
+export type Provider_credential_kind = (typeof Provider_credential_kindObject)[keyof typeof Provider_credential_kindObject];
+/**
+ * Credential metadata and the number of connections removed by the operation.
+ */
+export interface Provider_credential_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The registered or deleted credential, without secret material.
+     */
+    credential?: Provider_credential | null;
+    /**
+     * Number of connections deleted with the credential. Always zero for create, get, and update operations.
+     */
+    revokedConnections?: number | null;
+}
+export type Provider_credential_scope = (typeof Provider_credential_scopeObject)[keyof typeof Provider_credential_scopeObject];
+export type Provider_credential_status = (typeof Provider_credential_statusObject)[keyof typeof Provider_credential_statusObject];
+/**
+ * Change only the supplied fields. Omitted fields remain unchanged; no update mask is required. The provider, kind, and redirect_url cannot be changed. Empty secrets and display names are rejected. Connections keep the same credential ID.
+ */
+export interface Provider_credential_update extends AdditionalDataHolder, Parsable {
+    /**
+     * New API key. Only valid for API-key credentials. Never returned.
+     */
+    apiKey?: string | null;
+    /**
+     * New HTTPS origin, validated as on creation. An empty string clears it unless the provider requires an origin. OAuth client updates also require client_id.
+     */
+    baseUrl?: string | null;
+    /**
+     * OAuth clients only. Required when changing client_id, client_secret, or base_url. Must match the originally registered client ID; a different ID is rejected. Register another credential to use a different OAuth client.
+     */
+    clientId?: string | null;
+    /**
+     * New OAuth client secret. Requires client_id. Never returned.
+     */
+    clientSecret?: string | null;
+    /**
+     * Non-secret configuration for API-key providers that declare credential parameters. Validated against the provider's parameter definitions and used to derive base_url. Rejected for other credential kinds.
+     */
+    credentialParameters?: Credential_parameters | null;
+    /**
+     * New label, unique among the team's credentials for this provider, ignoring case.
+     */
+    displayName?: string | null;
+    /**
+     * Set to true to share a credential with the team. Requires team-scoped provider credentials to be enabled and the team owner role to share a private credential. Sharing cannot be undone; false is rejected.
+     */
+    reusableByTeam?: boolean | null;
+}
+/**
+ * Registered credentials visible to the caller, without pagination.
+ */
+export interface Provider_credentials_list_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Credentials ordered by provider and display name, excluding DigitalOcean-owned OAuth applications.
+     */
+    credentials?: Provider_credential[] | null;
 }
 /**
  * Health of one provider, combining its tools.
@@ -65064,6 +66077,31 @@ export function serializeCache_status(writer: SerializationWriter, cache_status:
 }
 /**
  * Serializes information the current object
+ * @param Cancel_session_turn_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCancel_session_turn_request(writer: SerializationWriter, cancel_session_turn_request: Partial<Cancel_session_turn_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cancel_session_turn_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("run_id", cancel_session_turn_request.runId);
+    writer.writeAdditionalData(cancel_session_turn_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Cancel_session_turn_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCancel_session_turn_response(writer: SerializationWriter, cancel_session_turn_response: Partial<Cancel_session_turn_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cancel_session_turn_response || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Cancel_session_turn_response_outcome>("outcome", cancel_session_turn_response.outcome);
+    writer.writeStringValue("run_id", cancel_session_turn_response.runId);
+    writer.writeAdditionalData(cancel_session_turn_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Cdn_endpoint The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -66226,6 +67264,19 @@ export function serializeCreate_namespace(writer: SerializationWriter, create_na
 }
 /**
  * Serializes information the current object
+ * @param Create_provider_connection_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_provider_connection_request(writer: SerializationWriter, create_provider_connection_request: Partial<Create_provider_connection_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_provider_connection_request || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", create_provider_connection_request.scopes);
+    writer.writeStringValue("user_id", create_provider_connection_request.userId);
+    writer.writeAdditionalData(create_provider_connection_request.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Create_response_request The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -66651,6 +67702,17 @@ export function serializeCreate_webhook_config(writer: SerializationWriter, crea
     if (!create_webhook_config || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Webhook_provider_key>("provider", create_webhook_config.provider);
     writer.writeAdditionalData(create_webhook_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Credential_parameters The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCredential_parameters(writer: SerializationWriter, credential_parameters: Partial<Credential_parameters> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!credential_parameters || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(credential_parameters.additionalData);
 }
 /**
  * Serializes information the current object
@@ -68389,6 +69451,23 @@ export function serializeExport_options_filters(writer: SerializationWriter, exp
 }
 /**
  * Serializes information the current object
+ * @param File_info The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_info(writer: SerializationWriter, file_info: Partial<File_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_info || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("gid", file_info.gid);
+    writer.writeStringValue("mode", file_info.mode);
+    writer.writeStringValue("path", file_info.path);
+    writer.writeStringValue("sha256", file_info.sha256);
+    writer.writeNumberValue("size_bytes", file_info.sizeBytes);
+    writer.writeNumberValue("uid", file_info.uid);
+    writer.writeAdditionalData(file_info.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Firewall The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -68748,6 +69827,18 @@ export function serializeGet_connection_response(writer: SerializationWriter, ge
 }
 /**
  * Serializes information the current object
+ * @param Get_image_message_resource_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeGet_image_message_resource_response(writer: SerializationWriter, get_image_message_resource_response: Partial<Get_image_message_resource_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!get_image_message_resource_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Image_message_resource>("resource", get_image_message_resource_response.resource, serializeImage_message_resource);
+    writer.writeAdditionalData(get_image_message_resource_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Get_ingress_url_response The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -69078,6 +70169,41 @@ export function serializeImage_action_transfer(writer: SerializationWriter, imag
     if (!image_action_transfer || isSerializingDerivedType) { return; }
     serializeImage_action_base(writer, image_action_transfer, isSerializingDerivedType)
     writer.writeEnumValue<Region_slug>("region", image_action_transfer.region);
+}
+/**
+ * Serializes information the current object
+ * @param Image_message The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImage_message(writer: SerializationWriter, image_message: Partial<Image_message> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!image_message || isSerializingDerivedType) { return; }
+    writer.writeStringValue("message", image_message.message);
+    writer.writeStringValue("more_info_url", image_message.moreInfoUrl);
+    writer.writeStringValue("title", image_message.title);
+    writer.writeStringValue("type", image_message.type);
+    writer.writeAdditionalData(image_message.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Image_message_resource The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImage_message_resource(writer: SerializationWriter, image_message_resource: Partial<Image_message_resource> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!image_message_resource || isSerializingDerivedType) { return; }
+    writer.writeStringValue("checkpoint_id", image_message_resource.checkpointId);
+    writer.writeStringValue("checkpoint_name", image_message_resource.checkpointName);
+    writer.writeStringValue("image_id", image_message_resource.imageId);
+    writer.writeEnumValue<Image_message_resource_kind>("kind", image_message_resource.kind);
+    writer.writeCollectionOfObjectValues<Image_message>("messages", image_message_resource.messages, serializeImage_message);
+    writer.writeBooleanValue("resolution_complete", image_message_resource.resolutionComplete);
+    writer.writeStringValue("session_id", image_message_resource.sessionId);
+    writer.writeStringValue("session_name", image_message_resource.sessionName);
+    writer.writeBooleanValue("vulnerable", image_message_resource.vulnerable);
+    writer.writeAdditionalData(image_message_resource.additionalData);
 }
 /**
  * Serializes information the current object
@@ -69803,6 +70929,19 @@ export function serializeList_consents(writer: SerializationWriter, list_consent
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_image_messages_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_image_messages_response(writer: SerializationWriter, list_image_messages_response: Partial<List_image_messages_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_image_messages_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("next_page_token", list_image_messages_response.nextPageToken);
+    writer.writeCollectionOfObjectValues<Image_message_resource>("resources", list_image_messages_response.resources, serializeImage_message_resource);
+    writer.writeAdditionalData(list_image_messages_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param List_mcp_server_tools_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -69852,6 +70991,19 @@ export function serializeList_output_views_response(writer: SerializationWriter,
     writer.writeStringValue("version", list_output_views_response.version);
     writer.writeCollectionOfObjectValues<Output_view>("views", list_output_views_response.views, serializeOutput_view);
     writer.writeAdditionalData(list_output_views_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_provider_connections_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_provider_connections_response(writer: SerializationWriter, list_provider_connections_response: Partial<List_provider_connections_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_provider_connections_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Provider_connection>("connections", list_provider_connections_response.connections, serializeProvider_connection);
+    writer.writeObjectValue<Provider_connection_pagination>("pagination", list_provider_connections_response.pagination, serializeProvider_connection_pagination);
+    writer.writeAdditionalData(list_provider_connections_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -72748,6 +73900,20 @@ export function serializePgbouncer_advanced_config(writer: SerializationWriter, 
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Poll_provider_connect_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePoll_provider_connect_response(writer: SerializationWriter, poll_provider_connect_response: Partial<Poll_provider_connect_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!poll_provider_connect_response || isSerializingDerivedType) { return; }
+    writer.writeDateValue("expires_at", poll_provider_connect_response.expiresAt);
+    writer.writeStringValue("provider", poll_provider_connect_response.provider);
+    writer.writeEnumValue<Poll_provider_connect_response_status>("status", poll_provider_connect_response.status);
+    writer.writeAdditionalData(poll_provider_connect_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Postgres_advanced_config The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -73114,6 +74280,200 @@ export function serializeProm_string_list_response(writer: SerializationWriter, 
 export function serializeProm_vector_sample(writer: SerializationWriter, prom_vector_sample: Partial<Prom_vector_sample> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!prom_vector_sample || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(prom_vector_sample.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_connection The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_connection(writer: SerializationWriter, provider_connection: Partial<Provider_connection> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_connection || isSerializingDerivedType) { return; }
+    writer.writeDateValue("created_at", provider_connection.createdAt);
+    writer.writeBooleanValue("deletion_protected", provider_connection.deletionProtected);
+    writer.writeStringValue("id", provider_connection.id);
+    writer.writeObjectValue<Provider_connection_oauth>("oauth", provider_connection.oauth, serializeProvider_connection_oauth);
+    writer.writeStringValue("owning_user_id", provider_connection.owningUserId);
+    writer.writeStringValue("provider", provider_connection.provider);
+    writer.writeStringValue("provider_display_name", provider_connection.providerDisplayName);
+    writer.writeStringValue("status", provider_connection.status);
+    writer.writeDateValue("updated_at", provider_connection.updatedAt);
+    writer.writeStringValue("user_id", provider_connection.userId);
+    writer.writeAdditionalData(provider_connection.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_connection_authorization The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_connection_authorization(writer: SerializationWriter, provider_connection_authorization: Partial<Provider_connection_authorization> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_connection_authorization || isSerializingDerivedType) { return; }
+    writer.writeStringValue("connect_url", provider_connection_authorization.connectUrl);
+    writer.writeDateValue("expires_at", provider_connection_authorization.expiresAt);
+    writer.writeStringValue("status", provider_connection_authorization.status);
+    writer.writeStringValue("verification_code", provider_connection_authorization.verificationCode);
+    writer.writeAdditionalData(provider_connection_authorization.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_connection_oauth The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_connection_oauth(writer: SerializationWriter, provider_connection_oauth: Partial<Provider_connection_oauth> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_connection_oauth || isSerializingDerivedType) { return; }
+    writer.writeDateValue("granted_at", provider_connection_oauth.grantedAt);
+    writer.writeCollectionOfPrimitiveValues<string>("scopes", provider_connection_oauth.scopes);
+    writer.writeAdditionalData(provider_connection_oauth.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_connection_pagination The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_connection_pagination(writer: SerializationWriter, provider_connection_pagination: Partial<Provider_connection_pagination> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_connection_pagination || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("page", provider_connection_pagination.page);
+    writer.writeNumberValue("per_page", provider_connection_pagination.perPage);
+    writer.writeNumberValue("total", provider_connection_pagination.total);
+    writer.writeAdditionalData(provider_connection_pagination.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_connection_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_connection_response(writer: SerializationWriter, provider_connection_response: Partial<Provider_connection_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_connection_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Provider_connection_authorization>("authorization", provider_connection_response.authorization, serializeProvider_connection_authorization);
+    writer.writeObjectValue<Provider_connection>("connection", provider_connection_response.connection, serializeProvider_connection);
+    writer.writeAdditionalData(provider_connection_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential(writer: SerializationWriter, provider_credential: Partial<Provider_credential> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential || isSerializingDerivedType) { return; }
+    writer.writeStringValue("base_url", provider_credential.baseUrl);
+    writer.writeDateValue("created_at", provider_credential.createdAt);
+    writer.writeObjectValue<Provider_credential_discovery>("discovery", provider_credential.discovery, serializeProvider_credential_discovery);
+    writer.writeStringValue("display_name", provider_credential.displayName);
+    writer.writeStringValue("id", provider_credential.id);
+    writer.writeEnumValue<Provider_credential_kind>("kind", provider_credential.kind);
+    writer.writeStringValue("owning_user_id", provider_credential.owningUserId);
+    writer.writeStringValue("provider", provider_credential.provider);
+    writer.writeStringValue("redirect_url", provider_credential.redirectUrl);
+    writer.writeBooleanValue("reusable_by_team", provider_credential.reusableByTeam);
+    writer.writeEnumValue<Provider_credential_scope>("scope", provider_credential.scope);
+    writer.writeEnumValue<Provider_credential_status>("status", provider_credential.status);
+    writer.writeDateValue("updated_at", provider_credential.updatedAt);
+    writer.writeAdditionalData(provider_credential.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember1 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember1(writer: SerializationWriter, provider_credential_createMember1: Partial<Provider_credential_createMember1> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember1 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember1_kind>("kind", provider_credential_createMember1.kind);
+    writer.writeAdditionalData(provider_credential_createMember1.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember2(writer: SerializationWriter, provider_credential_createMember2: Partial<Provider_credential_createMember2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember2 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember2_kind>("kind", provider_credential_createMember2.kind);
+    writer.writeAdditionalData(provider_credential_createMember2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_createMember3 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_createMember3(writer: SerializationWriter, provider_credential_createMember3: Partial<Provider_credential_createMember3> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_createMember3 || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Provider_credential_createMember3_kind>("kind", provider_credential_createMember3.kind);
+    writer.writeAdditionalData(provider_credential_createMember3.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_discovery The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_discovery(writer: SerializationWriter, provider_credential_discovery: Partial<Provider_credential_discovery> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_discovery || isSerializingDerivedType) { return; }
+    writer.writeStringValue("authorization_url", provider_credential_discovery.authorizationUrl);
+    writer.writeDateValue("consented_at", provider_credential_discovery.consentedAt);
+    writer.writeStringValue("consented_by_user_id", provider_credential_discovery.consentedByUserId);
+    writer.writeEnumValue<Provider_credential_discovery_status>("status", provider_credential_discovery.status);
+    writer.writeAdditionalData(provider_credential_discovery.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_response(writer: SerializationWriter, provider_credential_response: Partial<Provider_credential_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Provider_credential>("credential", provider_credential_response.credential, serializeProvider_credential);
+    writer.writeNumberValue("revoked_connections", provider_credential_response.revokedConnections);
+    writer.writeAdditionalData(provider_credential_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credential_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credential_update(writer: SerializationWriter, provider_credential_update: Partial<Provider_credential_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credential_update || isSerializingDerivedType) { return; }
+    writer.writeStringValue("api_key", provider_credential_update.apiKey);
+    writer.writeStringValue("base_url", provider_credential_update.baseUrl);
+    writer.writeStringValue("client_id", provider_credential_update.clientId);
+    writer.writeStringValue("client_secret", provider_credential_update.clientSecret);
+    writer.writeObjectValue<Credential_parameters>("credential_parameters", provider_credential_update.credentialParameters, serializeCredential_parameters);
+    writer.writeStringValue("display_name", provider_credential_update.displayName);
+    writer.writeBooleanValue("reusable_by_team", provider_credential_update.reusableByTeam);
+    writer.writeAdditionalData(provider_credential_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Provider_credentials_list_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeProvider_credentials_list_response(writer: SerializationWriter, provider_credentials_list_response: Partial<Provider_credentials_list_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!provider_credentials_list_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Provider_credential>("credentials", provider_credentials_list_response.credentials, serializeProvider_credential);
+    writer.writeAdditionalData(provider_credentials_list_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -75067,6 +76427,35 @@ export function serializeSso(writer: SerializationWriter, sso: Partial<Sso> | un
     writer.writeStringValue("issuer_url", sso.issuerUrl);
     writer.writeBooleanValue("required", sso.required);
     writer.writeAdditionalData(sso.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Start_provider_connect_request The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeStart_provider_connect_request(writer: SerializationWriter, start_provider_connect_request: Partial<Start_provider_connect_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!start_provider_connect_request || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("force_reconnect", start_provider_connect_request.forceReconnect);
+    writer.writeAdditionalData(start_provider_connect_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Start_provider_connect_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeStart_provider_connect_response(writer: SerializationWriter, start_provider_connect_response: Partial<Start_provider_connect_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!start_provider_connect_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("connect_url", start_provider_connect_response.connectUrl);
+    writer.writeDateValue("expires_at", start_provider_connect_response.expiresAt);
+    writer.writeStringValue("poll_url", start_provider_connect_response.pollUrl);
+    writer.writeStringValue("provider", start_provider_connect_response.provider);
+    writer.writeEnumValue<Start_provider_connect_response_status>("status", start_provider_connect_response.status);
+    writer.writeStringValue("verification_code", start_provider_connect_response.verificationCode);
+    writer.writeAdditionalData(start_provider_connect_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -78381,6 +79770,39 @@ export interface Sso extends AdditionalDataHolder, Parsable {
      */
     required?: boolean | null;
 }
+export interface Start_provider_connect_request extends AdditionalDataHolder, Parsable {
+    /**
+     * When true, start a new login even if the team is already connected.
+     */
+    forceReconnect?: boolean | null;
+}
+export interface Start_provider_connect_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Where to send the user. Omitted once status is success.
+     */
+    connectUrl?: string | null;
+    /**
+     * When the interactive step expires. Omitted when there is nothing to expire.
+     */
+    expiresAt?: Date | null;
+    /**
+     * Pass this to the poll call. Omitted once status is success.
+     */
+    pollUrl?: string | null;
+    /**
+     * The provider property
+     */
+    provider?: string | null;
+    /**
+     * success when a credential already exists. requires_authorization when the user must finish the interactive step at connect_url.
+     */
+    status?: Start_provider_connect_response_status | null;
+    /**
+     * Code the user confirms during the interactive step. Omitted once status is success.
+     */
+    verificationCode?: string | null;
+}
+export type Start_provider_connect_response_status = (typeof Start_provider_connect_response_statusObject)[keyof typeof Start_provider_connect_response_statusObject];
 export interface State extends AdditionalDataHolder, Parsable {
     /**
      * The previous_outage property
@@ -82502,6 +83924,14 @@ export const Cache_status_statusObject = {
     BYPASS: "BYPASS",
 } as const;
 /**
+ * acked means the agent accepted the interrupt. no_turn means nothing addressable was running. unsupported means this agent cannot be interrupted.
+ */
+export const Cancel_session_turn_response_outcomeObject = {
+    Acked: "acked",
+    No_turn: "no_turn",
+    Unsupported: "unsupported",
+} as const;
+/**
  * A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt.
  */
 export const Certificate_create_base_typeObject = {
@@ -83225,6 +84655,10 @@ export const Hitl_outcomeObject = {
 export const Image_action_base_typeObject = {
     Convert: "convert",
     Transfer: "transfer",
+} as const;
+export const Image_message_resource_kindObject = {
+    SESSION: "SESSION",
+    CHECKPOINT: "CHECKPOINT",
 } as const;
 /**
  * A status string indicating the state of a custom image. This may be `NEW`, `available`, `pending`, `deleted`, or `retired`.
@@ -83960,6 +85394,13 @@ export const Pgbouncer_advanced_config_ignore_startup_parametersObject = {
     Search_path: "search_path",
 } as const;
 /**
+ * success when login has finished. requires_authorization while it is still outstanding.
+ */
+export const Poll_provider_connect_response_statusObject = {
+    Success: "success",
+    Requires_authorization: "requires_authorization",
+} as const;
+/**
  * Specifies the default TOAST compression method for values of compressible columns (the default is lz4).
  */
 export const Postgres_advanced_config_default_toast_compressionObject = {
@@ -84071,6 +85512,51 @@ export const Prom_series_response_statusObject = {
 } as const;
 export const Prom_string_list_response_statusObject = {
     Success: "success",
+} as const;
+export const Provider_credential_createMember1_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_API_KEY: "PROVIDER_CREDENTIAL_KIND_API_KEY",
+} as const;
+export const Provider_credential_createMember2_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT: "PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT",
+} as const;
+export const Provider_credential_createMember3_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_NONE: "PROVIDER_CREDENTIAL_KIND_NONE",
+} as const;
+/**
+ * Whether discovery needs authorization, is waiting for it, is active, or has expired.
+ */
+export const Provider_credential_discovery_statusObject = {
+    Not_required: "not_required",
+    Pending: "pending",
+    Active: "active",
+    Expired: "expired",
+} as const;
+/**
+ * Credential type. NONE, NO_AUTH, and USER_API_KEY describe MCP server credentials; NO_AUTH and USER_API_KEY are output-only values.
+ */
+export const Provider_credential_kindObject = {
+    PROVIDER_CREDENTIAL_KIND_UNSPECIFIED: "PROVIDER_CREDENTIAL_KIND_UNSPECIFIED",
+    PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT: "PROVIDER_CREDENTIAL_KIND_OAUTH_CLIENT",
+    PROVIDER_CREDENTIAL_KIND_API_KEY: "PROVIDER_CREDENTIAL_KIND_API_KEY",
+    PROVIDER_CREDENTIAL_KIND_NONE: "PROVIDER_CREDENTIAL_KIND_NONE",
+    PROVIDER_CREDENTIAL_KIND_NO_AUTH: "PROVIDER_CREDENTIAL_KIND_NO_AUTH",
+    PROVIDER_CREDENTIAL_KIND_USER_API_KEY: "PROVIDER_CREDENTIAL_KIND_USER_API_KEY",
+} as const;
+/**
+ * Who can use the credential, either its creator (user) or the whole team (team).
+ */
+export const Provider_credential_scopeObject = {
+    User: "user",
+    Team: "team",
+} as const;
+/**
+ * Credential lifecycle state. Disabled credentials cannot be used by existing or new connections and cannot be re-enabled through this API. DELETED is returned only by deletion.
+ */
+export const Provider_credential_statusObject = {
+    PROVIDER_CREDENTIAL_STATUS_UNSPECIFIED: "PROVIDER_CREDENTIAL_STATUS_UNSPECIFIED",
+    PROVIDER_CREDENTIAL_STATUS_ACTIVE: "PROVIDER_CREDENTIAL_STATUS_ACTIVE",
+    PROVIDER_CREDENTIAL_STATUS_DISABLED: "PROVIDER_CREDENTIAL_STATUS_DISABLED",
+    PROVIDER_CREDENTIAL_STATUS_DELETED: "PROVIDER_CREDENTIAL_STATUS_DELETED",
 } as const;
 /**
  * Comparison operator for the filter. Allowed values:- `FILTER_OPERATOR_EQUAL` = equal- `FILTER_OPERATOR_NOT_EQUAL` = `not_equal`- `FILTER_OPERATOR_LESS_THAN` = `less_than`- `FILTER_OPERATOR_LESS_THAN_OR_EQUAL` = `less_than_or_equal`- `FILTER_OPERATOR_GREATER_THAN` = `greater_than`- `FILTER_OPERATOR_GREATER_THAN_OR_EQUAL` = `greater_than_or_equal`
@@ -84347,6 +85833,13 @@ export const Spans_filter_field_scopeObject = {
 export const Spans_order_by_directionObject = {
     Asc: "asc",
     Desc: "desc",
+} as const;
+/**
+ * success when a credential already exists. requires_authorization when the user must finish the interactive step at connect_url.
+ */
+export const Start_provider_connect_response_statusObject = {
+    Success: "success",
+    Requires_authorization: "requires_authorization",
 } as const;
 /**
  * An attribute indicating how and if requests from a client will be persistently served by the same backend Droplet. The possible values are `cookies` or `none`.
