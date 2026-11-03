@@ -10,6 +10,8 @@ import { ConsoleRequestBuilderRequestsMetadata, type ConsoleRequestBuilder } fro
 // @ts-ignore
 import { ExecRequestBuilderRequestsMetadata, type ExecRequestBuilder } from './exec/index.js';
 // @ts-ignore
+import { FilesRequestBuilderRequestsMetadata, type FilesRequestBuilder } from './files/index.js';
+// @ts-ignore
 import { PauseRequestBuilderRequestsMetadata, type PauseRequestBuilder } from './pause/index.js';
 // @ts-ignore
 import { ResumeRequestBuilderRequestsMetadata, type ResumeRequestBuilder } from './resume/index.js';
@@ -71,6 +73,10 @@ export interface WithMicrovm_ItemRequestBuilder extends BaseRequestBuilder<WithM
      */
     get exec(): ExecRequestBuilder;
     /**
+     * The files property
+     */
+    get files(): FilesRequestBuilder;
+    /**
      * The pause property
      */
     get pause(): PauseRequestBuilder;
@@ -128,6 +134,9 @@ export const WithMicrovm_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     },
     exec: {
         requestsMetadata: ExecRequestBuilderRequestsMetadata,
+    },
+    files: {
+        requestsMetadata: FilesRequestBuilderRequestsMetadata,
     },
     pause: {
         requestsMetadata: PauseRequestBuilderRequestsMetadata,
