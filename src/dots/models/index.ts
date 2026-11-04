@@ -12510,6 +12510,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     id?: Guid | null;
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the Kubernetes cluster. This is only accepted when creating a cluster and is not returned in responses. If the object is omitted, or if `logs` is not set, no opt-in is recorded for the cluster.
+     */
+    insights?: Insights_opt_in2 | null;
+    /**
      * The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
      */
     ipv4?: string | null;
@@ -20330,6 +20334,51 @@ export function createCustomModelTagsFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_error_details}
+ */
+// @ts-ignore
+export function createDashboard_error_detailsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_error_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_error}
+ */
+// @ts-ignore
+export function createDashboard_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_error;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_request}
+ */
+// @ts-ignore
+export function createDashboard_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard}
+ */
+// @ts-ignore
+export function createDashboardFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboards_pagination_response}
+ */
+// @ts-ignore
+export function createDashboards_pagination_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboards_pagination_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Data_plane_search_tools_response_output}
  */
 // @ts-ignore
@@ -21945,6 +21994,15 @@ export function createImages_usageFromDiscriminatorValue(parseNode: ParseNode | 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Insights_opt_in2}
+ */
+// @ts-ignore
+export function createInsights_opt_in2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoInsights_opt_in2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Insights_opt_in}
  */
 // @ts-ignore
@@ -22274,6 +22332,15 @@ export function createList_connections_responseFromDiscriminatorValue(parseNode:
 // @ts-ignore
 export function createList_consentsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoList_consents;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_dashboards_response}
+ */
+// @ts-ignore
+export function createList_dashboards_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_dashboards_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27471,6 +27538,88 @@ export interface CustomModelTags extends AdditionalDataHolder, Parsable {
      * List of tag strings
      */
     tags?: string[] | null;
+}
+/**
+ * An Insights dashboard.
+ */
+export interface Dashboard extends AdditionalDataHolder, Parsable {
+    /**
+     * Time the dashboard was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The dashboard's display description. Populated by the server from `spec.display.description`; it cannot be set directly. Omitted when the spec has no description.
+     */
+    description?: string | null;
+    /**
+     * The dashboard's display name. Populated by the server from `spec.display.name`; it cannot be set directly. Omitted when `spec.display.name` is an empty string.
+     */
+    name?: string | null;
+    /**
+     * The dashboard definition as a JSON document serialized to a string. The document must have `kind` set to `Dashboard` and a `spec.display.name` between 1 and 255 characters, which is projected to `name`. An optional `spec.display.description` of up to 1000 characters is projected to `description`. Retrieve the full JSON Schema from `GET /v2/insights/dashboards/schema`. The document is returned in a normalized form: content is unchanged, but object keys may be reordered and whitespace may differ from the submitted string.
+     */
+    spec?: string | null;
+    /**
+     * Time the dashboard was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * A unique identifier for the dashboard.
+     */
+    uuid?: Guid | null;
+}
+/**
+ * Error body returned by the dashboards service. Unlike most DigitalOcean API errors, this body carries a gRPC status code rather than an `id` string.
+ */
+export interface Dashboard_error extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * The gRPC status code for the error. `3` = invalid argument, `5` = not found, `6` = already exists, `8` = resource exhausted, `13` = internal.
+     */
+    code?: number | null;
+    /**
+     * Additional machine-readable error details. Omitted when there are none. Each entry carries an `@type` identifying its schema.
+     */
+    details?: Dashboard_error_details[] | null;
+    /**
+     * A human-readable description of the error. Identical to `message`.
+     */
+    errorEscaped?: string | null;
+    /**
+     * A human-readable description of the error. Identical to `error`.
+     */
+    messageEscaped?: string | null;
+}
+export interface Dashboard_error_details extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Request body for creating or updating a dashboard.
+ */
+export interface Dashboard_request extends AdditionalDataHolder, Parsable {
+    /**
+     * The dashboard definition as a JSON document serialized to a string. The document must have `kind` set to `Dashboard` and a `spec.display.name` between 1 and 255 characters. An empty value or a value that is not valid JSON is rejected with `400`. Retrieve the full JSON Schema from `GET /v2/insights/dashboards/schema`.
+     */
+    spec?: string | null;
+}
+/**
+ * Page-based pagination metadata for a dashboards list.
+ */
+export interface Dashboards_pagination_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The current page number.
+     */
+    page?: number | null;
+    /**
+     * The total number of pages. Omitted when there are no results.
+     */
+    pages?: number | null;
+    /**
+     * The number of items per page.
+     */
+    perPage?: number | null;
+    /**
+     * The total number of dashboards across all pages. Omitted when there are no results.
+     */
+    total?: number | null;
 }
 export interface Data_plane_search_tools_response extends Parsable, Tool_result {
 }
@@ -37070,6 +37219,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "gpu_operator_ready": n => { cluster.gpuOperatorReady = n.getBooleanValue(); },
         "ha": n => { cluster.ha = n.getBooleanValue(); },
         "id": n => { cluster.id = n.getGuidValue(); },
+        "insights": n => { cluster.insights = n.getObjectValue<Insights_opt_in2>(createInsights_opt_in2FromDiscriminatorValue); },
         "ipv4": n => { cluster.ipv4 = n.getStringValue(); },
         "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
@@ -38239,6 +38389,71 @@ export function deserializeIntoCustomModelSourceRef(customModelSourceRef: Partia
 export function deserializeIntoCustomModelTags(customModelTags: Partial<CustomModelTags> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "tags": n => { customModelTags.tags = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard(dashboard: Partial<Dashboard> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { dashboard.createdAt = n.getDateValue(); },
+        "description": n => { dashboard.description = n.getStringValue(); },
+        "name": n => { dashboard.name = n.getStringValue(); },
+        "spec": n => { dashboard.spec = n.getStringValue(); },
+        "updated_at": n => { dashboard.updatedAt = n.getDateValue(); },
+        "uuid": n => { dashboard.uuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_error The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_error(dashboard_error: Partial<Dashboard_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "code": n => { dashboard_error.code = n.getNumberValue(); },
+        "details": n => { dashboard_error.details = n.getCollectionOfObjectValues<Dashboard_error_details>(createDashboard_error_detailsFromDiscriminatorValue); },
+        "error": n => { dashboard_error.errorEscaped = n.getStringValue(); },
+        "message": n => { dashboard_error.messageEscaped = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_error_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_error_details(dashboard_error_details: Partial<Dashboard_error_details> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_request(dashboard_request: Partial<Dashboard_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "spec": n => { dashboard_request.spec = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboards_pagination_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboards_pagination_response(dashboards_pagination_response: Partial<Dashboards_pagination_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "page": n => { dashboards_pagination_response.page = n.getNumberValue(); },
+        "pages": n => { dashboards_pagination_response.pages = n.getNumberValue(); },
+        "per_page": n => { dashboards_pagination_response.perPage = n.getNumberValue(); },
+        "total": n => { dashboards_pagination_response.total = n.getNumberValue(); },
     }
 }
 /**
@@ -40633,6 +40848,17 @@ export function deserializeIntoInsights_opt_in(insights_opt_in: Partial<Insights
 }
 /**
  * The deserialization information for the current model
+ * @param Insights_opt_in2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoInsights_opt_in2(insights_opt_in2: Partial<Insights_opt_in2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "logs": n => { insights_opt_in2.logs = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Invoice_item The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -41176,6 +41402,18 @@ export function deserializeIntoList_consents(list_consents: Partial<List_consent
     return {
         "consents": n => { list_consents.consents = n.getCollectionOfObjectValues<Consent_record>(createConsent_recordFromDiscriminatorValue); },
         "source": n => { list_consents.source = n.getEnumValue<List_consents_source>(List_consents_sourceObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_dashboards_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_dashboards_response(list_dashboards_response: Partial<List_dashboards_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "dashboards": n => { list_dashboards_response.dashboards = n.getCollectionOfObjectValues<Dashboard>(createDashboardFromDiscriminatorValue); },
+        "pagination": n => { list_dashboards_response.pagination = n.getObjectValue<Dashboards_pagination_response>(createDashboards_pagination_responseFromDiscriminatorValue); },
     }
 }
 /**
@@ -50632,6 +50870,15 @@ export interface Insights_opt_in extends Parsable {
      */
     traces?: boolean | null;
 }
+/**
+ * An object specifying the Insights telemetry that the customer opts in to for the Kubernetes cluster. This is only accepted when creating a cluster and is not returned in responses. If the object is omitted, or if `logs` is not set, no opt-in is recorded for the cluster.
+ */
+export interface Insights_opt_in2 extends AdditionalDataHolder, Parsable {
+    /**
+     * A boolean value indicating whether the cluster's logs are sent to Insights. Setting this to `false` records an explicit opt-out. When omitted, no choice is recorded.
+     */
+    logs?: boolean | null;
+}
 export type Instance_size_cpu_type = (typeof Instance_size_cpu_typeObject)[keyof typeof Instance_size_cpu_typeObject];
 export interface Invoice_item extends AdditionalDataHolder, Parsable {
     /**
@@ -51481,6 +51728,19 @@ export interface List_consents extends AdditionalDataHolder, Parsable {
     source?: List_consents_source | null;
 }
 export type List_consents_source = (typeof List_consents_sourceObject)[keyof typeof List_consents_sourceObject];
+/**
+ * Response body for listing dashboards.
+ */
+export interface List_dashboards_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The requested page of dashboards. Omitted when the page is empty.
+     */
+    dashboards?: Dashboard[] | null;
+    /**
+     * Page-based pagination metadata for a dashboards list.
+     */
+    pagination?: Dashboards_pagination_response | null;
+}
 export interface List_image_messages_response extends AdditionalDataHolder, Parsable {
     /**
      * Opaque cursor for the next page. Empty on the last page and on a single-resource lookup.
@@ -66568,6 +66828,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("gpu_operator_ready", cluster.gpuOperatorReady);
     writer.writeBooleanValue("ha", cluster.ha);
+    writer.writeObjectValue<Insights_opt_in2>("insights", cluster.insights, serializeInsights_opt_in2);
     writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
@@ -67818,6 +68079,71 @@ export function serializeCustomModelTags(writer: SerializationWriter, customMode
     if (!customModelTags || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("tags", customModelTags.tags);
     writer.writeAdditionalData(customModelTags.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard(writer: SerializationWriter, dashboard: Partial<Dashboard> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard || isSerializingDerivedType) { return; }
+    writer.writeStringValue("spec", dashboard.spec);
+    writer.writeAdditionalData(dashboard.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_error The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_error(writer: SerializationWriter, dashboard_error: Partial<Dashboard_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_error || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("code", dashboard_error.code);
+    writer.writeCollectionOfObjectValues<Dashboard_error_details>("details", dashboard_error.details, serializeDashboard_error_details);
+    writer.writeStringValue("error", dashboard_error.errorEscaped);
+    writer.writeStringValue("message", dashboard_error.messageEscaped);
+    writer.writeAdditionalData(dashboard_error.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_error_details The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_error_details(writer: SerializationWriter, dashboard_error_details: Partial<Dashboard_error_details> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_error_details || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(dashboard_error_details.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_request(writer: SerializationWriter, dashboard_request: Partial<Dashboard_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("spec", dashboard_request.spec);
+    writer.writeAdditionalData(dashboard_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboards_pagination_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboards_pagination_response(writer: SerializationWriter, dashboards_pagination_response: Partial<Dashboards_pagination_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboards_pagination_response || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("page", dashboards_pagination_response.page);
+    writer.writeNumberValue("pages", dashboards_pagination_response.pages);
+    writer.writeNumberValue("per_page", dashboards_pagination_response.perPage);
+    writer.writeNumberValue("total", dashboards_pagination_response.total);
+    writer.writeAdditionalData(dashboards_pagination_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -70355,6 +70681,18 @@ export function serializeInsights_opt_in(writer: SerializationWriter, insights_o
 }
 /**
  * Serializes information the current object
+ * @param Insights_opt_in2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeInsights_opt_in2(writer: SerializationWriter, insights_opt_in2: Partial<Insights_opt_in2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!insights_opt_in2 || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("logs", insights_opt_in2.logs);
+    writer.writeAdditionalData(insights_opt_in2.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Invoice_item The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -70925,6 +71263,19 @@ export function serializeList_consents(writer: SerializationWriter, list_consent
     writer.writeCollectionOfObjectValues<Consent_record>("consents", list_consents.consents, serializeConsent_record);
     writer.writeEnumValue<List_consents_source>("source", list_consents.source);
     writer.writeAdditionalData(list_consents.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_dashboards_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_dashboards_response(writer: SerializationWriter, list_dashboards_response: Partial<List_dashboards_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_dashboards_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Dashboard>("dashboards", list_dashboards_response.dashboards, serializeDashboard);
+    writer.writeObjectValue<Dashboards_pagination_response>("pagination", list_dashboards_response.pagination, serializeDashboards_pagination_response);
+    writer.writeAdditionalData(list_dashboards_response.additionalData);
 }
 /**
  * Serializes information the current object
