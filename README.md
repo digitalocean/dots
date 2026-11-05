@@ -222,6 +222,19 @@ DIGITALOCEAN_TOKEN=... npx tsx examples/inference/models-list.ts
 
 > Seeing `HTTP 401: Unauthorized — Unable to authenticate you`? The token you supplied is either empty, expired, or scoped to specific resources only. Resource-scoped PATs cannot call the inference gateway — use a full-access PAT or a Model Access Key.
 
+## **Harness Runtime (managed agents)**
+`@digitalocean/dots/harness-runtime` runs managed agents: create a session from an agent manifest, stream its work, approve its risky steps, fork it, keep files in a persistent workspace, and start it from a schedule or a webhook.
+
+```typescript
+import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
+
+const hr = new HarnessRuntime(); // reads DIGITALOCEAN_TOKEN
+const session = await hr.sessions.create({ manifest });
+const result = await session.run("Find and fix the flaky test", { onText: (t) => process.stdout.write(t) });
+```
+
+More examples, the error types and the current limitations are in [examples/harness-runtime](examples/harness-runtime/README.md).
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.
