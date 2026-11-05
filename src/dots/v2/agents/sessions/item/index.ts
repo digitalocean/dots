@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createGet_session_responseFromDiscriminatorValue, serializeGet_session_response, serializePatch_session_request, type ErrorEscaped, type Get_session_response, type Patch_session_request } from '../../../../models/index.js';
 // @ts-ignore
+import { CancelRequestBuilderRequestsMetadata, type CancelRequestBuilder } from './cancel/index.js';
+// @ts-ignore
 import { CheckpointsRequestBuilderNavigationMetadata, CheckpointsRequestBuilderRequestsMetadata, type CheckpointsRequestBuilder } from './checkpoints/index.js';
 // @ts-ignore
 import { EventsRequestBuilderRequestsMetadata, type EventsRequestBuilder } from './events/index.js';
@@ -11,6 +13,8 @@ import { EventsRequestBuilderRequestsMetadata, type EventsRequestBuilder } from 
 import { ForkRequestBuilderRequestsMetadata, type ForkRequestBuilder } from './fork/index.js';
 // @ts-ignore
 import { HitlRequestBuilderNavigationMetadata, type HitlRequestBuilder } from './hitl/index.js';
+// @ts-ignore
+import { ImageMessagesRequestBuilderRequestsMetadata, type ImageMessagesRequestBuilder } from './imageMessages/index.js';
 // @ts-ignore
 import { IngressRequestBuilderRequestsMetadata, type IngressRequestBuilder } from './ingress/index.js';
 // @ts-ignore
@@ -33,6 +37,10 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithSession_ItemRequestBuilder> {
     /**
+     * The cancel property
+     */
+    get cancel(): CancelRequestBuilder;
+    /**
      * The checkpoints property
      */
     get checkpoints(): CheckpointsRequestBuilder;
@@ -48,6 +56,10 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      * The hitl property
      */
     get hitl(): HitlRequestBuilder;
+    /**
+     * The imageMessages property
+     */
+    get imageMessages(): ImageMessagesRequestBuilder;
     /**
      * The ingress property
      */
@@ -77,7 +89,7 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
     get workspace(): WorkspaceRequestBuilder;
     /**
-     * Persistent workspace contents are retained per tenant policy. Returns 204 No Content on success.
+     * Persistent workspace contents are retained per tenant policy. A persistent workspace the session holds is saved and kept: it goes to `RELEASING` while the files are saved and then back to `AVAILABLE`. Creating a session on that workspace returns `409` until it is `AVAILABLE` again. Returns 204 No Content on success.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 403 status code
@@ -118,7 +130,7 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
      patch(body: Patch_session_request, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Get_session_response | undefined>;
     /**
-     * Persistent workspace contents are retained per tenant policy. Returns 204 No Content on success.
+     * Persistent workspace contents are retained per tenant policy. A persistent workspace the session holds is saved and kept: it goes to `RELEASING` while the files are saved and then back to `AVAILABLE`. Creating a session on that workspace returns `409` until it is `AVAILABLE` again. Returns 204 No Content on success.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
@@ -145,6 +157,9 @@ export const WithSession_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/agents/s
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithSession_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithSession_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    cancel: {
+        requestsMetadata: CancelRequestBuilderRequestsMetadata,
+    },
     checkpoints: {
         requestsMetadata: CheckpointsRequestBuilderRequestsMetadata,
         navigationMetadata: CheckpointsRequestBuilderNavigationMetadata,
@@ -157,6 +172,9 @@ export const WithSession_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     },
     hitl: {
         navigationMetadata: HitlRequestBuilderNavigationMetadata,
+    },
+    imageMessages: {
+        requestsMetadata: ImageMessagesRequestBuilderRequestsMetadata,
     },
     ingress: {
         requestsMetadata: IngressRequestBuilderRequestsMetadata,

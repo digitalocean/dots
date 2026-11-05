@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createDelete_checkpoint_responseFromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createGet_checkpoint_responseFromDiscriminatorValue, type Delete_checkpoint_response, type ErrorEscaped, type Get_checkpoint_response } from '../../../../../../models/index.js';
 // @ts-ignore
+import { ImageMessagesRequestBuilderRequestsMetadata, type ImageMessagesRequestBuilder } from './imageMessages/index.js';
+// @ts-ignore
 import { RollbackRequestBuilderRequestsMetadata, type RollbackRequestBuilder } from './rollback/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
@@ -12,6 +14,10 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  * Builds and executes requests for operations under /v2/agents/sessions/{session_id}/checkpoints/{checkpoint_id}
  */
 export interface WithCheckpoint_ItemRequestBuilder extends BaseRequestBuilder<WithCheckpoint_ItemRequestBuilder> {
+    /**
+     * The imageMessages property
+     */
+    get imageMessages(): ImageMessagesRequestBuilder;
     /**
      * The rollback property
      */
@@ -63,6 +69,9 @@ export const WithCheckpoint_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/agent
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithCheckpoint_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithCheckpoint_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    imageMessages: {
+        requestsMetadata: ImageMessagesRequestBuilderRequestsMetadata,
+    },
     rollback: {
         requestsMetadata: RollbackRequestBuilderRequestsMetadata,
     },

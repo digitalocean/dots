@@ -10,6 +10,8 @@ import { McpServersRequestBuilderNavigationMetadata, McpServersRequestBuilderReq
 // @ts-ignore
 import { OutputViewsRequestBuilderNavigationMetadata, OutputViewsRequestBuilderRequestsMetadata, type OutputViewsRequestBuilder } from './outputViews/index.js';
 // @ts-ignore
+import { ProviderCredentialsRequestBuilderNavigationMetadata, ProviderCredentialsRequestBuilderRequestsMetadata, type ProviderCredentialsRequestBuilder } from './providerCredentials/index.js';
+// @ts-ignore
 import { SessionsRequestBuilderNavigationMetadata, SessionsRequestBuilderRequestsMetadata, type SessionsRequestBuilder } from './sessions/index.js';
 // @ts-ignore
 import { ToolbeltsRequestBuilderNavigationMetadata, ToolbeltsRequestBuilderRequestsMetadata, type ToolbeltsRequestBuilder } from './toolbelts/index.js';
@@ -40,6 +42,10 @@ export interface ActionGatewayRequestBuilder extends BaseRequestBuilder<ActionGa
      * The outputViews property
      */
     get outputViews(): OutputViewsRequestBuilder;
+    /**
+     * The providerCredentials property
+     */
+    get providerCredentials(): ProviderCredentialsRequestBuilder;
     /**
      * The sessions property
      */
@@ -79,6 +85,10 @@ export const ActionGatewayRequestBuilderNavigationMetadata: Record<Exclude<keyof
     outputViews: {
         requestsMetadata: OutputViewsRequestBuilderRequestsMetadata,
         navigationMetadata: OutputViewsRequestBuilderNavigationMetadata,
+    },
+    providerCredentials: {
+        requestsMetadata: ProviderCredentialsRequestBuilderRequestsMetadata,
+        navigationMetadata: ProviderCredentialsRequestBuilderNavigationMetadata,
     },
     sessions: {
         requestsMetadata: SessionsRequestBuilderRequestsMetadata,
