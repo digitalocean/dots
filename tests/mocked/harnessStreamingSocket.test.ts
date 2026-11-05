@@ -10,7 +10,6 @@ import http from "node:http";
 import { AddressInfo } from "node:net";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { streamSessionEvents } from "../../src/dots/streaming/sessionEvents.js";
-import { streamSandboxExec } from "../../src/dots/streaming/sandboxExec.js";
 
 const authProvider = new DigitalOceanApiKeyAuthenticationProvider("test-token");
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -62,18 +61,6 @@ beforeAll(async () => {
                 return;
             }
 
-            if (path.endsWith("/exec")) {
-                const frame = `event: stdout\ndata: ${Buffer.from("world").toString("base64")}\n\n`;
-                res.write(`event: stdout\ndata: ${Buffer.from("hello ").toString("base64")}\n\n`);
-                await sleep(FRAME_GAP_MS);
-                // Split mid-frame so the parser has to hold a partial buffer.
-                res.write(frame.slice(0, 18));
-                await sleep(FRAME_GAP_MS);
-                res.write(frame.slice(18));
-                res.write('event: exit\ndata: {"exit_code":0}\n\n');
-                res.end();
-                return;
-            }
 
             res.end();
         })();
@@ -129,25 +116,5 @@ describe("session events over a real socket", () => {
         expect(count).toBe(3);
         // The abort releases the socket, which the server sees a tick later.
         await expect(eventually(() => clientDisconnected)).resolves.toBe(true);
-    });
-});
-
-describe("sandbox exec over a real socket", () => {
-    it("reassembles a frame split across writes and stops at exit", async () => {
-        const chunks: string[] = [];
-        let exitSeen = false;
-
-        for await (const event of streamSandboxExec({
-            authProvider,
-            baseUrl,
-            sessionId: "abc",
-            request: { argv: ["echo", "hello world"] },
-        })) {
-            if (event.type === "stdout") chunks.push(event.text);
-            if (event.type === "exit") exitSeen = true;
-        }
-
-        expect(chunks).toEqual(["hello ", "world"]);
-        expect(exitSeen).toBe(true);
     });
 });

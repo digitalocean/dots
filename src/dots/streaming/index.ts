@@ -35,12 +35,6 @@ export {
     type SessionEventStreamOptions,
 } from "./sessionEvents.js";
 
-export {
-    streamSandboxExec,
-    type SandboxExecEvent,
-    type SandboxExecRequest,
-    type SandboxExecStreamOptions,
-} from "./sandboxExec.js";
 
 export {
     openPortForward,

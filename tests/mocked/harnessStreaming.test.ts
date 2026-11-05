@@ -1,8 +1,6 @@
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { parseSseFrames } from "../../src/dots/streaming/sseFrames.js";
-import { HarnessStreamError } from "../../src/dots/streaming/harnessStream.js";
 import { streamSessionEvents } from "../../src/dots/streaming/sessionEvents.js";
-import { streamSandboxExec } from "../../src/dots/streaming/sandboxExec.js";
 import {
     openPortForward,
     type PortForwardSocket,
@@ -107,59 +105,6 @@ describe("streamSessionEvents", () => {
         await expect(iterator.next()).rejects.toThrow(
             expect.objectContaining({ message: "session not found", status: 404 }) as Error,
         );
-    });
-});
-
-describe("streamSandboxExec", () => {
-    it("decodes output and stops after the exit event", async () => {
-        const fetchImpl = (async () =>
-            sseResponse([
-                `event: stdout\ndata: ${Buffer.from("hello\n").toString("base64")}\n\n`,
-                `event: stderr\ndata: ${Buffer.from("oops").toString("base64")}\n\n`,
-                'event: exit\ndata: {"exit_code":3,"duration_ms":12}\n\n',
-                "event: stdout\ndata: bGF0ZQ==\n\n",
-            ])) as unknown as typeof fetch;
-
-        const events = [];
-        for await (const event of streamSandboxExec({
-            authProvider,
-            fetchImpl,
-            sessionId: "abc",
-            request: { argv: ["echo", "hello"] },
-        })) {
-            events.push(event);
-        }
-
-        expect(events).toEqual([
-            { type: "stdout", text: "hello\n", bytes: expect.any(Uint8Array) as Uint8Array },
-            { type: "stderr", text: "oops", bytes: expect.any(Uint8Array) as Uint8Array },
-            { type: "exit", exitCode: 3, durationMs: 12 },
-        ]);
-    });
-
-    it("surfaces Retry-After when no stream slot is free", async () => {
-        const fetchImpl = (async () =>
-            new Response(JSON.stringify({ message: "too many streams" }), {
-                status: 429,
-                headers: { "Retry-After": "5" },
-            })) as unknown as typeof fetch;
-
-        const iterator = streamSandboxExec({
-            authProvider,
-            fetchImpl,
-            sessionId: "abc",
-            request: { argv: ["sleep", "1"] },
-        });
-
-        await expect(iterator.next()).rejects.toBeInstanceOf(HarnessStreamError);
-        await expect(
-            streamSandboxExec({
-                authProvider,
-                fetchImpl,
-                sessionId: "abc",
-                request: { argv: ["sleep", "1"] },
-            }).next(),
-        ).rejects.toThrow(expect.objectContaining({ retryAfter: 5 }) as Error);
     });
 });
 

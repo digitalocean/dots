@@ -6,5 +6,4 @@ export { collectStream, createStreamingAdapter, streamWithHandler, } from "./str
 export { parseSseFrames, readSseFrames, } from "./sseFrames.js";
 export { DEFAULT_BASE_URL, HarnessStreamError, } from "./harnessStream.js";
 export { collectSessionEvents, streamSessionEvents, } from "./sessionEvents.js";
-export { streamSandboxExec, } from "./sandboxExec.js";
 export { openPortForward, } from "./portForward.js";
