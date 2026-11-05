@@ -21299,6 +21299,213 @@ export function createEnablement_resourceFromDiscriminatorValue(parseNode: Parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_config_outputViews}
+ */
+// @ts-ignore
+export function createEndpoint_config_outputViewsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_config_outputViews;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_config}
+ */
+// @ts-ignore
+export function createEndpoint_configFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_config;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_create}
+ */
+// @ts-ignore
+export function createEndpoint_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_head_version}
+ */
+// @ts-ignore
+export function createEndpoint_head_versionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_head_version;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_insights}
+ */
+// @ts-ignore
+export function createEndpoint_insightsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_insights;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_network_response}
+ */
+// @ts-ignore
+export function createEndpoint_network_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_network_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_network}
+ */
+// @ts-ignore
+export function createEndpoint_networkFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_network;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_patch}
+ */
+// @ts-ignore
+export function createEndpoint_patchFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_patch;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_policy_rules_match}
+ */
+// @ts-ignore
+export function createEndpoint_policy_rules_matchFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_policy_rules_match;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_policy_rules}
+ */
+// @ts-ignore
+export function createEndpoint_policy_rulesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_policy_rules;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_policy}
+ */
+// @ts-ignore
+export function createEndpoint_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_policy;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_promotion}
+ */
+// @ts-ignore
+export function createEndpoint_promotionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_promotion;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_publish_response}
+ */
+// @ts-ignore
+export function createEndpoint_publish_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_publish_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_response}
+ */
+// @ts-ignore
+export function createEndpoint_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_search_response}
+ */
+// @ts-ignore
+export function createEndpoint_search_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_search_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_version_insights}
+ */
+// @ts-ignore
+export function createEndpoint_version_insightsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_version_insights;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_version_response}
+ */
+// @ts-ignore
+export function createEndpoint_version_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_version_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_version_spec_insights}
+ */
+// @ts-ignore
+export function createEndpoint_version_spec_insightsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_version_spec_insights;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_version_spec}
+ */
+// @ts-ignore
+export function createEndpoint_version_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_version_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_version}
+ */
+// @ts-ignore
+export function createEndpoint_versionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_version;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint_versions_response}
+ */
+// @ts-ignore
+export function createEndpoint_versions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint_versions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoint}
+ */
+// @ts-ignore
+export function createEndpointFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoint;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Endpoints_response}
+ */
+// @ts-ignore
+export function createEndpoints_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEndpoints_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Error_envelope}
  */
 // @ts-ignore
@@ -23202,11 +23409,11 @@ export function createMetrics_resultFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Metrics}
+ * @returns {Metrics2}
  */
 // @ts-ignore
-export function createMetricsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoMetrics;
+export function createMetrics2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMetrics2;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -26365,6 +26572,24 @@ export function createToolFromDiscriminatorValue(parseNode: ParseNode | undefine
 // @ts-ignore
 export function createToolkitFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoToolkit;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tools_references}
+ */
+// @ts-ignore
+export function createTools_referencesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTools_references;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tools}
+ */
+// @ts-ignore
+export function createToolsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTools;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -39888,6 +40113,301 @@ export function deserializeIntoEnablement_resource(enablement_resource: Partial<
 }
 /**
  * The deserialization information for the current model
+ * @param Endpoint The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint(endpoint: Partial<Endpoint> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actor_id": n => { endpoint.actorId = n.getStringValue(); },
+        "created_at": n => { endpoint.createdAt = n.getDateValue(); },
+        "head_version": n => { endpoint.headVersion = n.getObjectValue<Endpoint_head_version>(createEndpoint_head_versionFromDiscriminatorValue); },
+        "id": n => { endpoint.id = n.getGuidValue(); },
+        "insights": n => { endpoint.insights = n.getObjectValue<Endpoint_insights>(createEndpoint_insightsFromDiscriminatorValue); },
+        "is_default": n => { endpoint.isDefault = n.getBooleanValue(); },
+        "mcp_url": n => { endpoint.mcpUrl = n.getStringValue(); },
+        "name": n => { endpoint.name = n.getStringValue(); },
+        "updated_at": n => { endpoint.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_config The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_config(endpoint_config: Partial<Endpoint_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cache": n => { endpoint_config.cache = n.getObjectValue<Session_cache>(createSession_cacheFromDiscriminatorValue); },
+        "customInstructions": n => { endpoint_config.customInstructions = n.getStringValue(); },
+        "outputViews": n => { endpoint_config.outputViews = n.getObjectValue<Endpoint_config_outputViews>(createEndpoint_config_outputViewsFromDiscriminatorValue); },
+        "preloadTools": n => { endpoint_config.preloadTools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_config_outputViews The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_config_outputViews(endpoint_config_outputViews: Partial<Endpoint_config_outputViews> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_create(endpoint_create: Partial<Endpoint_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "insights": n => { endpoint_create.insights = n.getObjectValue<Endpoint_insights>(createEndpoint_insightsFromDiscriminatorValue); },
+        "name": n => { endpoint_create.name = n.getStringValue(); },
+        "version": n => { endpoint_create.version = n.getObjectValue<Endpoint_version_spec>(createEndpoint_version_specFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_head_version The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_head_version(endpoint_head_version: Partial<Endpoint_head_version> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEndpoint_version(endpoint_head_version),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_insights The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_insights(endpoint_insights: Partial<Endpoint_insights> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "logs": n => { endpoint_insights.logs = n.getBooleanValue(); },
+        "metrics": n => { endpoint_insights.metrics = n.getBooleanValue(); },
+        "traces": n => { endpoint_insights.traces = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_network The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_network(endpoint_network: Partial<Endpoint_network> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "vpcUuid": n => { endpoint_network.vpcUuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_network_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_network_response(endpoint_network_response: Partial<Endpoint_network_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "region": n => { endpoint_network_response.region = n.getStringValue(); },
+        "vpcUuid": n => { endpoint_network_response.vpcUuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_patch The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_patch(endpoint_patch: Partial<Endpoint_patch> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "insights": n => { endpoint_patch.insights = n.getObjectValue<Endpoint_insights>(createEndpoint_insightsFromDiscriminatorValue); },
+        "name": n => { endpoint_patch.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_policy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_policy(endpoint_policy: Partial<Endpoint_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "defaultAction": n => { endpoint_policy.defaultAction = n.getEnumValue<Endpoint_policy_defaultAction>(Endpoint_policy_defaultActionObject); },
+        "rules": n => { endpoint_policy.rules = n.getCollectionOfObjectValues<Endpoint_policy_rules>(createEndpoint_policy_rulesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_policy_rules The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_policy_rules(endpoint_policy_rules: Partial<Endpoint_policy_rules> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "action": n => { endpoint_policy_rules.action = n.getEnumValue<Endpoint_policy_rules_action>(Endpoint_policy_rules_actionObject); },
+        "match": n => { endpoint_policy_rules.match = n.getObjectValue<Endpoint_policy_rules_match>(createEndpoint_policy_rules_matchFromDiscriminatorValue); },
+        "tool": n => { endpoint_policy_rules.tool = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_policy_rules_match The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_policy_rules_match(endpoint_policy_rules_match: Partial<Endpoint_policy_rules_match> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_promotion The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_promotion(endpoint_promotion: Partial<Endpoint_promotion> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "version_id": n => { endpoint_promotion.versionId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_publish_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_publish_response(endpoint_publish_response: Partial<Endpoint_publish_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "endpoint": n => { endpoint_publish_response.endpoint = n.getObjectValue<Endpoint>(createEndpointFromDiscriminatorValue); },
+        "mcp_url": n => { endpoint_publish_response.mcpUrl = n.getStringValue(); },
+        "version": n => { endpoint_publish_response.version = n.getObjectValue<Endpoint_version>(createEndpoint_versionFromDiscriminatorValue); },
+        "version_mcp_url": n => { endpoint_publish_response.versionMcpUrl = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_response(endpoint_response: Partial<Endpoint_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "endpoint": n => { endpoint_response.endpoint = n.getObjectValue<Endpoint>(createEndpointFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_search_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_search_response(endpoint_search_response: Partial<Endpoint_search_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "endpoints": n => { endpoint_search_response.endpoints = n.getCollectionOfObjectValues<Endpoint>(createEndpointFromDiscriminatorValue); },
+        "next_page_token": n => { endpoint_search_response.nextPageToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_version The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_version(endpoint_version: Partial<Endpoint_version> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actor_id": n => { endpoint_version.actorId = n.getStringValue(); },
+        "config": n => { endpoint_version.config = n.getObjectValue<Endpoint_config>(createEndpoint_configFromDiscriminatorValue); },
+        "created_at": n => { endpoint_version.createdAt = n.getDateValue(); },
+        "endpoint_id": n => { endpoint_version.endpointId = n.getGuidValue(); },
+        "id": n => { endpoint_version.id = n.getStringValue(); },
+        "insights": n => { endpoint_version.insights = n.getObjectValue<Endpoint_version_insights>(createEndpoint_version_insightsFromDiscriminatorValue); },
+        "mcp_url": n => { endpoint_version.mcpUrl = n.getStringValue(); },
+        "name": n => { endpoint_version.name = n.getStringValue(); },
+        "network": n => { endpoint_version.network = n.getObjectValue<Endpoint_network_response>(createEndpoint_network_responseFromDiscriminatorValue); },
+        "policy": n => { endpoint_version.policy = n.getObjectValue<Endpoint_policy>(createEndpoint_policyFromDiscriminatorValue); },
+        "promoted_from_version_number": n => { endpoint_version.promotedFromVersionNumber = n.getNumberValue(); },
+        "tools": n => { endpoint_version.tools = n.getObjectValue<Tools>(createToolsFromDiscriminatorValue); },
+        "updated_at": n => { endpoint_version.updatedAt = n.getDateValue(); },
+        "version_number": n => { endpoint_version.versionNumber = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_version_insights The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_version_insights(endpoint_version_insights: Partial<Endpoint_version_insights> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoSession_insights(endpoint_version_insights),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_version_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_version_response(endpoint_version_response: Partial<Endpoint_version_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "version": n => { endpoint_version_response.version = n.getObjectValue<Endpoint_version>(createEndpoint_versionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_version_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_version_spec(endpoint_version_spec: Partial<Endpoint_version_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actor_id": n => { endpoint_version_spec.actorId = n.getStringValue(); },
+        "config": n => { endpoint_version_spec.config = n.getObjectValue<Endpoint_config>(createEndpoint_configFromDiscriminatorValue); },
+        "insights": n => { endpoint_version_spec.insights = n.getObjectValue<Endpoint_version_spec_insights>(createEndpoint_version_spec_insightsFromDiscriminatorValue); },
+        "network": n => { endpoint_version_spec.network = n.getObjectValue<Endpoint_network>(createEndpoint_networkFromDiscriminatorValue); },
+        "policy": n => { endpoint_version_spec.policy = n.getObjectValue<Endpoint_policy>(createEndpoint_policyFromDiscriminatorValue); },
+        "tools": n => { endpoint_version_spec.tools = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_version_spec_insights The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_version_spec_insights(endpoint_version_spec_insights: Partial<Endpoint_version_spec_insights> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEndpoint_insights(endpoint_version_spec_insights),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoint_versions_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoint_versions_response(endpoint_versions_response: Partial<Endpoint_versions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "next_page_token": n => { endpoint_versions_response.nextPageToken = n.getStringValue(); },
+        "versions": n => { endpoint_versions_response.versions = n.getCollectionOfObjectValues<Endpoint_version>(createEndpoint_versionFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Endpoints_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEndpoints_response(endpoints_response: Partial<Endpoints_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "endpoints": n => { endpoints_response.endpoints = n.getCollectionOfObjectValues<Endpoint>(createEndpointFromDiscriminatorValue); },
+        "next_page_token": n => { endpoints_response.nextPageToken = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Error_envelope The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -42646,18 +43166,6 @@ export function deserializeIntoMeta_properties(meta_properties: Partial<Meta_pro
 }
 /**
  * The deserialization information for the current model
- * @param Metrics The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoMetrics(metrics: Partial<Metrics> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "data": n => { metrics.data = n.getObjectValue<Metrics_data>(createMetrics_dataFromDiscriminatorValue); },
-        "status": n => { metrics.status = n.getEnumValue<Metrics_status>(Metrics_statusObject); },
-    }
-}
-/**
- * The deserialization information for the current model
  * @param Metrics_data The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -42702,6 +43210,18 @@ export function deserializeIntoMetrics_result(metrics_result: Partial<Metrics_re
 // @ts-ignore
 export function deserializeIntoMetrics_result_metric(metrics_result_metric: Partial<Metrics_result_metric> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Metrics2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMetrics2(metrics2: Partial<Metrics2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "data": n => { metrics2.data = n.getObjectValue<Metrics_data>(createMetrics_dataFromDiscriminatorValue); },
+        "status": n => { metrics2.status = n.getEnumValue<Metrics2_status>(Metrics2_statusObject); },
     }
 }
 /**
@@ -46000,6 +46520,8 @@ export function deserializeIntoSession(session: Partial<Session> | undefined = {
         "agentUrn": n => { session.agentUrn = n.getStringValue(); },
         "config": n => { session.config = n.getObjectValue<Session_config>(createSession_configFromDiscriminatorValue); },
         "createdAt": n => { session.createdAt = n.getDateValue(); },
+        "endpoint_id": n => { session.endpointId = n.getGuidValue(); },
+        "endpoint_version_id": n => { session.endpointVersionId = n.getStringValue(); },
         "insights": n => { session.insights = n.getObjectValue<Session_insights>(createSession_insightsFromDiscriminatorValue); },
         "name": n => { session.name = n.getStringValue(); },
         "network": n => { session.network = n.getObjectValue<Session_network>(createSession_networkFromDiscriminatorValue); },
@@ -46008,6 +46530,7 @@ export function deserializeIntoSession(session: Partial<Session> | undefined = {
         "sessionUrn": n => { session.sessionUrn = n.getStringValue(); },
         "tools": n => { session.tools = n.getObjectValue<Session_tools>(createSession_toolsFromDiscriminatorValue); },
         "updatedAt": n => { session.updatedAt = n.getDateValue(); },
+        "version_number": n => { session.versionNumber = n.getNumberValue(); },
     }
 }
 /**
@@ -47451,6 +47974,30 @@ export function deserializeIntoToolkit(toolkit: Partial<Toolkit> | undefined = {
         "id": n => { toolkit.id = n.getStringValue(); },
         "name": n => { toolkit.name = n.getStringValue(); },
         "provider_kind": n => { toolkit.providerKind = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tools The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTools(tools: Partial<Tools> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "references": n => { tools.references = n.getCollectionOfObjectValues<Tools_references>(createTools_referencesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tools_references The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTools_references(tools_references: Partial<Tools_references> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "kind": n => { tools_references.kind = n.getEnumValue<Tools_references_kind>(Tools_references_kindObject); },
+        "name": n => { tools_references.name = n.getStringValue(); },
+        "version": n => { tools_references.version = n.getStringValue(); },
     }
 }
 /**
@@ -49783,6 +50330,372 @@ export interface Enablement_resource extends AdditionalDataHolder, Parsable {
      * The enablement state of a single telemetry signal (metrics, logs, or traces) for a resource. A signal state is omitted from a resource when no explicit enablement has ever been recorded for that signal.
      */
     traces?: Resource_signal_state | null;
+}
+/**
+ * A named lineage of immutable versions owned by its creating user. Only that user may use it, update it, create versions, or promote versions. A team owner may also list and delete team endpoints, but may not use them or add versions. Service-managed endpoints and their versions are not part of the public API: lists and search omit them, every read or write of one returns the same 404 as an unknown ID, and deleting one returns the same 204 as deleting an unknown ID without changing it. Deletion is final for this identity and all cascaded version identities; retries, replays, and later writes cannot resurrect them. Reusing identical contents after endpoint deletion requires a new endpoint identity and a new version identity and number.
+ */
+export interface Endpoint extends AdditionalDataHolder, Parsable {
+    /**
+     * Immutable actor binding; empty means no actor.
+     */
+    actorId?: string | null;
+    /**
+     * When the endpoint was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Embedded live head version, the highest-numbered live version. Null when no live version remains.
+     */
+    headVersion?: Endpoint_head_version | null;
+    /**
+     * Lowercase, hyphenated endpoint UUID, without a URN prefix.
+     */
+    id?: Guid | null;
+    /**
+     * The endpoint's Insights consent. It applies to every version of the endpoint, including pinned and older versions. For each signal independently, the latest explicit true enables and false disables. Omission preserves the existing value through updates, head replacement, and new-version creation; none of these operations implicitly resets a choice, and a stored choice cannot be cleared. Metrics defaults are unchanged.
+     */
+    insights?: Endpoint_insights | null;
+    /**
+     * True only for your own default endpoint in the team: the one the generic MCP URL and data-plane requests without `X-Session-Id` or `X-Endpoint-Id` resolve to for you, which Action Gateway creates on first use. False for every other endpoint, including other team members' default endpoints that a team owner can see, so a response marks at most one endpoint. A default endpoint does not count toward your team's endpoint limit or reserve its name. After it is deleted, the next such request creates a new default. Returned in responses only.
+     */
+    isDefault?: boolean | null;
+    /**
+     * MCP URL that resolves the highest-numbered live version on every request. Its host follows the head version's VPC region, or the default host when no version is live. It is the same value the create response returns as mcp_url. Returned in responses only.
+     */
+    mcpUrl?: string | null;
+    /**
+     * Endpoint name, unique within your team.
+     */
+    name?: string | null;
+    /**
+     * When the endpoint was last changed.
+     */
+    updatedAt?: Date | null;
+}
+/**
+ * Version options, stored and returned as supplied. Omission leaves config absent; an explicit empty object is preserved. Property names are camelCase, as in the session API; other keys are stored but have no effect.
+ */
+export interface Endpoint_config extends AdditionalDataHolder, Parsable {
+    /**
+     * Opts the session into result caching. Omit config.cache to leave caching off. Set exactly one of tools or allEligible. Caching must also be enabled for the team. Tool selection and permission rules still apply to every call.
+     */
+    cache?: Session_cache | null;
+    /**
+     * Instructions for tools in this version.
+     */
+    customInstructions?: string | null;
+    /**
+     * Maps up to 100 tool slugs to output-view names.
+     */
+    outputViews?: Endpoint_config_outputViews | null;
+    /**
+     * Tool names, optionally version-pinned, or version-pinned toolbelt references.
+     */
+    preloadTools?: string[] | null;
+}
+/**
+ * Maps up to 100 tool slugs to output-view names.
+ */
+export interface Endpoint_config_outputViews extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Creates an endpoint and its first version atomically. Omitting insights stores no explicit Insights choice.
+ */
+export interface Endpoint_create extends AdditionalDataHolder, Parsable {
+    /**
+     * The endpoint's Insights consent. It applies to every version of the endpoint, including pinned and older versions. For each signal independently, the latest explicit true enables and false disables. Omission preserves the existing value through updates, head replacement, and new-version creation; none of these operations implicitly resets a choice, and a stored choice cannot be cleared. Metrics defaults are unchanged.
+     */
+    insights?: Endpoint_insights | null;
+    /**
+     * Endpoint name, unique within your team.
+     */
+    name?: string | null;
+    /**
+     * Immutable version configuration. The endpoint owner and actor cannot change between versions. Omitted or empty actor_id means no actor binding.
+     */
+    version?: Endpoint_version_spec | null;
+}
+/**
+ * Embedded live head version, the highest-numbered live version. Null when no live version remains.
+ */
+export interface Endpoint_head_version extends Endpoint_version, Parsable {
+}
+/**
+ * The endpoint's Insights consent. It applies to every version of the endpoint, including pinned and older versions. For each signal independently, the latest explicit true enables and false disables. Omission preserves the existing value through updates, head replacement, and new-version creation; none of these operations implicitly resets a choice, and a stored choice cannot be cleared. Metrics defaults are unchanged.
+ */
+export interface Endpoint_insights extends AdditionalDataHolder, Parsable {
+    /**
+     * Explicit true enables customer logs and false disables them. Omission preserves the existing choice without an implicit reset.
+     */
+    logs?: boolean | null;
+    /**
+     * Accepted and stored for parity with the Insights schema.
+     */
+    metrics?: boolean | null;
+    /**
+     * Explicit true enables customer traces and false disables them. Omission preserves the existing choice without an implicit reset.
+     */
+    traces?: boolean | null;
+}
+/**
+ * VPC binding supplied at creation. Omitted when no binding was supplied. region is output-only; requests containing it are rejected.
+ */
+export interface Endpoint_network extends AdditionalDataHolder, Parsable {
+    /**
+     * UUID of a VPC owned by your team in a supported region.
+     */
+    vpcUuid?: Guid | null;
+}
+/**
+ * VPC binding, including the VPC region recorded at creation. Omitted when no binding was supplied.
+ */
+export interface Endpoint_network_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The VPC's region, recorded when the version was created. A tool call through a connection whose VPC is in a different region is refused. This field is returned in responses only and is rejected in requests.
+     */
+    region?: string | null;
+    /**
+     * UUID of a VPC owned by your team in a supported region.
+     */
+    vpcUuid?: Guid | null;
+}
+/**
+ * Renames an endpoint, changes its Insights consent, or both; its identity and versions do not change. Send a name, at least one insights signal, or both. A body with neither, including one whose only field is an empty insights object, returns 400 endpoint_update_empty. An empty insights object next to a name is a rename. Unrecognized fields are ignored.
+ */
+export interface Endpoint_patch extends AdditionalDataHolder, Parsable {
+    /**
+     * The endpoint's Insights consent. It applies to every version of the endpoint, including pinned and older versions. For each signal independently, the latest explicit true enables and false disables. Omission preserves the existing value through updates, head replacement, and new-version creation; none of these operations implicitly resets a choice, and a stored choice cannot be cleared. Metrics defaults are unchanged.
+     */
+    insights?: Endpoint_insights | null;
+    /**
+     * Endpoint name, unique within your team.
+     */
+    name?: string | null;
+}
+/**
+ * Tool-permission policy. Omission or an empty object asks before every call. Property names are camelCase, as in the session API.
+ */
+export interface Endpoint_policy extends AdditionalDataHolder, Parsable {
+    /**
+     * Action for calls no rule matches. Omission means ask; responses then return SESSION_POLICY_ACTION_UNSPECIFIED.
+     */
+    defaultAction?: Endpoint_policy_defaultAction | null;
+    /**
+     * Rules for selected tools or toolbelts.
+     */
+    rules?: Endpoint_policy_rules[] | null;
+}
+export type Endpoint_policy_defaultAction = (typeof Endpoint_policy_defaultActionObject)[keyof typeof Endpoint_policy_defaultActionObject];
+export interface Endpoint_policy_rules extends AdditionalDataHolder, Parsable {
+    /**
+     * Action when the rule matches.
+     */
+    action?: Endpoint_policy_rules_action | null;
+    /**
+     * Argument conditions; an empty object matches every call to the tool.
+     */
+    match?: Endpoint_policy_rules_match | null;
+    /**
+     * Selected tool slug or version-pinned toolbelt reference.
+     */
+    tool?: string | null;
+}
+export type Endpoint_policy_rules_action = (typeof Endpoint_policy_rules_actionObject)[keyof typeof Endpoint_policy_rules_actionObject];
+/**
+ * Argument conditions; an empty object matches every call to the tool.
+ */
+export interface Endpoint_policy_rules_match extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Live version of this endpoint whose configuration will be copied to a new head.
+ */
+export interface Endpoint_promotion extends AdditionalDataHolder, Parsable {
+    /**
+     * The endpoint UUID followed by .v and its version number, without a URN prefix. The UUID is lowercase and hyphenated. The number is from 1 through 4294967295, in decimal without signs or leading zeros. A bare UUID is not a version ID.
+     */
+    versionId?: string | null;
+}
+/**
+ * Returns the new head, its endpoint, and both MCP URLs.
+ */
+export interface Endpoint_publish_response extends AdditionalDataHolder, Parsable {
+    /**
+     * A named lineage of immutable versions owned by its creating user. Only that user may use it, update it, create versions, or promote versions. A team owner may also list and delete team endpoints, but may not use them or add versions. Service-managed endpoints and their versions are not part of the public API: lists and search omit them, every read or write of one returns the same 404 as an unknown ID, and deleting one returns the same 204 as deleting an unknown ID without changing it. Deletion is final for this identity and all cascaded version identities; retries, replays, and later writes cannot resurrect them. Reusing identical contents after endpoint deletion requires a new endpoint identity and a new version identity and number.
+     */
+    endpoint?: Endpoint | null;
+    /**
+     * MCP URL that resolves the highest-numbered live version on every request. Its host follows the head version's VPC region, or the default host when no version is live.
+     */
+    mcpUrl?: string | null;
+    /**
+     * An immutable, live endpoint version. Its ID must encode endpoint_id and version_number. Deleting it does not reuse its number or change older versions. Deletion is final: retries, replays, and later writes cannot resurrect its identity. Identical contents require a new version identity and number. Omitted tools means every tool; a present selection with empty references means no tools. Policy and config retain omission versus explicitly empty objects.
+     */
+    version?: Endpoint_version | null;
+    /**
+     * Pinned MCP URL, valid for this version's lifetime. Its final segment is the backing session UUID, not the public composite version ID. VPC-bound versions may use a regional host. Existing /mcp/session/ URLs keep working.
+     */
+    versionMcpUrl?: string | null;
+}
+/**
+ * Returns an endpoint, including its live head when one exists.
+ */
+export interface Endpoint_response extends AdditionalDataHolder, Parsable {
+    /**
+     * A named lineage of immutable versions owned by its creating user. Only that user may use it, update it, create versions, or promote versions. A team owner may also list and delete team endpoints, but may not use them or add versions. Service-managed endpoints and their versions are not part of the public API: lists and search omit them, every read or write of one returns the same 404 as an unknown ID, and deleting one returns the same 204 as deleting an unknown ID without changing it. Deletion is final for this identity and all cascaded version identities; retries, replays, and later writes cannot resurrect them. Reusing identical contents after endpoint deletion requires a new endpoint identity and a new version identity and number.
+     */
+    endpoint?: Endpoint | null;
+}
+/**
+ * A ranked page of matching endpoints without offsets or totals.
+ */
+export interface Endpoint_search_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Matching endpoints in rank order across the whole result set. Do not re-sort a page to rank it.
+     */
+    endpoints?: Endpoint[] | null;
+    /**
+     * Opaque keyset cursor for the next page; an empty string marks the last page. Bound to the team, caller visibility, normalized filters, resource kind, and parent endpoint for version lists. Contains no full URNs or database row IDs. Pass it unchanged as page_token with the same criteria.
+     */
+    nextPageToken?: string | null;
+}
+/**
+ * An immutable, live endpoint version. Its ID must encode endpoint_id and version_number. Deleting it does not reuse its number or change older versions. Deletion is final: retries, replays, and later writes cannot resurrect its identity. Identical contents require a new version identity and number. Omitted tools means every tool; a present selection with empty references means no tools. Policy and config retain omission versus explicitly empty objects.
+ */
+export interface Endpoint_version extends AdditionalDataHolder, Parsable {
+    /**
+     * Actor binding shared by every version of the endpoint; empty means no actor.
+     */
+    actorId?: string | null;
+    /**
+     * Version options, stored and returned as supplied. Omission leaves config absent; an explicit empty object is preserved. Property names are camelCase, as in the session API; other keys are stored but have no effect.
+     */
+    config?: Endpoint_config | null;
+    /**
+     * When the version was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * Lowercase, hyphenated endpoint UUID, without a URN prefix.
+     */
+    endpointId?: Guid | null;
+    /**
+     * The endpoint UUID followed by .v and its version number, without a URN prefix. The UUID is lowercase and hyphenated. The number is from 1 through 4294967295, in decimal without signs or leading zeros. A bare UUID is not a version ID.
+     */
+    id?: string | null;
+    /**
+     * Deprecated: always omitted. Versions do not carry Insights consent; read the endpoint's insights instead.
+     * @deprecated 
+     */
+    insights?: Endpoint_version_insights | null;
+    /**
+     * Pinned MCP URL for this version, valid for the version's lifetime. It is the same value the create response returns as version_mcp_url. Its final segment is the backing session UUID, not the composite version ID. VPC-bound versions may use a regional host. Returned in responses only.
+     */
+    mcpUrl?: string | null;
+    /**
+     * The endpoint's name when this version was created. Renaming the endpoint does not change it.
+     */
+    name?: string | null;
+    /**
+     * VPC binding, including the VPC region recorded at creation. Omitted when no binding was supplied.
+     */
+    network?: Endpoint_network_response | null;
+    /**
+     * Tool-permission policy. Omission or an empty object asks before every call. Property names are camelCase, as in the session API.
+     */
+    policy?: Endpoint_policy | null;
+    /**
+     * Positive unsigned 32-bit version number, never reused after deletion.
+     */
+    promotedFromVersionNumber?: number | null;
+    /**
+     * Canonical pinned selection; omitted means every tool, empty references means none.
+     */
+    tools?: Tools | null;
+    /**
+     * When the version was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * Positive unsigned 32-bit version number, never reused after deletion.
+     */
+    versionNumber?: number | null;
+}
+/**
+ * Deprecated: always omitted. Versions do not carry Insights consent; read the endpoint's insights instead.
+ * @deprecated 
+ */
+export interface Endpoint_version_insights extends Parsable, Session_insights {
+}
+/**
+ * Returns one immutable live version.
+ */
+export interface Endpoint_version_response extends AdditionalDataHolder, Parsable {
+    /**
+     * An immutable, live endpoint version. Its ID must encode endpoint_id and version_number. Deleting it does not reuse its number or change older versions. Deletion is final: retries, replays, and later writes cannot resurrect its identity. Identical contents require a new version identity and number. Omitted tools means every tool; a present selection with empty references means no tools. Policy and config retain omission versus explicitly empty objects.
+     */
+    version?: Endpoint_version | null;
+}
+/**
+ * Immutable version configuration. The endpoint owner and actor cannot change between versions. Omitted or empty actor_id means no actor binding.
+ */
+export interface Endpoint_version_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Actor whose provider connections are used. Omitted or empty means no actor.
+     */
+    actorId?: string | null;
+    /**
+     * Version options, stored and returned as supplied. Omission leaves config absent; an explicit empty object is preserved. Property names are camelCase, as in the session API; other keys are stored but have no effect.
+     */
+    config?: Endpoint_config | null;
+    /**
+     * Deprecated: accepted and ignored. Versions do not carry Insights consent; set the endpoint's insights when creating the endpoint or with PATCH /v2/action-gateway/endpoints/{endpoint_id}.
+     * @deprecated 
+     */
+    insights?: Endpoint_version_spec_insights | null;
+    /**
+     * VPC binding supplied at creation. Omitted when no binding was supplied. region is output-only; requests containing it are rejected.
+     */
+    network?: Endpoint_network | null;
+    /**
+     * Tool-permission policy. Omission or an empty object asks before every call. Property names are camelCase, as in the session API.
+     */
+    policy?: Endpoint_policy | null;
+    /**
+     * Omitted enables every tool; an explicit empty array enables no tools. Direct tools use provider-qualified slugs, optionally pinned as tool@version. Toolbelts must be pinned as toolbelt:name@version. Floating pins are rejected.
+     */
+    tools?: string[] | null;
+}
+/**
+ * Deprecated: accepted and ignored. Versions do not carry Insights consent; set the endpoint's insights when creating the endpoint or with PATCH /v2/action-gateway/endpoints/{endpoint_id}.
+ * @deprecated 
+ */
+export interface Endpoint_version_spec_insights extends Endpoint_insights, Parsable {
+}
+/**
+ * A keyset page of live versions without offsets or totals.
+ */
+export interface Endpoint_versions_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Opaque keyset cursor for the next page; an empty string marks the last page. Bound to the team, caller visibility, normalized filters, resource kind, and parent endpoint for version lists. Contains no full URNs or database row IDs. Pass it unchanged as page_token with the same criteria.
+     */
+    nextPageToken?: string | null;
+    /**
+     * Live versions ordered by version_number descending.
+     */
+    versions?: Endpoint_version[] | null;
+}
+/**
+ * A keyset page without offsets or totals.
+ */
+export interface Endpoints_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Endpoints ordered by creation time descending, then endpoint UUID descending.
+     */
+    endpoints?: Endpoint[] | null;
+    /**
+     * Opaque keyset cursor for the next page; an empty string marks the last page. Bound to the team, caller visibility, normalized filters, resource kind, and parent endpoint for version lists. Contains no full URNs or database row IDs. Pass it unchanged as page_token with the same criteria.
+     */
+    nextPageToken?: string | null;
 }
 /**
  * Describes why a request or tool call failed and whether retrying can help.
@@ -53193,16 +54106,6 @@ export interface Meta_properties extends AdditionalDataHolder, Parsable {
      */
     total?: number | null;
 }
-export interface Metrics extends AdditionalDataHolder, Parsable {
-    /**
-     * The data property
-     */
-    data?: Metrics_data | null;
-    /**
-     * The status property
-     */
-    status?: Metrics_status | null;
-}
 export interface Metrics_data extends AdditionalDataHolder, Parsable {
     /**
      * Result of query.
@@ -53250,7 +54153,17 @@ export interface Metrics_result extends AdditionalDataHolder, Parsable {
  */
 export interface Metrics_result_metric extends AdditionalDataHolder, Parsable {
 }
-export type Metrics_status = (typeof Metrics_statusObject)[keyof typeof Metrics_statusObject];
+export interface Metrics2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The data property
+     */
+    data?: Metrics_data | null;
+    /**
+     * The status property
+     */
+    status?: Metrics2_status | null;
+}
+export type Metrics2_status = (typeof Metrics2_statusObject)[keyof typeof Metrics2_statusObject];
 /**
  * A MicroVM. All fields are set at creation. There is no update endpoint.
  */
@@ -69733,6 +70646,317 @@ export function serializeEnablement_resource(writer: SerializationWriter, enable
 }
 /**
  * Serializes information the current object
+ * @param Endpoint The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint(writer: SerializationWriter, endpoint: Partial<Endpoint> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint || isSerializingDerivedType) { return; }
+    writer.writeStringValue("actor_id", endpoint.actorId);
+    writer.writeDateValue("created_at", endpoint.createdAt);
+    writer.writeObjectValue<Endpoint_head_version>("head_version", endpoint.headVersion, serializeEndpoint_head_version);
+    writer.writeGuidValue("id", endpoint.id);
+    writer.writeObjectValue<Endpoint_insights>("insights", endpoint.insights, serializeEndpoint_insights);
+    writer.writeStringValue("name", endpoint.name);
+    writer.writeDateValue("updated_at", endpoint.updatedAt);
+    writer.writeAdditionalData(endpoint.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_config The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_config(writer: SerializationWriter, endpoint_config: Partial<Endpoint_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_config || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_cache>("cache", endpoint_config.cache, serializeSession_cache);
+    writer.writeStringValue("customInstructions", endpoint_config.customInstructions);
+    writer.writeObjectValue<Endpoint_config_outputViews>("outputViews", endpoint_config.outputViews, serializeEndpoint_config_outputViews);
+    writer.writeCollectionOfPrimitiveValues<string>("preloadTools", endpoint_config.preloadTools);
+    writer.writeAdditionalData(endpoint_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_config_outputViews The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_config_outputViews(writer: SerializationWriter, endpoint_config_outputViews: Partial<Endpoint_config_outputViews> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_config_outputViews || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(endpoint_config_outputViews.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_create The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_create(writer: SerializationWriter, endpoint_create: Partial<Endpoint_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_create || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Endpoint_insights>("insights", endpoint_create.insights, serializeEndpoint_insights);
+    writer.writeStringValue("name", endpoint_create.name);
+    writer.writeObjectValue<Endpoint_version_spec>("version", endpoint_create.version, serializeEndpoint_version_spec);
+    writer.writeAdditionalData(endpoint_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_head_version The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_head_version(writer: SerializationWriter, endpoint_head_version: Partial<Endpoint_head_version> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_head_version || isSerializingDerivedType) { return; }
+    serializeEndpoint_version(writer, endpoint_head_version, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_insights The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_insights(writer: SerializationWriter, endpoint_insights: Partial<Endpoint_insights> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_insights || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("logs", endpoint_insights.logs);
+    writer.writeBooleanValue("metrics", endpoint_insights.metrics);
+    writer.writeBooleanValue("traces", endpoint_insights.traces);
+    writer.writeAdditionalData(endpoint_insights.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_network The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_network(writer: SerializationWriter, endpoint_network: Partial<Endpoint_network> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_network || isSerializingDerivedType) { return; }
+    writer.writeGuidValue("vpcUuid", endpoint_network.vpcUuid);
+    writer.writeAdditionalData(endpoint_network.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_network_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_network_response(writer: SerializationWriter, endpoint_network_response: Partial<Endpoint_network_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_network_response || isSerializingDerivedType) { return; }
+    writer.writeGuidValue("vpcUuid", endpoint_network_response.vpcUuid);
+    writer.writeAdditionalData(endpoint_network_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_patch The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_patch(writer: SerializationWriter, endpoint_patch: Partial<Endpoint_patch> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_patch || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Endpoint_insights>("insights", endpoint_patch.insights, serializeEndpoint_insights);
+    writer.writeStringValue("name", endpoint_patch.name);
+    writer.writeAdditionalData(endpoint_patch.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_policy The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_policy(writer: SerializationWriter, endpoint_policy: Partial<Endpoint_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_policy || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Endpoint_policy_defaultAction>("defaultAction", endpoint_policy.defaultAction);
+    writer.writeCollectionOfObjectValues<Endpoint_policy_rules>("rules", endpoint_policy.rules, serializeEndpoint_policy_rules);
+    writer.writeAdditionalData(endpoint_policy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_policy_rules The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_policy_rules(writer: SerializationWriter, endpoint_policy_rules: Partial<Endpoint_policy_rules> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_policy_rules || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Endpoint_policy_rules_action>("action", endpoint_policy_rules.action);
+    writer.writeObjectValue<Endpoint_policy_rules_match>("match", endpoint_policy_rules.match, serializeEndpoint_policy_rules_match);
+    writer.writeStringValue("tool", endpoint_policy_rules.tool);
+    writer.writeAdditionalData(endpoint_policy_rules.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_policy_rules_match The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_policy_rules_match(writer: SerializationWriter, endpoint_policy_rules_match: Partial<Endpoint_policy_rules_match> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_policy_rules_match || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(endpoint_policy_rules_match.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_promotion The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_promotion(writer: SerializationWriter, endpoint_promotion: Partial<Endpoint_promotion> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_promotion || isSerializingDerivedType) { return; }
+    writer.writeStringValue("version_id", endpoint_promotion.versionId);
+    writer.writeAdditionalData(endpoint_promotion.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_publish_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_publish_response(writer: SerializationWriter, endpoint_publish_response: Partial<Endpoint_publish_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_publish_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Endpoint>("endpoint", endpoint_publish_response.endpoint, serializeEndpoint);
+    writer.writeStringValue("mcp_url", endpoint_publish_response.mcpUrl);
+    writer.writeObjectValue<Endpoint_version>("version", endpoint_publish_response.version, serializeEndpoint_version);
+    writer.writeStringValue("version_mcp_url", endpoint_publish_response.versionMcpUrl);
+    writer.writeAdditionalData(endpoint_publish_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_response(writer: SerializationWriter, endpoint_response: Partial<Endpoint_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Endpoint>("endpoint", endpoint_response.endpoint, serializeEndpoint);
+    writer.writeAdditionalData(endpoint_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_search_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_search_response(writer: SerializationWriter, endpoint_search_response: Partial<Endpoint_search_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_search_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Endpoint>("endpoints", endpoint_search_response.endpoints, serializeEndpoint);
+    writer.writeStringValue("next_page_token", endpoint_search_response.nextPageToken);
+    writer.writeAdditionalData(endpoint_search_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_version The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_version(writer: SerializationWriter, endpoint_version: Partial<Endpoint_version> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_version || isSerializingDerivedType) { return; }
+    writer.writeStringValue("actor_id", endpoint_version.actorId);
+    writer.writeObjectValue<Endpoint_config>("config", endpoint_version.config, serializeEndpoint_config);
+    writer.writeDateValue("created_at", endpoint_version.createdAt);
+    writer.writeGuidValue("endpoint_id", endpoint_version.endpointId);
+    writer.writeStringValue("id", endpoint_version.id);
+    writer.writeObjectValue<Endpoint_version_insights>("insights", endpoint_version.insights, serializeEndpoint_version_insights);
+    writer.writeStringValue("name", endpoint_version.name);
+    writer.writeObjectValue<Endpoint_network_response>("network", endpoint_version.network, serializeEndpoint_network_response);
+    writer.writeObjectValue<Endpoint_policy>("policy", endpoint_version.policy, serializeEndpoint_policy);
+    writer.writeNumberValue("promoted_from_version_number", endpoint_version.promotedFromVersionNumber);
+    writer.writeObjectValue<Tools>("tools", endpoint_version.tools, serializeTools);
+    writer.writeDateValue("updated_at", endpoint_version.updatedAt);
+    writer.writeNumberValue("version_number", endpoint_version.versionNumber);
+    writer.writeAdditionalData(endpoint_version.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_version_insights The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_version_insights(writer: SerializationWriter, endpoint_version_insights: Partial<Endpoint_version_insights> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_version_insights || isSerializingDerivedType) { return; }
+    serializeSession_insights(writer, endpoint_version_insights, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_version_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_version_response(writer: SerializationWriter, endpoint_version_response: Partial<Endpoint_version_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_version_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Endpoint_version>("version", endpoint_version_response.version, serializeEndpoint_version);
+    writer.writeAdditionalData(endpoint_version_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_version_spec The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_version_spec(writer: SerializationWriter, endpoint_version_spec: Partial<Endpoint_version_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_version_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("actor_id", endpoint_version_spec.actorId);
+    writer.writeObjectValue<Endpoint_config>("config", endpoint_version_spec.config, serializeEndpoint_config);
+    writer.writeObjectValue<Endpoint_version_spec_insights>("insights", endpoint_version_spec.insights, serializeEndpoint_version_spec_insights);
+    writer.writeObjectValue<Endpoint_network>("network", endpoint_version_spec.network, serializeEndpoint_network);
+    writer.writeObjectValue<Endpoint_policy>("policy", endpoint_version_spec.policy, serializeEndpoint_policy);
+    writer.writeCollectionOfPrimitiveValues<string>("tools", endpoint_version_spec.tools);
+    writer.writeAdditionalData(endpoint_version_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_version_spec_insights The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_version_spec_insights(writer: SerializationWriter, endpoint_version_spec_insights: Partial<Endpoint_version_spec_insights> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_version_spec_insights || isSerializingDerivedType) { return; }
+    serializeEndpoint_insights(writer, endpoint_version_spec_insights, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param Endpoint_versions_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoint_versions_response(writer: SerializationWriter, endpoint_versions_response: Partial<Endpoint_versions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoint_versions_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("next_page_token", endpoint_versions_response.nextPageToken);
+    writer.writeCollectionOfObjectValues<Endpoint_version>("versions", endpoint_versions_response.versions, serializeEndpoint_version);
+    writer.writeAdditionalData(endpoint_versions_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Endpoints_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEndpoints_response(writer: SerializationWriter, endpoints_response: Partial<Endpoints_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!endpoints_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Endpoint>("endpoints", endpoints_response.endpoints, serializeEndpoint);
+    writer.writeStringValue("next_page_token", endpoints_response.nextPageToken);
+    writer.writeAdditionalData(endpoints_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Error_envelope The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -72669,19 +73893,6 @@ export function serializeMeta_properties(writer: SerializationWriter, meta_prope
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Metrics The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeMetrics(writer: SerializationWriter, metrics: Partial<Metrics> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!metrics || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Metrics_data>("data", metrics.data, serializeMetrics_data);
-    writer.writeEnumValue<Metrics_status>("status", metrics.status);
-    writer.writeAdditionalData(metrics.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Metrics_data The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -72730,6 +73941,19 @@ export function serializeMetrics_result(writer: SerializationWriter, metrics_res
 export function serializeMetrics_result_metric(writer: SerializationWriter, metrics_result_metric: Partial<Metrics_result_metric> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!metrics_result_metric || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(metrics_result_metric.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Metrics2 The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMetrics2(writer: SerializationWriter, metrics2: Partial<Metrics2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!metrics2 || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Metrics_data>("data", metrics2.data, serializeMetrics_data);
+    writer.writeEnumValue<Metrics2_status>("status", metrics2.status);
+    writer.writeAdditionalData(metrics2.additionalData);
 }
 /**
  * Serializes information the current object
@@ -76189,6 +77413,8 @@ export function serializeSession(writer: SerializationWriter, session: Partial<S
     writer.writeStringValue("agentUrn", session.agentUrn);
     writer.writeObjectValue<Session_config>("config", session.config, serializeSession_config);
     writer.writeDateValue("createdAt", session.createdAt);
+    writer.writeGuidValue("endpoint_id", session.endpointId);
+    writer.writeStringValue("endpoint_version_id", session.endpointVersionId);
     writer.writeObjectValue<Session_insights>("insights", session.insights, serializeSession_insights);
     writer.writeStringValue("name", session.name);
     writer.writeObjectValue<Session_network>("network", session.network, serializeSession_network);
@@ -76197,6 +77423,7 @@ export function serializeSession(writer: SerializationWriter, session: Partial<S
     writer.writeStringValue("sessionUrn", session.sessionUrn);
     writer.writeObjectValue<Session_tools>("tools", session.tools, serializeSession_tools);
     writer.writeDateValue("updatedAt", session.updatedAt);
+    writer.writeNumberValue("version_number", session.versionNumber);
     writer.writeAdditionalData(session.additionalData);
 }
 /**
@@ -77740,6 +78967,32 @@ export function serializeToolkit(writer: SerializationWriter, toolkit: Partial<T
     writer.writeStringValue("name", toolkit.name);
     writer.writeStringValue("provider_kind", toolkit.providerKind);
     writer.writeAdditionalData(toolkit.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tools The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTools(writer: SerializationWriter, tools: Partial<Tools> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tools || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Tools_references>("references", tools.references, serializeTools_references);
+    writer.writeAdditionalData(tools.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tools_references The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTools_references(writer: SerializationWriter, tools_references: Partial<Tools_references> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tools_references || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Tools_references_kind>("kind", tools_references.kind);
+    writer.writeStringValue("name", tools_references.name);
+    writer.writeStringValue("version", tools_references.version);
+    writer.writeAdditionalData(tools_references.additionalData);
 }
 /**
  * Serializes information the current object
@@ -79483,6 +80736,14 @@ export interface Session extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * Public parent endpoint UUID. Absent for legacy sessions without a parent.
+     */
+    endpointId?: Guid | null;
+    /**
+     * Public composite version ID. Absent for legacy sessions without a parent.
+     */
+    endpointVersionId?: string | null;
+    /**
      * Omitted when no explicit customer Insights choice was stored.
      */
     insights?: Session_insights | null;
@@ -79514,6 +80775,10 @@ export interface Session extends AdditionalDataHolder, Parsable {
      * When the session was last modified.
      */
     updatedAt?: Date | null;
+    /**
+     * Version number within the parent endpoint. Absent for legacy sessions without a parent.
+     */
+    versionNumber?: number | null;
 }
 /**
  * Opts the session into result caching. Omit config.cache to leave caching off. Set exactly one of tools or allEligible. Caching must also be enabled for the team. Tool selection and permission rules still apply to every call.
@@ -81292,6 +82557,30 @@ export interface Toolkit extends AdditionalDataHolder, Parsable {
      */
     providerKind?: string | null;
 }
+/**
+ * Omitted when the request omitted tools (all tools). A present selection with no references represents tools: [].
+ */
+export interface Tools extends AdditionalDataHolder, Parsable {
+    /**
+     * The selected references. Empty means the session exposes no tools.
+     */
+    references?: Tools_references[] | null;
+}
+export interface Tools_references extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether name is a tool or a toolbelt.
+     */
+    kind?: Tools_references_kind | null;
+    /**
+     * Tool slug or toolbelt name.
+     */
+    name?: string | null;
+    /**
+     * Pinned version.
+     */
+    version?: string | null;
+}
+export type Tools_references_kind = (typeof Tools_references_kindObject)[keyof typeof Tools_references_kindObject];
 /**
  * A reference to a span field, used in filters and `order_by`.
  */
@@ -85087,6 +86376,23 @@ export const Embeddings_response_objectObject = {
     List: "list",
 } as const;
 /**
+ * Action for calls no rule matches. Omission means ask; responses then return SESSION_POLICY_ACTION_UNSPECIFIED.
+ */
+export const Endpoint_policy_defaultActionObject = {
+    Allow: "allow",
+    Ask: "ask",
+    Deny: "deny",
+    SESSION_POLICY_ACTION_UNSPECIFIED: "SESSION_POLICY_ACTION_UNSPECIFIED",
+} as const;
+/**
+ * Action when the rule matches.
+ */
+export const Endpoint_policy_rules_actionObject = {
+    Allow: "allow",
+    Ask: "ask",
+    Deny: "deny",
+} as const;
+/**
  * The failure class. Branch on this value rather than on `message`, which may change.
  */
 export const Error_envelope_classObject = {
@@ -85718,7 +87024,7 @@ export const Messages_usage_speedObject = {
 export const Metrics_data_resultTypeObject = {
     Matrix: "matrix",
 } as const;
-export const Metrics_statusObject = {
+export const Metrics2_statusObject = {
     Success: "success",
     ErrorEscaped: "error",
 } as const;
@@ -86515,6 +87821,13 @@ export const Toolbelt_statusObject = {
 export const Toolbelt_summary_statusObject = {
     Active: "active",
     Deprecated: "deprecated",
+} as const;
+/**
+ * Whether name is a tool or a toolbelt.
+ */
+export const Tools_references_kindObject = {
+    SESSION_TOOL_REFERENCE_KIND_TOOL: "SESSION_TOOL_REFERENCE_KIND_TOOL",
+    SESSION_TOOL_REFERENCE_KIND_TOOLBELT: "SESSION_TOOL_REFERENCE_KIND_TOOLBELT",
 } as const;
 /**
  * Restricts the lookup to one attribute map and is matched case-insensitively. `FIELD_SCOPE_RESOURCE` reads resource attributes and accepts `resource` or `resource.attributes` as aliases. `FIELD_SCOPE_ATTRIBUTES` reads span attributes and accepts `attribute`, `attributes`, or `span.attributes` as aliases. Omit to use the built-in column mapping described for `name`. Ignored in traces `order_by`.
