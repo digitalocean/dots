@@ -87,6 +87,8 @@ describe("session events over a real socket", () => {
             authProvider,
             baseUrl,
             sessionId: "abc",
+            // The server closes after two events; this test is about timing, not resuming.
+            reconnect: false,
         })) {
             void event;
             arrivals.push(Date.now() - started);

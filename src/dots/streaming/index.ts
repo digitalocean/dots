@@ -32,6 +32,7 @@ export {
     collectSessionEvents,
     streamSessionEvents,
     type SessionEvent,
+    type SessionEventReplay,
     type SessionEventStreamOptions,
 } from "./sessionEvents.js";
 

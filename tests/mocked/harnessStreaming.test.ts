@@ -1,6 +1,9 @@
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { parseSseFrames, readSseFrames } from "../../src/dots/streaming/sseFrames.js";
-import { streamSessionEvents } from "../../src/dots/streaming/sessionEvents.js";
+import {
+    collectSessionEvents,
+    streamSessionEvents,
+} from "../../src/dots/streaming/sessionEvents.js";
 import {
     openPortForward,
     type PortForwardSocket,
@@ -137,8 +140,9 @@ describe("streamSessionEvents", () => {
             // drain
         }
 
+        // The replay lane ignores `cursor`, so the resume point travels as replay_from.
         expect(seenUrl).toBe(
-            "https://api.digitalocean.com/v2/agents/sessions/abc/events?cursor=01J&replay_only=true",
+            "https://api.digitalocean.com/v2/agents/sessions/abc/events?replay_from=01J&replay_only=true",
         );
         expect(seenAuth).toBe("Bearer test-token");
     });
@@ -157,6 +161,7 @@ describe("streamSessionEvents", () => {
             authProvider,
             fetchImpl,
             sessionId: "abc",
+            reconnect: false,
         })) {
             events.push(event);
         }
@@ -178,6 +183,134 @@ describe("streamSessionEvents", () => {
         );
     });
 });
+
+describe("streamSessionEvents resume rules", () => {
+    /** One server envelope as the stream carries it. */
+    const frame = (id: string, type: string, data: unknown = {}, runId = "run-1") =>
+        `event: ${type}\nid: ${id}\ndata: ${JSON.stringify({ event_id: id, run_id: runId, type, data })}\n\n`;
+
+    /** Serves one scripted response per connection and records each URL. */
+    function scripted(responses: Array<() => Response>) {
+        const urls: string[] = [];
+        const fetchImpl = (async (url: string) => {
+            urls.push(url);
+            const next = responses.shift();
+            if (!next) throw new Error("no more scripted responses");
+            return next();
+        }) as unknown as typeof fetch;
+        return { urls, fetchImpl };
+    }
+
+    const fast = { authProvider, sessionId: "abc", retryBaseDelayMs: 1 };
+
+    it("reconnects after a drop and resumes after the last handled event", async () => {
+        const { urls, fetchImpl } = scripted([
+            () => sseResponse([frame("01A", "run.started"), frame("01B", "run.token_delta", { text: "hi" })]),
+            // The server redelivers 01B, which must not reach the caller twice.
+            () => sseResponse([frame("01B", "run.token_delta"), frame("01C", "run.completed")]),
+        ]);
+
+        const ids = [];
+        for await (const event of streamSessionEvents({ ...fast, fetchImpl })) {
+            ids.push(event.eventId);
+            if (event.type === "run.completed") break;
+        }
+
+        expect(ids).toEqual(["01A", "01B", "01C"]);
+        expect(urls[0]).not.toContain("cursor=");
+        expect(urls[1]).toContain("cursor=01B");
+    });
+
+    it("exposes the envelope's run id and payload", async () => {
+        const { fetchImpl } = scripted([() => sseResponse([frame("01A", "run.token_delta", { text: "yo" }, "run-9")])]);
+        const [event] = await take(streamSessionEvents({ ...fast, fetchImpl, reconnect: false }), 1);
+        expect(event).toEqual(
+            expect.objectContaining({ type: "run.token_delta", eventId: "01A", runId: "run-9", payload: { text: "yo" } }),
+        );
+    });
+
+    it("stops without reconnecting when another attach supersedes it", async () => {
+        const { urls, fetchImpl } = scripted([
+            () => sseResponse([frame("01A", "stream.state", { state: "superseded" })]),
+        ]);
+        const events = await take(streamSessionEvents({ ...fast, fetchImpl }), 10);
+        expect(events.map((e) => e.type)).toEqual(["stream.state"]);
+        expect(urls).toHaveLength(1);
+    });
+
+    it("drops the resume point and reattaches from the head after a rollback", async () => {
+        const { urls, fetchImpl } = scripted([
+            () => sseResponse([frame("01A", "run.started"), frame("01B", "stream.state", { state: "rolled_back" })]),
+            () => sseResponse([frame("01A", "run.started")]),
+        ]);
+        const events = await take(streamSessionEvents({ ...fast, fetchImpl }), 3);
+        expect(events.map((e) => e.eventId)).toEqual(["01A", "01B", "01A"]);
+        expect(urls[1]).not.toContain("cursor=");
+    });
+
+    it("raises a client error at once but retries a server error", async () => {
+        const notFound = scripted([
+            () => new Response(JSON.stringify({ message: "session not found" }), { status: 404 }),
+        ]);
+        await expect(take(streamSessionEvents({ ...fast, fetchImpl: notFound.fetchImpl }), 1)).rejects.toThrow(
+            "session not found",
+        );
+        expect(notFound.urls).toHaveLength(1);
+
+        const flaky = scripted([
+            () => new Response("{}", { status: 503 }),
+            () => sseResponse([frame("01A", "run.started")]),
+        ]);
+        const events = await take(streamSessionEvents({ ...fast, fetchImpl: flaky.fetchImpl }), 1);
+        expect(events.map((e) => e.eventId)).toEqual(["01A"]);
+        expect(flaky.urls).toHaveLength(2);
+    });
+
+    it("treats a silent connection as lost and reconnects", async () => {
+        const silent = () => new Response(new ReadableStream<Uint8Array>(), { status: 200 });
+        const { urls, fetchImpl } = scripted([silent, () => sseResponse([frame("01A", "run.started")])]);
+        const events = await take(streamSessionEvents({ ...fast, fetchImpl, idleTimeoutMs: 30 }), 1);
+        expect(events.map((e) => e.eventId)).toEqual(["01A"]);
+        expect(urls).toHaveLength(2);
+    });
+
+    it("gives up after maxReconnects failures in a row", async () => {
+        const { fetchImpl } = scripted([
+            () => new Response("{}", { status: 502 }),
+            () => new Response("{}", { status: 502 }),
+            () => new Response("{}", { status: 502 }),
+        ]);
+        await expect(take(streamSessionEvents({ ...fast, fetchImpl, maxReconnects: 2 }), 1)).rejects.toThrow(
+            "reconnect attempts",
+        );
+    });
+
+    it("collects a replay and reports truncation", async () => {
+        const { urls, fetchImpl } = scripted([
+            () =>
+                sseResponse([
+                    frame("01A", "stream.state", { state: "catching_up", truncated: true }),
+                    frame("01B", "run.started"),
+                    frame("01C", "run.completed"),
+                ]),
+        ]);
+        const replay = await collectSessionEvents({ ...fast, fetchImpl, cursor: "019" });
+        expect(replay.truncated).toBe(true);
+        expect(replay.events.map((e) => e.eventId)).toEqual(["01B", "01C"]);
+        expect(urls[0]).toContain("replay_from=019");
+        expect(urls[0]).toContain("replay_only=true");
+    });
+});
+
+/** Takes up to `n` items, then leaves the loop (which closes the stream). */
+async function take<T>(source: AsyncIterable<T>, n: number): Promise<T[]> {
+    const items: T[] = [];
+    for await (const item of source) {
+        items.push(item);
+        if (items.length >= n) break;
+    }
+    return items;
+}
 
 describe("openPortForward", () => {
     /** Stands in for a WebSocket, letting the test drive its events. */
