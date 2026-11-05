@@ -7,6 +7,7 @@
  */
 
 import {
+    HarnessStreamError,
     HttpMethod,
     prepareRequest,
     type HarnessStreamOptions,
@@ -69,9 +70,16 @@ export interface OpenPortForwardOptions extends HarnessStreamOptions {
 /**
  * Opens a tunnel to `port` inside the session's sandbox.
  *
- * Resolves once the server has accepted the upgrade, and rejects if it refused
- * it. Because an upgrade is refused before any WebSocket close frame, a refusal
- * surfaces as a rejection here rather than through `closed`.
+ * Resolves once the server has accepted the upgrade, and rejects with a
+ * {@link HarnessStreamError} if it refused it. Because an upgrade is refused
+ * before any WebSocket close frame, a refusal surfaces as a rejection here
+ * rather than through `closed`.
+ *
+ * The error carries the HTTP status (for example 404 for an unknown session,
+ * 409 for a paused one, 502 when nothing listens on the port) and the error
+ * envelope's message and request id when the socket exposes the refused
+ * response, as `ws` does through its `unexpected-response` event. The platform
+ * WebSocket hides the response, so there the status is 0.
  *
  * Authenticating this needs a request header, which the WebSocket API has no
  * way to set. Under Node, pass a `webSocketFactory` over a library that does —
@@ -111,6 +119,13 @@ export async function openPortForward(
     return new Promise<PortForwardTunnel>((resolve, reject) => {
         let opened = false;
 
+        watchRefusedUpgrade(socket, (error) => {
+            reject(error);
+            // ws leaves the handshake open while a listener reads the response;
+            // closing now aborts it.
+            socket.close();
+        });
+
         socket.addEventListener("open", (() => {
             opened = true;
             resolve({
@@ -132,18 +147,67 @@ export async function openPortForward(
             settleClosed(close);
             if (!opened) {
                 reject(
-                    new Error(
+                    new HarnessStreamError(
                         `port-forward upgrade refused (close ${close.code}${close.reason ? `: ${close.reason}` : ""})`,
+                        0,
                     ),
                 );
             }
         }) as unknown as (event: never) => void);
 
         socket.addEventListener("error", ((event: { message?: string }) => {
-            if (!opened) reject(new Error(event.message ?? "port-forward connection failed"));
+            if (!opened) reject(new HarnessStreamError(event.message ?? "port-forward connection failed", 0));
         }) as unknown as (event: never) => void);
 
         options.signal?.addEventListener("abort", () => socket.close(1000, "aborted"));
+    });
+}
+
+/** The part of a refused HTTP response that `ws` hands to `unexpected-response`. */
+interface RefusedResponse {
+    statusCode?: number;
+    headers?: Record<string, string | string[] | undefined>;
+    on(event: "data", listener: (chunk: Uint8Array | string) => void): unknown;
+    on(event: "end" | "error", listener: () => void): unknown;
+}
+
+/**
+ * Turns a refused upgrade into a {@link HarnessStreamError} with its status,
+ * when the socket reports it the way `ws` does.
+ */
+function watchRefusedUpgrade(
+    socket: PortForwardSocket,
+    onRefused: (error: HarnessStreamError) => void,
+): void {
+    const emitter = socket as unknown as {
+        on?: (event: string, listener: (request: unknown, response: RefusedResponse) => void) => unknown;
+    };
+    if (typeof emitter.on !== "function") return;
+
+    emitter.on("unexpected-response", (_request, response) => {
+        const status = response.statusCode ?? 0;
+        let body = "";
+        const decoder = new TextDecoder();
+        response.on("data", (chunk) => {
+            body += typeof chunk === "string" ? chunk : decoder.decode(chunk, { stream: true });
+        });
+        const finish = () => {
+            let message = `port-forward upgrade refused with HTTP ${status}`;
+            let requestId: string | undefined;
+            try {
+                const envelope = JSON.parse(body) as { message?: string; request_id?: string };
+                if (envelope.message) message = envelope.message;
+                requestId = envelope.request_id;
+            } catch {
+                // Not an error envelope; keep the status-only message.
+            }
+            const header = response.headers?.["retry-after"];
+            const retryAfter =
+                typeof header === "string" && /^\d+$/.test(header) ? Number(header) : undefined;
+            onRefused(new HarnessStreamError(message, status, requestId, retryAfter));
+        };
+        response.on("end", finish);
+        response.on("error", finish);
     });
 }
 

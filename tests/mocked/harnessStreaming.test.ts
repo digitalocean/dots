@@ -1,5 +1,6 @@
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
 import { parseSseFrames, readSseFrames } from "../../src/dots/streaming/sseFrames.js";
+import { HarnessStreamError } from "../../src/dots/streaming/harnessStream.js";
 import {
     collectSessionEvents,
     streamSessionEvents,
@@ -394,5 +395,50 @@ describe("openPortForward", () => {
         socket!.emit("close", { code: 1008, reason: "port not listening" });
 
         await expect(pending).rejects.toThrow("port not listening");
+    });
+
+    it("reports the HTTP status when ws exposes the refused response", async () => {
+        /** The `ws` shape: an EventEmitter-style `on` next to the WebSocket API. */
+        class WsLikeSocket extends FakeSocket {
+            handlers = new Map<string, (...args: unknown[]) => void>();
+            on(event: string, handler: (...args: unknown[]) => void): this {
+                this.handlers.set(event, handler);
+                return this;
+            }
+        }
+        let socket: WsLikeSocket | undefined;
+        const pending = openPortForward({
+            authProvider,
+            sessionId: "abc",
+            port: 8080,
+            onData: () => undefined,
+            webSocketFactory: () => {
+                socket = new WsLikeSocket();
+                return socket;
+            },
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        const responseHandlers = new Map<string, (chunk?: unknown) => void>();
+        const response = {
+            statusCode: 409,
+            headers: {},
+            on(event: string, handler: (chunk?: unknown) => void) {
+                responseHandlers.set(event, handler);
+                return response;
+            },
+        };
+        socket!.handlers.get("unexpected-response")!({}, response);
+        responseHandlers.get("data")!(
+            new TextEncoder().encode(JSON.stringify({ message: "session is paused", request_id: "req-7" })),
+        );
+        responseHandlers.get("end")!();
+
+        await expect(pending).rejects.toBeInstanceOf(HarnessStreamError);
+        await expect(pending).rejects.toThrow(
+            expect.objectContaining({ status: 409, message: "session is paused", requestId: "req-7" }) as Error,
+        );
+        // The handshake is aborted rather than left open.
+        expect(socket!.closedWith).toBeDefined();
     });
 });
