@@ -20,7 +20,7 @@ import { DigitalOceanApiKeyAuthenticationProvider } from "../DigitalOceanApiKeyA
 import { DEFAULT_BASE_URL } from "../streaming/harnessStream.js";
 import type { WebSocketFactory } from "../streaming/portForward.js";
 import type { Workspace } from "../models/index.js";
-import { call, required } from "./errors.js";
+import { call, HarnessRuntimeError, required, TimeoutError } from "./errors.js";
 import {
     Environments,
     paginate,
@@ -104,6 +104,28 @@ export class Workspaces {
 
     async delete(id: string): Promise<void> {
         await call(() => this.ctx.client.v2.agents.workspaces.byWorkspace_id(id).delete());
+    }
+
+    /**
+     * Polls until the workspace is AVAILABLE, which it is again once the session
+     * that held it has released it. Attach it to a new session, or delete it,
+     * after this returns. A workspace that fails or is being deleted raises an
+     * error.
+     */
+    async waitUntilAvailable(id: string, options: { timeoutMs?: number } = {}): Promise<PersistentWorkspace> {
+        const deadline = Date.now() + (options.timeoutMs ?? 5 * 60_000);
+        for (;;) {
+            const workspace = await this.get(id);
+            const state = workspace.raw.state ?? "";
+            if (state === "AVAILABLE") return workspace;
+            if (state === "FAILED" || state === "DELETING") {
+                throw new HarnessRuntimeError(`workspace ${id} cannot become available: ${state}`, 0);
+            }
+            if (Date.now() >= deadline) {
+                throw new TimeoutError(`workspace ${id} was not available in time (last state ${state})`);
+            }
+            await new Promise((resolve) => setTimeout(resolve, this.ctx.pollIntervalMs));
+        }
     }
 }
 

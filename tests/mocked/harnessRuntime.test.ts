@@ -339,6 +339,24 @@ describe("sessions", () => {
     });
 });
 
+describe("workspaces", () => {
+    it("waits until a released workspace is available again", async () => {
+        nock(API)
+            .get("/v2/agents/workspaces/w1")
+            .reply(200, { workspace: { workspace_id: "w1", state: "RELEASING" } })
+            .get("/v2/agents/workspaces/w1")
+            .reply(200, { workspace: { workspace_id: "w1", state: "AVAILABLE" } });
+
+        const ws = await hr().workspaces.waitUntilAvailable("w1");
+        expect(ws.raw.state).toBe("AVAILABLE");
+    });
+
+    it("stops waiting on a failed workspace", async () => {
+        nock(API).get("/v2/agents/workspaces/w1").reply(200, { workspace: { workspace_id: "w1", state: "FAILED" } });
+        await expect(hr().workspaces.waitUntilAvailable("w1")).rejects.toThrow("cannot become available: FAILED");
+    });
+});
+
 describe("session files", () => {
     it("uploads bytes to a path under /workspace", async () => {
         let uploaded = "";
