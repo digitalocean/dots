@@ -19,6 +19,7 @@ Each job below is also a script in this folder that runs against your account:
 | [`05-cron-trigger.ts`](05-cron-trigger.ts) | Creates a weekday trigger, or lists the runs of an existing one (`TRIGGER_ID`) |
 | [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
 | [`07-exec.ts`](07-exec.ts) | Runs commands in the sandbox and checks the agent's fix with one |
+| [`08-sandbox.ts`](08-sandbox.ts) | Creates a sandbox with no agent, runs a command and streams its output |
 
 ```shell
 DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
@@ -115,14 +116,38 @@ console.log(setup.text); // payload URL, the signing secret (shown once) and whe
 ## 7. Run commands yourself
 
 ```ts
-const { stdout } = await session.exec("ls /workspace | wc -l"); // a string runs through sh -c
-const check = await session.exec(["npm", "test"], { cwd: "/workspace/app", timeoutMs: 180_000 }); // an array runs as given
+const sandbox = await hr.sandboxes.create(); // a session with no agent; any session works the same way
+
+const { stdout } = await sandbox.exec(["echo", "hello"]); // an array runs as given
+const check = await sandbox.exec("npm test", { cwd: "/workspace/app" }); // a string runs through sh -c
 if (check.exitCode !== 0) console.log(check.stderr);
-await session.exec("python3 -", { stdin: script }); // stdin is sent in full, then closed
+
+// Pass onStdout or onStderr to see output while the command runs.
+await sandbox.exec("npm run build", {
+    onStdout: (text) => process.stdout.write(text),
+    onStderr: (text) => process.stderr.write(text),
+});
 ```
 
-A command that exits non-zero is returned, not thrown, so you can read its
-output. Commands run in `/workspace` unless you pass `cwd`.
+A command that exits non-zero is returned, not thrown. Commands run in
+`/workspace` unless you pass `cwd`. `stdin` sends input once, up front.
+
+### Preview: live stdin
+
+```ts
+const python = await sandbox.spawn(["python3", "-i"], { onStdout: (t) => process.stdout.write(t) });
+await python.write("print(1 + 1)\n");
+await python.closeStdin();
+const { exitCode } = await python.wait(); // python.kill() stops it instead
+```
+
+> **Built ahead of the API.** Only buffered `exec` is in the published API
+> spec today. Streaming output works on the server but is not in the spec yet;
+> the SDK follows the server's current implementation. `spawn` follows the
+> server team's implementation plan for live stdin as of November 2026, and is
+> **not available on the API yet**: until it is, `spawn` stops the command and
+> raises an error. Its route and field names may still change before they are
+> published, and `spawn` may change with them.
 
 ## Live events and port-forward
 
@@ -170,8 +195,13 @@ These come from the API as it is today. The SDK does not work around them.
   A session created from an inline manifest cannot take a workspace.
 - Checkpoints exclude the persistent workspace disk, and restoring a checkpoint
   taken from a session with a workspace attached is refused.
-- `session.exec` returns once the command exits. A command has 60 seconds to
-  finish by default and 240 at most. stdout and stderr are each cut off past
-  1 MiB, which sets `truncated`. stdin is sent once, up front. Streaming
-  output, interactive shells and per-command environment variables are not in
-  the published API.
+- A buffered `exec` (no `onStdout` or `onStderr`) has 240 seconds to finish,
+  by default and at most, and its stdout and stderr are each cut off past
+  1 MiB, which sets `truncated`. A streamed `exec` has 15 minutes, by default
+  and at most, and its output is not cut off.
+- A streamed `exec` is not resumed if the connection drops: closing the stream
+  cancels the command, so the SDK raises an error instead of guessing the
+  outcome.
+- There is no interactive shell (resize, Ctrl-C) or per-command environment
+  variable. Live stdin (`spawn`) is not on the API yet; see the preview note
+  above.

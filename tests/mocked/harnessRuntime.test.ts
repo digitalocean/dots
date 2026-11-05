@@ -12,6 +12,7 @@ import {
     ConflictError,
     HarnessRuntime,
     NotFoundError,
+    RateLimitError,
     SessionFailedError,
 } from "../../src/dots/harnessRuntime/index.js";
 
@@ -385,6 +386,137 @@ describe("session exec", () => {
         const s = await hr().sessions.get("s1");
         const r = await s.exec(["python3", "-c", "raise SystemExit(2)"]);
         expect(r).toMatchObject({ exitCode: 2, stdout: "", stderr: "boom\n", truncated: true });
+    });
+});
+
+describe("streamed exec", () => {
+    // Frames as the server sends them today; see the contract note in exec.ts.
+    const out = (event: "stdout" | "stderr", bytes: Buffer | string) =>
+        `event: ${event}\ndata: ${JSON.stringify({ data: Buffer.from(bytes).toString("base64") })}\n\n`;
+    const exit = (code: number) => `event: exit\ndata: {"exit_code":${code},"duration_ms":12}\n\n`;
+    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    const execStream = (body: unknown, frames: string) =>
+        nock(API)
+            .post("/v2/agents/sessions/s1/sandbox/exec", body as Record<string, unknown>)
+            .matchHeader("accept", "text/event-stream")
+            .reply(200, frames, { "Content-Type": "text/event-stream" });
+
+    it("streams output through the callbacks and returns the exit", async () => {
+        const e = Buffer.from("é"); // two bytes, split across two frames
+        ready();
+        execStream(
+            { argv: ["sh", "-c", "make test"], timeout_seconds: 900 },
+            `: keepalive\n\n${out("stdout", "caf")}${out("stdout", e.subarray(0, 1))}${out("stdout", e.subarray(1))}${out("stderr", "warn\n")}${exit(3)}`,
+        );
+
+        const s = await hr().sessions.get("s1");
+        const seen: string[] = [];
+        const r = await s.exec("make test", { timeoutMs: 900_000, onStdout: (t) => seen.push(t) });
+        expect(seen.join("")).toBe("café");
+        expect(r).toEqual({ exitCode: 3, stdout: "café", stderr: "warn\n", truncated: false, durationMs: 12 });
+    });
+
+    it("raises the server's error event", async () => {
+        ready();
+        execStream({ argv: ["sleep", "999"] }, `event: error\ndata: {"message":"exec timed out"}\n\n`);
+        const s = await hr().sessions.get("s1");
+        await expect(s.exec(["sleep", "999"], { onStdout: () => undefined })).rejects.toThrow("exec timed out");
+    });
+
+    it("does not guess the outcome when the stream ends before the exit", async () => {
+        ready();
+        execStream({ argv: ["ls"] }, out("stdout", "a\n"));
+        const s = await hr().sessions.get("s1");
+        await expect(s.exec(["ls"], { onStdout: () => undefined })).rejects.toThrow("its outcome is unknown");
+    });
+
+    it("types a refusal before the stream as a RateLimitError", async () => {
+        ready();
+        nock(API)
+            .post("/v2/agents/sessions/s1/sandbox/exec")
+            .reply(429, { message: "sandbox exec stream capacity exhausted, retry later" }, { "Retry-After": "1" });
+        const s = await hr().sessions.get("s1");
+        const err = await s.exec(["ls"], { onStdout: () => undefined }).catch((e) => e);
+        expect(err).toBeInstanceOf(RateLimitError);
+        expect(err.retryAfter).toBe(1);
+    });
+
+    describe("spawn (preview: built to the server's live-stdin plan)", () => {
+        const started = `event: started\ndata: {"exec_id":"x1"}\n\n`;
+        const stdinPath = "/v2/agents/sessions/s1/sandbox/exec/x1/stdin";
+
+        it("writes stdin in order with the accepted offset, then closes it", async () => {
+            const writes: unknown[] = [];
+            ready();
+            execStream({ argv: ["python3", "-i"], keep_stdin_open: true }, `${started}${out("stdout", "2\n")}${exit(0)}`);
+            nock(API)
+                .post(stdinPath)
+                .times(2)
+                .reply(200, (_uri, body) => {
+                    const b = body as { data?: string; offset: number; eof?: boolean };
+                    writes.push(b);
+                    const added = b.data ? Buffer.from(b.data, "base64").length : 0;
+                    return { offset: b.offset + added };
+                });
+
+            const s = await hr().sessions.get("s1");
+            const proc = await s.spawn(["python3", "-i"]);
+            await proc.write("print(1 + 1)\n");
+            await proc.closeStdin();
+            const r = await proc.wait();
+
+            expect(proc.id).toBe("x1");
+            expect(writes).toEqual([
+                { data: Buffer.from("print(1 + 1)\n").toString("base64"), offset: 0 },
+                { eof: true, offset: 13 },
+            ]);
+            expect(r.stdout).toBe("2\n");
+        });
+
+        it("retries a write lost on the network with the same offset", async () => {
+            const offsets: number[] = [];
+            ready();
+            execStream({ argv: ["cat"], keep_stdin_open: true }, `${started}${exit(0)}`);
+            nock(API)
+                .post(stdinPath)
+                .replyWithError("socket hang up")
+                .post(stdinPath)
+                .reply(200, (_uri, body) => {
+                    offsets.push((body as { offset: number }).offset);
+                    return { offset: 2 };
+                });
+
+            const s = await hr().sessions.get("s1");
+            const proc = await s.spawn(["cat"]);
+            await proc.write("hi");
+            expect(offsets).toEqual([0]);
+        });
+
+        it("stops the command when the server returns no exec id", async () => {
+            ready();
+            execStream({ argv: ["cat"], keep_stdin_open: true }, `${out("stdout", "")}${exit(0)}`);
+            const s = await hr().sessions.get("s1");
+            await expect(s.spawn(["cat"])).rejects.toThrow("does not support live stdin yet");
+        });
+
+        it("types the old-image refusal as a ConflictError", async () => {
+            ready();
+            nock(API)
+                .post("/v2/agents/sessions/s1/sandbox/exec")
+                .reply(409, { message: "this session's template image does not support interactive stdin; create a new session" });
+            const s = await hr().sessions.get("s1");
+            await expect(s.spawn(["cat"])).rejects.toBeInstanceOf(ConflictError);
+        });
+    });
+});
+
+describe("sandboxes", () => {
+    it("creates a session with no agent", async () => {
+        nock(API)
+            .post("/v2/agents/sessions", (body) => (typeof body === "string" ? JSON.parse(body) : body).harness === "sandbox")
+            .reply(201, { session: session("s1") });
+        const sandbox = await hr().sandboxes.create();
+        expect(sandbox.id).toBe("s1");
     });
 });
 

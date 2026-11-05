@@ -24,6 +24,7 @@ import { call, HarnessRuntimeError, required, TimeoutError } from "./errors.js";
 import {
     Environments,
     paginate,
+    Session,
     Sessions,
     type PersistentWorkspace,
     type RuntimeContext,
@@ -52,6 +53,7 @@ export interface HarnessRuntimeOptions {
 export class HarnessRuntime {
     readonly environments: Environments;
     readonly sessions: Sessions;
+    readonly sandboxes: Sandboxes;
     readonly workspaces: Workspaces;
     readonly triggers: Triggers;
     /** The generated client, for anything this layer does not cover. */
@@ -76,8 +78,26 @@ export class HarnessRuntime {
         };
         this.environments = new Environments(ctx);
         this.sessions = new Sessions(ctx);
+        this.sandboxes = new Sandboxes(this.sessions);
         this.workspaces = new Workspaces(ctx);
         this.triggers = new Triggers(ctx);
+    }
+}
+
+/**
+ * Bare sandboxes: sessions with no agent, driven with `exec`, `spawn`,
+ * `files` and `portForward`.
+ */
+export class Sandboxes {
+    constructor(private readonly sessions: Sessions) {}
+
+    /**
+     * Creates a sandbox and returns once it is ready. `template` picks a
+     * catalog template; the server's default has no agent installed.
+     */
+    create(options: { template?: string; name?: string; wait?: boolean; timeoutMs?: number } = {}): Promise<Session> {
+        const { template, ...rest } = options;
+        return this.sessions.create({ ...rest, manifest: { harness: "sandbox", ...(template ? { template } : {}) } });
     }
 }
 
@@ -160,13 +180,12 @@ export {
     type ApprovalRequest,
     type CreateSessionInput,
     type Environment,
-    type ExecOptions,
-    type ExecResult,
     type Manifest,
     type PersistentWorkspace,
     type RunOptions,
     type RunResult,
 } from "./session.js";
+export { ExecProcess, type ExecOptions, type ExecResult, type SpawnOptions } from "./exec.js";
 export {
     TriggerHandle,
     Triggers,
