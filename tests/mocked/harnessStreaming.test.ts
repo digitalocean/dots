@@ -1,5 +1,5 @@
 import { DigitalOceanApiKeyAuthenticationProvider } from "../../src/dots/DigitalOceanApiKeyAuthenticationProvider.js";
-import { parseSseFrames } from "../../src/dots/streaming/sseFrames.js";
+import { parseSseFrames, readSseFrames } from "../../src/dots/streaming/sseFrames.js";
 import { streamSessionEvents } from "../../src/dots/streaming/sessionEvents.js";
 import {
     openPortForward,
@@ -43,6 +43,77 @@ describe("parseSseFrames", () => {
         const { frames, rest } = parseSseFrames("data: done\n\ndata: partia");
         expect(frames).toHaveLength(1);
         expect(rest).toBe("data: partia");
+    });
+});
+
+describe("readSseFrames", () => {
+    const encode = (text: string) => new TextEncoder().encode(text);
+
+    /** A body that serves `chunks`, then stays open, and records a cancel. */
+    function openBody(chunks: string[]) {
+        const state = { cancelled: false };
+        const body = new ReadableStream<Uint8Array>({
+            start(controller) {
+                for (const chunk of chunks) controller.enqueue(encode(chunk));
+            },
+            cancel() {
+                state.cancelled = true;
+            },
+        });
+        return { body, state };
+    }
+
+    it("reassembles a frame split across chunks", async () => {
+        const { body } = openBody(["event: a\nda", "ta: 1\n", "\n"]);
+        const frames = [];
+        for await (const frame of readSseFrames(body)) {
+            frames.push(frame);
+            break;
+        }
+        expect(frames).toEqual([{ event: "a", data: "1", id: undefined, retry: undefined }]);
+    });
+
+    it("cancels the body when the caller breaks out", async () => {
+        const { body, state } = openBody(["data: 1\n\n", "data: 2\n\n"]);
+        for await (const _frame of readSseFrames(body)) break;
+        expect(state.cancelled).toBe(true);
+    });
+
+    it("ends without an error when aborted during a read", async () => {
+        const { body, state } = openBody([]);
+        const controller = new AbortController();
+        const frames = readSseFrames(body, controller.signal);
+        const next = frames.next();
+        controller.abort();
+        await expect(next).resolves.toEqual({ done: true, value: undefined });
+        expect(state.cancelled).toBe(true);
+    });
+
+    it("drops a frame the stream ended in the middle of", async () => {
+        const body = new ReadableStream<Uint8Array>({
+            start(controller) {
+                controller.enqueue(encode("id: 1\ndata: whole\n\nid: 2\ndata: cut"));
+                controller.close();
+            },
+        });
+        const frames = [];
+        for await (const frame of readSseFrames(body)) frames.push(frame);
+        expect(frames.map((f) => f.id)).toEqual(["1"]);
+    });
+
+    it("reports keepalive comments as activity", async () => {
+        const body = new ReadableStream<Uint8Array>({
+            start(controller) {
+                controller.enqueue(encode(": keepalive\n\n"));
+                controller.enqueue(encode(": keepalive\n\n"));
+                controller.close();
+            },
+        });
+        let activity = 0;
+        for await (const _frame of readSseFrames(body, undefined, () => activity++)) {
+            // keepalives yield no frame
+        }
+        expect(activity).toBe(2);
     });
 });
 

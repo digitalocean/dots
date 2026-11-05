@@ -95,12 +95,22 @@ function parseFrameBlock(block: string): SseFrame | undefined {
 /**
  * Reads `body` to exhaustion and yields each complete frame.
  *
- * Aborting `signal` stops the read and ends the iteration; so does breaking out
- * of the `for await`, which cancels the underlying reader.
+ * Aborting `signal` ends the iteration without an error, including while a read
+ * is in flight. Leaving the loop early (`break`, `return` or a throw in the
+ * loop body) cancels the response body, so the connection closes instead of
+ * staying open in the background.
+ *
+ * A frame the server had not finished when the stream ended is dropped, as the
+ * SSE grammar requires: it was cut off, and a caller that resumes from the last
+ * complete event id gets it again in full.
+ *
+ * `onActivity` runs for every chunk read, keepalive comments included, so a
+ * caller can tell a quiet stream from a dead one.
  */
 export async function* readSseFrames(
     body: ReadableStream<Uint8Array>,
     signal?: AbortSignal,
+    onActivity?: () => void,
 ): AsyncGenerator<SseFrame> {
     const reader = body.getReader();
     const decoder = new TextDecoder();
@@ -113,20 +123,26 @@ export async function* readSseFrames(
         for (;;) {
             if (signal?.aborted) return;
 
-            const { done, value } = await reader.read();
-            if (done) break;
+            let chunk: Awaited<ReturnType<typeof reader.read>>;
+            try {
+                chunk = await reader.read();
+            } catch (err) {
+                if (signal?.aborted) return;
+                throw err;
+            }
+            if (chunk.done) return;
+            onActivity?.();
 
-            buffer += decoder.decode(value, { stream: true });
+            buffer += decoder.decode(chunk.value, { stream: true });
             const { frames, rest } = parseSseFrames(buffer);
             buffer = rest;
             for (const frame of frames) yield frame;
         }
-
-        // A server that closes without a trailing blank line still sent a frame.
-        const tail = parseSseFrames(buffer + "\n\n");
-        for (const frame of tail.frames) yield frame;
     } finally {
         signal?.removeEventListener("abort", abort);
+        // Cancelling a finished body is a no-op; cancelling an unfinished one is
+        // what closes the connection when the caller stops early.
+        await reader.cancel().catch(() => undefined);
         reader.releaseLock();
     }
 }
