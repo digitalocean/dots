@@ -7,6 +7,7 @@
  */
 
 import { HttpMethod, RequestInformation, type RequestAdapter } from "@microsoft/kiota-abstractions";
+import { HeadersInspectionOptions } from "@microsoft/kiota-http-fetchlibrary";
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import {
     createDefinitions_create_session_responseFromDiscriminatorValue,
@@ -153,6 +154,26 @@ export type CreateSessionInput = {
           manifest: Manifest;
       }
 );
+
+/** Options for {@link Session.exec}. */
+export interface ExecOptions {
+    /** Working directory. Defaults to `/workspace`. */
+    cwd?: string;
+    /** Sent to the command's stdin in full, then closed. */
+    stdin?: string | Uint8Array;
+    /** How long the command may run. The server defaults to 60 s and allows at most 240 s. */
+    timeoutMs?: number;
+}
+
+/** The result of {@link Session.exec}. */
+export interface ExecResult {
+    exitCode: number;
+    stdout: string;
+    stderr: string;
+    /** True when stdout or stderr passed 1 MiB and was cut off. */
+    truncated: boolean;
+    durationMs?: number;
+}
 
 /** A persistent workspace: a volume that outlives sessions and mounts at `/workspace`. */
 export interface PersistentWorkspace {
@@ -481,6 +502,37 @@ export class Session {
     /** Destroys the session and its sandbox. A persistent workspace survives. */
     async destroy(): Promise<void> {
         await call(() => this.item.delete());
+    }
+
+    /**
+     * Runs a command in the session's sandbox and returns its output once it
+     * exits. A string runs through `sh -c`; an array runs as given, with no
+     * shell. A non-zero exit is returned, not thrown.
+     */
+    async exec(command: string | string[], options: ExecOptions = {}): Promise<ExecResult> {
+        const argv = typeof command === "string" ? ["sh", "-c", command] : command;
+        const stdin = typeof options.stdin === "string" ? new TextEncoder().encode(options.stdin) : options.stdin;
+        // Truncation is reported only in response headers.
+        const headers = new HeadersInspectionOptions({ inspectResponseHeaders: true });
+        const res = await call(() =>
+            this.item.sandbox.exec.post(
+                {
+                    argv,
+                    workdir: options.cwd,
+                    stdin: stdin ? (stdin.slice().buffer as ArrayBuffer) : undefined,
+                    timeoutSeconds: options.timeoutMs ? Math.ceil(options.timeoutMs / 1000) : undefined,
+                },
+                { options: [headers] },
+            ),
+        );
+        const flagged = (name: string) => headers.getResponseHeaders().get(name)?.has("true") ?? false;
+        return {
+            exitCode: required(res?.exitCode, "the exit code"),
+            stdout: res?.stdout ?? "",
+            stderr: res?.stderr ?? "",
+            truncated: flagged("X-Exec-Stdout-Truncated") || flagged("X-Exec-Stderr-Truncated"),
+            durationMs: res?.durationMs ?? undefined,
+        };
     }
 
     /**

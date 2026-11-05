@@ -18,6 +18,7 @@ Each job below is also a script in this folder that runs against your account:
 | [`04-fork.ts`](04-fork.ts) | Checkpoints a session and runs two forks in parallel |
 | [`05-cron-trigger.ts`](05-cron-trigger.ts) | Creates a weekday trigger, or lists the runs of an existing one (`TRIGGER_ID`) |
 | [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
+| [`07-exec.ts`](07-exec.ts) | Runs commands in the sandbox and checks the agent's fix with one |
 
 ```shell
 DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
@@ -111,6 +112,18 @@ const { setup } = await hr.triggers.webhook({
 console.log(setup.text); // payload URL, the signing secret (shown once) and where to paste it
 ```
 
+## 7. Run commands yourself
+
+```ts
+const { stdout } = await session.exec("ls /workspace | wc -l"); // a string runs through sh -c
+const check = await session.exec(["npm", "test"], { cwd: "/workspace/app", timeoutMs: 180_000 }); // an array runs as given
+if (check.exitCode !== 0) console.log(check.stderr);
+await session.exec("python3 -", { stdin: script }); // stdin is sent in full, then closed
+```
+
+A command that exits non-zero is returned, not thrown, so you can read its
+output. Commands run in `/workspace` unless you pass `cwd`.
+
 ## Live events and port-forward
 
 ```ts
@@ -157,6 +170,8 @@ These come from the API as it is today. The SDK does not work around them.
   A session created from an inline manifest cannot take a workspace.
 - Checkpoints exclude the persistent workspace disk, and restoring a checkpoint
   taken from a session with a workspace attached is refused.
-- The SDK does not cover streaming exec, interactive shells, per-command
-  environment variables or live stdin. Buffered exec is available through the
-  generated client.
+- `session.exec` returns once the command exits. A command has 60 seconds to
+  finish by default and 240 at most. stdout and stderr are each cut off past
+  1 MiB, which sets `truncated`. stdin is sent once, up front. Streaming
+  output, interactive shells and per-command environment variables are not in
+  the published API.

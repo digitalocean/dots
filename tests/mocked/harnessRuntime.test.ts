@@ -357,6 +357,37 @@ describe("workspaces", () => {
     });
 });
 
+describe("session exec", () => {
+    it("runs a string through sh -c and returns its output", async () => {
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/agents/sessions/s1/sandbox/exec", {
+                argv: ["sh", "-c", "wc -l"],
+                workdir: "/workspace/app",
+                stdin: Buffer.from("a\nb\n").toString("base64"),
+                timeout_seconds: 120,
+            })
+            .reply(200, { exit_code: 0, stdout: "2\n", duration_ms: 7 });
+
+        const s = await hr().sessions.get("s1");
+        const r = await s.exec("wc -l", { cwd: "/workspace/app", stdin: "a\nb\n", timeoutMs: 120_000 });
+        expect(r).toEqual({ exitCode: 0, stdout: "2\n", stderr: "", truncated: false, durationMs: 7 });
+    });
+
+    it("returns a non-zero exit instead of throwing, and reads truncation from the headers", async () => {
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/agents/sessions/s1/sandbox/exec", { argv: ["python3", "-c", "raise SystemExit(2)"] })
+            .reply(200, { exit_code: 2, stderr: "boom\n" }, { "X-Exec-Stderr-Truncated": "true" });
+
+        const s = await hr().sessions.get("s1");
+        const r = await s.exec(["python3", "-c", "raise SystemExit(2)"]);
+        expect(r).toMatchObject({ exitCode: 2, stdout: "", stderr: "boom\n", truncated: true });
+    });
+});
+
 describe("session files", () => {
     it("uploads bytes to a path under /workspace", async () => {
         let uploaded = "";

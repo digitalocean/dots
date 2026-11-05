@@ -160,6 +160,8 @@ export {
     type ApprovalRequest,
     type CreateSessionInput,
     type Environment,
+    type ExecOptions,
+    type ExecResult,
     type Manifest,
     type PersistentWorkspace,
     type RunOptions,
