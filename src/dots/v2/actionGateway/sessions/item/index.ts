@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface WithSession_urnItemRequestBuilder extends BaseRequestBuilder<WithSession_urnItemRequestBuilder> {
     /**
-     * Deletes the session and its policy. Succeeds without deleting anything when the session does not exist or you cannot delete it, so repeating a delete also succeeds. A malformed `session_urn` is rejected with 400.
+     * Deprecated: use DELETE /v2/action-gateway/endpoints/{endpoint_id} for endpoints. This route continues to accept legacy session URNs and delete legacy sessions. Deletes the session and its policy. Succeeds without deleting anything when the session does not exist or you cannot delete it, so repeating a delete also succeeds. A malformed `session_urn` is rejected with 400. When the session is a version of an endpoint, this deletes that version, and deleting the endpoint's last live version also deletes the endpoint. Deleting the last live version with DELETE /v2/action-gateway/endpoint-versions/{version_id} instead keeps the endpoint, with no live version.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Empty_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -20,12 +20,14 @@ export interface WithSession_urnItemRequestBuilder extends BaseRequestBuilder<Wi
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      delete(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Empty_response | undefined>;
     /**
-     * Deletes the session and its policy. Succeeds without deleting anything when the session does not exist or you cannot delete it, so repeating a delete also succeeds. A malformed `session_urn` is rejected with 400.
+     * Deprecated: use DELETE /v2/action-gateway/endpoints/{endpoint_id} for endpoints. This route continues to accept legacy session URNs and delete legacy sessions. Deletes the session and its policy. Succeeds without deleting anything when the session does not exist or you cannot delete it, so repeating a delete also succeeds. A malformed `session_urn` is rejected with 400. When the session is a version of an endpoint, this deletes that version, and deleting the endpoint's last live version also deletes the endpoint. Deleting the last live version with DELETE /v2/action-gateway/endpoint-versions/{version_id} instead keeps the endpoint, with no live version.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
