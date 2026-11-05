@@ -8,7 +8,7 @@
  *
  * ```ts
  * import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
- * const hr = new HarnessRuntime();                 // reads DIGITALOCEAN_TOKEN
+ * const hr = new HarnessRuntime();                 // reads DIGITALOCEAN_TOKEN (and DIGITALOCEAN_API_URL, if set)
  * const session = await hr.sessions.create({ manifest });
  * const result = await session.run("Fix the failing test", { onText: (t) => process.stdout.write(t) });
  * ```
@@ -24,7 +24,6 @@ import { call, HarnessRuntimeError, required, TimeoutError } from "./errors.js";
 import {
     Environments,
     paginate,
-    Session,
     Sessions,
     type PersistentWorkspace,
     type RuntimeContext,
@@ -35,7 +34,7 @@ import { Triggers } from "./triggers.js";
 export interface HarnessRuntimeOptions {
     /** A DigitalOcean API token. Defaults to the `DIGITALOCEAN_TOKEN` environment variable. */
     token?: string;
-    /** The API endpoint. Defaults to https://api.digitalocean.com. */
+    /** The API endpoint. Defaults to the `DIGITALOCEAN_API_URL` environment variable, then https://api.digitalocean.com. */
     baseUrl?: string;
     /**
      * Builds port-forward sockets. Needed under Node, where the platform
@@ -53,20 +52,19 @@ export interface HarnessRuntimeOptions {
 export class HarnessRuntime {
     readonly environments: Environments;
     readonly sessions: Sessions;
-    readonly sandboxes: Sandboxes;
     readonly workspaces: Workspaces;
     readonly triggers: Triggers;
     /** The generated client, for anything this layer does not cover. */
     readonly client: DigitalOceanClient;
 
     constructor(options: HarnessRuntimeOptions = {}) {
-        const token = options.token ?? envToken();
+        const token = options.token ?? env("DIGITALOCEAN_TOKEN");
         if (!token) {
             throw new Error("no API token: pass `token` or set DIGITALOCEAN_TOKEN");
         }
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
         const adapter = new FetchRequestAdapter(authProvider);
-        adapter.baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
+        adapter.baseUrl = options.baseUrl ?? env("DIGITALOCEAN_API_URL") ?? DEFAULT_BASE_URL;
         this.client = createDigitalOceanClient(adapter);
 
         const ctx: RuntimeContext = {
@@ -78,26 +76,8 @@ export class HarnessRuntime {
         };
         this.environments = new Environments(ctx);
         this.sessions = new Sessions(ctx);
-        this.sandboxes = new Sandboxes(this.sessions);
         this.workspaces = new Workspaces(ctx);
         this.triggers = new Triggers(ctx);
-    }
-}
-
-/**
- * Bare sandboxes: sessions with no agent, driven with `exec`, `spawn`,
- * `files` and `portForward`.
- */
-export class Sandboxes {
-    constructor(private readonly sessions: Sessions) {}
-
-    /**
-     * Creates a sandbox and returns once it is ready. `template` picks a
-     * catalog template; the server's default has no agent installed.
-     */
-    create(options: { template?: string; name?: string; wait?: boolean; timeoutMs?: number } = {}): Promise<Session> {
-        const { template, ...rest } = options;
-        return this.sessions.create({ ...rest, manifest: { harness: "sandbox", ...(template ? { template } : {}) } });
     }
 }
 
@@ -154,8 +134,8 @@ function toWorkspace(workspace: Workspace | null | undefined): PersistentWorkspa
     return { id: required(raw.workspaceId, "the workspace id"), name: raw.name ?? "", raw };
 }
 
-function envToken(): string | undefined {
-    return typeof process !== "undefined" ? process.env?.DIGITALOCEAN_TOKEN : undefined;
+function env(name: string): string | undefined {
+    return (typeof process !== "undefined" && process.env?.[name]) || undefined;
 }
 
 export {

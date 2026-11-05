@@ -510,13 +510,16 @@ describe("streamed exec", () => {
     });
 });
 
-describe("sandboxes", () => {
-    it("creates a session with no agent", async () => {
-        nock(API)
-            .post("/v2/agents/sessions", (body) => (typeof body === "string" ? JSON.parse(body) : body).harness === "sandbox")
-            .reply(201, { session: session("s1") });
-        const sandbox = await hr().sandboxes.create();
-        expect(sandbox.id).toBe("s1");
+describe("client", () => {
+    it("reads the endpoint from DIGITALOCEAN_API_URL", async () => {
+        process.env.DIGITALOCEAN_API_URL = "https://preview.example.com";
+        try {
+            nock("https://preview.example.com").get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+            const s = await hr().sessions.get("s1");
+            expect(s.id).toBe("s1");
+        } finally {
+            delete process.env.DIGITALOCEAN_API_URL;
+        }
     });
 });
 

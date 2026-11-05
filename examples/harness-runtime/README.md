@@ -18,15 +18,15 @@ Each job below is also a script in this folder that runs against your account:
 | [`04-fork.ts`](04-fork.ts) | Checkpoints a session and runs two forks in parallel |
 | [`05-cron-trigger.ts`](05-cron-trigger.ts) | Creates a weekday trigger, or lists the runs of an existing one (`TRIGGER_ID`) |
 | [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
-| [`07-exec.ts`](07-exec.ts) | Runs commands in the sandbox and checks the agent's fix with one |
-| [`08-sandbox.ts`](08-sandbox.ts) | Creates a sandbox with no agent, runs a command and streams its output |
+| [`07-exec.ts`](07-exec.ts) | Creates a session, runs a command in it, prints the output and destroys the session |
+| [`08-verify-agent-fix.ts`](08-verify-agent-fix.ts) | Hands the agent a bug, then checks its fix with a command |
 
 ```shell
 DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
 ```
 
 - `HARNESS_MANIFEST`: the agent manifest to use. Defaults to [`agent.yaml`](agent.yaml), the smallest valid manifest.
-- `DIGITALOCEAN_API_URL`: a different API endpoint.
+- `DIGITALOCEAN_API_URL`: a different API endpoint. `new HarnessRuntime()` reads it too.
 - `KEEP=1`: keep the triggers, workspace and environment an example creates. By default each example deletes what it created, and every session is destroyed at the end.
 - `SLACK_WEBHOOK_URL`: for the trigger examples, post each run's result to Slack.
 
@@ -116,7 +116,8 @@ console.log(setup.text); // payload URL, the signing secret (shown once) and whe
 ## 7. Run commands yourself
 
 ```ts
-const sandbox = await hr.sandboxes.create(); // a session with no agent; any session works the same way
+// Any session can run commands. harness: "sandbox" gives one with no agent installed.
+const sandbox = await hr.sessions.create({ manifest: { harness: "sandbox" } });
 
 const { stdout } = await sandbox.exec(["echo", "hello"]); // an array runs as given
 const check = await sandbox.exec("npm test", { cwd: "/workspace/app" }); // a string runs through sh -c
