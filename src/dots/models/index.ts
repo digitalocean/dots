@@ -12510,6 +12510,10 @@ export interface Cluster extends AdditionalDataHolder, Parsable {
      */
     id?: Guid | null;
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the Kubernetes cluster. This is only accepted when creating a cluster and is not returned in responses. If the object is omitted, or if `logs` is not set, no opt-in is recorded for the cluster.
+     */
+    insights?: Insights_opt_in2 | null;
+    /**
      * The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
      */
     ipv4?: string | null;
@@ -13883,6 +13887,10 @@ export interface Create_session_config_request extends Parsable {
      * Opt the new session in to automatic resumption when the team's prepayment balance is restored. Defaults to false. Session-scoped, not config-scoped: the referenced config never confers this, so one shared config cannot enrol every session created from it. Omit to leave the default (or to let the ?resume_on_topoff= query parameter supply it).
      */
     resumeOnTopoff?: boolean | null;
+    /**
+     * Optional persistent workspace to attach at create; its files are mounted at `/workspace`. The workspace must be `AVAILABLE`, otherwise the request returns 409. Accepted only in this JSON form; an environment spec that contains workspace_id is rejected with 400. Returns 403 when persistent workspaces are not enabled for the team.
+     */
+    workspaceId?: string | null;
 }
 /**
  * Returns the created session.
@@ -14071,6 +14079,22 @@ export interface Create_webhook_config extends AdditionalDataHolder, Parsable {
      * Signature-verification scheme applied to a delivery. Omitted on create defaults to custom.
      */
     provider?: Webhook_provider_key | null;
+}
+export interface Create_workspace_request extends Parsable {
+    /**
+     * Optional label of at most 255 characters. It does not need to be unique.
+     */
+    name?: string | null;
+    /**
+     * Size limit of the workspace in GiB, from 1 to 100. A team limit can lower the maximum. The size cannot be changed after create.
+     */
+    sizeLimitGib?: number | null;
+}
+export interface Create_workspace_response extends AdditionalDataHolder, Parsable {
+    /**
+     * A persistent workspace: a set of files with its own ID, mounted at `/workspace` in the one session it is attached to and kept when that session is removed.
+     */
+    workspace?: Workspace | null;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -20258,6 +20282,24 @@ export function createCreate_webhook_configFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_workspace_request}
+ */
+// @ts-ignore
+export function createCreate_workspace_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_workspace_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Create_workspace_response}
+ */
+// @ts-ignore
+export function createCreate_workspace_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoCreate_workspace_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Credential_parameters}
  */
 // @ts-ignore
@@ -20326,6 +20368,51 @@ export function createCustomModelSourceRefFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createCustomModelTagsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCustomModelTags;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_error_details}
+ */
+// @ts-ignore
+export function createDashboard_error_detailsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_error_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_error}
+ */
+// @ts-ignore
+export function createDashboard_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_error;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard_request}
+ */
+// @ts-ignore
+export function createDashboard_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboard}
+ */
+// @ts-ignore
+export function createDashboardFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboard;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Dashboards_pagination_response}
+ */
+// @ts-ignore
+export function createDashboards_pagination_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDashboards_pagination_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -21720,6 +21807,15 @@ export function createGet_user_responseFromDiscriminatorValue(parseNode: ParseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Get_workspace_response}
+ */
+// @ts-ignore
+export function createGet_workspace_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoGet_workspace_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Glb_settings_cdn}
  */
 // @ts-ignore
@@ -21941,6 +22037,15 @@ export function createImages_usage_input_tokens_detailsFromDiscriminatorValue(pa
 // @ts-ignore
 export function createImages_usageFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoImages_usage;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Insights_opt_in2}
+ */
+// @ts-ignore
+export function createInsights_opt_in2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoInsights_opt_in2;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -22278,6 +22383,15 @@ export function createList_consentsFromDiscriminatorValue(parseNode: ParseNode |
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_dashboards_response}
+ */
+// @ts-ignore
+export function createList_dashboards_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_dashboards_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {List_image_messages_response}
  */
 // @ts-ignore
@@ -22481,6 +22595,15 @@ export function createList_users_responseFromDiscriminatorValue(parseNode: Parse
 // @ts-ignore
 export function createList_webhook_providers_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoList_webhook_providers_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_workspaces_response}
+ */
+// @ts-ignore
+export function createList_workspaces_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_workspaces_response;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -27324,6 +27447,15 @@ export function createWorkspace_upload_responseFromDiscriminatorValue(parseNode:
     return deserializeIntoWorkspace_upload_response;
 }
 /**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Workspace}
+ */
+// @ts-ignore
+export function createWorkspaceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoWorkspace;
+}
+/**
  * Non-secret configuration for API-key providers that declare credential parameters. Validated against the provider's parameter definitions and used to derive base_url. Rejected for other credential kinds.
  */
 export interface Credential_parameters extends AdditionalDataHolder, Parsable {
@@ -27471,6 +27603,88 @@ export interface CustomModelTags extends AdditionalDataHolder, Parsable {
      * List of tag strings
      */
     tags?: string[] | null;
+}
+/**
+ * An Insights dashboard.
+ */
+export interface Dashboard extends AdditionalDataHolder, Parsable {
+    /**
+     * Time the dashboard was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * The dashboard's display description. Populated by the server from `spec.display.description`; it cannot be set directly. Omitted when the spec has no description.
+     */
+    description?: string | null;
+    /**
+     * The dashboard's display name. Populated by the server from `spec.display.name`; it cannot be set directly. Omitted when `spec.display.name` is an empty string.
+     */
+    name?: string | null;
+    /**
+     * The dashboard definition as a JSON document serialized to a string. The document must have `kind` set to `Dashboard` and a `spec.display.name` between 1 and 255 characters, which is projected to `name`. An optional `spec.display.description` of up to 1000 characters is projected to `description`. Retrieve the full JSON Schema from `GET /v2/insights/dashboards/schema`. The document is returned in a normalized form: content is unchanged, but object keys may be reordered and whitespace may differ from the submitted string.
+     */
+    spec?: string | null;
+    /**
+     * Time the dashboard was last updated.
+     */
+    updatedAt?: Date | null;
+    /**
+     * A unique identifier for the dashboard.
+     */
+    uuid?: Guid | null;
+}
+/**
+ * Error body returned by the dashboards service. Unlike most DigitalOcean API errors, this body carries a gRPC status code rather than an `id` string.
+ */
+export interface Dashboard_error extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * The gRPC status code for the error. `3` = invalid argument, `5` = not found, `6` = already exists, `8` = resource exhausted, `13` = internal.
+     */
+    code?: number | null;
+    /**
+     * Additional machine-readable error details. Omitted when there are none. Each entry carries an `@type` identifying its schema.
+     */
+    details?: Dashboard_error_details[] | null;
+    /**
+     * A human-readable description of the error. Identical to `message`.
+     */
+    errorEscaped?: string | null;
+    /**
+     * A human-readable description of the error. Identical to `error`.
+     */
+    messageEscaped?: string | null;
+}
+export interface Dashboard_error_details extends AdditionalDataHolder, Parsable {
+}
+/**
+ * Request body for creating or updating a dashboard.
+ */
+export interface Dashboard_request extends AdditionalDataHolder, Parsable {
+    /**
+     * The dashboard definition as a JSON document serialized to a string. The document must have `kind` set to `Dashboard` and a `spec.display.name` between 1 and 255 characters. An empty value or a value that is not valid JSON is rejected with `400`. Retrieve the full JSON Schema from `GET /v2/insights/dashboards/schema`.
+     */
+    spec?: string | null;
+}
+/**
+ * Page-based pagination metadata for a dashboards list.
+ */
+export interface Dashboards_pagination_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The current page number.
+     */
+    page?: number | null;
+    /**
+     * The total number of pages. Omitted when there are no results.
+     */
+    pages?: number | null;
+    /**
+     * The number of items per page.
+     */
+    perPage?: number | null;
+    /**
+     * The total number of dashboards across all pages. Omitted when there are no results.
+     */
+    total?: number | null;
 }
 export interface Data_plane_search_tools_response extends Parsable, Tool_result {
 }
@@ -28379,6 +28593,10 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      * Non-fatal advisories computed from the manifest at create time: one entry per populated accepted-but-not-yet-enforced section (flat names: secrets, model, tools, memory, budget, max_lifetime, mounts; legacy manifests get the corresponding spec.* paths), a deprecation entry when a legacy-envelope manifest or an adapter alias (codex-cli, cursor-cli) is used, and a heuristic entry per credential-looking spec.env value. Populated on the CreateSession response only.
      */
     warnings?: string[] | null;
+    /**
+     * The persistent workspace attached to the session, mounted at `/workspace`. Empty when the session has none. Fork and rollback return 409 for a session that has a workspace.
+     */
+    workspaceId?: string | null;
 }
 export interface Delete_checkpoint_response extends AdditionalDataHolder, Parsable {
     /**
@@ -37070,6 +37288,7 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "gpu_operator_ready": n => { cluster.gpuOperatorReady = n.getBooleanValue(); },
         "ha": n => { cluster.ha = n.getBooleanValue(); },
         "id": n => { cluster.id = n.getGuidValue(); },
+        "insights": n => { cluster.insights = n.getObjectValue<Insights_opt_in2>(createInsights_opt_in2FromDiscriminatorValue); },
         "ipv4": n => { cluster.ipv4 = n.getStringValue(); },
         "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue(); },
         "maintenance_policy": n => { cluster.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
@@ -37984,6 +38203,7 @@ export function deserializeIntoCreate_session_config_request(create_session_conf
         "name": n => { create_session_config_request.name = n.getStringValue(); },
         "region": n => { create_session_config_request.region = n.getStringValue(); },
         "resume_on_topoff": n => { create_session_config_request.resumeOnTopoff = n.getBooleanValue(); },
+        "workspace_id": n => { create_session_config_request.workspaceId = n.getStringValue(); },
     }
 }
 /**
@@ -38135,6 +38355,29 @@ export function deserializeIntoCreate_webhook_config(create_webhook_config: Part
 }
 /**
  * The deserialization information for the current model
+ * @param Create_workspace_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_workspace_request(create_workspace_request: Partial<Create_workspace_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { create_workspace_request.name = n.getStringValue(); },
+        "size_limit_gib": n => { create_workspace_request.sizeLimitGib = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Create_workspace_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoCreate_workspace_response(create_workspace_response: Partial<Create_workspace_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "workspace": n => { create_workspace_response.workspace = n.getObjectValue<Workspace>(createWorkspaceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Credential_parameters The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -38239,6 +38482,71 @@ export function deserializeIntoCustomModelSourceRef(customModelSourceRef: Partia
 export function deserializeIntoCustomModelTags(customModelTags: Partial<CustomModelTags> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "tags": n => { customModelTags.tags = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard(dashboard: Partial<Dashboard> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { dashboard.createdAt = n.getDateValue(); },
+        "description": n => { dashboard.description = n.getStringValue(); },
+        "name": n => { dashboard.name = n.getStringValue(); },
+        "spec": n => { dashboard.spec = n.getStringValue(); },
+        "updated_at": n => { dashboard.updatedAt = n.getDateValue(); },
+        "uuid": n => { dashboard.uuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_error The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_error(dashboard_error: Partial<Dashboard_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "code": n => { dashboard_error.code = n.getNumberValue(); },
+        "details": n => { dashboard_error.details = n.getCollectionOfObjectValues<Dashboard_error_details>(createDashboard_error_detailsFromDiscriminatorValue); },
+        "error": n => { dashboard_error.errorEscaped = n.getStringValue(); },
+        "message": n => { dashboard_error.messageEscaped = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_error_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_error_details(dashboard_error_details: Partial<Dashboard_error_details> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboard_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboard_request(dashboard_request: Partial<Dashboard_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "spec": n => { dashboard_request.spec = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Dashboards_pagination_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDashboards_pagination_response(dashboards_pagination_response: Partial<Dashboards_pagination_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "page": n => { dashboards_pagination_response.page = n.getNumberValue(); },
+        "pages": n => { dashboards_pagination_response.pages = n.getNumberValue(); },
+        "per_page": n => { dashboards_pagination_response.perPage = n.getNumberValue(); },
+        "total": n => { dashboards_pagination_response.total = n.getNumberValue(); },
     }
 }
 /**
@@ -38852,6 +39160,7 @@ export function deserializeIntoDefinitions_session(definitions_session: Partial<
         "session_id": n => { definitions_session.sessionId = n.getStringValue(); },
         "status": n => { definitions_session.status = n.getEnumValue<Session_status>(Session_statusObject) ?? Session_statusObject.SESSION_STATUS_UNSPECIFIED; },
         "warnings": n => { definitions_session.warnings = n.getCollectionOfPrimitiveValues<string>(); },
+        "workspace_id": n => { definitions_session.workspaceId = n.getStringValue(); },
     }
 }
 /**
@@ -40279,6 +40588,17 @@ export function deserializeIntoGet_user_response(get_user_response: Partial<Get_
 }
 /**
  * The deserialization information for the current model
+ * @param Get_workspace_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoGet_workspace_response(get_workspace_response: Partial<Get_workspace_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "workspace": n => { get_workspace_response.workspace = n.getObjectValue<Workspace>(createWorkspaceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Glb_settings The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -40629,6 +40949,17 @@ export function deserializeIntoInsights_opt_in(insights_opt_in: Partial<Insights
         "logs": n => { insights_opt_in.logs = n.getBooleanValue(); },
         "metrics": n => { insights_opt_in.metrics = n.getBooleanValue(); },
         "traces": n => { insights_opt_in.traces = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Insights_opt_in2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoInsights_opt_in2(insights_opt_in2: Partial<Insights_opt_in2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "logs": n => { insights_opt_in2.logs = n.getBooleanValue(); },
     }
 }
 /**
@@ -41180,6 +41511,18 @@ export function deserializeIntoList_consents(list_consents: Partial<List_consent
 }
 /**
  * The deserialization information for the current model
+ * @param List_dashboards_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_dashboards_response(list_dashboards_response: Partial<List_dashboards_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "dashboards": n => { list_dashboards_response.dashboards = n.getCollectionOfObjectValues<Dashboard>(createDashboardFromDiscriminatorValue); },
+        "pagination": n => { list_dashboards_response.pagination = n.getObjectValue<Dashboards_pagination_response>(createDashboards_pagination_responseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param List_image_messages_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -41457,6 +41800,18 @@ export function deserializeIntoList_users_response(list_users_response: Partial<
 export function deserializeIntoList_webhook_providers_response(list_webhook_providers_response: Partial<List_webhook_providers_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "providers": n => { list_webhook_providers_response.providers = n.getCollectionOfObjectValues<Webhook_provider>(createWebhook_providerFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param List_workspaces_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_workspaces_response(list_workspaces_response: Partial<List_workspaces_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "next_page_token": n => { list_workspaces_response.nextPageToken = n.getStringValue(); },
+        "workspaces": n => { list_workspaces_response.workspaces = n.getCollectionOfObjectValues<Workspace>(createWorkspaceFromDiscriminatorValue); },
     }
 }
 /**
@@ -48613,6 +48968,27 @@ export function deserializeIntoWebhook_signature_config_response(webhook_signatu
 }
 /**
  * The deserialization information for the current model
+ * @param Workspace The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoWorkspace(workspace: Partial<Workspace> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "attached_session_id": n => { workspace.attachedSessionId = n.getStringValue(); },
+        "bytes_used": n => { workspace.bytesUsed = n.getNumberValue(); },
+        "created_at": n => { workspace.createdAt = n.getDateValue(); },
+        "created_by": n => { workspace.createdBy = n.getStringValue(); },
+        "last_saved_at": n => { workspace.lastSavedAt = n.getDateValue(); },
+        "name": n => { workspace.name = n.getStringValue(); },
+        "size_limit_gib": n => { workspace.sizeLimitGib = n.getNumberValue(); },
+        "state": n => { workspace.state = n.getEnumValue<Workspace_state>(Workspace_stateObject); },
+        "updated_at": n => { workspace.updatedAt = n.getDateValue(); },
+        "updated_by": n => { workspace.updatedBy = n.getStringValue(); },
+        "workspace_id": n => { workspace.workspaceId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Workspace_part_upload_url The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -50162,6 +50538,12 @@ export interface Get_user_response extends AdditionalDataHolder, Parsable {
      */
     user?: User | null;
 }
+export interface Get_workspace_response extends AdditionalDataHolder, Parsable {
+    /**
+     * A persistent workspace: a set of files with its own ID, mounted at `/workspace` in the one session it is attached to and kept when that session is removed.
+     */
+    workspace?: Workspace | null;
+}
 /**
  * An object specifying forwarding configurations for a Global load balancer.
  */
@@ -50631,6 +51013,15 @@ export interface Insights_opt_in extends Parsable {
      * Whether the agent's traces are sent to Insights.
      */
     traces?: boolean | null;
+}
+/**
+ * An object specifying the Insights telemetry that the customer opts in to for the Kubernetes cluster. This is only accepted when creating a cluster and is not returned in responses. If the object is omitted, or if `logs` is not set, no opt-in is recorded for the cluster.
+ */
+export interface Insights_opt_in2 extends AdditionalDataHolder, Parsable {
+    /**
+     * A boolean value indicating whether the cluster's logs are sent to Insights. Setting this to `false` records an explicit opt-out. When omitted, no choice is recorded.
+     */
+    logs?: boolean | null;
 }
 export type Instance_size_cpu_type = (typeof Instance_size_cpu_typeObject)[keyof typeof Instance_size_cpu_typeObject];
 export interface Invoice_item extends AdditionalDataHolder, Parsable {
@@ -51481,6 +51872,19 @@ export interface List_consents extends AdditionalDataHolder, Parsable {
     source?: List_consents_source | null;
 }
 export type List_consents_source = (typeof List_consents_sourceObject)[keyof typeof List_consents_sourceObject];
+/**
+ * Response body for listing dashboards.
+ */
+export interface List_dashboards_response extends AdditionalDataHolder, Parsable {
+    /**
+     * The requested page of dashboards. Omitted when the page is empty.
+     */
+    dashboards?: Dashboard[] | null;
+    /**
+     * Page-based pagination metadata for a dashboards list.
+     */
+    pagination?: Dashboards_pagination_response | null;
+}
 export interface List_image_messages_response extends AdditionalDataHolder, Parsable {
     /**
      * Opaque cursor for the next page. Empty on the last page and on a single-resource lookup.
@@ -51773,6 +52177,16 @@ export interface List_webhook_providers_response extends AdditionalDataHolder, P
      * The providers property
      */
     providers?: Webhook_provider[] | null;
+}
+export interface List_workspaces_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Opaque cursor for the next page. Empty when there are no further pages. A page can hold fewer results than page_size, so keep paging until this is empty.
+     */
+    nextPageToken?: string | null;
+    /**
+     * The workspaces property
+     */
+    workspaces?: Workspace[] | null;
 }
 export interface Load_balancer extends AdditionalDataHolder, Parsable {
     /**
@@ -66568,6 +66982,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
     writer.writeBooleanValue("gpu_operator_ready", cluster.gpuOperatorReady);
     writer.writeBooleanValue("ha", cluster.ha);
+    writer.writeObjectValue<Insights_opt_in2>("insights", cluster.insights, serializeInsights_opt_in2);
     writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
@@ -67545,6 +67960,7 @@ export function serializeCreate_session_config_request(writer: SerializationWrit
     writer.writeStringValue("name", create_session_config_request.name);
     writer.writeStringValue("region", create_session_config_request.region);
     writer.writeBooleanValue("resume_on_topoff", create_session_config_request.resumeOnTopoff);
+    writer.writeStringValue("workspace_id", create_session_config_request.workspaceId);
 }
 /**
  * Serializes information the current object
@@ -67705,6 +68121,30 @@ export function serializeCreate_webhook_config(writer: SerializationWriter, crea
 }
 /**
  * Serializes information the current object
+ * @param Create_workspace_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_workspace_request(writer: SerializationWriter, create_workspace_request: Partial<Create_workspace_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_workspace_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", create_workspace_request.name);
+    writer.writeNumberValue("size_limit_gib", create_workspace_request.sizeLimitGib);
+}
+/**
+ * Serializes information the current object
+ * @param Create_workspace_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeCreate_workspace_response(writer: SerializationWriter, create_workspace_response: Partial<Create_workspace_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!create_workspace_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Workspace>("workspace", create_workspace_response.workspace, serializeWorkspace);
+    writer.writeAdditionalData(create_workspace_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Credential_parameters The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -67818,6 +68258,71 @@ export function serializeCustomModelTags(writer: SerializationWriter, customMode
     if (!customModelTags || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("tags", customModelTags.tags);
     writer.writeAdditionalData(customModelTags.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard(writer: SerializationWriter, dashboard: Partial<Dashboard> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard || isSerializingDerivedType) { return; }
+    writer.writeStringValue("spec", dashboard.spec);
+    writer.writeAdditionalData(dashboard.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_error The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_error(writer: SerializationWriter, dashboard_error: Partial<Dashboard_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_error || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("code", dashboard_error.code);
+    writer.writeCollectionOfObjectValues<Dashboard_error_details>("details", dashboard_error.details, serializeDashboard_error_details);
+    writer.writeStringValue("error", dashboard_error.errorEscaped);
+    writer.writeStringValue("message", dashboard_error.messageEscaped);
+    writer.writeAdditionalData(dashboard_error.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_error_details The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_error_details(writer: SerializationWriter, dashboard_error_details: Partial<Dashboard_error_details> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_error_details || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(dashboard_error_details.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboard_request The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboard_request(writer: SerializationWriter, dashboard_request: Partial<Dashboard_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboard_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("spec", dashboard_request.spec);
+    writer.writeAdditionalData(dashboard_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Dashboards_pagination_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDashboards_pagination_response(writer: SerializationWriter, dashboards_pagination_response: Partial<Dashboards_pagination_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dashboards_pagination_response || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("page", dashboards_pagination_response.page);
+    writer.writeNumberValue("pages", dashboards_pagination_response.pages);
+    writer.writeNumberValue("per_page", dashboards_pagination_response.perPage);
+    writer.writeNumberValue("total", dashboards_pagination_response.total);
+    writer.writeAdditionalData(dashboards_pagination_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -68409,6 +68914,7 @@ export function serializeDefinitions_session(writer: SerializationWriter, defini
     writer.writeStringValue("session_id", definitions_session.sessionId);
     writer.writeEnumValue<Session_status>("status", definitions_session.status ?? Session_statusObject.SESSION_STATUS_UNSPECIFIED);
     writer.writeCollectionOfPrimitiveValues<string>("warnings", definitions_session.warnings);
+    writer.writeStringValue("workspace_id", definitions_session.workspaceId);
     writer.writeAdditionalData(definitions_session.additionalData);
 }
 /**
@@ -69978,6 +70484,18 @@ export function serializeGet_user_response(writer: SerializationWriter, get_user
 }
 /**
  * Serializes information the current object
+ * @param Get_workspace_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeGet_workspace_response(writer: SerializationWriter, get_workspace_response: Partial<Get_workspace_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!get_workspace_response || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Workspace>("workspace", get_workspace_response.workspace, serializeWorkspace);
+    writer.writeAdditionalData(get_workspace_response.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param Glb_settings The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -70352,6 +70870,18 @@ export function serializeInsights_opt_in(writer: SerializationWriter, insights_o
     writer.writeBooleanValue("logs", insights_opt_in.logs);
     writer.writeBooleanValue("metrics", insights_opt_in.metrics);
     writer.writeBooleanValue("traces", insights_opt_in.traces);
+}
+/**
+ * Serializes information the current object
+ * @param Insights_opt_in2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeInsights_opt_in2(writer: SerializationWriter, insights_opt_in2: Partial<Insights_opt_in2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!insights_opt_in2 || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("logs", insights_opt_in2.logs);
+    writer.writeAdditionalData(insights_opt_in2.additionalData);
 }
 /**
  * Serializes information the current object
@@ -70929,6 +71459,19 @@ export function serializeList_consents(writer: SerializationWriter, list_consent
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_dashboards_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_dashboards_response(writer: SerializationWriter, list_dashboards_response: Partial<List_dashboards_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_dashboards_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Dashboard>("dashboards", list_dashboards_response.dashboards, serializeDashboard);
+    writer.writeObjectValue<Dashboards_pagination_response>("pagination", list_dashboards_response.pagination, serializeDashboards_pagination_response);
+    writer.writeAdditionalData(list_dashboards_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param List_image_messages_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -71229,6 +71772,19 @@ export function serializeList_webhook_providers_response(writer: SerializationWr
     if (!list_webhook_providers_response || isSerializingDerivedType) { return; }
     writer.writeCollectionOfObjectValues<Webhook_provider>("providers", list_webhook_providers_response.providers, serializeWebhook_provider);
     writer.writeAdditionalData(list_webhook_providers_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_workspaces_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_workspaces_response(writer: SerializationWriter, list_workspaces_response: Partial<List_workspaces_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_workspaces_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("next_page_token", list_workspaces_response.nextPageToken);
+    writer.writeCollectionOfObjectValues<Workspace>("workspaces", list_workspaces_response.workspaces, serializeWorkspace);
+    writer.writeAdditionalData(list_workspaces_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -78779,6 +79335,28 @@ export function serializeWebhook_signature_config_response(writer: Serialization
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Workspace The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeWorkspace(writer: SerializationWriter, workspace: Partial<Workspace> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!workspace || isSerializingDerivedType) { return; }
+    writer.writeStringValue("attached_session_id", workspace.attachedSessionId);
+    writer.writeNumberValue("bytes_used", workspace.bytesUsed);
+    writer.writeDateValue("created_at", workspace.createdAt);
+    writer.writeStringValue("created_by", workspace.createdBy);
+    writer.writeDateValue("last_saved_at", workspace.lastSavedAt);
+    writer.writeStringValue("name", workspace.name);
+    writer.writeNumberValue("size_limit_gib", workspace.sizeLimitGib);
+    writer.writeEnumValue<Workspace_state>("state", workspace.state);
+    writer.writeDateValue("updated_at", workspace.updatedAt);
+    writer.writeStringValue("updated_by", workspace.updatedBy);
+    writer.writeStringValue("workspace_id", workspace.workspaceId);
+    writer.writeAdditionalData(workspace.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Workspace_part_upload_url The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -82622,6 +83200,55 @@ export interface Webhook_signature_config_response extends AdditionalDataHolder,
     secretStatus?: Secret_status | null;
 }
 export type Webhook_signature_scheme = (typeof Webhook_signature_schemeObject)[keyof typeof Webhook_signature_schemeObject];
+/**
+ * A persistent workspace: a set of files with its own ID, mounted at `/workspace` in the one session it is attached to and kept when that session is removed.
+ */
+export interface Workspace extends AdditionalDataHolder, Parsable {
+    /**
+     * The session that holds the workspace. Absent when no session does.
+     */
+    attachedSessionId?: string | null;
+    /**
+     * Estimated used space in bytes as of the last save. It can differ from the usage seen inside the session.
+     */
+    bytesUsed?: number | null;
+    /**
+     * When the workspace was created.
+     */
+    createdAt?: Date | null;
+    /**
+     * UUID of the user that created the workspace.
+     */
+    createdBy?: string | null;
+    /**
+     * Time of the newest complete save. Absent until the first save.
+     */
+    lastSavedAt?: Date | null;
+    /**
+     * Optional label. Not unique, and never accepted in place of workspace_id.
+     */
+    name?: string | null;
+    /**
+     * Size limit in GiB, fixed at create. It is a quota, so the filesystem total inside the session is slightly lower.
+     */
+    sizeLimitGib?: number | null;
+    /**
+     * Lifecycle state of a persistent workspace. `AVAILABLE`: ready to attach to a new session. `ATTACHING`: a session is being created with it. `ATTACHED`: a session is using it. `RELEASING`: the session was removed and the files are being saved. `FAILED`: the workspace could not be saved or created; it keeps its last successful save. `DELETING`: a delete is in progress. States may be added; treat an unknown value as unavailable.
+     */
+    state?: Workspace_state | null;
+    /**
+     * When a user request last changed the workspace. Equal to created_at until then. Saves made by the platform do not change it.
+     */
+    updatedAt?: Date | null;
+    /**
+     * UUID of the user whose request last changed the workspace. Equal to created_by until then.
+     */
+    updatedBy?: string | null;
+    /**
+     * Assigned at create and never reused. Treat it as an opaque string.
+     */
+    workspaceId?: string | null;
+}
 export interface Workspace_part_upload_url extends AdditionalDataHolder, Parsable {
     /**
      * The part_number property
@@ -82646,6 +83273,7 @@ export interface Workspace_part_upload_urls extends AdditionalDataHolder, Parsab
      */
     transferId?: string | null;
 }
+export type Workspace_state = (typeof Workspace_stateObject)[keyof typeof Workspace_stateObject];
 export interface Workspace_transfer_cancelled extends AdditionalDataHolder, Parsable {
     /**
      * True if this call transitioned an active transfer to terminal; false if it was already terminal.
@@ -86166,6 +86794,17 @@ export const Webhook_signature_schemeObject = {
     HmacSha256: "hmac-sha256",
     Plaintext: "plaintext",
     DoSignatureV1: "do-signature-v1",
+} as const;
+/**
+ * Lifecycle state of a persistent workspace. `AVAILABLE`: ready to attach to a new session. `ATTACHING`: a session is being created with it. `ATTACHED`: a session is using it. `RELEASING`: the session was removed and the files are being saved. `FAILED`: the workspace could not be saved or created; it keeps its last successful save. `DELETING`: a delete is in progress. States may be added; treat an unknown value as unavailable.
+ */
+export const Workspace_stateObject = {
+    AVAILABLE: "AVAILABLE",
+    ATTACHING: "ATTACHING",
+    ATTACHED: "ATTACHED",
+    RELEASING: "RELEASING",
+    FAILED: "FAILED",
+    DELETING: "DELETING",
 } as const;
 export const Workspace_transfer_cancelled_statusObject = {
     Pending: "pending",

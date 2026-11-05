@@ -16,6 +16,8 @@ import { TriggersRequestBuilderNavigationMetadata, TriggersRequestBuilderRequest
 // @ts-ignore
 import { type WebhookProvidersRequestBuilder, WebhookProvidersRequestBuilderRequestsMetadata } from './webhookProviders/index.js';
 // @ts-ignore
+import { type WorkspacesRequestBuilder, WorkspacesRequestBuilderNavigationMetadata, WorkspacesRequestBuilderRequestsMetadata } from './workspaces/index.js';
+// @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata } from '@microsoft/kiota-abstractions';
 
 /**
@@ -50,6 +52,10 @@ export interface AgentsRequestBuilder extends BaseRequestBuilder<AgentsRequestBu
      * The webhookProviders property
      */
     get webhookProviders(): WebhookProvidersRequestBuilder;
+    /**
+     * The workspaces property
+     */
+    get workspaces(): WorkspacesRequestBuilder;
 }
 /**
  * Uri template for the request builder.
@@ -83,6 +89,10 @@ export const AgentsRequestBuilderNavigationMetadata: Record<Exclude<keyof Agents
     },
     webhookProviders: {
         requestsMetadata: WebhookProvidersRequestBuilderRequestsMetadata,
+    },
+    workspaces: {
+        requestsMetadata: WorkspacesRequestBuilderRequestsMetadata,
+        navigationMetadata: WorkspacesRequestBuilderNavigationMetadata,
     },
 };
 /* tslint:enable */

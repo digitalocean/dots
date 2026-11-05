@@ -33,7 +33,7 @@ export interface CheckpointsRequestBuilder extends BaseRequestBuilder<Checkpoint
      */
      get(requestConfiguration?: RequestConfiguration<CheckpointsRequestBuilderGetQueryParameters> | undefined) : Promise<List_checkpoints_response | undefined>;
     /**
-     * Synchronous: blocks until the capture reaches READY and returns the terminal Checkpoint — clients never see PENDING on this endpoint and need no poll loop. The checkpoint binds the machine-state capture to the event-log cursor at the cut, so it can later seed forks (POST .../fork) and rollback. Checkpoints are taken between turns; a session with an active turn in flight returns 409.
+     * Synchronous: blocks until the capture reaches READY and returns the terminal Checkpoint — clients never see PENDING on this endpoint and need no poll loop. The checkpoint binds the machine-state capture to the event-log cursor at the cut, so it can later seed forks (POST .../fork) and rollback. Checkpoints are taken between turns; a session with an active turn in flight returns 409. A checkpoint captures machine state only: the files of a persistent workspace the session has are not in it, and are saved by the workspace itself.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Create_checkpoint_response>}
@@ -56,7 +56,7 @@ export interface CheckpointsRequestBuilder extends BaseRequestBuilder<Checkpoint
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<CheckpointsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * Synchronous: blocks until the capture reaches READY and returns the terminal Checkpoint — clients never see PENDING on this endpoint and need no poll loop. The checkpoint binds the machine-state capture to the event-log cursor at the cut, so it can later seed forks (POST .../fork) and rollback. Checkpoints are taken between turns; a session with an active turn in flight returns 409.
+     * Synchronous: blocks until the capture reaches READY and returns the terminal Checkpoint — clients never see PENDING on this endpoint and need no poll loop. The checkpoint binds the machine-state capture to the event-log cursor at the cut, so it can later seed forks (POST .../fork) and rollback. Checkpoints are taken between turns; a session with an active turn in flight returns 409. A checkpoint captures machine state only: the files of a persistent workspace the session has are not in it, and are saved by the workspace itself.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

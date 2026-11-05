@@ -89,7 +89,7 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
     get workspace(): WorkspaceRequestBuilder;
     /**
-     * Persistent workspace contents are retained per tenant policy. Returns 204 No Content on success.
+     * Persistent workspace contents are retained per tenant policy. A persistent workspace the session holds is saved and kept: it goes to `RELEASING` while the files are saved and then back to `AVAILABLE`. Creating a session on that workspace returns `409` until it is `AVAILABLE` again. Returns 204 No Content on success.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 403 status code
@@ -130,7 +130,7 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
      patch(body: Patch_session_request, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Get_session_response | undefined>;
     /**
-     * Persistent workspace contents are retained per tenant policy. Returns 204 No Content on success.
+     * Persistent workspace contents are retained per tenant policy. A persistent workspace the session holds is saved and kept: it goes to `RELEASING` while the files are saved and then back to `AVAILABLE`. Creating a session on that workspace returns `409` until it is `AVAILABLE` again. Returns 204 No Content on success.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */

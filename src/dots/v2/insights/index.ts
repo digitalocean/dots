@@ -6,6 +6,8 @@ import { AlertInstancesRequestBuilderNavigationMetadata, AlertInstancesRequestBu
 // @ts-ignore
 import { AlertRulesRequestBuilderNavigationMetadata, AlertRulesRequestBuilderRequestsMetadata, type AlertRulesRequestBuilder } from './alertRules/index.js';
 // @ts-ignore
+import { DashboardsRequestBuilderNavigationMetadata, DashboardsRequestBuilderRequestsMetadata, type DashboardsRequestBuilder } from './dashboards/index.js';
+// @ts-ignore
 import { NotificationChannelsRequestBuilderNavigationMetadata, NotificationChannelsRequestBuilderRequestsMetadata, type NotificationChannelsRequestBuilder } from './notificationChannels/index.js';
 // @ts-ignore
 import { QueryRequestBuilderNavigationMetadata, type QueryRequestBuilder } from './query/index.js';
@@ -26,6 +28,10 @@ export interface InsightsRequestBuilder extends BaseRequestBuilder<InsightsReque
      * The alertRules property
      */
     get alertRules(): AlertRulesRequestBuilder;
+    /**
+     * The dashboards property
+     */
+    get dashboards(): DashboardsRequestBuilder;
     /**
      * The notificationChannels property
      */
@@ -54,6 +60,10 @@ export const InsightsRequestBuilderNavigationMetadata: Record<Exclude<keyof Insi
     alertRules: {
         requestsMetadata: AlertRulesRequestBuilderRequestsMetadata,
         navigationMetadata: AlertRulesRequestBuilderNavigationMetadata,
+    },
+    dashboards: {
+        requestsMetadata: DashboardsRequestBuilderRequestsMetadata,
+        navigationMetadata: DashboardsRequestBuilderNavigationMetadata,
     },
     notificationChannels: {
         requestsMetadata: NotificationChannelsRequestBuilderRequestsMetadata,
