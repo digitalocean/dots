@@ -1,0 +1,3 @@
+# The smallest agent manifest: the OpenCode agent with platform defaults.
+# Point HARNESS_MANIFEST at your own manifest to run a different agent.
+harness: opencode

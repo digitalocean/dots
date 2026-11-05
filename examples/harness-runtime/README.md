@@ -6,6 +6,30 @@ risky steps, and keep or branch its state. Each example below is a few lines of
 customer code. The same code runs as a mocked test in
 `tests/mocked/harnessRuntime.test.ts`, so these examples stay in step with the SDK.
 
+## Run the examples
+
+Each job below is also a script in this folder that runs against your account:
+
+| Script | What it does |
+| --- | --- |
+| [`01-run-agent.ts`](01-run-agent.ts) | Creates a session, streams one run, destroys the session |
+| [`02-approvals.ts`](02-approvals.ts) | Asks you on the terminal before the agent runs each shell command |
+| [`03-persistent-workspace.ts`](03-persistent-workspace.ts) | Writes files in one session and reads them from the next |
+| [`04-fork.ts`](04-fork.ts) | Checkpoints a session and runs two forks in parallel |
+| [`05-cron-trigger.ts`](05-cron-trigger.ts) | Creates a weekday trigger, or lists the runs of an existing one (`TRIGGER_ID`) |
+| [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
+
+```shell
+DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
+```
+
+- `HARNESS_MANIFEST`: the agent manifest to use. Defaults to [`agent.yaml`](agent.yaml), the smallest valid manifest.
+- `DIGITALOCEAN_API_URL`: a different API endpoint.
+- `KEEP=1`: keep the triggers, workspace and environment an example creates. By default each example deletes what it created, and every session is destroyed at the end.
+- `SLACK_WEBHOOK_URL`: for the trigger examples, post each run's result to Slack.
+
+The scripts import from the repository's source; your code imports from the package:
+
 ```ts
 import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
 import { readFileSync } from "node:fs";
@@ -42,7 +66,10 @@ resolves it, for example `session.resolveApproval(id, "approve")`.
 ```ts
 const ws = await hr.workspaces.create({ name: "repo-cache", sizeLimitGib: 10 });
 const env = await hr.environments.create({ name: "repo-agent", manifest });
-await (await hr.sessions.create({ environment: env, workspace: ws })).run("Clone the repo and install");
+const first = await hr.sessions.create({ environment: env, workspace: ws });
+await first.run("Clone the repo and install");
+await first.destroy();
+await hr.workspaces.waitUntilAvailable(ws.id); // released by the first session
 await (await hr.sessions.create({ environment: env, workspace: ws })).run("Run the tests");
 ```
 
