@@ -3308,6 +3308,10 @@ export interface ApiCustomEvaluationMetricConfig extends AdditionalDataHolder, P
      */
     scoringPrompt?: string | null;
     /**
+     * Whether the metric is for single-turn or multi-turn evaluations.
+     */
+    turnType?: ApiEvaluationMetricTurnType | null;
+    /**
      * The updated_at property
      */
     updatedAt?: Date | null;
@@ -3833,6 +3837,10 @@ export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
      * Distinguishes platform catalog metrics from user-defined LLM-as-judge metrics.
      */
     source?: ApiEvaluationMetricSource | null;
+    /**
+     * Whether the metric is for single-turn or multi-turn evaluations.
+     */
+    turnType?: ApiEvaluationMetricTurnType | null;
 }
 export type ApiEvaluationMetricCategory = (typeof ApiEvaluationMetricCategoryObject)[keyof typeof ApiEvaluationMetricCategoryObject];
 export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsable {
@@ -3871,6 +3879,7 @@ export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsabl
 }
 export type ApiEvaluationMetricResultStatus = (typeof ApiEvaluationMetricResultStatusObject)[keyof typeof ApiEvaluationMetricResultStatusObject];
 export type ApiEvaluationMetricSource = (typeof ApiEvaluationMetricSourceObject)[keyof typeof ApiEvaluationMetricSourceObject];
+export type ApiEvaluationMetricTurnType = (typeof ApiEvaluationMetricTurnTypeObject)[keyof typeof ApiEvaluationMetricTurnTypeObject];
 export type ApiEvaluationMetricType = (typeof ApiEvaluationMetricTypeObject)[keyof typeof ApiEvaluationMetricTypeObject];
 export type ApiEvaluationMetricValueType = (typeof ApiEvaluationMetricValueTypeObject)[keyof typeof ApiEvaluationMetricValueTypeObject];
 /**
@@ -31060,6 +31069,7 @@ export function deserializeIntoApiCustomEvaluationMetricConfig(apiCustomEvaluati
         "deleted_at": n => { apiCustomEvaluationMetricConfig.deletedAt = n.getDateValue(); },
         "requires_ground_truth": n => { apiCustomEvaluationMetricConfig.requiresGroundTruth = n.getBooleanValue(); },
         "scoring_prompt": n => { apiCustomEvaluationMetricConfig.scoringPrompt = n.getStringValue(); },
+        "turn_type": n => { apiCustomEvaluationMetricConfig.turnType = n.getEnumValue<ApiEvaluationMetricTurnType>(ApiEvaluationMetricTurnTypeObject) ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED; },
         "updated_at": n => { apiCustomEvaluationMetricConfig.updatedAt = n.getDateValue(); },
     }
 }
@@ -31459,6 +31469,7 @@ export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric: Partial<
         "range_max": n => { apiEvaluationMetric.rangeMax = n.getNumberValue(); },
         "range_min": n => { apiEvaluationMetric.rangeMin = n.getNumberValue(); },
         "source": n => { apiEvaluationMetric.source = n.getEnumValue<ApiEvaluationMetricSource>(ApiEvaluationMetricSourceObject) ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED; },
+        "turn_type": n => { apiEvaluationMetric.turnType = n.getEnumValue<ApiEvaluationMetricTurnType>(ApiEvaluationMetricTurnTypeObject) ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED; },
     }
 }
 /**
@@ -60962,6 +60973,7 @@ export function serializeApiCustomEvaluationMetricConfig(writer: SerializationWr
     writer.writeDateValue("deleted_at", apiCustomEvaluationMetricConfig.deletedAt);
     writer.writeBooleanValue("requires_ground_truth", apiCustomEvaluationMetricConfig.requiresGroundTruth);
     writer.writeStringValue("scoring_prompt", apiCustomEvaluationMetricConfig.scoringPrompt);
+    writer.writeEnumValue<ApiEvaluationMetricTurnType>("turn_type", apiCustomEvaluationMetricConfig.turnType ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED);
     writer.writeDateValue("updated_at", apiCustomEvaluationMetricConfig.updatedAt);
     writer.writeAdditionalData(apiCustomEvaluationMetricConfig.additionalData);
 }
@@ -61391,6 +61403,7 @@ export function serializeApiEvaluationMetric(writer: SerializationWriter, apiEva
     writer.writeNumberValue("range_max", apiEvaluationMetric.rangeMax);
     writer.writeNumberValue("range_min", apiEvaluationMetric.rangeMin);
     writer.writeEnumValue<ApiEvaluationMetricSource>("source", apiEvaluationMetric.source ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED);
+    writer.writeEnumValue<ApiEvaluationMetricTurnType>("turn_type", apiEvaluationMetric.turnType ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED);
     writer.writeAdditionalData(apiEvaluationMetric.additionalData);
 }
 /**
@@ -85198,6 +85211,14 @@ export const ApiEvaluationMetricSourceObject = {
     EVALUATION_METRIC_SOURCE_UNSPECIFIED: "EVALUATION_METRIC_SOURCE_UNSPECIFIED",
     EVALUATION_METRIC_SOURCE_BUILTIN: "EVALUATION_METRIC_SOURCE_BUILTIN",
     EVALUATION_METRIC_SOURCE_CUSTOM: "EVALUATION_METRIC_SOURCE_CUSTOM",
+} as const;
+/**
+ * Whether the metric is for single-turn or multi-turn evaluations.
+ */
+export const ApiEvaluationMetricTurnTypeObject = {
+    EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED: "EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED",
+    EVALUATION_METRIC_TURN_TYPE_SINGLE_TURN: "EVALUATION_METRIC_TURN_TYPE_SINGLE_TURN",
+    EVALUATION_METRIC_TURN_TYPE_MULTI_TURN: "EVALUATION_METRIC_TURN_TYPE_MULTI_TURN",
 } as const;
 export const ApiEvaluationMetricTypeObject = {
     METRIC_TYPE_UNSPECIFIED: "METRIC_TYPE_UNSPECIFIED",
