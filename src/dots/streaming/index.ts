@@ -15,3 +15,15 @@ export {
     streamWithHandler,
     type StreamingOptions,
 } from "./streamingUtils.js";
+
+export {
+    AgentEventStream,
+    openPortForward,
+    streamSandboxExec,
+    streamSessionEvents,
+    type AgentStreamEvent,
+    type PortForwardOptions,
+    type PortForwardTunnel,
+    type SandboxExecStreamOptions,
+    type SessionEventStreamOptions,
+} from "./agents.js";
