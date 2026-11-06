@@ -53,6 +53,7 @@ import {
     type ExecResult,
     type SpawnOptions,
 } from "./exec.js";
+import { SessionFiles, toArrayBuffer } from "./files.js";
 
 /** What every resource object needs to reach the API. */
 export interface RuntimeContext {
@@ -546,79 +547,6 @@ export class Session {
             defer: (reason) => this.resolveApproval(id, "defer", reason),
         };
     }
-}
-
-// ---------------------------------------------------------------- files
-
-/** Fixed footer the server appends to a download: "DOWSSHA1" + 64 hex + "\n". */
-const FOOTER_BYTES = 73;
-const FOOTER = /^DOWSSHA1([0-9a-f]{64})\n$/;
-
-/**
- * File transfer for a session's `/workspace` folder. When the session has a
- * persistent workspace attached, that folder is the workspace, so files written
- * here outlive the session. Each transfer is capped at 50 MiB by the sandbox.
- */
-export class SessionFiles {
-    constructor(
-        private readonly ctx: RuntimeContext,
-        private readonly sessionId: string,
-    ) {}
-
-    private get item() {
-        return this.ctx.client.v2.agents.sessions.bySession_id(this.sessionId).workspace;
-    }
-
-    /** Writes `data` to `path` (relative to `/workspace`). */
-    async upload(path: string, data: Uint8Array | ArrayBuffer | string, options: { archive?: boolean } = {}): Promise<void> {
-        const bytes = typeof data === "string" ? new TextEncoder().encode(data) : data;
-        const body = bytes instanceof Uint8Array ? toArrayBuffer(bytes) : bytes;
-        await call(() => this.item.upload.post(body, { queryParameters: { path, isArchive: options.archive } }));
-    }
-
-    /**
-     * Reads `path` (relative to `/workspace`). The server appends a checksum
-     * footer to every download; this strips it and verifies the bytes against
-     * it, raising an error for a truncated or corrupted transfer.
-     */
-    async download(path: string, options: { archive?: boolean } = {}): Promise<Uint8Array> {
-        const res = await call(() =>
-            this.item.download.get({ queryParameters: { path, asArchive: options.archive } }),
-        );
-        return verifyDownload(new Uint8Array(required(res, "the download body")));
-    }
-
-    /** Reads `path` as UTF-8 text. */
-    async downloadText(path: string): Promise<string> {
-        return new TextDecoder().decode(await this.download(path));
-    }
-}
-
-/** Strips and checks the download footer. Exported for tests. */
-export async function verifyDownload(body: Uint8Array): Promise<Uint8Array> {
-    if (body.length < FOOTER_BYTES) {
-        throw new HarnessRuntimeError("the download is truncated: its checksum footer is missing", 0);
-    }
-    const payload = body.subarray(0, body.length - FOOTER_BYTES);
-    const footer = new TextDecoder().decode(body.subarray(body.length - FOOTER_BYTES));
-    const match = FOOTER.exec(footer);
-    if (!match) {
-        throw new HarnessRuntimeError("the download is truncated: its checksum footer is missing", 0);
-    }
-    const digest = await sha256Hex(payload);
-    if (digest !== match[1]) {
-        throw new HarnessRuntimeError("the download is corrupted: its checksum does not match", 0);
-    }
-    return payload;
-}
-
-async function sha256Hex(bytes: Uint8Array): Promise<string> {
-    const digest = await globalThis.crypto.subtle.digest("SHA-256", toArrayBuffer(bytes));
-    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
-    return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
 }
 
 function sleep(ms: number): Promise<void> {

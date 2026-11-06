@@ -20,6 +20,7 @@ Each job below is also a script in this folder that runs against your account:
 | [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
 | [`07-exec.ts`](07-exec.ts) | Creates a session, runs a command in it, prints the output and destroys the session |
 | [`08-verify-agent-fix.ts`](08-verify-agent-fix.ts) | Hands the agent a bug, then checks its fix with a command |
+| [`09-files.ts`](09-files.ts) | Copies a file over 50 MiB into a session and back, checked against the server's SHA-256, then streams it |
 
 ```shell
 DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
@@ -76,8 +77,20 @@ await (await hr.sessions.create({ environment: env, workspace: ws })).run("Run t
 ```
 
 A persistent workspace is mounted at `/workspace`, the same folder
-`session.files.upload` and `session.files.download` read and write. Downloads are
-checked against the checksum the server sends with them.
+`session.files` reads and writes:
+
+```ts
+await session.files.upload("notes.txt", "hello");                      // string, bytes, Blob, or a stream
+const bytes = await session.files.download("notes.txt");               // up to 50 MiB, checksum-verified
+const body = await session.files.download("data.tar", { format: "stream" }); // any size, as a ReadableStream
+
+// Node: copy a local file in or out, at any size up to 50 GiB.
+await session.files.copyFromLocal("model.bin", "model.bin");
+await session.files.copyToLocal("results.tar", "results.tar"); // checked against the server's SHA-256
+```
+
+Uploads over 50 MiB, and any stream, go through a staged transfer: the parts
+go straight to object storage, up to 50 GiB in all.
 
 ## 4. Fork a session to try two approaches
 
@@ -191,7 +204,12 @@ These come from the API as it is today. The SDK does not work around them.
 - A run's end is known only from its events: there is no endpoint that reports a
   run's status. If the event stream cannot be recovered, `run` raises an error
   instead of guessing the outcome.
-- Each file upload or download is limited to 50 MiB.
+- `files.download` returns up to 50 MiB. Larger files need `{ format: "stream" }`
+  or `copyToLocal`. A stream is not checked against a checksum; `copyToLocal`
+  checks it. Staged transfers are limited to 50 GiB.
+- A persistent workspace cannot be resized or renamed after it is created.
+- A workspace's files are read and written through a session that has it
+  attached. There is no file access on the workspace itself.
 - To attach a persistent workspace, create the session from a saved environment.
   A session created from an inline manifest cannot take a workspace.
 - Checkpoints exclude the persistent workspace disk, and restoring a checkpoint

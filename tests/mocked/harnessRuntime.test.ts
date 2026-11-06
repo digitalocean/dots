@@ -8,6 +8,9 @@
  */
 import nock from "nock";
 import { createHash } from "node:crypto";
+import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
     ConflictError,
     HarnessRuntime,
@@ -564,6 +567,156 @@ describe("session files", () => {
 
         const s = await hr().sessions.get("s1");
         await expect(s.files.download("a.txt")).rejects.toThrow("footer is missing");
+    });
+});
+
+describe("staged file transfers", () => {
+    const T = "/v2/agents/sessions/s1/workspace/transfers";
+    const SPACES = "https://spaces.example.com";
+    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    /** Answers part-upload-urls with a URL per requested part, and records the PUTs. */
+    function partStore(times: number) {
+        const puts: Record<number, string> = {};
+        nock(API)
+            .post(`${T}/t1/part-upload-urls`)
+            .times(times)
+            .reply(200, (_uri, body) => {
+                const n = (body as { part_numbers: number[] }).part_numbers[0];
+                return { transfer_id: "t1", part_urls: [{ part_number: n, upload_url: `${SPACES}/part/${n}` }] };
+            });
+        nock(SPACES)
+            .put(/\/part\/\d+/)
+            .times(times)
+            .reply(function (uri, body) {
+                puts[Number(uri.split("/").pop())] = String(body);
+                return [200];
+            });
+        return puts;
+    }
+    const finishes = () =>
+        nock(API)
+            .get(`${T}/t1`)
+            .reply(200, { transfer_id: "t1", status: "in_progress" })
+            .get(`${T}/t1`)
+            .reply(200, { transfer_id: "t1", status: "completed" });
+
+    it("stages a stream in parts, commits, and waits for the import", async () => {
+        ready();
+        nock(API)
+            .post(T, { direction: "upload", path: "notes.txt" })
+            .reply(201, { transfer_id: "t1", part_size: 4, status: "pending" })
+            .post(`${T}/t1/commit`)
+            .reply(202, { transfer_id: "t1", status: "in_progress" });
+        const puts = partStore(3);
+        finishes();
+
+        const s = await hr().sessions.get("s1");
+        await s.files.upload("notes.txt", new Blob(["hello", " world"]).stream());
+        expect(puts).toEqual({ 1: "hell", 2: "o wo", 3: "rld" });
+    });
+
+    it("stages a Blob over 50 MiB without reading it whole, sending its size", async () => {
+        const size = 50 * 1024 * 1024 + 1;
+        let sizeBytes = 0;
+        ready();
+        nock(API)
+            .post(T, (body) => ((sizeBytes = body.size_bytes), body.direction === "upload"))
+            .reply(201, { transfer_id: "t1", part_size: 32 * 1024 * 1024 })
+            .post(`${T}/t1/commit`)
+            .reply(202, {});
+        const puts = partStore(2);
+        finishes();
+
+        const s = await hr().sessions.get("s1");
+        await s.files.upload("big.bin", new Blob([new Uint8Array(size)]));
+        expect(sizeBytes).toBe(size);
+        expect(Object.keys(puts)).toEqual(["1", "2"]);
+    });
+
+    it("retries a part that failed on the server, with a fresh URL", async () => {
+        let urls = 0;
+        ready();
+        nock(API)
+            .post(T)
+            .reply(201, { transfer_id: "t1", part_size: 1024 })
+            .post(`${T}/t1/part-upload-urls`)
+            .times(2)
+            .reply(200, () => ({ part_urls: [{ part_number: 1, upload_url: `${SPACES}/try/${++urls}` }] }))
+            .post(`${T}/t1/commit`)
+            .reply(202, {});
+        nock(SPACES).put("/try/1").reply(500).put("/try/2").reply(200);
+        finishes();
+
+        const s = await hr().sessions.get("s1");
+        await s.files.upload("a.txt", new Blob(["abc"]).stream());
+        expect(urls).toBe(2);
+    });
+
+    it("cancels the transfer when a part is refused", async () => {
+        let cancelled = false;
+        ready();
+        nock(API)
+            .post(T)
+            .reply(201, { transfer_id: "t1", part_size: 1024 })
+            .post(`${T}/t1/part-upload-urls`)
+            .reply(200, { part_urls: [{ part_number: 1, upload_url: `${SPACES}/part/1` }] })
+            .post(`${T}/t1/cancel`)
+            .reply(200, () => ((cancelled = true), { aborted: true }));
+        nock(SPACES).put("/part/1").reply(400);
+
+        const s = await hr().sessions.get("s1");
+        await expect(s.files.upload("a.txt", new Blob(["abc"]).stream())).rejects.toThrow("uploading part 1 failed (HTTP 400)");
+        expect(cancelled).toBe(true);
+    });
+
+    /** A download transfer that finishes with `content` and the given checksum. */
+    function stagedDownload(content: string, sha256 = createHash("sha256").update(content).digest("hex")) {
+        ready();
+        nock(API)
+            .post(T, { direction: "download", path: "out/results.txt" })
+            .reply(202, { transfer_id: "t1", status: "pending" })
+            .get(`${T}/t1`)
+            .reply(200, { transfer_id: "t1", status: "in_progress" })
+            .get(`${T}/t1`)
+            .reply(200, { transfer_id: "t1", status: "completed", download_url: `${SPACES}/obj`, sha256 });
+        nock(SPACES).get("/obj").reply(200, content);
+    }
+
+    it("downloads as a stream through a staged transfer", async () => {
+        stagedDownload("all the results");
+        const s = await hr().sessions.get("s1");
+        const body = await s.files.download("out/results.txt", { format: "stream" });
+        expect(await new Response(body).text()).toBe("all the results");
+    });
+
+    it("copies to a local file and checks it against the server's checksum", async () => {
+        const dir = await mkdtemp(join(tmpdir(), "dots-"));
+        stagedDownload("all the results");
+        const s = await hr().sessions.get("s1");
+        await s.files.copyToLocal("out/results.txt", join(dir, "r.txt"));
+        expect(await readFile(join(dir, "r.txt"), "utf8")).toBe("all the results");
+    });
+
+    it("deletes a local copy that does not match the checksum", async () => {
+        const dir = await mkdtemp(join(tmpdir(), "dots-"));
+        stagedDownload("tampered", createHash("sha256").update("original").digest("hex"));
+        const s = await hr().sessions.get("s1");
+        await expect(s.files.copyToLocal("out/results.txt", join(dir, "r.txt"))).rejects.toThrow("checksum does not match");
+        await expect(readFile(join(dir, "r.txt"))).rejects.toThrow();
+    });
+
+    it("copies a small local file through the direct path", async () => {
+        const dir = await mkdtemp(join(tmpdir(), "dots-"));
+        await writeFile(join(dir, "in.txt"), "hello");
+        let uploaded = "";
+        ready();
+        nock(API)
+            .post("/v2/agents/sessions/s1/workspace/upload")
+            .query({ path: "in.txt" })
+            .reply(200, (_uri, body) => ((uploaded = String(body)), { path: "in.txt", bytes_written: 5 }));
+        const s = await hr().sessions.get("s1");
+        await s.files.copyFromLocal(join(dir, "in.txt"), "in.txt");
+        expect(uploaded).toBe("hello");
     });
 });
 

@@ -155,7 +155,6 @@ export {
 export {
     Environments,
     Session,
-    SessionFiles,
     Sessions,
     type ApprovalRequest,
     type CreateSessionInput,
@@ -165,6 +164,7 @@ export {
     type RunOptions,
     type RunResult,
 } from "./session.js";
+export { SessionFiles, type FileOptions, type UploadData } from "./files.js";
 export { ExecProcess, type ExecOptions, type ExecResult, type SpawnOptions } from "./exec.js";
 export {
     TriggerHandle,
