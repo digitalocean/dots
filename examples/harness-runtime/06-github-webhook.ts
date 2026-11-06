@@ -10,7 +10,7 @@
 import { readFileSync } from "node:fs";
 import { HarnessRuntime } from "../../src/dots/harnessRuntime/index.js";
 
-const hr = new HarnessRuntime({ baseUrl: process.env.DIGITALOCEAN_API_URL });
+const hr = new HarnessRuntime();
 
 const { trigger, setup } = await hr.triggers.webhook({
     name: `pr-review-${Date.now().toString(36)}`,

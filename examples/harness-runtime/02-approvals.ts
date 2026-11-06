@@ -18,7 +18,7 @@ permissions:
       action: ask
 `;
 
-const hr = new HarnessRuntime({ baseUrl: process.env.DIGITALOCEAN_API_URL });
+const hr = new HarnessRuntime();
 const prompt = process.argv[2] ?? "Use the shell to print the kernel version and the free disk space.";
 
 const session = await hr.sessions.create({ manifest });

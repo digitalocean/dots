@@ -12,7 +12,7 @@
 import { readFileSync } from "node:fs";
 import { HarnessRuntime } from "../../src/dots/harnessRuntime/index.js";
 
-const hr = new HarnessRuntime({ baseUrl: process.env.DIGITALOCEAN_API_URL });
+const hr = new HarnessRuntime();
 
 const trigger = process.env.TRIGGER_ID
     ? await hr.triggers.get(process.env.TRIGGER_ID)

@@ -9,7 +9,7 @@
 import { readFileSync } from "node:fs";
 import { HarnessRuntime } from "../../src/dots/harnessRuntime/index.js";
 
-const hr = new HarnessRuntime({ baseUrl: process.env.DIGITALOCEAN_API_URL });
+const hr = new HarnessRuntime();
 const manifest = readFileSync(process.env.HARNESS_MANIFEST ?? new URL("./agent.yaml", import.meta.url), "utf8");
 const prompt = process.argv[2] ?? "List the files in /workspace and say which tools this machine has installed.";
 
