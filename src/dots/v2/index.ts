@@ -40,6 +40,8 @@ import { FunctionsRequestBuilderNavigationMetadata, type FunctionsRequestBuilder
 // @ts-ignore
 import { GenAiRequestBuilderNavigationMetadata, type GenAiRequestBuilder } from './genAi/index.js';
 // @ts-ignore
+import { HarnessRuntimeRequestBuilderNavigationMetadata, type HarnessRuntimeRequestBuilder } from './harnessRuntime/index.js';
+// @ts-ignore
 import { ImagesRequestBuilderNavigationMetadata, ImagesRequestBuilderRequestsMetadata, type ImagesRequestBuilder } from './images/index.js';
 // @ts-ignore
 import { InsightsRequestBuilderNavigationMetadata, type InsightsRequestBuilder } from './insights/index.js';
@@ -178,6 +180,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The genAi property
      */
     get genAi(): GenAiRequestBuilder;
+    /**
+     * The harnessRuntime property
+     */
+    get harnessRuntime(): HarnessRuntimeRequestBuilder;
     /**
      * The images property
      */
@@ -366,6 +372,9 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     },
     genAi: {
         navigationMetadata: GenAiRequestBuilderNavigationMetadata,
+    },
+    harnessRuntime: {
+        navigationMetadata: HarnessRuntimeRequestBuilderNavigationMetadata,
     },
     images: {
         requestsMetadata: ImagesRequestBuilderRequestsMetadata,
