@@ -9,20 +9,23 @@
 import { HttpMethod, RequestInformation, type RequestAdapter } from "@microsoft/kiota-abstractions";
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import {
+    createAgent_config_responseFromDiscriminatorValue,
     createDefinitions_create_session_responseFromDiscriminatorValue,
     Hitl_outcomeObject,
     Resolution_sourceObject,
     type Agent_config,
+    type Agent_config_response,
     type Checkpoint,
     type Definitions_create_session_response,
     type Definitions_session,
     type Hitl_outcome,
     type Workspace,
 } from "../models/index.js";
+import { SessionsRequestBuilderRequestsMetadata } from "../v2/agents/sessions/index.js";
 import {
-    SessionsRequestBuilderRequestsMetadata,
-    SessionsRequestBuilderUriTemplate,
-} from "../v2/agents/sessions/index.js";
+    ConfigsRequestBuilderRequestsMetadata,
+    ConfigsRequestBuilderUriTemplate,
+} from "../v2/agents/configs/index.js";
 import type { HarnessStreamOptions } from "../streaming/harnessStream.js";
 import {
     collectSessionEvents,
@@ -38,7 +41,9 @@ import {
 } from "../streaming/portForward.js";
 import {
     call,
+    ConflictError,
     HarnessRuntimeError,
+    NotFoundError,
     required,
     SessionFailedError,
     TimeoutError,
@@ -55,6 +60,9 @@ import {
 } from "./exec.js";
 import { SessionFiles, toArrayBuffer } from "./files.js";
 
+/** The YAML session create, with the managed-key flag the generated template lacks. */
+const CREATE_SESSION_URI_TEMPLATE = "{+baseurl}/v2/agents/sessions{?name*,manage_model_access_key*}";
+
 /** What every resource object needs to reach the API. */
 export interface RuntimeContext {
     client: DigitalOceanClient;
@@ -68,6 +76,17 @@ export interface RuntimeContext {
 
 /** A manifest as YAML text, or as an object (sent as JSON, which is valid YAML). */
 export type Manifest = string | Record<string, unknown>;
+
+/**
+ * A session name derived from `base`: letters, digits, ".", "_" and "-", at
+ * most 64 characters, alphanumeric at both ends, with a random suffix so it
+ * is unique among the team's live sessions.
+ */
+export function sessionName(base: string): string {
+    const stem = base.replace(/[^A-Za-z0-9._-]+/g, "-").replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9]+$/g, "").slice(0, 48);
+    const suffix = Math.random().toString(36).slice(2, 10).padEnd(8, "0");
+    return `${stem || "session"}-${suffix}`;
+}
 
 /** Serializes a manifest for the API. */
 export function manifestText(manifest: Manifest): string {
@@ -101,17 +120,54 @@ function toEnvironment(config: Agent_config | null | undefined): Environment {
     return { id: required(raw.id, "the environment id"), name: raw.name ?? "", raw };
 }
 
+/**
+ * Asks the API to mint the agent's DigitalOcean inference key, so the manifest
+ * needs no key. The server skips it when the manifest brings its own
+ * `HARNESS_INFERENCE_API_KEY`. The server accepts `manage_model_access_key`,
+ * but it is not in the published API spec yet (November 2026), so these
+ * requests are built by hand.
+ */
+export interface ManagedKeyOption {
+    /**
+     * Defaults to true, except for `harness: sandbox` or `none`, which run no
+     * agent and so need no key. Set false where the API cannot mint keys.
+     */
+    manageModelAccessKey?: boolean;
+}
+
+/** Harness kinds that run no agent, so they get no managed key by default. */
+const NO_AGENT = new Set(["sandbox", "none"]);
+
+function wantsManagedKey(manifest: Manifest, option: boolean | undefined): boolean {
+    if (option !== undefined) return option;
+    // ponytail: reads a top-level `harness:` line only (the runtime has no YAML
+    // parser); any other layout mints a key, as the default did before.
+    const harness =
+        typeof manifest === "string" ? /^harness:\s*["']?([\w-]+)/m.exec(manifest)?.[1] : manifest.harness;
+    return !NO_AGENT.has(String(harness));
+}
+
 /** Saved environments. They are immutable: create a new one to change the manifest. */
 export class Environments {
     constructor(private readonly ctx: RuntimeContext) {}
 
     /** Saves a manifest under a team-unique name. */
-    async create(input: { name: string; manifest: Manifest }): Promise<Environment> {
+    async create(input: { name: string; manifest: Manifest } & ManagedKeyOption): Promise<Environment> {
+        const info = new RequestInformation(HttpMethod.POST, ConfigsRequestBuilderUriTemplate);
+        info.pathParameters.baseurl = this.ctx.adapter.baseUrl;
+        info.headers.tryAdd("Accept", "application/json");
+        const body = {
+            name: input.name,
+            manifest_yaml: manifestText(input.manifest),
+            manage_model_access_key: wantsManagedKey(input.manifest, input.manageModelAccessKey),
+        };
+        info.setStreamContent(toArrayBuffer(new TextEncoder().encode(JSON.stringify(body))), "application/json");
         const res = await call(() =>
-            this.ctx.client.v2.agents.configs.post({
-                name: input.name,
-                manifestYaml: manifestText(input.manifest),
-            }),
+            this.ctx.adapter.send<Agent_config_response>(
+                info,
+                createAgent_config_responseFromDiscriminatorValue,
+                ConfigsRequestBuilderRequestsMetadata.post?.errorMappings,
+            ),
         );
         return toEnvironment(res?.config);
     }
@@ -157,11 +213,12 @@ export type CreateSessionInput = {
     | {
           /**
            * A manifest to create the session from directly. The API saves it as a
-           * config for you. To attach a workspace, save the manifest with
+           * config for you, and `destroy()` deletes that config again, which also
+           * revokes its managed key. To attach a workspace, save the manifest with
            * `environments.create` and pass `environment` instead.
            */
           manifest: Manifest;
-      }
+      } & ManagedKeyOption
 );
 
 /** A persistent workspace: a volume that outlives sessions and mounts at `/workspace`. */
@@ -181,7 +238,8 @@ export class Sessions {
     /**
      * Creates a session and, unless `wait` is false, returns once it is ready
      * (status READY or DETACHED). A session that fails instead raises
-     * {@link SessionFailedError}.
+     * {@link SessionFailedError}. A session that fails or is not ready in time
+     * is destroyed before the error is raised, since the caller never gets it.
      */
     async create(input: CreateSessionInput): Promise<Session> {
         let created: Definitions_session | null | undefined;
@@ -193,18 +251,32 @@ export class Sessions {
                     0,
                 );
             }
-            created = await this.createFromManifest(input.manifest, input.name);
+            created = await this.createFromManifest(
+                input.manifest,
+                input.name,
+                wantsManagedKey(input.manifest, input.manageModelAccessKey),
+            );
         } else {
             const configId = typeof input.environment === "string" ? input.environment : input.environment.id;
             const workspaceId = typeof input.workspace === "string" ? input.workspace : input.workspace?.id;
-            const res = await call(() =>
-                this.ctx.client.v2.agents.sessions.post({ configId, name: input.name, workspaceId }),
-            );
+            // This form of create requires a name; the manifest form does not.
+            const name =
+                input.name ?? sessionName(typeof input.environment === "string" ? "session" : input.environment.name);
+            const res = await call(() => this.ctx.client.v2.agents.sessions.post({ configId, name, workspaceId }));
             created = res?.session;
         }
 
-        const session = new Session(this.ctx, required(created, "the session"));
-        if (input.wait !== false) await session.waitUntilReady({ timeoutMs: input.timeoutMs });
+        const info = required(created, "the session");
+        // The API saved the manifest as a config for this session; the session cleans it up.
+        const session = new Session(this.ctx, info, "manifest" in input ? info.configId ?? undefined : undefined);
+        if (input.wait !== false) {
+            try {
+                await session.waitUntilReady({ timeoutMs: input.timeoutMs });
+            } catch (err) {
+                await session.destroy().catch(() => undefined);
+                throw err;
+            }
+        }
         return session;
     }
 
@@ -232,10 +304,15 @@ export class Sessions {
     }
 
     /** The YAML form of create, which the generated client cannot send. */
-    private async createFromManifest(manifest: Manifest, name?: string): Promise<Definitions_session | null | undefined> {
-        const info = new RequestInformation(HttpMethod.POST, SessionsRequestBuilderUriTemplate);
+    private async createFromManifest(
+        manifest: Manifest,
+        name: string | undefined,
+        manageModelAccessKey: boolean,
+    ): Promise<Definitions_session | null | undefined> {
+        const info = new RequestInformation(HttpMethod.POST, CREATE_SESSION_URI_TEMPLATE);
         info.pathParameters.baseurl = this.ctx.adapter.baseUrl;
         if (name !== undefined) info.queryParameters.name = name;
+        if (manageModelAccessKey) info.queryParameters.manage_model_access_key = true;
         info.headers.tryAdd("Accept", "application/json");
         info.setStreamContent(toArrayBuffer(new TextEncoder().encode(manifestText(manifest))), "application/yaml");
         const res = await call(() =>
@@ -291,10 +368,18 @@ export interface RunOptions {
     onApproval?: (request: ApprovalRequest) => void | Promise<void>;
     /** Stops waiting. The run itself keeps going; use `cancel` to stop it. */
     signal?: AbortSignal;
+    /**
+     * How long to wait for the run to end before raising {@link TimeoutError}.
+     * Defaults to 30 minutes; 0 waits without limit. Like `signal`, it stops
+     * the wait, not the run.
+     */
+    timeoutMs?: number;
 }
 
 /** How long `run` waits for the attach to confirm before sending anyway. */
 const ATTACH_WAIT_MS = 5_000;
+/** How long `run` waits for a run to end, unless told otherwise. */
+const RUN_TIMEOUT_MS = 30 * 60_000;
 
 /** A Harness Runtime session. */
 export class Session {
@@ -305,6 +390,8 @@ export class Session {
         private readonly ctx: RuntimeContext,
         /** The session record as last read from the API. */
         public info: Definitions_session,
+        /** The config the API saved for a session created from a manifest; `destroy()` deletes it. */
+        private ownConfigId?: string,
     ) {
         this.files = new SessionFiles(ctx, this.id);
     }
@@ -359,13 +446,30 @@ export class Session {
      * raises an error rather than guess how the run ended.
      */
     async run(text: string, options: RunOptions = {}): Promise<RunResult> {
-        const events = this.events({ signal: options.signal });
+        // The event stream ends quietly when its signal aborts, so `stop` carries
+        // both the caller's signal and the timeout, and the catch says which fired.
+        const stop = new AbortController();
+        const onAbort = () => stop.abort(options.signal?.reason);
+        if (options.signal?.aborted) onAbort();
+        options.signal?.addEventListener("abort", onAbort, { once: true });
+        const timeoutMs = options.timeoutMs ?? RUN_TIMEOUT_MS;
+        let timedOut = false;
+        const timer =
+            timeoutMs > 0 && Number.isFinite(timeoutMs)
+                ? setTimeout(() => {
+                      timedOut = true;
+                      stop.abort();
+                  }, timeoutMs)
+                : undefined;
+        const events = this.events({ signal: stop.signal });
+        let runId: string | undefined;
         try {
             // Attach first. The stream opens with a stream.state frame; once it has
             // arrived (or a short wait passes) the prompt goes out.
             const first = events.next();
             await settledOrTimeout(first, ATTACH_WAIT_MS);
-            const runId = await this.send(text);
+            if (stop.signal.aborted) throw stop.signal.reason;
+            runId = await this.send(text);
 
             let pending: Promise<IteratorResult<SessionEvent>> | undefined = first;
             let joined = "";
@@ -373,6 +477,7 @@ export class Session {
                 const step: IteratorResult<SessionEvent> = await (pending ?? events.next());
                 pending = undefined;
                 if (step.done) {
+                    if (stop.signal.aborted) throw stop.signal.reason;
                     throw new HarnessRuntimeError(`the event stream ended before run ${runId} finished`, 0);
                 }
                 const event = step.value;
@@ -411,8 +516,19 @@ export class Session {
                 }
             }
         } catch (err) {
+            if (timedOut) {
+                throw new TimeoutError(
+                    runId
+                        ? `run ${runId} on session ${this.id} did not end within ${timeoutMs} ms. It may still be ` +
+                              `running: stop it with session.cancel("${runId}") or destroy the session`
+                        : `session ${this.id} did not accept the prompt within ${timeoutMs} ms`,
+                );
+            }
+            if (options.signal?.aborted && err === options.signal.reason) throw err;
             throw toHarnessError(err);
         } finally {
+            clearTimeout(timer);
+            options.signal?.removeEventListener("abort", onAbort);
             await events.return(undefined);
         }
     }
@@ -470,7 +586,8 @@ export class Session {
     async fork(options: { from?: Checkpoint | string; count?: number; wait?: boolean } = {}): Promise<Session[]> {
         const from = typeof options.from === "string" ? options.from : options.from?.checkpointId ?? undefined;
         const res = await call(() => this.item.fork.post({ fromCheckpointId: from, count: options.count }));
-        const forks = (res?.sessions ?? []).map((s) => new Session(this.ctx, s));
+        // Forks share this session's config, so any of them may be the last to go and delete it.
+        const forks = (res?.sessions ?? []).map((s) => new Session(this.ctx, s, this.ownConfigId));
         if (options.wait !== false) await Promise.all(forks.map((f) => f.waitUntilReady()));
         return forks;
     }
@@ -488,9 +605,47 @@ export class Session {
         await call(() => this.item.cancel.post({ runId }));
     }
 
-    /** Destroys the session and its sandbox. A persistent workspace survives. */
+    /**
+     * Destroys the session and its sandbox. A persistent workspace survives.
+     * For a session created from a manifest, also deletes the config the API
+     * saved for it, which revokes its managed key, once no fork still uses it.
+     */
     async destroy(): Promise<void> {
         await call(() => this.item.delete());
+        await this.deleteOwnConfig();
+    }
+
+    private async deleteOwnConfig(): Promise<void> {
+        const configId = this.ownConfigId;
+        if (!configId) return;
+        this.ownConfigId = undefined;
+        await call(() => this.ctx.client.v2.agents.configs.byConfig_id(configId).delete()).catch((err) => {
+            // 409: a fork still uses it, and deletes it when it is destroyed. 404: already gone.
+            if (!(err instanceof ConflictError || err instanceof NotFoundError)) throw err;
+        });
+    }
+
+    /**
+     * Destroys the session when an `await using` block ends:
+     *
+     * ```ts
+     * await using session = await hr.sessions.create({ manifest });
+     * ```
+     *
+     * A session that is already gone is fine.
+     *
+     * Versions: `await using` needs TypeScript 5.2 or later, and the runtime
+     * that runs the code must define `Symbol.asyncDispose` (Node 20 and later,
+     * current Bun and Deno 2 do). Run plain JavaScript that uses `await using`
+     * itself, not compiled by TypeScript, only on a runtime that supports the
+     * syntax. Where either is missing, call `destroy()` in a `finally` block
+     * instead; it does the same thing.
+     */
+    async [Symbol.asyncDispose](): Promise<void> {
+        await this.destroy().catch(async (err) => {
+            if (!(err instanceof NotFoundError)) throw err;
+            await this.deleteOwnConfig();
+        });
     }
 
     /**
@@ -505,10 +660,10 @@ export class Session {
     }
 
     /**
-     * Starts a command and keeps its stdin open: write to it, close it, and
-     * wait for the exit. Preview: the server side of live stdin is still being
-     * built, and its route and field names may change before they are
-     * published (see exec.ts).
+     * Starts a command and returns while it runs: `wait()` for the exit or
+     * `kill()` it. With `stdin: true` you can also `write` to it and
+     * `closeStdin()`; that is a preview, because the server side of live stdin
+     * is still being built and its names may change (see exec.ts).
      */
     spawn(command: string | string[], options: SpawnOptions = {}): Promise<ExecProcess> {
         return spawn(this.ctx, this.id, command, options);

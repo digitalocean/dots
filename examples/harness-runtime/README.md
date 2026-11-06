@@ -17,19 +17,24 @@ Each job below is also a script in this folder that runs against your account:
 | [`03-persistent-workspace.ts`](03-persistent-workspace.ts) | Writes files in one session and reads them from the next |
 | [`04-fork.ts`](04-fork.ts) | Checkpoints a session and runs two forks in parallel |
 | [`05-cron-trigger.ts`](05-cron-trigger.ts) | Creates a weekday trigger, or lists the runs of an existing one (`TRIGGER_ID`) |
-| [`06-github-webhook.ts`](06-github-webhook.ts) | Creates a GitHub webhook trigger and prints its setup steps |
+| [`06-webhook.ts`](06-webhook.ts) | Creates a custom webhook trigger, prints its setup, and with `WAIT_FOR_RUN=1` calls it and waits for the run |
 | [`07-exec.ts`](07-exec.ts) | Creates a session, runs a command in it, prints the output and destroys the session |
 | [`08-verify-agent-fix.ts`](08-verify-agent-fix.ts) | Hands the agent a bug, then checks its fix with a command |
 | [`09-files.ts`](09-files.ts) | Copies a file over 50 MiB into a session and back, checked against the server's SHA-256, then streams it |
+| [`10-background.ts`](10-background.ts) | Runs a web server in the background with `spawn`, queries it with a per-command `env`, then stops it |
 
 ```shell
-DIGITALOCEAN_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
+DIGITALOCEAN_ACCESS_TOKEN=... npx tsx examples/harness-runtime/01-run-agent.ts "your prompt"
 ```
 
-- `HARNESS_MANIFEST`: the agent manifest to use. Defaults to [`agent.yaml`](agent.yaml), the smallest valid manifest.
+- [`agent.yaml`](agent.yaml): the agent the examples run, and a manifest to copy. It names the model; the API has no default model.
+- [`agent-trigger.yaml`](agent-trigger.yaml): the agent for the trigger examples. Every tool is allowed, so a fired run never waits for an approval, and it calls OpenAI with your own key, because a trigger's sessions get no managed key.
+- `HARNESS_MANIFEST`: a different manifest file to use instead.
+- `HARNESS_INFERENCE_API_KEY`: an OpenAI API key, required by the trigger examples (05, 06). They add it to the trigger's manifest as the `OPENAI_API_KEY` secret, because a trigger's fresh sessions get no managed key.
 - `DIGITALOCEAN_API_URL`: a different API endpoint. `new HarnessRuntime()` reads it too.
 - `KEEP=1`: keep the triggers, workspace and environment an example creates. By default each example deletes what it created, and every session is destroyed at the end.
-- `SLACK_WEBHOOK_URL`: for the trigger examples, post each run's result to Slack.
+- `EMAIL` or `SLACK_WEBHOOK_URL`: for the trigger examples, send each run's result there.
+- `WAIT_FOR_RUN=1`: the trigger examples cause a run (05 every minute, 06 calls its own webhook) and wait for it.
 
 The scripts import from the repository's source; your code imports from the package:
 
@@ -37,9 +42,16 @@ The scripts import from the repository's source; your code imports from the pack
 import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
 import { readFileSync } from "node:fs";
 
-const hr = new HarnessRuntime(); // reads DIGITALOCEAN_TOKEN
+const hr = new HarnessRuntime(); // reads DIGITALOCEAN_ACCESS_TOKEN
 const manifest = readFileSync("agent.yaml", "utf8");
 ```
+
+The SDK sends a manifest exactly as given; it never fills in values from your
+environment. A session created from a manifest gets a managed inference key
+unless the manifest brings its own (a `HARNESS_INFERENCE_API_KEY` entry under
+`secrets`), runs no agent (`harness: sandbox` or `none`), or you pass
+`manageModelAccessKey: false`. The API saves such a manifest as a config for
+the session; `destroy()` deletes that config again, which revokes the key.
 
 ## 1. Run an agent and stream its answer
 
@@ -50,6 +62,31 @@ const result = await session.run("Find and fix the flaky test", {
 });
 console.log(result.status, result.usage); // "completed", token and cost totals
 ```
+
+`run` waits up to 30 minutes for the run to end, then raises `TimeoutError`;
+pass `timeoutMs` to change that (0 waits without limit). A timeout, like
+`signal`, stops the wait and not the run: `session.cancel(runId)` or
+`destroy()` stops the run.
+
+To destroy a session automatically when a block ends, even when it throws,
+declare it with `await using`:
+
+```ts
+await using session = await hr.sessions.create({ manifest });
+```
+
+> **Versions.** `await using` needs TypeScript 5.2 or later, and the runtime
+> that runs your code must define `Symbol.asyncDispose`: Node 20 and later,
+> current Bun and Deno 2 do. Plain JavaScript that uses `await using` itself,
+> not compiled by TypeScript, needs a runtime that supports the syntax. Check
+> with `node -e "console.log(typeof Symbol.asyncDispose)"` (or `bun -e`,
+> `deno eval`): it should print `symbol`. Otherwise call `session.destroy()` in
+> a `finally` block; it does the same thing.
+
+Neither runs when the process is killed. Ctrl-C (SIGINT) ends a Node process
+at once unless something listens for it, so the examples turn the first Ctrl-C
+into a `signal` that stops the current wait; the error then unwinds through
+`await using` and the session is destroyed. A second Ctrl-C quits at once.
 
 ## 2. Approve risky steps
 
@@ -69,11 +106,13 @@ resolves it, for example `session.resolveApproval(id, "approve")`.
 ```ts
 const ws = await hr.workspaces.create({ name: "repo-cache", sizeLimitGib: 10 });
 const env = await hr.environments.create({ name: "repo-agent", manifest });
-const first = await hr.sessions.create({ environment: env, workspace: ws });
-await first.run("Clone the repo and install");
-await first.destroy();
-await hr.workspaces.waitUntilAvailable(ws.id); // released by the first session
-await (await hr.sessions.create({ environment: env, workspace: ws })).run("Run the tests");
+{
+    await using first = await hr.sessions.create({ environment: env, workspace: ws });
+    await first.run("Clone the repo and install");
+} // destroyed here, which releases the workspace
+await hr.workspaces.waitUntilAvailable(ws.id);
+await using second = await hr.sessions.create({ environment: env, workspace: ws });
+await second.run("Run the tests");
 ```
 
 A persistent workspace is mounted at `/workspace`, the same folder
@@ -146,10 +185,27 @@ await sandbox.exec("npm run build", {
 A command that exits non-zero is returned, not thrown. Commands run in
 `/workspace` unless you pass `cwd`. `stdin` sends input once, up front.
 
+```ts
+await sandbox.exec("npm test", { env: { CI: "1" } });
+```
+
+> **`env` applies to that one command only.** It is not stored on the session:
+> the next command does not see it, and commands running at the same time each
+> see only their own. For variables every command and the agent see, set `env`
+> in the manifest when you create the session.
+
+To start a command and carry on while it runs, `spawn` it:
+
+```ts
+const dev = await sandbox.spawn("npm run dev", { onStdout: (t) => process.stdout.write(t) });
+// ... port-forward to it, run tests against it ...
+dev.kill(); // or: const { exitCode } = await dev.wait();
+```
+
 ### Preview: live stdin
 
 ```ts
-const python = await sandbox.spawn(["python3", "-i"], { onStdout: (t) => process.stdout.write(t) });
+const python = await sandbox.spawn(["python3", "-i"], { stdin: true, onStdout: (t) => process.stdout.write(t) });
 await python.write("print(1 + 1)\n");
 await python.closeStdin();
 const { exitCode } = await python.wait(); // python.kill() stops it instead
@@ -157,11 +213,12 @@ const { exitCode } = await python.wait(); // python.kill() stops it instead
 
 > **Built ahead of the API.** Only buffered `exec` is in the published API
 > spec today. Streaming output works on the server but is not in the spec yet;
-> the SDK follows the server's current implementation. `spawn` follows the
+> the SDK follows the server's current implementation; `exec` with callbacks
+> and `spawn` without `stdin` use it. `spawn` with `stdin: true` follows the
 > server team's implementation plan for live stdin as of November 2026, and is
-> **not available on the API yet**: until it is, `spawn` stops the command and
+> **not available on the API yet**: until it is, it stops the command and
 > raises an error. Its route and field names may still change before they are
-> published, and `spawn` may change with them.
+> published, and `stdin: true` may change with them.
 
 ## Live events and port-forward
 
@@ -189,12 +246,17 @@ Every failed call raises a typed error with the HTTP status and the request id:
 `NotFoundError`, `ConflictError`, `NotEnabledError` (403), `PaymentRequiredError`
 (402), `LockedError` (423), `RateLimitError` (429, with `retryAfter`),
 `ServiceError` (5xx), and `SessionFailedError` when a session fails instead of
-becoming ready. All extend `HarnessRuntimeError`.
+becoming ready, which `sessions.create` destroys before raising it. A wait that
+runs out of time raises `TimeoutError`. All extend `HarnessRuntimeError`.
 
 ## Limitations
 
 These come from the API as it is today. The SDK does not work around them.
 
+- A trigger that starts a fresh session per run gets no managed inference key:
+  give its manifest a key of your own in `secrets`, as the trigger examples do
+  with an OpenAI key from your environment. A trigger that resumes a session uses that
+  session's key.
 - A trigger cannot be fired on demand. A cron trigger runs on its schedule; a
   webhook trigger runs when the external system sends a signed delivery.
 - Trigger runs are read by polling `executions()`. To have each result pushed,
@@ -221,6 +283,7 @@ These come from the API as it is today. The SDK does not work around them.
 - A streamed `exec` is not resumed if the connection drops: closing the stream
   cancels the command, so the SDK raises an error instead of guessing the
   outcome.
-- There is no interactive shell (resize, Ctrl-C) or per-command environment
-  variable. Live stdin (`spawn`) is not on the API yet; see the preview note
-  above.
+- There is no interactive shell (resize, Ctrl-C). Live stdin (`spawn` with
+  `stdin: true`) is not on the API yet; see the preview note above.
+- `exec` and `spawn` apply `env` by running the command through `env` in the
+  sandbox, for that one command only.

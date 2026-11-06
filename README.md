@@ -228,7 +228,7 @@ DIGITALOCEAN_TOKEN=... npx tsx examples/inference/models-list.ts
 ```typescript
 import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
 
-const hr = new HarnessRuntime(); // reads DIGITALOCEAN_TOKEN
+const hr = new HarnessRuntime(); // reads DIGITALOCEAN_ACCESS_TOKEN
 const session = await hr.sessions.create({ manifest });
 const result = await session.run("Find and fix the flaky test", { onText: (t) => process.stdout.write(t) });
 ```

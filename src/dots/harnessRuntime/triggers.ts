@@ -19,7 +19,7 @@ import {
     type Trigger_output_write,
     type Webhook_provider,
 } from "../models/index.js";
-import { call, required } from "./errors.js";
+import { call, required, TimeoutError } from "./errors.js";
 import { manifestText, paginate, type Manifest, type RuntimeContext, type Session } from "./session.js";
 
 /** Where a run's result is delivered when it finishes. */
@@ -196,6 +196,29 @@ export class TriggerHandle {
             );
             return { items: (res?.executions ?? []).map(toExecution), nextPageToken: res?.nextPageToken };
         });
+    }
+
+    /**
+     * Waits until the trigger's latest run finishes, or for its first run when
+     * it has none yet, and returns it with its transcript. On a trigger that
+     * has run before, that can be a run that had already finished. Runs are
+     * read by polling; the server does not push them. `signal` stops the wait.
+     */
+    async waitForRun(options: { timeoutMs?: number; signal?: AbortSignal } = {}): Promise<TriggerExecution> {
+        const deadline = Date.now() + (options.timeoutMs ?? 10 * 60_000);
+        for (;;) {
+            options.signal?.throwIfAborted();
+            const latest = (await this.executions().next()).value as TriggerExecution | undefined;
+            if (latest && latest.status !== "pending" && latest.status !== "running") {
+                return this.execution(latest.id);
+            }
+            if (Date.now() >= deadline) {
+                throw new TimeoutError(
+                    `trigger ${this.id} had no finished run in time (latest: ${latest ? latest.status : "none"})`,
+                );
+            }
+            await new Promise((resolve) => setTimeout(resolve, this.ctx.pollIntervalMs));
+        }
     }
 
     /** One run, with its transcript. */

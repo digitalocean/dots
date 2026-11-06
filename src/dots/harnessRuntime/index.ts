@@ -8,7 +8,7 @@
  *
  * ```ts
  * import { HarnessRuntime } from "@digitalocean/dots/harness-runtime";
- * const hr = new HarnessRuntime();                 // reads DIGITALOCEAN_TOKEN (and DIGITALOCEAN_API_URL, if set)
+ * const hr = new HarnessRuntime();                 // reads DIGITALOCEAN_ACCESS_TOKEN (and DIGITALOCEAN_API_URL, if set)
  * const session = await hr.sessions.create({ manifest });
  * const result = await session.run("Fix the failing test", { onText: (t) => process.stdout.write(t) });
  * ```
@@ -32,7 +32,7 @@ import { Triggers } from "./triggers.js";
 
 /** Options for {@link HarnessRuntime}. */
 export interface HarnessRuntimeOptions {
-    /** A DigitalOcean API token. Defaults to the `DIGITALOCEAN_TOKEN` environment variable. */
+    /** A DigitalOcean API token. Defaults to the `DIGITALOCEAN_ACCESS_TOKEN` environment variable. */
     token?: string;
     /** The API endpoint. Defaults to the `DIGITALOCEAN_API_URL` environment variable, then https://api.digitalocean.com. */
     baseUrl?: string;
@@ -58,9 +58,9 @@ export class HarnessRuntime {
     readonly client: DigitalOceanClient;
 
     constructor(options: HarnessRuntimeOptions = {}) {
-        const token = options.token ?? env("DIGITALOCEAN_TOKEN");
+        const token = options.token ?? env("DIGITALOCEAN_ACCESS_TOKEN");
         if (!token) {
-            throw new Error("no API token: pass `token` or set DIGITALOCEAN_TOKEN");
+            throw new Error("no API token: pass `token` or set DIGITALOCEAN_ACCESS_TOKEN");
         }
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
         const adapter = new FetchRequestAdapter(authProvider);
@@ -159,6 +159,7 @@ export {
     type ApprovalRequest,
     type CreateSessionInput,
     type Environment,
+    type ManagedKeyOption,
     type Manifest,
     type PersistentWorkspace,
     type RunOptions,

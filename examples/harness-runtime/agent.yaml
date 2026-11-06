@@ -1,3 +1,17 @@
-# The smallest agent manifest: the OpenCode agent with platform defaults.
-# Point HARNESS_MANIFEST at your own manifest to run a different agent.
+# The agent the examples run: OpenCode on a DigitalOcean model.
+# Copy this file to start your own manifest.
+#
+# Model: any model enabled for the Harness Runtime in the DigitalOcean model
+# catalog; pick one that supports tool calling.
+#
+# Inference key: the SDK asks the API to mint a managed key for the agent, so
+# none is needed here. To use your own key instead, add:
+#
+#   secrets:
+#     HARNESS_INFERENCE_API_KEY: <your DigitalOcean model access key>
+#
+# A trigger's sessions get no managed key, so a manifest used by a trigger
+# needs that line.
 harness: opencode
+env:
+  HARNESS_INFERENCE_MODEL: anthropic-claude-5.5-haiku

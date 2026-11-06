@@ -12,7 +12,8 @@
  *   `stderr` carrying `{"data": "<base64>"}`, `exit` carrying `exit_code` and
  *   `duration_ms`, `error` carrying `message`) are taken from the server's
  *   implementation as of November 2026.
- * - Live stdin (`spawn`) is NOT deployed yet. It follows the server team's
+ * - `spawn` without `stdin` uses the streaming mode above, so it works today.
+ * - Live stdin (`spawn` with `stdin: true`) is NOT deployed yet. It follows the server team's
  *   implementation plan as of November 2026: the start call sends
  *   `keep_stdin_open: true` and the stream opens with `event: started`
  *   carrying `exec_id`; each write is `POST .../sandbox/exec/{exec_id}/stdin`
@@ -21,7 +22,7 @@
  *   before they are published.
  *
  * When the spec publishes either mode, check these shapes against it and
- * remove this note. Until then `spawn` is a preview.
+ * remove this note. Until then `spawn` with `stdin: true` is a preview.
  */
 
 import { HeadersInspectionOptions } from "@microsoft/kiota-http-fetchlibrary";
@@ -41,6 +42,14 @@ const STDIN_CHUNK_BYTES = 512 * 1024;
 export interface ExecOptions {
     /** Working directory. Defaults to `/workspace`. */
     cwd?: string;
+    /**
+     * Environment variables for THIS COMMAND ONLY. They are not stored on the
+     * session: the next command does not see them, and commands running at
+     * the same time each see only their own. For variables every command and
+     * the agent see, set `env` in the manifest when creating the session.
+     * Applied by running the command through `env NAME=value ...` in the sandbox.
+     */
+    env?: Record<string, string>;
     /** Sent to the command's stdin in full, then closed. For live stdin use `spawn`. */
     stdin?: string | Uint8Array;
     /**
@@ -56,8 +65,18 @@ export interface ExecOptions {
     signal?: AbortSignal;
 }
 
+/** What every way of running a command shares. */
+type CommandOptions = Pick<ExecOptions, "cwd" | "env" | "timeoutMs" | "onStdout" | "onStderr">;
+
 /** Options for {@link Session.spawn}. */
-export type SpawnOptions = Pick<ExecOptions, "cwd" | "timeoutMs" | "onStdout" | "onStderr">;
+export type SpawnOptions = CommandOptions & {
+    /**
+     * Keep stdin open for `write` and `closeStdin`. Preview: the server does
+     * not support live stdin yet (see the contract note above). Without it the
+     * command runs in the background with stdin closed, which works today.
+     */
+    stdin?: boolean;
+};
 
 /** The result of a command. */
 export interface ExecResult {
@@ -71,7 +90,17 @@ export interface ExecResult {
 
 type Command = string | string[];
 
-const argvOf = (command: Command) => (typeof command === "string" ? ["sh", "-c", command] : command);
+function argvOf(command: Command, env: Record<string, string> = {}): string[] {
+    const argv = typeof command === "string" ? ["sh", "-c", command] : command;
+    const vars = Object.entries(env).map(([name, value]) => {
+        // `env` would read a name with "=" as part of the value, and one starting with "-" as an option.
+        if (!name || name.includes("=") || name.startsWith("-")) {
+            throw new HarnessRuntimeError(`invalid environment variable name: ${JSON.stringify(name)}`, 0);
+        }
+        return `${name}=${value}`;
+    });
+    return vars.length ? ["env", ...vars, ...argv] : argv;
+}
 const bytesOf = (data: string | Uint8Array) => (typeof data === "string" ? new TextEncoder().encode(data) : data);
 const timeoutSecondsOf = (ms?: number) => (ms ? Math.ceil(ms / 1000) : undefined);
 
@@ -88,7 +117,7 @@ export async function execBuffered(
     const res = await call(() =>
         ctx.client.v2.agents.sessions.bySession_id(sessionId).sandbox.exec.post(
             {
-                argv: argvOf(command),
+                argv: argvOf(command, options.env),
                 workdir: options.cwd,
                 stdin: stdin ? (stdin.slice().buffer as ArrayBuffer) : undefined,
                 timeoutSeconds: timeoutSecondsOf(options.timeoutMs),
@@ -118,7 +147,10 @@ export async function execStreamed(
     return readOutput(frames, options, options.signal);
 }
 
-/** Starts a command whose stdin stays open. Preview: see the contract note above. */
+/**
+ * Starts a command and returns while it runs. With `stdin: true` its stdin
+ * stays open (preview: see the contract note above).
+ */
 export async function spawn(
     ctx: RuntimeContext,
     sessionId: string,
@@ -126,12 +158,12 @@ export async function spawn(
     options: SpawnOptions,
 ): Promise<ExecProcess> {
     const controller = new AbortController();
-    const frames = await openExecStream(
-        ctx,
-        sessionId,
-        { ...startBody(command, options), keep_stdin_open: true },
-        controller.signal,
-    );
+    const body = startBody(command, options);
+    if (!options.stdin) {
+        const frames = await openExecStream(ctx, sessionId, body, controller.signal);
+        return new ExecProcess(ctx, sessionId, undefined, readOutput(frames, options, controller.signal), controller);
+    }
+    const frames = await openExecStream(ctx, sessionId, { ...body, keep_stdin_open: true }, controller.signal);
 
     // The server sends `started` before anything else. A server without live
     // stdin ignores the flag and runs the command with stdin closed, so stop it.
@@ -161,8 +193,8 @@ export class ExecProcess {
     constructor(
         private readonly ctx: RuntimeContext,
         private readonly sessionId: string,
-        /** The server's id for this command. */
-        readonly id: string,
+        /** The server's id for this command. Set only when stdin is open. */
+        readonly id: string | undefined,
         private readonly done: Promise<ExecResult>,
         private readonly controller: AbortController,
     ) {
@@ -196,7 +228,15 @@ export class ExecProcess {
         this.controller.abort();
     }
 
+    /** Stops the command if it is still running, for `await using proc = await session.spawn(...)`. */
+    async [Symbol.asyncDispose](): Promise<void> {
+        this.kill();
+    }
+
     private enqueue(op: () => Promise<void>): Promise<void> {
+        if (!this.id) {
+            return Promise.reject(new HarnessRuntimeError("stdin is not open: pass { stdin: true } to spawn", 0));
+        }
         const next = this.queue.then(op);
         this.queue = next.catch(() => undefined);
         return next;
@@ -235,9 +275,9 @@ export class ExecProcess {
     }
 }
 
-function startBody(command: Command, options: SpawnOptions) {
+function startBody(command: Command, options: CommandOptions) {
     return {
-        argv: argvOf(command),
+        argv: argvOf(command, options.env),
         workdir: options.cwd,
         timeout_seconds: timeoutSecondsOf(options.timeoutMs),
     };
@@ -273,7 +313,7 @@ async function openExecStream(
  */
 async function readOutput(
     frames: AsyncGenerator<SseFrame>,
-    options: SpawnOptions,
+    options: CommandOptions,
     signal?: AbortSignal,
 ): Promise<ExecResult> {
     // One decoder per stream, so a character split across two chunks is not garbled.

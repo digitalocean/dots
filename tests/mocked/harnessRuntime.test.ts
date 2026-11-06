@@ -17,6 +17,7 @@ import {
     NotFoundError,
     RateLimitError,
     SessionFailedError,
+    TimeoutError,
 } from "../../src/dots/harnessRuntime/index.js";
 
 const API = "https://api.digitalocean.com";
@@ -57,6 +58,7 @@ describe("showcase jobs", () => {
         let contentType = "";
         nock(API)
             .post("/v2/agents/sessions", (body) => typeof body === "string" && body.includes("harness: claude-code"))
+            .query({ manage_model_access_key: "true" }) // the agent's inference key is minted by the API
             .reply(function () {
                 contentType = String(this.req.headers["content-type"]);
                 return [201, { session: session("s1", "SESSION_STATUS_PROVISIONING") }];
@@ -138,7 +140,7 @@ describe("showcase jobs", () => {
         nock(API)
             .post("/v2/agents/workspaces", { name: "repo-cache", size_limit_gib: 10 })
             .reply(201, { workspace: { workspace_id: "w1", name: "repo-cache", state: "AVAILABLE" } })
-            .post("/v2/agents/configs", { name: "repo-agent", manifest_yaml: MANIFEST })
+            .post("/v2/agents/configs", { name: "repo-agent", manifest_yaml: MANIFEST, manage_model_access_key: true })
             .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000001", name: "repo-agent" } })
             .post("/v2/agents/sessions", firstCreate.body)
             .reply(201, { session: session("s1", "SESSION_STATUS_READY", { workspace_id: "w1" }) })
@@ -156,6 +158,7 @@ describe("showcase jobs", () => {
 
         expect(firstCreate.seen.body).toEqual({
             config_id: "6f1f0d3e-0000-4000-8000-000000000001",
+            name: expect.stringMatching(/^repo-agent-[a-z0-9]{8}$/), // required by the API for this form
             workspace_id: "w1",
         });
         expect(readme).toBe("cloned\n");
@@ -282,16 +285,86 @@ describe("showcase jobs", () => {
 });
 
 describe("sessions", () => {
-    it("raises SessionFailedError when the session fails instead of becoming ready", async () => {
-        nock(API)
+    it("raises SessionFailedError when the session fails instead of becoming ready, and destroys it", async () => {
+        const scope = nock(API)
             .post("/v2/agents/sessions")
             .reply(201, { session: session("s1", "SESSION_STATUS_PROVISIONING") })
             .get("/v2/agents/sessions/s1")
-            .reply(200, { session: session("s1", "SESSION_STATUS_FAILED") });
+            .reply(200, { session: session("s1", "SESSION_STATUS_FAILED") })
+            .delete("/v2/agents/sessions/s1") // the caller never gets the session, so create cleans it up
+            .reply(204);
 
         await expect(hr().sessions.create({ environment: "6f1f0d3e-0000-4000-8000-000000000001" })).rejects.toBeInstanceOf(
             SessionFailedError,
         );
+        expect(scope.isDone()).toBe(true);
+    });
+
+    it("deletes the config the API saved for a manifest session when it is destroyed", async () => {
+        const CFG = "6f1f0d3e-0000-4000-8000-000000000009";
+        const scope = nock(API)
+            .post("/v2/agents/sessions")
+            .query(true)
+            .reply(201, { session: session("s1", "SESSION_STATUS_READY", { config_id: CFG }) })
+            .delete("/v2/agents/sessions/s1")
+            .reply(204)
+            .delete(`/v2/agents/configs/${CFG}`) // revokes the managed key with it
+            .reply(204);
+        const s = await hr().sessions.create({ manifest: MANIFEST });
+        await s.destroy();
+        expect(scope.isDone()).toBe(true);
+    });
+
+    it("leaves a shared config to the last fork, and never deletes a saved environment", async () => {
+        const CFG = "6f1f0d3e-0000-4000-8000-000000000009";
+        const scope = nock(API)
+            .post("/v2/agents/sessions")
+            .query(true)
+            .reply(201, { session: session("s1", "SESSION_STATUS_READY", { config_id: CFG }) })
+            .post("/v2/agents/sessions/s1/fork")
+            .reply(201, { sessions: [session("f1", "SESSION_STATUS_READY", { config_id: CFG })] })
+            .delete("/v2/agents/sessions/s1")
+            .reply(204)
+            .delete(`/v2/agents/configs/${CFG}`)
+            .reply(409, { id: "conflict", message: "agent config has active sessions" })
+            .delete("/v2/agents/sessions/f1")
+            .reply(204)
+            .delete(`/v2/agents/configs/${CFG}`)
+            .reply(204)
+            .post("/v2/agents/sessions") // from a saved environment: its config is the caller's
+            .reply(201, { session: session("s2", "SESSION_STATUS_READY", { config_id: CFG }) })
+            .delete("/v2/agents/sessions/s2")
+            .reply(204);
+        const client = hr();
+        const s = await client.sessions.create({ manifest: MANIFEST });
+        const [fork] = await s.fork();
+        await s.destroy(); // the fork still uses the config: 409, left for the fork
+        await fork.destroy();
+        await (await client.sessions.create({ environment: CFG })).destroy();
+        expect(scope.isDone()).toBe(true);
+    });
+
+    it("stops waiting for a run after timeoutMs, naming the run", async () => {
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .get("/v2/agents/sessions/s1/events")
+            .times(1000)
+            .reply(200, sse(frame("01A", "stream.state", { state: "live" })), { "Content-Type": "text/event-stream" })
+            .post("/v2/agents/sessions/s1/input")
+            .reply(200, { run_id: "run-1" });
+        const s = await hr().sessions.get("s1");
+        const err = await s.run("go", { timeoutMs: 50 }).catch((e) => e);
+        expect(err).toBeInstanceOf(TimeoutError);
+        expect(err.message).toContain('session.cancel("run-1")');
+    });
+
+    it("does not send the prompt when the signal has already aborted", async () => {
+        nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") }); // no input interceptor
+        const s = await hr().sessions.get("s1");
+        const stop = new AbortController();
+        stop.abort(new Error("interrupted"));
+        await expect(s.run("go", { signal: stop.signal })).rejects.toThrow("interrupted");
     });
 
     it("refuses a workspace with an inline manifest instead of guessing a config name", async () => {
@@ -444,7 +517,31 @@ describe("streamed exec", () => {
         expect(err.retryAfter).toBe(1);
     });
 
-    describe("spawn (preview: built to the server's live-stdin plan)", () => {
+    it("spawns a background command without stdin, streaming its output", async () => {
+        ready();
+        nock(API)
+            .post("/v2/agents/sessions/s1/sandbox/exec", (body) => !("keep_stdin_open" in body) && body.argv[2] === "npm run dev")
+            .matchHeader("accept", "text/event-stream")
+            .reply(200, `${out("stdout", "listening on 3000\n")}${exit(0)}`, { "Content-Type": "text/event-stream" });
+
+        const s = await hr().sessions.get("s1");
+        const seen: string[] = [];
+        const dev = await s.spawn("npm run dev", { onStdout: (t) => seen.push(t) });
+        const r = await dev.wait();
+        expect(dev.id).toBeUndefined();
+        expect(seen).toEqual(["listening on 3000\n"]);
+        expect(r.exitCode).toBe(0);
+    });
+
+    it("refuses to write to a command spawned without stdin", async () => {
+        ready();
+        execStream({ argv: ["sleep", "60"] }, exit(0));
+        const s = await hr().sessions.get("s1");
+        const proc = await s.spawn(["sleep", "60"]);
+        await expect(proc.write("x")).rejects.toThrow("stdin is not open: pass { stdin: true } to spawn");
+    });
+
+    describe("spawn with stdin (preview: built to the server's live-stdin plan)", () => {
         const started = `event: started\ndata: {"exec_id":"x1"}\n\n`;
         const stdinPath = "/v2/agents/sessions/s1/sandbox/exec/x1/stdin";
 
@@ -463,7 +560,7 @@ describe("streamed exec", () => {
                 });
 
             const s = await hr().sessions.get("s1");
-            const proc = await s.spawn(["python3", "-i"]);
+            const proc = await s.spawn(["python3", "-i"], { stdin: true });
             await proc.write("print(1 + 1)\n");
             await proc.closeStdin();
             const r = await proc.wait();
@@ -490,7 +587,7 @@ describe("streamed exec", () => {
                 });
 
             const s = await hr().sessions.get("s1");
-            const proc = await s.spawn(["cat"]);
+            const proc = await s.spawn(["cat"], { stdin: true });
             await proc.write("hi");
             expect(offsets).toEqual([0]);
         });
@@ -499,7 +596,7 @@ describe("streamed exec", () => {
             ready();
             execStream({ argv: ["cat"], keep_stdin_open: true }, `${out("stdout", "")}${exit(0)}`);
             const s = await hr().sessions.get("s1");
-            await expect(s.spawn(["cat"])).rejects.toThrow("does not support live stdin yet");
+            await expect(s.spawn(["cat"], { stdin: true })).rejects.toThrow("does not support live stdin yet");
         });
 
         it("types the old-image refusal as a ConflictError", async () => {
@@ -508,8 +605,121 @@ describe("streamed exec", () => {
                 .post("/v2/agents/sessions/s1/sandbox/exec")
                 .reply(409, { message: "this session's template image does not support interactive stdin; create a new session" });
             const s = await hr().sessions.get("s1");
-            await expect(s.spawn(["cat"])).rejects.toBeInstanceOf(ConflictError);
+            await expect(s.spawn(["cat"], { stdin: true })).rejects.toBeInstanceOf(ConflictError);
         });
+    });
+});
+
+describe("session names", () => {
+    it("names a session created from an environment, which the API requires", async () => {
+        let sent: { name?: string; config_id?: string } = {};
+        nock(API)
+            .post("/v2/agents/sessions", (body) => ((sent = body), true))
+            .reply(201, { session: session("s1") });
+        await hr().sessions.create({ environment: { id: "c1", name: "repo agent!", raw: {} } });
+        expect(sent.config_id).toBe("c1");
+        expect(sent.name).toMatch(/^repo-agent-[a-z0-9]{8}$/);
+    });
+});
+
+describe("trigger runs", () => {
+    it("waits for the latest run to finish and returns its transcript", async () => {
+        const T = "/v2/agents/triggers/t1";
+        nock(API)
+            .get(T)
+            .reply(200, { trigger: { trigger_id: "t1", name: "nightly" } })
+            .get(`${T}/executions`)
+            .reply(200, { executions: [] })
+            .get(`${T}/executions`)
+            .reply(200, { executions: [{ execution_id: "e1", status: "running" }] })
+            .get(`${T}/executions`)
+            .reply(200, { executions: [{ execution_id: "e1", status: "succeeded" }] })
+            .get(`${T}/executions/e1`)
+            .reply(200, { execution: { execution_id: "e1", status: "succeeded", output_text: "all good" } });
+
+        const trigger = await hr().triggers.get("t1");
+        const run = await trigger.waitForRun();
+        expect(run).toMatchObject({ id: "e1", status: "succeeded", output: "all good" });
+    });
+
+    it("stops waiting when the signal aborts", async () => {
+        nock(API).get("/v2/agents/triggers/t1").reply(200, { trigger: { trigger_id: "t1", name: "nightly" } });
+        const trigger = await hr().triggers.get("t1");
+        const stop = new AbortController();
+        stop.abort(new Error("interrupted"));
+        await expect(trigger.waitForRun({ signal: stop.signal })).rejects.toThrow("interrupted");
+    });
+});
+
+describe("managed inference key", () => {
+    it("can be turned off for a session and an environment", async () => {
+        nock(API)
+            .post("/v2/agents/sessions") // no query: a request with one would not match
+            .reply(201, { session: session("s1") })
+            .post("/v2/agents/configs", { name: "byo", manifest_yaml: MANIFEST, manage_model_access_key: false })
+            .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000002", name: "byo" } });
+        const client = hr();
+        await client.sessions.create({ manifest: MANIFEST, manageModelAccessKey: false });
+        const env = await client.environments.create({ name: "byo", manifest: MANIFEST, manageModelAccessKey: false });
+        expect(env.name).toBe("byo");
+    });
+
+    it("is not minted for a manifest that runs no agent", async () => {
+        const scope = nock(API)
+            .post("/v2/agents/sessions") // no query
+            .reply(201, { session: session("s1") })
+            .post("/v2/agents/sessions")
+            .reply(201, { session: session("s2") })
+            .post("/v2/agents/configs", (body) => body.manage_model_access_key === false)
+            .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000003", name: "box" } });
+        const client = hr();
+        await client.sessions.create({ manifest: { harness: "sandbox" } });
+        await client.sessions.create({ manifest: "# a box\nharness: 'none'\n" });
+        await client.environments.create({ name: "box", manifest: "harness: sandbox\n" });
+        expect(scope.isDone()).toBe(true);
+    });
+});
+
+describe("per-command env", () => {
+    it("sets env for one command by running it through env", async () => {
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/agents/sessions/s1/sandbox/exec", { argv: ["env", "CI=1", "NODE_ENV=test", "sh", "-c", "npm test"] })
+            .reply(200, { exit_code: 0 });
+        const s = await hr().sessions.get("s1");
+        await s.exec("npm test", { env: { CI: "1", NODE_ENV: "test" } });
+    });
+
+    it("rejects a name env would misread, before sending anything", async () => {
+        nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+        const s = await hr().sessions.get("s1");
+        await expect(s.exec(["ls"], { env: { "A=B": "1" } })).rejects.toThrow('invalid environment variable name: "A=B"');
+        await expect(s.exec(["ls"], { env: { "-i": "1" } })).rejects.toThrow("invalid environment variable name");
+    });
+});
+
+describe("await using", () => {
+    it("destroys the session when disposed", async () => {
+        let deleted = false;
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .delete("/v2/agents/sessions/s1")
+            .reply(204, () => ((deleted = true), ""));
+        const s = await hr().sessions.get("s1");
+        await s[Symbol.asyncDispose]();
+        expect(deleted).toBe(true);
+    });
+
+    it("does not fail when the session is already gone", async () => {
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .delete("/v2/agents/sessions/s1")
+            .reply(404, { id: "not_found", message: "session not found" });
+        const s = await hr().sessions.get("s1");
+        await expect(s[Symbol.asyncDispose]()).resolves.toBeUndefined();
     });
 });
 
