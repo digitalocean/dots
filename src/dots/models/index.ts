@@ -963,7 +963,7 @@ export interface Agent_manifest_spec_runtime_custom extends AdditionalDataHolder
 }
 export interface Agent_manifest_spec_sandbox extends AdditionalDataHolder, Parsable {
     /**
-     * Requested egress policy (legacy envelope). unrestricted opts out of platform-default host allowlists and cannot combine with allow / allowIps / vpcUuid / subnetUuid. Absent or empty means no destination ACL (same as unrestricted). Flat authors prefer egress: unrestricted (scalar), a bare host list, or an object with allow_hosts / allow_ips / vpc_uuid / subnet_uuid. Platform host defaults are unioned only when allow names something; allowIps does not trigger that union (IP-only turns the destination ACL on without domain rules). VPC attachment is create-time immutable; ownership is verified at session create. Allowlists are a request only: the server intersects them with tenant + platform policy and can only narrow them.
+     * Requested egress policy (legacy envelope object). Absent means no destination ACL, same as unrestricted: true. unrestricted cannot combine with allow / allowIps / vpcUuid / subnetUuid. If allow or allowIps is present and neither list names an entry, the policy is deny-all: every outbound destination is blocked. Deny-all cannot combine with unrestricted / vpcUuid / subnetUuid, and a session that also binds URL-bound credentials is rejected with 400. If the other list names entries, only those are allowed (allow: [] with a non-empty allowIps is IP-only). A null egress, allow or allowIps is rejected with 400; omit the key instead. The flat manifest format spells these differently: egress: none (deny-all), egress: unrestricted, a bare host list (an empty list is deny-all), or an object with allow_hosts / allow_ips / vpc_uuid / subnet_uuid. Platform host defaults are unioned only when allow names something; allowIps does not trigger that union (IP-only turns the destination ACL on without domain rules). VPC attachment is create-time immutable; ownership is verified at session create. Allowlists are a request only: the server intersects them with tenant + platform policy and can only narrow them.
      */
     egress?: Agent_manifest_spec_sandbox_egress | null;
     /**
@@ -992,15 +992,15 @@ export interface Agent_manifest_spec_sandbox extends AdditionalDataHolder, Parsa
     template?: string | null;
 }
 /**
- * Requested egress policy (legacy envelope). unrestricted opts out of platform-default host allowlists and cannot combine with allow / allowIps / vpcUuid / subnetUuid. Absent or empty means no destination ACL (same as unrestricted). Flat authors prefer egress: unrestricted (scalar), a bare host list, or an object with allow_hosts / allow_ips / vpc_uuid / subnet_uuid. Platform host defaults are unioned only when allow names something; allowIps does not trigger that union (IP-only turns the destination ACL on without domain rules). VPC attachment is create-time immutable; ownership is verified at session create. Allowlists are a request only: the server intersects them with tenant + platform policy and can only narrow them.
+ * Requested egress policy (legacy envelope object). Absent means no destination ACL, same as unrestricted: true. unrestricted cannot combine with allow / allowIps / vpcUuid / subnetUuid. If allow or allowIps is present and neither list names an entry, the policy is deny-all: every outbound destination is blocked. Deny-all cannot combine with unrestricted / vpcUuid / subnetUuid, and a session that also binds URL-bound credentials is rejected with 400. If the other list names entries, only those are allowed (allow: [] with a non-empty allowIps is IP-only). A null egress, allow or allowIps is rejected with 400; omit the key instead. The flat manifest format spells these differently: egress: none (deny-all), egress: unrestricted, a bare host list (an empty list is deny-all), or an object with allow_hosts / allow_ips / vpc_uuid / subnet_uuid. Platform host defaults are unioned only when allow names something; allowIps does not trigger that union (IP-only turns the destination ACL on without domain rules). VPC attachment is create-time immutable; ownership is verified at session create. Allowlists are a request only: the server intersects them with tenant + platform policy and can only narrow them.
  */
 export interface Agent_manifest_spec_sandbox_egress extends AdditionalDataHolder, Parsable {
     /**
-     * The allow property
+     * Host allowlist. allow: [] with no non-empty allowIps means deny-all (flat spelling: egress: none). With a non-empty allowIps it is IP-only.
      */
     allow?: Agent_manifest_spec_sandbox_egress_allow[] | null;
     /**
-     * Exact IPv4/IPv6 literals (not CIDRs).
+     * Exact IPv4/IPv6 literals (not CIDRs). Present-but-empty with no non-empty allow means deny-all; allow: [] with a non-empty allowIps is IP-only.
      */
     allowIps?: string[] | null;
     /**
@@ -3308,6 +3308,10 @@ export interface ApiCustomEvaluationMetricConfig extends AdditionalDataHolder, P
      */
     scoringPrompt?: string | null;
     /**
+     * Whether the metric is for single-turn or multi-turn evaluations.
+     */
+    turnType?: ApiEvaluationMetricTurnType | null;
+    /**
      * The updated_at property
      */
     updatedAt?: Date | null;
@@ -3833,6 +3837,10 @@ export interface ApiEvaluationMetric extends AdditionalDataHolder, Parsable {
      * Distinguishes platform catalog metrics from user-defined LLM-as-judge metrics.
      */
     source?: ApiEvaluationMetricSource | null;
+    /**
+     * Whether the metric is for single-turn or multi-turn evaluations.
+     */
+    turnType?: ApiEvaluationMetricTurnType | null;
 }
 export type ApiEvaluationMetricCategory = (typeof ApiEvaluationMetricCategoryObject)[keyof typeof ApiEvaluationMetricCategoryObject];
 export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsable {
@@ -3871,6 +3879,7 @@ export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsabl
 }
 export type ApiEvaluationMetricResultStatus = (typeof ApiEvaluationMetricResultStatusObject)[keyof typeof ApiEvaluationMetricResultStatusObject];
 export type ApiEvaluationMetricSource = (typeof ApiEvaluationMetricSourceObject)[keyof typeof ApiEvaluationMetricSourceObject];
+export type ApiEvaluationMetricTurnType = (typeof ApiEvaluationMetricTurnTypeObject)[keyof typeof ApiEvaluationMetricTurnTypeObject];
 export type ApiEvaluationMetricType = (typeof ApiEvaluationMetricTypeObject)[keyof typeof ApiEvaluationMetricTypeObject];
 export type ApiEvaluationMetricValueType = (typeof ApiEvaluationMetricValueTypeObject)[keyof typeof ApiEvaluationMetricValueTypeObject];
 /**
@@ -4325,6 +4334,15 @@ export interface ApiGetModelCatalogCardOutput extends AdditionalDataHolder, Pars
      * Detail view for GetModelCatalogCard
      */
     data?: ApiModelCatalogCard | null;
+}
+/**
+ * V2 catalog card. description, code_snippets, pricing_detail, and livelinessare populated on this response.
+ */
+export interface ApiGetModelCatalogCardV2Output extends AdditionalDataHolder, Parsable {
+    /**
+     * Catalog row returned by List Model Catalog V2 and Get Model Catalog Card V2.description, code_snippets, pricing_detail, and liveliness are populated onthe card and empty on list rows. performance is populated on list rows andthe card when canary data is available.
+     */
+    data?: ApiModelCatalogEntryV2 | null;
 }
 export interface ApiGetModelEvaluationPresetOutput extends AdditionalDataHolder, Parsable {
     /**
@@ -5282,6 +5300,56 @@ export interface ApiListModelCatalogOutput extends AdditionalDataHolder, Parsabl
      */
     meta?: ApiMeta | null;
 }
+export interface ApiListModelCatalogV2Output extends AdditionalDataHolder, Parsable {
+    /**
+     * Badge values present in the unfiltered catalog.
+     */
+    availableBadges?: ApiModelCatalogBadge[] | null;
+    /**
+     * Creator values the client can offer in the creator filter.
+     */
+    availableCreators?: string[] | null;
+    /**
+     * Modality values accepted by the input_modality filter.
+     */
+    availableInputModalities?: ApiModelModality[] | null;
+    /**
+     * Model types present in the unfiltered catalog, such as chat or embedding.Informational only. V2 has no model_type request filter; browse byinput_modality, output_modality, or capabilities.
+     */
+    availableModelTypes?: string[] | null;
+    /**
+     * Modality values accepted by the output_modality filter.
+     */
+    availableOutputModalities?: ApiModelModality[] | null;
+    /**
+     * Product enrollment values present in the unfiltered catalog.
+     */
+    availableProducts?: ApiModelCatalogProduct[] | null;
+    /**
+     * Serving values present in the unfiltered catalog.
+     */
+    availableServing?: ApiModelServing[] | null;
+    /**
+     * Sort fields the client can offer in the sort UI.
+     */
+    availableSortBy?: ApiModelCatalogSortByV2[] | null;
+    /**
+     * Sort directions the client can offer in the sort UI.
+     */
+    availableSortDirections?: ApiSortDirection[] | null;
+    /**
+     * The data property
+     */
+    data?: ApiModelCatalogEntryV2[] | null;
+    /**
+     * Links to other pages
+     */
+    links?: ApiLinks | null;
+    /**
+     * Meta information about the data set
+     */
+    meta?: ApiMeta | null;
+}
 export interface ApiListModelEvaluationMetricsOutput extends AdditionalDataHolder, Parsable {
     /**
      * List of model evaluation metrics
@@ -5865,6 +5933,7 @@ export interface ApiModelAPIKeyInfo extends AdditionalDataHolder, Parsable {
     uuid?: string | null;
 }
 export type ApiModelBillingMode = (typeof ApiModelBillingModeObject)[keyof typeof ApiModelBillingModeObject];
+export type ApiModelCatalogBadge = (typeof ApiModelCatalogBadgeObject)[keyof typeof ApiModelCatalogBadgeObject];
 /**
  * Detail view for GetModelCatalogCard
  */
@@ -6037,7 +6106,200 @@ export interface ApiModelCatalogEntry extends AdditionalDataHolder, Parsable {
  */
 export interface ApiModelCatalogEntry_benchmark_score extends AdditionalDataHolder, Parsable {
 }
+/**
+ * Catalog row returned by List Model Catalog V2 and Get Model Catalog Card V2.description, code_snippets, pricing_detail, and liveliness are populated onthe card and empty on list rows. performance is populated on list rows andthe card when canary data is available.
+ */
+export interface ApiModelCatalogEntryV2 extends AdditionalDataHolder, Parsable {
+    /**
+     * The badges property
+     */
+    badges?: ApiModelCatalogBadge[] | null;
+    /**
+     * The capabilities property
+     */
+    capabilities?: string[] | null;
+    /**
+     * Code examples for using the model
+     */
+    codeSnippets?: ApiCodeSnippets | null;
+    /**
+     * The context_window property
+     */
+    contextWindow?: string | null;
+    /**
+     * RFC 3339 timestamp indicating when the model was added to the catalog.
+     */
+    createdAt?: Date | null;
+    /**
+     * Model creator or developer, such as Meta, Anthropic, or OpenAI.
+     */
+    creator?: string | null;
+    /**
+     * Full catalog description. Populated on Get Model Catalog Card V2.
+     */
+    description?: string | null;
+    /**
+     * Hugging Face repository ID the model is based on, when applicable.
+     */
+    huggingfaceRepoId?: string | null;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The input_modality property
+     */
+    inputModality?: ApiModelModality[] | null;
+    /**
+     * Whether a catalog row is a foundation model or an Inference Router preset. - MODEL_CATALOG_ITEM_TYPE_MODEL: A foundation or inference model. - MODEL_CATALOG_ITEM_TYPE_INFERENCE_ROUTER: An Inference Router preset.
+     */
+    itemType?: ApiModelCatalogItemType | null;
+    /**
+     * Performance statistics for a model, computed from canary traffic.Present when the feature is enabled. Each metric (ttft, e2e_latency,throughput) has its own status.
+     */
+    liveliness?: ApiModelLiveliness | null;
+    /**
+     * Maximum number of output tokens the model can generate in one response.
+     */
+    maxOutputTokens?: string | null;
+    /**
+     * Numeric range with min, max, and default values for model tuning parameters.
+     */
+    maxTokens?: ApiNumericRange | null;
+    /**
+     * Model identifier used for inference API calls, such as llama3.1-70b-instruct.
+     */
+    modelId?: string | null;
+    /**
+     * The name property
+     */
+    name?: string | null;
+    /**
+     * The output_modality property
+     */
+    outputModality?: ApiModelModality[] | null;
+    /**
+     * Parameter count in billions. For example, 70.0 means 70B.
+     */
+    parameterCountInBillions?: number | null;
+    /**
+     * Compact canary performance rollup for catalog browse and the catalog card.List Model Catalog V2 uses a rolling last-24-hour window (window_days is 1).Get Model Catalog Card V2 uses the sample-weighted mean of daily percentilesover the liveliness window, typically 7 days. The full daily series stays onliveliness. This is canary traffic, not live customer load.
+     */
+    performance?: ApiModelCatalogPerformance | null;
+    /**
+     * Pricing per million tokens (aligns with existing ModelPrice pattern)
+     */
+    pricing?: ApiModelPricing | null;
+    /**
+     * The complete set of prices for a model, covering every available variant.
+     */
+    pricingDetail?: ApiModelPricingDetail | null;
+    /**
+     * The products property
+     */
+    products?: ApiModelCatalogProduct[] | null;
+    /**
+     * The provider property
+     */
+    provider?: ApiModelProvider | null;
+    /**
+     * Supported reasoning effort levels, such as low, medium, and high.
+     */
+    reasoningEfforts?: string[] | null;
+    /**
+     * True when this model's pricing varies over time.
+     */
+    scaledPricingEnabled?: boolean | null;
+    /**
+     * The serving property
+     */
+    serving?: ApiModelServing[] | null;
+    /**
+     * The short_description property
+     */
+    shortDescription?: string | null;
+    /**
+     * Inference endpoints this model serves, such as chat completions or responses.Empty for Inference Router presets.
+     */
+    supportedEndpoints?: ApiModelSupportedEndpoint[] | null;
+    /**
+     * Whether the inference request schema includes a temperature field.
+     */
+    supportsTemperature?: boolean | null;
+    /**
+     * Numeric range with min, max, and default values for model tuning parameters.
+     */
+    temperature?: ApiNumericRange | null;
+    /**
+     * Whether the model supports extended thinking.
+     */
+    thinking?: boolean | null;
+    /**
+     * Numeric range with min, max, and default values for model tuning parameters.
+     */
+    topP?: ApiNumericRange | null;
+    /**
+     * Catalog model type, such as chat or embedding.
+     */
+    type?: string | null;
+}
+export type ApiModelCatalogItemType = (typeof ApiModelCatalogItemTypeObject)[keyof typeof ApiModelCatalogItemTypeObject];
+/**
+ * Compact canary performance rollup for catalog browse and the catalog card.List Model Catalog V2 uses a rolling last-24-hour window (window_days is 1).Get Model Catalog Card V2 uses the sample-weighted mean of daily percentilesover the liveliness window, typically 7 days. The full daily series stays onliveliness. This is canary traffic, not live customer load.
+ */
+export interface ApiModelCatalogPerformance extends AdditionalDataHolder, Parsable {
+    /**
+     * End-to-end latency in seconds, p50.
+     */
+    e2eLatencyP50Seconds?: number | null;
+    /**
+     * End-to-end latency in seconds, p75.
+     */
+    e2eLatencyP75Seconds?: number | null;
+    /**
+     * End-to-end latency in seconds, p95.
+     */
+    e2eLatencyP95Seconds?: number | null;
+    /**
+     * Request samples across the window. Prefers end-to-end latency, then time to first token, then throughput.
+     */
+    samples?: number | null;
+    /**
+     * "ok" when time to first token, end-to-end latency, and throughput allhave data, "partial_data" when only some do, "insufficient_data" whennone do.
+     */
+    status?: string | null;
+    /**
+     * Throughput in tokens per second, p50.
+     */
+    throughputP50TokPerS?: number | null;
+    /**
+     * Throughput in tokens per second, p75.
+     */
+    throughputP75TokPerS?: number | null;
+    /**
+     * Throughput in tokens per second, p95.
+     */
+    throughputP95TokPerS?: number | null;
+    /**
+     * Time to first token in seconds, p50. Streaming canary probes only.
+     */
+    ttftP50Seconds?: number | null;
+    /**
+     * Time to first token in seconds, p75. Streaming canary probes only.
+     */
+    ttftP75Seconds?: number | null;
+    /**
+     * Time to first token in seconds, p95. Streaming canary probes only.
+     */
+    ttftP95Seconds?: number | null;
+    /**
+     * Lookback window length in days. 1 is the rolling 24-hour list window.
+     */
+    windowDays?: number | null;
+}
+export type ApiModelCatalogProduct = (typeof ApiModelCatalogProductObject)[keyof typeof ApiModelCatalogProductObject];
 export type ApiModelCatalogSortBy = (typeof ApiModelCatalogSortByObject)[keyof typeof ApiModelCatalogSortByObject];
+export type ApiModelCatalogSortByV2 = (typeof ApiModelCatalogSortByV2Object)[keyof typeof ApiModelCatalogSortByV2Object];
 /**
  * An available endpoint for a model and its capabilities
  */
@@ -6384,6 +6646,77 @@ export interface ApiModelEvaluationRunSummary extends AdditionalDataHolder, Pars
     status?: ApiModelEvaluationRunStatus | null;
 }
 /**
+ * Performance statistics for a model, computed from canary traffic.Present when the feature is enabled. Each metric (ttft, e2e_latency,throughput) has its own status.
+ */
+export interface ApiModelLiveliness extends AdditionalDataHolder, Parsable {
+    /**
+     * One performance metric for a model: its daily series, oldest day first, andwhether it has data.
+     */
+    e2eLatency?: ApiModelLivelinessMetric | null;
+    /**
+     * Summary across metrics: "ok" when every metric has data, "partial_data"when some do and some do not, "insufficient_data" when none do.
+     */
+    overallStatus?: string | null;
+    /**
+     * Traffic the statistics are computed from. Always "canary".
+     */
+    source?: string | null;
+    /**
+     * One performance metric for a model: its daily series, oldest day first, andwhether it has data.
+     */
+    throughput?: ApiModelLivelinessMetric | null;
+    /**
+     * One performance metric for a model: its daily series, oldest day first, andwhether it has data.
+     */
+    ttft?: ApiModelLivelinessMetric | null;
+}
+/**
+ * One UTC day of a performance metric, merged across serving regions.Percentiles use the parent metric's unit.
+ */
+export interface ApiModelLivelinessDay extends AdditionalDataHolder, Parsable {
+    /**
+     * Start of the day (00:00 UTC) as Unix milliseconds.
+     */
+    dayMs?: number | null;
+    /**
+     * Median value, rounded to 2 decimal places.
+     */
+    p50?: number | null;
+    /**
+     * 75th percentile value, rounded to 2 decimal places.
+     */
+    p75?: number | null;
+    /**
+     * 95th percentile value, rounded to 2 decimal places.
+     */
+    p95?: number | null;
+    /**
+     * True while the day is still in progress; its values will keep changing.
+     */
+    partial?: boolean | null;
+    /**
+     * Number of requests the percentiles were computed from.
+     */
+    samples?: number | null;
+}
+/**
+ * One performance metric for a model: its daily series, oldest day first, andwhether it has data.
+ */
+export interface ApiModelLivelinessMetric extends AdditionalDataHolder, Parsable {
+    /**
+     * Daily points, oldest first. Empty when status is "insufficient_data".
+     */
+    days?: ApiModelLivelinessDay[] | null;
+    /**
+     * "ok" when days has data; "insufficient_data" when there are not enoughrecent samples for this model.
+     */
+    status?: string | null;
+    /**
+     * Unit of the percentile values: "s" for ttft and e2e_latency, "tok/s" forthroughput.
+     */
+    unit?: string | null;
+}
+/**
  * Input/output modalities
  */
 export interface ApiModelModalities extends AdditionalDataHolder, Parsable {
@@ -6396,6 +6729,7 @@ export interface ApiModelModalities extends AdditionalDataHolder, Parsable {
      */
     output?: string[] | null;
 }
+export type ApiModelModality = (typeof ApiModelModalityObject)[keyof typeof ApiModelModalityObject];
 /**
  * Pricing per million tokens (aligns with existing ModelPrice pattern)
  */
@@ -6876,6 +7210,7 @@ export interface ApiModelScaledPricing extends AdditionalDataHolder, Parsable {
      */
     minPrices?: ApiModelPricing | null;
 }
+export type ApiModelServing = (typeof ApiModelServingObject)[keyof typeof ApiModelServingObject];
 /**
  * A configurable setting for a model in the playground
  */
@@ -6913,6 +7248,7 @@ export interface ApiModelSetting extends AdditionalDataHolder, Parsable {
      */
     type?: string | null;
 }
+export type ApiModelSupportedEndpoint = (typeof ApiModelSupportedEndpointObject)[keyof typeof ApiModelSupportedEndpointObject];
 export type ApiModelUsecase = (typeof ApiModelUsecaseObject)[keyof typeof ApiModelUsecaseObject];
 /**
  * Version Information about a Model
@@ -6949,6 +7285,23 @@ export interface ApiMoveAgentsToWorkspaceOutput extends AdditionalDataHolder, Pa
      * The workspace property
      */
     workspace?: ApiWorkspace | null;
+}
+/**
+ * Numeric range with min, max, and default values for model tuning parameters.
+ */
+export interface ApiNumericRange extends AdditionalDataHolder, Parsable {
+    /**
+     * The default property
+     */
+    defaultEscaped?: number | null;
+    /**
+     * The max property
+     */
+    max?: number | null;
+    /**
+     * The min property
+     */
+    min?: number | null;
 }
 /**
  * OpenAI API Key Info
@@ -12414,6 +12767,14 @@ export interface Checkpoint2 extends AdditionalDataHolder, Parsable {
      */
     diskBytes?: number | null;
     /**
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     */
+    egressPolicy?: Microvm_egress_policy | null;
+    /**
+     * Why the checkpoint failed. Present only when `status` is `CHECKPOINT_FAILED`.
+     */
+    failureReason?: string | null;
+    /**
      * The unique ID of the checkpoint.
      */
     id?: Guid | null;
@@ -15971,6 +16332,15 @@ export function createApiGetModelCatalogCardOutputFromDiscriminatorValue(parseNo
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiGetModelCatalogCardV2Output}
+ */
+// @ts-ignore
+export function createApiGetModelCatalogCardV2OutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiGetModelCatalogCardV2Output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiGetModelEvaluationPresetOutput}
  */
 // @ts-ignore
@@ -16448,6 +16818,15 @@ export function createApiListModelCatalogOutputFromDiscriminatorValue(parseNode:
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiListModelCatalogV2Output}
+ */
+// @ts-ignore
+export function createApiListModelCatalogV2OutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiListModelCatalogV2Output;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiListModelEvaluationMetricsOutput}
  */
 // @ts-ignore
@@ -16700,6 +17079,24 @@ export function createApiModelCatalogEntryFromDiscriminatorValue(parseNode: Pars
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelCatalogEntryV2}
+ */
+// @ts-ignore
+export function createApiModelCatalogEntryV2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelCatalogEntryV2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelCatalogPerformance}
+ */
+// @ts-ignore
+export function createApiModelCatalogPerformanceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelCatalogPerformance;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApiModelEndpoint}
  */
 // @ts-ignore
@@ -16777,6 +17174,33 @@ export function createApiModelEvaluationRunSummaryFromDiscriminatorValue(parseNo
 // @ts-ignore
 export function createApiModelFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiModel;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelLivelinessDay}
+ */
+// @ts-ignore
+export function createApiModelLivelinessDayFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelLivelinessDay;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelLiveliness}
+ */
+// @ts-ignore
+export function createApiModelLivelinessFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelLiveliness;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiModelLivelinessMetric}
+ */
+// @ts-ignore
+export function createApiModelLivelinessMetricFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiModelLivelinessMetric;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -16966,6 +17390,15 @@ export function createApiMoveAgentsToWorkspaceInputPublicFromDiscriminatorValue(
 // @ts-ignore
 export function createApiMoveAgentsToWorkspaceOutputFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApiMoveAgentsToWorkspaceOutput;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ApiNumericRange}
+ */
+// @ts-ignore
+export function createApiNumericRangeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoApiNumericRange;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -22077,6 +22510,24 @@ export function createGrantFromDiscriminatorValue(parseNode: ParseNode | undefin
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Harness_region}
+ */
+// @ts-ignore
+export function createHarness_regionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoHarness_region;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Harness_regions_response}
+ */
+// @ts-ignore
+export function createHarness_regions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoHarness_regions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Health_check}
  */
 // @ts-ignore
@@ -23418,11 +23869,38 @@ export function createMetrics2FromDiscriminatorValue(parseNode: ParseNode | unde
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_access_token_create}
+ */
+// @ts-ignore
+export function createMicrovm_access_token_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_access_token_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_access_token}
+ */
+// @ts-ignore
+export function createMicrovm_access_tokenFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_access_token;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Microvm_auto_pause}
  */
 // @ts-ignore
 export function createMicrovm_auto_pauseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMicrovm_auto_pause;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_base}
+ */
+// @ts-ignore
+export function createMicrovm_baseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_base;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -23441,6 +23919,24 @@ export function createMicrovm_create_environmentFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createMicrovm_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMicrovm_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_egress_policy_rules}
+ */
+// @ts-ignore
+export function createMicrovm_egress_policy_rulesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_egress_policy_rules;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_egress_policy}
+ */
+// @ts-ignore
+export function createMicrovm_egress_policyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_egress_policy;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -23522,6 +24018,24 @@ export function createMicrovm_sizeFromDiscriminatorValue(parseNode: ParseNode | 
 // @ts-ignore
 export function createMicrovm_sourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMicrovm_source;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_update}
+ */
+// @ts-ignore
+export function createMicrovm_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_update;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_url_create}
+ */
+// @ts-ignore
+export function createMicrovm_url_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_url_create;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -31060,6 +31574,7 @@ export function deserializeIntoApiCustomEvaluationMetricConfig(apiCustomEvaluati
         "deleted_at": n => { apiCustomEvaluationMetricConfig.deletedAt = n.getDateValue(); },
         "requires_ground_truth": n => { apiCustomEvaluationMetricConfig.requiresGroundTruth = n.getBooleanValue(); },
         "scoring_prompt": n => { apiCustomEvaluationMetricConfig.scoringPrompt = n.getStringValue(); },
+        "turn_type": n => { apiCustomEvaluationMetricConfig.turnType = n.getEnumValue<ApiEvaluationMetricTurnType>(ApiEvaluationMetricTurnTypeObject) ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED; },
         "updated_at": n => { apiCustomEvaluationMetricConfig.updatedAt = n.getDateValue(); },
     }
 }
@@ -31459,6 +31974,7 @@ export function deserializeIntoApiEvaluationMetric(apiEvaluationMetric: Partial<
         "range_max": n => { apiEvaluationMetric.rangeMax = n.getNumberValue(); },
         "range_min": n => { apiEvaluationMetric.rangeMin = n.getNumberValue(); },
         "source": n => { apiEvaluationMetric.source = n.getEnumValue<ApiEvaluationMetricSource>(ApiEvaluationMetricSourceObject) ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED; },
+        "turn_type": n => { apiEvaluationMetric.turnType = n.getEnumValue<ApiEvaluationMetricTurnType>(ApiEvaluationMetricTurnTypeObject) ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED; },
     }
 }
 /**
@@ -31824,6 +32340,17 @@ export function deserializeIntoApiGetKnowledgeBaseOutput(apiGetKnowledgeBaseOutp
 export function deserializeIntoApiGetModelCatalogCardOutput(apiGetModelCatalogCardOutput: Partial<ApiGetModelCatalogCardOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "data": n => { apiGetModelCatalogCardOutput.data = n.getObjectValue<ApiModelCatalogCard>(createApiModelCatalogCardFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiGetModelCatalogCardV2Output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiGetModelCatalogCardV2Output(apiGetModelCatalogCardV2Output: Partial<ApiGetModelCatalogCardV2Output> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "data": n => { apiGetModelCatalogCardV2Output.data = n.getObjectValue<ApiModelCatalogEntryV2>(createApiModelCatalogEntryV2FromDiscriminatorValue); },
     }
 }
 /**
@@ -32542,6 +33069,28 @@ export function deserializeIntoApiListModelCatalogOutput(apiListModelCatalogOutp
 }
 /**
  * The deserialization information for the current model
+ * @param ApiListModelCatalogV2Output The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiListModelCatalogV2Output(apiListModelCatalogV2Output: Partial<ApiListModelCatalogV2Output> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "available_badges": n => { apiListModelCatalogV2Output.availableBadges = n.getCollectionOfEnumValues<ApiModelCatalogBadge>(ApiModelCatalogBadgeObject); },
+        "available_creators": n => { apiListModelCatalogV2Output.availableCreators = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_input_modalities": n => { apiListModelCatalogV2Output.availableInputModalities = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
+        "available_model_types": n => { apiListModelCatalogV2Output.availableModelTypes = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_output_modalities": n => { apiListModelCatalogV2Output.availableOutputModalities = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
+        "available_products": n => { apiListModelCatalogV2Output.availableProducts = n.getCollectionOfEnumValues<ApiModelCatalogProduct>(ApiModelCatalogProductObject); },
+        "available_serving": n => { apiListModelCatalogV2Output.availableServing = n.getCollectionOfEnumValues<ApiModelServing>(ApiModelServingObject); },
+        "available_sort_by": n => { apiListModelCatalogV2Output.availableSortBy = n.getCollectionOfEnumValues<ApiModelCatalogSortByV2>(ApiModelCatalogSortByV2Object); },
+        "available_sort_directions": n => { apiListModelCatalogV2Output.availableSortDirections = n.getCollectionOfEnumValues<ApiSortDirection>(ApiSortDirectionObject); },
+        "data": n => { apiListModelCatalogV2Output.data = n.getCollectionOfObjectValues<ApiModelCatalogEntryV2>(createApiModelCatalogEntryV2FromDiscriminatorValue); },
+        "links": n => { apiListModelCatalogV2Output.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
+        "meta": n => { apiListModelCatalogV2Output.meta = n.getObjectValue<ApiMeta>(createApiMetaFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiListModelEvaluationMetricsOutput The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -32988,6 +33537,71 @@ export function deserializeIntoApiModelCatalogEntry_benchmark_score(apiModelCata
 }
 /**
  * The deserialization information for the current model
+ * @param ApiModelCatalogEntryV2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelCatalogEntryV2(apiModelCatalogEntryV2: Partial<ApiModelCatalogEntryV2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "badges": n => { apiModelCatalogEntryV2.badges = n.getCollectionOfEnumValues<ApiModelCatalogBadge>(ApiModelCatalogBadgeObject); },
+        "capabilities": n => { apiModelCatalogEntryV2.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "code_snippets": n => { apiModelCatalogEntryV2.codeSnippets = n.getObjectValue<ApiCodeSnippets>(createApiCodeSnippetsFromDiscriminatorValue); },
+        "context_window": n => { apiModelCatalogEntryV2.contextWindow = n.getStringValue(); },
+        "created_at": n => { apiModelCatalogEntryV2.createdAt = n.getDateValue(); },
+        "creator": n => { apiModelCatalogEntryV2.creator = n.getStringValue(); },
+        "description": n => { apiModelCatalogEntryV2.description = n.getStringValue(); },
+        "huggingface_repo_id": n => { apiModelCatalogEntryV2.huggingfaceRepoId = n.getStringValue(); },
+        "id": n => { apiModelCatalogEntryV2.id = n.getStringValue(); },
+        "input_modality": n => { apiModelCatalogEntryV2.inputModality = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
+        "item_type": n => { apiModelCatalogEntryV2.itemType = n.getEnumValue<ApiModelCatalogItemType>(ApiModelCatalogItemTypeObject) ?? ApiModelCatalogItemTypeObject.MODEL_CATALOG_ITEM_TYPE_UNSPECIFIED; },
+        "liveliness": n => { apiModelCatalogEntryV2.liveliness = n.getObjectValue<ApiModelLiveliness>(createApiModelLivelinessFromDiscriminatorValue); },
+        "max_output_tokens": n => { apiModelCatalogEntryV2.maxOutputTokens = n.getStringValue(); },
+        "max_tokens": n => { apiModelCatalogEntryV2.maxTokens = n.getObjectValue<ApiNumericRange>(createApiNumericRangeFromDiscriminatorValue); },
+        "model_id": n => { apiModelCatalogEntryV2.modelId = n.getStringValue(); },
+        "name": n => { apiModelCatalogEntryV2.name = n.getStringValue(); },
+        "output_modality": n => { apiModelCatalogEntryV2.outputModality = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
+        "parameter_count_in_billions": n => { apiModelCatalogEntryV2.parameterCountInBillions = n.getNumberValue(); },
+        "performance": n => { apiModelCatalogEntryV2.performance = n.getObjectValue<ApiModelCatalogPerformance>(createApiModelCatalogPerformanceFromDiscriminatorValue); },
+        "pricing": n => { apiModelCatalogEntryV2.pricing = n.getObjectValue<ApiModelPricing>(createApiModelPricingFromDiscriminatorValue); },
+        "pricing_detail": n => { apiModelCatalogEntryV2.pricingDetail = n.getObjectValue<ApiModelPricingDetail>(createApiModelPricingDetailFromDiscriminatorValue); },
+        "products": n => { apiModelCatalogEntryV2.products = n.getCollectionOfEnumValues<ApiModelCatalogProduct>(ApiModelCatalogProductObject); },
+        "provider": n => { apiModelCatalogEntryV2.provider = n.getEnumValue<ApiModelProvider>(ApiModelProviderObject) ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN; },
+        "reasoning_efforts": n => { apiModelCatalogEntryV2.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>(); },
+        "scaled_pricing_enabled": n => { apiModelCatalogEntryV2.scaledPricingEnabled = n.getBooleanValue(); },
+        "serving": n => { apiModelCatalogEntryV2.serving = n.getCollectionOfEnumValues<ApiModelServing>(ApiModelServingObject); },
+        "short_description": n => { apiModelCatalogEntryV2.shortDescription = n.getStringValue(); },
+        "supported_endpoints": n => { apiModelCatalogEntryV2.supportedEndpoints = n.getCollectionOfEnumValues<ApiModelSupportedEndpoint>(ApiModelSupportedEndpointObject); },
+        "supports_temperature": n => { apiModelCatalogEntryV2.supportsTemperature = n.getBooleanValue(); },
+        "temperature": n => { apiModelCatalogEntryV2.temperature = n.getObjectValue<ApiNumericRange>(createApiNumericRangeFromDiscriminatorValue); },
+        "thinking": n => { apiModelCatalogEntryV2.thinking = n.getBooleanValue(); },
+        "top_p": n => { apiModelCatalogEntryV2.topP = n.getObjectValue<ApiNumericRange>(createApiNumericRangeFromDiscriminatorValue); },
+        "type": n => { apiModelCatalogEntryV2.type = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelCatalogPerformance The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelCatalogPerformance(apiModelCatalogPerformance: Partial<ApiModelCatalogPerformance> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "e2e_latency_p50_seconds": n => { apiModelCatalogPerformance.e2eLatencyP50Seconds = n.getNumberValue(); },
+        "e2e_latency_p75_seconds": n => { apiModelCatalogPerformance.e2eLatencyP75Seconds = n.getNumberValue(); },
+        "e2e_latency_p95_seconds": n => { apiModelCatalogPerformance.e2eLatencyP95Seconds = n.getNumberValue(); },
+        "samples": n => { apiModelCatalogPerformance.samples = n.getNumberValue(); },
+        "status": n => { apiModelCatalogPerformance.status = n.getStringValue(); },
+        "throughput_p50_tok_per_s": n => { apiModelCatalogPerformance.throughputP50TokPerS = n.getNumberValue(); },
+        "throughput_p75_tok_per_s": n => { apiModelCatalogPerformance.throughputP75TokPerS = n.getNumberValue(); },
+        "throughput_p95_tok_per_s": n => { apiModelCatalogPerformance.throughputP95TokPerS = n.getNumberValue(); },
+        "ttft_p50_seconds": n => { apiModelCatalogPerformance.ttftP50Seconds = n.getNumberValue(); },
+        "ttft_p75_seconds": n => { apiModelCatalogPerformance.ttftP75Seconds = n.getNumberValue(); },
+        "ttft_p95_seconds": n => { apiModelCatalogPerformance.ttftP95Seconds = n.getNumberValue(); },
+        "window_days": n => { apiModelCatalogPerformance.windowDays = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ApiModelEndpoint The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -33140,6 +33754,50 @@ export function deserializeIntoApiModelEvaluationRunSummary(apiModelEvaluationRu
         "name": n => { apiModelEvaluationRunSummary.name = n.getStringValue(); },
         "progress": n => { apiModelEvaluationRunSummary.progress = n.getObjectValue<ApiModelEvaluationRunProgress>(createApiModelEvaluationRunProgressFromDiscriminatorValue); },
         "status": n => { apiModelEvaluationRunSummary.status = n.getEnumValue<ApiModelEvaluationRunStatus>(ApiModelEvaluationRunStatusObject) ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelLiveliness The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelLiveliness(apiModelLiveliness: Partial<ApiModelLiveliness> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "e2e_latency": n => { apiModelLiveliness.e2eLatency = n.getObjectValue<ApiModelLivelinessMetric>(createApiModelLivelinessMetricFromDiscriminatorValue); },
+        "overall_status": n => { apiModelLiveliness.overallStatus = n.getStringValue(); },
+        "source": n => { apiModelLiveliness.source = n.getStringValue(); },
+        "throughput": n => { apiModelLiveliness.throughput = n.getObjectValue<ApiModelLivelinessMetric>(createApiModelLivelinessMetricFromDiscriminatorValue); },
+        "ttft": n => { apiModelLiveliness.ttft = n.getObjectValue<ApiModelLivelinessMetric>(createApiModelLivelinessMetricFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelLivelinessDay The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelLivelinessDay(apiModelLivelinessDay: Partial<ApiModelLivelinessDay> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "day_ms": n => { apiModelLivelinessDay.dayMs = n.getNumberValue(); },
+        "p50": n => { apiModelLivelinessDay.p50 = n.getNumberValue(); },
+        "p75": n => { apiModelLivelinessDay.p75 = n.getNumberValue(); },
+        "p95": n => { apiModelLivelinessDay.p95 = n.getNumberValue(); },
+        "partial": n => { apiModelLivelinessDay.partial = n.getBooleanValue(); },
+        "samples": n => { apiModelLivelinessDay.samples = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiModelLivelinessMetric The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiModelLivelinessMetric(apiModelLivelinessMetric: Partial<ApiModelLivelinessMetric> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "days": n => { apiModelLivelinessMetric.days = n.getCollectionOfObjectValues<ApiModelLivelinessDay>(createApiModelLivelinessDayFromDiscriminatorValue); },
+        "status": n => { apiModelLivelinessMetric.status = n.getStringValue(); },
+        "unit": n => { apiModelLivelinessMetric.unit = n.getStringValue(); },
     }
 }
 /**
@@ -33467,6 +34125,19 @@ export function deserializeIntoApiMoveAgentsToWorkspaceInputPublic(apiMoveAgents
 export function deserializeIntoApiMoveAgentsToWorkspaceOutput(apiMoveAgentsToWorkspaceOutput: Partial<ApiMoveAgentsToWorkspaceOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "workspace": n => { apiMoveAgentsToWorkspaceOutput.workspace = n.getObjectValue<ApiWorkspace>(createApiWorkspaceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ApiNumericRange The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoApiNumericRange(apiNumericRange: Partial<ApiNumericRange> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "default": n => { apiNumericRange.defaultEscaped = n.getNumberValue(); },
+        "max": n => { apiNumericRange.max = n.getNumberValue(); },
+        "min": n => { apiNumericRange.min = n.getNumberValue(); },
     }
 }
 /**
@@ -37471,6 +38142,8 @@ export function deserializeIntoCheckpoint2(checkpoint2: Partial<Checkpoint2> | u
     return {
         "created_at": n => { checkpoint2.createdAt = n.getDateValue(); },
         "disk_bytes": n => { checkpoint2.diskBytes = n.getNumberValue(); },
+        "egress_policy": n => { checkpoint2.egressPolicy = n.getObjectValue<Microvm_egress_policy>(createMicrovm_egress_policyFromDiscriminatorValue); },
+        "failure_reason": n => { checkpoint2.failureReason = n.getStringValue(); },
         "id": n => { checkpoint2.id = n.getGuidValue(); },
         "memory_bytes": n => { checkpoint2.memoryBytes = n.getNumberValue(); },
         "microvm_id": n => { checkpoint2.microvmId = n.getGuidValue(); },
@@ -40498,6 +41171,7 @@ export function deserializeIntoExec_request(exec_request: Partial<Exec_request> 
     return {
         "argv": n => { exec_request.argv = n.getCollectionOfPrimitiveValues<string>(); },
         "cwd": n => { exec_request.cwd = n.getStringValue(); },
+        "output_encoding": n => { exec_request.outputEncoding = n.getEnumValue<Exec_request_output_encoding>(Exec_request_output_encodingObject) ?? Exec_request_output_encodingObject.Utf8; },
     }
 }
 /**
@@ -40509,6 +41183,7 @@ export function deserializeIntoExec_request(exec_request: Partial<Exec_request> 
 export function deserializeIntoExec_response(exec_response: Partial<Exec_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "exit_code": n => { exec_response.exitCode = n.getNumberValue(); },
+        "output_encoding": n => { exec_response.outputEncoding = n.getEnumValue<Exec_response_output_encoding>(Exec_response_output_encodingObject); },
         "stderr": n => { exec_response.stderr = n.getStringValue(); },
         "stdout": n => { exec_response.stdout = n.getStringValue(); },
         "truncated": n => { exec_response.truncated = n.getBooleanValue(); },
@@ -41189,6 +41864,29 @@ export function deserializeIntoGrant(grant: Partial<Grant> | undefined = {}) : R
     return {
         "bucket": n => { grant.bucket = n.getStringValue(); },
         "permission": n => { grant.permission = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Harness_region The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoHarness_region(harness_region: Partial<Harness_region> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "is_default": n => { harness_region.isDefault = n.getBooleanValue(); },
+        "slug": n => { harness_region.slug = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Harness_regions_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoHarness_regions_response(harness_regions_response: Partial<Harness_regions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "regions": n => { harness_regions_response.regions = n.getCollectionOfObjectValues<Harness_region>(createHarness_regionFromDiscriminatorValue); },
     }
 }
 /**
@@ -43232,22 +43930,36 @@ export function deserializeIntoMetrics2(metrics2: Partial<Metrics2> | undefined 
 // @ts-ignore
 export function deserializeIntoMicrovm(microvm: Partial<Microvm> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "auto_pause": n => { microvm.autoPause = n.getObjectValue<Microvm_auto_pause>(createMicrovm_auto_pauseFromDiscriminatorValue); },
-        "auto_resume": n => { microvm.autoResume = n.getBooleanValue(); },
-        "created_at": n => { microvm.createdAt = n.getDateValue(); },
-        "failure_reason": n => { microvm.failureReason = n.getStringValue(); },
-        "http_protocol": n => { microvm.httpProtocol = n.getEnumValue<Microvm_http_protocol>(Microvm_http_protocolObject); },
-        "id": n => { microvm.id = n.getGuidValue(); },
-        "name": n => { microvm.name = n.getStringValue(); },
-        "networking": n => { microvm.networking = n.getEnumValue<Microvm_networking>(Microvm_networkingObject) ?? Microvm_networkingObject.Public; },
-        "ports": n => { microvm.ports = n.getCollectionOfPrimitiveValues<number>(); },
-        "region": n => { microvm.region = n.getStringValue(); },
-        "size": n => { microvm.size = n.getObjectValue<Microvm_size>(createMicrovm_sizeFromDiscriminatorValue); },
-        "source": n => { microvm.source = n.getObjectValue<Microvm_source>(createMicrovm_sourceFromDiscriminatorValue); },
-        "state": n => { microvm.state = n.getEnumValue<Microvm_state>(Microvm_stateObject); },
+        ...deserializeIntoMicrovm_base(microvm),
+        "project_id": n => { microvm.projectId = n.getGuidValue(); },
         "tags": n => { microvm.tags = n.getCollectionOfPrimitiveValues<string>(); },
-        "urls": n => { microvm.urls = n.getCollectionOfObjectValues<Microvm_url>(createMicrovm_urlFromDiscriminatorValue); },
-        "vpc_uuid": n => { microvm.vpcUuid = n.getGuidValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_access_token The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_access_token(microvm_access_token: Partial<Microvm_access_token> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { microvm_access_token.createdAt = n.getDateValue(); },
+        "expires_at": n => { microvm_access_token.expiresAt = n.getDateValue(); },
+        "id": n => { microvm_access_token.id = n.getGuidValue(); },
+        "micro_vm_id": n => { microvm_access_token.microVmId = n.getGuidValue(); },
+        "name": n => { microvm_access_token.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_access_token_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_access_token_create(microvm_access_token_create: Partial<Microvm_access_token_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "expires_in_seconds": n => { microvm_access_token_create.expiresInSeconds = n.getNumberValue(); },
+        "name": n => { microvm_access_token_create.name = n.getStringValue(); },
     }
 }
 /**
@@ -43264,6 +43976,31 @@ export function deserializeIntoMicrovm_auto_pause(microvm_auto_pause: Partial<Mi
 }
 /**
  * The deserialization information for the current model
+ * @param Microvm_base The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_base(microvm_base: Partial<Microvm_base> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "auto_pause": n => { microvm_base.autoPause = n.getObjectValue<Microvm_auto_pause>(createMicrovm_auto_pauseFromDiscriminatorValue); },
+        "auto_resume": n => { microvm_base.autoResume = n.getBooleanValue(); },
+        "created_at": n => { microvm_base.createdAt = n.getDateValue(); },
+        "egress_policy": n => { microvm_base.egressPolicy = n.getObjectValue<Microvm_egress_policy>(createMicrovm_egress_policyFromDiscriminatorValue); },
+        "failure_reason": n => { microvm_base.failureReason = n.getStringValue(); },
+        "http_protocol": n => { microvm_base.httpProtocol = n.getEnumValue<Microvm_base_http_protocol>(Microvm_base_http_protocolObject); },
+        "id": n => { microvm_base.id = n.getGuidValue(); },
+        "name": n => { microvm_base.name = n.getStringValue(); },
+        "networking": n => { microvm_base.networking = n.getEnumValue<Microvm_base_networking>(Microvm_base_networkingObject) ?? Microvm_base_networkingObject.Public; },
+        "ports": n => { microvm_base.ports = n.getCollectionOfPrimitiveValues<number>(); },
+        "region": n => { microvm_base.region = n.getStringValue(); },
+        "size": n => { microvm_base.size = n.getObjectValue<Microvm_size>(createMicrovm_sizeFromDiscriminatorValue); },
+        "source": n => { microvm_base.source = n.getObjectValue<Microvm_source>(createMicrovm_sourceFromDiscriminatorValue); },
+        "state": n => { microvm_base.state = n.getEnumValue<Microvm_base_state>(Microvm_base_stateObject); },
+        "urls": n => { microvm_base.urls = n.getCollectionOfObjectValues<Microvm_url>(createMicrovm_urlFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Microvm_create The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -43272,12 +44009,15 @@ export function deserializeIntoMicrovm_create(microvm_create: Partial<Microvm_cr
     return {
         "auto_pause": n => { microvm_create.autoPause = n.getObjectValue<Microvm_auto_pause>(createMicrovm_auto_pauseFromDiscriminatorValue); },
         "auto_resume": n => { microvm_create.autoResume = n.getBooleanValue(); },
+        "egress_policy": n => { microvm_create.egressPolicy = n.getObjectValue<Microvm_egress_policy>(createMicrovm_egress_policyFromDiscriminatorValue); },
         "environment": n => { microvm_create.environment = n.getObjectValue<Microvm_create_environment>(createMicrovm_create_environmentFromDiscriminatorValue); },
         "http_port": n => { microvm_create.httpPort = n.getNumberValue(); },
         "http_protocol": n => { microvm_create.httpProtocol = n.getEnumValue<Microvm_create_http_protocol>(Microvm_create_http_protocolObject); },
+        "ingress": n => { microvm_create.ingress = n.getBooleanValue(); },
         "name": n => { microvm_create.name = n.getStringValue(); },
         "networking": n => { microvm_create.networking = n.getEnumValue<Microvm_create_networking>(Microvm_create_networkingObject) ?? Microvm_create_networkingObject.Public; },
         "ports": n => { microvm_create.ports = n.getCollectionOfPrimitiveValues<number>(); },
+        "project_id": n => { microvm_create.projectId = n.getGuidValue(); },
         "region": n => { microvm_create.region = n.getStringValue(); },
         "size": n => { microvm_create.size = n.getObjectValue<Microvm_size>(createMicrovm_sizeFromDiscriminatorValue); },
         "source": n => { microvm_create.source = n.getObjectValue<Microvm_source>(createMicrovm_sourceFromDiscriminatorValue); },
@@ -43293,6 +44033,30 @@ export function deserializeIntoMicrovm_create(microvm_create: Partial<Microvm_cr
 // @ts-ignore
 export function deserializeIntoMicrovm_create_environment(microvm_create_environment: Partial<Microvm_create_environment> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_egress_policy The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_egress_policy(microvm_egress_policy: Partial<Microvm_egress_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "default_action": n => { microvm_egress_policy.defaultAction = n.getEnumValue<Microvm_egress_policy_default_action>(Microvm_egress_policy_default_actionObject) ?? Microvm_egress_policy_default_actionObject.Deny; },
+        "rules": n => { microvm_egress_policy.rules = n.getCollectionOfObjectValues<Microvm_egress_policy_rules>(createMicrovm_egress_policy_rulesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_egress_policy_rules The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_egress_policy_rules(microvm_egress_policy_rules: Partial<Microvm_egress_policy_rules> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "domain": n => { microvm_egress_policy_rules.domain = n.getStringValue(); },
+        "ip": n => { microvm_egress_policy_rules.ip = n.getStringValue(); },
     }
 }
 /**
@@ -43417,6 +44181,18 @@ export function deserializeIntoMicrovm_source(microvm_source: Partial<Microvm_so
 }
 /**
  * The deserialization information for the current model
+ * @param Microvm_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_update(microvm_update: Partial<Microvm_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { microvm_update.name = n.getStringValue(); },
+        "tags": n => { microvm_update.tags = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Microvm_url The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -43425,8 +44201,20 @@ export function deserializeIntoMicrovm_url(microvm_url: Partial<Microvm_url> | u
     return {
         "default": n => { microvm_url.defaultEscaped = n.getBooleanValue(); },
         "hostname": n => { microvm_url.hostname = n.getStringValue(); },
+        "id": n => { microvm_url.id = n.getGuidValue(); },
         "port": n => { microvm_url.port = n.getNumberValue(); },
         "status": n => { microvm_url.status = n.getEnumValue<Microvm_url_status>(Microvm_url_statusObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_url_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_url_create(microvm_url_create: Partial<Microvm_url_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "port": n => { microvm_url_create.port = n.getNumberValue(); },
     }
 }
 /**
@@ -50212,7 +51000,7 @@ export interface Elasticsearch_logsink extends AdditionalDataHolder, Parsable {
     url?: string | null;
 }
 /**
- * Email notification channel configuration. Recipients must be verified teammember email addresses.
+ * Email notification channel configuration. Recipients must be team contactemails added and verified by a team owner. They do not need to be teammembers.
  */
 export interface Email_notification_config extends AdditionalDataHolder, Parsable {
     /**
@@ -50816,7 +51604,12 @@ export interface Exec_request extends AdditionalDataHolder, Parsable {
      * The working directory to run the command in.
      */
     cwd?: string | null;
+    /**
+     * How `stdout` and `stderr` are returned. `utf-8` (the default) is a JSON string; bytes that are not valid UTF-8 become U+FFFD. `base64` returns the exact bytes. Use `base64` when the command may emit binary output.
+     */
+    outputEncoding?: Exec_request_output_encoding | null;
 }
+export type Exec_request_output_encoding = (typeof Exec_request_output_encodingObject)[keyof typeof Exec_request_output_encodingObject];
 /**
  * The result of a command. The command has 60 seconds to finish. Combined `stdout` and `stderr` are limited to 4 MiB.
  */
@@ -50826,11 +51619,15 @@ export interface Exec_response extends AdditionalDataHolder, Parsable {
      */
     exitCode?: number | null;
     /**
-     * The command's standard error. Bytes that are not valid UTF-8 are replaced.
+     * The encoding of `stdout` and `stderr`, echoing the request's `output_encoding` (or the `utf-8` default).
+     */
+    outputEncoding?: Exec_response_output_encoding | null;
+    /**
+     * The command's standard error. A UTF-8 string when `output_encoding` is `utf-8`; standard Base64 when it is `base64`.
      */
     stderr?: string | null;
     /**
-     * The command's standard output. Bytes that are not valid UTF-8 are replaced.
+     * The command's standard output. A UTF-8 string when `output_encoding` is `utf-8`; standard Base64 when it is `base64`.
      */
     stdout?: string | null;
     /**
@@ -50838,6 +51635,7 @@ export interface Exec_response extends AdditionalDataHolder, Parsable {
      */
     truncated?: boolean | null;
 }
+export type Exec_response_output_encoding = (typeof Exec_response_output_encodingObject)[keyof typeof Exec_response_output_encodingObject];
 export interface Execute_code_request extends AdditionalDataHolder, Parsable {
     /**
      * Python source to run. The sandbox provides `invoke_digitalocean_tool(name: str, arguments: dict) -> dict`, which calls a catalog tool under the session's policy and returns a tool result.
@@ -51537,6 +52335,28 @@ export interface Grant extends AdditionalDataHolder, Parsable {
      * The permission to grant to the user. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
      */
     permission?: string | null;
+}
+/**
+ * One entry of the ListRegions catalog.
+ */
+export interface Harness_region extends AdditionalDataHolder, Parsable {
+    /**
+     * True for the region the region-less host, https://api.digitalocean.com, serves. Exactly one listed region is the default and every team sees it. Preselect it in a picker instead of hardcoding a slug.
+     */
+    isDefault?: boolean | null;
+    /**
+     * DO datacenter slug. Names the regional API host to call to work in this region — "ric1" means https://api-ric1.digitalocean.com. A request is placed in the region of the host that served it; the optional `region` field on a create is a check against that host, not a choice of region.
+     */
+    slug?: string | null;
+}
+/**
+ * Response for ListRegions.
+ */
+export interface Harness_regions_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Regions the team may place resources in, each on its own API host, sorted by slug.
+     */
+    regions?: Harness_region[] | null;
 }
 /**
  * An object specifying health check settings for the load balancer.
@@ -54165,9 +54985,73 @@ export interface Metrics2 extends AdditionalDataHolder, Parsable {
 }
 export type Metrics2_status = (typeof Metrics2_statusObject)[keyof typeof Metrics2_statusObject];
 /**
- * A MicroVM. All fields are set at creation. There is no update endpoint.
+ * A MicroVM. Only its name and tags can be changed after creation, with PATCH `/v2/microvms/{microvm_id}`. Every other field is fixed at create.
  */
-export interface Microvm extends AdditionalDataHolder, Parsable {
+export interface Microvm extends Microvm_base, Parsable {
+    /**
+     * The project the MicroVM belongs to. Omitted when the project could not be resolved.
+     */
+    projectId?: Guid | null;
+    /**
+     * The tags applied to the MicroVM.
+     */
+    tags?: string[] | null;
+}
+/**
+ * The metadata of one access token of a MicroVM. The token value is never on this object: it exists only in the create response.
+ */
+export interface Microvm_access_token extends AdditionalDataHolder, Parsable {
+    /**
+     * When the token was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * When the token expires. Absent when the token does not expire.
+     */
+    expiresAt?: Date | null;
+    /**
+     * The unique ID of the access token. Use it to revoke the token with DELETE `/v2/microvms/{microvm_id}/access_tokens/{token_id}`.
+     */
+    id?: Guid | null;
+    /**
+     * The MicroVM the token grants access to.
+     */
+    microVmId?: Guid | null;
+    /**
+     * The name given at create.
+     */
+    name?: string | null;
+}
+/**
+ * The request body for creating an access token for a MicroVM.
+ */
+export interface Microvm_access_token_create extends AdditionalDataHolder, Parsable {
+    /**
+     * The lifetime of the token in seconds. Omit for a token that does not expire.
+     */
+    expiresInSeconds?: number | null;
+    /**
+     * A name for the token. Unique among the live access tokens of the MicroVM.
+     */
+    name?: string | null;
+}
+/**
+ * Automatic pause settings. A MicroVM always pauses after it is idle for `idle_timeout`. Sending `enabled` set to `false` is rejected.
+ */
+export interface Microvm_auto_pause extends AdditionalDataHolder, Parsable {
+    /**
+     * Whether auto-pause is on. Always `true`.
+     */
+    enabled?: boolean | null;
+    /**
+     * How long the MicroVM is idle before it pauses, as a duration such as `30s`, `5m`, or `1h`. Defaults to `5m`. The maximum is `4h`. Responses show the duration in the form `5m0s`.
+     */
+    idleTimeout?: string | null;
+}
+/**
+ * A MicroVM without its tags. Pause and resume return this shape; read tags with GET `/v2/microvms/{microvm_id}`.
+ */
+export interface Microvm_base extends AdditionalDataHolder, Parsable {
     /**
      * Automatic pause settings. A MicroVM always pauses after it is idle for `idle_timeout`. Sending `enabled` set to `false` is rejected.
      */
@@ -54181,13 +55065,17 @@ export interface Microvm extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     */
+    egressPolicy?: Microvm_egress_policy | null;
+    /**
      * Why the MicroVM failed. Present only when `state` is `failed`.
      */
     failureReason?: string | null;
     /**
      * The protocol the MicroVM's HTTP port serves. `null` if the protocol was not set when the MicroVM was created.
      */
-    httpProtocol?: Microvm_http_protocol | null;
+    httpProtocol?: Microvm_base_http_protocol | null;
     /**
      * The unique ID of the MicroVM.
      */
@@ -54197,9 +55085,9 @@ export interface Microvm extends AdditionalDataHolder, Parsable {
      */
     name?: string | null;
     /**
-     * `public` sends outbound traffic through a shared NAT gateway. `vpc` places the MicroVM in the VPC network set by `vpc_uuid`.
+     * `public` sends outbound traffic through a shared NAT gateway. `vpc` places the MicroVM in a VPC network. The VPC ID is not returned.
      */
-    networking?: Microvm_networking | null;
+    networking?: Microvm_base_networking | null;
     /**
      * The guest ports declared on the MicroVM, including the HTTP port. During the public preview, only the HTTP port is reachable through the MicroVM's endpoint.
      */
@@ -54219,33 +55107,15 @@ export interface Microvm extends AdditionalDataHolder, Parsable {
     /**
      * The MicroVM's current state.
      */
-    state?: Microvm_state | null;
-    /**
-     * The tags applied to the MicroVM.
-     */
-    tags?: string[] | null;
+    state?: Microvm_base_state | null;
     /**
      * The MicroVM's HTTPS endpoints. The entry with `default` set to `true` is the endpoint for the HTTP port.
      */
     urls?: Microvm_url[] | null;
-    /**
-     * The ID of a VPC network in the same region that belongs to your team. Present only when `networking` is `vpc`.
-     */
-    vpcUuid?: Guid | null;
 }
-/**
- * Automatic pause settings. A MicroVM always pauses after it is idle for `idle_timeout`. Sending `enabled` set to `false` is rejected.
- */
-export interface Microvm_auto_pause extends AdditionalDataHolder, Parsable {
-    /**
-     * Whether auto-pause is on. Always `true`.
-     */
-    enabled?: boolean | null;
-    /**
-     * How long the MicroVM is idle before it pauses, as a duration such as `30s`, `5m`, or `1h`. Defaults to `5m`. The maximum is `4h`. Responses show the duration in the form `5m0s`.
-     */
-    idleTimeout?: string | null;
-}
+export type Microvm_base_http_protocol = (typeof Microvm_base_http_protocolObject)[keyof typeof Microvm_base_http_protocolObject];
+export type Microvm_base_networking = (typeof Microvm_base_networkingObject)[keyof typeof Microvm_base_networkingObject];
+export type Microvm_base_state = (typeof Microvm_base_stateObject)[keyof typeof Microvm_base_stateObject];
 /**
  * The request body for creating a MicroVM. With `source.oci_ref`, `region` and `size` are required. With `source.checkpoint_id`, the MicroVM inherits the checkpoint's region, size, container image, and environment variables, and a different `region` or `size`, or any `environment`, is rejected.
  */
@@ -54259,6 +55129,10 @@ export interface Microvm_create extends AdditionalDataHolder, Parsable {
      */
     autoResume?: boolean | null;
     /**
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     */
+    egressPolicy?: Microvm_egress_policy | null;
+    /**
      * Environment variables passed into the MicroVM at boot, as key and value pairs. Not returned in responses.
      */
     environment?: Microvm_create_environment | null;
@@ -54271,6 +55145,10 @@ export interface Microvm_create extends AdditionalDataHolder, Parsable {
      */
     httpProtocol?: Microvm_create_http_protocol | null;
     /**
+     * Whether to create the MicroVM with a default public URL. Defaults to `true`. Set to `false` to create the MicroVM without one; URLs can be added later with POST `/v2/microvms/{microvm_id}/urls`.
+     */
+    ingress?: boolean | null;
+    /**
      * The name of the MicroVM. Must be unique in the region and contain 1 to 63 lowercase letters, digits, and hyphens.
      */
     name?: string | null;
@@ -54282,6 +55160,10 @@ export interface Microvm_create extends AdditionalDataHolder, Parsable {
      * The guest ports to declare, up to five. Must include `http_port`. Defaults to only the HTTP port. During the public preview, only the HTTP port is reachable through the MicroVM's endpoint.
      */
     ports?: number[] | null;
+    /**
+     * The project to place the MicroVM in. Omit to use the team's default project. A project that does not belong to the team is rejected.
+     */
+    projectId?: Guid | null;
     /**
      * The slug of the region to create the MicroVM in. Required with `source.oci_ref`.
      */
@@ -54299,7 +55181,7 @@ export interface Microvm_create extends AdditionalDataHolder, Parsable {
      */
     tags?: string[] | null;
     /**
-     * The ID of a VPC network in the same region that belongs to your team. Required when `networking` is `vpc`.
+     * The ID of a VPC network in the same region that belongs to your team. When `networking` is `vpc` and this is omitted, the team's default VPC is used.
      */
     vpcUuid?: Guid | null;
 }
@@ -54310,6 +55192,30 @@ export interface Microvm_create_environment extends AdditionalDataHolder, Parsab
 }
 export type Microvm_create_http_protocol = (typeof Microvm_create_http_protocolObject)[keyof typeof Microvm_create_http_protocolObject];
 export type Microvm_create_networking = (typeof Microvm_create_networkingObject)[keyof typeof Microvm_create_networkingObject];
+/**
+ * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+ */
+export interface Microvm_egress_policy extends AdditionalDataHolder, Parsable {
+    /**
+     * What to do with a destination no rule matches. `deny` refuses it (an HTTP request gets a 403 and a TLS connection is closed).
+     */
+    defaultAction?: Microvm_egress_policy_default_action | null;
+    /**
+     * The destinations to allow. Rules match the host only: port, path, and method are not considered, and a hostname that resolves to an IP is not matched by an `ip` rule. Each rule sets exactly one of `domain` or `ip`.
+     */
+    rules?: Microvm_egress_policy_rules[] | null;
+}
+export type Microvm_egress_policy_default_action = (typeof Microvm_egress_policy_default_actionObject)[keyof typeof Microvm_egress_policy_default_actionObject];
+export interface Microvm_egress_policy_rules extends AdditionalDataHolder, Parsable {
+    /**
+     * An exact host such as `api.example.com`, or a wildcard such as `*.example.com`.
+     */
+    domain?: string | null;
+    /**
+     * An exact IP address. CIDR ranges are not supported.
+     */
+    ip?: string | null;
+}
 /**
  * A MicroVMs API error response.
  */
@@ -54323,8 +55229,6 @@ export interface Microvm_error extends AdditionalDataHolder, ApiError, Parsable 
      */
     messageEscaped?: string | null;
 }
-export type Microvm_http_protocol = (typeof Microvm_http_protocolObject)[keyof typeof Microvm_http_protocolObject];
-export type Microvm_networking = (typeof Microvm_networkingObject)[keyof typeof Microvm_networkingObject];
 /**
  * The default region, sizes, prices, account limits, and features available to your team.
  */
@@ -54338,7 +55242,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`.
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`; `egress_policy` gates `egress_policy` on create.
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -54471,9 +55375,21 @@ export interface Microvm_source extends AdditionalDataHolder, Parsable {
      */
     ociRef?: string | null;
 }
-export type Microvm_state = (typeof Microvm_stateObject)[keyof typeof Microvm_stateObject];
 /**
- * An HTTPS endpoint for one of the MicroVM's ports.
+ * The request body for updating a MicroVM. Set at least one field. Fields fixed at create (region, size, source, checkpoint_id, networking, vpc_uuid, http_port, http_protocol, ports, environment, auto_resume, project_id, ingress, egress_policy) are rejected.
+ */
+export interface Microvm_update extends AdditionalDataHolder, Parsable {
+    /**
+     * The new name. Must be unique in the region and contain 1 to 63 lowercase letters, digits, and hyphens.
+     */
+    name?: string | null;
+    /**
+     * The complete tag set. Replaces the current tags; tags not in the list are removed, and an empty list removes every tag.
+     */
+    tags?: string[] | null;
+}
+/**
+ * An HTTPS endpoint for one of the MicroVM's ports: the system default URL minted at create, or one added with POST `/v2/microvms/{microvm_id}/urls`.
  */
 export interface Microvm_url extends AdditionalDataHolder, Parsable {
     /**
@@ -54485,6 +55401,10 @@ export interface Microvm_url extends AdditionalDataHolder, Parsable {
      */
     hostname?: string | null;
     /**
+     * The unique ID of the URL. Use it to remove the URL with DELETE `/v2/microvms/{microvm_id}/urls/{url_id}`.
+     */
+    id?: Guid | null;
+    /**
      * The guest port the endpoint serves.
      */
     port?: number | null;
@@ -54492,6 +55412,15 @@ export interface Microvm_url extends AdditionalDataHolder, Parsable {
      * `PENDING` until provisioning finishes, then `ACTIVE`.
      */
     status?: Microvm_url_status | null;
+}
+/**
+ * The request body for adding a URL to a MicroVM.
+ */
+export interface Microvm_url_create extends AdditionalDataHolder, Parsable {
+    /**
+     * The guest port the URL routes to. Must be one of the MicroVM's `ports`. Defaults to the MicroVM's HTTP port when omitted.
+     */
+    port?: number | null;
 }
 export type Microvm_url_status = (typeof Microvm_url_statusObject)[keyof typeof Microvm_url_statusObject];
 /**
@@ -55249,7 +56178,7 @@ export interface Notification_channel extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
-     * Email notification channel configuration. Recipients must be verified teammember email addresses.
+     * Email notification channel configuration. Recipients must be team contactemails added and verified by a team owner. They do not need to be teammembers.
      */
     email?: Email_notification_config | null;
     /**
@@ -55297,7 +56226,7 @@ export type Notification_channel_channel_type = (typeof Notification_channel_cha
  */
 export interface Notification_channel_request extends AdditionalDataHolder, Parsable {
     /**
-     * Email notification channel configuration. Recipients must be verified teammember email addresses.
+     * Email notification channel configuration. Recipients must be team contactemails added and verified by a team owner. They do not need to be teammembers.
      */
     email?: Email_notification_config | null;
     /**
@@ -60962,6 +61891,7 @@ export function serializeApiCustomEvaluationMetricConfig(writer: SerializationWr
     writer.writeDateValue("deleted_at", apiCustomEvaluationMetricConfig.deletedAt);
     writer.writeBooleanValue("requires_ground_truth", apiCustomEvaluationMetricConfig.requiresGroundTruth);
     writer.writeStringValue("scoring_prompt", apiCustomEvaluationMetricConfig.scoringPrompt);
+    writer.writeEnumValue<ApiEvaluationMetricTurnType>("turn_type", apiCustomEvaluationMetricConfig.turnType ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED);
     writer.writeDateValue("updated_at", apiCustomEvaluationMetricConfig.updatedAt);
     writer.writeAdditionalData(apiCustomEvaluationMetricConfig.additionalData);
 }
@@ -61391,6 +62321,7 @@ export function serializeApiEvaluationMetric(writer: SerializationWriter, apiEva
     writer.writeNumberValue("range_max", apiEvaluationMetric.rangeMax);
     writer.writeNumberValue("range_min", apiEvaluationMetric.rangeMin);
     writer.writeEnumValue<ApiEvaluationMetricSource>("source", apiEvaluationMetric.source ?? ApiEvaluationMetricSourceObject.EVALUATION_METRIC_SOURCE_UNSPECIFIED);
+    writer.writeEnumValue<ApiEvaluationMetricTurnType>("turn_type", apiEvaluationMetric.turnType ?? ApiEvaluationMetricTurnTypeObject.EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED);
     writer.writeAdditionalData(apiEvaluationMetric.additionalData);
 }
 /**
@@ -61784,6 +62715,18 @@ export function serializeApiGetModelCatalogCardOutput(writer: SerializationWrite
     if (!apiGetModelCatalogCardOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiModelCatalogCard>("data", apiGetModelCatalogCardOutput.data, serializeApiModelCatalogCard);
     writer.writeAdditionalData(apiGetModelCatalogCardOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiGetModelCatalogCardV2Output The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiGetModelCatalogCardV2Output(writer: SerializationWriter, apiGetModelCatalogCardV2Output: Partial<ApiGetModelCatalogCardV2Output> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiGetModelCatalogCardV2Output || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelCatalogEntryV2>("data", apiGetModelCatalogCardV2Output.data, serializeApiModelCatalogEntryV2);
+    writer.writeAdditionalData(apiGetModelCatalogCardV2Output.additionalData);
 }
 /**
  * Serializes information the current object
@@ -62556,6 +63499,36 @@ export function serializeApiListModelCatalogOutput(writer: SerializationWriter, 
 }
 /**
  * Serializes information the current object
+ * @param ApiListModelCatalogV2Output The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiListModelCatalogV2Output(writer: SerializationWriter, apiListModelCatalogV2Output: Partial<ApiListModelCatalogV2Output> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiListModelCatalogV2Output || isSerializingDerivedType) { return; }
+    if(apiListModelCatalogV2Output.availableBadges)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogBadge>("available_badges", apiListModelCatalogV2Output.availableBadges);
+    writer.writeCollectionOfPrimitiveValues<string>("available_creators", apiListModelCatalogV2Output.availableCreators);
+    if(apiListModelCatalogV2Output.availableInputModalities)
+    writer.writeCollectionOfEnumValues<ApiModelModality>("available_input_modalities", apiListModelCatalogV2Output.availableInputModalities);
+    writer.writeCollectionOfPrimitiveValues<string>("available_model_types", apiListModelCatalogV2Output.availableModelTypes);
+    if(apiListModelCatalogV2Output.availableOutputModalities)
+    writer.writeCollectionOfEnumValues<ApiModelModality>("available_output_modalities", apiListModelCatalogV2Output.availableOutputModalities);
+    if(apiListModelCatalogV2Output.availableProducts)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogProduct>("available_products", apiListModelCatalogV2Output.availableProducts);
+    if(apiListModelCatalogV2Output.availableServing)
+    writer.writeCollectionOfEnumValues<ApiModelServing>("available_serving", apiListModelCatalogV2Output.availableServing);
+    if(apiListModelCatalogV2Output.availableSortBy)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogSortByV2>("available_sort_by", apiListModelCatalogV2Output.availableSortBy);
+    if(apiListModelCatalogV2Output.availableSortDirections)
+    writer.writeCollectionOfEnumValues<ApiSortDirection>("available_sort_directions", apiListModelCatalogV2Output.availableSortDirections);
+    writer.writeCollectionOfObjectValues<ApiModelCatalogEntryV2>("data", apiListModelCatalogV2Output.data, serializeApiModelCatalogEntryV2);
+    writer.writeObjectValue<ApiLinks>("links", apiListModelCatalogV2Output.links, serializeApiLinks);
+    writer.writeObjectValue<ApiMeta>("meta", apiListModelCatalogV2Output.meta, serializeApiMeta);
+    writer.writeAdditionalData(apiListModelCatalogV2Output.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiListModelEvaluationMetricsOutput The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -63049,6 +64022,79 @@ export function serializeApiModelCatalogEntry_benchmark_score(writer: Serializat
 }
 /**
  * Serializes information the current object
+ * @param ApiModelCatalogEntryV2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelCatalogEntryV2(writer: SerializationWriter, apiModelCatalogEntryV2: Partial<ApiModelCatalogEntryV2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelCatalogEntryV2 || isSerializingDerivedType) { return; }
+    if(apiModelCatalogEntryV2.badges)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogBadge>("badges", apiModelCatalogEntryV2.badges);
+    writer.writeCollectionOfPrimitiveValues<string>("capabilities", apiModelCatalogEntryV2.capabilities);
+    writer.writeObjectValue<ApiCodeSnippets>("code_snippets", apiModelCatalogEntryV2.codeSnippets, serializeApiCodeSnippets);
+    writer.writeStringValue("context_window", apiModelCatalogEntryV2.contextWindow);
+    writer.writeDateValue("created_at", apiModelCatalogEntryV2.createdAt);
+    writer.writeStringValue("creator", apiModelCatalogEntryV2.creator);
+    writer.writeStringValue("description", apiModelCatalogEntryV2.description);
+    writer.writeStringValue("huggingface_repo_id", apiModelCatalogEntryV2.huggingfaceRepoId);
+    writer.writeStringValue("id", apiModelCatalogEntryV2.id);
+    if(apiModelCatalogEntryV2.inputModality)
+    writer.writeCollectionOfEnumValues<ApiModelModality>("input_modality", apiModelCatalogEntryV2.inputModality);
+    writer.writeEnumValue<ApiModelCatalogItemType>("item_type", apiModelCatalogEntryV2.itemType ?? ApiModelCatalogItemTypeObject.MODEL_CATALOG_ITEM_TYPE_UNSPECIFIED);
+    writer.writeObjectValue<ApiModelLiveliness>("liveliness", apiModelCatalogEntryV2.liveliness, serializeApiModelLiveliness);
+    writer.writeStringValue("max_output_tokens", apiModelCatalogEntryV2.maxOutputTokens);
+    writer.writeObjectValue<ApiNumericRange>("max_tokens", apiModelCatalogEntryV2.maxTokens, serializeApiNumericRange);
+    writer.writeStringValue("model_id", apiModelCatalogEntryV2.modelId);
+    writer.writeStringValue("name", apiModelCatalogEntryV2.name);
+    if(apiModelCatalogEntryV2.outputModality)
+    writer.writeCollectionOfEnumValues<ApiModelModality>("output_modality", apiModelCatalogEntryV2.outputModality);
+    writer.writeNumberValue("parameter_count_in_billions", apiModelCatalogEntryV2.parameterCountInBillions);
+    writer.writeObjectValue<ApiModelCatalogPerformance>("performance", apiModelCatalogEntryV2.performance, serializeApiModelCatalogPerformance);
+    writer.writeObjectValue<ApiModelPricing>("pricing", apiModelCatalogEntryV2.pricing, serializeApiModelPricing);
+    writer.writeObjectValue<ApiModelPricingDetail>("pricing_detail", apiModelCatalogEntryV2.pricingDetail, serializeApiModelPricingDetail);
+    if(apiModelCatalogEntryV2.products)
+    writer.writeCollectionOfEnumValues<ApiModelCatalogProduct>("products", apiModelCatalogEntryV2.products);
+    writer.writeEnumValue<ApiModelProvider>("provider", apiModelCatalogEntryV2.provider ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN);
+    writer.writeCollectionOfPrimitiveValues<string>("reasoning_efforts", apiModelCatalogEntryV2.reasoningEfforts);
+    writer.writeBooleanValue("scaled_pricing_enabled", apiModelCatalogEntryV2.scaledPricingEnabled);
+    if(apiModelCatalogEntryV2.serving)
+    writer.writeCollectionOfEnumValues<ApiModelServing>("serving", apiModelCatalogEntryV2.serving);
+    writer.writeStringValue("short_description", apiModelCatalogEntryV2.shortDescription);
+    if(apiModelCatalogEntryV2.supportedEndpoints)
+    writer.writeCollectionOfEnumValues<ApiModelSupportedEndpoint>("supported_endpoints", apiModelCatalogEntryV2.supportedEndpoints);
+    writer.writeBooleanValue("supports_temperature", apiModelCatalogEntryV2.supportsTemperature);
+    writer.writeObjectValue<ApiNumericRange>("temperature", apiModelCatalogEntryV2.temperature, serializeApiNumericRange);
+    writer.writeBooleanValue("thinking", apiModelCatalogEntryV2.thinking);
+    writer.writeObjectValue<ApiNumericRange>("top_p", apiModelCatalogEntryV2.topP, serializeApiNumericRange);
+    writer.writeStringValue("type", apiModelCatalogEntryV2.type);
+    writer.writeAdditionalData(apiModelCatalogEntryV2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelCatalogPerformance The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelCatalogPerformance(writer: SerializationWriter, apiModelCatalogPerformance: Partial<ApiModelCatalogPerformance> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelCatalogPerformance || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("e2e_latency_p50_seconds", apiModelCatalogPerformance.e2eLatencyP50Seconds);
+    writer.writeNumberValue("e2e_latency_p75_seconds", apiModelCatalogPerformance.e2eLatencyP75Seconds);
+    writer.writeNumberValue("e2e_latency_p95_seconds", apiModelCatalogPerformance.e2eLatencyP95Seconds);
+    writer.writeNumberValue("samples", apiModelCatalogPerformance.samples);
+    writer.writeStringValue("status", apiModelCatalogPerformance.status);
+    writer.writeNumberValue("throughput_p50_tok_per_s", apiModelCatalogPerformance.throughputP50TokPerS);
+    writer.writeNumberValue("throughput_p75_tok_per_s", apiModelCatalogPerformance.throughputP75TokPerS);
+    writer.writeNumberValue("throughput_p95_tok_per_s", apiModelCatalogPerformance.throughputP95TokPerS);
+    writer.writeNumberValue("ttft_p50_seconds", apiModelCatalogPerformance.ttftP50Seconds);
+    writer.writeNumberValue("ttft_p75_seconds", apiModelCatalogPerformance.ttftP75Seconds);
+    writer.writeNumberValue("ttft_p95_seconds", apiModelCatalogPerformance.ttftP95Seconds);
+    writer.writeNumberValue("window_days", apiModelCatalogPerformance.windowDays);
+    writer.writeAdditionalData(apiModelCatalogPerformance.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ApiModelEndpoint The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -63211,6 +64257,53 @@ export function serializeApiModelEvaluationRunSummary(writer: SerializationWrite
     writer.writeObjectValue<ApiModelEvaluationRunProgress>("progress", apiModelEvaluationRunSummary.progress, serializeApiModelEvaluationRunProgress);
     writer.writeEnumValue<ApiModelEvaluationRunStatus>("status", apiModelEvaluationRunSummary.status ?? ApiModelEvaluationRunStatusObject.MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED);
     writer.writeAdditionalData(apiModelEvaluationRunSummary.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelLiveliness The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelLiveliness(writer: SerializationWriter, apiModelLiveliness: Partial<ApiModelLiveliness> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelLiveliness || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<ApiModelLivelinessMetric>("e2e_latency", apiModelLiveliness.e2eLatency, serializeApiModelLivelinessMetric);
+    writer.writeStringValue("overall_status", apiModelLiveliness.overallStatus);
+    writer.writeStringValue("source", apiModelLiveliness.source);
+    writer.writeObjectValue<ApiModelLivelinessMetric>("throughput", apiModelLiveliness.throughput, serializeApiModelLivelinessMetric);
+    writer.writeObjectValue<ApiModelLivelinessMetric>("ttft", apiModelLiveliness.ttft, serializeApiModelLivelinessMetric);
+    writer.writeAdditionalData(apiModelLiveliness.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelLivelinessDay The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelLivelinessDay(writer: SerializationWriter, apiModelLivelinessDay: Partial<ApiModelLivelinessDay> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelLivelinessDay || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("day_ms", apiModelLivelinessDay.dayMs);
+    writer.writeNumberValue("p50", apiModelLivelinessDay.p50);
+    writer.writeNumberValue("p75", apiModelLivelinessDay.p75);
+    writer.writeNumberValue("p95", apiModelLivelinessDay.p95);
+    writer.writeBooleanValue("partial", apiModelLivelinessDay.partial);
+    writer.writeNumberValue("samples", apiModelLivelinessDay.samples);
+    writer.writeAdditionalData(apiModelLivelinessDay.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiModelLivelinessMetric The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiModelLivelinessMetric(writer: SerializationWriter, apiModelLivelinessMetric: Partial<ApiModelLivelinessMetric> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiModelLivelinessMetric || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<ApiModelLivelinessDay>("days", apiModelLivelinessMetric.days, serializeApiModelLivelinessDay);
+    writer.writeStringValue("status", apiModelLivelinessMetric.status);
+    writer.writeStringValue("unit", apiModelLivelinessMetric.unit);
+    writer.writeAdditionalData(apiModelLivelinessMetric.additionalData);
 }
 /**
  * Serializes information the current object
@@ -63559,6 +64652,20 @@ export function serializeApiMoveAgentsToWorkspaceOutput(writer: SerializationWri
     if (!apiMoveAgentsToWorkspaceOutput || isSerializingDerivedType) { return; }
     writer.writeObjectValue<ApiWorkspace>("workspace", apiMoveAgentsToWorkspaceOutput.workspace, serializeApiWorkspace);
     writer.writeAdditionalData(apiMoveAgentsToWorkspaceOutput.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param ApiNumericRange The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeApiNumericRange(writer: SerializationWriter, apiNumericRange: Partial<ApiNumericRange> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!apiNumericRange || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("default", apiNumericRange.defaultEscaped);
+    writer.writeNumberValue("max", apiNumericRange.max);
+    writer.writeNumberValue("min", apiNumericRange.min);
+    writer.writeAdditionalData(apiNumericRange.additionalData);
 }
 /**
  * Serializes information the current object
@@ -67859,6 +68966,7 @@ export function serializeCheckpoint(writer: SerializationWriter, checkpoint: Par
 // @ts-ignore
 export function serializeCheckpoint2(writer: SerializationWriter, checkpoint2: Partial<Checkpoint2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!checkpoint2 || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Microvm_egress_policy>("egress_policy", checkpoint2.egressPolicy, serializeMicrovm_egress_policy);
     writer.writeStringValue("name", checkpoint2.name);
     writer.writeObjectValue<Microvm_size>("size", checkpoint2.size, serializeMicrovm_size);
     writer.writeAdditionalData(checkpoint2.additionalData);
@@ -71054,6 +72162,7 @@ export function serializeExec_request(writer: SerializationWriter, exec_request:
     if (!exec_request || isSerializingDerivedType) { return; }
     writer.writeCollectionOfPrimitiveValues<string>("argv", exec_request.argv);
     writer.writeStringValue("cwd", exec_request.cwd);
+    writer.writeEnumValue<Exec_request_output_encoding>("output_encoding", exec_request.outputEncoding ?? Exec_request_output_encodingObject.Utf8);
     writer.writeAdditionalData(exec_request.additionalData);
 }
 /**
@@ -71066,6 +72175,7 @@ export function serializeExec_request(writer: SerializationWriter, exec_request:
 export function serializeExec_response(writer: SerializationWriter, exec_response: Partial<Exec_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!exec_response || isSerializingDerivedType) { return; }
     writer.writeNumberValue("exit_code", exec_response.exitCode);
+    writer.writeEnumValue<Exec_response_output_encoding>("output_encoding", exec_response.outputEncoding);
     writer.writeStringValue("stderr", exec_response.stderr);
     writer.writeStringValue("stdout", exec_response.stdout);
     writer.writeBooleanValue("truncated", exec_response.truncated);
@@ -71797,6 +72907,31 @@ export function serializeGrant(writer: SerializationWriter, grant: Partial<Grant
     writer.writeStringValue("bucket", grant.bucket);
     writer.writeStringValue("permission", grant.permission);
     writer.writeAdditionalData(grant.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Harness_region The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeHarness_region(writer: SerializationWriter, harness_region: Partial<Harness_region> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!harness_region || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("is_default", harness_region.isDefault);
+    writer.writeStringValue("slug", harness_region.slug);
+    writer.writeAdditionalData(harness_region.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Harness_regions_response The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeHarness_regions_response(writer: SerializationWriter, harness_regions_response: Partial<Harness_regions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!harness_regions_response || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Harness_region>("regions", harness_regions_response.regions, serializeHarness_region);
+    writer.writeAdditionalData(harness_regions_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -73964,18 +75099,34 @@ export function serializeMetrics2(writer: SerializationWriter, metrics2: Partial
 // @ts-ignore
 export function serializeMicrovm(writer: SerializationWriter, microvm: Partial<Microvm> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!microvm || isSerializingDerivedType) { return; }
-    writer.writeObjectValue<Microvm_auto_pause>("auto_pause", microvm.autoPause, serializeMicrovm_auto_pause);
-    writer.writeBooleanValue("auto_resume", microvm.autoResume);
-    writer.writeEnumValue<Microvm_http_protocol>("http_protocol", microvm.httpProtocol);
-    writer.writeStringValue("name", microvm.name);
-    writer.writeEnumValue<Microvm_networking>("networking", microvm.networking ?? Microvm_networkingObject.Public);
-    writer.writeCollectionOfPrimitiveValues<number>("ports", microvm.ports);
-    writer.writeStringValue("region", microvm.region);
-    writer.writeObjectValue<Microvm_size>("size", microvm.size, serializeMicrovm_size);
-    writer.writeObjectValue<Microvm_source>("source", microvm.source, serializeMicrovm_source);
+    serializeMicrovm_base(writer, microvm, isSerializingDerivedType)
+    writer.writeGuidValue("project_id", microvm.projectId);
     writer.writeCollectionOfPrimitiveValues<string>("tags", microvm.tags);
-    writer.writeGuidValue("vpc_uuid", microvm.vpcUuid);
-    writer.writeAdditionalData(microvm.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_access_token The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_access_token(writer: SerializationWriter, microvm_access_token: Partial<Microvm_access_token> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_access_token || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", microvm_access_token.name);
+    writer.writeAdditionalData(microvm_access_token.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_access_token_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_access_token_create(writer: SerializationWriter, microvm_access_token_create: Partial<Microvm_access_token_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_access_token_create || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("expires_in_seconds", microvm_access_token_create.expiresInSeconds);
+    writer.writeStringValue("name", microvm_access_token_create.name);
+    writer.writeAdditionalData(microvm_access_token_create.additionalData);
 }
 /**
  * Serializes information the current object
@@ -73993,6 +75144,27 @@ export function serializeMicrovm_auto_pause(writer: SerializationWriter, microvm
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_base The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_base(writer: SerializationWriter, microvm_base: Partial<Microvm_base> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_base || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Microvm_auto_pause>("auto_pause", microvm_base.autoPause, serializeMicrovm_auto_pause);
+    writer.writeBooleanValue("auto_resume", microvm_base.autoResume);
+    writer.writeObjectValue<Microvm_egress_policy>("egress_policy", microvm_base.egressPolicy, serializeMicrovm_egress_policy);
+    writer.writeEnumValue<Microvm_base_http_protocol>("http_protocol", microvm_base.httpProtocol);
+    writer.writeStringValue("name", microvm_base.name);
+    writer.writeEnumValue<Microvm_base_networking>("networking", microvm_base.networking ?? Microvm_base_networkingObject.Public);
+    writer.writeCollectionOfPrimitiveValues<number>("ports", microvm_base.ports);
+    writer.writeStringValue("region", microvm_base.region);
+    writer.writeObjectValue<Microvm_size>("size", microvm_base.size, serializeMicrovm_size);
+    writer.writeObjectValue<Microvm_source>("source", microvm_base.source, serializeMicrovm_source);
+    writer.writeAdditionalData(microvm_base.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Microvm_create The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -74001,12 +75173,15 @@ export function serializeMicrovm_create(writer: SerializationWriter, microvm_cre
     if (!microvm_create || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Microvm_auto_pause>("auto_pause", microvm_create.autoPause, serializeMicrovm_auto_pause);
     writer.writeBooleanValue("auto_resume", microvm_create.autoResume);
+    writer.writeObjectValue<Microvm_egress_policy>("egress_policy", microvm_create.egressPolicy, serializeMicrovm_egress_policy);
     writer.writeObjectValue<Microvm_create_environment>("environment", microvm_create.environment, serializeMicrovm_create_environment);
     writer.writeNumberValue("http_port", microvm_create.httpPort);
     writer.writeEnumValue<Microvm_create_http_protocol>("http_protocol", microvm_create.httpProtocol);
+    writer.writeBooleanValue("ingress", microvm_create.ingress);
     writer.writeStringValue("name", microvm_create.name);
     writer.writeEnumValue<Microvm_create_networking>("networking", microvm_create.networking ?? Microvm_create_networkingObject.Public);
     writer.writeCollectionOfPrimitiveValues<number>("ports", microvm_create.ports);
+    writer.writeGuidValue("project_id", microvm_create.projectId);
     writer.writeStringValue("region", microvm_create.region);
     writer.writeObjectValue<Microvm_size>("size", microvm_create.size, serializeMicrovm_size);
     writer.writeObjectValue<Microvm_source>("source", microvm_create.source, serializeMicrovm_source);
@@ -74024,6 +75199,32 @@ export function serializeMicrovm_create(writer: SerializationWriter, microvm_cre
 export function serializeMicrovm_create_environment(writer: SerializationWriter, microvm_create_environment: Partial<Microvm_create_environment> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!microvm_create_environment || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(microvm_create_environment.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_egress_policy The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_egress_policy(writer: SerializationWriter, microvm_egress_policy: Partial<Microvm_egress_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_egress_policy || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Microvm_egress_policy_default_action>("default_action", microvm_egress_policy.defaultAction ?? Microvm_egress_policy_default_actionObject.Deny);
+    writer.writeCollectionOfObjectValues<Microvm_egress_policy_rules>("rules", microvm_egress_policy.rules, serializeMicrovm_egress_policy_rules);
+    writer.writeAdditionalData(microvm_egress_policy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_egress_policy_rules The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_egress_policy_rules(writer: SerializationWriter, microvm_egress_policy_rules: Partial<Microvm_egress_policy_rules> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_egress_policy_rules || isSerializingDerivedType) { return; }
+    writer.writeStringValue("domain", microvm_egress_policy_rules.domain);
+    writer.writeStringValue("ip", microvm_egress_policy_rules.ip);
+    writer.writeAdditionalData(microvm_egress_policy_rules.additionalData);
 }
 /**
  * Serializes information the current object
@@ -74156,6 +75357,19 @@ export function serializeMicrovm_source(writer: SerializationWriter, microvm_sou
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_update(writer: SerializationWriter, microvm_update: Partial<Microvm_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_update || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", microvm_update.name);
+    writer.writeCollectionOfPrimitiveValues<string>("tags", microvm_update.tags);
+    writer.writeAdditionalData(microvm_update.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Microvm_url The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -74167,6 +75381,18 @@ export function serializeMicrovm_url(writer: SerializationWriter, microvm_url: P
     writer.writeNumberValue("port", microvm_url.port);
     writer.writeEnumValue<Microvm_url_status>("status", microvm_url.status);
     writer.writeAdditionalData(microvm_url.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_url_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_url_create(writer: SerializationWriter, microvm_url_create: Partial<Microvm_url_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_url_create || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("port", microvm_url_create.port);
+    writer.writeAdditionalData(microvm_url_create.additionalData);
 }
 /**
  * Serializes information the current object
@@ -85199,6 +86425,14 @@ export const ApiEvaluationMetricSourceObject = {
     EVALUATION_METRIC_SOURCE_BUILTIN: "EVALUATION_METRIC_SOURCE_BUILTIN",
     EVALUATION_METRIC_SOURCE_CUSTOM: "EVALUATION_METRIC_SOURCE_CUSTOM",
 } as const;
+/**
+ * Whether the metric is for single-turn or multi-turn evaluations.
+ */
+export const ApiEvaluationMetricTurnTypeObject = {
+    EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED: "EVALUATION_METRIC_TURN_TYPE_UNSPECIFIED",
+    EVALUATION_METRIC_TURN_TYPE_SINGLE_TURN: "EVALUATION_METRIC_TURN_TYPE_SINGLE_TURN",
+    EVALUATION_METRIC_TURN_TYPE_MULTI_TURN: "EVALUATION_METRIC_TURN_TYPE_MULTI_TURN",
+} as const;
 export const ApiEvaluationMetricTypeObject = {
     METRIC_TYPE_UNSPECIFIED: "METRIC_TYPE_UNSPECIFIED",
     METRIC_TYPE_GENERAL_QUALITY: "METRIC_TYPE_GENERAL_QUALITY",
@@ -85268,12 +86502,51 @@ export const ApiModelBillingModeObject = {
     MODEL_BILLING_MODE_BATCH: "MODEL_BILLING_MODE_BATCH",
 } as const;
 /**
+ * Badge shown on a V2 catalog row. - MODEL_CATALOG_BADGE_FEATURED: Featured in the catalog. - MODEL_CATALOG_BADGE_NEW: Newly added. - MODEL_CATALOG_BADGE_PREVIEW: Preview. - MODEL_CATALOG_BADGE_DEPRECATING: Scheduled for deprecation. - MODEL_CATALOG_BADGE_INFERENCE_ROUTER: Inference Router preset.
+ */
+export const ApiModelCatalogBadgeObject = {
+    MODEL_CATALOG_BADGE_UNSPECIFIED: "MODEL_CATALOG_BADGE_UNSPECIFIED",
+    MODEL_CATALOG_BADGE_FEATURED: "MODEL_CATALOG_BADGE_FEATURED",
+    MODEL_CATALOG_BADGE_NEW: "MODEL_CATALOG_BADGE_NEW",
+    MODEL_CATALOG_BADGE_PREVIEW: "MODEL_CATALOG_BADGE_PREVIEW",
+    MODEL_CATALOG_BADGE_DEPRECATING: "MODEL_CATALOG_BADGE_DEPRECATING",
+    MODEL_CATALOG_BADGE_INFERENCE_ROUTER: "MODEL_CATALOG_BADGE_INFERENCE_ROUTER",
+} as const;
+/**
+ * Whether a catalog row is a foundation model or an Inference Router preset. - MODEL_CATALOG_ITEM_TYPE_MODEL: A foundation or inference model. - MODEL_CATALOG_ITEM_TYPE_INFERENCE_ROUTER: An Inference Router preset.
+ */
+export const ApiModelCatalogItemTypeObject = {
+    MODEL_CATALOG_ITEM_TYPE_UNSPECIFIED: "MODEL_CATALOG_ITEM_TYPE_UNSPECIFIED",
+    MODEL_CATALOG_ITEM_TYPE_MODEL: "MODEL_CATALOG_ITEM_TYPE_MODEL",
+    MODEL_CATALOG_ITEM_TYPE_INFERENCE_ROUTER: "MODEL_CATALOG_ITEM_TYPE_INFERENCE_ROUTER",
+} as const;
+/**
+ * Product that offers the model. Serving (serverless or dedicated) is separate. - MODEL_CATALOG_PRODUCT_EVALUATIONS_JUDGE: Model can judge evaluations. - MODEL_CATALOG_PRODUCT_HARNESS_RUNTIME: Model is enrolled for the harness runtime. - MODEL_CATALOG_PRODUCT_EVALUATION_CANDIDATE: Model can be an evaluation or simulation candidate.
+ */
+export const ApiModelCatalogProductObject = {
+    MODEL_CATALOG_PRODUCT_UNSPECIFIED: "MODEL_CATALOG_PRODUCT_UNSPECIFIED",
+    MODEL_CATALOG_PRODUCT_EVALUATIONS_JUDGE: "MODEL_CATALOG_PRODUCT_EVALUATIONS_JUDGE",
+    MODEL_CATALOG_PRODUCT_HARNESS_RUNTIME: "MODEL_CATALOG_PRODUCT_HARNESS_RUNTIME",
+    MODEL_CATALOG_PRODUCT_EVALUATION_CANDIDATE: "MODEL_CATALOG_PRODUCT_EVALUATION_CANDIDATE",
+} as const;
+/**
  * Field on which to sort model catalog results. - MODEL_CATALOG_SORT_BY_CREATED_AT: Default: sort by creation date. - MODEL_CATALOG_SORT_BY_NAME: Sort by the model's display name (case-insensitive). - MODEL_CATALOG_SORT_BY_PRICE: Sort by input token price.
  */
 export const ApiModelCatalogSortByObject = {
     MODEL_CATALOG_SORT_BY_CREATED_AT: "MODEL_CATALOG_SORT_BY_CREATED_AT",
     MODEL_CATALOG_SORT_BY_NAME: "MODEL_CATALOG_SORT_BY_NAME",
     MODEL_CATALOG_SORT_BY_PRICE: "MODEL_CATALOG_SORT_BY_PRICE",
+} as const;
+/**
+ * Field on which to sort V2 model catalog results. - MODEL_CATALOG_SORT_BY_CREATED_AT: Default: sort by creation date. - MODEL_CATALOG_SORT_BY_NAME: Sort by the model's display name (case-insensitive). - MODEL_CATALOG_SORT_BY_PRICE: Sort by input token price. - MODEL_CATALOG_SORT_BY_E2E_LATENCY_P50: Sort by canary end-to-end latency p50, in seconds. Lower is better. Rows without performance data sort after rows with data. - MODEL_CATALOG_SORT_BY_THROUGHPUT_P50: Sort by canary throughput p50, in tokens per second. Higher is better. Rows without performance data sort after rows with data. - MODEL_CATALOG_SORT_BY_TTFT_P50: Sort by canary time to first token p50, in seconds. Lower is better. Rows without performance data sort after rows with data.
+ */
+export const ApiModelCatalogSortByV2Object = {
+    MODEL_CATALOG_SORT_BY_CREATED_AT: "MODEL_CATALOG_SORT_BY_CREATED_AT",
+    MODEL_CATALOG_SORT_BY_NAME: "MODEL_CATALOG_SORT_BY_NAME",
+    MODEL_CATALOG_SORT_BY_PRICE: "MODEL_CATALOG_SORT_BY_PRICE",
+    MODEL_CATALOG_SORT_BY_E2E_LATENCY_P50: "MODEL_CATALOG_SORT_BY_E2E_LATENCY_P50",
+    MODEL_CATALOG_SORT_BY_THROUGHPUT_P50: "MODEL_CATALOG_SORT_BY_THROUGHPUT_P50",
+    MODEL_CATALOG_SORT_BY_TTFT_P50: "MODEL_CATALOG_SORT_BY_TTFT_P50",
 } as const;
 /**
  * Model Evaluation Run Statuses
@@ -85290,6 +86563,19 @@ export const ApiModelEvaluationRunStatusObject = {
     MODEL_EVALUATION_RUN_FAILED: "MODEL_EVALUATION_RUN_FAILED",
 } as const;
 /**
+ * A kind of data a model accepts as input or produces as output. - MODEL_MODALITY_TEXT: plain text - MODEL_MODALITY_IMAGE: still images - MODEL_MODALITY_AUDIO: audio - MODEL_MODALITY_VIDEO: video - MODEL_MODALITY_EMBEDDING: embedding vectors - MODEL_MODALITY_RANKING: document ranking scores produced by reranking models - MODEL_MODALITY_DECISIONS: structured decisions produced by classification models
+ */
+export const ApiModelModalityObject = {
+    MODEL_MODALITY_UNSPECIFIED: "MODEL_MODALITY_UNSPECIFIED",
+    MODEL_MODALITY_TEXT: "MODEL_MODALITY_TEXT",
+    MODEL_MODALITY_IMAGE: "MODEL_MODALITY_IMAGE",
+    MODEL_MODALITY_AUDIO: "MODEL_MODALITY_AUDIO",
+    MODEL_MODALITY_VIDEO: "MODEL_MODALITY_VIDEO",
+    MODEL_MODALITY_EMBEDDING: "MODEL_MODALITY_EMBEDDING",
+    MODEL_MODALITY_RANKING: "MODEL_MODALITY_RANKING",
+    MODEL_MODALITY_DECISIONS: "MODEL_MODALITY_DECISIONS",
+} as const;
+/**
  * A pricing variant of a model, such as a faster serving option or a largercontext window. - MODEL_PRICING_TIER_STANDARD: Default pricing. - MODEL_PRICING_TIER_FAST_MODE: Faster, higher-priority serving at a premium price. - MODEL_PRICING_TIER_EXTENDED_1M: Pricing for the 1M-token context window. - MODEL_PRICING_TIER_EXTENDED_272K: Pricing for the 272K-token context window. - MODEL_PRICING_TIER_BYOK: Pricing when using your own model API key.
  */
 export const ApiModelPricingTierObject = {
@@ -85304,6 +86590,32 @@ export const ApiModelProviderObject = {
     MODEL_PROVIDER_DIGITALOCEAN: "MODEL_PROVIDER_DIGITALOCEAN",
     MODEL_PROVIDER_ANTHROPIC: "MODEL_PROVIDER_ANTHROPIC",
     MODEL_PROVIDER_OPENAI: "MODEL_PROVIDER_OPENAI",
+} as const;
+/**
+ * Where a V2 catalog model is served. - MODEL_SERVING_SERVERLESS: Serverless inference. - MODEL_SERVING_DEDICATED: Dedicated inference.
+ */
+export const ApiModelServingObject = {
+    MODEL_SERVING_UNSPECIFIED: "MODEL_SERVING_UNSPECIFIED",
+    MODEL_SERVING_SERVERLESS: "MODEL_SERVING_SERVERLESS",
+    MODEL_SERVING_DEDICATED: "MODEL_SERVING_DEDICATED",
+} as const;
+/**
+ * An inference endpoint a model can be served on. - MODEL_SUPPORTED_ENDPOINT_CHAT_COMPLETIONS: OpenAI-compatible POST /v1/chat/completions - MODEL_SUPPORTED_ENDPOINT_COMPLETIONS: OpenAI-compatible POST /v1/completions - MODEL_SUPPORTED_ENDPOINT_EMBEDDINGS: OpenAI-compatible POST /v1/embeddings - MODEL_SUPPORTED_ENDPOINT_AUDIO_TRANSCRIPTIONS: POST /v1/audio/transcriptions - MODEL_SUPPORTED_ENDPOINT_AUDIO_SPEECH: POST /v1/audio/speech - MODEL_SUPPORTED_ENDPOINT_IMAGE_GENERATIONS: POST /v1/images/generations - MODEL_SUPPORTED_ENDPOINT_VIDEO_GENERATIONS: POST /v1/videos - MODEL_SUPPORTED_ENDPOINT_AUDIO_DIARIZATIONS: POST /v1/audio/diarizations - MODEL_SUPPORTED_ENDPOINT_ASYNC_INVOKE: POST /v1/async-invoke - MODEL_SUPPORTED_ENDPOINT_RERANKING: POST /v1/rerank - MODEL_SUPPORTED_ENDPOINT_SYSTEM_ONE: POST /v1/systemone - MODEL_SUPPORTED_ENDPOINT_RESPONSES: OpenAI-compatible POST /v1/responses
+ */
+export const ApiModelSupportedEndpointObject = {
+    MODEL_SUPPORTED_ENDPOINT_UNSPECIFIED: "MODEL_SUPPORTED_ENDPOINT_UNSPECIFIED",
+    MODEL_SUPPORTED_ENDPOINT_CHAT_COMPLETIONS: "MODEL_SUPPORTED_ENDPOINT_CHAT_COMPLETIONS",
+    MODEL_SUPPORTED_ENDPOINT_COMPLETIONS: "MODEL_SUPPORTED_ENDPOINT_COMPLETIONS",
+    MODEL_SUPPORTED_ENDPOINT_EMBEDDINGS: "MODEL_SUPPORTED_ENDPOINT_EMBEDDINGS",
+    MODEL_SUPPORTED_ENDPOINT_AUDIO_TRANSCRIPTIONS: "MODEL_SUPPORTED_ENDPOINT_AUDIO_TRANSCRIPTIONS",
+    MODEL_SUPPORTED_ENDPOINT_AUDIO_SPEECH: "MODEL_SUPPORTED_ENDPOINT_AUDIO_SPEECH",
+    MODEL_SUPPORTED_ENDPOINT_IMAGE_GENERATIONS: "MODEL_SUPPORTED_ENDPOINT_IMAGE_GENERATIONS",
+    MODEL_SUPPORTED_ENDPOINT_VIDEO_GENERATIONS: "MODEL_SUPPORTED_ENDPOINT_VIDEO_GENERATIONS",
+    MODEL_SUPPORTED_ENDPOINT_AUDIO_DIARIZATIONS: "MODEL_SUPPORTED_ENDPOINT_AUDIO_DIARIZATIONS",
+    MODEL_SUPPORTED_ENDPOINT_ASYNC_INVOKE: "MODEL_SUPPORTED_ENDPOINT_ASYNC_INVOKE",
+    MODEL_SUPPORTED_ENDPOINT_RERANKING: "MODEL_SUPPORTED_ENDPOINT_RERANKING",
+    MODEL_SUPPORTED_ENDPOINT_SYSTEM_ONE: "MODEL_SUPPORTED_ENDPOINT_SYSTEM_ONE",
+    MODEL_SUPPORTED_ENDPOINT_RESPONSES: "MODEL_SUPPORTED_ENDPOINT_RESPONSES",
 } as const;
 /**
  * - MODEL_USECASE_UNKNOWN: The use case of the model is unknown - MODEL_USECASE_AGENT: The model maybe used in an agent - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models) - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails - MODEL_USECASE_REASONING: The model usecase for reasoning - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference - MODEL_USECASE_EVALUATION_JUDGE: The model usecase for evaluation judge - MODEL_USECASE_CODING: The model usecase for coding-optimized models - MODEL_USECASE_AUDIO: The model usecase for audio models - MODEL_USECASE_RERANKING: The model usecase for knowledge base reranking (cross-encoder) models - MODEL_USECASE_TEXT: The model usecase for text modality (non image, non audio, non embedding, non reranking) serverless chat models
@@ -86446,6 +87758,20 @@ export const Eviction_policy_modelObject = {
     Volatile_ttl: "volatile_ttl",
 } as const;
 /**
+ * How `stdout` and `stderr` are returned. `utf-8` (the default) is a JSON string; bytes that are not valid UTF-8 become U+FFFD. `base64` returns the exact bytes. Use `base64` when the command may emit binary output.
+ */
+export const Exec_request_output_encodingObject = {
+    Utf8: "utf-8",
+    Base64: "base64",
+} as const;
+/**
+ * The encoding of `stdout` and `stderr`, echoing the request's `output_encoding` (or the `utf-8` default).
+ */
+export const Exec_response_output_encodingObject = {
+    Utf8: "utf-8",
+    Base64: "base64",
+} as const;
+/**
  * The current status of the export job.
  */
 export const Export_job_statusObject = {
@@ -87029,6 +88355,34 @@ export const Metrics2_statusObject = {
     ErrorEscaped: "error",
 } as const;
 /**
+ * The protocol the MicroVM's HTTP port serves. `null` if the protocol was not set when the MicroVM was created.
+ */
+export const Microvm_base_http_protocolObject = {
+    Http: "http",
+    Http2: "http2",
+} as const;
+/**
+ * `public` sends outbound traffic through a shared NAT gateway. `vpc` places the MicroVM in a VPC network. The VPC ID is not returned.
+ */
+export const Microvm_base_networkingObject = {
+    Public: "public",
+    Vpc: "vpc",
+} as const;
+/**
+ * The MicroVM's current state.
+ */
+export const Microvm_base_stateObject = {
+    Creating: "creating",
+    Running: "running",
+    Pausing: "pausing",
+    Paused: "paused",
+    Resuming: "resuming",
+    Terminating: "terminating",
+    Terminated: "terminated",
+    Failed: "failed",
+    Unknown: "unknown",
+} as const;
+/**
  * The protocol the HTTP port serves.
  */
 export const Microvm_create_http_protocolObject = {
@@ -87043,32 +88397,11 @@ export const Microvm_create_networkingObject = {
     Vpc: "vpc",
 } as const;
 /**
- * The protocol the MicroVM's HTTP port serves. `null` if the protocol was not set when the MicroVM was created.
+ * What to do with a destination no rule matches. `deny` refuses it (an HTTP request gets a 403 and a TLS connection is closed).
  */
-export const Microvm_http_protocolObject = {
-    Http: "http",
-    Http2: "http2",
-} as const;
-/**
- * `public` sends outbound traffic through a shared NAT gateway. `vpc` places the MicroVM in the VPC network set by `vpc_uuid`.
- */
-export const Microvm_networkingObject = {
-    Public: "public",
-    Vpc: "vpc",
-} as const;
-/**
- * The MicroVM's current state.
- */
-export const Microvm_stateObject = {
-    Creating: "creating",
-    Running: "running",
-    Pausing: "pausing",
-    Paused: "paused",
-    Resuming: "resuming",
-    Terminating: "terminating",
-    Terminated: "terminated",
-    Failed: "failed",
-    Unknown: "unknown",
+export const Microvm_egress_policy_default_actionObject = {
+    Deny: "deny",
+    Allow: "allow",
 } as const;
 /**
  * `PENDING` until provisioning finishes, then `ACTIVE`.
