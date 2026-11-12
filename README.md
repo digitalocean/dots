@@ -222,6 +222,58 @@ DIGITALOCEAN_TOKEN=... npx tsx examples/inference/models-list.ts
 
 > Seeing `HTTP 401: Unauthorized — Unable to authenticate you`? The token you supplied is either empty, expired, or scoped to specific resources only. Resource-scoped PATs cannot call the inference gateway — use a full-access PAT or a Model Access Key.
 
+## **Harness Runtime streaming**
+
+Three Harness Runtime (`/v2/agents`) capabilities cannot be generated methods. The session event feed and streaming exec hold a `text/event-stream` body open, and a generated method only resolves once that body closes, so a live attach never yields anything. Port-forward is a WebSocket upgrade, which OpenAPI cannot describe. These helpers cover all three.
+
+### Live session events
+
+`for await` reads frames as they arrive. Leaving the loop aborts the request, so a live attach never outlives its consumer.
+
+```typescript
+import { streamSessionEvents } from "@digitalocean/dots";
+
+for await (const event of streamSessionEvents({ token, sessionId })) {
+    console.log(event.type, event.data);
+    if (event.type === "run.completed") break;
+}
+```
+
+Pass `replayOnly: true` to read the stored transcript and stop at the end of it. `signal` and `stream.close()` both end a live attach early.
+
+### Streaming exec
+
+The generated `sandbox.exec` buffers the whole response, so output only appears once the command exits. This yields frames as the command writes them.
+
+```typescript
+import { streamSandboxExec } from "@digitalocean/dots";
+
+for await (const event of streamSandboxExec({
+    token,
+    sessionId,
+    argv: ["sh", "-c", "echo one; sleep 3; echo two"],
+})) {
+    console.log(event.type, event.data);
+}
+```
+
+### Port-forward
+
+Opens a raw TCP tunnel to a guest port. This needs a WebSocket that can send an `Authorization` header: Node 22's global `WebSocket` can, browsers cannot. From a browser, use the session ingress URL instead.
+
+```typescript
+import { openPortForward } from "@digitalocean/dots";
+
+const tunnel = await openPortForward({
+    token,
+    sessionId,
+    port: 8080,
+    onData: (chunk) => process.stdout.write(chunk),
+});
+tunnel.send(new TextEncoder().encode("GET / HTTP/1.0\r\n\r\n"));
+await tunnel.closed;
+```
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.

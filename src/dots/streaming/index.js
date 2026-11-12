@@ -3,3 +3,4 @@
  */
 export { StreamingRequestAdapter, StreamingResponseType, } from "./StreamingRequestAdapter.js";
 export { collectStream, createStreamingAdapter, streamWithHandler, } from "./streamingUtils.js";
+export { AgentEventStream, openPortForward, streamSandboxExec, streamSessionEvents, } from "./agents.js";
