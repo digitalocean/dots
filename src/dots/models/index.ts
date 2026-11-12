@@ -21210,6 +21210,15 @@ export function createDefinitions_list_sessions_responseFromDiscriminatorValue(p
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Definitions_session_manifest}
+ */
+// @ts-ignore
+export function createDefinitions_session_manifestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoDefinitions_session_manifest;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Definitions_session}
  */
 // @ts-ignore
@@ -24922,6 +24931,15 @@ export function createPatch_session_requestFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Patch_session_response}
+ */
+// @ts-ignore
+export function createPatch_session_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPatch_session_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Pending_deployment_spec_vpc}
  */
 // @ts-ignore
@@ -26087,6 +26105,33 @@ export function createSend_input_responseFromDiscriminatorValue(parseNode: Parse
 // @ts-ignore
 export function createSession_cacheFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSession_cache;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_config_changes}
+ */
+// @ts-ignore
+export function createSession_config_changesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_config_changes;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_config_section_changes}
+ */
+// @ts-ignore
+export function createSession_config_section_changesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_config_section_changes;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_config_update}
+ */
+// @ts-ignore
+export function createSession_config_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_config_update;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -29257,6 +29302,14 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     agentKind?: Agent_kind | null;
     /**
+     * Changes per manifest section. Never contains secret values.
+     */
+    configDiff?: Session_config_changes | null;
+    /**
+     * True when the running config differs from the manifest the session was created from, for example after a successful PATCH with `manifest_yaml`. Omitted when false.
+     */
+    configDrifted?: boolean | null;
+    /**
      * Durable Environment Config UUID the session was created from (inline manifests persist a config too, named after the session). Persisted and returned on create/get/list; absent only for sessions created before config references were stored.
      */
     configId?: Guid | null;
@@ -29284,6 +29337,10 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      * Timestamp of the most recent event in this session's canonical stream. Drives the inactivity policy that pauses idle sessions.
      */
     lastEventAt?: Date | null;
+    /**
+     * The effective manifest of the session. Present only when `config_drifted` is true. Never contains secret values.
+     */
+    manifest?: Definitions_session_manifest | null;
     /**
      * User-assignable display name, unique per team among non-terminal sessions. Usable in place of session_id by clients (doctl / Console resolve it to the id via the ListSessions ?name= filter; the {session_id} path stays UUID-only). Supplied via the environment-spec metadata.name, or auto-generated ("session-<agent-type>-<date-time>") when omitted.
      */
@@ -29325,9 +29382,13 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     sessionId?: string | null;
     /**
-     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response.
+     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
      */
     status?: Session_status | null;
+    /**
+     * One live config update (or automatic rollback) of a session.
+     */
+    update?: Session_config_update | null;
     /**
      * Non-fatal advisories computed from the manifest at create time: one entry per populated accepted-but-not-yet-enforced section (flat names: secrets, model, tools, memory, budget, max_lifetime, mounts; legacy manifests get the corresponding spec.* paths), a deprecation entry when a legacy-envelope manifest or an adapter alias (codex-cli, cursor-cli) is used, and a heuristic entry per credential-looking spec.env value. Populated on the CreateSession response only.
      */
@@ -29336,6 +29397,11 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      * The persistent workspace attached to the session, mounted at `/workspace`. Empty when the session has none. Fork and rollback return 409 for a session that has a workspace.
      */
     workspaceId?: string | null;
+}
+/**
+ * The effective manifest of the session. Present only when `config_drifted` is true. Never contains secret values.
+ */
+export interface Definitions_session_manifest extends AdditionalDataHolder, Parsable {
 }
 export interface Delete_checkpoint_response extends AdditionalDataHolder, Parsable {
     /**
@@ -40039,6 +40105,8 @@ export function deserializeIntoDefinitions_list_sessions_response(definitions_li
 export function deserializeIntoDefinitions_session(definitions_session: Partial<Definitions_session> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_kind": n => { definitions_session.agentKind = n.getEnumValue<Agent_kind>(Agent_kindObject) ?? Agent_kindObject.AGENT_KIND_UNSPECIFIED; },
+        "config_diff": n => { definitions_session.configDiff = n.getObjectValue<Session_config_changes>(createSession_config_changesFromDiscriminatorValue); },
+        "config_drifted": n => { definitions_session.configDrifted = n.getBooleanValue(); },
         "config_id": n => { definitions_session.configId = n.getGuidValue(); },
         "created_at": n => { definitions_session.createdAt = n.getDateValue(); },
         "fork_from_checkpoint_id": n => { definitions_session.forkFromCheckpointId = n.getStringValue(); },
@@ -40046,6 +40114,7 @@ export function deserializeIntoDefinitions_session(definitions_session: Partial<
         "idle_timeout_seconds": n => { definitions_session.idleTimeoutSeconds = n.getNumberValue(); },
         "keep_warm": n => { definitions_session.keepWarm = n.getBooleanValue(); },
         "last_event_at": n => { definitions_session.lastEventAt = n.getDateValue(); },
+        "manifest": n => { definitions_session.manifest = n.getObjectValue<Definitions_session_manifest>(createDefinitions_session_manifestFromDiscriminatorValue); },
         "name": n => { definitions_session.name = n.getStringValue(); },
         "openai_environment_id": n => { definitions_session.openaiEnvironmentId = n.getStringValue(); },
         "openai_session_id": n => { definitions_session.openaiSessionId = n.getStringValue(); },
@@ -40057,8 +40126,19 @@ export function deserializeIntoDefinitions_session(definitions_session: Partial<
         "sandbox_id": n => { definitions_session.sandboxId = n.getStringValue(); },
         "session_id": n => { definitions_session.sessionId = n.getStringValue(); },
         "status": n => { definitions_session.status = n.getEnumValue<Session_status>(Session_statusObject) ?? Session_statusObject.SESSION_STATUS_UNSPECIFIED; },
+        "update": n => { definitions_session.update = n.getObjectValue<Session_config_update>(createSession_config_updateFromDiscriminatorValue); },
         "warnings": n => { definitions_session.warnings = n.getCollectionOfPrimitiveValues<string>(); },
         "workspace_id": n => { definitions_session.workspaceId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Definitions_session_manifest The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoDefinitions_session_manifest(definitions_session_manifest: Partial<Definitions_session_manifest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
     }
 }
 /**
@@ -45568,7 +45648,21 @@ export function deserializeIntoPartner_attachment_writable_bgp(partner_attachmen
 // @ts-ignore
 export function deserializeIntoPatch_session_request(patch_session_request: Partial<Patch_session_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "manifest_yaml": n => { patch_session_request.manifestYaml = n.getStringValue(); },
         "resume_on_topoff": n => { patch_session_request.resumeOnTopoff = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Patch_session_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoPatch_session_response(patch_session_response: Partial<Patch_session_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "outcome": n => { patch_session_response.outcome = n.getEnumValue<Patch_session_response_outcome>(Patch_session_response_outcomeObject); },
+        "session": n => { patch_session_response.session = n.getObjectValue<Definitions_session>(createDefinitions_sessionFromDiscriminatorValue); },
+        "warnings": n => { patch_session_response.warnings = n.getCollectionOfPrimitiveValues<string>(); },
     }
 }
 /**
@@ -47343,6 +47437,57 @@ export function deserializeIntoSession_cache(session_cache: Partial<Session_cach
 export function deserializeIntoSession_config(session_config: Partial<Session_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "cache": n => { session_config.cache = n.getObjectValue<Session_cache>(createSession_cacheFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_config_changes The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_config_changes(session_config_changes: Partial<Session_config_changes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "env": n => { session_config_changes.env = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
+        "secrets": n => { session_config_changes.secrets = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
+        "tools": n => { session_config_changes.tools = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_config_section_changes The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_config_section_changes(session_config_section_changes: Partial<Session_config_section_changes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "added": n => { session_config_section_changes.added = n.getCollectionOfPrimitiveValues<string>(); },
+        "changed": n => { session_config_section_changes.changed = n.getCollectionOfPrimitiveValues<string>(); },
+        "removed": n => { session_config_section_changes.removed = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_config_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_config_update(session_config_update: Partial<Session_config_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "changes": n => { session_config_update.changes = n.getObjectValue<Session_config_changes>(createSession_config_changesFromDiscriminatorValue); },
+        "detail": n => { session_config_update.detail = n.getStringValue(); },
+        "error": n => { session_config_update.errorEscaped = n.getEnumValue<Session_config_update_error>(Session_config_update_errorObject); },
+        "finished_at": n => { session_config_update.finishedAt = n.getDateValue(); },
+        "kind": n => { session_config_update.kind = n.getEnumValue<Session_config_update_kind>(Session_config_update_kindObject); },
+        "manifest_hash": n => { session_config_update.manifestHash = n.getStringValue(); },
+        "previous_hash": n => { session_config_update.previousHash = n.getStringValue(); },
+        "reverted": n => { session_config_update.reverted = n.getBooleanValue(); },
+        "sections": n => { session_config_update.sections = n.getCollectionOfPrimitiveValues<string>(); },
+        "session_id": n => { session_config_update.sessionId = n.getStringValue(); },
+        "started_at": n => { session_config_update.startedAt = n.getDateValue(); },
+        "state": n => { session_config_update.state = n.getEnumValue<Session_config_update_state>(Session_config_update_stateObject); },
+        "update_id": n => { session_config_update.updateId = n.getStringValue(); },
+        "user_email": n => { session_config_update.userEmail = n.getStringValue(); },
+        "user_uuid": n => { session_config_update.userUuid = n.getStringValue(); },
     }
 }
 /**
@@ -57265,14 +57410,33 @@ export interface Partner_attachment_writable_bgp extends AdditionalDataHolder, P
 export type Partner_attachment_writable_redundancy_zone = (typeof Partner_attachment_writable_redundancy_zoneObject)[keyof typeof Partner_attachment_writable_redundancy_zoneObject];
 export type Partner_attachment_writable_region = (typeof Partner_attachment_writable_regionObject)[keyof typeof Partner_attachment_writable_regionObject];
 /**
- * PATCH body for /v2/agents/sessions/{session_id}: an allowlisted subset of session-scoped settings (never environment-spec / config mutation). At least one property below must be present; {} is 400. Unknown top-level keys are rejected with 400. New patchable fields will be added here as optional properties over time.
+ * PATCH body for /v2/agents/sessions/{session_id}. Either toggle the session-scoped `resume_on_topoff` consent, or change the live config with `manifest_yaml`; the two cannot be combined in one request. At least one property must be present; {} is 400. Unknown top-level keys are rejected with 400.
  */
 export interface Patch_session_request extends Parsable {
     /**
-     * When present, sets whether this session opts in to automatic resumption when the team's prepayment balance is restored after a low-balance pause. Session-scoped consent, not config-scoped. Omitted properties are not modified.
+     * A partial manifest, as YAML, holding only the sections to change: `tools`, `env`, `secrets`. Absent sections are untouched; any other top-level key is 400, and `model` / `permissions` return 501. `tools` is the full replacement list (`tools: []` detaches every MCP server; `tools: null` is 400). `env` and `secrets` are full sets: a key left out is removed. A secret value is a string (set or rotate) or `{}` (keep the current value); per-key `null` is 400. Platform and framework keys and non-plain secrets must be sent back unchanged, or the request is 422. Cannot be combined with `resume_on_topoff`. Requires the team to be enrolled in the config-update feature (403 otherwise).
+     */
+    manifestYaml?: string | null;
+    /**
+     * When present, sets whether this session opts in to automatic resumption when the team's prepayment balance is restored after a low-balance pause. Session-scoped consent, not config-scoped. Omitted properties are not modified. Cannot be combined with `manifest_yaml`.
      */
     resumeOnTopoff?: boolean | null;
 }
+export interface Patch_session_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Present for `manifest_yaml` patches. ACCEPTED (HTTP 202): the update is applying and the session status is SESSION_STATUS_UPDATING; poll GET until the status leaves UPDATING, then read `session.update`. UNCHANGED (HTTP 200): the manifest changes nothing and nothing was recorded.
+     */
+    outcome?: Patch_session_response_outcome | null;
+    /**
+     * Session is the user-facing record of a environment session + sandbox pair.
+     */
+    session?: Definitions_session | null;
+    /**
+     * Non-fatal notes about the update.
+     */
+    warnings?: string[] | null;
+}
+export type Patch_session_response_outcome = (typeof Patch_session_response_outcomeObject)[keyof typeof Patch_session_response_outcomeObject];
 /**
  * Pending deployment when status is provisioning or updating.
  */
@@ -58903,7 +59067,7 @@ export interface Reusable_session extends AdditionalDataHolder, Parsable {
      */
     sessionId?: string | null;
     /**
-     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response.
+     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
      */
     status?: Session_status | null;
 }
@@ -70916,6 +71080,8 @@ export function serializeDefinitions_list_sessions_response(writer: Serializatio
 export function serializeDefinitions_session(writer: SerializationWriter, definitions_session: Partial<Definitions_session> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!definitions_session || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Agent_kind>("agent_kind", definitions_session.agentKind ?? Agent_kindObject.AGENT_KIND_UNSPECIFIED);
+    writer.writeObjectValue<Session_config_changes>("config_diff", definitions_session.configDiff, serializeSession_config_changes);
+    writer.writeBooleanValue("config_drifted", definitions_session.configDrifted);
     writer.writeGuidValue("config_id", definitions_session.configId);
     writer.writeDateValue("created_at", definitions_session.createdAt);
     writer.writeStringValue("fork_from_checkpoint_id", definitions_session.forkFromCheckpointId);
@@ -70923,6 +71089,7 @@ export function serializeDefinitions_session(writer: SerializationWriter, defini
     writer.writeNumberValue("idle_timeout_seconds", definitions_session.idleTimeoutSeconds);
     writer.writeBooleanValue("keep_warm", definitions_session.keepWarm);
     writer.writeDateValue("last_event_at", definitions_session.lastEventAt);
+    writer.writeObjectValue<Definitions_session_manifest>("manifest", definitions_session.manifest, serializeDefinitions_session_manifest);
     writer.writeStringValue("name", definitions_session.name);
     writer.writeStringValue("openai_environment_id", definitions_session.openaiEnvironmentId);
     writer.writeStringValue("openai_session_id", definitions_session.openaiSessionId);
@@ -70934,9 +71101,21 @@ export function serializeDefinitions_session(writer: SerializationWriter, defini
     writer.writeStringValue("sandbox_id", definitions_session.sandboxId);
     writer.writeStringValue("session_id", definitions_session.sessionId);
     writer.writeEnumValue<Session_status>("status", definitions_session.status ?? Session_statusObject.SESSION_STATUS_UNSPECIFIED);
+    writer.writeObjectValue<Session_config_update>("update", definitions_session.update, serializeSession_config_update);
     writer.writeCollectionOfPrimitiveValues<string>("warnings", definitions_session.warnings);
     writer.writeStringValue("workspace_id", definitions_session.workspaceId);
     writer.writeAdditionalData(definitions_session.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param Definitions_session_manifest The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDefinitions_session_manifest(writer: SerializationWriter, definitions_session_manifest: Partial<Definitions_session_manifest> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!definitions_session_manifest || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(definitions_session_manifest.additionalData);
 }
 /**
  * Serializes information the current object
@@ -76781,7 +76960,22 @@ export function serializePartner_attachment_writable_bgp(writer: SerializationWr
 // @ts-ignore
 export function serializePatch_session_request(writer: SerializationWriter, patch_session_request: Partial<Patch_session_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!patch_session_request || isSerializingDerivedType) { return; }
+    writer.writeStringValue("manifest_yaml", patch_session_request.manifestYaml);
     writer.writeBooleanValue("resume_on_topoff", patch_session_request.resumeOnTopoff);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Patch_session_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializePatch_session_response(writer: SerializationWriter, patch_session_response: Partial<Patch_session_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!patch_session_response || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Patch_session_response_outcome>("outcome", patch_session_response.outcome);
+    writer.writeObjectValue<Definitions_session>("session", patch_session_response.session, serializeDefinitions_session);
+    writer.writeCollectionOfPrimitiveValues<string>("warnings", patch_session_response.warnings);
+    writer.writeAdditionalData(patch_session_response.additionalData);
 }
 /**
  * Serializes information the current object
@@ -78676,6 +78870,60 @@ export function serializeSession_config(writer: SerializationWriter, session_con
     if (!session_config || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Session_cache>("cache", session_config.cache, serializeSession_cache);
     writer.writeAdditionalData(session_config.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_config_changes The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_config_changes(writer: SerializationWriter, session_config_changes: Partial<Session_config_changes> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_config_changes || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_config_section_changes>("env", session_config_changes.env, serializeSession_config_section_changes);
+    writer.writeObjectValue<Session_config_section_changes>("secrets", session_config_changes.secrets, serializeSession_config_section_changes);
+    writer.writeObjectValue<Session_config_section_changes>("tools", session_config_changes.tools, serializeSession_config_section_changes);
+    writer.writeAdditionalData(session_config_changes.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_config_section_changes The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_config_section_changes(writer: SerializationWriter, session_config_section_changes: Partial<Session_config_section_changes> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_config_section_changes || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("added", session_config_section_changes.added);
+    writer.writeCollectionOfPrimitiveValues<string>("changed", session_config_section_changes.changed);
+    writer.writeCollectionOfPrimitiveValues<string>("removed", session_config_section_changes.removed);
+    writer.writeAdditionalData(session_config_section_changes.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_config_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_config_update(writer: SerializationWriter, session_config_update: Partial<Session_config_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_config_update || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_config_changes>("changes", session_config_update.changes, serializeSession_config_changes);
+    writer.writeStringValue("detail", session_config_update.detail);
+    writer.writeEnumValue<Session_config_update_error>("error", session_config_update.errorEscaped);
+    writer.writeDateValue("finished_at", session_config_update.finishedAt);
+    writer.writeEnumValue<Session_config_update_kind>("kind", session_config_update.kind);
+    writer.writeStringValue("manifest_hash", session_config_update.manifestHash);
+    writer.writeStringValue("previous_hash", session_config_update.previousHash);
+    writer.writeBooleanValue("reverted", session_config_update.reverted);
+    writer.writeCollectionOfPrimitiveValues<string>("sections", session_config_update.sections);
+    writer.writeStringValue("session_id", session_config_update.sessionId);
+    writer.writeDateValue("started_at", session_config_update.startedAt);
+    writer.writeEnumValue<Session_config_update_state>("state", session_config_update.state);
+    writer.writeStringValue("update_id", session_config_update.updateId);
+    writer.writeStringValue("user_email", session_config_update.userEmail);
+    writer.writeStringValue("user_uuid", session_config_update.userUuid);
+    writer.writeAdditionalData(session_config_update.additionalData);
 }
 /**
  * Serializes information the current object
@@ -82032,6 +82280,108 @@ export interface Session_config extends AdditionalDataHolder, Parsable {
      */
     cache?: Session_cache | null;
 }
+/**
+ * Changes per manifest section. Never contains secret values.
+ */
+export interface Session_config_changes extends AdditionalDataHolder, Parsable {
+    /**
+     * Keys touched in one manifest section.
+     */
+    env?: Session_config_section_changes | null;
+    /**
+     * Keys touched in one manifest section.
+     */
+    secrets?: Session_config_section_changes | null;
+    /**
+     * Keys touched in one manifest section.
+     */
+    tools?: Session_config_section_changes | null;
+}
+/**
+ * Keys touched in one manifest section.
+ */
+export interface Session_config_section_changes extends AdditionalDataHolder, Parsable {
+    /**
+     * The added property
+     */
+    added?: string[] | null;
+    /**
+     * The changed property
+     */
+    changed?: string[] | null;
+    /**
+     * The removed property
+     */
+    removed?: string[] | null;
+}
+/**
+ * One live config update (or automatic rollback) of a session.
+ */
+export interface Session_config_update extends AdditionalDataHolder, Parsable {
+    /**
+     * Changes per manifest section. Never contains secret values.
+     */
+    changes?: Session_config_changes | null;
+    /**
+     * Human-readable explanation, typically for a failed update.
+     */
+    detail?: string | null;
+    /**
+     * Failure class; present when state is FAILED.
+     */
+    errorEscaped?: Session_config_update_error | null;
+    /**
+     * The finished_at property
+     */
+    finishedAt?: Date | null;
+    /**
+     * The kind property
+     */
+    kind?: Session_config_update_kind | null;
+    /**
+     * Hash of the manifest after this update.
+     */
+    manifestHash?: string | null;
+    /**
+     * Hash of the manifest before this update.
+     */
+    previousHash?: string | null;
+    /**
+     * True when a failed update was rolled back to the previous config.
+     */
+    reverted?: boolean | null;
+    /**
+     * Manifest sections this update touched.
+     */
+    sections?: string[] | null;
+    /**
+     * The session_id property
+     */
+    sessionId?: string | null;
+    /**
+     * The started_at property
+     */
+    startedAt?: Date | null;
+    /**
+     * State of a live config update. APPLIED_RESTARTED means the agent was restarted to apply it (env and secret changes). FAILED means the update did not take effect; see `reverted` and `detail`.
+     */
+    state?: Session_config_update_state | null;
+    /**
+     * The update_id property
+     */
+    updateId?: string | null;
+    /**
+     * Email of the user who requested the update.
+     */
+    userEmail?: string | null;
+    /**
+     * User who requested the update.
+     */
+    userUuid?: string | null;
+}
+export type Session_config_update_error = (typeof Session_config_update_errorObject)[keyof typeof Session_config_update_errorObject];
+export type Session_config_update_kind = (typeof Session_config_update_kindObject)[keyof typeof Session_config_update_kindObject];
+export type Session_config_update_state = (typeof Session_config_update_stateObject)[keyof typeof Session_config_update_stateObject];
 /**
  * Describes a session to create.
  */
@@ -88613,6 +88963,13 @@ export const Partner_attachment_writable_regionObject = {
     Ams: "ams",
     Sgp: "sgp",
 } as const;
+/**
+ * Present for `manifest_yaml` patches. ACCEPTED (HTTP 202): the update is applying and the session status is SESSION_STATUS_UPDATING; poll GET until the status leaves UPDATING, then read `session.update`. UNCHANGED (HTTP 200): the manifest changes nothing and nothing was recorded.
+ */
+export const Patch_session_response_outcomeObject = {
+    ACCEPTED: "ACCEPTED",
+    UNCHANGED: "UNCHANGED",
+} as const;
 export const Pending_deployment_spec_statusObject = {
     Provisioning: "provisioning",
     Updating: "updating",
@@ -89019,6 +89376,27 @@ export const Scan_statusObject = {
     SCAN_NOT_RUN: "SCAN_NOT_RUN",
 } as const;
 /**
+ * Failure class; present when state is FAILED.
+ */
+export const Session_config_update_errorObject = {
+    Update_failed: "update_failed",
+    Requires_new_session: "requires_new_session",
+    Interrupted: "interrupted",
+} as const;
+export const Session_config_update_kindObject = {
+    Update: "update",
+    Rollback: "rollback",
+} as const;
+/**
+ * State of a live config update. APPLIED_RESTARTED means the agent was restarted to apply it (env and secret changes). FAILED means the update did not take effect; see `reverted` and `detail`.
+ */
+export const Session_config_update_stateObject = {
+    APPLYING: "APPLYING",
+    APPLIED: "APPLIED",
+    APPLIED_RESTARTED: "APPLIED_RESTARTED",
+    FAILED: "FAILED",
+} as const;
+/**
  * Action for calls no rule matches. Empty means ask; otherwise this must be allow, ask, or deny.
  */
 export const Session_policy_defaultActionObject = {
@@ -89035,7 +89413,7 @@ export const Session_policy_rules_actionObject = {
     Deny: "deny",
 } as const;
 /**
- * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response.
+ * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
  */
 export const Session_statusObject = {
     SESSION_STATUS_UNSPECIFIED: "SESSION_STATUS_UNSPECIFIED",
@@ -89046,6 +89424,7 @@ export const Session_statusObject = {
     SESSION_STATUS_DESTROYED: "SESSION_STATUS_DESTROYED",
     SESSION_STATUS_FAILED: "SESSION_STATUS_FAILED",
     SESSION_STATUS_PAUSED: "SESSION_STATUS_PAUSED",
+    SESSION_STATUS_UPDATING: "SESSION_STATUS_UPDATING",
     SESSION_STATUS_ALL: "SESSION_STATUS_ALL",
     SESSION_STATUS_LOCKED: "SESSION_STATUS_LOCKED",
 } as const;
