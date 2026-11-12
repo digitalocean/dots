@@ -93,6 +93,8 @@ export function deserializeIntoReserved_ipsPostResponse_links(reserved_ipsPostRe
         "droplets": n => { reserved_ipsPostResponse_links.droplets = n.getCollectionOfObjectValues<Action_link>(createAction_linkFromDiscriminatorValue); },
     }
 }
+export type GetSort_directionQueryParameterType = (typeof GetSort_directionQueryParameterTypeObject)[keyof typeof GetSort_directionQueryParameterTypeObject];
+export type GetSortQueryParameterType = (typeof GetSortQueryParameterTypeObject)[keyof typeof GetSortQueryParameterTypeObject];
 export type Reserved_ip_create = Reserved_ip_createMember1 | Reserved_ip_createMember2;
 export interface Reserved_ipsGetResponse extends AdditionalDataHolder, Parsable {
     /**
@@ -185,6 +187,14 @@ export interface Reserved_ipsRequestBuilderGetQueryParameters {
      * Number of items returned per page
      */
     perPage?: number;
+    /**
+     * Field to sort results by. Possible values are `created_at`, `updated_at`,`ip`, `id`, and `droplet_id`. Defaults to `id`. Any other value is treatedas `id`.Sorting by `droplet_id` orders reserved IPs by the Droplet they areassigned to. Unassigned reserved IPs (`droplet` is null) sort as thelowest value, so they are returned first when `sort_direction` is `asc`and last when it is `desc`.
+     */
+    sort?: GetSortQueryParameterType;
+    /**
+     * Direction to sort results. Possible values are `asc` and `desc`. Defaults to `asc`.
+     */
+    sortDirection?: GetSort_directionQueryParameterType;
 }
 /**
  * Serializes information the current object
@@ -240,12 +250,24 @@ export function serializeReserved_ipsPostResponse_links(writer: SerializationWri
 /**
  * Uri template for the request builder.
  */
-export const Reserved_ipsRequestBuilderUriTemplate = "{+baseurl}/v2/reserved_ips{?page*,per_page*}";
+export const Reserved_ipsRequestBuilderUriTemplate = "{+baseurl}/v2/reserved_ips{?page*,per_page*,sort*,sort_direction*}";
+export const GetSort_directionQueryParameterTypeObject = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+export const GetSortQueryParameterTypeObject = {
+    Created_at: "created_at",
+    Updated_at: "updated_at",
+    Ip: "ip",
+    Id: "id",
+    Droplet_id: "droplet_id",
+} as const;
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
 const Reserved_ipsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
     "perPage": "per_page",
+    "sortDirection": "sort_direction",
 };
 /**
  * Metadata for all the navigation properties in the request builder.
