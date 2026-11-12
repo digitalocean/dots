@@ -14,6 +14,7 @@ import { join } from "node:path";
 import {
     ConflictError,
     HarnessRuntime,
+    NotEnabledError,
     NotFoundError,
     RateLimitError,
     SessionFailedError,
@@ -541,7 +542,7 @@ describe("streamed exec", () => {
         await expect(proc.write("x")).rejects.toThrow("stdin is not open: pass { stdin: true } to spawn");
     });
 
-    describe("spawn with stdin (preview: built to the server's live-stdin plan)", () => {
+    describe("spawn with live stdin", () => {
         const started = `event: started\ndata: {"exec_id":"x1"}\n\n`;
         const stdinPath = "/v2/agents/sessions/s1/sandbox/exec/x1/stdin";
 
@@ -596,7 +597,41 @@ describe("streamed exec", () => {
             ready();
             execStream({ argv: ["cat"], keep_stdin_open: true }, `${out("stdout", "")}${exit(0)}`);
             const s = await hr().sessions.get("s1");
-            await expect(s.spawn(["cat"], { stdin: true })).rejects.toThrow("does not support live stdin yet");
+            await expect(s.spawn(["cat"], { stdin: true })).rejects.toThrow("did not start the command with live stdin");
+        });
+
+        it("types the not-enabled refusal as a NotEnabledError", async () => {
+            ready();
+            nock(API)
+                .post("/v2/agents/sessions/s1/sandbox/exec", (body) => body.keep_stdin_open === true)
+                .reply(403, { message: "live stdin is not enabled for this team" });
+            const s = await hr().sessions.get("s1");
+            await expect(s.spawn(["cat"], { stdin: true })).rejects.toBeInstanceOf(NotEnabledError);
+        });
+
+        it("types a write after closeStdin as a ConflictError", async () => {
+            ready();
+            execStream({ argv: ["cat"], keep_stdin_open: true }, `${started}${exit(0)}`);
+            nock(API)
+                .post(stdinPath, (body) => body.eof === true)
+                .reply(200, { offset: 0 })
+                .post(stdinPath, (body) => body.data !== undefined)
+                .reply(409, { message: "write exec stdin: stdin already closed" });
+            const s = await hr().sessions.get("s1");
+            const proc = await s.spawn(["cat"], { stdin: true });
+            await proc.closeStdin();
+            await expect(proc.write("late\n")).rejects.toBeInstanceOf(ConflictError);
+        });
+
+        it("types a write after the command exited as a NotFoundError, without retrying", async () => {
+            ready();
+            execStream({ argv: ["cat"], keep_stdin_open: true }, `${started}${exit(0)}`);
+            const gone = nock(API).post(stdinPath).once().reply(404, { message: "exec not found" });
+            const s = await hr().sessions.get("s1");
+            const proc = await s.spawn(["cat"], { stdin: true });
+            await proc.wait();
+            await expect(proc.write("late\n")).rejects.toBeInstanceOf(NotFoundError);
+            expect(gone.isDone()).toBe(true);
         });
 
         it("types the old-image refusal as a ConflictError", async () => {

@@ -661,9 +661,8 @@ export class Session {
 
     /**
      * Starts a command and returns while it runs: `wait()` for the exit or
-     * `kill()` it. With `stdin: true` you can also `write` to it and
-     * `closeStdin()`; that is a preview, because the server side of live stdin
-     * is still being built and its names may change (see exec.ts).
+     * `kill()` it. With `stdin: true` you can also `write` to it while it runs
+     * and `closeStdin()` when done.
      */
     spawn(command: string | string[], options: SpawnOptions = {}): Promise<ExecProcess> {
         return spawn(this.ctx, this.id, command, options);

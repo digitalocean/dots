@@ -12,17 +12,17 @@
  *   `stderr` carrying `{"data": "<base64>"}`, `exit` carrying `exit_code` and
  *   `duration_ms`, `error` carrying `message`) are taken from the server's
  *   implementation as of November 2026.
- * - `spawn` without `stdin` uses the streaming mode above, so it works today.
- * - Live stdin (`spawn` with `stdin: true`) is NOT deployed yet. It follows the server team's
- *   implementation plan as of November 2026: the start call sends
- *   `keep_stdin_open: true` and the stream opens with `event: started`
- *   carrying `exec_id`; each write is `POST .../sandbox/exec/{exec_id}/stdin`
- *   with `{data, offset}` or `{eof: true, offset}`, answered with the new
- *   `offset`. The plan lists these names as still open, so they may change
- *   before they are published.
+ * - `spawn` without `stdin` uses the streaming mode above.
+ * - Live stdin (`spawn` with `stdin: true`) is live on the server and is being
+ *   enabled team by team; it is not in the published spec yet, so its route
+ *   is written here by hand. The start call sends `keep_stdin_open: true` and
+ *   the stream opens with `event: started` carrying `exec_id`; each write is
+ *   `POST .../sandbox/exec/{exec_id}/stdin` with `{data, offset}` or
+ *   `{eof: true, offset}`, answered with the new `offset`. A team without it
+ *   gets 403 on the start call, and a session whose image is too old gets 409.
  *
  * When the spec publishes either mode, check these shapes against it and
- * remove this note. Until then `spawn` with `stdin: true` is a preview.
+ * remove this note.
  */
 
 import { HeadersInspectionOptions } from "@microsoft/kiota-http-fetchlibrary";
@@ -71,9 +71,10 @@ type CommandOptions = Pick<ExecOptions, "cwd" | "env" | "timeoutMs" | "onStdout"
 /** Options for {@link Session.spawn}. */
 export type SpawnOptions = CommandOptions & {
     /**
-     * Keep stdin open for `write` and `closeStdin`. Preview: the server does
-     * not support live stdin yet (see the contract note above). Without it the
-     * command runs in the background with stdin closed, which works today.
+     * Keep stdin open for `write` and `closeStdin`. Without it the command
+     * runs in the background with stdin closed. Raises `NotEnabledError` when
+     * live stdin is not enabled for the team yet, and `ConflictError` when the
+     * session's image is too old for it (create a new session).
      */
     stdin?: boolean;
 };
@@ -147,10 +148,7 @@ export async function execStreamed(
     return readOutput(frames, options, options.signal);
 }
 
-/**
- * Starts a command and returns while it runs. With `stdin: true` its stdin
- * stays open (preview: see the contract note above).
- */
+/** Starts a command and returns while it runs. With `stdin: true` its stdin stays open. */
 export async function spawn(
     ctx: RuntimeContext,
     sessionId: string,
@@ -165,8 +163,9 @@ export async function spawn(
     }
     const frames = await openExecStream(ctx, sessionId, { ...body, keep_stdin_open: true }, controller.signal);
 
-    // The server sends `started` before anything else. A server without live
-    // stdin ignores the flag and runs the command with stdin closed, so stop it.
+    // The server sends `started` before anything else, and refuses the call
+    // itself when it cannot keep stdin open. Anything else would mean stdin is
+    // closed, so stop the command rather than hand back a process that cannot be written to.
     let first: IteratorResult<SseFrame>;
     do first = await frames.next();
     while (!first.done && !first.value.event);
@@ -174,7 +173,7 @@ export async function spawn(
         controller.abort();
         await frames.return(undefined);
         throw new HarnessRuntimeError(
-            "this API does not support live stdin yet (no exec id was returned); the command was cancelled",
+            "the server did not start the command with live stdin (no exec id was returned); the command was cancelled",
             0,
         );
     }
@@ -202,7 +201,11 @@ export class ExecProcess {
         done.catch(() => undefined);
     }
 
-    /** Writes to the command's stdin. Writes are sent in the order they are made. */
+    /**
+     * Writes to the command's stdin. Writes are sent in the order they are
+     * made. A write after `closeStdin` raises `ConflictError`; a write after
+     * the command has exited raises `NotFoundError`.
+     */
     write(data: string | Uint8Array): Promise<void> {
         const bytes = bytesOf(data);
         return this.enqueue(async () => {

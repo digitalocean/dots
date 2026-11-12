@@ -202,7 +202,7 @@ const dev = await sandbox.spawn("npm run dev", { onStdout: (t) => process.stdout
 dev.kill(); // or: const { exitCode } = await dev.wait();
 ```
 
-### Preview: live stdin
+### Live stdin
 
 ```ts
 const python = await sandbox.spawn(["python3", "-i"], { stdin: true, onStdout: (t) => process.stdout.write(t) });
@@ -211,14 +211,20 @@ await python.closeStdin();
 const { exitCode } = await python.wait(); // python.kill() stops it instead
 ```
 
-> **Built ahead of the API.** Only buffered `exec` is in the published API
-> spec today. Streaming output works on the server but is not in the spec yet;
-> the SDK follows the server's current implementation; `exec` with callbacks
-> and `spawn` without `stdin` use it. `spawn` with `stdin: true` follows the
-> server team's implementation plan for live stdin as of November 2026, and is
-> **not available on the API yet**: until it is, it stops the command and
-> raises an error. Its route and field names may still change before they are
-> published, and `stdin: true` may change with them.
+Output arrives while stdin is still open, so a program can answer one line
+before you send the next. Writes are sent in order, and a write larger than
+the server's limit is split for you.
+
+- Live stdin is being enabled team by team. Until it is on for yours,
+  `spawn` with `stdin: true` raises `NotEnabledError`. A session whose image is
+  too old for it raises `ConflictError`: create a new session.
+- A write after `closeStdin` raises `ConflictError`, and a write after the
+  command has exited raises `NotFoundError`.
+
+> **Ahead of the published spec.** Only buffered `exec` is in the published API
+> spec today. Streaming output and live stdin work on the server but are not in
+> the spec yet, so the SDK follows the server's current implementation for
+> `exec` with callbacks and for `spawn`.
 
 ## Live events and port-forward
 
@@ -283,7 +289,9 @@ These come from the API as it is today. The SDK does not work around them.
 - A streamed `exec` is not resumed if the connection drops: closing the stream
   cancels the command, so the SDK raises an error instead of guessing the
   outcome.
-- There is no interactive shell (resize, Ctrl-C). Live stdin (`spawn` with
-  `stdin: true`) is not on the API yet; see the preview note above.
+- There is no interactive shell (resize, Ctrl-C). `spawn` with `stdin: true`
+  writes to a command's stdin, but does not give it a terminal.
+- A command started with `spawn` has the same 15-minute limit as a streamed
+  `exec`; writing to its stdin does not extend it.
 - `exec` and `spawn` apply `env` by running the command through `env` in the
   sandbox, for that one command only.
