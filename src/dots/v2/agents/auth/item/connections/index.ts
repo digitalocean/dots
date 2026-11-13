@@ -32,13 +32,14 @@ export interface ConnectionsRequestBuilder extends BaseRequestBuilder<Connection
      */
      get(requestConfiguration?: RequestConfiguration<ConnectionsRequestBuilderGetQueryParameters> | undefined) : Promise<List_provider_connections_response | undefined>;
     /**
-     * Creates, or resumes, the connection `{provider}` will use for `user_id`. `user_id` is the actor identifier the connection acts for, not a DigitalOcean user id. A pending connection includes an `authorization` object the user still has to complete. An active connection omits it. No token is returned. `github` is the provider served today.
+     * Creates the connection `{provider}` will use for `user_id`. `user_id` is the actor identifier the connection acts for, not a DigitalOcean user id. Each actor has at most one active, pending, or expired connection per provider. If `user_id` already has one, the request fails with `409`. Find that connection's id with `GET /v2/agents/auth/{provider}/connections?user_id=...`, then resume or restart it with `POST /v2/agents/auth/{provider}/connections/{connection_id}/reconnect`, which keeps its scopes. Revoked connections do not count toward the limit, and list responses omit them. If the only connection `user_id` has for `{provider}` is revoked, for example by `DELETE`, create starts it again under the same connection id, with the scopes in this request. To change a connection's scopes, delete it and then create it. A successful create returns the connection as `pending`, with an `authorization` object for the interactive step. No token is returned. `github` is the provider served today.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Provider_connection_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
+     * @throws {ErrorEscaped} error when the service returns a 409 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 501 status code
@@ -52,7 +53,7 @@ export interface ConnectionsRequestBuilder extends BaseRequestBuilder<Connection
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<ConnectionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * Creates, or resumes, the connection `{provider}` will use for `user_id`. `user_id` is the actor identifier the connection acts for, not a DigitalOcean user id. A pending connection includes an `authorization` object the user still has to complete. An active connection omits it. No token is returned. `github` is the provider served today.
+     * Creates the connection `{provider}` will use for `user_id`. `user_id` is the actor identifier the connection acts for, not a DigitalOcean user id. Each actor has at most one active, pending, or expired connection per provider. If `user_id` already has one, the request fails with `409`. Find that connection's id with `GET /v2/agents/auth/{provider}/connections?user_id=...`, then resume or restart it with `POST /v2/agents/auth/{provider}/connections/{connection_id}/reconnect`, which keeps its scopes. Revoked connections do not count toward the limit, and list responses omit them. If the only connection `user_id` has for `{provider}` is revoked, for example by `DELETE`, create starts it again under the same connection id, with the scopes in this request. To change a connection's scopes, delete it and then create it. A successful create returns the connection as `pending`, with an `authorization` object for the interactive step. No token is returned. `github` is the provider served today.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
@@ -128,6 +129,7 @@ export const ConnectionsRequestBuilderRequestsMetadata: RequestsMetadata = {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             404: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            409: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             501: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
