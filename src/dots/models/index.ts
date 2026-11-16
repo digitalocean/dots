@@ -25453,6 +25453,15 @@ export function createRegistry_createFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Registry_insights_opt_in}
+ */
+// @ts-ignore
+export function createRegistry_insights_opt_inFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoRegistry_insights_opt_in;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Registry_run_gc}
  */
 // @ts-ignore
@@ -44370,6 +44379,7 @@ export function deserializeIntoMultiregistry(multiregistry: Partial<Multiregistr
 // @ts-ignore
 export function deserializeIntoMultiregistry_create(multiregistry_create: Partial<Multiregistry_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "insights": n => { multiregistry_create.insights = n.getObjectValue<Registry_insights_opt_in>(createRegistry_insights_opt_inFromDiscriminatorValue); },
         "name": n => { multiregistry_create.name = n.getStringValue(); },
         "region": n => { multiregistry_create.region = n.getEnumValue<Multiregistry_create_region>(Multiregistry_create_regionObject); },
         "subscription_tier_slug": n => { multiregistry_create.subscriptionTierSlug = n.getEnumValue<Multiregistry_create_subscription_tier_slug>(Multiregistry_create_subscription_tier_slugObject); },
@@ -46486,9 +46496,21 @@ export function deserializeIntoRegistry_base(registry_base: Partial<Registry_bas
 // @ts-ignore
 export function deserializeIntoRegistry_create(registry_create: Partial<Registry_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "insights": n => { registry_create.insights = n.getObjectValue<Registry_insights_opt_in>(createRegistry_insights_opt_inFromDiscriminatorValue); },
         "name": n => { registry_create.name = n.getStringValue(); },
         "region": n => { registry_create.region = n.getEnumValue<Registry_create_region>(Registry_create_regionObject); },
         "subscription_tier_slug": n => { registry_create.subscriptionTierSlug = n.getEnumValue<Registry_create_subscription_tier_slug>(Registry_create_subscription_tier_slugObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Registry_insights_opt_in The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoRegistry_insights_opt_in(registry_insights_opt_in: Partial<Registry_insights_opt_in> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "logs": n => { registry_insights_opt_in.logs = n.getBooleanValue(); },
     }
 }
 /**
@@ -55648,6 +55670,10 @@ export interface Multiregistry extends Parsable, Registry_base {
 }
 export interface Multiregistry_create extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+     */
+    insights?: Registry_insights_opt_in | null;
+    /**
      * A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      */
     name?: string | null;
@@ -58611,6 +58637,10 @@ export interface Registry_base extends AdditionalDataHolder, Parsable {
 }
 export interface Registry_create extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+     */
+    insights?: Registry_insights_opt_in | null;
+    /**
      * A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      */
     name?: string | null;
@@ -58625,6 +58655,15 @@ export interface Registry_create extends AdditionalDataHolder, Parsable {
 }
 export type Registry_create_region = (typeof Registry_create_regionObject)[keyof typeof Registry_create_regionObject];
 export type Registry_create_subscription_tier_slug = (typeof Registry_create_subscription_tier_slugObject)[keyof typeof Registry_create_subscription_tier_slugObject];
+/**
+ * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+ */
+export interface Registry_insights_opt_in extends AdditionalDataHolder, Parsable {
+    /**
+     * A boolean value indicating whether the registry's logs are sent to Insights. Set this to `true` to send the registry's logs to Insights. `false`, and omitting `insights` or `logs`, both create the registry with logs not enabled.
+     */
+    logs?: boolean | null;
+}
 export interface Registry_run_gc extends AdditionalDataHolder, Parsable {
     /**
      * Type of the garbage collection to run against this registry
@@ -75651,6 +75690,7 @@ export function serializeMultiregistry(writer: SerializationWriter, multiregistr
 // @ts-ignore
 export function serializeMultiregistry_create(writer: SerializationWriter, multiregistry_create: Partial<Multiregistry_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!multiregistry_create || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Registry_insights_opt_in>("insights", multiregistry_create.insights, serializeRegistry_insights_opt_in);
     writer.writeStringValue("name", multiregistry_create.name);
     writer.writeEnumValue<Multiregistry_create_region>("region", multiregistry_create.region);
     writer.writeEnumValue<Multiregistry_create_subscription_tier_slug>("subscription_tier_slug", multiregistry_create.subscriptionTierSlug);
@@ -77846,10 +77886,23 @@ export function serializeRegistry_base(writer: SerializationWriter, registry_bas
 // @ts-ignore
 export function serializeRegistry_create(writer: SerializationWriter, registry_create: Partial<Registry_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!registry_create || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Registry_insights_opt_in>("insights", registry_create.insights, serializeRegistry_insights_opt_in);
     writer.writeStringValue("name", registry_create.name);
     writer.writeEnumValue<Registry_create_region>("region", registry_create.region);
     writer.writeEnumValue<Registry_create_subscription_tier_slug>("subscription_tier_slug", registry_create.subscriptionTierSlug);
     writer.writeAdditionalData(registry_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Registry_insights_opt_in The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeRegistry_insights_opt_in(writer: SerializationWriter, registry_insights_opt_in: Partial<Registry_insights_opt_in> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!registry_insights_opt_in || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("logs", registry_insights_opt_in.logs);
+    writer.writeAdditionalData(registry_insights_opt_in.additionalData);
 }
 /**
  * Serializes information the current object

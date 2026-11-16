@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface ReconnectRequestBuilder extends BaseRequestBuilder<ReconnectRequestBuilder> {
     /**
-     * Begins the interactive step again for a connection that needs it. The response includes `authorization` while that step is outstanding. No token is returned.
+     * Resumes a pending connection's authorization, or starts a new one for an expired or revoked connection. The connection keeps its id, `user_id`, and scopes, so environments that use it keep working once it is active again. An active connection is returned unchanged. Only the member who owns the connection can reconnect it; for anyone else the response is `404`, the same as for an unknown connection. The response includes `authorization` while the interactive step is outstanding. No token is returned.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Provider_connection_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -23,7 +23,7 @@ export interface ReconnectRequestBuilder extends BaseRequestBuilder<ReconnectReq
      */
      post(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Provider_connection_response | undefined>;
     /**
-     * Begins the interactive step again for a connection that needs it. The response includes `authorization` while that step is outstanding. No token is returned.
+     * Resumes a pending connection's authorization, or starts a new one for an expired or revoked connection. The connection keeps its id, `user_id`, and scopes, so environments that use it keep working once it is active again. An active connection is returned unchanged. Only the member who owns the connection can reconnect it; for anyone else the response is `404`, the same as for an unknown connection. The response includes `authorization` while the interactive step is outstanding. No token is returned.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
