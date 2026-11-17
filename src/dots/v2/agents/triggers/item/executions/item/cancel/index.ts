@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface CancelRequestBuilder extends BaseRequestBuilder<CancelRequestBuilder> {
     /**
-     * Fails the execution and frees the trigger's in-flight slot. A fresh-mode session is destroyed outright. A reuse-mode session is only paused, not stopped - harness has no run-interrupt call, so the agent's turn may still be in flight server-side; this frees the queue, not necessarily the agent's work. A non-running execution is a no-op that still returns 200.
+     * Fails the execution and frees the trigger's in-flight slot or session lock. A fresh-mode session is destroyed. In reuse mode the agent's current turn is cancelled first, and the execution is ended only once the agent confirms the turn is over; until then it stays running and keeps its lock (see 409 and 503). The failure reason names the cancelling user. A non-running execution is a no-op that still returns 200.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Get_trigger_execution_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -19,18 +19,19 @@ export interface CancelRequestBuilder extends BaseRequestBuilder<CancelRequestBu
      * @throws {ErrorEscaped} error when the service returns a 409 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
+     * @throws {ErrorEscaped} error when the service returns a 503 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
      */
      post(requestConfiguration?: RequestConfiguration<CancelRequestBuilderPostQueryParameters> | undefined) : Promise<Get_trigger_execution_response | undefined>;
     /**
-     * Fails the execution and frees the trigger's in-flight slot. A fresh-mode session is destroyed outright. A reuse-mode session is only paused, not stopped - harness has no run-interrupt call, so the agent's turn may still be in flight server-side; this frees the queue, not necessarily the agent's work. A non-running execution is a no-op that still returns 200.
+     * Fails the execution and frees the trigger's in-flight slot or session lock. A fresh-mode session is destroyed. In reuse mode the agent's current turn is cancelled first, and the execution is ended only once the agent confirms the turn is over; until then it stays running and keeps its lock (see 409 and 503). The failure reason names the cancelling user. A non-running execution is a no-op that still returns 200.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toPostRequestInformation(requestConfiguration?: RequestConfiguration<CancelRequestBuilderPostQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * Fails the execution and frees the trigger's in-flight slot. A fresh-mode session is destroyed outright. A reuse-mode session is only paused, not stopped - harness has no run-interrupt call, so the agent's turn may still be in flight server-side; this frees the queue, not necessarily the agent's work. A non-running execution is a no-op that still returns 200.
+ * Fails the execution and frees the trigger's in-flight slot or session lock. A fresh-mode session is destroyed. In reuse mode the agent's current turn is cancelled first, and the execution is ended only once the agent confirms the turn is over; until then it stays running and keeps its lock (see 409 and 503). The failure reason names the cancelling user. A non-running execution is a no-op that still returns 200.
  */
 export interface CancelRequestBuilderPostQueryParameters {
     /**
@@ -55,6 +56,7 @@ export const CancelRequestBuilderRequestsMetadata: RequestsMetadata = {
             409: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            503: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
         adapterMethodName: "send",
