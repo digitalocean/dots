@@ -1,7 +1,13 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@2e81418 (2026-11-12T05:50:24Z)
-Target commit: digitalocean/openapi@02ce3c5 (2026-11-12T11:10:09Z)
+Current commit: digitalocean/openapi@02ce3c5 (2026-11-12T11:10:09Z)
+Target commit: digitalocean/openapi@d90e5ae (2026-11-17T13:11:41Z)
 
-* digitalocean/openapi#1321: agents: document live config update on PATCH /v2/agents/sessions/{session_id} - 2026-11-12T11:10:09Z []
-* digitalocean/openapi#1320: reserved_ips, floating_ips: document sort and sort_direction on list endpoints - 2026-11-12T06:57:20Z []
+* digitalocean/openapi#1329: Revert "CON-14753: add max_pods_per_node to Kubernetes clusters" - 2026-11-17T11:23:44Z []
+* digitalocean/openapi#1328: agents: a reuse cancel stops the turn (MARSOHS-2626) - 2026-11-17T10:27:45Z []
+* digitalocean/openapi#1323: Add Insights logs opt-in to registry create - 2026-11-16T13:56:53Z []
+* digitalocean/openapi#1319: agents: document strict provider connection create and reconnect (MARSOHS-2480) - 2026-11-13T09:30:35Z []
+* digitalocean/openapi#1317: microvms: rename tag to MicroVMs for GA - 2026-11-17T13:11:41Z []
+* digitalocean/openapi#1306: agents: document trigger pause reason and execution waiting fields (MARSOHS-2625) - 2026-11-17T04:17:14Z []
+* digitalocean/openapi#1303: CON-14753: add max_pods_per_node to Kubernetes clusters - 2026-11-17T11:20:58Z [DO NOT MERGE]
+* digitalocean/openapi#1302: agents: document Harness Runtime under /v2/harness-runtime - 2026-11-17T12:55:36Z []

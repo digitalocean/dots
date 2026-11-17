@@ -10,8 +10,6 @@ import { ActionsRequestBuilderNavigationMetadata, ActionsRequestBuilderRequestsM
 // @ts-ignore
 import { AddOnsRequestBuilderNavigationMetadata, type AddOnsRequestBuilder } from './addOns/index.js';
 // @ts-ignore
-import { AgentsRequestBuilderNavigationMetadata, type AgentsRequestBuilder } from './agents/index.js';
-// @ts-ignore
 import { AppsRequestBuilderNavigationMetadata, AppsRequestBuilderRequestsMetadata, type AppsRequestBuilder } from './apps/index.js';
 // @ts-ignore
 import { BillingRequestBuilderNavigationMetadata, type BillingRequestBuilder } from './billing/index.js';
@@ -120,10 +118,6 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The addOns property
      */
     get addOns(): AddOnsRequestBuilder;
-    /**
-     * The agents property
-     */
-    get agents(): AgentsRequestBuilder;
     /**
      * The apps property
      */
@@ -318,9 +312,6 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     },
     addOns: {
         navigationMetadata: AddOnsRequestBuilderNavigationMetadata,
-    },
-    agents: {
-        navigationMetadata: AgentsRequestBuilderNavigationMetadata,
     },
     apps: {
         requestsMetadata: AppsRequestBuilderRequestsMetadata,

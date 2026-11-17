@@ -983,7 +983,7 @@ export interface Agent_manifest_spec_sandbox extends AdditionalDataHolder, Parsa
      */
     persistentWorkspace?: boolean | null;
     /**
-     * Requested sandbox size (catalog: GET /v2/agents/sessions/sandbox/sizes). Empty means the service default.
+     * Requested sandbox size (catalog: GET /v2/harness-runtime/sessions/sandbox/sizes). Empty means the service default.
      */
     sizeSlug?: string | null;
     /**
@@ -3864,6 +3864,10 @@ export interface ApiEvaluationMetricResult extends AdditionalDataHolder, Parsabl
      * The value of the metric as a number.
      */
     numberValue?: number | null;
+    /**
+     * Whether the score met the metric's success threshold. Set for modelevaluation results only, and only when status is COMPLETED; omittedfor skipped or failed metrics.
+     */
+    passed?: boolean | null;
     /**
      * Reasoning of the metric result.
      */
@@ -25453,6 +25457,15 @@ export function createRegistry_createFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Registry_insights_opt_in}
+ */
+// @ts-ignore
+export function createRegistry_insights_opt_inFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoRegistry_insights_opt_in;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Registry_run_gc}
  */
 // @ts-ignore
@@ -29358,7 +29371,7 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     parentSessionId?: string | null;
     /**
-     * Why this session is paused. Present only when status is SESSION_STATUS_PAUSED; omitted otherwise. Known values: manual (PauseSession RPC), idle (inactivity auto-pause), low_balance (prepay gate). Clients should treat an unrecognized value as an opaque reason string.
+     * Why this session is paused. Present only when status is SESSION_STATUS_PAUSED; omitted otherwise. Known values: manual (the customer paused the session), idle (inactivity auto-pause), zero_balance (prepay gate; stored rows may still say low_balance), trigger (a reuse trigger paused the session after a firing). Clients should treat an unrecognized value as an opaque reason string.
      */
     pauseReason?: string | null;
     /**
@@ -29370,7 +29383,7 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     repoHint?: string | null;
     /**
-     * Session consents to being resumed automatically when the team's prepayment balance is restored after a low-balance pause. Defaults to false at create time; may be toggled later via PATCH /v2/agents/sessions/{session_id} (resume_on_topoff only). Only a session paused with reason low_balance whose latest run did not complete is ever resumed automatically - a session the customer paused themselves, or one that idled out, stays paused regardless. Not an environment-spec field, and forks do not inherit it. Omitted when false.
+     * Session consents to being resumed automatically when the team's prepayment balance is restored after a low-balance pause. Defaults to false at create time; may be toggled later via PATCH /v2/harness-runtime/sessions/{session_id} (resume_on_topoff only). Only a session paused with reason low_balance whose latest run did not complete is ever resumed automatically - a session the customer paused themselves, or one that idled out, stays paused regardless. Not an environment-spec field, and forks do not inherit it. Omitted when false.
      */
     resumeOnTopoff?: boolean | null;
     /**
@@ -32056,6 +32069,7 @@ export function deserializeIntoApiEvaluationMetricResult(apiEvaluationMetricResu
         "metric_uuid": n => { apiEvaluationMetricResult.metricUuid = n.getStringValue(); },
         "metric_value_type": n => { apiEvaluationMetricResult.metricValueType = n.getEnumValue<ApiEvaluationMetricValueType>(ApiEvaluationMetricValueTypeObject) ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED; },
         "number_value": n => { apiEvaluationMetricResult.numberValue = n.getNumberValue(); },
+        "passed": n => { apiEvaluationMetricResult.passed = n.getBooleanValue(); },
         "reasoning": n => { apiEvaluationMetricResult.reasoning = n.getStringValue(); },
         "status": n => { apiEvaluationMetricResult.status = n.getEnumValue<ApiEvaluationMetricResultStatus>(ApiEvaluationMetricResultStatusObject) ?? ApiEvaluationMetricResultStatusObject.EVALUATION_METRIC_RESULT_STATUS_UNSPECIFIED; },
         "string_value": n => { apiEvaluationMetricResult.stringValue = n.getStringValue(); },
@@ -44370,6 +44384,7 @@ export function deserializeIntoMultiregistry(multiregistry: Partial<Multiregistr
 // @ts-ignore
 export function deserializeIntoMultiregistry_create(multiregistry_create: Partial<Multiregistry_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "insights": n => { multiregistry_create.insights = n.getObjectValue<Registry_insights_opt_in>(createRegistry_insights_opt_inFromDiscriminatorValue); },
         "name": n => { multiregistry_create.name = n.getStringValue(); },
         "region": n => { multiregistry_create.region = n.getEnumValue<Multiregistry_create_region>(Multiregistry_create_regionObject); },
         "subscription_tier_slug": n => { multiregistry_create.subscriptionTierSlug = n.getEnumValue<Multiregistry_create_subscription_tier_slug>(Multiregistry_create_subscription_tier_slugObject); },
@@ -46486,9 +46501,21 @@ export function deserializeIntoRegistry_base(registry_base: Partial<Registry_bas
 // @ts-ignore
 export function deserializeIntoRegistry_create(registry_create: Partial<Registry_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "insights": n => { registry_create.insights = n.getObjectValue<Registry_insights_opt_in>(createRegistry_insights_opt_inFromDiscriminatorValue); },
         "name": n => { registry_create.name = n.getStringValue(); },
         "region": n => { registry_create.region = n.getEnumValue<Registry_create_region>(Registry_create_regionObject); },
         "subscription_tier_slug": n => { registry_create.subscriptionTierSlug = n.getEnumValue<Registry_create_subscription_tier_slug>(Registry_create_subscription_tier_slugObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Registry_insights_opt_in The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoRegistry_insights_opt_in(registry_insights_opt_in: Partial<Registry_insights_opt_in> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "logs": n => { registry_insights_opt_in.logs = n.getBooleanValue(); },
     }
 }
 /**
@@ -49226,6 +49253,8 @@ export function deserializeIntoTrigger_execution(trigger_execution: Partial<Trig
         "run_id": n => { trigger_execution.runId = n.getStringValue(); },
         "session_id": n => { trigger_execution.sessionId = n.getStringValue(); },
         "status": n => { trigger_execution.status = n.getEnumValue<Trigger_execution_status>(Trigger_execution_statusObject); },
+        "status_message": n => { trigger_execution.statusMessage = n.getStringValue(); },
+        "status_reason": n => { trigger_execution.statusReason = n.getStringValue(); },
         "trigger_id": n => { trigger_execution.triggerId = n.getStringValue(); },
         "updated_at": n => { trigger_execution.updatedAt = n.getDateValue(); },
     }
@@ -55648,6 +55677,10 @@ export interface Multiregistry extends Parsable, Registry_base {
 }
 export interface Multiregistry_create extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+     */
+    insights?: Registry_insights_opt_in | null;
+    /**
      * A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      */
     name?: string | null;
@@ -57410,7 +57443,7 @@ export interface Partner_attachment_writable_bgp extends AdditionalDataHolder, P
 export type Partner_attachment_writable_redundancy_zone = (typeof Partner_attachment_writable_redundancy_zoneObject)[keyof typeof Partner_attachment_writable_redundancy_zoneObject];
 export type Partner_attachment_writable_region = (typeof Partner_attachment_writable_regionObject)[keyof typeof Partner_attachment_writable_regionObject];
 /**
- * PATCH body for /v2/agents/sessions/{session_id}. Either toggle the session-scoped `resume_on_topoff` consent, or change the live config with `manifest_yaml`; the two cannot be combined in one request. At least one property must be present; {} is 400. Unknown top-level keys are rejected with 400.
+ * PATCH body for /v2/harness-runtime/sessions/{session_id}. Either toggle the session-scoped `resume_on_topoff` consent, or change the live config with `manifest_yaml`; the two cannot be combined in one request. At least one property must be present; {} is 400. Unknown top-level keys are rejected with 400.
  */
 export interface Patch_session_request extends Parsable {
     /**
@@ -58611,6 +58644,10 @@ export interface Registry_base extends AdditionalDataHolder, Parsable {
 }
 export interface Registry_create extends AdditionalDataHolder, Parsable {
     /**
+     * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+     */
+    insights?: Registry_insights_opt_in | null;
+    /**
      * A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      */
     name?: string | null;
@@ -58625,6 +58662,15 @@ export interface Registry_create extends AdditionalDataHolder, Parsable {
 }
 export type Registry_create_region = (typeof Registry_create_regionObject)[keyof typeof Registry_create_regionObject];
 export type Registry_create_subscription_tier_slug = (typeof Registry_create_subscription_tier_slugObject)[keyof typeof Registry_create_subscription_tier_slugObject];
+/**
+ * An object specifying the Insights telemetry that the customer opts in to for the container registry. This is only accepted when creating a registry and is not returned in responses. If the object is omitted, or if `logs` is not set, the registry is created with logs not enabled.
+ */
+export interface Registry_insights_opt_in extends AdditionalDataHolder, Parsable {
+    /**
+     * A boolean value indicating whether the registry's logs are sent to Insights. Set this to `true` to send the registry's logs to Insights. `false`, and omitting `insights` or `logs`, both create the registry with logs not enabled.
+     */
+    logs?: boolean | null;
+}
 export interface Registry_run_gc extends AdditionalDataHolder, Parsable {
     /**
      * Type of the garbage collection to run against this registry
@@ -62502,6 +62548,7 @@ export function serializeApiEvaluationMetricResult(writer: SerializationWriter, 
     writer.writeStringValue("metric_uuid", apiEvaluationMetricResult.metricUuid);
     writer.writeEnumValue<ApiEvaluationMetricValueType>("metric_value_type", apiEvaluationMetricResult.metricValueType ?? ApiEvaluationMetricValueTypeObject.METRIC_VALUE_TYPE_UNSPECIFIED);
     writer.writeNumberValue("number_value", apiEvaluationMetricResult.numberValue);
+    writer.writeBooleanValue("passed", apiEvaluationMetricResult.passed);
     writer.writeStringValue("reasoning", apiEvaluationMetricResult.reasoning);
     writer.writeEnumValue<ApiEvaluationMetricResultStatus>("status", apiEvaluationMetricResult.status ?? ApiEvaluationMetricResultStatusObject.EVALUATION_METRIC_RESULT_STATUS_UNSPECIFIED);
     writer.writeStringValue("string_value", apiEvaluationMetricResult.stringValue);
@@ -75651,6 +75698,7 @@ export function serializeMultiregistry(writer: SerializationWriter, multiregistr
 // @ts-ignore
 export function serializeMultiregistry_create(writer: SerializationWriter, multiregistry_create: Partial<Multiregistry_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!multiregistry_create || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Registry_insights_opt_in>("insights", multiregistry_create.insights, serializeRegistry_insights_opt_in);
     writer.writeStringValue("name", multiregistry_create.name);
     writer.writeEnumValue<Multiregistry_create_region>("region", multiregistry_create.region);
     writer.writeEnumValue<Multiregistry_create_subscription_tier_slug>("subscription_tier_slug", multiregistry_create.subscriptionTierSlug);
@@ -77846,10 +77894,23 @@ export function serializeRegistry_base(writer: SerializationWriter, registry_bas
 // @ts-ignore
 export function serializeRegistry_create(writer: SerializationWriter, registry_create: Partial<Registry_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!registry_create || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Registry_insights_opt_in>("insights", registry_create.insights, serializeRegistry_insights_opt_in);
     writer.writeStringValue("name", registry_create.name);
     writer.writeEnumValue<Registry_create_region>("region", registry_create.region);
     writer.writeEnumValue<Registry_create_subscription_tier_slug>("subscription_tier_slug", registry_create.subscriptionTierSlug);
     writer.writeAdditionalData(registry_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Registry_insights_opt_in The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeRegistry_insights_opt_in(writer: SerializationWriter, registry_insights_opt_in: Partial<Registry_insights_opt_in> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!registry_insights_opt_in || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("logs", registry_insights_opt_in.logs);
+    writer.writeAdditionalData(registry_insights_opt_in.additionalData);
 }
 /**
  * Serializes information the current object
@@ -80775,6 +80836,8 @@ export function serializeTrigger_execution(writer: SerializationWriter, trigger_
     writer.writeStringValue("run_id", trigger_execution.runId);
     writer.writeStringValue("session_id", trigger_execution.sessionId);
     writer.writeEnumValue<Trigger_execution_status>("status", trigger_execution.status);
+    writer.writeStringValue("status_message", trigger_execution.statusMessage);
+    writer.writeStringValue("status_reason", trigger_execution.statusReason);
     writer.writeStringValue("trigger_id", trigger_execution.triggerId);
     writer.writeDateValue("updated_at", trigger_execution.updatedAt);
     writer.writeAdditionalData(trigger_execution.additionalData);
@@ -84548,6 +84611,14 @@ export interface Trigger_execution extends AdditionalDataHolder, Parsable {
      */
     status?: Trigger_execution_status | null;
     /**
+     * Human-readable detail for status_reason. Omitted when status_reason is omitted.
+     */
+    statusMessage?: string | null;
+    /**
+     * Why a running execution has not started its turn. Omitted when there is nothing to report. Known value: waiting_for_bound_session (a reuse firing is waiting for its bound session to pause; status stays running). Clients should treat an unrecognized value as an opaque string.
+     */
+    statusReason?: string | null;
+    /**
      * The trigger_id property
      */
     triggerId?: string | null;
@@ -84944,7 +85015,7 @@ export interface Validate_registry extends AdditionalDataHolder, Parsable {
     name?: string | null;
 }
 /**
- * Response of POST /v2/agents/sessions/policy/validate: per-rule verdicts for the (agent, version). The same shape is persisted per session in session_policies.verdicts.
+ * Response of POST /v2/harness-runtime/sessions/policy/validate: per-rule verdicts for the (agent, version). The same shape is persisted per session in session_policies.verdicts.
  */
 export interface Validation_result extends AdditionalDataHolder, Parsable {
     /**
@@ -85945,7 +86016,7 @@ export interface Webhook_config extends AdditionalDataHolder, Parsable {
      */
     provider?: Webhook_provider_key | null;
     /**
-     * The Payload URL to configure in the external system.
+     * The Payload URL to configure in the external system. The service returns the `/v2/agents` spelling. Paste that value unchanged.
      */
     webhookUrl?: string | null;
 }
