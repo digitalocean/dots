@@ -2,38 +2,26 @@
  * Running commands in a session's sandbox: buffered, streamed, or as a
  * process you keep writing to.
  *
- * CONTRACT RISK — read before changing this file.
+ * The published spec covers all three modes but not the payload of each
+ * stream event. The shapes below are taken from the server as of November
+ * 2026: `stdout` and `stderr` carry `{"data": "<base64>"}`, `exit` carries
+ * `exit_code` and `duration_ms`, `error` carries `message`, and with live
+ * stdin the stream opens with `started` carrying `exec_id`. Live stdin is
+ * enabled team by team: a team without it gets 403 on the start call, and a
+ * session whose image is too old gets 409.
  *
- * Only buffered exec (a JSON response once the command exits) is in the
- * published API spec. The other two modes are built ahead of the spec:
- *
- * - Streaming output (`Accept: text/event-stream` on the exec route) is live
- *   on the server but not yet published. The event shapes below (`stdout` and
- *   `stderr` carrying `{"data": "<base64>"}`, `exit` carrying `exit_code` and
- *   `duration_ms`, `error` carrying `message`) are taken from the server's
- *   implementation as of November 2026.
- * - `spawn` without `stdin` uses the streaming mode above.
- * - Live stdin (`spawn` with `stdin: true`) is live on the server and is being
- *   enabled team by team; it is not in the published spec yet, so its route
- *   is written here by hand. The start call sends `keep_stdin_open: true` and
- *   the stream opens with `event: started` carrying `exec_id`; each write is
- *   `POST .../sandbox/exec/{exec_id}/stdin` with `{data, offset}` or
- *   `{eof: true, offset}`, answered with the new `offset`. A team without it
- *   gets 403 on the start call, and a session whose image is too old gets 409.
- *
- * When the spec publishes either mode, check these shapes against it and
- * remove this note.
+ * The exec stream and the stdin writes are sent here rather than through the
+ * generated client: the generated client buffers the whole response, and
+ * outside Node its base64 encoding of request bytes is not binary-safe.
  */
 
 import { HeadersInspectionOptions } from "@microsoft/kiota-http-fetchlibrary";
-import { ExecRequestBuilderUriTemplate } from "../v2/agents/sessions/item/sandbox/exec/index.js";
+import { ExecRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/sandbox/exec/index.js";
+import { StdinRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/sandbox/exec/item/stdin/index.js";
 import { HarnessStreamError, HttpMethod, openStream, prepareRequest } from "../streaming/harnessStream.js";
 import { readSseFrames, type SseFrame } from "../streaming/sseFrames.js";
 import { call, HarnessRuntimeError, required, toHarnessError } from "./errors.js";
 import type { RuntimeContext } from "./session.js";
-
-/** Not in the generated client yet; see the contract note above. */
-const STDIN_URI_TEMPLATE = "{+baseurl}/v2/agents/sessions/{session_id}/sandbox/exec/{exec_id}/stdin";
 
 /** The server refuses stdin bodies over 1 MiB; 512 KiB of bytes stays under it once base64-encoded. */
 const STDIN_CHUNK_BYTES = 512 * 1024;
@@ -116,7 +104,7 @@ export async function execBuffered(
     // Truncation is reported only in response headers.
     const headers = new HeadersInspectionOptions({ inspectResponseHeaders: true });
     const res = await call(() =>
-        ctx.client.v2.agents.sessions.bySession_id(sessionId).sandbox.exec.post(
+        ctx.client.v2.harnessRuntime.sessions.bySession_id(sessionId).sandbox.exec.post(
             {
                 argv: argvOf(command, options.env),
                 workdir: options.cwd,
@@ -255,7 +243,7 @@ export class ExecProcess {
                 const transport = this.ctx.transport;
                 const request = await prepareRequest(
                     HttpMethod.POST,
-                    STDIN_URI_TEMPLATE,
+                    StdinRequestBuilderUriTemplate,
                     { session_id: this.sessionId, exec_id: this.id },
                     {},
                     transport,

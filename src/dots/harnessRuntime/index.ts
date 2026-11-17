@@ -14,11 +14,10 @@
  * ```
  */
 
-import type { RequestOption } from "@microsoft/kiota-abstractions";
-import { FetchRequestAdapter, HttpClient, MiddlewareFactory, type Middleware } from "@microsoft/kiota-http-fetchlibrary";
+import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient, type DigitalOceanClient } from "../digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../DigitalOceanApiKeyAuthenticationProvider.js";
-import { DEFAULT_BASE_URL, withPathPrefix } from "../streaming/harnessStream.js";
+import { DEFAULT_BASE_URL } from "../streaming/harnessStream.js";
 import type { WebSocketFactory } from "../streaming/portForward.js";
 import type { Workspace } from "../models/index.js";
 import { call, HarnessRuntimeError, required, TimeoutError } from "./errors.js";
@@ -47,28 +46,6 @@ export interface HarnessRuntimeOptions {
     pollIntervalMs?: number;
     /** Overrides fetch for the streaming calls. Mainly for tests. */
     fetchImpl?: typeof fetch;
-    /**
-     * The API path to call. Defaults to `/v2/harness-runtime`. The API serves
-     * the same routes under `/v2/agents` too; pass that for a server that
-     * serves only `/v2/agents`, such as a local development server.
-     */
-    pathPrefix?: "/v2/harness-runtime" | "/v2/agents";
-}
-
-const HARNESS_RUNTIME_PREFIX = "/v2/harness-runtime";
-
-/** Sends the generated client's `/v2/agents` calls to the chosen path prefix. */
-class PathPrefixHandler implements Middleware {
-    next: Middleware | undefined;
-
-    constructor(
-        private readonly baseUrl: string,
-        private readonly prefix: string,
-    ) {}
-
-    execute(url: string, init: RequestInit, options?: Record<string, RequestOption>): Promise<Response> {
-        return required(this.next, "the next middleware").execute(withPathPrefix(url, this.baseUrl, this.prefix), init, options);
-    }
 }
 
 /** The Harness Runtime API. */
@@ -86,18 +63,14 @@ export class HarnessRuntime {
             throw new Error("no API token: pass `token` or set DIGITALOCEAN_ACCESS_TOKEN");
         }
         const authProvider = new DigitalOceanApiKeyAuthenticationProvider(token);
-        const baseUrl = options.baseUrl ?? env("DIGITALOCEAN_API_URL") ?? DEFAULT_BASE_URL;
-        const pathPrefix = options.pathPrefix ?? HARNESS_RUNTIME_PREFIX;
-        // The generated client's default middleware, with the prefix rewrite in front.
-        const http = new HttpClient(undefined, new PathPrefixHandler(baseUrl, pathPrefix), ...MiddlewareFactory.getDefaultMiddlewares());
-        const adapter = new FetchRequestAdapter(authProvider, undefined, undefined, http);
-        adapter.baseUrl = baseUrl;
+        const adapter = new FetchRequestAdapter(authProvider);
+        adapter.baseUrl = options.baseUrl ?? env("DIGITALOCEAN_API_URL") ?? DEFAULT_BASE_URL;
         this.client = createDigitalOceanClient(adapter);
 
         const ctx: RuntimeContext = {
             client: this.client,
             adapter,
-            transport: { authProvider, baseUrl, fetchImpl: options.fetchImpl, pathPrefix },
+            transport: { authProvider, baseUrl: adapter.baseUrl, fetchImpl: options.fetchImpl },
             webSocketFactory: options.webSocketFactory,
             pollIntervalMs: options.pollIntervalMs ?? 2_000,
         };
@@ -113,24 +86,24 @@ export class Workspaces {
     constructor(private readonly ctx: RuntimeContext) {}
 
     async create(input: { name: string; sizeLimitGib: number }): Promise<PersistentWorkspace> {
-        const res = await call(() => this.ctx.client.v2.agents.workspaces.post(input));
+        const res = await call(() => this.ctx.client.v2.harnessRuntime.workspaces.post(input));
         return toWorkspace(res?.workspace);
     }
 
     async get(id: string): Promise<PersistentWorkspace> {
-        const res = await call(() => this.ctx.client.v2.agents.workspaces.byWorkspace_id(id).get());
+        const res = await call(() => this.ctx.client.v2.harnessRuntime.workspaces.byWorkspace_id(id).get());
         return toWorkspace(res?.workspace);
     }
 
     list(): AsyncGenerator<PersistentWorkspace> {
         return paginate(async (pageToken) => {
-            const res = await call(() => this.ctx.client.v2.agents.workspaces.get({ queryParameters: { pageToken } }));
+            const res = await call(() => this.ctx.client.v2.harnessRuntime.workspaces.get({ queryParameters: { pageToken } }));
             return { items: (res?.workspaces ?? []).map(toWorkspace), nextPageToken: res?.nextPageToken };
         });
     }
 
     async delete(id: string): Promise<void> {
-        await call(() => this.ctx.client.v2.agents.workspaces.byWorkspace_id(id).delete());
+        await call(() => this.ctx.client.v2.harnessRuntime.workspaces.byWorkspace_id(id).delete());
     }
 
     /**

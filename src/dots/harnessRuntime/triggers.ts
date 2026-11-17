@@ -96,7 +96,7 @@ export class Triggers {
         input: TriggerInput & { provider: "github" | "gitlab" | "custom" },
     ): Promise<{ trigger: TriggerHandle; setup: WebhookSetup }> {
         const res = await call(() =>
-            this.ctx.client.v2.agents.triggers.post({
+            this.ctx.client.v2.harnessRuntime.triggers.post({
                 ...this.common(input),
                 kind: Trigger_kindObject.Webhook,
                 webhook: { provider: input.provider },
@@ -112,7 +112,7 @@ export class Triggers {
     /** Creates a cron trigger. `schedule` is a cron expression, read in `timezone`. */
     async cron(input: TriggerInput & { schedule: string; timezone: string }): Promise<TriggerHandle> {
         const res = await call(() =>
-            this.ctx.client.v2.agents.triggers.post({
+            this.ctx.client.v2.harnessRuntime.triggers.post({
                 ...this.common(input),
                 kind: Trigger_kindObject.Cron,
                 cron: { cronExpr: input.schedule, timezone: input.timezone },
@@ -122,14 +122,14 @@ export class Triggers {
     }
 
     async get(id: string): Promise<TriggerHandle> {
-        const res = await call(() => this.ctx.client.v2.agents.triggers.byTrigger_id(id).get());
+        const res = await call(() => this.ctx.client.v2.harnessRuntime.triggers.byTrigger_id(id).get());
         return new TriggerHandle(this.ctx, required(res?.trigger, "the trigger"));
     }
 
     list(options: { kind?: "webhook" | "cron"; status?: "active" | "paused" } = {}): AsyncGenerator<TriggerHandle> {
         return paginate(async (pageToken) => {
             const res = await call(() =>
-                this.ctx.client.v2.agents.triggers.get({
+                this.ctx.client.v2.harnessRuntime.triggers.get({
                     queryParameters: { pageToken, kind: options.kind as never, status: options.status as never },
                 }),
             );
@@ -163,7 +163,7 @@ export class Triggers {
      */
     private async provider(key: string): Promise<Webhook_provider | undefined> {
         try {
-            const res = await this.ctx.client.v2.agents.webhookProviders.get();
+            const res = await this.ctx.client.v2.harnessRuntime.webhookProviders.get();
             return res?.providers?.find((p) => p.key === key);
         } catch {
             return undefined;
@@ -193,7 +193,7 @@ export class TriggerHandle {
     }
 
     private get item() {
-        return this.ctx.client.v2.agents.triggers.byTrigger_id(this.id);
+        return this.ctx.client.v2.harnessRuntime.triggers.byTrigger_id(this.id);
     }
 
     /** The trigger's runs, newest first. Polling this is how runs are watched. */
@@ -271,22 +271,14 @@ function outputWrite(output: TriggerOutput | undefined): Trigger_output_write {
 }
 
 function toExecution(raw: Trigger_execution): TriggerExecution {
-    // status_reason and status_message are newer than the generated model, which
-    // keeps fields it does not know in additionalData. Read the typed field too,
-    // so this keeps working once the client is regenerated.
-    const typed = raw as Trigger_execution & { statusReason?: string | null; statusMessage?: string | null };
-    const extra = (key: string) => {
-        const value = raw.additionalData?.[key];
-        return typeof value === "string" && value ? value : undefined;
-    };
     return {
         id: required(raw.executionId, "the execution id"),
         status: (raw.status ?? "pending") as TriggerExecution["status"],
         sessionId: raw.sessionId || undefined,
         runId: raw.runId || undefined,
         failureReason: raw.failureReason || undefined,
-        statusReason: typed.statusReason || extra("status_reason"),
-        statusMessage: typed.statusMessage || extra("status_message"),
+        statusReason: raw.statusReason || undefined,
+        statusMessage: raw.statusMessage || undefined,
         output: raw.outputText ?? undefined,
         truncated: raw.outputTruncated ?? false,
         createdAt: raw.createdAt ?? undefined,

@@ -143,7 +143,7 @@ describe("streamSessionEvents", () => {
 
         // The replay lane ignores `cursor`, so the resume point travels as replay_from.
         expect(seenUrl).toBe(
-            "https://api.digitalocean.com/v2/agents/sessions/abc/events?replay_from=01J&replay_only=true",
+            "https://api.digitalocean.com/v2/harness-runtime/sessions/abc/events?replay_from=01J&replay_only=true",
         );
         expect(seenAuth).toBe("Bearer test-token");
     });
@@ -364,7 +364,7 @@ describe("openPortForward", () => {
         socket!.emit("open", {});
         const tunnel = await pending;
 
-        expect(seenUrl).toBe("wss://api.digitalocean.com/v2/agents/sessions/abc/port-forward/8080");
+        expect(seenUrl).toBe("wss://api.digitalocean.com/v2/harness-runtime/sessions/abc/port-forward/8080");
         expect(seenHeaders.Authorization).toBe("Bearer test-token");
         expect(socket!.binaryType).toBe("arraybuffer");
 

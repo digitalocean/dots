@@ -21,7 +21,6 @@ import {
     SessionFailedError,
     TimeoutError,
 } from "../../src/dots/harnessRuntime/index.js";
-import { withPathPrefix } from "../../src/dots/streaming/harnessStream.js";
 
 const API = "https://api.digitalocean.com";
 const hr = () => new HarnessRuntime({ token: "test-token", pollIntervalMs: 1 });
@@ -902,18 +901,6 @@ describe("client", () => {
         }
     });
 
-    it("calls /v2/agents for generated and streamed calls when asked to", async () => {
-        const legacy = () => new HarnessRuntime({ token: "test-token", pollIntervalMs: 1, pathPrefix: "/v2/agents" });
-        nock(API)
-            .get("/v2/agents/sessions/s1")
-            .reply(200, { session: session("s1") })
-            .post("/v2/agents/sessions/s1/sandbox/exec")
-            .matchHeader("accept", "text/event-stream")
-            .reply(200, 'event: exit\ndata: {"exit_code":0}\n\n', { "Content-Type": "text/event-stream" });
-        const s = await legacy().sessions.get("s1");
-        expect((await s.exec(["true"], { onStdout: () => undefined })).exitCode).toBe(0);
-    });
-
     it("opens port-forward under /v2/harness-runtime", async () => {
         nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
         let opened = "";
@@ -933,15 +920,6 @@ describe("client", () => {
         expect(opened).toBe("wss://api.digitalocean.com/v2/harness-runtime/sessions/s1/port-forward/8080");
     });
 
-    it("rewrites only whole /v2/agents path segments under the base URL", () => {
-        const base = "https://api.example.com/proxy";
-        const to = "/v2/harness-runtime";
-        expect(withPathPrefix(`${base}/v2/agents/sessions?page=2`, base, to)).toBe(`${base}/v2/harness-runtime/sessions?page=2`);
-        expect(withPathPrefix(`${base}/v2/agents`, base, to)).toBe(`${base}/v2/harness-runtime`);
-        expect(withPathPrefix(`${base}/v2/agentsfoo`, base, to)).toBe(`${base}/v2/agentsfoo`);
-        expect(withPathPrefix("https://bucket.example.com/v2/agents/part", base, to)).toBe("https://bucket.example.com/v2/agents/part");
-        expect(withPathPrefix(`${base}/v2/agents/sessions`, base, "/v2/agents")).toBe(`${base}/v2/agents/sessions`);
-    });
 });
 
 describe("session files", () => {

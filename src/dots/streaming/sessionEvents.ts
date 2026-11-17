@@ -16,7 +16,7 @@ import {
     type HarnessStreamOptions,
 } from "./harnessStream.js";
 import { readSseFrames } from "./sseFrames.js";
-import { EventsRequestBuilderUriTemplate } from "../v2/agents/sessions/item/events/index.js";
+import { EventsRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/events/index.js";
 
 /** One event off the stream. */
 export interface SessionEvent {

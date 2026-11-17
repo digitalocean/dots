@@ -11,7 +11,7 @@
 import {
     TransfersPostRequestBody_directionObject,
     type TransfersPostRequestBody,
-} from "../v2/agents/sessions/item/workspace/transfers/index.js";
+} from "../v2/harnessRuntime/sessions/item/workspace/transfers/index.js";
 import { call, HarnessRuntimeError, required, TimeoutError } from "./errors.js";
 import type { RuntimeContext } from "./session.js";
 
@@ -57,7 +57,7 @@ export class SessionFiles {
     ) {}
 
     private get item() {
-        return this.ctx.client.v2.agents.sessions.bySession_id(this.sessionId).workspace;
+        return this.ctx.client.v2.harnessRuntime.sessions.bySession_id(this.sessionId).workspace;
     }
 
     /**

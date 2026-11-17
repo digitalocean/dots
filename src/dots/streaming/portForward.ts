@@ -12,7 +12,7 @@ import {
     prepareRequest,
     type HarnessStreamOptions,
 } from "./harnessStream.js";
-import { WithPortItemRequestBuilderUriTemplate } from "../v2/agents/sessions/item/portForward/item/index.js";
+import { WithPortItemRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/portForward/item/index.js";
 
 /** Why the tunnel ended. */
 export interface PortForwardClose {

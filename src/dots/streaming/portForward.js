@@ -6,7 +6,7 @@
  * performs the upgrade and hands back a byte-oriented tunnel.
  */
 import { HarnessStreamError, HttpMethod, prepareRequest, } from "./harnessStream.js";
-import { WithPortItemRequestBuilderUriTemplate } from "../v2/agents/sessions/item/portForward/item/index.js";
+import { WithPortItemRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/portForward/item/index.js";
 /**
  * Opens a tunnel to `port` inside the session's sandbox.
  *

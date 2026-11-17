@@ -23,11 +23,11 @@ import {
     type Session_config_update,
     type Workspace,
 } from "../models/index.js";
-import { SessionsRequestBuilderRequestsMetadata } from "../v2/agents/sessions/index.js";
+import { SessionsRequestBuilderRequestsMetadata } from "../v2/harnessRuntime/sessions/index.js";
 import {
     ConfigsRequestBuilderRequestsMetadata,
     ConfigsRequestBuilderUriTemplate,
-} from "../v2/agents/configs/index.js";
+} from "../v2/harnessRuntime/configs/index.js";
 import type { HarnessStreamOptions } from "../streaming/harnessStream.js";
 import {
     collectSessionEvents,
@@ -64,7 +64,7 @@ import {
 import { SessionFiles, toArrayBuffer } from "./files.js";
 
 /** The YAML session create, with the managed-key flag the generated template lacks. */
-const CREATE_SESSION_URI_TEMPLATE = "{+baseurl}/v2/agents/sessions{?name*,manage_model_access_key*}";
+const CREATE_SESSION_URI_TEMPLATE = "{+baseurl}/v2/harness-runtime/sessions{?name*,manage_model_access_key*}";
 
 /** What every resource object needs to reach the API. */
 export interface RuntimeContext {
@@ -209,14 +209,14 @@ export class Environments {
     }
 
     async get(id: string): Promise<Environment> {
-        const res = await call(() => this.ctx.client.v2.agents.configs.byConfig_id(id).get());
+        const res = await call(() => this.ctx.client.v2.harnessRuntime.configs.byConfig_id(id).get());
         return toEnvironment(res?.config);
     }
 
     list(options: { search?: string } = {}): AsyncGenerator<Environment> {
         return paginate(async (pageToken) => {
             const res = await call(() =>
-                this.ctx.client.v2.agents.configs.get({
+                this.ctx.client.v2.harnessRuntime.configs.get({
                     queryParameters: { pageToken, search: options.search },
                 }),
             );
@@ -225,7 +225,7 @@ export class Environments {
     }
 
     async delete(id: string): Promise<void> {
-        await call(() => this.ctx.client.v2.agents.configs.byConfig_id(id).delete());
+        await call(() => this.ctx.client.v2.harnessRuntime.configs.byConfig_id(id).delete());
     }
 }
 
@@ -298,7 +298,7 @@ export class Sessions {
             // This form of create requires a name; the manifest form does not.
             const name =
                 input.name ?? sessionName(typeof input.environment === "string" ? "session" : input.environment.name);
-            const res = await call(() => this.ctx.client.v2.agents.sessions.post({ configId, name, workspaceId }));
+            const res = await call(() => this.ctx.client.v2.harnessRuntime.sessions.post({ configId, name, workspaceId }));
             created = res?.session;
         }
 
@@ -317,14 +317,14 @@ export class Sessions {
     }
 
     async get(id: string): Promise<Session> {
-        const res = await call(() => this.ctx.client.v2.agents.sessions.bySession_id(id).get());
+        const res = await call(() => this.ctx.client.v2.harnessRuntime.sessions.bySession_id(id).get());
         return new Session(this.ctx, required(res?.session, "the session"));
     }
 
     list(options: { status?: string; search?: string } = {}): AsyncGenerator<Session> {
         return paginate(async (pageToken) => {
             const res = await call(() =>
-                this.ctx.client.v2.agents.sessions.get({
+                this.ctx.client.v2.harnessRuntime.sessions.get({
                     queryParameters: {
                         pageToken,
                         search: options.search,
@@ -441,7 +441,7 @@ export class Session {
     }
 
     private get item() {
-        return this.ctx.client.v2.agents.sessions.bySession_id(this.id);
+        return this.ctx.client.v2.harnessRuntime.sessions.bySession_id(this.id);
     }
 
     /** Reads the session again. */
@@ -710,7 +710,7 @@ export class Session {
         const configId = this.ownConfigId;
         if (!configId) return;
         this.ownConfigId = undefined;
-        await call(() => this.ctx.client.v2.agents.configs.byConfig_id(configId).delete()).catch((err) => {
+        await call(() => this.ctx.client.v2.harnessRuntime.configs.byConfig_id(configId).delete()).catch((err) => {
             // 409: a fork still uses it, and deletes it when it is destroyed. 404: already gone.
             if (!(err instanceof ConflictError || err instanceof NotFoundError)) throw err;
         });

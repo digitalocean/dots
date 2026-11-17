@@ -9,7 +9,7 @@
  */
 import { HarnessStreamError, HttpMethod, openStream, prepareRequest, } from "./harnessStream.js";
 import { readSseFrames } from "./sseFrames.js";
-import { EventsRequestBuilderUriTemplate } from "../v2/agents/sessions/item/events/index.js";
+import { EventsRequestBuilderUriTemplate } from "../v2/harnessRuntime/sessions/item/events/index.js";
 /** How many event ids to remember when discarding duplicates. */
 const SEEN_EVENT_LIMIT = 4096;
 const MAX_RETRY_DELAY_MS = 15000;
