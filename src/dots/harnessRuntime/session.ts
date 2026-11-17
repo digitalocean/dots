@@ -15,6 +15,7 @@ import {
     Resolution_sourceObject,
     type Agent_config,
     type Agent_config_response,
+    type Cancel_session_turn_response_outcome,
     type Checkpoint,
     type Definitions_create_session_response,
     type Definitions_session,
@@ -76,6 +77,9 @@ export interface RuntimeContext {
 
 /** A manifest as YAML text, or as an object (sent as JSON, which is valid YAML). */
 export type Manifest = string | Record<string, unknown>;
+
+/** What {@link Session.cancel} did to the turn. */
+export type CancelOutcome = Cancel_session_turn_response_outcome;
 
 /**
  * A session name derived from `base`: letters, digits, ".", "_" and "-", at
@@ -600,9 +604,23 @@ export class Session {
         await call(() => this.item.resume.post());
     }
 
-    /** Cancels the current turn, or the given run. */
-    async cancel(runId?: string): Promise<void> {
-        await call(() => this.item.cancel.post({ runId }));
+    /**
+     * Cancels the current turn, or the given run, and says what happened:
+     * `acked` (the agent stopped the turn), `no_turn` (nothing was running) or
+     * `unsupported` (this agent cannot be interrupted). A session that cannot
+     * take a cancel at all, such as a paused one or one with no active run,
+     * also gives `no_turn`: the API answers 409 there, which means there is
+     * nothing to cancel, not a failure.
+     */
+    async cancel(runId?: string): Promise<CancelOutcome> {
+        try {
+            const res = await call(() => this.item.cancel.post({ runId }));
+            // A 200 means the cancel was delivered; the outcome says how the agent took it.
+            return res?.outcome ?? "acked";
+        } catch (err) {
+            if (err instanceof ConflictError) return "no_turn";
+            throw err;
+        }
     }
 
     /**

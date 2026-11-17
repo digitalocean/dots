@@ -645,6 +645,39 @@ describe("streamed exec", () => {
     });
 });
 
+describe("cancel", () => {
+    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    const cancelPath = "/v2/agents/sessions/s1/cancel";
+
+    it("returns the agent's outcome and names the run", async () => {
+        ready();
+        nock(API).post(cancelPath, { run_id: "run-1" }).reply(200, { outcome: "acked", run_id: "run-1" });
+        const s = await hr().sessions.get("s1");
+        expect(await s.cancel("run-1")).toBe("acked");
+    });
+
+    it("returns unsupported when the agent cannot be interrupted", async () => {
+        ready();
+        nock(API).post(cancelPath).reply(200, { outcome: "unsupported" });
+        const s = await hr().sessions.get("s1");
+        expect(await s.cancel()).toBe("unsupported");
+    });
+
+    it("treats a 409 as nothing to cancel", async () => {
+        ready();
+        nock(API).post(cancelPath).reply(409, { message: "session is paused" });
+        const s = await hr().sessions.get("s1");
+        expect(await s.cancel()).toBe("no_turn");
+    });
+
+    it("still raises other refusals", async () => {
+        ready();
+        nock(API).post(cancelPath).reply(403, { message: "turn cancel is not enabled for this team" });
+        const s = await hr().sessions.get("s1");
+        await expect(s.cancel()).rejects.toBeInstanceOf(NotEnabledError);
+    });
+});
+
 describe("session names", () => {
     it("names a session created from an environment, which the API requires", async () => {
         let sent: { name?: string; config_id?: string } = {};

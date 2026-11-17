@@ -157,6 +157,7 @@ export {
     Session,
     Sessions,
     type ApprovalRequest,
+    type CancelOutcome,
     type CreateSessionInput,
     type Environment,
     type ManagedKeyOption,

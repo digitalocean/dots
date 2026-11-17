@@ -66,7 +66,9 @@ console.log(result.status, result.usage); // "completed", token and cost totals
 `run` waits up to 30 minutes for the run to end, then raises `TimeoutError`;
 pass `timeoutMs` to change that (0 waits without limit). A timeout, like
 `signal`, stops the wait and not the run: `session.cancel(runId)` or
-`destroy()` stops the run.
+`destroy()` stops the run. `cancel` returns `acked` when the agent stopped the
+turn, `no_turn` when nothing was running (including a paused session), and
+`unsupported` when the agent cannot be interrupted.
 
 To destroy a session automatically when a block ends, even when it throws,
 declare it with `await using`:
