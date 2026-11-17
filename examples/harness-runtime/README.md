@@ -228,6 +228,29 @@ the server's limit is split for you.
 > the spec yet, so the SDK follows the server's current implementation for
 > `exec` with callbacks and for `spawn`.
 
+## 8. Change a running session's tools, env or secrets
+
+```ts
+const r = await session.updateConfig({ env: { LOG_LEVEL: "debug" }, secrets: { API_KEY: {} } });
+console.log(r.state); // "APPLIED", "APPLIED_RESTARTED" or "UNCHANGED"
+```
+
+`updateConfig` changes the session in place and waits until the update is
+done. A tools-only change usually takes seconds; env and secret changes restart
+the agent and can take about two minutes.
+
+- Each section you pass replaces that section as a whole. `env` and `secrets`
+  are full sets: a name you leave out is removed. In `secrets`, a string sets
+  or rotates a value and `{}` keeps the current one. `tools: []` detaches every
+  tool. A section you do not pass is not touched.
+- A failed update raises `ConfigUpdateFailedError`, whose `reverted` says
+  whether the session went back to the config it had before.
+- Live config updates are being enabled team by team; until they are on for
+  yours, `updateConfig` raises `NotEnabledError`. A session that is paused,
+  busy or already updating raises `ConflictError`, and a change that only a new
+  session can make (for example to a platform key or an OAuth secret) is
+  refused with a 422.
+
 ## Live events and port-forward
 
 ```ts
@@ -254,7 +277,8 @@ Every failed call raises a typed error with the HTTP status and the request id:
 `NotFoundError`, `ConflictError`, `NotEnabledError` (403), `PaymentRequiredError`
 (402), `LockedError` (423), `RateLimitError` (429, with `retryAfter`),
 `ServiceError` (5xx), and `SessionFailedError` when a session fails instead of
-becoming ready, which `sessions.create` destroys before raising it. A wait that
+becoming ready, which `sessions.create` destroys before raising it, and
+`ConfigUpdateFailedError` when a live config update fails. A wait that
 runs out of time raises `TimeoutError`. All extend `HarnessRuntimeError`.
 
 ## Limitations

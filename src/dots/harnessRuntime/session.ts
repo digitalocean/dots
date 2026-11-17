@@ -20,6 +20,7 @@ import {
     type Definitions_create_session_response,
     type Definitions_session,
     type Hitl_outcome,
+    type Session_config_update,
     type Workspace,
 } from "../models/index.js";
 import { SessionsRequestBuilderRequestsMetadata } from "../v2/agents/sessions/index.js";
@@ -42,6 +43,7 @@ import {
 } from "../streaming/portForward.js";
 import {
     call,
+    ConfigUpdateFailedError,
     ConflictError,
     HarnessRuntimeError,
     NotFoundError,
@@ -80,6 +82,36 @@ export type Manifest = string | Record<string, unknown>;
 
 /** What {@link Session.cancel} did to the turn. */
 export type CancelOutcome = Cancel_session_turn_response_outcome;
+
+/**
+ * The parts of a running session's config that {@link Session.updateConfig}
+ * can change. Each section given replaces that section as a whole; a section
+ * left out is not touched.
+ */
+export interface ConfigUpdate {
+    /** The full list of tools, in manifest form. `[]` detaches every tool. */
+    tools?: unknown[];
+    /** The full set of environment variables. A name left out is removed. */
+    env?: Record<string, string>;
+    /**
+     * The full set of secrets. A string sets or rotates a value, `{}` keeps
+     * the current one, and a name left out is removed.
+     */
+    secrets?: Record<string, string | Record<string, never>>;
+}
+
+/** How a live config update ended. */
+export interface ConfigUpdateResult {
+    /**
+     * `APPLIED`; `APPLIED_RESTARTED` when the agent was restarted to apply it
+     * (env and secret changes); `UNCHANGED` when the config already matched.
+     */
+    state: "APPLIED" | "APPLIED_RESTARTED" | "UNCHANGED";
+    /** Non-fatal notes from the API about the update. */
+    warnings: string[];
+    /** The update record. Not set for `UNCHANGED`, which records nothing. */
+    update?: Session_config_update;
+}
 
 /**
  * A session name derived from `base`: letters, digits, ".", "_" and "-", at
@@ -432,6 +464,47 @@ export class Session {
             await sleep(this.ctx.pollIntervalMs);
             await this.refresh();
         }
+    }
+
+    /**
+     * Changes the tools, env or secrets of the running session, then waits
+     * (5 minutes by default) for the update to finish. A tools-only change
+     * usually takes seconds; env and secret changes restart the agent and can
+     * take about two minutes.
+     *
+     * Raises {@link ConfigUpdateFailedError} when the update fails, and says
+     * whether the previous config was restored. The API refuses some changes
+     * up front: `NotEnabledError` (403) when live config updates are not
+     * enabled for the team, `ConflictError` (409) when the session is not
+     * running, is busy or is already updating, and a 422 when only a new
+     * session can make the change.
+     */
+    async updateConfig(update: ConfigUpdate, options: { timeoutMs?: number } = {}): Promise<ConfigUpdateResult> {
+        const res = await call(() => this.item.patch({ manifestYaml: JSON.stringify(update) }));
+        if (res?.session) this.info = res.session;
+        const warnings = res?.warnings ?? [];
+        if (res?.outcome === "UNCHANGED") return { state: "UNCHANGED", warnings };
+
+        const deadline = Date.now() + (options.timeoutMs ?? 5 * 60_000);
+        // The status leaves UPDATING when the update ends; the record says APPLYING until then too.
+        while (this.info.status === "SESSION_STATUS_UPDATING" || this.info.update?.state === "APPLYING") {
+            if (DEAD.has(this.info.status ?? "")) break;
+            if (Date.now() >= deadline) {
+                throw new TimeoutError(`session ${this.id} was still applying its config update`);
+            }
+            await sleep(this.ctx.pollIntervalMs);
+            await this.refresh();
+        }
+        const record = this.info.update ?? undefined;
+        const state = record?.state;
+        if (state === "APPLIED" || state === "APPLIED_RESTARTED") return { state, warnings, update: record };
+        if (DEAD.has(this.info.status ?? "")) throw new SessionFailedError(this.id, this.info.status ?? "");
+        throw new ConfigUpdateFailedError(
+            this.id,
+            record?.errorEscaped ?? undefined,
+            record?.reverted ?? false,
+            record?.detail ?? undefined,
+        );
     }
 
     /** Sends a prompt and returns the run id, without waiting for the run. */

@@ -139,6 +139,7 @@ function env(name: string): string | undefined {
 }
 
 export {
+    ConfigUpdateFailedError,
     ConflictError,
     HarnessRuntimeError,
     InvalidRequestError,
@@ -158,6 +159,8 @@ export {
     Sessions,
     type ApprovalRequest,
     type CancelOutcome,
+    type ConfigUpdate,
+    type ConfigUpdateResult,
     type CreateSessionInput,
     type Environment,
     type ManagedKeyOption,

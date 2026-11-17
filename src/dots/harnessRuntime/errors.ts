@@ -54,6 +54,25 @@ export class SessionFailedError extends HarnessRuntimeError {
     }
 }
 
+/** A live config update finished as FAILED. See `reverted` for whether the old config is back. */
+export class ConfigUpdateFailedError extends HarnessRuntimeError {
+    constructor(
+        readonly sessionId: string,
+        /** The failure class, such as `update_failed`, `requires_new_session` or `interrupted`. */
+        readonly reason: string | undefined,
+        /** True when the session was rolled back to the config it had before. */
+        readonly reverted: boolean,
+        /** The API's explanation, when it gave one. */
+        readonly detail: string | undefined,
+    ) {
+        super(
+            `config update on session ${sessionId} failed${reason ? ` (${reason})` : ""}` +
+                `${detail ? `: ${detail}` : ""}${reverted ? "; the previous config was restored" : ""}`,
+            0,
+        );
+    }
+}
+
 /** A wait ran out of time. The operation itself may still finish later. */
 export class TimeoutError extends HarnessRuntimeError {
     constructor(message: string) {

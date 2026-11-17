@@ -12,6 +12,7 @@ import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
+    ConfigUpdateFailedError,
     ConflictError,
     HarnessRuntime,
     NotEnabledError,
@@ -675,6 +676,68 @@ describe("cancel", () => {
         nock(API).post(cancelPath).reply(403, { message: "turn cancel is not enabled for this team" });
         const s = await hr().sessions.get("s1");
         await expect(s.cancel()).rejects.toBeInstanceOf(NotEnabledError);
+    });
+});
+
+describe("live config update", () => {
+    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+
+    it("sends the sections as manifest_yaml and waits until the update is applied", async () => {
+        let sent: { manifest_yaml?: string } = {};
+        ready();
+        nock(API)
+            .patch("/v2/agents/sessions/s1", (body) => ((sent = body), true))
+            .reply(202, {
+                outcome: "ACCEPTED",
+                session: session("s1", "SESSION_STATUS_UPDATING", { update: { state: "APPLYING" } }),
+            })
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1", "SESSION_STATUS_UPDATING", { update: { state: "APPLYING" } }) })
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1", "SESSION_STATUS_READY", { update: { update_id: "u1", state: "APPLIED_RESTARTED" } }) });
+
+        const s = await hr().sessions.get("s1");
+        const r = await s.updateConfig({ env: { LOG_LEVEL: "debug" }, secrets: { API_KEY: {} } });
+
+        expect(JSON.parse(sent.manifest_yaml ?? "")).toEqual({ env: { LOG_LEVEL: "debug" }, secrets: { API_KEY: {} } });
+        expect(r.state).toBe("APPLIED_RESTARTED");
+        expect(r.update?.updateId).toBe("u1");
+        expect(s.status).toBe("SESSION_STATUS_READY");
+    });
+
+    it("returns UNCHANGED without waiting when the config already matches", async () => {
+        ready();
+        nock(API)
+            .patch("/v2/agents/sessions/s1")
+            .reply(200, { outcome: "UNCHANGED", session: session("s1"), warnings: ["tools: nothing to change"] });
+        const s = await hr().sessions.get("s1");
+        expect(await s.updateConfig({ tools: [] })).toEqual({ state: "UNCHANGED", warnings: ["tools: nothing to change"] });
+    });
+
+    it("raises ConfigUpdateFailedError, saying whether the old config is back", async () => {
+        ready();
+        nock(API)
+            .patch("/v2/agents/sessions/s1")
+            .reply(202, { outcome: "ACCEPTED", session: session("s1", "SESSION_STATUS_UPDATING") })
+            .get("/v2/agents/sessions/s1")
+            .reply(200, {
+                session: session("s1", "SESSION_STATUS_READY", {
+                    update: { state: "FAILED", error: "update_failed", reverted: true, detail: "the agent did not restart" },
+                }),
+            });
+        const s = await hr().sessions.get("s1");
+        const err = await s.updateConfig({ env: { A: "1" } }).catch((e) => e);
+        expect(err).toBeInstanceOf(ConfigUpdateFailedError);
+        expect(err.reason).toBe("update_failed");
+        expect(err.reverted).toBe(true);
+        expect(err.message).toContain("the previous config was restored");
+    });
+
+    it("types a team that is not enrolled as a NotEnabledError", async () => {
+        ready();
+        nock(API).patch("/v2/agents/sessions/s1").reply(403, { message: "config updates are not enabled for this team" });
+        const s = await hr().sessions.get("s1");
+        await expect(s.updateConfig({ tools: [] })).rejects.toBeInstanceOf(NotEnabledError);
     });
 });
 
