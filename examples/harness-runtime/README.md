@@ -155,6 +155,11 @@ const daily = await hr.triggers.cron({
 for await (const run of daily.executions({ status: "failed" })) console.log(run.id, run.failureReason);
 ```
 
+A run that is `running` but has not started its turn says why in
+`statusReason`, with a readable `statusMessage`. Today the one reason is
+`waiting_for_bound_session`: a trigger that reuses a session waits for that
+session to pause before it sends the prompt.
+
 ## 6. Run an agent on every GitHub pull request
 
 ```ts

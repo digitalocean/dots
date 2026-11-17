@@ -773,6 +773,41 @@ describe("trigger runs", () => {
         expect(run).toMatchObject({ id: "e1", status: "succeeded", output: "all good" });
     });
 
+    it("says why a running run is waiting, also when the wait times out", async () => {
+        const T = "/v2/agents/triggers/t1";
+        const waiting = {
+            execution_id: "e1",
+            status: "running",
+            status_reason: "waiting_for_bound_session",
+            status_message: "waiting for the bound session to pause",
+        };
+        nock(API)
+            .get(T)
+            .reply(200, { trigger: { trigger_id: "t1", name: "nightly" } })
+            .get(`${T}/executions`)
+            .times(2)
+            .reply(200, { executions: [waiting] });
+
+        const trigger = await hr().triggers.get("t1");
+        const run = (await trigger.executions().next()).value;
+        expect(run).toMatchObject({ statusReason: "waiting_for_bound_session", statusMessage: "waiting for the bound session to pause" });
+        await expect(trigger.waitForRun({ timeoutMs: 0 })).rejects.toThrow(
+            "latest: running, waiting for the bound session to pause",
+        );
+    });
+
+    it("leaves statusReason unset when the API sends none", async () => {
+        nock(API)
+            .get("/v2/agents/triggers/t1")
+            .reply(200, { trigger: { trigger_id: "t1", name: "nightly" } })
+            .get("/v2/agents/triggers/t1/executions")
+            .reply(200, { executions: [{ execution_id: "e1", status: "running" }] });
+        const trigger = await hr().triggers.get("t1");
+        const run = (await trigger.executions().next()).value;
+        expect(run?.statusReason).toBeUndefined();
+        expect(run?.statusMessage).toBeUndefined();
+    });
+
     it("stops waiting when the signal aborts", async () => {
         nock(API).get("/v2/agents/triggers/t1").reply(200, { trigger: { trigger_id: "t1", name: "nightly" } });
         const trigger = await hr().triggers.get("t1");

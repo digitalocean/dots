@@ -51,6 +51,14 @@ export interface TriggerExecution {
     runId?: string;
     /** A fixed, client-safe reason when the run failed. */
     failureReason?: string;
+    /**
+     * Why a running run has not started its turn yet, such as
+     * `waiting_for_bound_session` (it waits for the session it reuses to
+     * pause). Not set when there is nothing to report.
+     */
+    statusReason?: string;
+    /** A readable explanation of `statusReason`. */
+    statusMessage?: string;
     /** The run's transcript. Only `TriggerHandle.execution(id)` returns it. */
     output?: string;
     /** True when `output` is incomplete. */
@@ -213,8 +221,9 @@ export class TriggerHandle {
                 return this.execution(latest.id);
             }
             if (Date.now() >= deadline) {
+                const waiting = latest?.statusReason ? `, ${latest.statusMessage ?? latest.statusReason}` : "";
                 throw new TimeoutError(
-                    `trigger ${this.id} had no finished run in time (latest: ${latest ? latest.status : "none"})`,
+                    `trigger ${this.id} had no finished run in time (latest: ${latest ? latest.status : "none"}${waiting})`,
                 );
             }
             await new Promise((resolve) => setTimeout(resolve, this.ctx.pollIntervalMs));
@@ -262,12 +271,22 @@ function outputWrite(output: TriggerOutput | undefined): Trigger_output_write {
 }
 
 function toExecution(raw: Trigger_execution): TriggerExecution {
+    // status_reason and status_message are newer than the generated model, which
+    // keeps fields it does not know in additionalData. Read the typed field too,
+    // so this keeps working once the client is regenerated.
+    const typed = raw as Trigger_execution & { statusReason?: string | null; statusMessage?: string | null };
+    const extra = (key: string) => {
+        const value = raw.additionalData?.[key];
+        return typeof value === "string" && value ? value : undefined;
+    };
     return {
         id: required(raw.executionId, "the execution id"),
         status: (raw.status ?? "pending") as TriggerExecution["status"],
         sessionId: raw.sessionId || undefined,
         runId: raw.runId || undefined,
         failureReason: raw.failureReason || undefined,
+        statusReason: typed.statusReason || extra("status_reason"),
+        statusMessage: typed.statusMessage || extra("status_message"),
         output: raw.outputText ?? undefined,
         truncated: raw.outputTruncated ?? false,
         createdAt: raw.createdAt ?? undefined,
