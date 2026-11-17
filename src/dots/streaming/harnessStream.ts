@@ -15,6 +15,23 @@ import {
 /** The host the generated client defaults to. */
 export const DEFAULT_BASE_URL = "https://api.digitalocean.com";
 
+/** The path prefix the published spec, and so every URL template, uses for these routes. */
+const AGENTS_PREFIX = "/v2/agents";
+
+/**
+ * Rewrites a URL built from a `/v2/agents` template to start with `prefix`
+ * instead, such as `/v2/harness-runtime`; the API serves the same routes
+ * under both. A URL outside `baseUrl` + `/v2/agents` is returned unchanged.
+ */
+export function withPathPrefix(url: string, baseUrl: string, prefix: string | undefined): string {
+    if (!prefix || prefix === AGENTS_PREFIX) return url;
+    const from = baseUrl + AGENTS_PREFIX;
+    const rest = url.slice(from.length);
+    // Match a whole path segment: "/v2/agentsfoo" is not under "/v2/agents".
+    if (!url.startsWith(from) || (rest !== "" && !"/?#".includes(rest[0]))) return url;
+    return baseUrl + prefix + rest;
+}
+
 /** Options every streaming helper accepts. */
 export interface HarnessStreamOptions {
     /**
@@ -28,6 +45,12 @@ export interface HarnessStreamOptions {
     signal?: AbortSignal;
     /** Overrides the global fetch. Mainly for tests. */
     fetchImpl?: typeof fetch;
+    /**
+     * Calls the routes under this prefix, such as `/v2/harness-runtime`,
+     * instead of the `/v2/agents` the URL templates use. Unset keeps the
+     * templates' URLs.
+     */
+    pathPrefix?: string;
 }
 
 /**
@@ -75,10 +98,11 @@ export async function prepareRequest(
     options: HarnessStreamOptions,
     extraHeaders: Record<string, string> = {},
 ): Promise<PreparedRequest> {
+    const baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
     const info = new RequestInformation(method);
     info.urlTemplate = urlTemplate;
     info.pathParameters = {
-        baseurl: options.baseUrl ?? DEFAULT_BASE_URL,
+        baseurl: baseUrl,
         ...pathParameters,
     };
     // Drop unset values so an absent option does not become "undefined" in the
@@ -93,7 +117,7 @@ export async function prepareRequest(
     for (const [key, values] of info.headers.entries()) {
         headers[key] = Array.from(values).join(", ");
     }
-    return { url: info.URL, headers: { ...headers, ...extraHeaders } };
+    return { url: withPathPrefix(info.URL, baseUrl, options.pathPrefix), headers: { ...headers, ...extraHeaders } };
 }
 
 /**

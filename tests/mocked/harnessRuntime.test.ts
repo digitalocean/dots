@@ -21,6 +21,7 @@ import {
     SessionFailedError,
     TimeoutError,
 } from "../../src/dots/harnessRuntime/index.js";
+import { withPathPrefix } from "../../src/dots/streaming/harnessStream.js";
 
 const API = "https://api.digitalocean.com";
 const hr = () => new HarnessRuntime({ token: "test-token", pollIntervalMs: 1 });
@@ -59,15 +60,15 @@ describe("showcase jobs", () => {
     it("1. runs an agent and streams its answer", async () => {
         let contentType = "";
         nock(API)
-            .post("/v2/agents/sessions", (body) => typeof body === "string" && body.includes("harness: claude-code"))
+            .post("/v2/harness-runtime/sessions", (body) => typeof body === "string" && body.includes("harness: claude-code"))
             .query({ manage_model_access_key: "true" }) // the agent's inference key is minted by the API
             .reply(function () {
                 contentType = String(this.req.headers["content-type"]);
                 return [201, { session: session("s1", "SESSION_STATUS_PROVISIONING") }];
             })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .get("/v2/agents/sessions/s1/events")
+            .get("/v2/harness-runtime/sessions/s1/events")
             .reply(
                 200,
                 sse(
@@ -80,7 +81,7 @@ describe("showcase jobs", () => {
                 ),
                 { "Content-Type": "text/event-stream" },
             )
-            .post("/v2/agents/sessions/s1/input", { text: "Find and fix the flaky test" })
+            .post("/v2/harness-runtime/sessions/s1/input", { text: "Find and fix the flaky test" })
             .reply(200, { run_id: "run-1" });
 
         // --- customer code ---
@@ -102,7 +103,7 @@ describe("showcase jobs", () => {
     it("2. lets a human approve a risky step", async () => {
         const resolved = capture();
         nock(API)
-            .get("/v2/agents/sessions/s1/events")
+            .get("/v2/harness-runtime/sessions/s1/events")
             .reply(
                 200,
                 sse(
@@ -116,12 +117,12 @@ describe("showcase jobs", () => {
                     frame("01C", "run.completed", {}, "run-1"),
                 ),
             )
-            .post("/v2/agents/sessions/s1/input")
+            .post("/v2/harness-runtime/sessions/s1/input")
             .reply(200, { run_id: "run-1" })
-            .post("/v2/agents/sessions/s1/hitl/h1", resolved.body)
+            .post("/v2/harness-runtime/sessions/s1/hitl/h1", resolved.body)
             .reply(204);
 
-        nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
         const existing = await hr().sessions.get("s1");
 
         // --- customer code ---
@@ -140,13 +141,13 @@ describe("showcase jobs", () => {
     it("3. keeps files across sessions with a persistent workspace", async () => {
         const firstCreate = capture();
         nock(API)
-            .post("/v2/agents/workspaces", { name: "repo-cache", size_limit_gib: 10 })
+            .post("/v2/harness-runtime/workspaces", { name: "repo-cache", size_limit_gib: 10 })
             .reply(201, { workspace: { workspace_id: "w1", name: "repo-cache", state: "AVAILABLE" } })
-            .post("/v2/agents/configs", { name: "repo-agent", manifest_yaml: MANIFEST, manage_model_access_key: true })
+            .post("/v2/harness-runtime/configs", { name: "repo-agent", manifest_yaml: MANIFEST, manage_model_access_key: true })
             .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000001", name: "repo-agent" } })
-            .post("/v2/agents/sessions", firstCreate.body)
+            .post("/v2/harness-runtime/sessions", firstCreate.body)
             .reply(201, { session: session("s1", "SESSION_STATUS_READY", { workspace_id: "w1" }) })
-            .get("/v2/agents/sessions/s1/workspace/download")
+            .get("/v2/harness-runtime/sessions/s1/workspace/download")
             .query({ path: "README.md" })
             .reply(200, withFooter("cloned\n"));
 
@@ -168,13 +169,13 @@ describe("showcase jobs", () => {
 
     it("4. forks a session to try two approaches", async () => {
         nock(API)
-            .post("/v2/agents/sessions/s1/checkpoints", { label: "before-fix" })
+            .post("/v2/harness-runtime/sessions/s1/checkpoints", { label: "before-fix" })
             .reply(201, { checkpoint: { checkpoint_id: "cp1", label: "before-fix" } })
-            .post("/v2/agents/sessions/s1/fork", { from_checkpoint_id: "cp1", count: 2 })
+            .post("/v2/harness-runtime/sessions/s1/fork", { from_checkpoint_id: "cp1", count: 2 })
             .reply(201, { sessions: [session("f1", "SESSION_STATUS_PROVISIONING"), session("f2")] })
-            .get("/v2/agents/sessions/f1")
+            .get("/v2/harness-runtime/sessions/f1")
             .reply(200, { session: session("f1") })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") });
 
         const client = hr();
@@ -192,7 +193,7 @@ describe("showcase jobs", () => {
     it("5. schedules an agent and lists its failed runs", async () => {
         const created = capture();
         nock(API)
-            .post("/v2/agents/triggers", created.body)
+            .post("/v2/harness-runtime/triggers", created.body)
             .reply(201, {
                 trigger: {
                     trigger_id: "t1",
@@ -201,13 +202,13 @@ describe("showcase jobs", () => {
                     cron: { cron_expr: "0 9 * * 1-5", timezone: "Asia/Kolkata", next_run_at: "2026-11-06T03:30:00Z" },
                 },
             })
-            .get("/v2/agents/triggers/t1/executions")
+            .get("/v2/harness-runtime/triggers/t1/executions")
             .query({ status: "failed" })
             .reply(200, {
                 executions: [{ execution_id: "e2", status: "failed", failure_reason: "The session failed." }],
                 next_page_token: "p2",
             })
-            .get("/v2/agents/triggers/t1/executions")
+            .get("/v2/harness-runtime/triggers/t1/executions")
             .query({ status: "failed", page_token: "p2" })
             .reply(200, { executions: [{ execution_id: "e1", status: "failed" }], next_page_token: "" });
 
@@ -240,7 +241,7 @@ describe("showcase jobs", () => {
     it("6. creates a GitHub-triggered agent with its setup steps", async () => {
         const created = capture();
         nock(API)
-            .post("/v2/agents/triggers", created.body)
+            .post("/v2/harness-runtime/triggers", created.body)
             .reply(201, {
                 trigger: {
                     trigger_id: "t2",
@@ -249,7 +250,7 @@ describe("showcase jobs", () => {
                 },
                 webhook_secret: "s3cret",
             })
-            .get("/v2/agents/webhook-providers")
+            .get("/v2/harness-runtime/webhook-providers")
             .reply(200, {
                 providers: [
                     {
@@ -289,11 +290,11 @@ describe("showcase jobs", () => {
 describe("sessions", () => {
     it("raises SessionFailedError when the session fails instead of becoming ready, and destroys it", async () => {
         const scope = nock(API)
-            .post("/v2/agents/sessions")
+            .post("/v2/harness-runtime/sessions")
             .reply(201, { session: session("s1", "SESSION_STATUS_PROVISIONING") })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1", "SESSION_STATUS_FAILED") })
-            .delete("/v2/agents/sessions/s1") // the caller never gets the session, so create cleans it up
+            .delete("/v2/harness-runtime/sessions/s1") // the caller never gets the session, so create cleans it up
             .reply(204);
 
         await expect(hr().sessions.create({ environment: "6f1f0d3e-0000-4000-8000-000000000001" })).rejects.toBeInstanceOf(
@@ -305,12 +306,12 @@ describe("sessions", () => {
     it("deletes the config the API saved for a manifest session when it is destroyed", async () => {
         const CFG = "6f1f0d3e-0000-4000-8000-000000000009";
         const scope = nock(API)
-            .post("/v2/agents/sessions")
+            .post("/v2/harness-runtime/sessions")
             .query(true)
             .reply(201, { session: session("s1", "SESSION_STATUS_READY", { config_id: CFG }) })
-            .delete("/v2/agents/sessions/s1")
+            .delete("/v2/harness-runtime/sessions/s1")
             .reply(204)
-            .delete(`/v2/agents/configs/${CFG}`) // revokes the managed key with it
+            .delete(`/v2/harness-runtime/configs/${CFG}`) // revokes the managed key with it
             .reply(204);
         const s = await hr().sessions.create({ manifest: MANIFEST });
         await s.destroy();
@@ -320,22 +321,22 @@ describe("sessions", () => {
     it("leaves a shared config to the last fork, and never deletes a saved environment", async () => {
         const CFG = "6f1f0d3e-0000-4000-8000-000000000009";
         const scope = nock(API)
-            .post("/v2/agents/sessions")
+            .post("/v2/harness-runtime/sessions")
             .query(true)
             .reply(201, { session: session("s1", "SESSION_STATUS_READY", { config_id: CFG }) })
-            .post("/v2/agents/sessions/s1/fork")
+            .post("/v2/harness-runtime/sessions/s1/fork")
             .reply(201, { sessions: [session("f1", "SESSION_STATUS_READY", { config_id: CFG })] })
-            .delete("/v2/agents/sessions/s1")
+            .delete("/v2/harness-runtime/sessions/s1")
             .reply(204)
-            .delete(`/v2/agents/configs/${CFG}`)
+            .delete(`/v2/harness-runtime/configs/${CFG}`)
             .reply(409, { id: "conflict", message: "agent config has active sessions" })
-            .delete("/v2/agents/sessions/f1")
+            .delete("/v2/harness-runtime/sessions/f1")
             .reply(204)
-            .delete(`/v2/agents/configs/${CFG}`)
+            .delete(`/v2/harness-runtime/configs/${CFG}`)
             .reply(204)
-            .post("/v2/agents/sessions") // from a saved environment: its config is the caller's
+            .post("/v2/harness-runtime/sessions") // from a saved environment: its config is the caller's
             .reply(201, { session: session("s2", "SESSION_STATUS_READY", { config_id: CFG }) })
-            .delete("/v2/agents/sessions/s2")
+            .delete("/v2/harness-runtime/sessions/s2")
             .reply(204);
         const client = hr();
         const s = await client.sessions.create({ manifest: MANIFEST });
@@ -348,12 +349,12 @@ describe("sessions", () => {
 
     it("stops waiting for a run after timeoutMs, naming the run", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .get("/v2/agents/sessions/s1/events")
+            .get("/v2/harness-runtime/sessions/s1/events")
             .times(1000)
             .reply(200, sse(frame("01A", "stream.state", { state: "live" })), { "Content-Type": "text/event-stream" })
-            .post("/v2/agents/sessions/s1/input")
+            .post("/v2/harness-runtime/sessions/s1/input")
             .reply(200, { run_id: "run-1" });
         const s = await hr().sessions.get("s1");
         const err = await s.run("go", { timeoutMs: 50 }).catch((e) => e);
@@ -362,7 +363,7 @@ describe("sessions", () => {
     });
 
     it("does not send the prompt when the signal has already aborted", async () => {
-        nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") }); // no input interceptor
+        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") }); // no input interceptor
         const s = await hr().sessions.get("s1");
         const stop = new AbortController();
         stop.abort(new Error("interrupted"));
@@ -377,9 +378,9 @@ describe("sessions", () => {
 
     it("reports a failed run with its code and message", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .get("/v2/agents/sessions/s1/events")
+            .get("/v2/harness-runtime/sessions/s1/events")
             .reply(
                 200,
                 sse(
@@ -387,7 +388,7 @@ describe("sessions", () => {
                     frame("01B", "run.failed", { code: 3, message: "model quota exhausted" }, "run-1"),
                 ),
             )
-            .post("/v2/agents/sessions/s1/input")
+            .post("/v2/harness-runtime/sessions/s1/input")
             .reply(200, { run_id: "run-1" });
 
         const s = await hr().sessions.get("s1");
@@ -398,9 +399,9 @@ describe("sessions", () => {
 
     it("maps API errors to typed errors with the request id", async () => {
         nock(API)
-            .get("/v2/agents/sessions/missing")
+            .get("/v2/harness-runtime/sessions/missing")
             .reply(404, { id: "not_found", message: "session not found", request_id: "req-1" })
-            .post("/v2/agents/workspaces")
+            .post("/v2/harness-runtime/workspaces")
             .reply(409, { id: "conflict", message: "workspace name is taken", request_id: "req-2" });
 
         const client = hr();
@@ -413,7 +414,7 @@ describe("sessions", () => {
     });
 
     it("types a 404 as NotFoundError", async () => {
-        nock(API).get("/v2/agents/sessions/missing").reply(404, { message: "session not found" });
+        nock(API).get("/v2/harness-runtime/sessions/missing").reply(404, { message: "session not found" });
         await expect(hr().sessions.get("missing")).rejects.toBeInstanceOf(NotFoundError);
     });
 });
@@ -421,9 +422,9 @@ describe("sessions", () => {
 describe("workspaces", () => {
     it("waits until a released workspace is available again", async () => {
         nock(API)
-            .get("/v2/agents/workspaces/w1")
+            .get("/v2/harness-runtime/workspaces/w1")
             .reply(200, { workspace: { workspace_id: "w1", state: "RELEASING" } })
-            .get("/v2/agents/workspaces/w1")
+            .get("/v2/harness-runtime/workspaces/w1")
             .reply(200, { workspace: { workspace_id: "w1", state: "AVAILABLE" } });
 
         const ws = await hr().workspaces.waitUntilAvailable("w1");
@@ -431,7 +432,7 @@ describe("workspaces", () => {
     });
 
     it("stops waiting on a failed workspace", async () => {
-        nock(API).get("/v2/agents/workspaces/w1").reply(200, { workspace: { workspace_id: "w1", state: "FAILED" } });
+        nock(API).get("/v2/harness-runtime/workspaces/w1").reply(200, { workspace: { workspace_id: "w1", state: "FAILED" } });
         await expect(hr().workspaces.waitUntilAvailable("w1")).rejects.toThrow("cannot become available: FAILED");
     });
 });
@@ -439,9 +440,9 @@ describe("workspaces", () => {
 describe("session exec", () => {
     it("runs a string through sh -c and returns its output", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .post("/v2/agents/sessions/s1/sandbox/exec", {
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", {
                 argv: ["sh", "-c", "wc -l"],
                 workdir: "/workspace/app",
                 stdin: Buffer.from("a\nb\n").toString("base64"),
@@ -456,9 +457,9 @@ describe("session exec", () => {
 
     it("returns a non-zero exit instead of throwing, and reads truncation from the headers", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .post("/v2/agents/sessions/s1/sandbox/exec", { argv: ["python3", "-c", "raise SystemExit(2)"] })
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", { argv: ["python3", "-c", "raise SystemExit(2)"] })
             .reply(200, { exit_code: 2, stderr: "boom\n" }, { "X-Exec-Stderr-Truncated": "true" });
 
         const s = await hr().sessions.get("s1");
@@ -472,10 +473,10 @@ describe("streamed exec", () => {
     const out = (event: "stdout" | "stderr", bytes: Buffer | string) =>
         `event: ${event}\ndata: ${JSON.stringify({ data: Buffer.from(bytes).toString("base64") })}\n\n`;
     const exit = (code: number) => `event: exit\ndata: {"exit_code":${code},"duration_ms":12}\n\n`;
-    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    const ready = () => nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
     const execStream = (body: unknown, frames: string) =>
         nock(API)
-            .post("/v2/agents/sessions/s1/sandbox/exec", body as Record<string, unknown>)
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", body as Record<string, unknown>)
             .matchHeader("accept", "text/event-stream")
             .reply(200, frames, { "Content-Type": "text/event-stream" });
 
@@ -511,7 +512,7 @@ describe("streamed exec", () => {
     it("types a refusal before the stream as a RateLimitError", async () => {
         ready();
         nock(API)
-            .post("/v2/agents/sessions/s1/sandbox/exec")
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec")
             .reply(429, { message: "sandbox exec stream capacity exhausted, retry later" }, { "Retry-After": "1" });
         const s = await hr().sessions.get("s1");
         const err = await s.exec(["ls"], { onStdout: () => undefined }).catch((e) => e);
@@ -522,7 +523,7 @@ describe("streamed exec", () => {
     it("spawns a background command without stdin, streaming its output", async () => {
         ready();
         nock(API)
-            .post("/v2/agents/sessions/s1/sandbox/exec", (body) => !("keep_stdin_open" in body) && body.argv[2] === "npm run dev")
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", (body) => !("keep_stdin_open" in body) && body.argv[2] === "npm run dev")
             .matchHeader("accept", "text/event-stream")
             .reply(200, `${out("stdout", "listening on 3000\n")}${exit(0)}`, { "Content-Type": "text/event-stream" });
 
@@ -545,7 +546,7 @@ describe("streamed exec", () => {
 
     describe("spawn with live stdin", () => {
         const started = `event: started\ndata: {"exec_id":"x1"}\n\n`;
-        const stdinPath = "/v2/agents/sessions/s1/sandbox/exec/x1/stdin";
+        const stdinPath = "/v2/harness-runtime/sessions/s1/sandbox/exec/x1/stdin";
 
         it("writes stdin in order with the accepted offset, then closes it", async () => {
             const writes: unknown[] = [];
@@ -604,7 +605,7 @@ describe("streamed exec", () => {
         it("types the not-enabled refusal as a NotEnabledError", async () => {
             ready();
             nock(API)
-                .post("/v2/agents/sessions/s1/sandbox/exec", (body) => body.keep_stdin_open === true)
+                .post("/v2/harness-runtime/sessions/s1/sandbox/exec", (body) => body.keep_stdin_open === true)
                 .reply(403, { message: "live stdin is not enabled for this team" });
             const s = await hr().sessions.get("s1");
             await expect(s.spawn(["cat"], { stdin: true })).rejects.toBeInstanceOf(NotEnabledError);
@@ -638,7 +639,7 @@ describe("streamed exec", () => {
         it("types the old-image refusal as a ConflictError", async () => {
             ready();
             nock(API)
-                .post("/v2/agents/sessions/s1/sandbox/exec")
+                .post("/v2/harness-runtime/sessions/s1/sandbox/exec")
                 .reply(409, { message: "this session's template image does not support interactive stdin; create a new session" });
             const s = await hr().sessions.get("s1");
             await expect(s.spawn(["cat"], { stdin: true })).rejects.toBeInstanceOf(ConflictError);
@@ -647,8 +648,8 @@ describe("streamed exec", () => {
 });
 
 describe("cancel", () => {
-    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
-    const cancelPath = "/v2/agents/sessions/s1/cancel";
+    const ready = () => nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
+    const cancelPath = "/v2/harness-runtime/sessions/s1/cancel";
 
     it("returns the agent's outcome and names the run", async () => {
         ready();
@@ -680,20 +681,20 @@ describe("cancel", () => {
 });
 
 describe("live config update", () => {
-    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    const ready = () => nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
 
     it("sends the sections as manifest_yaml and waits until the update is applied", async () => {
         let sent: { manifest_yaml?: string } = {};
         ready();
         nock(API)
-            .patch("/v2/agents/sessions/s1", (body) => ((sent = body), true))
+            .patch("/v2/harness-runtime/sessions/s1", (body) => ((sent = body), true))
             .reply(202, {
                 outcome: "ACCEPTED",
                 session: session("s1", "SESSION_STATUS_UPDATING", { update: { state: "APPLYING" } }),
             })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1", "SESSION_STATUS_UPDATING", { update: { state: "APPLYING" } }) })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1", "SESSION_STATUS_READY", { update: { update_id: "u1", state: "APPLIED_RESTARTED" } }) });
 
         const s = await hr().sessions.get("s1");
@@ -708,7 +709,7 @@ describe("live config update", () => {
     it("returns UNCHANGED without waiting when the config already matches", async () => {
         ready();
         nock(API)
-            .patch("/v2/agents/sessions/s1")
+            .patch("/v2/harness-runtime/sessions/s1")
             .reply(200, { outcome: "UNCHANGED", session: session("s1"), warnings: ["tools: nothing to change"] });
         const s = await hr().sessions.get("s1");
         expect(await s.updateConfig({ tools: [] })).toEqual({ state: "UNCHANGED", warnings: ["tools: nothing to change"] });
@@ -717,9 +718,9 @@ describe("live config update", () => {
     it("raises ConfigUpdateFailedError, saying whether the old config is back", async () => {
         ready();
         nock(API)
-            .patch("/v2/agents/sessions/s1")
+            .patch("/v2/harness-runtime/sessions/s1")
             .reply(202, { outcome: "ACCEPTED", session: session("s1", "SESSION_STATUS_UPDATING") })
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, {
                 session: session("s1", "SESSION_STATUS_READY", {
                     update: { state: "FAILED", error: "update_failed", reverted: true, detail: "the agent did not restart" },
@@ -735,7 +736,7 @@ describe("live config update", () => {
 
     it("types a team that is not enrolled as a NotEnabledError", async () => {
         ready();
-        nock(API).patch("/v2/agents/sessions/s1").reply(403, { message: "config updates are not enabled for this team" });
+        nock(API).patch("/v2/harness-runtime/sessions/s1").reply(403, { message: "config updates are not enabled for this team" });
         const s = await hr().sessions.get("s1");
         await expect(s.updateConfig({ tools: [] })).rejects.toBeInstanceOf(NotEnabledError);
     });
@@ -745,7 +746,7 @@ describe("session names", () => {
     it("names a session created from an environment, which the API requires", async () => {
         let sent: { name?: string; config_id?: string } = {};
         nock(API)
-            .post("/v2/agents/sessions", (body) => ((sent = body), true))
+            .post("/v2/harness-runtime/sessions", (body) => ((sent = body), true))
             .reply(201, { session: session("s1") });
         await hr().sessions.create({ environment: { id: "c1", name: "repo agent!", raw: {} } });
         expect(sent.config_id).toBe("c1");
@@ -755,7 +756,7 @@ describe("session names", () => {
 
 describe("trigger runs", () => {
     it("waits for the latest run to finish and returns its transcript", async () => {
-        const T = "/v2/agents/triggers/t1";
+        const T = "/v2/harness-runtime/triggers/t1";
         nock(API)
             .get(T)
             .reply(200, { trigger: { trigger_id: "t1", name: "nightly" } })
@@ -774,7 +775,7 @@ describe("trigger runs", () => {
     });
 
     it("says why a running run is waiting, also when the wait times out", async () => {
-        const T = "/v2/agents/triggers/t1";
+        const T = "/v2/harness-runtime/triggers/t1";
         const waiting = {
             execution_id: "e1",
             status: "running",
@@ -798,9 +799,9 @@ describe("trigger runs", () => {
 
     it("leaves statusReason unset when the API sends none", async () => {
         nock(API)
-            .get("/v2/agents/triggers/t1")
+            .get("/v2/harness-runtime/triggers/t1")
             .reply(200, { trigger: { trigger_id: "t1", name: "nightly" } })
-            .get("/v2/agents/triggers/t1/executions")
+            .get("/v2/harness-runtime/triggers/t1/executions")
             .reply(200, { executions: [{ execution_id: "e1", status: "running" }] });
         const trigger = await hr().triggers.get("t1");
         const run = (await trigger.executions().next()).value;
@@ -809,7 +810,7 @@ describe("trigger runs", () => {
     });
 
     it("stops waiting when the signal aborts", async () => {
-        nock(API).get("/v2/agents/triggers/t1").reply(200, { trigger: { trigger_id: "t1", name: "nightly" } });
+        nock(API).get("/v2/harness-runtime/triggers/t1").reply(200, { trigger: { trigger_id: "t1", name: "nightly" } });
         const trigger = await hr().triggers.get("t1");
         const stop = new AbortController();
         stop.abort(new Error("interrupted"));
@@ -820,9 +821,9 @@ describe("trigger runs", () => {
 describe("managed inference key", () => {
     it("can be turned off for a session and an environment", async () => {
         nock(API)
-            .post("/v2/agents/sessions") // no query: a request with one would not match
+            .post("/v2/harness-runtime/sessions") // no query: a request with one would not match
             .reply(201, { session: session("s1") })
-            .post("/v2/agents/configs", { name: "byo", manifest_yaml: MANIFEST, manage_model_access_key: false })
+            .post("/v2/harness-runtime/configs", { name: "byo", manifest_yaml: MANIFEST, manage_model_access_key: false })
             .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000002", name: "byo" } });
         const client = hr();
         await client.sessions.create({ manifest: MANIFEST, manageModelAccessKey: false });
@@ -832,11 +833,11 @@ describe("managed inference key", () => {
 
     it("is not minted for a manifest that runs no agent", async () => {
         const scope = nock(API)
-            .post("/v2/agents/sessions") // no query
+            .post("/v2/harness-runtime/sessions") // no query
             .reply(201, { session: session("s1") })
-            .post("/v2/agents/sessions")
+            .post("/v2/harness-runtime/sessions")
             .reply(201, { session: session("s2") })
-            .post("/v2/agents/configs", (body) => body.manage_model_access_key === false)
+            .post("/v2/harness-runtime/configs", (body) => body.manage_model_access_key === false)
             .reply(201, { config: { id: "6f1f0d3e-0000-4000-8000-000000000003", name: "box" } });
         const client = hr();
         await client.sessions.create({ manifest: { harness: "sandbox" } });
@@ -849,16 +850,16 @@ describe("managed inference key", () => {
 describe("per-command env", () => {
     it("sets env for one command by running it through env", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .post("/v2/agents/sessions/s1/sandbox/exec", { argv: ["env", "CI=1", "NODE_ENV=test", "sh", "-c", "npm test"] })
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", { argv: ["env", "CI=1", "NODE_ENV=test", "sh", "-c", "npm test"] })
             .reply(200, { exit_code: 0 });
         const s = await hr().sessions.get("s1");
         await s.exec("npm test", { env: { CI: "1", NODE_ENV: "test" } });
     });
 
     it("rejects a name env would misread, before sending anything", async () => {
-        nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
         const s = await hr().sessions.get("s1");
         await expect(s.exec(["ls"], { env: { "A=B": "1" } })).rejects.toThrow('invalid environment variable name: "A=B"');
         await expect(s.exec(["ls"], { env: { "-i": "1" } })).rejects.toThrow("invalid environment variable name");
@@ -869,9 +870,9 @@ describe("await using", () => {
     it("destroys the session when disposed", async () => {
         let deleted = false;
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .delete("/v2/agents/sessions/s1")
+            .delete("/v2/harness-runtime/sessions/s1")
             .reply(204, () => ((deleted = true), ""));
         const s = await hr().sessions.get("s1");
         await s[Symbol.asyncDispose]();
@@ -880,9 +881,9 @@ describe("await using", () => {
 
     it("does not fail when the session is already gone", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .delete("/v2/agents/sessions/s1")
+            .delete("/v2/harness-runtime/sessions/s1")
             .reply(404, { id: "not_found", message: "session not found" });
         const s = await hr().sessions.get("s1");
         await expect(s[Symbol.asyncDispose]()).resolves.toBeUndefined();
@@ -893,12 +894,53 @@ describe("client", () => {
     it("reads the endpoint from DIGITALOCEAN_API_URL", async () => {
         process.env.DIGITALOCEAN_API_URL = "https://preview.example.com";
         try {
-            nock("https://preview.example.com").get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+            nock("https://preview.example.com").get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
             const s = await hr().sessions.get("s1");
             expect(s.id).toBe("s1");
         } finally {
             delete process.env.DIGITALOCEAN_API_URL;
         }
+    });
+
+    it("calls /v2/agents for generated and streamed calls when asked to", async () => {
+        const legacy = () => new HarnessRuntime({ token: "test-token", pollIntervalMs: 1, pathPrefix: "/v2/agents" });
+        nock(API)
+            .get("/v2/agents/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/agents/sessions/s1/sandbox/exec")
+            .matchHeader("accept", "text/event-stream")
+            .reply(200, 'event: exit\ndata: {"exit_code":0}\n\n', { "Content-Type": "text/event-stream" });
+        const s = await legacy().sessions.get("s1");
+        expect((await s.exec(["true"], { onStdout: () => undefined })).exitCode).toBe(0);
+    });
+
+    it("opens port-forward under /v2/harness-runtime", async () => {
+        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
+        let opened = "";
+        const webSocketFactory = (url: string) => {
+            opened = url;
+            const listeners: Record<string, (event: never) => void> = {};
+            queueMicrotask(() => listeners.open?.({} as never));
+            return {
+                binaryType: "",
+                send: () => undefined,
+                close: () => undefined,
+                addEventListener: (type: string, listener: (event: never) => void) => void (listeners[type] = listener),
+            };
+        };
+        const s = await new HarnessRuntime({ token: "test-token", webSocketFactory }).sessions.get("s1");
+        await s.portForward(8080, () => undefined);
+        expect(opened).toBe("wss://api.digitalocean.com/v2/harness-runtime/sessions/s1/port-forward/8080");
+    });
+
+    it("rewrites only whole /v2/agents path segments under the base URL", () => {
+        const base = "https://api.example.com/proxy";
+        const to = "/v2/harness-runtime";
+        expect(withPathPrefix(`${base}/v2/agents/sessions?page=2`, base, to)).toBe(`${base}/v2/harness-runtime/sessions?page=2`);
+        expect(withPathPrefix(`${base}/v2/agents`, base, to)).toBe(`${base}/v2/harness-runtime`);
+        expect(withPathPrefix(`${base}/v2/agentsfoo`, base, to)).toBe(`${base}/v2/agentsfoo`);
+        expect(withPathPrefix("https://bucket.example.com/v2/agents/part", base, to)).toBe("https://bucket.example.com/v2/agents/part");
+        expect(withPathPrefix(`${base}/v2/agents/sessions`, base, "/v2/agents")).toBe(`${base}/v2/agents/sessions`);
     });
 });
 
@@ -906,9 +948,9 @@ describe("session files", () => {
     it("uploads bytes to a path under /workspace", async () => {
         let uploaded = "";
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .post("/v2/agents/sessions/s1/workspace/upload")
+            .post("/v2/harness-runtime/sessions/s1/workspace/upload")
             .query({ path: "notes.txt" })
             .reply(function (_uri, body) {
                 uploaded = typeof body === "string" ? body : Buffer.from(body as never).toString();
@@ -923,9 +965,9 @@ describe("session files", () => {
     it("rejects a download whose checksum does not match", async () => {
         const body = Buffer.concat([Buffer.from("tampered"), footerFor("original")]);
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .get("/v2/agents/sessions/s1/workspace/download")
+            .get("/v2/harness-runtime/sessions/s1/workspace/download")
             .query({ path: "a.txt" })
             .reply(200, body);
 
@@ -935,9 +977,9 @@ describe("session files", () => {
 
     it("rejects a download that lost its footer", async () => {
         nock(API)
-            .get("/v2/agents/sessions/s1")
+            .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .get("/v2/agents/sessions/s1/workspace/download")
+            .get("/v2/harness-runtime/sessions/s1/workspace/download")
             .query({ path: "a.txt" })
             .reply(200, Buffer.from("cut off"));
 
@@ -947,9 +989,9 @@ describe("session files", () => {
 });
 
 describe("staged file transfers", () => {
-    const T = "/v2/agents/sessions/s1/workspace/transfers";
+    const T = "/v2/harness-runtime/sessions/s1/workspace/transfers";
     const SPACES = "https://spaces.example.com";
-    const ready = () => nock(API).get("/v2/agents/sessions/s1").reply(200, { session: session("s1") });
+    const ready = () => nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
     /** Answers part-upload-urls with a URL per requested part, and records the PUTs. */
     function partStore(times: number) {
         const puts: Record<number, string> = {};
@@ -1087,7 +1129,7 @@ describe("staged file transfers", () => {
         let uploaded = "";
         ready();
         nock(API)
-            .post("/v2/agents/sessions/s1/workspace/upload")
+            .post("/v2/harness-runtime/sessions/s1/workspace/upload")
             .query({ path: "in.txt" })
             .reply(200, (_uri, body) => ((uploaded = String(body)), { path: "in.txt", bytes_written: 5 }));
         const s = await hr().sessions.get("s1");
@@ -1099,12 +1141,12 @@ describe("staged file transfers", () => {
 describe("triggers", () => {
     it("keeps the one-time secret when the provider list fails", async () => {
         nock(API)
-            .post("/v2/agents/triggers")
+            .post("/v2/harness-runtime/triggers")
             .reply(201, {
                 trigger: { trigger_id: "t3", webhook: { provider: "custom", webhook_url: "https://hook" } },
                 webhook_secret: "only-once",
             })
-            .get("/v2/agents/webhook-providers")
+            .get("/v2/harness-runtime/webhook-providers")
             .reply(500, { message: "boom" });
 
         const { setup } = await hr().triggers.webhook({
@@ -1120,9 +1162,9 @@ describe("triggers", () => {
 
     it("pauses a trigger by patching its status", async () => {
         nock(API)
-            .get("/v2/agents/triggers/t1")
+            .get("/v2/harness-runtime/triggers/t1")
             .reply(200, { trigger: { trigger_id: "t1", status: "active" } })
-            .patch("/v2/agents/triggers/t1", { status: "paused" })
+            .patch("/v2/harness-runtime/triggers/t1", { status: "paused" })
             .reply(200, { trigger: { trigger_id: "t1", status: "paused" } });
 
         const t = await hr().triggers.get("t1");

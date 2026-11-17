@@ -46,6 +46,11 @@ const hr = new HarnessRuntime(); // reads DIGITALOCEAN_ACCESS_TOKEN
 const manifest = readFileSync("agent.yaml", "utf8");
 ```
 
+The SDK calls the API under `/v2/harness-runtime`. The same routes are also
+served under `/v2/agents`, the path the published spec and the generated client
+use; pass `pathPrefix: "/v2/agents"` to `new HarnessRuntime()` for a server that
+serves only that path, such as a local development server.
+
 The SDK sends a manifest exactly as given; it never fills in values from your
 environment. A session created from a manifest gets a managed inference key
 unless the manifest brings its own (a `HARNESS_INFERENCE_API_KEY` entry under
