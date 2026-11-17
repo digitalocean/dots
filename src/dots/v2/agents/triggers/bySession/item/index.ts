@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithSession_ItemRequestBuilder> {
     /**
-     * Returns the trigger that produced (fresh) or binds (reuse) the given session. Resolves to the row even after the trigger is soft-deleted.
+     * Returns the newest trigger whose bound session is this one. Deleted triggers are skipped. When none is bound, returns the trigger of the newest execution for this session, again skipping deleted triggers. A session can be bound to more than one trigger; only the newest is returned. 404 when neither lookup matches.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Get_trigger_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
@@ -22,7 +22,7 @@ export interface WithSession_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Get_trigger_response | undefined>;
     /**
-     * Returns the trigger that produced (fresh) or binds (reuse) the given session. Resolves to the row even after the trigger is soft-deleted.
+     * Returns the newest trigger whose bound session is this one. Deleted triggers are skipped. When none is bound, returns the trigger of the newest execution for this session, again skipping deleted triggers. A session can be bound to more than one trigger; only the newest is returned. 404 when neither lookup matches.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
