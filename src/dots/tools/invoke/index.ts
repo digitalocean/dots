@@ -18,6 +18,7 @@ export interface InvokeRequestBuilder extends BaseRequestBuilder<InvokeRequestBu
      * @throws {Tool_result_error} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {Tool_result_error} error when the service returns a 402 status code
+     * @throws {Tool_result_error} error when the service returns a 404 status code
      * @throws {Tool_result_error} error when the service returns a 412 status code
      * @throws {Tool_result_error} error when the service returns a 413 status code
      * @throws {Tool_result_error} error when the service returns a 429 status code
@@ -48,6 +49,7 @@ export const InvokeRequestBuilderRequestsMetadata: RequestsMetadata = {
             400: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             402: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,
+            404: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,
             412: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,
             413: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createTool_result_errorFromDiscriminatorValue as ParsableFactory<Parsable>,

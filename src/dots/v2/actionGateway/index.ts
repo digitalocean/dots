@@ -6,6 +6,10 @@ import { ActorsRequestBuilderNavigationMetadata, type ActorsRequestBuilder } fro
 // @ts-ignore
 import { ConnectionsRequestBuilderNavigationMetadata, ConnectionsRequestBuilderRequestsMetadata, type ConnectionsRequestBuilder } from './connections/index.js';
 // @ts-ignore
+import { EndpointsRequestBuilderNavigationMetadata, EndpointsRequestBuilderRequestsMetadata, type EndpointsRequestBuilder } from './endpoints/index.js';
+// @ts-ignore
+import { EndpointVersionsRequestBuilderNavigationMetadata, type EndpointVersionsRequestBuilder } from './endpointVersions/index.js';
+// @ts-ignore
 import { McpServersRequestBuilderNavigationMetadata, McpServersRequestBuilderRequestsMetadata, type McpServersRequestBuilder } from './mcpServers/index.js';
 // @ts-ignore
 import { OutputViewsRequestBuilderNavigationMetadata, OutputViewsRequestBuilderRequestsMetadata, type OutputViewsRequestBuilder } from './outputViews/index.js';
@@ -34,6 +38,14 @@ export interface ActionGatewayRequestBuilder extends BaseRequestBuilder<ActionGa
      * The connections property
      */
     get connections(): ConnectionsRequestBuilder;
+    /**
+     * The endpoints property
+     */
+    get endpoints(): EndpointsRequestBuilder;
+    /**
+     * The endpointVersions property
+     */
+    get endpointVersions(): EndpointVersionsRequestBuilder;
     /**
      * The mcpServers property
      */
@@ -77,6 +89,13 @@ export const ActionGatewayRequestBuilderNavigationMetadata: Record<Exclude<keyof
     connections: {
         requestsMetadata: ConnectionsRequestBuilderRequestsMetadata,
         navigationMetadata: ConnectionsRequestBuilderNavigationMetadata,
+    },
+    endpoints: {
+        requestsMetadata: EndpointsRequestBuilderRequestsMetadata,
+        navigationMetadata: EndpointsRequestBuilderNavigationMetadata,
+    },
+    endpointVersions: {
+        navigationMetadata: EndpointVersionsRequestBuilderNavigationMetadata,
     },
     mcpServers: {
         requestsMetadata: McpServersRequestBuilderRequestsMetadata,

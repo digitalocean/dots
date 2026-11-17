@@ -91,7 +91,7 @@ export interface NotificationChannelsRequestBuilder extends BaseRequestBuilder<N
      */
      get(requestConfiguration?: RequestConfiguration<NotificationChannelsRequestBuilderGetQueryParameters> | undefined) : Promise<NotificationChannelsGetResponse | undefined>;
     /**
-     * To create a notification channel, send a POST request to`/v2/insights/notification-channels` with a `name` and exactly one of`email`, `slack`, or `webhook`.Email recipients must be verified team member addresses. Webhook URLs mustuse HTTPS. Secret fields (`slack.webhook_url`, webhook credentials) arewrite-only. Subsequent reads never return secret values; they includeoptional `*_status` objects when a secret is configured.
+     * To create a notification channel, send a POST request to`/v2/insights/notification-channels` with a `name` and exactly one of`email`, `slack`, or `webhook`.Email recipients must be team contact emails added and verified by a teamowner. Webhook URLs mustuse HTTPS. Secret fields (`slack.webhook_url`, webhook credentials) arewrite-only. Subsequent reads never return secret values; they includeoptional `*_status` objects when a secret is configured.
      * @param body Create or update body for a notification channel. Provide a `name` andexactly one of `email`, `slack`, or `webhook`.Secret fields are write-only: send the full value to set or rotate; omit thefield on update to keep the existing secret.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<NotificationChannelsPostResponse>}
@@ -109,7 +109,7 @@ export interface NotificationChannelsRequestBuilder extends BaseRequestBuilder<N
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<NotificationChannelsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * To create a notification channel, send a POST request to`/v2/insights/notification-channels` with a `name` and exactly one of`email`, `slack`, or `webhook`.Email recipients must be verified team member addresses. Webhook URLs mustuse HTTPS. Secret fields (`slack.webhook_url`, webhook credentials) arewrite-only. Subsequent reads never return secret values; they includeoptional `*_status` objects when a secret is configured.
+     * To create a notification channel, send a POST request to`/v2/insights/notification-channels` with a `name` and exactly one of`email`, `slack`, or `webhook`.Email recipients must be team contact emails added and verified by a teamowner. Webhook URLs mustuse HTTPS. Secret fields (`slack.webhook_url`, webhook credentials) arewrite-only. Subsequent reads never return secret values; they includeoptional `*_status` objects when a secret is configured.
      * @param body Create or update body for a notification channel. Provide a `name` andexactly one of `email`, `slack`, or `webhook`.Secret fields are write-only: send the full value to set or rotate; omit thefield on update to keep the existing secret.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

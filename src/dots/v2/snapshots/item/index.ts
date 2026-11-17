@@ -4,7 +4,9 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSnapshotsFromDiscriminatorValue, serializeSnapshots, type ErrorEscaped, type Snapshots } from '../../../models/index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { RegionsRequestBuilderNavigationMetadata, type RegionsRequestBuilder } from './regions/index.js';
+// @ts-ignore
+import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -49,6 +51,10 @@ export interface WithSnapshot_GetResponse extends AdditionalDataHolder, Parsable
  */
 export interface WithSnapshot_ItemRequestBuilder extends BaseRequestBuilder<WithSnapshot_ItemRequestBuilder> {
     /**
+     * The regions property
+     */
+    get regions(): RegionsRequestBuilder;
+    /**
      * Both Droplet and volume snapshots are managed through the `/v2/snapshots/`endpoint. To delete a snapshot, send a DELETE request to`/v2/snapshots/$SNAPSHOT_ID`.A status of 204 will be given. This indicates that the request was processedsuccessfully, but that no response body is needed.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -88,6 +94,14 @@ export interface WithSnapshot_ItemRequestBuilder extends BaseRequestBuilder<With
  * Uri template for the request builder.
  */
 export const WithSnapshot_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/snapshots/{snapshot_id}";
+/**
+ * Metadata for all the navigation properties in the request builder.
+ */
+export const WithSnapshot_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithSnapshot_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    regions: {
+        navigationMetadata: RegionsRequestBuilderNavigationMetadata,
+    },
+};
 /**
  * Metadata for all the requests in the request builder.
  */

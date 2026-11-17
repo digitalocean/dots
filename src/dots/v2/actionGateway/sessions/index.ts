@@ -16,52 +16,59 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
 export interface SessionsRequestBuilder extends BaseRequestBuilder<SessionsRequestBuilder> {
     /**
      * The search property
+     * @deprecated 
      */
     get search(): SearchRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.actionGateway.sessions.item collection
      * @param session_urn URN of the session, for example `do:managed_agent_session:<uuid>`.
      * @returns {WithSession_urnItemRequestBuilder}
+     * @deprecated 
      */
      bySession_urn(session_urn: string) : WithSession_urnItemRequestBuilder;
     /**
-     * Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
+     * Deprecated: use GET /v2/action-gateway/endpoints for endpoints. This route continues to list legacy sessions with its existing fields and pagination. Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<List_sessions_response>}
      * @throws {ErrorEscaped} error when the service returns a 401 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : Promise<List_sessions_response | undefined>;
     /**
-     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
+     * Deprecated: use POST /v2/action-gateway/endpoints. Existing sessions and their MCP URLs keep working. A new session may be created as version 1 of a new endpoint whose name is derived from the session name, with part of the session ID appended when that name is taken. The response then includes endpoint_id, endpoint_version_id, and version_number. Such a session counts against your team's endpoint limit (429 endpoint_limit_exceeded). If every derived name is already used by an endpoint in your team, the request returns 409 endpoint_name_taken. Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
      * @param body Describes a session to create.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Create_session_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
+     * @throws {ErrorEscaped} error when the service returns a 409 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      post(body: Session_create, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Create_session_response | undefined>;
     /**
-     * Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
+     * Deprecated: use GET /v2/action-gateway/endpoints for endpoints. This route continues to list legacy sessions with its existing fields and pagination. Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<SessionsRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
     /**
-     * Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
+     * Deprecated: use POST /v2/action-gateway/endpoints. Existing sessions and their MCP URLs keep working. A new session may be created as version 1 of a new endpoint whose name is derived from the session name, with part of the session ID appended when that name is taken. The response then includes endpoint_id, endpoint_version_id, and version_number. Such a session counts against your team's endpoint limit (429 endpoint_limit_exceeded). If every derived name is already used by an endpoint in your team, the request returns 409 endpoint_name_taken. Creates a session owned by your team, with a new session URN, and returns the MCP URL an agent connects to. tools selects the tools and toolbelts the session exposes, and policy decides which calls run, need approval, or are refused.Set config.cache to opt into result caching for all eligible tools or a specific list. Caching is off by default and must be enabled for the team.
      * @param body Describes a session to create.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toPostRequestInformation(body: Session_create, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
 /**
- * Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
+ * Deprecated: use GET /v2/action-gateway/endpoints for endpoints. This route continues to list legacy sessions with its existing fields and pagination. Returns the sessions you can see, newest first. Offset-paged with page and `per_page`; `end_user_id` filters to one actor.
  */
 export interface SessionsRequestBuilderGetQueryParameters {
     /**
@@ -123,6 +130,7 @@ export const SessionsRequestBuilderRequestsMetadata: RequestsMetadata = {
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
+            409: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             XXX: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

@@ -6,6 +6,8 @@ import { createApiListModelsOutputPublicFromDiscriminatorValue, createErrorEscap
 // @ts-ignore
 import { Api_keysRequestBuilderNavigationMetadata, Api_keysRequestBuilderRequestsMetadata, type Api_keysRequestBuilder } from './api_keys/index.js';
 // @ts-ignore
+import { Catalog_v2RequestBuilderNavigationMetadata, Catalog_v2RequestBuilderRequestsMetadata, type Catalog_v2RequestBuilder } from './catalog_v2/index.js';
+// @ts-ignore
 import { CatalogRequestBuilderNavigationMetadata, CatalogRequestBuilderRequestsMetadata, type CatalogRequestBuilder } from './catalog/index.js';
 // @ts-ignore
 import { RoutersRequestBuilderNavigationMetadata, RoutersRequestBuilderRequestsMetadata, type RoutersRequestBuilder } from './routers/index.js';
@@ -25,6 +27,10 @@ export interface ModelsRequestBuilder extends BaseRequestBuilder<ModelsRequestBu
      * The catalog property
      */
     get catalog(): CatalogRequestBuilder;
+    /**
+     * The catalog_v2 property
+     */
+    get catalog_v2(): Catalog_v2RequestBuilder;
     /**
      * The routers property
      */
@@ -99,6 +105,10 @@ export const ModelsRequestBuilderNavigationMetadata: Record<Exclude<keyof Models
     catalog: {
         requestsMetadata: CatalogRequestBuilderRequestsMetadata,
         navigationMetadata: CatalogRequestBuilderNavigationMetadata,
+    },
+    catalog_v2: {
+        requestsMetadata: Catalog_v2RequestBuilderRequestsMetadata,
+        navigationMetadata: Catalog_v2RequestBuilderNavigationMetadata,
     },
     routers: {
         requestsMetadata: RoutersRequestBuilderRequestsMetadata,

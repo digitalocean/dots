@@ -4,7 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createMeta_propertiesFromDiscriminatorValue, createPage_linksFromDiscriminatorValue, createSnapshotsFromDiscriminatorValue, serializeMeta_properties, serializePage_links, serializeSnapshots, type ErrorEscaped, type Meta_properties, type Page_links, type Snapshots } from '../../models/index.js';
 // @ts-ignore
-import { type WithSnapshot_ItemRequestBuilder, WithSnapshot_ItemRequestBuilderRequestsMetadata } from './item/index.js';
+import { type WithSnapshot_ItemRequestBuilder, WithSnapshot_ItemRequestBuilderNavigationMetadata, WithSnapshot_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
@@ -124,6 +124,7 @@ const SnapshotsRequestBuilderGetQueryParametersMapper: Record<string, string> = 
 export const SnapshotsRequestBuilderNavigationMetadata: Record<Exclude<keyof SnapshotsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     bySnapshot_id: {
         requestsMetadata: WithSnapshot_ItemRequestBuilderRequestsMetadata,
+        navigationMetadata: WithSnapshot_ItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["snapshot_id"],
     },
 };

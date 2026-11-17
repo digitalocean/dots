@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface WithApproval_ItemRequestBuilder extends BaseRequestBuilder<WithApproval_ItemRequestBuilder> {
     /**
-     * Approves or denies a tool call that is waiting for approval, identifying the session with the `X-Session-Id` header. It behaves the same as `POST /approvals/session/{session_id}/{approval_id}`, which is the path returned in a result's `_meta.decide`.
+     * Approves or denies a tool call that is waiting for approval, identifying the session with the `X-Session-Id` header or the endpoint with the `X-Endpoint-Id` header. With `X-Session-Id`, it behaves the same as `POST /approvals/session/{session_id}/{approval_id}`, which is the path returned in a result's `_meta.decide`. An unknown `X-Endpoint-Id` returns 404.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Approval_decision_response>}
@@ -26,7 +26,7 @@ export interface WithApproval_ItemRequestBuilder extends BaseRequestBuilder<With
      */
      post(body: Approval_decision, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<Approval_decision_response | undefined>;
     /**
-     * Approves or denies a tool call that is waiting for approval, identifying the session with the `X-Session-Id` header. It behaves the same as `POST /approvals/session/{session_id}/{approval_id}`, which is the path returned in a result's `_meta.decide`.
+     * Approves or denies a tool call that is waiting for approval, identifying the session with the `X-Session-Id` header or the endpoint with the `X-Endpoint-Id` header. With `X-Session-Id`, it behaves the same as `POST /approvals/session/{session_id}/{approval_id}`, which is the path returned in a result's `_meta.decide`. An unknown `X-Endpoint-Id` returns 404.
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}

@@ -70,7 +70,7 @@ export interface MicrovmsGetResponse extends AdditionalDataHolder, Parsable {
 }
 export interface MicrovmsPostResponse extends AdditionalDataHolder, Parsable {
     /**
-     * A MicroVM. All fields are set at creation. There is no update endpoint.
+     * The microvm property
      */
     microvm?: Microvm | null;
 }
@@ -134,7 +134,7 @@ export interface MicrovmsRequestBuilder extends BaseRequestBuilder<MicrovmsReque
  */
 export interface MicrovmsRequestBuilderGetQueryParameters {
     /**
-     * Only return the MicroVM with this exact name.
+     * Only return MicroVMs whose name contains this substring (case-insensitive).
      */
     name?: string;
     /**

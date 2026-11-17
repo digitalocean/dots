@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type Requ
  */
 export interface SearchRequestBuilder extends BaseRequestBuilder<SearchRequestBuilder> {
     /**
-     * Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
+     * Deprecated: use GET /v2/action-gateway/endpoints/search for endpoints. This route continues to search legacy sessions with its existing fields and pagination. Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Search_sessions_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
@@ -19,17 +19,19 @@ export interface SearchRequestBuilder extends BaseRequestBuilder<SearchRequestBu
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
      * @throws {ErrorEscaped} error when the service returns a 4XX or 5XX status code
+     * @deprecated 
      */
      get(requestConfiguration?: RequestConfiguration<SearchRequestBuilderGetQueryParameters> | undefined) : Promise<Search_sessions_response | undefined>;
     /**
-     * Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
+     * Deprecated: use GET /v2/action-gateway/endpoints/search for endpoints. This route continues to search legacy sessions with its existing fields and pagination. Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
+     * @deprecated 
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<SearchRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
+ * Deprecated: use GET /v2/action-gateway/endpoints/search for endpoints. This route continues to search legacy sessions with its existing fields and pagination. Returns the sessions you can see whose name, `actor_id`, `session_urn`, or `agentName` contains query, case-insensitively, ranked across the whole result set. Cursor-paged with `page_size` and `page_token`; no total is reported.
  */
 export interface SearchRequestBuilderGetQueryParameters {
     /**
