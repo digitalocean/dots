@@ -1,0 +1,15 @@
+# The agent the trigger examples run: like agent.yaml, with permission to use every
+# tool without asking, because nobody is there to approve a step when a
+# trigger fires.
+#
+# A trigger that starts a fresh session per run gets no managed inference key,
+# so this agent calls OpenAI with your own key. The trigger examples add it from
+# HARNESS_INFERENCE_API_KEY when they create the trigger, as the `OPENAI_API_KEY`
+# secret, so no key is ever written in this file. The API delivers that secret
+# only to the host in OPENAI_BASE_URL.
+harness: opencode
+env:
+  HARNESS_INFERENCE_MODEL: gpt-5.5 # an OpenAI model, since this agent calls OpenAI
+  OPENAI_BASE_URL: https://api.openai.com/v1
+permissions:
+  default: allow

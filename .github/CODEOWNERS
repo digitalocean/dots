@@ -1,0 +1,9 @@
+# The Harness Runtime SDK layer, its streaming helpers, tests and examples.
+/src/dots/harnessRuntime/                 @digitalocean/harness
+/src/dots/streaming/harnessStream.*       @digitalocean/harness
+/src/dots/streaming/sseFrames.*           @digitalocean/harness
+/src/dots/streaming/sessionEvents.*       @digitalocean/harness
+/src/dots/streaming/portForward.*         @digitalocean/harness
+/tests/mocked/harnessRuntime.test.ts      @digitalocean/harness
+/tests/mocked/harnessStreaming*.test.ts   @digitalocean/harness
+/examples/harness-runtime/                @digitalocean/harness
