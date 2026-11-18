@@ -133,6 +133,10 @@ await session.files.copyToLocal("results.tar", "results.tar"); // checked agains
 Uploads over 50 MiB, and any stream, go through a staged transfer: the parts
 go straight to object storage, up to 50 GiB in all.
 
+To make a create safe to retry, pass an `idempotencyKey`: within 24 hours, the
+same key and input return the workspace the first call made. List only the
+workspaces you can attach with `hr.workspaces.list({ state: "AVAILABLE" })`.
+
 ## 4. Fork a session to try two approaches
 
 ```ts
@@ -140,6 +144,10 @@ const cp = await session.checkpoint({ label: "before-fix" });
 const [a, b] = await session.fork({ from: cp, count: 2 }); // both ready
 await Promise.all([a.run("Fix it with a retry"), b.run("Fix it with a mock")]);
 ```
+
+To go back instead, `await session.rollback(cp)` restores the checkpoint in
+place: the session keeps its id and gets a new sandbox booted from the
+checkpoint.
 
 ## 5. Run an agent on a schedule
 
@@ -256,6 +264,50 @@ the agent and can take about two minutes.
   session can make (for example to a platform key or an OAuth secret) is
   refused with a 422.
 
+## 9. Pick a region
+
+```ts
+const regions = await hr.regions.list(); // [{ slug: "mem1", isDefault: false }, { slug: "ric1", isDefault: true }]
+const mem1 = new HarnessRuntime({ region: "mem1" }); // calls https://api-mem1.digitalocean.com
+```
+
+A region is chosen by the API host you call, so sessions created through `mem1`
+are placed in `mem1`. The list holds the regions open to your team; the default
+region is also served by https://api.digitalocean.com.
+
+## 10. Connect a GitHub account for agents
+
+```ts
+const { connection, authorization } = await hr.connections.connect({ userId: "octocat", scopes: ["repo"] });
+if (authorization) console.log(`Open ${authorization.connectUrl} and enter ${authorization.verificationCode}`);
+```
+
+`userId` names the actor the connection acts for; it is yours to choose, not a
+DigitalOcean user id. Each actor has one connection per provider: `connect`
+creates it, or reconnects the existing one, which keeps its id and scopes. A
+connection is `pending` until the login is done, then `active`. `create`,
+`get`, `list`, `reconnect` and `delete` are there too; `delete` revokes it, and
+refuses while an environment config still uses it. No token is ever returned.
+
+## 11. Build a template from your own image
+
+```ts
+const t = await hr.templates.create({ name: "my-tools", baseTemplate: "coding-base", image: "docker.io/library/ubuntu:24.04" });
+await hr.templates.waitUntilReady(t.id); // a few minutes; a failed build raises with its reason
+```
+
+`image` is a full OCI reference to a Debian- or Ubuntu-based image. `update`
+changes the image or base and starts a new build, and `builds(id)` lists the
+builds.
+
+## 12. Paused sessions
+
+`session.pauseReason` says why a paused session is paused: `manual`, `idle`,
+`zero_balance`, or `trigger` (a reuse trigger paused it after a run).
+`await session.setResumeOnTopoff(true)` lets a session paused for low balance
+resume by itself once the balance is topped up, if its latest run had not
+completed.
+
 ## Live events and port-forward
 
 ```ts
@@ -326,3 +378,5 @@ These come from the API as it is today. The SDK does not work around them.
   `exec`; writing to its stdin does not extend it.
 - `exec` and `spawn` apply `env` by running the command through `env` in the
   sandbox, for that one command only.
+- There are no public ingress URLs for a session's ports: the API answers 501
+  for every template today. Reach a port with `portForward`.

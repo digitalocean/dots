@@ -440,6 +440,15 @@ export class Session {
         return this.info.status ?? undefined;
     }
 
+    /**
+     * Why the session is paused, as last read: `manual`, `idle`, `zero_balance`
+     * or `trigger` (a reuse trigger paused it after a run). Undefined when it is
+     * not paused. Treat an unknown value as an opaque reason.
+     */
+    get pauseReason(): string | undefined {
+        return this.info.pauseReason || undefined;
+    }
+
     private get item() {
         return this.ctx.client.v2.harnessRuntime.sessions.bySession_id(this.id);
     }
@@ -667,6 +676,29 @@ export class Session {
         const forks = (res?.sessions ?? []).map((s) => new Session(this.ctx, s, this.ownConfigId));
         if (options.wait !== false) await Promise.all(forks.map((f) => f.waitUntilReady()));
         return forks;
+    }
+
+    /**
+     * Restores the session to a checkpoint in place, then waits until it is
+     * ready: the session keeps its id, and a new sandbox booted from the
+     * checkpoint replaces the old one.
+     */
+    async rollback(to: Checkpoint | string): Promise<this> {
+        const id = typeof to === "string" ? to : required(to.checkpointId, "the checkpoint id");
+        const res = await call(() => this.item.checkpoints.byCheckpoint_id(id).rollback.post());
+        this.info = required(res?.session, "the session");
+        return this.waitUntilReady();
+    }
+
+    /**
+     * Lets the session resume by itself when the team's prepaid balance is
+     * restored after a low-balance pause (off by default). Only a session
+     * paused for low balance whose latest run did not complete is ever
+     * resumed this way.
+     */
+    async setResumeOnTopoff(enabled: boolean): Promise<void> {
+        const res = await call(() => this.item.patch({ resumeOnTopoff: enabled }));
+        this.info = required(res?.session, "the session");
     }
 
     async pause(): Promise<void> {

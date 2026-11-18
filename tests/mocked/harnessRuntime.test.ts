@@ -434,6 +434,27 @@ describe("workspaces", () => {
         nock(API).get("/v2/harness-runtime/workspaces/w1").reply(200, { workspace: { workspace_id: "w1", state: "FAILED" } });
         await expect(hr().workspaces.waitUntilAvailable("w1")).rejects.toThrow("cannot become available: FAILED");
     });
+
+    it("sends the Idempotency-Key and not the key in the body", async () => {
+        const c = capture();
+        nock(API)
+            .post("/v2/harness-runtime/workspaces", c.body)
+            .matchHeader("idempotency-key", "k1")
+            .reply(200, { workspace: { workspace_id: "w1", name: "data" } });
+        const ws = await hr().workspaces.create({ name: "data", sizeLimitGib: 1, idempotencyKey: "k1" });
+        expect(ws.id).toBe("w1");
+        expect(c.seen.body).toEqual({ name: "data", size_limit_gib: 1 });
+    });
+
+    it("lists only the workspaces in one state", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/workspaces")
+            .query({ state: "AVAILABLE" })
+            .reply(200, { workspaces: [{ workspace_id: "w1", state: "AVAILABLE" }] });
+        const ids: string[] = [];
+        for await (const ws of hr().workspaces.list({ state: "AVAILABLE" })) ids.push(ws.id);
+        expect(ids).toEqual(["w1"]);
+    });
 });
 
 describe("session exec", () => {
@@ -920,6 +941,143 @@ describe("client", () => {
         expect(opened).toBe("wss://api.digitalocean.com/v2/harness-runtime/sessions/s1/port-forward/8080");
     });
 
+});
+
+describe("regions", () => {
+    it("lists the team's regions", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/regions")
+            .reply(200, { regions: [{ slug: "mem1" }, { slug: "ric1", is_default: true }] });
+        expect(await hr().regions.list()).toEqual([
+            { slug: "mem1", isDefault: false },
+            { slug: "ric1", isDefault: true },
+        ]);
+    });
+
+    it("calls the region's API host when given a region", async () => {
+        nock("https://api-mem1.digitalocean.com").get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
+        const s = await new HarnessRuntime({ token: "test-token", region: "mem1" }).sessions.get("s1");
+        expect(s.id).toBe("s1");
+    });
+
+    it("refuses a region with baseUrl, and anything but a plain slug", () => {
+        expect(() => new HarnessRuntime({ token: "t", region: "mem1", baseUrl: API })).toThrow("not both");
+        expect(() => new HarnessRuntime({ token: "t", region: "evil.example.com#" })).toThrow("not a region slug");
+    });
+});
+
+describe("connections", () => {
+    const conn = (status = "pending") => ({ id: "c1", provider: "github", user_id: "octocat", status });
+    const authorization = { status: "pending", connect_url: "https://github.com/login/device", verification_code: "ABCD-1234" };
+
+    it("creates a connection and returns the login step", async () => {
+        nock(API)
+            .post("/v2/harness-runtime/auth/github/connections", { user_id: "octocat", scopes: ["repo"] })
+            .reply(200, { connection: conn(), authorization });
+        const { connection, authorization: auth } = await hr().connections.create({ userId: "octocat", scopes: ["repo"] });
+        expect([connection.id, connection.status, auth?.verificationCode]).toEqual(["c1", "pending", "ABCD-1234"]);
+    });
+
+    it("connect reconnects the actor's existing connection instead of failing", async () => {
+        nock(API)
+            .post("/v2/harness-runtime/auth/github/connections")
+            .reply(409, { message: "already exists" })
+            .get("/v2/harness-runtime/auth/github/connections")
+            .query({ page: 1, user_id: "octocat" })
+            .reply(200, { connections: [conn("expired")], pagination: { page: 1, per_page: 20, total: 1 } })
+            .post("/v2/harness-runtime/auth/github/connections/c1/reconnect")
+            .reply(200, { connection: conn(), authorization });
+        const { connection, authorization: auth } = await hr().connections.connect({ userId: "octocat" });
+        expect([connection.id, auth?.connectUrl]).toEqual(["c1", "https://github.com/login/device"]);
+    });
+
+    it("pages through the list until the total is reached", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/auth/github/connections")
+            .query({ page: 1 })
+            .reply(200, { connections: [conn("active")], pagination: { page: 1, per_page: 1, total: 2 } })
+            .get("/v2/harness-runtime/auth/github/connections")
+            .query({ page: 2 })
+            .reply(200, { connections: [{ ...conn("active"), id: "c2" }], pagination: { page: 2, per_page: 1, total: 2 } });
+        const ids: string[] = [];
+        for await (const c of hr().connections.list()) ids.push(c.id);
+        expect(ids).toEqual(["c1", "c2"]);
+    });
+
+    it("types a connection still used by a config as a ConflictError", async () => {
+        nock(API)
+            .delete("/v2/harness-runtime/auth/github/connections/c1")
+            .reply(409, { message: "connection is used by environment configs: cfg-1" });
+        await expect(hr().connections.delete("c1")).rejects.toBeInstanceOf(ConflictError);
+    });
+});
+
+describe("templates", () => {
+    const T = "11111111-2222-4333-8444-555555555555";
+    const template = (status: string) => ({ template_id: T, name: "my-image", status });
+
+    it("creates a template from an image and waits for its build", async () => {
+        nock(API)
+            .post("/v2/harness-runtime/templates", {
+                name: "my-image",
+                base_template: "coding-base",
+                source_oci_ref: "docker.io/library/ubuntu:24.04",
+            })
+            .reply(201, { template: template("TEMPLATE_STATUS_BUILDING") })
+            .get(`/v2/harness-runtime/templates/${T}`)
+            .reply(200, { template: template("TEMPLATE_STATUS_BUILDING") })
+            .get(`/v2/harness-runtime/templates/${T}`)
+            .reply(200, { template: template("TEMPLATE_STATUS_READY") });
+        const client = hr();
+        const t = await client.templates.create({ name: "my-image", baseTemplate: "coding-base", image: "docker.io/library/ubuntu:24.04" });
+        expect((await client.templates.waitUntilReady(t.id)).status).toBe("TEMPLATE_STATUS_READY");
+    });
+
+    it("raises the latest build's error when the build fails", async () => {
+        nock(API)
+            .get(`/v2/harness-runtime/templates/${T}`)
+            .reply(200, { template: template("TEMPLATE_STATUS_FAILED") })
+            .get(`/v2/harness-runtime/templates/${T}/builds`)
+            .reply(200, {
+                builds: [
+                    { build_id: T, status: "FAILED", error: "old failure", created_at: "2026-11-01T00:00:00Z" },
+                    { build_id: T, status: "FAILED", error: "not a Debian or Ubuntu image", created_at: "2026-11-02T00:00:00Z" },
+                ],
+            });
+        await expect(hr().templates.waitUntilReady(T)).rejects.toThrow("my-image failed to build: not a Debian or Ubuntu image");
+    });
+});
+
+describe("session state", () => {
+    it("rolls back to a checkpoint in place and waits until ready", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/harness-runtime/sessions/s1/checkpoints/cp1/rollback")
+            .reply(200, { session: session("s1", "SESSION_STATUS_PROVISIONING") })
+            .get("/v2/harness-runtime/sessions/s1")
+            .reply(200, { session: session("s1") });
+        const s = await hr().sessions.get("s1");
+        await s.rollback("cp1");
+        expect([s.id, s.status]).toEqual(["s1", "SESSION_STATUS_READY"]);
+    });
+
+    it("reads why the session is paused, and sets resume_on_topoff", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/sessions/s1")
+            .reply(200, { session: session("s1", "SESSION_STATUS_PAUSED", { pause_reason: "idle" }) })
+            .patch("/v2/harness-runtime/sessions/s1", { resume_on_topoff: true })
+            .reply(200, { session: session("s1", "SESSION_STATUS_PAUSED", { pause_reason: "idle", resume_on_topoff: true }) });
+        const s = await hr().sessions.get("s1");
+        expect(s.pauseReason).toBe("idle");
+        await s.setResumeOnTopoff(true);
+        expect(s.info.resumeOnTopoff).toBe(true);
+    });
+
+    it("leaves pauseReason unset for a running session", async () => {
+        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
+        expect((await hr().sessions.get("s1")).pauseReason).toBeUndefined();
+    });
 });
 
 describe("session files", () => {
