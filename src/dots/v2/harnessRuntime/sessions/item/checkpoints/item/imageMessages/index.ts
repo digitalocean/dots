@@ -17,7 +17,6 @@ export interface ImageMessagesRequestBuilder extends BaseRequestBuilder<ImageMes
      * @returns {Promise<Get_image_message_resource_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
-     * @throws {ErrorEscaped} error when the service returns a 403 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
@@ -58,7 +57,6 @@ export const ImageMessagesRequestBuilderRequestsMetadata: RequestsMetadata = {
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
-            403: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             404: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
