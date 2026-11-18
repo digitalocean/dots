@@ -12771,7 +12771,7 @@ export interface Checkpoint2 extends AdditionalDataHolder, Parsable {
      */
     diskBytes?: number | null;
     /**
-     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, as supplied, except that credential secrets are never returned. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
      */
     egressPolicy?: Microvm_egress_policy | null;
     /**
@@ -23941,6 +23941,15 @@ export function createMicrovm_create_environmentFromDiscriminatorValue(parseNode
 // @ts-ignore
 export function createMicrovm_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMicrovm_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Microvm_egress_policy_credentials}
+ */
+// @ts-ignore
+export function createMicrovm_egress_policy_credentialsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoMicrovm_egress_policy_credentials;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -44176,8 +44185,23 @@ export function deserializeIntoMicrovm_create_environment(microvm_create_environ
 // @ts-ignore
 export function deserializeIntoMicrovm_egress_policy(microvm_egress_policy: Partial<Microvm_egress_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "credentials": n => { microvm_egress_policy.credentials = n.getCollectionOfObjectValues<Microvm_egress_policy_credentials>(createMicrovm_egress_policy_credentialsFromDiscriminatorValue); },
         "default_action": n => { microvm_egress_policy.defaultAction = n.getEnumValue<Microvm_egress_policy_default_action>(Microvm_egress_policy_default_actionObject) ?? Microvm_egress_policy_default_actionObject.Deny; },
         "rules": n => { microvm_egress_policy.rules = n.getCollectionOfObjectValues<Microvm_egress_policy_rules>(createMicrovm_egress_policy_rulesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Microvm_egress_policy_credentials The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoMicrovm_egress_policy_credentials(microvm_egress_policy_credentials: Partial<Microvm_egress_policy_credentials> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "host": n => { microvm_egress_policy_credentials.host = n.getStringValue(); },
+        "path_prefix": n => { microvm_egress_policy_credentials.pathPrefix = n.getStringValue(); },
+        "scheme": n => { microvm_egress_policy_credentials.scheme = n.getEnumValue<Microvm_egress_policy_credentials_scheme>(Microvm_egress_policy_credentials_schemeObject) ?? Microvm_egress_policy_credentials_schemeObject.Bearer; },
+        "secret": n => { microvm_egress_policy_credentials.secret = n.getStringValue(); },
     }
 }
 /**
@@ -55315,7 +55339,7 @@ export interface Microvm_base extends AdditionalDataHolder, Parsable {
      */
     createdAt?: Date | null;
     /**
-     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, as supplied, except that credential secrets are never returned. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
      */
     egressPolicy?: Microvm_egress_policy | null;
     /**
@@ -55379,7 +55403,7 @@ export interface Microvm_create extends AdditionalDataHolder, Parsable {
      */
     autoResume?: boolean | null;
     /**
-     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+     * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, as supplied, except that credential secrets are never returned. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
      */
     egressPolicy?: Microvm_egress_policy | null;
     /**
@@ -55443,9 +55467,13 @@ export interface Microvm_create_environment extends AdditionalDataHolder, Parsab
 export type Microvm_create_http_protocol = (typeof Microvm_create_http_protocolObject)[keyof typeof Microvm_create_http_protocolObject];
 export type Microvm_create_networking = (typeof Microvm_create_networkingObject)[keyof typeof Microvm_create_networkingObject];
 /**
- * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, exactly as supplied. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
+ * An outbound allow list. A destination that matches any rule is allowed; `default_action` decides every other destination. Only valid with `public` networking, and fixed at create: there is no way to change it later. With a policy set, direct connections out of the MicroVM are dropped; only HTTP and HTTPS through the platform proxy to the allowed destinations works, so clients must honor the injected `HTTP_PROXY` / `HTTPS_PROXY` environment. The registries needed to pull the workload image are allowed automatically. On a MicroVM this is the policy set at create, as supplied, except that credential secrets are never returned. On a checkpoint it is the policy a restored MicroVM inherits; a restore cannot change it. Omitted when egress is unrestricted.
  */
 export interface Microvm_egress_policy extends AdditionalDataHolder, Parsable {
+    /**
+     * Credentials the platform adds to outbound requests, so the workload never holds them. Settable only at create, and only in regions that support credential injection. Each host must be allowed by a rule (or `default_action` must be `allow`). HTTPS requests to these hosts are intercepted so the credential can be attached; clients that pin certificates will fail on them. The credential is sent in the `authorization` header. Credentials cannot be set when restoring a checkpoint: the restored MicroVM inherits the origin's. Responses include `host`, `path_prefix`, and `scheme` for each credential. The `secret` is never returned.
+     */
+    credentials?: Microvm_egress_policy_credentials[] | null;
     /**
      * What to do with a destination no rule matches. `deny` refuses it (an HTTP request gets a 403 and a TLS connection is closed).
      */
@@ -55455,6 +55483,25 @@ export interface Microvm_egress_policy extends AdditionalDataHolder, Parsable {
      */
     rules?: Microvm_egress_policy_rules[] | null;
 }
+export interface Microvm_egress_policy_credentials extends AdditionalDataHolder, Parsable {
+    /**
+     * An exact host. Wildcards and IP addresses are not allowed.
+     */
+    host?: string | null;
+    /**
+     * Only requests whose path starts with this prefix get the credential. Must start with `/`. Defaults to every path.
+     */
+    pathPrefix?: string | null;
+    /**
+     * How the value is sent. `bearer` sends `Bearer <secret>`; `raw` sends the secret as is.
+     */
+    scheme?: Microvm_egress_policy_credentials_scheme | null;
+    /**
+     * The credential value. It is stored in a secrets vault, never returned by the API, and cannot be read back.
+     */
+    secret?: string | null;
+}
+export type Microvm_egress_policy_credentials_scheme = (typeof Microvm_egress_policy_credentials_schemeObject)[keyof typeof Microvm_egress_policy_credentials_schemeObject];
 export type Microvm_egress_policy_default_action = (typeof Microvm_egress_policy_default_actionObject)[keyof typeof Microvm_egress_policy_default_actionObject];
 export interface Microvm_egress_policy_rules extends AdditionalDataHolder, Parsable {
     /**
@@ -55492,7 +55539,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`; `egress_policy` gates `egress_policy` on create.
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`; `egress_policy` gates `egress_policy` on create; `egress_credentials` gates `egress_policy.credentials` (requires `egress_policy`, and only in regions that support credential injection).
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -75524,9 +75571,25 @@ export function serializeMicrovm_create_environment(writer: SerializationWriter,
 // @ts-ignore
 export function serializeMicrovm_egress_policy(writer: SerializationWriter, microvm_egress_policy: Partial<Microvm_egress_policy> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!microvm_egress_policy || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Microvm_egress_policy_credentials>("credentials", microvm_egress_policy.credentials, serializeMicrovm_egress_policy_credentials);
     writer.writeEnumValue<Microvm_egress_policy_default_action>("default_action", microvm_egress_policy.defaultAction ?? Microvm_egress_policy_default_actionObject.Deny);
     writer.writeCollectionOfObjectValues<Microvm_egress_policy_rules>("rules", microvm_egress_policy.rules, serializeMicrovm_egress_policy_rules);
     writer.writeAdditionalData(microvm_egress_policy.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Microvm_egress_policy_credentials The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeMicrovm_egress_policy_credentials(writer: SerializationWriter, microvm_egress_policy_credentials: Partial<Microvm_egress_policy_credentials> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!microvm_egress_policy_credentials || isSerializingDerivedType) { return; }
+    writer.writeStringValue("host", microvm_egress_policy_credentials.host);
+    writer.writeStringValue("path_prefix", microvm_egress_policy_credentials.pathPrefix);
+    writer.writeEnumValue<Microvm_egress_policy_credentials_scheme>("scheme", microvm_egress_policy_credentials.scheme ?? Microvm_egress_policy_credentials_schemeObject.Bearer);
+    writer.writeStringValue("secret", microvm_egress_policy_credentials.secret);
+    writer.writeAdditionalData(microvm_egress_policy_credentials.additionalData);
 }
 /**
  * Serializes information the current object
@@ -88951,6 +89014,13 @@ export const Microvm_create_http_protocolObject = {
 export const Microvm_create_networkingObject = {
     Public: "public",
     Vpc: "vpc",
+} as const;
+/**
+ * How the value is sent. `bearer` sends `Bearer <secret>`; `raw` sends the secret as is.
+ */
+export const Microvm_egress_policy_credentials_schemeObject = {
+    Bearer: "bearer",
+    Raw: "raw",
 } as const;
 /**
  * What to do with a destination no rule matches. `deny` refuses it (an HTTP request gets a 403 and a TLS connection is closed).
