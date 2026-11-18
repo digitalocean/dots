@@ -6,6 +6,8 @@ import { createErrorEscapedFromDiscriminatorValue, createList_tools_responseFrom
 // @ts-ignore
 import { HealthRequestBuilderNavigationMetadata, HealthRequestBuilderRequestsMetadata, type HealthRequestBuilder } from './health/index.js';
 // @ts-ignore
+import { type WithTool_slugItemRequestBuilder, WithTool_slugItemRequestBuilderNavigationMetadata } from './item/index.js';
+// @ts-ignore
 import { ProvidersRequestBuilderNavigationMetadata, ProvidersRequestBuilderRequestsMetadata, type ProvidersRequestBuilder } from './providers/index.js';
 // @ts-ignore
 import { SearchRequestBuilderRequestsMetadata, type SearchRequestBuilder } from './search/index.js';
@@ -34,6 +36,12 @@ export interface ToolsRequestBuilder extends BaseRequestBuilder<ToolsRequestBuil
      * The toolkits property
      */
     get toolkits(): ToolkitsRequestBuilder;
+    /**
+     * Gets an item from the ApiSdk.v2.actionGateway.tools.item collection
+     * @param tool_slug Catalog tool slug, for example `exa_search`. Required.
+     * @returns {WithTool_slugItemRequestBuilder}
+     */
+     byTool_slug(tool_slug: string) : WithTool_slugItemRequestBuilder;
     /**
      * Returns one page of the tools your team can use: released catalog tools plus the enabled tools of your team's MCP servers. definitions[i] describes tools[i]. Offset-paged with page and `per_page`; an unknown `toolkitId` returns an empty page.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
@@ -83,6 +91,10 @@ const ToolsRequestBuilderGetQueryParametersMapper: Record<string, string> = {
  * Metadata for all the navigation properties in the request builder.
  */
 export const ToolsRequestBuilderNavigationMetadata: Record<Exclude<keyof ToolsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    byTool_slug: {
+        navigationMetadata: WithTool_slugItemRequestBuilderNavigationMetadata,
+        pathParametersMappings: ["tool_slug"],
+    },
     health: {
         requestsMetadata: HealthRequestBuilderRequestsMetadata,
         navigationMetadata: HealthRequestBuilderNavigationMetadata,

@@ -23207,6 +23207,15 @@ export function createList_tool_health_responseFromDiscriminatorValue(parseNode:
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {List_tool_versions_response}
+ */
+// @ts-ignore
+export function createList_tool_versions_responseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoList_tool_versions_response;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {List_toolbelt_provider_tools_response}
  */
 // @ts-ignore
@@ -27063,6 +27072,24 @@ export function createTool_resultFromDiscriminatorValue(parseNode: ParseNode | u
 // @ts-ignore
 export function createTool_search_resultFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoTool_search_result;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_version_change}
+ */
+// @ts-ignore
+export function createTool_version_changeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_version_change;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Tool_version_release}
+ */
+// @ts-ignore
+export function createTool_version_releaseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTool_version_release;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -43066,6 +43093,18 @@ export function deserializeIntoList_tool_health_response(list_tool_health_respon
 }
 /**
  * The deserialization information for the current model
+ * @param List_tool_versions_response The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoList_tool_versions_response(list_tool_versions_response: Partial<List_tool_versions_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "next_page_token": n => { list_tool_versions_response.nextPageToken = n.getStringValue(); },
+        "versions": n => { list_tool_versions_response.versions = n.getCollectionOfObjectValues<Tool_version_release>(createTool_version_releaseFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param List_toolbelt_provider_tools_response The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -48851,6 +48890,37 @@ export function deserializeIntoTool_search_result(tool_search_result: Partial<To
 }
 /**
  * The deserialization information for the current model
+ * @param Tool_version_change The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_version_change(tool_version_change: Partial<Tool_version_change> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "breaking": n => { tool_version_change.breaking = n.getBooleanValue(); },
+        "path": n => { tool_version_change.path = n.getStringValue(); },
+        "type": n => { tool_version_change.type = n.getEnumValue<Tool_version_change_type>(Tool_version_change_typeObject); },
+        "values": n => { tool_version_change.values = n.getCollectionOfPrimitiveValues<string>(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Tool_version_release The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTool_version_release(tool_version_release: Partial<Tool_version_release> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "breaking": n => { tool_version_release.breaking = n.getBooleanValue(); },
+        "changes": n => { tool_version_release.changes = n.getCollectionOfObjectValues<Tool_version_change>(createTool_version_changeFromDiscriminatorValue); },
+        "latest": n => { tool_version_release.latest = n.getBooleanValue(); },
+        "previous_version": n => { tool_version_release.previousVersion = n.getStringValue(); },
+        "released_at": n => { tool_version_release.releasedAt = n.getDateValue(); },
+        "tool_slug": n => { tool_version_release.toolSlug = n.getStringValue(); },
+        "version": n => { tool_version_release.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Toolbelt The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -54081,6 +54151,19 @@ export interface List_tool_health_response extends AdditionalDataHolder, Parsabl
      * Tools sorted by provider, then tool slug.
      */
     tools?: Tool_health[] | null;
+}
+/**
+ * One page of a tool's released versions, newest first.
+ */
+export interface List_tool_versions_response extends AdditionalDataHolder, Parsable {
+    /**
+     * Pass as `page_token` to read older versions. Empty on the last page.
+     */
+    nextPageToken?: string | null;
+    /**
+     * Released versions, newest first.
+     */
+    versions?: Tool_version_release[] | null;
 }
 /**
  * One page of a toolbelt's members from one provider.
@@ -74391,6 +74474,19 @@ export function serializeList_tool_health_response(writer: SerializationWriter, 
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param List_tool_versions_response The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeList_tool_versions_response(writer: SerializationWriter, list_tool_versions_response: Partial<List_tool_versions_response> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!list_tool_versions_response || isSerializingDerivedType) { return; }
+    writer.writeStringValue("next_page_token", list_tool_versions_response.nextPageToken);
+    writer.writeCollectionOfObjectValues<Tool_version_release>("versions", list_tool_versions_response.versions, serializeTool_version_release);
+    writer.writeAdditionalData(list_tool_versions_response.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param List_toolbelt_provider_tools_response The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -80498,6 +80594,39 @@ export function serializeTool_search_result(writer: SerializationWriter, tool_se
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_version_change The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_version_change(writer: SerializationWriter, tool_version_change: Partial<Tool_version_change> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_version_change || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("breaking", tool_version_change.breaking);
+    writer.writeStringValue("path", tool_version_change.path);
+    writer.writeEnumValue<Tool_version_change_type>("type", tool_version_change.type);
+    writer.writeCollectionOfPrimitiveValues<string>("values", tool_version_change.values);
+    writer.writeAdditionalData(tool_version_change.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Tool_version_release The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTool_version_release(writer: SerializationWriter, tool_version_release: Partial<Tool_version_release> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tool_version_release || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("breaking", tool_version_release.breaking);
+    writer.writeCollectionOfObjectValues<Tool_version_change>("changes", tool_version_release.changes, serializeTool_version_change);
+    writer.writeBooleanValue("latest", tool_version_release.latest);
+    writer.writeStringValue("previous_version", tool_version_release.previousVersion);
+    writer.writeDateValue("released_at", tool_version_release.releasedAt);
+    writer.writeStringValue("tool_slug", tool_version_release.toolSlug);
+    writer.writeStringValue("version", tool_version_release.version);
+    writer.writeAdditionalData(tool_version_release.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Toolbelt The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -84121,6 +84250,61 @@ export interface Tool_search_result extends AdditionalDataHolder, Parsable {
      * The released version number of the tool, for example 3.
      */
     version?: number | null;
+}
+/**
+ * One difference from the previous released version.
+ */
+export interface Tool_version_change extends AdditionalDataHolder, Parsable {
+    /**
+     * True when a call that worked against the previous version can fail against this one.
+     */
+    breaking?: boolean | null;
+    /**
+     * Dotted path of the schema property that changed, for example `page.cursor`. `items[]` names an array's elements. Empty for the schema root and for scope changes.
+     */
+    path?: string | null;
+    /**
+     * What changed. `inputPropertyAdded` is breaking when the property is required. `inputTypeChanged` and `outputTypeChanged` list the new types in `values`, and are breaking when a previously accepted input type is no longer accepted or an output can hold a new type. `requiredScopesAdded` is breaking because a connection authorized before the version may lack the scopes and must be reconnected. `inputSchemaChanged` and `outputSchemaChanged` cover other schema changes and are reported as breaking, except when an output schema is declared for the first time.
+     */
+    type?: Tool_version_change_type | null;
+    /**
+     * The values the change concerns, sorted: enum values added or removed, the property's new types, or the scopes added or removed. Empty otherwise.
+     */
+    values?: string[] | null;
+}
+export type Tool_version_change_type = (typeof Tool_version_change_typeObject)[keyof typeof Tool_version_change_typeObject];
+/**
+ * One released version of a catalog tool.
+ */
+export interface Tool_version_release extends AdditionalDataHolder, Parsable {
+    /**
+     * True when any change is breaking.
+     */
+    breaking?: boolean | null;
+    /**
+     * Changes from `previous_version`, input changes first, then output, then scopes. Descriptions, titles, and examples are not compared.
+     */
+    changes?: Tool_version_change[] | null;
+    /**
+     * True for the version calls without a pinned version currently use. At most one version is latest; none is while a tool is withdrawn from the catalog.
+     */
+    latest?: boolean | null;
+    /**
+     * The released version this one is compared with. Empty for the oldest version listed, which has no changes.
+     */
+    previousVersion?: string | null;
+    /**
+     * When this version was first released.
+     */
+    releasedAt?: Date | null;
+    /**
+     * Catalog tool slug.
+     */
+    toolSlug?: string | null;
+    /**
+     * Version, for example `v3`. Pin it as `<tool_slug>@v3`.
+     */
+    version?: string | null;
 }
 /**
  * One version of a toolbelt.
@@ -89795,6 +89979,27 @@ export const Tool_result_error_statusObject = {
 export const Tool_result_statusObject = {
     Succeeded: "succeeded",
     Failed: "failed",
+} as const;
+/**
+ * What changed. `inputPropertyAdded` is breaking when the property is required. `inputTypeChanged` and `outputTypeChanged` list the new types in `values`, and are breaking when a previously accepted input type is no longer accepted or an output can hold a new type. `requiredScopesAdded` is breaking because a connection authorized before the version may lack the scopes and must be reconnected. `inputSchemaChanged` and `outputSchemaChanged` cover other schema changes and are reported as breaking, except when an output schema is declared for the first time.
+ */
+export const Tool_version_change_typeObject = {
+    InputPropertyAdded: "inputPropertyAdded",
+    InputPropertyRemoved: "inputPropertyRemoved",
+    InputPropertyRequired: "inputPropertyRequired",
+    InputPropertyOptional: "inputPropertyOptional",
+    InputTypeChanged: "inputTypeChanged",
+    InputEnumValuesAdded: "inputEnumValuesAdded",
+    InputEnumValuesRemoved: "inputEnumValuesRemoved",
+    InputSchemaChanged: "inputSchemaChanged",
+    OutputPropertyAdded: "outputPropertyAdded",
+    OutputPropertyRemoved: "outputPropertyRemoved",
+    OutputPropertyOptional: "outputPropertyOptional",
+    OutputTypeChanged: "outputTypeChanged",
+    OutputEnumValuesAdded: "outputEnumValuesAdded",
+    OutputSchemaChanged: "outputSchemaChanged",
+    RequiredScopesAdded: "requiredScopesAdded",
+    RequiredScopesRemoved: "requiredScopesRemoved",
 } as const;
 /**
  * active, or deprecated once the toolbelt is deleted.
