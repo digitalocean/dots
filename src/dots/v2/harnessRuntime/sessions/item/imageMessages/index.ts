@@ -12,12 +12,11 @@ export type GetTypeQueryParameterType = (typeof GetTypeQueryParameterTypeObject)
  */
 export interface ImageMessagesRequestBuilder extends BaseRequestBuilder<ImageMessagesRequestBuilder> {
     /**
-     * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 403.
+     * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 404, the same as an unknown session.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<Get_image_message_resource_response>}
      * @throws {ErrorEscaped} error when the service returns a 400 status code
      * @throws {ErrorEscaped} error when the service returns a 401 status code
-     * @throws {ErrorEscaped} error when the service returns a 403 status code
      * @throws {ErrorEscaped} error when the service returns a 404 status code
      * @throws {ErrorEscaped} error when the service returns a 429 status code
      * @throws {ErrorEscaped} error when the service returns a 500 status code
@@ -26,14 +25,14 @@ export interface ImageMessagesRequestBuilder extends BaseRequestBuilder<ImageMes
      */
      get(requestConfiguration?: RequestConfiguration<ImageMessagesRequestBuilderGetQueryParameters> | undefined) : Promise<Get_image_message_resource_response | undefined>;
     /**
-     * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 403.
+     * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 404, the same as an unknown session.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<ImageMessagesRequestBuilderGetQueryParameters> | undefined) : RequestInformation;
 }
 /**
- * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 403.
+ * Returns the live notices on the session's sandbox image. `type` filters the notice kind; the only documented value is `vulnerability`. A session owned by another team returns 404, the same as an unknown session.
  */
 export interface ImageMessagesRequestBuilderGetQueryParameters {
     /**
@@ -58,7 +57,6 @@ export const ImageMessagesRequestBuilderRequestsMetadata: RequestsMetadata = {
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
-            403: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             404: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             429: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
             500: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
