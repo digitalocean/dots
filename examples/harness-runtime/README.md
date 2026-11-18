@@ -333,7 +333,9 @@ const tunnel = await session.portForward(8080, (bytes) => process.stdout.write(b
 ## Errors
 
 Every failed call raises a typed error with the HTTP status and the request id:
-`NotFoundError`, `ConflictError`, `NotEnabledError` (403), `PaymentRequiredError`
+`NotFoundError` (404, also for another team's session), `ConflictError`,
+`NotEnabledError` (403: not enabled for the team, no access, or a port or path
+that is not allowed), `PaymentRequiredError`
 (402), `LockedError` (423), `RateLimitError` (429, with `retryAfter`),
 `ServiceError` (5xx), and `SessionFailedError` when a session fails instead of
 becoming ready, which `sessions.create` destroys before raising it, and

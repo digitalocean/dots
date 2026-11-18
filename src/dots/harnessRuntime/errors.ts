@@ -30,7 +30,11 @@ export class InvalidRequestError extends HarnessRuntimeError {}
 export class UnauthorizedError extends HarnessRuntimeError {}
 /** 402: the team has no balance or credit left for this. */
 export class PaymentRequiredError extends HarnessRuntimeError {}
-/** 403: the feature is not enabled for this team, or the token lacks access. */
+/**
+ * 403: the feature is not enabled for this team, the token lacks access, or
+ * the request asks for something not allowed (a port outside 1024-65535, a
+ * path outside the workspace). Another team's session is a 404, not a 403.
+ */
 export class NotEnabledError extends HarnessRuntimeError {}
 /** 404: the resource does not exist, or belongs to another team. */
 export class NotFoundError extends HarnessRuntimeError {}
