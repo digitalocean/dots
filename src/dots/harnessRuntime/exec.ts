@@ -35,7 +35,10 @@ export interface ExecOptions {
      * session: the next command does not see them, and commands running at
      * the same time each see only their own. For variables every command and
      * the agent see, set `env` in the manifest when creating the session.
-     * Applied by running the command through `env NAME=value ...` in the sandbox.
+     * Values are not logged, but any process in the sandbox can read them.
+     * Names must match `[A-Z][A-Z0-9_]*` and must not be platform-reserved;
+     * at most 64 entries, values up to 64 KiB with no NUL bytes, and 1 MiB in
+     * total. The server refuses anything else with `InvalidRequestError`.
      */
     env?: Record<string, string>;
     /** Sent to the command's stdin in full, then closed. For live stdin use `spawn`. */
@@ -79,17 +82,7 @@ export interface ExecResult {
 
 type Command = string | string[];
 
-function argvOf(command: Command, env: Record<string, string> = {}): string[] {
-    const argv = typeof command === "string" ? ["sh", "-c", command] : command;
-    const vars = Object.entries(env).map(([name, value]) => {
-        // `env` would read a name with "=" as part of the value, and one starting with "-" as an option.
-        if (!name || name.includes("=") || name.startsWith("-")) {
-            throw new HarnessRuntimeError(`invalid environment variable name: ${JSON.stringify(name)}`, 0);
-        }
-        return `${name}=${value}`;
-    });
-    return vars.length ? ["env", ...vars, ...argv] : argv;
-}
+const argvOf = (command: Command): string[] => (typeof command === "string" ? ["sh", "-c", command] : command);
 const bytesOf = (data: string | Uint8Array) => (typeof data === "string" ? new TextEncoder().encode(data) : data);
 const timeoutSecondsOf = (ms?: number) => (ms ? Math.ceil(ms / 1000) : undefined);
 
@@ -106,8 +99,9 @@ export async function execBuffered(
     const res = await call(() =>
         ctx.client.v2.harnessRuntime.sessions.bySession_id(sessionId).sandbox.exec.post(
             {
-                argv: argvOf(command, options.env),
+                argv: argvOf(command),
                 workdir: options.cwd,
+                env: options.env && { additionalData: options.env },
                 stdin: stdin ? (stdin.slice().buffer as ArrayBuffer) : undefined,
                 timeoutSeconds: timeoutSecondsOf(options.timeoutMs),
             },
@@ -268,8 +262,9 @@ export class ExecProcess {
 
 function startBody(command: Command, options: CommandOptions) {
     return {
-        argv: argvOf(command, options.env),
+        argv: argvOf(command),
         workdir: options.cwd,
+        env: options.env,
         timeout_seconds: timeoutSecondsOf(options.timeoutMs),
     };
 }

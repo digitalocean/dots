@@ -15,6 +15,7 @@ import {
     ConfigUpdateFailedError,
     ConflictError,
     HarnessRuntime,
+    InvalidRequestError,
     NotEnabledError,
     NotFoundError,
     RateLimitError,
@@ -868,21 +869,41 @@ describe("managed inference key", () => {
 });
 
 describe("per-command env", () => {
-    it("sets env for one command by running it through env", async () => {
+    it("sends env in the request body and leaves argv alone", async () => {
         nock(API)
             .get("/v2/harness-runtime/sessions/s1")
             .reply(200, { session: session("s1") })
-            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", { argv: ["env", "CI=1", "NODE_ENV=test", "sh", "-c", "npm test"] })
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", {
+                argv: ["sh", "-c", "npm test"],
+                env: { CI: "1", NODE_ENV: "test" },
+            })
             .reply(200, { exit_code: 0 });
         const s = await hr().sessions.get("s1");
         await s.exec("npm test", { env: { CI: "1", NODE_ENV: "test" } });
     });
 
-    it("rejects a name env would misread, before sending anything", async () => {
-        nock(API).get("/v2/harness-runtime/sessions/s1").reply(200, { session: session("s1") });
+    it("sends env on a streamed command too", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec", { argv: ["node", "server.js"], env: { PORT: "8080" } })
+            .matchHeader("accept", "text/event-stream")
+            .reply(200, 'event: exit\ndata: {"exit_code":0}\n\n', { "Content-Type": "text/event-stream" });
         const s = await hr().sessions.get("s1");
-        await expect(s.exec(["ls"], { env: { "A=B": "1" } })).rejects.toThrow('invalid environment variable name: "A=B"');
-        await expect(s.exec(["ls"], { env: { "-i": "1" } })).rejects.toThrow("invalid environment variable name");
+        const proc = await s.spawn(["node", "server.js"], { env: { PORT: "8080" } });
+        expect((await proc.wait()).exitCode).toBe(0);
+    });
+
+    it("raises InvalidRequestError when the server refuses a name", async () => {
+        nock(API)
+            .get("/v2/harness-runtime/sessions/s1")
+            .reply(200, { session: session("s1") })
+            .post("/v2/harness-runtime/sessions/s1/sandbox/exec")
+            .reply(400, { id: "bad_request", message: 'env key "lower" must match [A-Z][A-Z0-9_]*' });
+        const s = await hr().sessions.get("s1");
+        const err = await s.exec(["ls"], { env: { lower: "1" } }).catch((e) => e);
+        expect(err).toBeInstanceOf(InvalidRequestError);
+        expect(err.message).toContain("must match");
     });
 });
 

@@ -207,7 +207,9 @@ await sandbox.exec("npm test", { env: { CI: "1" } });
 > **`env` applies to that one command only.** It is not stored on the session:
 > the next command does not see it, and commands running at the same time each
 > see only their own. For variables every command and the agent see, set `env`
-> in the manifest when you create the session.
+> in the manifest when you create the session. Names must match
+> `[A-Z][A-Z0-9_]*` and must not be platform-reserved; the server refuses
+> anything else with `InvalidRequestError`.
 
 To start a command and carry on while it runs, `spawn` it:
 
