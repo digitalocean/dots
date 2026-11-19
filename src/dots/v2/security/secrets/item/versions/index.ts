@@ -4,9 +4,7 @@
 // @ts-ignore
 import { createErrorEscapedFromDiscriminatorValue, createSecret_versionFromDiscriminatorValue, serializeSecret_version, type ErrorEscaped, type Secret_version } from '../../../../../models/index.js';
 // @ts-ignore
-import { type WithVersionItemRequestBuilder, WithVersionItemRequestBuilderNavigationMetadata } from './item/index.js';
-// @ts-ignore
-import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
+import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -51,12 +49,6 @@ export interface VersionsGetResponse extends AdditionalDataHolder, Parsable {
  */
 export interface VersionsRequestBuilder extends BaseRequestBuilder<VersionsRequestBuilder> {
     /**
-     * Gets an item from the ApiSdk.v2.security.secrets.item.versions.item collection
-     * @param version The target version to revert to. Reverting creates a new version with the contents of this version.
-     * @returns {WithVersionItemRequestBuilder}
-     */
-     byVersion(version: number) : WithVersionItemRequestBuilder;
-    /**
      * To list all versions of a secret, send a GET request to `/v2/security/secrets/{secret}/versions`.`region` is required. Version entries do not include secret values.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<VersionsGetResponse>}
@@ -89,15 +81,6 @@ export interface VersionsRequestBuilderGetQueryParameters {
  * Uri template for the request builder.
  */
 export const VersionsRequestBuilderUriTemplate = "{+baseurl}/v2/security/secrets/{secret}/versions?region={region}";
-/**
- * Metadata for all the navigation properties in the request builder.
- */
-export const VersionsRequestBuilderNavigationMetadata: Record<Exclude<keyof VersionsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
-    byVersion: {
-        navigationMetadata: WithVersionItemRequestBuilderNavigationMetadata,
-        pathParametersMappings: ["version"],
-    },
-};
 /**
  * Metadata for all the requests in the request builder.
  */

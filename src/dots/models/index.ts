@@ -29378,7 +29378,7 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     agentKind?: Agent_kind | null;
     /**
-     * Changes per manifest section. Never contains secret values.
+     * Changes made in each manifest section. Secret values are never included.
      */
     configDiff?: Session_config_changes | null;
     /**
@@ -29458,11 +29458,11 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     sessionId?: string | null;
     /**
-     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
+     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a session settings update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
      */
     status?: Session_status | null;
     /**
-     * One live config update (or automatic rollback) of a session.
+     * The most recent session settings update to the session, or the automatic rollback of a failed one.
      */
     update?: Session_config_update | null;
     /**
@@ -57649,21 +57649,21 @@ export interface Partner_attachment_writable_bgp extends AdditionalDataHolder, P
 export type Partner_attachment_writable_redundancy_zone = (typeof Partner_attachment_writable_redundancy_zoneObject)[keyof typeof Partner_attachment_writable_redundancy_zoneObject];
 export type Partner_attachment_writable_region = (typeof Partner_attachment_writable_regionObject)[keyof typeof Partner_attachment_writable_regionObject];
 /**
- * PATCH body for /v2/harness-runtime/sessions/{session_id}. Either toggle the session-scoped `resume_on_topoff` consent, or change the live config with `manifest_yaml`; the two cannot be combined in one request. At least one property must be present; {} is 400. Unknown top-level keys are rejected with 400.
+ * Request body for updating a session. Set either `resume_on_topoff` to change a session preference, or `manifest_yaml` to change the session settings, not both. At least one property is required, so `{}` returns `400`. Unknown properties return `400`.
  */
 export interface Patch_session_request extends Parsable {
     /**
-     * A partial manifest, as YAML, holding only the sections to change: `tools`, `env`, `secrets`. Absent sections are untouched; any other top-level key is 400, and `model` / `permissions` return 501. `tools` is the full replacement list (`tools: []` detaches every MCP server; `tools: null` is 400). `env` and `secrets` are full sets: a key left out is removed. A secret value is a string (set or rotate) or `{}` (keep the current value); per-key `null` is 400. Platform and framework keys and non-plain secrets must be sent back unchanged, or the request is 422. Cannot be combined with `resume_on_topoff`. Requires the team to be enrolled in the config-update feature (403 otherwise).
+     * A partial agent manifest, as a YAML string, that holds only the sections to change. Can'tbe combined with `resume_on_topoff`. Requires session settings updates to be enabled foryour team (`403` otherwise).Supported sections are `tools`, `env`, and `secrets`. Sections you omit are not changed.Any other top-level key returns `400`, including `model` (to change the model, set`HARNESS_INFERENCE_MODEL` in `env`) and `permissions` (can't be changed on an existingsession).Each section you include replaces that section in full:- `tools`: the complete list of tools for the session. Only Action Gateway tools  (`do.actions` entries) can be added, removed, or changed. Custom MCP servers can't be  changed on an existing session: include the session's current custom MCP servers  exactly as they are. Adding, removing, or changing one returns `422`. To remove all Action Gateway tools from a session that has no custom  MCP servers, send `tools: []`. `tools: null` returns `400`.- `env`: the complete set of environment variables, as name-value pairs. A variable you  leave out is removed. `env: {}` removes all variables; `env: null` returns `400`.- `secrets`: the complete set of secrets, as name-value pairs. A secret you leave out is  removed. For each secret, set the value to a string to add or rotate it, or to `{}` to  keep its current value. A `null` value returns `400`.**Changing the model.** The only way to change a session's model is through `env`. Set`HARNESS_INFERENCE_MODEL` to a DigitalOcean Serverless Inference model ID, or to`router:<name>` for an inference router. This worksonly on sessions created with `HARNESS_INFERENCE_MODEL` set and without their owninference endpoint. Adding, removing, or changing the key on any other session, or movinga session to its own endpoint, returns `422`. A malformed value (empty, multi-line, or over256 bytes) returns `400`. Whether the model exists is not checked when you send therequest; an unknown model fails on the agent's next turn.**Reserved keys.** `HARNESS_INFERENCE_API_KEY` and `HARNESS_INFERENCE_BASE_URL` aremanaged by the platform: include them with their current values, or the request returns`422`. Framework keys can't be changed either (`422`). Secrets that are not plain values(such as URL-bound or OAuth secrets) can't be changed on an existing session (`422`).Example that changes the model, keeps one secret, and rotates another. Because eachsection is a full replacement, the example assumes the session has no other envvariables or secrets:```yamlenv:  HARNESS_INFERENCE_MODEL: llama3.3-70b-instruct  LOG_LEVEL: infosecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN: new-token-value```
      */
     manifestYaml?: string | null;
     /**
-     * When present, sets whether this session opts in to automatic resumption when the team's prepayment balance is restored after a low-balance pause. Session-scoped consent, not config-scoped. Omitted properties are not modified. Cannot be combined with `manifest_yaml`.
+     * Whether this session resumes automatically after it is paused for low balance and your team's prepaid balance is topped up. Applies to this session only. Can't be combined with `manifest_yaml`.
      */
     resumeOnTopoff?: boolean | null;
 }
 export interface Patch_session_response extends AdditionalDataHolder, Parsable {
     /**
-     * Present for `manifest_yaml` patches. ACCEPTED (HTTP 202): the update is applying and the session status is SESSION_STATUS_UPDATING; poll GET until the status leaves UPDATING, then read `session.update`. UNCHANGED (HTTP 200): the manifest changes nothing and nothing was recorded.
+     * Returned for `manifest_yaml` requests. `ACCEPTED` (HTTP 202): the update is being applied and the session status is `SESSION_STATUS_UPDATING`. Poll the session until the status changes, then read `session.update`. `UNCHANGED` (HTTP 200): the requested settings match the current ones, so nothing was applied.
      */
     outcome?: Patch_session_response_outcome | null;
     /**
@@ -57671,7 +57671,7 @@ export interface Patch_session_response extends AdditionalDataHolder, Parsable {
      */
     session?: Definitions_session | null;
     /**
-     * Non-fatal notes about the update.
+     * Warnings about the update that did not stop it from being accepted.
      */
     warnings?: string[] | null;
 }
@@ -59319,7 +59319,7 @@ export interface Reusable_session extends AdditionalDataHolder, Parsable {
      */
     sessionId?: string | null;
     /**
-     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
+     * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a session settings update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
      */
     status?: Session_status | null;
 }
@@ -82651,24 +82651,24 @@ export interface Session_config extends AdditionalDataHolder, Parsable {
     cache?: Session_cache | null;
 }
 /**
- * Changes per manifest section. Never contains secret values.
+ * Changes made in each manifest section. Secret values are never included.
  */
 export interface Session_config_changes extends AdditionalDataHolder, Parsable {
     /**
-     * Keys touched in one manifest section.
+     * Names of the entries added, removed, or changed in one manifest section.
      */
     env?: Session_config_section_changes | null;
     /**
-     * Keys touched in one manifest section.
+     * Names of the entries added, removed, or changed in one manifest section.
      */
     secrets?: Session_config_section_changes | null;
     /**
-     * Keys touched in one manifest section.
+     * Names of the entries added, removed, or changed in one manifest section.
      */
     tools?: Session_config_section_changes | null;
 }
 /**
- * Keys touched in one manifest section.
+ * Names of the entries added, removed, or changed in one manifest section.
  */
 export interface Session_config_section_changes extends AdditionalDataHolder, Parsable {
     /**
@@ -82685,11 +82685,11 @@ export interface Session_config_section_changes extends AdditionalDataHolder, Pa
     removed?: string[] | null;
 }
 /**
- * One live config update (or automatic rollback) of a session.
+ * The most recent session settings update to the session, or the automatic rollback of a failed one.
  */
 export interface Session_config_update extends AdditionalDataHolder, Parsable {
     /**
-     * Changes per manifest section. Never contains secret values.
+     * Changes made in each manifest section. Secret values are never included.
      */
     changes?: Session_config_changes | null;
     /**
@@ -82733,7 +82733,7 @@ export interface Session_config_update extends AdditionalDataHolder, Parsable {
      */
     startedAt?: Date | null;
     /**
-     * State of a live config update. APPLIED_RESTARTED means the agent was restarted to apply it (env and secret changes). FAILED means the update did not take effect; see `reverted` and `detail`.
+     * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and `secrets` changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
      */
     state?: Session_config_update_state | null;
     /**
@@ -89424,7 +89424,7 @@ export const Partner_attachment_writable_regionObject = {
     Sgp: "sgp",
 } as const;
 /**
- * Present for `manifest_yaml` patches. ACCEPTED (HTTP 202): the update is applying and the session status is SESSION_STATUS_UPDATING; poll GET until the status leaves UPDATING, then read `session.update`. UNCHANGED (HTTP 200): the manifest changes nothing and nothing was recorded.
+ * Returned for `manifest_yaml` requests. `ACCEPTED` (HTTP 202): the update is being applied and the session status is `SESSION_STATUS_UPDATING`. Poll the session until the status changes, then read `session.update`. `UNCHANGED` (HTTP 200): the requested settings match the current ones, so nothing was applied.
  */
 export const Patch_session_response_outcomeObject = {
     ACCEPTED: "ACCEPTED",
@@ -89848,7 +89848,7 @@ export const Session_config_update_kindObject = {
     Rollback: "rollback",
 } as const;
 /**
- * State of a live config update. APPLIED_RESTARTED means the agent was restarted to apply it (env and secret changes). FAILED means the update did not take effect; see `reverted` and `detail`.
+ * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and `secrets` changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
  */
 export const Session_config_update_stateObject = {
     APPLYING: "APPLYING",
@@ -89873,7 +89873,7 @@ export const Session_policy_rules_actionObject = {
     Deny: "deny",
 } as const;
 /**
- * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a live config update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
+ * SessionStatus is the lifecycle state of the sandbox + agent pair. SESSION_STATUS_ALL is a ListSessions status-filter value only -- no session is ever actually in this status. SESSION_STATUS_LOCKED is reserved for internal use and never appears in an end-user-facing response. SESSION_STATUS_UPDATING is reported while a session settings update (PATCH with `manifest_yaml`) is being applied; poll the session until it leaves this status.
  */
 export const Session_statusObject = {
     SESSION_STATUS_UNSPECIFIED: "SESSION_STATUS_UNSPECIFIED",

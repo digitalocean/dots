@@ -6,7 +6,7 @@ import { createCreate_secret_responseFromDiscriminatorValue, createErrorEscapedF
 // @ts-ignore
 import { RestoreRequestBuilderRequestsMetadata, type RestoreRequestBuilder } from './restore/index.js';
 // @ts-ignore
-import { type VersionsRequestBuilder, VersionsRequestBuilderNavigationMetadata, VersionsRequestBuilderRequestsMetadata } from './versions/index.js';
+import { type VersionsRequestBuilder, VersionsRequestBuilderRequestsMetadata } from './versions/index.js';
 // @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
@@ -199,7 +199,6 @@ export const WithSecretItemRequestBuilderNavigationMetadata: Record<Exclude<keyo
     },
     versions: {
         requestsMetadata: VersionsRequestBuilderRequestsMetadata,
-        navigationMetadata: VersionsRequestBuilderNavigationMetadata,
     },
 };
 /**
