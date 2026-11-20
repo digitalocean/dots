@@ -18,6 +18,7 @@ export class StreamingRequestAdapter {
     /**
      * Creates a new StreamingRequestAdapter
      * @param underlyingAdapter The underlying RequestAdapter to wrap
+     * @param authenticationProvider Optional auth provider used to authenticate streaming requests
      */
     constructor(underlyingAdapter, authenticationProvider) {
         this.underlyingAdapter = underlyingAdapter;

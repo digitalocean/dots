@@ -8,6 +8,7 @@
     ".": "./index.js",
     "./inference": "./src/inference-gen/inference.js",
     "./harness-runtime": "./src/dots/harnessRuntime/index.js",
+    "./sandbox": "./src/dots/sandbox/index.js",
     "./package.json": "./package.json",
     "./*": "./*"
   },

@@ -235,6 +235,80 @@ const result = await session.run("Find and fix the flaky test", { onText: (t) =>
 
 More examples, the error types and the current limitations are in [examples/harness-runtime](examples/harness-runtime/README.md).
 
+## **Sandboxes**
+`@digitalocean/dots/sandbox` creates and manages DigitalOcean Sandboxes (`/v2/sandboxes`). It reads the token from `DIGITALOCEAN_ACCESS_TOKEN`, or you can pass `token`.
+
+```typescript
+import { Sandbox } from "@digitalocean/dots/sandbox";
+
+const sandbox = await Sandbox.create({
+    template: "base",
+    size: "mars-2vcpu-4gb",        // optional, defaults to mars-2vcpu-4gb
+    allowInternetAccess: true,    // optional, false limits egress to the platform file-transfer host
+    envVars: { MY_KEY: "value" }, // optional, values are secrets
+});
+console.log(sandbox.sandboxId, sandbox.state);
+
+await sandbox.pause();
+await sandbox.resume();
+await sandbox.kill();
+```
+
+#### Finding existing sandboxes
+```typescript
+const again = await Sandbox.get(sandboxId);       // fetch by id
+const ready = await Sandbox.connect(sandboxId);   // fetch, and resume it if it is paused
+
+// list() walks every page; filter by state if you like
+for await (const sb of Sandbox.list({ state: "SANDBOX_STATE_RUNNING" })) {
+    console.log(sb.sandboxId, sb.template, sb.info.sizeSlug);
+}
+
+// or one page at a time
+const pages = Sandbox.list({ limit: 50 });
+while (pages.hasNext) {
+    for (const sb of await pages.nextItems()) console.log(sb.sandboxId);
+}
+```
+
+#### Cleaning up
+```typescript
+await Sandbox.kill(sandboxId);   // false if it is already gone
+await Sandbox.pause(sandboxId);
+
+// TypeScript 5.2+: killed at the end of the scope
+await using tmp = await Sandbox.create({ template: "base" });
+```
+
+`sandbox.getInfo()` re-reads the sandbox, `sandbox.isRunning()` checks its state, and `sandbox.waitUntilRunning()` polls until it is running.
+
+#### Binding a token once
+```typescript
+import { SandboxClient } from "@digitalocean/dots/sandbox";
+
+const client = new SandboxClient({ token: process.env.DIGITALOCEAN_ACCESS_TOKEN });
+const sandbox = await client.Sandbox.create({ template: "base" });
+```
+
+#### Errors
+Every failed call throws a subclass of `SandboxError` with `status`, `code`, `requestId` and, for 429, `retryAfter`:
+
+```typescript
+import { Sandbox, NotFoundError, RateLimitError } from "@digitalocean/dots/sandbox";
+
+try {
+    await Sandbox.create({ template: "missing" });
+} catch (err) {
+    if (err instanceof NotFoundError) console.error("no such template", err.requestId);
+    else if (err instanceof RateLimitError) console.error("retry in", err.retryAfter, "s");
+    else throw err;
+}
+```
+
+The other types are `AuthenticationError` (401), `PermissionDeniedError` (403), `InvalidRequestError` (400, 422), `ConflictError` (409), `ServiceError` (5xx) and `SandboxTimeoutError`. An option the SDK does not support, such as `timeoutMs` on `create`, throws before any request is sent.
+
+Running commands and file transfer are not available yet: they need data-plane routes that are not in the API.
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.

@@ -22,7 +22,7 @@ class BearerTokenAuthenticationProvider {
 }
 /**
  * Create a DigitalOcean API v2 client
- * Default: https://api.digitalocean.com/v2
+ * Default: https://api.digitalocean.com
  */
 export function createDigitalOceanClient(apiKey) {
     const config = {

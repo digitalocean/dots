@@ -74,6 +74,8 @@ import { Reserved_ipsRequestBuilderNavigationMetadata, Reserved_ipsRequestBuilde
 // @ts-ignore
 import { Reserved_ipv6RequestBuilderNavigationMetadata, Reserved_ipv6RequestBuilderRequestsMetadata, type Reserved_ipv6RequestBuilder } from './reserved_ipv6/index.js';
 // @ts-ignore
+import { SandboxesRequestBuilderNavigationMetadata, SandboxesRequestBuilderRequestsMetadata, type SandboxesRequestBuilder } from './sandboxes/index.js';
+// @ts-ignore
 import { SecurityRequestBuilderNavigationMetadata, type SecurityRequestBuilder } from './security/index.js';
 // @ts-ignore
 import { SizesRequestBuilderRequestsMetadata, type SizesRequestBuilder } from './sizes/index.js';
@@ -246,6 +248,10 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
      * The reserved_ipv6 property
      */
     get reserved_ipv6(): Reserved_ipv6RequestBuilder;
+    /**
+     * The sandboxes property
+     */
+    get sandboxes(): SandboxesRequestBuilder;
     /**
      * The security property
      */
@@ -427,6 +433,10 @@ export const V2RequestBuilderNavigationMetadata: Record<Exclude<keyof V2RequestB
     reserved_ipv6: {
         requestsMetadata: Reserved_ipv6RequestBuilderRequestsMetadata,
         navigationMetadata: Reserved_ipv6RequestBuilderNavigationMetadata,
+    },
+    sandboxes: {
+        requestsMetadata: SandboxesRequestBuilderRequestsMetadata,
+        navigationMetadata: SandboxesRequestBuilderNavigationMetadata,
     },
     security: {
         navigationMetadata: SecurityRequestBuilderNavigationMetadata,

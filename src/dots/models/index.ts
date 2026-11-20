@@ -21970,6 +21970,15 @@ export function createError_with_root_causesFromDiscriminatorValue(parseNode: Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Error2}
+ */
+// @ts-ignore
+export function createError2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoError2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ErrorEscaped}
  */
 // @ts-ignore
@@ -25875,6 +25884,33 @@ export function createRsyslog_logsinkFromDiscriminatorValue(parseNode: ParseNode
 // @ts-ignore
 export function createRule_verdictFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoRule_verdict;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_create_env_vars}
+ */
+// @ts-ignore
+export function createSandbox_create_env_varsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_create_env_vars;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_create}
+ */
+// @ts-ignore
+export function createSandbox_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_info}
+ */
+// @ts-ignore
+export function createSandbox_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_info;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -41265,6 +41301,19 @@ export function deserializeIntoError_with_root_causes(error_with_root_causes: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param Error2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoError2(error2: Partial<Error2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { error2.id = n.getStringValue(); },
+        "message": n => { error2.messageEscaped = n.getStringValue(); },
+        "request_id": n => { error2.requestId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param ErrorEscaped The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -47130,6 +47179,45 @@ export function deserializeIntoRule_verdict(rule_verdict: Partial<Rule_verdict> 
 }
 /**
  * The deserialization information for the current model
+ * @param Sandbox_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_create(sandbox_create: Partial<Sandbox_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allow_internet_access": n => { sandbox_create.allowInternetAccess = n.getBooleanValue(); },
+        "env_vars": n => { sandbox_create.envVars = n.getObjectValue<Sandbox_create_env_vars>(createSandbox_create_env_varsFromDiscriminatorValue); },
+        "size_slug": n => { sandbox_create.sizeSlug = n.getStringValue(); },
+        "template": n => { sandbox_create.template = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_create_env_vars The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_create_env_vars(sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_info(sandbox_info: Partial<Sandbox_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { sandbox_info.createdAt = n.getDateValue(); },
+        "sandbox_id": n => { sandbox_info.sandboxId = n.getStringValue(); },
+        "size_slug": n => { sandbox_info.sizeSlug = n.getStringValue(); },
+        "state": n => { sandbox_info.state = n.getEnumValue<Sandbox_state>(Sandbox_stateObject) ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED; },
+        "template": n => { sandbox_info.template = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param Sandbox_size The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -51852,6 +51940,23 @@ export interface Error_with_root_causes extends AdditionalDataHolder, ApiError, 
      * A list of underlying causes for the error, including details to help  resolve it when possible.
      */
     rootCauses?: string[] | null;
+}
+/**
+ * The DigitalOcean-standard error body (`id`, `message`, `request_id`). The gateway builds it from the gRPC status.
+ */
+export interface Error2 extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * A short, stable ID for the error, for example `not_found`.
+     */
+    id?: string | null;
+    /**
+     * A message that explains the error.
+     */
+    messageEscaped?: string | null;
+    /**
+     * The ID of the request. Give it to support when you report a problem.
+     */
+    requestId?: string | null;
 }
 export interface ErrorEscaped extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -59465,6 +59570,57 @@ export interface Rule_verdict extends AdditionalDataHolder, Parsable {
 export type Rule_verdict_rendered = (typeof Rule_verdict_renderedObject)[keyof typeof Rule_verdict_renderedObject];
 export type Rule_verdict_verdict = (typeof Rule_verdict_verdictObject)[keyof typeof Rule_verdict_verdictObject];
 /**
+ * The body of a create-sandbox request.
+ */
+export interface Sandbox_create extends AdditionalDataHolder, Parsable {
+    /**
+     * Let the sandbox reach the internet. When unset or true, egress is unrestricted. When false, the sandbox can reach only the platform file-transfer host. Allow-lists of hosts and IPs are not part of this contract yet.
+     */
+    allowInternetAccess?: boolean | null;
+    /**
+     * Environment variables for the sandbox. The values are secrets.
+     */
+    envVars?: Sandbox_create_env_vars | null;
+    /**
+     * The size of the sandbox, as a size slug. It must be an enabled size.
+     */
+    sizeSlug?: string | null;
+    /**
+     * The name of the template to create the sandbox from.
+     */
+    template?: string | null;
+}
+/**
+ * Environment variables for the sandbox. The values are secrets.
+ */
+export interface Sandbox_create_env_vars extends AdditionalDataHolder, Parsable {
+}
+/**
+ * A sandbox.
+ */
+export interface Sandbox_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The time the sandbox was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * The ID of the sandbox.
+     */
+    sandboxId?: string | null;
+    /**
+     * The size of the sandbox, as a size slug.
+     */
+    sizeSlug?: string | null;
+    /**
+     * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
+     */
+    state?: Sandbox_state | null;
+    /**
+     * The name of the template the sandbox was created from.
+     */
+    template?: string | null;
+}
+/**
  * A customer-selectable sandbox (microVM) size.
  */
 export interface Sandbox_size extends AdditionalDataHolder, Parsable {
@@ -59498,6 +59654,7 @@ export interface Sandbox_sizes_response extends AdditionalDataHolder, Parsable {
      */
     sizes?: Sandbox_size[] | null;
 }
+export type Sandbox_state = (typeof Sandbox_stateObject)[keyof typeof Sandbox_stateObject];
 export interface Sandbox_template extends AdditionalDataHolder, Parsable {
     /**
      * The created_at property
@@ -72526,6 +72683,20 @@ export function serializeError_with_root_causes(writer: SerializationWriter, err
 }
 /**
  * Serializes information the current object
+ * @param Error2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeError2(writer: SerializationWriter, error2: Partial<Error2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!error2 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", error2.id);
+    writer.writeStringValue("message", error2.messageEscaped);
+    writer.writeStringValue("request_id", error2.requestId);
+    writer.writeAdditionalData(error2.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param ErrorEscaped The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -78714,6 +78885,44 @@ export function serializeRule_verdict(writer: SerializationWriter, rule_verdict:
     writer.writeStringValue("suggestion", rule_verdict.suggestion);
     writer.writeEnumValue<Rule_verdict_verdict>("verdict", rule_verdict.verdict);
     writer.writeAdditionalData(rule_verdict.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_create(writer: SerializationWriter, sandbox_create: Partial<Sandbox_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_create || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("allow_internet_access", sandbox_create.allowInternetAccess);
+    writer.writeObjectValue<Sandbox_create_env_vars>("env_vars", sandbox_create.envVars, serializeSandbox_create_env_vars);
+    writer.writeStringValue("size_slug", sandbox_create.sizeSlug);
+    writer.writeStringValue("template", sandbox_create.template);
+    writer.writeAdditionalData(sandbox_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_create_env_vars The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_create_env_vars(writer: SerializationWriter, sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_create_env_vars || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_create_env_vars.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_info The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_info(writer: SerializationWriter, sandbox_info: Partial<Sandbox_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_info || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Sandbox_state>("state", sandbox_info.state ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED);
+    writer.writeAdditionalData(sandbox_info.additionalData);
 }
 /**
  * Serializes information the current object
@@ -89801,6 +90010,15 @@ export const Rule_verdict_verdictObject = {
     Degraded: "degraded",
     Unsupported: "unsupported",
     Unverified: "unverified",
+} as const;
+/**
+ * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
+ */
+export const Sandbox_stateObject = {
+    SANDBOX_STATE_UNSPECIFIED: "SANDBOX_STATE_UNSPECIFIED",
+    SANDBOX_STATE_RUNNING: "SANDBOX_STATE_RUNNING",
+    SANDBOX_STATE_PAUSED: "SANDBOX_STATE_PAUSED",
+    SANDBOX_STATE_CREATING: "SANDBOX_STATE_CREATING",
 } as const;
 export const Sandbox_template_build_statusObject = {
     STATUS_UNSPECIFIED: "STATUS_UNSPECIFIED",
