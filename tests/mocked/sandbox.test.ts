@@ -13,7 +13,7 @@ const API = "https://api.digitalocean.com";
 const OPTS = { token: "test-token" };
 const raw = (id: string, state = "SANDBOX_STATE_RUNNING") => ({
     sandbox_id: id,
-    template: "base",
+    template: "coding-base",
     state,
     size_slug: "mars-2vcpu-4gb",
     created_at: "2026-11-20T12:00:00Z",
@@ -35,7 +35,7 @@ describe("Sandbox", () => {
     it("create sends template, size_slug and options, and returns a Sandbox", async () => {
         api()
             .post("/v2/sandboxes", {
-                template: "base",
+                template: "coding-base",
                 size_slug: "s-1vcpu-2gb",
                 allow_internet_access: false,
                 env_vars: { A: "1" },
@@ -43,7 +43,7 @@ describe("Sandbox", () => {
             .reply(201, { sandbox: raw("sb-1") });
         const sb = await Sandbox.create({
             ...OPTS,
-            template: "base",
+            template: "coding-base",
             size: "s-1vcpu-2gb",
             allowInternetAccess: false,
             envVars: { A: "1" },
@@ -55,8 +55,8 @@ describe("Sandbox", () => {
     });
 
     it("create defaults the size", async () => {
-        api().post("/v2/sandboxes", { template: "base", size_slug: "mars-2vcpu-4gb" }).reply(201, { sandbox: raw("sb-1") });
-        await Sandbox.create({ ...OPTS, template: "base" });
+        api().post("/v2/sandboxes", { template: "coding-base", size_slug: "mars-2vcpu-4gb" }).reply(201, { sandbox: raw("sb-1") });
+        await Sandbox.create({ ...OPTS, template: "coding-base" });
         expect(nock.isDone()).toBe(true);
     });
 
@@ -141,7 +141,7 @@ describe("Sandbox", () => {
 
     it("SandboxClient binds options", async () => {
         api().post("/v2/sandboxes").reply(201, { sandbox: raw("sb-1") });
-        const sb = await new SandboxClient(OPTS).Sandbox.create({ template: "base" });
+        const sb = await new SandboxClient(OPTS).Sandbox.create({ template: "coding-base" });
         expect(sb.sandboxId).toBe("sb-1");
     });
 

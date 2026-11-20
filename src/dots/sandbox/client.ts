@@ -12,7 +12,7 @@ import type { SandboxInfo } from "./types.js";
  *
  * ```ts
  * const client = new SandboxClient({ token: process.env.DIGITALOCEAN_ACCESS_TOKEN });
- * const sandbox = await client.Sandbox.create({ template: "base" });
+ * const sandbox = await client.Sandbox.create({ template: "coding-base" });
  * ```
  */
 export class SandboxClient {

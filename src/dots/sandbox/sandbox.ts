@@ -7,7 +7,7 @@
  *
  * ```ts
  * import { Sandbox } from "@digitalocean/dots/sandbox";
- * const sandbox = await Sandbox.create({ template: "base" });
+ * const sandbox = await Sandbox.create({ template: "coding-base" });
  * await sandbox.pause();
  * await sandbox.resume();
  * await sandbox.kill();
@@ -77,7 +77,7 @@ export class Sandbox {
     static async create(opts: SandboxCreateOptions): Promise<Sandbox> {
         rejectUnknownOptions(opts ?? {}, CREATE_KEYS, "Sandbox.create");
         if (!opts?.template?.trim()) {
-            throw new SandboxError("Sandbox.create: `template` is required, e.g. Sandbox.create({ template: 'base' })");
+            throw new SandboxError("Sandbox.create: `template` is required, e.g. Sandbox.create({ template: 'coding-base' })");
         }
         const client = connect(opts);
         const res = await call(() =>

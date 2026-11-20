@@ -242,7 +242,7 @@ More examples, the error types and the current limitations are in [examples/harn
 import { Sandbox } from "@digitalocean/dots/sandbox";
 
 const sandbox = await Sandbox.create({
-    template: "base",
+    template: "coding-base",
     size: "mars-2vcpu-4gb",        // optional, defaults to mars-2vcpu-4gb
     allowInternetAccess: true,    // optional, false limits egress to the platform file-transfer host
     envVars: { MY_KEY: "value" }, // optional, values are secrets
@@ -277,7 +277,7 @@ await Sandbox.kill(sandboxId);   // false if it is already gone
 await Sandbox.pause(sandboxId);
 
 // TypeScript 5.2+: killed at the end of the scope
-await using tmp = await Sandbox.create({ template: "base" });
+await using tmp = await Sandbox.create({ template: "coding-base" });
 ```
 
 `sandbox.getInfo()` re-reads the sandbox, `sandbox.isRunning()` checks its state, and `sandbox.waitUntilRunning()` polls until it is running.
@@ -287,7 +287,7 @@ await using tmp = await Sandbox.create({ template: "base" });
 import { SandboxClient } from "@digitalocean/dots/sandbox";
 
 const client = new SandboxClient({ token: process.env.DIGITALOCEAN_ACCESS_TOKEN });
-const sandbox = await client.Sandbox.create({ template: "base" });
+const sandbox = await client.Sandbox.create({ template: "coding-base" });
 ```
 
 #### Errors
