@@ -17,6 +17,7 @@ export {
 } from "./errors.js";
 export {
     DEFAULT_SIZE,
+    DEFAULT_TEMPLATE,
     Sandbox,
     SandboxPaginator,
     type SandboxCreateOptions,

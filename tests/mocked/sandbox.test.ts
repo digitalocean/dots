@@ -60,8 +60,14 @@ describe("Sandbox", () => {
         expect(nock.isDone()).toBe(true);
     });
 
-    it("rejects missing template and unsupported options before sending", async () => {
-        await expect(Sandbox.create({ ...OPTS } as any)).rejects.toThrow(/template/);
+    it("create defaults the template", async () => {
+        api().post("/v2/sandboxes", { template: "coding-base", size_slug: "mars-2vcpu-4gb" }).reply(201, { sandbox: raw("sb-1") });
+        await Sandbox.create(OPTS);
+        expect(nock.isDone()).toBe(true);
+    });
+
+    it("rejects an empty template and unsupported options before sending", async () => {
+        await expect(Sandbox.create({ ...OPTS, template: " " })).rejects.toThrow(/template/);
         await expect(Sandbox.create({ ...OPTS, template: "b", timeoutMs: 5 } as any)).rejects.toThrow(/unsupported option timeoutMs/);
         await expect(Sandbox.create({ template: "b" })).rejects.toBeInstanceOf(AuthenticationError);
     });

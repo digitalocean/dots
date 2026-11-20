@@ -17,7 +17,7 @@ import type { SandboxInfo } from "./types.js";
  */
 export class SandboxClient {
     readonly Sandbox: {
-        create(opts: SandboxCreateOptions): Promise<Sandbox>;
+        create(opts?: SandboxCreateOptions): Promise<Sandbox>;
         get(sandboxId: string, opts?: ClientOptions): Promise<Sandbox>;
         connect(sandboxId: string, opts?: ClientOptions): Promise<Sandbox>;
         list(opts?: SandboxListOptions): SandboxPaginator;

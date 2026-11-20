@@ -242,7 +242,7 @@ More examples, the error types and the current limitations are in [examples/harn
 import { Sandbox } from "@digitalocean/dots/sandbox";
 
 const sandbox = await Sandbox.create({
-    template: "coding-base",
+    template: "coding-base",       // optional, defaults to coding-base
     size: "mars-2vcpu-4gb",        // optional, defaults to mars-2vcpu-4gb
     allowInternetAccess: true,    // optional, false limits egress to the platform file-transfer host
     envVars: { MY_KEY: "value" }, // optional, values are secrets

@@ -19,12 +19,15 @@ import { connect, rejectUnknownOptions, type ClientOptions } from "./config.js";
 import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
+/** Template used when `template` is omitted. */
+export const DEFAULT_TEMPLATE = "coding-base";
+
 /** `size_slug` used when `size` is omitted. The API requires one and it must be an enabled size. */
 export const DEFAULT_SIZE = "mars-2vcpu-4gb";
 
 export interface SandboxCreateOptions extends ClientOptions {
-    /** Template to create the sandbox from. Required. */
-    template: string;
+    /** Template to create the sandbox from. Defaults to {@link DEFAULT_TEMPLATE}. */
+    template?: string;
     /** Size slug. Defaults to {@link DEFAULT_SIZE}. */
     size?: string;
     /** `false` limits egress to the platform file-transfer host. Defaults to unrestricted. */
@@ -74,15 +77,16 @@ export class Sandbox {
     }
 
     /** Creates a sandbox. Resolves once it is running. */
-    static async create(opts: SandboxCreateOptions): Promise<Sandbox> {
-        rejectUnknownOptions(opts ?? {}, CREATE_KEYS, "Sandbox.create");
-        if (!opts?.template?.trim()) {
-            throw new SandboxError("Sandbox.create: `template` is required, e.g. Sandbox.create({ template: 'coding-base' })");
+    static async create(opts: SandboxCreateOptions = {}): Promise<Sandbox> {
+        rejectUnknownOptions(opts, CREATE_KEYS, "Sandbox.create");
+        const template = opts.template ?? DEFAULT_TEMPLATE;
+        if (!template.trim()) {
+            throw new SandboxError("Sandbox.create: `template` must not be empty");
         }
         const client = connect(opts);
         const res = await call(() =>
             client.v2.sandboxes.post({
-                template: opts.template,
+                template,
                 sizeSlug: opts.size ?? DEFAULT_SIZE,
                 allowInternetAccess: opts.allowInternetAccess,
                 envVars: opts.envVars ? { additionalData: { ...opts.envVars } } : undefined,
