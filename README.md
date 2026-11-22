@@ -307,7 +307,27 @@ try {
 
 The other types are `AuthenticationError` (401), `PermissionDeniedError` (403), `InvalidRequestError` (400, 422), `ConflictError` (409), `ServiceError` (5xx) and `SandboxTimeoutError`. An option the SDK does not support, such as `timeoutMs` on `create`, throws before any request is sent.
 
-Running commands and file transfer are not available yet: they need data-plane routes that are not in the API.
+#### Running commands
+```typescript
+// A shell command (bash -lc): wait for it and read the result
+const result = await sandbox.commands.run('echo "Hello"', {
+    cwd: "/workspace",
+    onStdout: (text) => process.stdout.write(text), // optional, as output arrives
+});
+console.log(result.stdout, result.exitCode);        // a non-zero exit code is returned, not thrown
+
+// An executable and its arguments: start it, then attach, write to it or stop it
+const cmd = await sandbox.commands.start("cat", { stdin: true });
+await cmd.writeStdin("hello\n", { eof: true });
+for await (const event of cmd.stream()) {           // started, stdout, stderr, exit
+    if (event.type === "stdout") process.stdout.write(event.text);
+}
+
+const running = await sandbox.commands.list();       // [{ pid, cmd, cwd }]
+await sandbox.commands.connect(running[0].pid).kill(); // SIGTERM; kill("SIGKILL") to force
+```
+
+Output can only be read while a command runs: a command that exits before the stream attaches fails with `NotFoundError`. File transfer is not available yet: it needs routes that are not in the API.
 
 ## **Known Issues**
 

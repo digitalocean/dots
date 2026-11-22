@@ -15,7 +15,8 @@
  */
 
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
-import { connect, rejectUnknownOptions, type ClientOptions } from "./config.js";
+import { Commands } from "./commands.js";
+import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
@@ -59,11 +60,15 @@ export class Sandbox {
     /** The record as last returned by the API. Call {@link getInfo} to refresh it. */
     info: SandboxInfo;
 
-    private constructor(
-        private readonly client: DigitalOceanClient,
-        info: SandboxInfo,
-    ) {
+    /** Start, list and stream the commands running in this sandbox. */
+    readonly commands: Commands;
+
+    private readonly client: DigitalOceanClient;
+
+    private constructor(conn: Connection, info: SandboxInfo) {
+        this.client = conn.client;
         this.info = info;
+        this.commands = new Commands(conn, info.sandboxId);
     }
 
     get sandboxId(): string {
@@ -83,22 +88,22 @@ export class Sandbox {
         if (!template.trim()) {
             throw new SandboxError("Sandbox.create: `template` must not be empty");
         }
-        const client = connect(opts);
+        const conn = connect(opts);
         const res = await call(() =>
-            client.v2.sandboxes.post({
+            conn.client.v2.sandboxes.post({
                 template,
                 sizeSlug: opts.size ?? DEFAULT_SIZE,
                 allowInternetAccess: opts.allowInternetAccess,
                 envVars: opts.envVars ? { additionalData: { ...opts.envVars } } : undefined,
             }),
         );
-        return new Sandbox(client, toInfo(res?.sandbox));
+        return new Sandbox(conn, toInfo(res?.sandbox));
     }
 
     /** Fetches a sandbox by id. */
     static async get(sandboxId: string, opts: ClientOptions = {}): Promise<Sandbox> {
-        const client = connect(opts);
-        return new Sandbox(client, await fetchInfo(client, sandboxId));
+        const conn = connect(opts);
+        return new Sandbox(conn, await fetchInfo(conn.client, sandboxId));
     }
 
     /** Fetches a sandbox by id and resumes it if it is paused. */
@@ -119,12 +124,12 @@ export class Sandbox {
 
     /** Deletes a sandbox by id. Resolves `false` when it does not exist. */
     static async kill(sandboxId: string, opts: ClientOptions = {}): Promise<boolean> {
-        return deleteSandbox(connect(opts), sandboxId);
+        return deleteSandbox(connect(opts).client, sandboxId);
     }
 
     /** Pauses a sandbox by id. */
     static async pause(sandboxId: string, opts: ClientOptions = {}): Promise<SandboxInfo> {
-        return pauseSandbox(connect(opts), sandboxId);
+        return pauseSandbox(connect(opts).client, sandboxId);
     }
 
     /** Reads the sandbox again. */
@@ -186,7 +191,7 @@ export class SandboxPaginator implements AsyncIterable<Sandbox> {
 
     /** @internal */
     constructor(
-        private readonly client: DigitalOceanClient,
+        private readonly conn: Connection,
         private readonly opts: SandboxListOptions,
     ) {
         this.token = opts.nextToken || undefined;
@@ -205,13 +210,13 @@ export class SandboxPaginator implements AsyncIterable<Sandbox> {
     async nextItems(): Promise<Sandbox[]> {
         if (!this.hasNext) throw new SandboxError("no more sandboxes to list");
         const res = await call(() =>
-            this.client.v2.sandboxes.get({
+            this.conn.client.v2.sandboxes.get({
                 queryParameters: { pageSize: this.opts.limit, pageToken: this.token, state: this.opts.state },
             }),
         );
         this.started = true;
         this.token = res?.nextPageToken || undefined;
-        return (res?.sandboxes ?? []).map((m) => new (Sandbox as any)(this.client, toInfo(m)) as Sandbox);
+        return (res?.sandboxes ?? []).map((m) => new (Sandbox as any)(this.conn, toInfo(m)) as Sandbox);
     }
 
     async *[Symbol.asyncIterator](): AsyncGenerator<Sandbox> {

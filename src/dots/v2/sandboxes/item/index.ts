@@ -4,6 +4,8 @@
 // @ts-ignore
 import { createError2FromDiscriminatorValue, createErrorEscapedFromDiscriminatorValue, createSandbox_infoFromDiscriminatorValue, serializeSandbox_info, type Error2, type ErrorEscaped, type Sandbox_info } from '../../../models/index.js';
 // @ts-ignore
+import { CommandsRequestBuilderNavigationMetadata, CommandsRequestBuilderRequestsMetadata, type CommandsRequestBuilder } from './commands/index.js';
+// @ts-ignore
 import { PauseRequestBuilderRequestsMetadata, type PauseRequestBuilder } from './pause/index.js';
 // @ts-ignore
 import { ResumeRequestBuilderRequestsMetadata, type ResumeRequestBuilder } from './resume/index.js';
@@ -85,6 +87,10 @@ export interface WithSandbox_GetResponse extends AdditionalDataHolder, Parsable 
  */
 export interface WithSandbox_ItemRequestBuilder extends BaseRequestBuilder<WithSandbox_ItemRequestBuilder> {
     /**
+     * The commands property
+     */
+    get commands(): CommandsRequestBuilder;
+    /**
      * The pause property
      */
     get pause(): PauseRequestBuilder;
@@ -137,6 +143,10 @@ export const WithSandbox_ItemRequestBuilderUriTemplate = "{+baseurl}/v2/sandboxe
  * Metadata for all the navigation properties in the request builder.
  */
 export const WithSandbox_ItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WithSandbox_ItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    commands: {
+        requestsMetadata: CommandsRequestBuilderRequestsMetadata,
+        navigationMetadata: CommandsRequestBuilderNavigationMetadata,
+    },
     pause: {
         requestsMetadata: PauseRequestBuilderRequestsMetadata,
     },

@@ -5,6 +5,8 @@
  * HTTP status, so callers branch with `instanceof`.
  */
 
+import { HarnessStreamError } from "../streaming/harnessStream.js";
+
 /** Any failed sandbox call. */
 export class SandboxError extends Error {
     constructor(
@@ -50,9 +52,19 @@ const BY_STATUS: Record<number, typeof SandboxError> = {
     429: RateLimitError,
 };
 
+/** Builds the typed error for an HTTP status. */
+export function errorForStatus(status: number, message: string, code?: string, requestId?: string, retryAfter?: number): SandboxError {
+    const Type = BY_STATUS[status] ?? (status >= 500 ? ServiceError : SandboxError);
+    return new Type(message, status, code, requestId, retryAfter);
+}
+
 /** Converts what the generated client throws into a typed error. Other errors pass through. */
 export function toSandboxError(err: unknown): unknown {
     if (err instanceof SandboxError) return err;
+    if (err instanceof HarnessStreamError) {
+        const Type = BY_STATUS[err.status] ?? (err.status >= 500 ? ServiceError : SandboxError);
+        return new Type(err.message, err.status, undefined, err.requestId, err.retryAfter);
+    }
     const api = err as {
         responseStatusCode?: number;
         responseHeaders?: Record<string, string[]>;

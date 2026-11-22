@@ -3,6 +3,17 @@
  * Hand-written. `make generate` does not touch this folder.
  */
 export { SandboxClient } from "./client.js";
+export {
+    Command,
+    Commands,
+    type CommandAttachOptions,
+    type CommandEvent,
+    type CommandInfo,
+    type CommandResult,
+    type CommandRunOptions,
+    type CommandSignal,
+    type CommandStartOptions,
+} from "./commands.js";
 export type { ClientOptions } from "./config.js";
 export {
     AuthenticationError,

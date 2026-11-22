@@ -21970,15 +21970,6 @@ export function createError_with_root_causesFromDiscriminatorValue(parseNode: Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Error2}
- */
-// @ts-ignore
-export function createError2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoError2;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ErrorEscaped}
  */
 // @ts-ignore
@@ -25884,33 +25875,6 @@ export function createRsyslog_logsinkFromDiscriminatorValue(parseNode: ParseNode
 // @ts-ignore
 export function createRule_verdictFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoRule_verdict;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Sandbox_create_env_vars}
- */
-// @ts-ignore
-export function createSandbox_create_env_varsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSandbox_create_env_vars;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Sandbox_create}
- */
-// @ts-ignore
-export function createSandbox_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSandbox_create;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {Sandbox_info}
- */
-// @ts-ignore
-export function createSandbox_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoSandbox_info;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -41301,19 +41265,6 @@ export function deserializeIntoError_with_root_causes(error_with_root_causes: Pa
 }
 /**
  * The deserialization information for the current model
- * @param Error2 The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoError2(error2: Partial<Error2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "id": n => { error2.id = n.getStringValue(); },
-        "message": n => { error2.messageEscaped = n.getStringValue(); },
-        "request_id": n => { error2.requestId = n.getStringValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
  * @param ErrorEscaped The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -47179,45 +47130,6 @@ export function deserializeIntoRule_verdict(rule_verdict: Partial<Rule_verdict> 
 }
 /**
  * The deserialization information for the current model
- * @param Sandbox_create The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSandbox_create(sandbox_create: Partial<Sandbox_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "allow_internet_access": n => { sandbox_create.allowInternetAccess = n.getBooleanValue(); },
-        "env_vars": n => { sandbox_create.envVars = n.getObjectValue<Sandbox_create_env_vars>(createSandbox_create_env_varsFromDiscriminatorValue); },
-        "size_slug": n => { sandbox_create.sizeSlug = n.getStringValue(); },
-        "template": n => { sandbox_create.template = n.getStringValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @param Sandbox_create_env_vars The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSandbox_create_env_vars(sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-    }
-}
-/**
- * The deserialization information for the current model
- * @param Sandbox_info The instance to deserialize into.
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoSandbox_info(sandbox_info: Partial<Sandbox_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "created_at": n => { sandbox_info.createdAt = n.getDateValue(); },
-        "sandbox_id": n => { sandbox_info.sandboxId = n.getStringValue(); },
-        "size_slug": n => { sandbox_info.sizeSlug = n.getStringValue(); },
-        "state": n => { sandbox_info.state = n.getEnumValue<Sandbox_state>(Sandbox_stateObject) ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED; },
-        "template": n => { sandbox_info.template = n.getStringValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
  * @param Sandbox_size The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -51940,23 +51852,6 @@ export interface Error_with_root_causes extends AdditionalDataHolder, ApiError, 
      * A list of underlying causes for the error, including details to help  resolve it when possible.
      */
     rootCauses?: string[] | null;
-}
-/**
- * The DigitalOcean-standard error body (`id`, `message`, `request_id`). The gateway builds it from the gRPC status.
- */
-export interface Error2 extends AdditionalDataHolder, ApiError, Parsable {
-    /**
-     * A short, stable ID for the error, for example `not_found`.
-     */
-    id?: string | null;
-    /**
-     * A message that explains the error.
-     */
-    messageEscaped?: string | null;
-    /**
-     * The ID of the request. Give it to support when you report a problem.
-     */
-    requestId?: string | null;
 }
 export interface ErrorEscaped extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -59570,57 +59465,6 @@ export interface Rule_verdict extends AdditionalDataHolder, Parsable {
 export type Rule_verdict_rendered = (typeof Rule_verdict_renderedObject)[keyof typeof Rule_verdict_renderedObject];
 export type Rule_verdict_verdict = (typeof Rule_verdict_verdictObject)[keyof typeof Rule_verdict_verdictObject];
 /**
- * The body of a create-sandbox request.
- */
-export interface Sandbox_create extends AdditionalDataHolder, Parsable {
-    /**
-     * Let the sandbox reach the internet. When unset or true, egress is unrestricted. When false, the sandbox can reach only the platform file-transfer host. Allow-lists of hosts and IPs are not part of this contract yet.
-     */
-    allowInternetAccess?: boolean | null;
-    /**
-     * Environment variables for the sandbox. The values are secrets.
-     */
-    envVars?: Sandbox_create_env_vars | null;
-    /**
-     * The size of the sandbox, as a size slug. It must be an enabled size.
-     */
-    sizeSlug?: string | null;
-    /**
-     * The name of the template to create the sandbox from.
-     */
-    template?: string | null;
-}
-/**
- * Environment variables for the sandbox. The values are secrets.
- */
-export interface Sandbox_create_env_vars extends AdditionalDataHolder, Parsable {
-}
-/**
- * A sandbox.
- */
-export interface Sandbox_info extends AdditionalDataHolder, Parsable {
-    /**
-     * The time the sandbox was created, in ISO 8601 format.
-     */
-    createdAt?: Date | null;
-    /**
-     * The ID of the sandbox.
-     */
-    sandboxId?: string | null;
-    /**
-     * The size of the sandbox, as a size slug.
-     */
-    sizeSlug?: string | null;
-    /**
-     * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
-     */
-    state?: Sandbox_state | null;
-    /**
-     * The name of the template the sandbox was created from.
-     */
-    template?: string | null;
-}
-/**
  * A customer-selectable sandbox (microVM) size.
  */
 export interface Sandbox_size extends AdditionalDataHolder, Parsable {
@@ -59654,7 +59498,6 @@ export interface Sandbox_sizes_response extends AdditionalDataHolder, Parsable {
      */
     sizes?: Sandbox_size[] | null;
 }
-export type Sandbox_state = (typeof Sandbox_stateObject)[keyof typeof Sandbox_stateObject];
 export interface Sandbox_template extends AdditionalDataHolder, Parsable {
     /**
      * The created_at property
@@ -72683,20 +72526,6 @@ export function serializeError_with_root_causes(writer: SerializationWriter, err
 }
 /**
  * Serializes information the current object
- * @param Error2 The instance to serialize from.
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeError2(writer: SerializationWriter, error2: Partial<Error2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!error2 || isSerializingDerivedType) { return; }
-    writer.writeStringValue("id", error2.id);
-    writer.writeStringValue("message", error2.messageEscaped);
-    writer.writeStringValue("request_id", error2.requestId);
-    writer.writeAdditionalData(error2.additionalData);
-}
-/**
- * Serializes information the current object
  * @param ErrorEscaped The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -78885,44 +78714,6 @@ export function serializeRule_verdict(writer: SerializationWriter, rule_verdict:
     writer.writeStringValue("suggestion", rule_verdict.suggestion);
     writer.writeEnumValue<Rule_verdict_verdict>("verdict", rule_verdict.verdict);
     writer.writeAdditionalData(rule_verdict.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Sandbox_create The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSandbox_create(writer: SerializationWriter, sandbox_create: Partial<Sandbox_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!sandbox_create || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("allow_internet_access", sandbox_create.allowInternetAccess);
-    writer.writeObjectValue<Sandbox_create_env_vars>("env_vars", sandbox_create.envVars, serializeSandbox_create_env_vars);
-    writer.writeStringValue("size_slug", sandbox_create.sizeSlug);
-    writer.writeStringValue("template", sandbox_create.template);
-    writer.writeAdditionalData(sandbox_create.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Sandbox_create_env_vars The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSandbox_create_env_vars(writer: SerializationWriter, sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!sandbox_create_env_vars || isSerializingDerivedType) { return; }
-    writer.writeAdditionalData(sandbox_create_env_vars.additionalData);
-}
-/**
- * Serializes information the current object
- * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
- * @param Sandbox_info The instance to serialize from.
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeSandbox_info(writer: SerializationWriter, sandbox_info: Partial<Sandbox_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
-    if (!sandbox_info || isSerializingDerivedType) { return; }
-    writer.writeEnumValue<Sandbox_state>("state", sandbox_info.state ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED);
-    writer.writeAdditionalData(sandbox_info.additionalData);
 }
 /**
  * Serializes information the current object
@@ -90011,15 +89802,6 @@ export const Rule_verdict_verdictObject = {
     Unsupported: "unsupported",
     Unverified: "unverified",
 } as const;
-/**
- * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
- */
-export const Sandbox_stateObject = {
-    SANDBOX_STATE_UNSPECIFIED: "SANDBOX_STATE_UNSPECIFIED",
-    SANDBOX_STATE_RUNNING: "SANDBOX_STATE_RUNNING",
-    SANDBOX_STATE_PAUSED: "SANDBOX_STATE_PAUSED",
-    SANDBOX_STATE_CREATING: "SANDBOX_STATE_CREATING",
-} as const;
 export const Sandbox_template_build_statusObject = {
     STATUS_UNSPECIFIED: "STATUS_UNSPECIFIED",
     PENDING: "PENDING",
@@ -90562,5 +90344,790 @@ export const Workspace_upload_committed_statusObject = {
     Completed: "completed",
     Failed: "failed",
 } as const;
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Error2}
+ */
+// @ts-ignore
+export function createError2FromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoError2;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_event}
+ */
+// @ts-ignore
+export function createSandbox_command_eventFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_event;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_exit}
+ */
+// @ts-ignore
+export function createSandbox_command_exitFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_exit;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_keepalive}
+ */
+// @ts-ignore
+export function createSandbox_command_keepaliveFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_keepalive;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_signal_request}
+ */
+// @ts-ignore
+export function createSandbox_command_signal_requestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_signal_request;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_start_env_vars}
+ */
+// @ts-ignore
+export function createSandbox_command_start_env_varsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_start_env_vars;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_started}
+ */
+// @ts-ignore
+export function createSandbox_command_startedFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_started;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_start}
+ */
+// @ts-ignore
+export function createSandbox_command_startFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_start;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command_stdin}
+ */
+// @ts-ignore
+export function createSandbox_command_stdinFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command_stdin;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_command}
+ */
+// @ts-ignore
+export function createSandbox_commandFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_command;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_create_env_vars}
+ */
+// @ts-ignore
+export function createSandbox_create_env_varsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_create_env_vars;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_create}
+ */
+// @ts-ignore
+export function createSandbox_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_info}
+ */
+// @ts-ignore
+export function createSandbox_infoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_info;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Stream_error_details}
+ */
+// @ts-ignore
+export function createStream_error_detailsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoStream_error_details;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Stream_error}
+ */
+// @ts-ignore
+export function createStream_errorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoStream_error;
+}
+/**
+ * The deserialization information for the current model
+ * @param Error2 The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoError2(error2: Partial<Error2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { error2.id = n.getStringValue(); },
+        "message": n => { error2.messageEscaped = n.getStringValue(); },
+        "request_id": n => { error2.requestId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command(sandbox_command: Partial<Sandbox_command> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cmd": n => { sandbox_command.cmd = n.getStringValue(); },
+        "cwd": n => { sandbox_command.cwd = n.getStringValue(); },
+        "pid": n => { sandbox_command.pid = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_event The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_event(sandbox_command_event: Partial<Sandbox_command_event> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "exit": n => { sandbox_command_event.exit = n.getObjectValue<Sandbox_command_exit>(createSandbox_command_exitFromDiscriminatorValue); },
+        "keepalive": n => { sandbox_command_event.keepalive = n.getObjectValue<Sandbox_command_keepalive>(createSandbox_command_keepaliveFromDiscriminatorValue); },
+        "started": n => { sandbox_command_event.started = n.getObjectValue<Sandbox_command_started>(createSandbox_command_startedFromDiscriminatorValue); },
+        "stderr": n => { sandbox_command_event.stderr = n.getByteArrayValue(); },
+        "stdout": n => { sandbox_command_event.stdout = n.getByteArrayValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_exit The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_exit(sandbox_command_exit: Partial<Sandbox_command_exit> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "error": n => { sandbox_command_exit.errorEscaped = n.getStringValue(); },
+        "exit_code": n => { sandbox_command_exit.exitCode = n.getNumberValue(); },
+        "status": n => { sandbox_command_exit.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_keepalive The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_keepalive(sandbox_command_keepalive: Partial<Sandbox_command_keepalive> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_signal_request The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_signal_request(sandbox_command_signal_request: Partial<Sandbox_command_signal_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "signal": n => { sandbox_command_signal_request.signal = n.getEnumValue<Sandbox_command_signal>(Sandbox_command_signalObject) ?? Sandbox_command_signalObject.SANDBOX_COMMAND_SIGNAL_UNSPECIFIED; },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_start The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_start(sandbox_command_start: Partial<Sandbox_command_start> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "args": n => { sandbox_command_start.args = n.getCollectionOfPrimitiveValues<string>(); },
+        "cmd": n => { sandbox_command_start.cmd = n.getStringValue(); },
+        "cwd": n => { sandbox_command_start.cwd = n.getStringValue(); },
+        "env_vars": n => { sandbox_command_start.envVars = n.getObjectValue<Sandbox_command_start_env_vars>(createSandbox_command_start_env_varsFromDiscriminatorValue); },
+        "stdin": n => { sandbox_command_start.stdin = n.getBooleanValue(); },
+        "timeout_seconds": n => { sandbox_command_start.timeoutSeconds = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_start_env_vars The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_start_env_vars(sandbox_command_start_env_vars: Partial<Sandbox_command_start_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_started The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_started(sandbox_command_started: Partial<Sandbox_command_started> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "pid": n => { sandbox_command_started.pid = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_command_stdin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_command_stdin(sandbox_command_stdin: Partial<Sandbox_command_stdin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "data": n => { sandbox_command_stdin.data = n.getByteArrayValue(); },
+        "eof": n => { sandbox_command_stdin.eof = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_create(sandbox_create: Partial<Sandbox_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "allow_internet_access": n => { sandbox_create.allowInternetAccess = n.getBooleanValue(); },
+        "env_vars": n => { sandbox_create.envVars = n.getObjectValue<Sandbox_create_env_vars>(createSandbox_create_env_varsFromDiscriminatorValue); },
+        "size_slug": n => { sandbox_create.sizeSlug = n.getStringValue(); },
+        "template": n => { sandbox_create.template = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_create_env_vars The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_create_env_vars(sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_info The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_info(sandbox_info: Partial<Sandbox_info> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { sandbox_info.createdAt = n.getDateValue(); },
+        "sandbox_id": n => { sandbox_info.sandboxId = n.getStringValue(); },
+        "size_slug": n => { sandbox_info.sizeSlug = n.getStringValue(); },
+        "state": n => { sandbox_info.state = n.getEnumValue<Sandbox_state>(Sandbox_stateObject) ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED; },
+        "template": n => { sandbox_info.template = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Stream_error The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoStream_error(stream_error: Partial<Stream_error> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "details": n => { stream_error.details = n.getCollectionOfObjectValues<Stream_error_details>(createStream_error_detailsFromDiscriminatorValue); },
+        "grpc_code": n => { stream_error.grpcCode = n.getNumberValue(); },
+        "http_code": n => { stream_error.httpCode = n.getNumberValue(); },
+        "http_status": n => { stream_error.httpStatus = n.getStringValue(); },
+        "message": n => { stream_error.message = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Stream_error_details The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoStream_error_details(stream_error_details: Partial<Stream_error_details> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "type_url": n => { stream_error_details.typeUrl = n.getStringValue(); },
+        "value": n => { stream_error_details.value = n.getByteArrayValue(); },
+    }
+}
+/**
+ * The DigitalOcean-standard error body (`id`, `message`, `request_id`). The gateway builds it from the gRPC status.
+ */
+export interface Error2 extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * A short, stable ID for the error, for example `not_found`.
+     */
+    id?: string | null;
+    /**
+     * A message that explains the error.
+     */
+    messageEscaped?: string | null;
+    /**
+     * The ID of the request. Give it to support when you report a problem.
+     */
+    requestId?: string | null;
+}
+export interface ErrorEscaped extends AdditionalDataHolder, ApiError, Parsable {
+    /**
+     * A short identifier corresponding to the HTTP status code returned. For  example, the ID for a response returning a 404 status code would be "not_found."
+     */
+    id?: string | null;
+    /**
+     * A message providing additional information about the error, including  details to help resolve it when possible.
+     */
+    messageEscaped?: string | null;
+    /**
+     * Optionally, some endpoints may include a request ID that should be  provided when reporting bugs or opening support tickets to help  identify the issue.
+     */
+    requestId?: string | null;
+}
+/**
+ * A command running in a sandbox.
+ */
+export interface Sandbox_command extends AdditionalDataHolder, Parsable {
+    /**
+     * The executable that was started.
+     */
+    cmd?: string | null;
+    /**
+     * The working directory of the command.
+     */
+    cwd?: string | null;
+    /**
+     * The process ID of the command.
+     */
+    pid?: number | null;
+}
+/**
+ * One event on the attach stream. Exactly one of the fields is set per event.
+ */
+export interface Sandbox_command_event extends AdditionalDataHolder, Parsable {
+    /**
+     * The exit property
+     */
+    exit?: Sandbox_command_exit | null;
+    /**
+     * An empty keepalive event on the attach stream.
+     */
+    keepalive?: Sandbox_command_keepalive | null;
+    /**
+     * The started property
+     */
+    started?: Sandbox_command_started | null;
+    /**
+     * Base64-encoded stderr chunk.
+     */
+    stderr?: ArrayBuffer | null;
+    /**
+     * Base64-encoded stdout chunk.
+     */
+    stdout?: ArrayBuffer | null;
+}
+export interface Sandbox_command_exit extends AdditionalDataHolder, Parsable {
+    /**
+     * An error message when the process failed abnormally.
+     */
+    errorEscaped?: string | null;
+    /**
+     * The process exit code.
+     */
+    exitCode?: number | null;
+    /**
+     * A short status string for the exit.
+     */
+    status?: string | null;
+}
+/**
+ * An empty keepalive event on the attach stream.
+ */
+export interface Sandbox_command_keepalive extends AdditionalDataHolder, Parsable {
+}
+export type Sandbox_command_signal = (typeof Sandbox_command_signalObject)[keyof typeof Sandbox_command_signalObject];
+/**
+ * The body of a signal-sandbox-command request.
+ */
+export interface Sandbox_command_signal_request extends AdditionalDataHolder, Parsable {
+    /**
+     * Signal to send to a sandbox command. Defaults to SIGTERM when unset.
+     */
+    signal?: Sandbox_command_signal | null;
+}
+/**
+ * The body of a start-sandbox-command request.
+ */
+export interface Sandbox_command_start extends AdditionalDataHolder, Parsable {
+    /**
+     * Arguments passed to the executable.
+     */
+    args?: string[] | null;
+    /**
+     * Executable (not a shell string). Use `cmd="bash"`, `args=["-lc", "..."]` for a shell.
+     */
+    cmd?: string | null;
+    /**
+     * Working directory for the command.
+     */
+    cwd?: string | null;
+    /**
+     * Environment variables for the command.
+     */
+    envVars?: Sandbox_command_start_env_vars | null;
+    /**
+     * When true, leave stdin open for later writes.
+     */
+    stdin?: boolean | null;
+    /**
+     * Zero means no timeout. Encoded as a string per protobuf JSON.
+     */
+    timeoutSeconds?: string | null;
+}
+/**
+ * Environment variables for the command.
+ */
+export interface Sandbox_command_start_env_vars extends AdditionalDataHolder, Parsable {
+}
+export interface Sandbox_command_started extends AdditionalDataHolder, Parsable {
+    /**
+     * The process ID of the started command.
+     */
+    pid?: number | null;
+}
+/**
+ * The body of a write-sandbox-command-stdin request.
+ */
+export interface Sandbox_command_stdin extends AdditionalDataHolder, Parsable {
+    /**
+     * Base64-encoded stdin bytes.
+     */
+    data?: ArrayBuffer | null;
+    /**
+     * When true, close stdin after writing.
+     */
+    eof?: boolean | null;
+}
+/**
+ * The body of a create-sandbox request.
+ */
+export interface Sandbox_create extends AdditionalDataHolder, Parsable {
+    /**
+     * Let the sandbox reach the internet. When unset or true, egress is unrestricted. When false, the sandbox can reach only the platform file-transfer host. Allow-lists of hosts and IPs are not part of this contract yet.
+     */
+    allowInternetAccess?: boolean | null;
+    /**
+     * Environment variables for the sandbox. The values are secrets.
+     */
+    envVars?: Sandbox_create_env_vars | null;
+    /**
+     * The size of the sandbox, as a size slug. It must be an enabled size.
+     */
+    sizeSlug?: string | null;
+    /**
+     * The name of the template to create the sandbox from.
+     */
+    template?: string | null;
+}
+/**
+ * Environment variables for the sandbox. The values are secrets.
+ */
+export interface Sandbox_create_env_vars extends AdditionalDataHolder, Parsable {
+}
+/**
+ * A sandbox.
+ */
+export interface Sandbox_info extends AdditionalDataHolder, Parsable {
+    /**
+     * The time the sandbox was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * The ID of the sandbox.
+     */
+    sandboxId?: string | null;
+    /**
+     * The size of the sandbox, as a size slug.
+     */
+    sizeSlug?: string | null;
+    /**
+     * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
+     */
+    state?: Sandbox_state | null;
+    /**
+     * The name of the template the sandbox was created from.
+     */
+    template?: string | null;
+}
+export type Sandbox_state = (typeof Sandbox_stateObject)[keyof typeof Sandbox_stateObject];
+/**
+ * Serializes information the current object
+ * @param Error2 The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeError2(writer: SerializationWriter, error2: Partial<Error2> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!error2 || isSerializingDerivedType) { return; }
+    writer.writeStringValue("id", error2.id);
+    writer.writeStringValue("message", error2.messageEscaped);
+    writer.writeStringValue("request_id", error2.requestId);
+    writer.writeAdditionalData(error2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command(writer: SerializationWriter, sandbox_command: Partial<Sandbox_command> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_command.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_event The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_event(writer: SerializationWriter, sandbox_command_event: Partial<Sandbox_command_event> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_event || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Sandbox_command_exit>("exit", sandbox_command_event.exit, serializeSandbox_command_exit);
+    writer.writeObjectValue<Sandbox_command_keepalive>("keepalive", sandbox_command_event.keepalive, serializeSandbox_command_keepalive);
+    writer.writeObjectValue<Sandbox_command_started>("started", sandbox_command_event.started, serializeSandbox_command_started);
+    writer.writeByteArrayValue("stderr", sandbox_command_event.stderr);
+    writer.writeByteArrayValue("stdout", sandbox_command_event.stdout);
+    writer.writeAdditionalData(sandbox_command_event.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_exit The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_exit(writer: SerializationWriter, sandbox_command_exit: Partial<Sandbox_command_exit> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_exit || isSerializingDerivedType) { return; }
+    writer.writeStringValue("error", sandbox_command_exit.errorEscaped);
+    writer.writeNumberValue("exit_code", sandbox_command_exit.exitCode);
+    writer.writeStringValue("status", sandbox_command_exit.status);
+    writer.writeAdditionalData(sandbox_command_exit.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_keepalive The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_keepalive(writer: SerializationWriter, sandbox_command_keepalive: Partial<Sandbox_command_keepalive> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_keepalive || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_command_keepalive.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_signal_request The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_signal_request(writer: SerializationWriter, sandbox_command_signal_request: Partial<Sandbox_command_signal_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_signal_request || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Sandbox_command_signal>("signal", sandbox_command_signal_request.signal ?? Sandbox_command_signalObject.SANDBOX_COMMAND_SIGNAL_UNSPECIFIED);
+    writer.writeAdditionalData(sandbox_command_signal_request.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_start The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_start(writer: SerializationWriter, sandbox_command_start: Partial<Sandbox_command_start> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_start || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("args", sandbox_command_start.args);
+    writer.writeStringValue("cmd", sandbox_command_start.cmd);
+    writer.writeStringValue("cwd", sandbox_command_start.cwd);
+    writer.writeObjectValue<Sandbox_command_start_env_vars>("env_vars", sandbox_command_start.envVars, serializeSandbox_command_start_env_vars);
+    writer.writeBooleanValue("stdin", sandbox_command_start.stdin);
+    writer.writeStringValue("timeout_seconds", sandbox_command_start.timeoutSeconds);
+    writer.writeAdditionalData(sandbox_command_start.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_start_env_vars The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_start_env_vars(writer: SerializationWriter, sandbox_command_start_env_vars: Partial<Sandbox_command_start_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_start_env_vars || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_command_start_env_vars.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_started The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_started(writer: SerializationWriter, sandbox_command_started: Partial<Sandbox_command_started> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_started || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("pid", sandbox_command_started.pid);
+    writer.writeAdditionalData(sandbox_command_started.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_command_stdin The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_command_stdin(writer: SerializationWriter, sandbox_command_stdin: Partial<Sandbox_command_stdin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_command_stdin || isSerializingDerivedType) { return; }
+    writer.writeByteArrayValue("data", sandbox_command_stdin.data);
+    writer.writeBooleanValue("eof", sandbox_command_stdin.eof);
+    writer.writeAdditionalData(sandbox_command_stdin.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_create(writer: SerializationWriter, sandbox_create: Partial<Sandbox_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_create || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("allow_internet_access", sandbox_create.allowInternetAccess);
+    writer.writeObjectValue<Sandbox_create_env_vars>("env_vars", sandbox_create.envVars, serializeSandbox_create_env_vars);
+    writer.writeStringValue("size_slug", sandbox_create.sizeSlug);
+    writer.writeStringValue("template", sandbox_create.template);
+    writer.writeAdditionalData(sandbox_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_create_env_vars The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_create_env_vars(writer: SerializationWriter, sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_create_env_vars || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_create_env_vars.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_info The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_info(writer: SerializationWriter, sandbox_info: Partial<Sandbox_info> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_info || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Sandbox_state>("state", sandbox_info.state ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED);
+    writer.writeAdditionalData(sandbox_info.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Stream_error The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeStream_error(writer: SerializationWriter, stream_error: Partial<Stream_error> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!stream_error || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<Stream_error_details>("details", stream_error.details, serializeStream_error_details);
+    writer.writeNumberValue("grpc_code", stream_error.grpcCode);
+    writer.writeNumberValue("http_code", stream_error.httpCode);
+    writer.writeStringValue("http_status", stream_error.httpStatus);
+    writer.writeStringValue("message", stream_error.message);
+    writer.writeAdditionalData(stream_error.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Stream_error_details The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeStream_error_details(writer: SerializationWriter, stream_error_details: Partial<Stream_error_details> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!stream_error_details || isSerializingDerivedType) { return; }
+    writer.writeStringValue("type_url", stream_error_details.typeUrl);
+    writer.writeByteArrayValue("value", stream_error_details.value);
+    writer.writeAdditionalData(stream_error_details.additionalData);
+}
+/**
+ * A streaming transport error from the gateway.
+ */
+export interface Stream_error extends AdditionalDataHolder, Parsable {
+    /**
+     * The details property
+     */
+    details?: Stream_error_details[] | null;
+    /**
+     * The grpc_code property
+     */
+    grpcCode?: number | null;
+    /**
+     * The http_code property
+     */
+    httpCode?: number | null;
+    /**
+     * The http_status property
+     */
+    httpStatus?: string | null;
+    /**
+     * The message property
+     */
+    message?: string | null;
+}
+export interface Stream_error_details extends AdditionalDataHolder, Parsable {
+    /**
+     * The type_url property
+     */
+    typeUrl?: string | null;
+    /**
+     * The value property
+     */
+    value?: ArrayBuffer | null;
+}
+/**
+ * Signal to send to a sandbox command. Defaults to SIGTERM when unset.
+ */
+export const Sandbox_command_signalObject = {
+    SANDBOX_COMMAND_SIGNAL_UNSPECIFIED: "SANDBOX_COMMAND_SIGNAL_UNSPECIFIED",
+    SANDBOX_COMMAND_SIGNAL_SIGTERM: "SANDBOX_COMMAND_SIGNAL_SIGTERM",
+    SANDBOX_COMMAND_SIGNAL_SIGKILL: "SANDBOX_COMMAND_SIGNAL_SIGKILL",
+} as const;
+/**
+ * The state of a sandbox. Destroying, destroyed, and failed sandboxes are not returned.- `SANDBOX_STATE_RUNNING`: The sandbox is ready to use. - `SANDBOX_STATE_PAUSED`: The sandbox is paused. - `SANDBOX_STATE_CREATING`: The sandbox is still being created and cannot be  used yet. CreateSandbox answers only after the sandbox is running, so only  a concurrent get or list sees this state.
+ */
+export const Sandbox_stateObject = {
+    SANDBOX_STATE_UNSPECIFIED: "SANDBOX_STATE_UNSPECIFIED",
+    SANDBOX_STATE_RUNNING: "SANDBOX_STATE_RUNNING",
+    SANDBOX_STATE_PAUSED: "SANDBOX_STATE_PAUSED",
+    SANDBOX_STATE_CREATING: "SANDBOX_STATE_CREATING",
+} as const;
+/* tslint:enable */
+/* eslint-enable */
+
 /* tslint:enable */
 /* eslint-enable */
