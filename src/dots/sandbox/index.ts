@@ -3,8 +3,16 @@
  * Hand-written. `make generate` does not touch this folder.
  */
 export { SandboxClient } from "./client.js";
+export { Pages } from "./pages.js";
 export {
-    Pages,
+    Snapshot,
+    type SnapshotCreateOptions,
+    type SnapshotInfo,
+    type SnapshotListOptions,
+    type SnapshotState,
+    type SnapshotWaitOptions,
+} from "./snapshots.js";
+export {
     Template,
     type ImageSource,
     type TemplateBuildInfo,

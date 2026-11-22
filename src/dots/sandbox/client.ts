@@ -5,6 +5,7 @@ import {
     type SandboxListOptions,
     type SandboxPaginator,
 } from "./sandbox.js";
+import { Snapshot, type SnapshotCreateOptions, type SnapshotListOptions } from "./snapshots.js";
 import { Template, type Pages, type TemplateCreateOptions, type TemplateListOptions } from "./templates.js";
 import type { SandboxInfo } from "./types.js";
 
@@ -33,6 +34,13 @@ export class SandboxClient {
         delete(templateId: string, opts?: ClientOptions): Promise<boolean>;
     };
 
+    readonly Snapshot: {
+        create(sandboxId: string, opts?: SnapshotCreateOptions & ClientOptions): Promise<Snapshot>;
+        get(snapshotId: string, opts?: ClientOptions): Promise<Snapshot>;
+        list(opts?: SnapshotListOptions): Pages<Snapshot>;
+        delete(snapshotId: string, opts?: ClientOptions): Promise<boolean>;
+    };
+
     constructor(opts: ClientOptions = {}) {
         this.Sandbox = {
             create: (o) => Sandbox.create({ ...opts, ...o }),
@@ -47,6 +55,12 @@ export class SandboxClient {
             get: (id, o) => Template.get(id, { ...opts, ...o }),
             list: (o) => Template.list({ ...opts, ...o }),
             delete: (id, o) => Template.delete(id, { ...opts, ...o }),
+        };
+        this.Snapshot = {
+            create: (id, o) => Snapshot.create(id, { ...opts, ...o }),
+            get: (id, o) => Snapshot.get(id, { ...opts, ...o }),
+            list: (o) => Snapshot.list({ ...opts, ...o }),
+            delete: (id, o) => Snapshot.delete(id, { ...opts, ...o }),
         };
     }
 }

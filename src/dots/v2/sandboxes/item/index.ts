@@ -10,6 +10,8 @@ import { PauseRequestBuilderRequestsMetadata, type PauseRequestBuilder } from '.
 // @ts-ignore
 import { ResumeRequestBuilderRequestsMetadata, type ResumeRequestBuilder } from './resume/index.js';
 // @ts-ignore
+import { SnapshotsRequestBuilderRequestsMetadata, type SnapshotsRequestBuilder } from './snapshots/index.js';
+// @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
@@ -99,6 +101,10 @@ export interface WithSandbox_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
     get resume(): ResumeRequestBuilder;
     /**
+     * The snapshots property
+     */
+    get snapshots(): SnapshotsRequestBuilder;
+    /**
      * Delete a sandbox.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WithSandbox_DeleteResponse>}
@@ -152,6 +158,9 @@ export const WithSandbox_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     },
     resume: {
         requestsMetadata: ResumeRequestBuilderRequestsMetadata,
+    },
+    snapshots: {
+        requestsMetadata: SnapshotsRequestBuilderRequestsMetadata,
     },
 };
 /**

@@ -18,6 +18,7 @@ import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import { Commands } from "./commands.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
+import { createSnapshot, type Snapshot, type SnapshotCreateOptions } from "./snapshots.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
 /** Template used when `template` is omitted. */
@@ -64,8 +65,10 @@ export class Sandbox {
     readonly commands: Commands;
 
     private readonly client: DigitalOceanClient;
+    private readonly conn: Connection;
 
     private constructor(conn: Connection, info: SandboxInfo) {
+        this.conn = conn;
         this.client = conn.client;
         this.info = info;
         this.commands = new Commands(conn, info.sandboxId);
@@ -154,6 +157,14 @@ export class Sandbox {
         const res = await call(() => this.client.v2.sandboxes.bySandbox_id(this.sandboxId).resume.post());
         this.info = toInfo(res?.sandbox);
         return this.info;
+    }
+
+    /**
+     * Starts a snapshot of this sandbox, which must be running or paused.
+     * Resolves in the `CREATING` state: call `snapshot.waitUntilReady()`.
+     */
+    async createSnapshot(opts: SnapshotCreateOptions = {}): Promise<Snapshot> {
+        return createSnapshot(this.conn, this.sandboxId, opts, "sandbox.createSnapshot");
     }
 
     /** Deletes the sandbox. Resolves `false` when it is already gone. */

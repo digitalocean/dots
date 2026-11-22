@@ -349,6 +349,22 @@ await template.delete();                                  // false if it is alre
 
 Output can only be read while a command runs: a command that exits before the stream attaches fails with `NotFoundError`. File transfer is not available yet: it needs routes that are not in the API.
 
+#### Snapshots
+```typescript
+import { Snapshot } from "@digitalocean/dots/sandbox";
+
+// Snapshot a running or paused sandbox. Creation is asynchronous: the snapshot starts in CREATING.
+const snapshot = await sandbox.createSnapshot({ name: "before-upgrade", ttl: "168h" }); // both optional
+await snapshot.waitUntilReady();                          // polls until COMPLETE; throws with the API's error if it FAILED
+console.log(snapshot.snapshotId, snapshot.state, snapshot.info.sizeBytes);
+
+for await (const s of Snapshot.list({ sandboxId: sandbox.sandboxId })) console.log(s.name, s.state); // newest first
+const again = await Snapshot.get(snapshot.snapshotId);
+await snapshot.delete();                                  // false if it is already gone; Snapshot.delete(id) works too
+```
+
+`name` is 1 to 63 characters: lowercase letters, digits and hyphens. It is checked before the request is sent. `ttl` is a duration string such as `168h`; when it is unset the platform default applies. The snapshot captures the sandbox's boot disk and memory, not its workspace data disk, and the sandbox must be on a microVM cell. `new SandboxClient(opts).Snapshot` works like the other namespaces. The API has no call to start a sandbox from a snapshot yet, so the SDK has none either.
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.

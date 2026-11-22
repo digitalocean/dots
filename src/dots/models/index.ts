@@ -90473,6 +90473,24 @@ export function createSandbox_infoFromDiscriminatorValue(parseNode: ParseNode | 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Snapshot_create}
+ */
+// @ts-ignore
+export function createSnapshot_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSnapshot_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Snapshot}
+ */
+// @ts-ignore
+export function createSnapshotFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSnapshot;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Stream_error_details}
  */
 // @ts-ignore
@@ -90708,6 +90726,36 @@ export function deserializeIntoSandbox_info(sandbox_info: Partial<Sandbox_info> 
         "size_slug": n => { sandbox_info.sizeSlug = n.getStringValue(); },
         "state": n => { sandbox_info.state = n.getEnumValue<Sandbox_state>(Sandbox_stateObject) ?? Sandbox_stateObject.SANDBOX_STATE_UNSPECIFIED; },
         "template": n => { sandbox_info.template = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Snapshot The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSnapshot(snapshot: Partial<Snapshot> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { snapshot.createdAt = n.getDateValue(); },
+        "error_message": n => { snapshot.errorMessage = n.getStringValue(); },
+        "name": n => { snapshot.name = n.getStringValue(); },
+        "sandbox_id": n => { snapshot.sandboxId = n.getStringValue(); },
+        "size_bytes": n => { snapshot.sizeBytes = n.getStringValue(); },
+        "snapshot_id": n => { snapshot.snapshotId = n.getStringValue(); },
+        "state": n => { snapshot.state = n.getEnumValue<Snapshot_state>(Snapshot_stateObject) ?? Snapshot_stateObject.SNAPSHOT_STATE_UNSPECIFIED; },
+        "ttl": n => { snapshot.ttl = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Snapshot_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSnapshot_create(snapshot_create: Partial<Snapshot_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "name": n => { snapshot_create.name = n.getStringValue(); },
+        "ttl": n => { snapshot_create.ttl = n.getStringValue(); },
     }
 }
 /**
@@ -91223,6 +91271,31 @@ export function serializeSandbox_info(writer: SerializationWriter, sandbox_info:
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Snapshot The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSnapshot(writer: SerializationWriter, snapshot: Partial<Snapshot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!snapshot || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Snapshot_state>("state", snapshot.state ?? Snapshot_stateObject.SNAPSHOT_STATE_UNSPECIFIED);
+    writer.writeAdditionalData(snapshot.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Snapshot_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSnapshot_create(writer: SerializationWriter, snapshot_create: Partial<Snapshot_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!snapshot_create || isSerializingDerivedType) { return; }
+    writer.writeStringValue("name", snapshot_create.name);
+    writer.writeStringValue("ttl", snapshot_create.ttl);
+    writer.writeAdditionalData(snapshot_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Stream_error The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -91313,6 +91386,57 @@ export function serializeTemplate_update(writer: SerializationWriter, template_u
     writer.writeStringValue("source_oci_ref", template_update.sourceOciRef);
     writer.writeAdditionalData(template_update.additionalData);
 }
+/**
+ * A snapshot of a sandbox.
+ */
+export interface Snapshot extends AdditionalDataHolder, Parsable {
+    /**
+     * The time the snapshot was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * Why the snapshot failed. Set when the state is `FAILED`.
+     */
+    errorMessage?: string | null;
+    /**
+     * The name given when the snapshot was created, if any.
+     */
+    name?: string | null;
+    /**
+     * The ID of the sandbox the snapshot was taken from.
+     */
+    sandboxId?: string | null;
+    /**
+     * The size of the snapshot in bytes. Set when the snapshot is `COMPLETE`.
+     */
+    sizeBytes?: string | null;
+    /**
+     * The ID of the snapshot.
+     */
+    snapshotId?: string | null;
+    /**
+     * Where a snapshot is in its life.- `SNAPSHOT_STATE_CREATING`: The capture is in progress.- `SNAPSHOT_STATE_UPLOADING`: The capture finished and the artifacts are uploading to storage.- `SNAPSHOT_STATE_COMPLETE`: The snapshot is ready. You can start sandboxes from it.- `SNAPSHOT_STATE_FAILED`: The snapshot failed. See `error_message`.
+     */
+    state?: Snapshot_state | null;
+    /**
+     * How long the snapshot is kept. Unset when the platform default applies.
+     */
+    ttl?: string | null;
+}
+/**
+ * The body of a create-snapshot request.
+ */
+export interface Snapshot_create extends AdditionalDataHolder, Parsable {
+    /**
+     * An optional name for the snapshot. 1 to 63 characters: lowercase letters, digits and hyphens.
+     */
+    name?: string | null;
+    /**
+     * How long to keep the snapshot. When unset, the platform default applies.
+     */
+    ttl?: string | null;
+}
+export type Snapshot_state = (typeof Snapshot_stateObject)[keyof typeof Snapshot_stateObject];
 /**
  * A streaming transport error from the gateway.
  */
@@ -91475,6 +91599,16 @@ export const Sandbox_stateObject = {
     SANDBOX_STATE_RUNNING: "SANDBOX_STATE_RUNNING",
     SANDBOX_STATE_PAUSED: "SANDBOX_STATE_PAUSED",
     SANDBOX_STATE_CREATING: "SANDBOX_STATE_CREATING",
+} as const;
+/**
+ * Where a snapshot is in its life.- `SNAPSHOT_STATE_CREATING`: The capture is in progress.- `SNAPSHOT_STATE_UPLOADING`: The capture finished and the artifacts are uploading to storage.- `SNAPSHOT_STATE_COMPLETE`: The snapshot is ready. You can start sandboxes from it.- `SNAPSHOT_STATE_FAILED`: The snapshot failed. See `error_message`.
+ */
+export const Snapshot_stateObject = {
+    SNAPSHOT_STATE_UNSPECIFIED: "SNAPSHOT_STATE_UNSPECIFIED",
+    SNAPSHOT_STATE_CREATING: "SNAPSHOT_STATE_CREATING",
+    SNAPSHOT_STATE_UPLOADING: "SNAPSHOT_STATE_UPLOADING",
+    SNAPSHOT_STATE_COMPLETE: "SNAPSHOT_STATE_COMPLETE",
+    SNAPSHOT_STATE_FAILED: "SNAPSHOT_STATE_FAILED",
 } as const;
 /**
  * The status of a single rebase build.
