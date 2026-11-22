@@ -327,6 +327,26 @@ const running = await sandbox.commands.list();       // [{ pid, cmd, cwd }]
 await sandbox.commands.connect(running[0].pid).kill(); // SIGTERM; kill("SIGKILL") to force
 ```
 
+#### Custom templates
+```typescript
+import { Template } from "@digitalocean/dots/sandbox";
+
+// Build a template from an OCI image (rebased onto a base template, coding-base by default)
+const template = await Template.create({
+    name: "my-template",
+    sourceOciRef: "registry.digitalocean.com/my-team/my-image:v1",
+});
+await template.waitUntilReady();                          // the build is asynchronous; throws if it fails
+const sandbox = await Sandbox.create({ template: template.name });
+
+for await (const t of Template.list()) console.log(t.templateId, t.name, t.status);
+await template.update({ sourceOciRef: "registry.digitalocean.com/my-team/my-image:v2" }); // starts a new build
+const builds = await template.builds().nextItems();       // [{ buildId, status, error, ... }]
+await template.delete();                                  // false if it is already gone
+```
+
+`Template.get(id)`, `Template.delete(id)` and `new SandboxClient(opts).Template` work like their sandbox counterparts. Global base templates are not listed: pass them by name to `Sandbox.create`.
+
 Output can only be read while a command runs: a command that exits before the stream attaches fails with `NotFoundError`. File transfer is not available yet: it needs routes that are not in the API.
 
 ## **Known Issues**

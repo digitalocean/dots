@@ -6,6 +6,8 @@ import { createError2FromDiscriminatorValue, createErrorEscapedFromDiscriminator
 // @ts-ignore
 import { type WithSandbox_ItemRequestBuilder, WithSandbox_ItemRequestBuilderNavigationMetadata, WithSandbox_ItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
+import { TemplatesRequestBuilderNavigationMetadata, TemplatesRequestBuilderRequestsMetadata, type TemplatesRequestBuilder } from './templates/index.js';
+// @ts-ignore
 import { type AdditionalDataHolder, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type ParseNode, type RequestConfiguration, type RequestInformation, type RequestsMetadata, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 /**
@@ -69,6 +71,10 @@ export interface SandboxesPostResponse extends AdditionalDataHolder, Parsable {
  * Builds and executes requests for operations under /v2/sandboxes
  */
 export interface SandboxesRequestBuilder extends BaseRequestBuilder<SandboxesRequestBuilder> {
+    /**
+     * The templates property
+     */
+    get templates(): TemplatesRequestBuilder;
     /**
      * Gets an item from the ApiSdk.v2.sandboxes.item collection
      * @param sandbox_id The unique ID of the sandbox.
@@ -178,6 +184,10 @@ export const SandboxesRequestBuilderNavigationMetadata: Record<Exclude<keyof San
         requestsMetadata: WithSandbox_ItemRequestBuilderRequestsMetadata,
         navigationMetadata: WithSandbox_ItemRequestBuilderNavigationMetadata,
         pathParametersMappings: ["sandbox_id"],
+    },
+    templates: {
+        requestsMetadata: TemplatesRequestBuilderRequestsMetadata,
+        navigationMetadata: TemplatesRequestBuilderNavigationMetadata,
     },
 };
 /**

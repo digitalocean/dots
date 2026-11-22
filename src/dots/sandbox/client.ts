@@ -5,6 +5,7 @@ import {
     type SandboxListOptions,
     type SandboxPaginator,
 } from "./sandbox.js";
+import { Template, type Pages, type TemplateCreateOptions, type TemplateListOptions } from "./templates.js";
 import type { SandboxInfo } from "./types.js";
 
 /**
@@ -25,6 +26,13 @@ export class SandboxClient {
         pause(sandboxId: string, opts?: ClientOptions): Promise<SandboxInfo>;
     };
 
+    readonly Template: {
+        create(opts: TemplateCreateOptions): Promise<Template>;
+        get(templateId: string, opts?: ClientOptions): Promise<Template>;
+        list(opts?: TemplateListOptions): Pages<Template>;
+        delete(templateId: string, opts?: ClientOptions): Promise<boolean>;
+    };
+
     constructor(opts: ClientOptions = {}) {
         this.Sandbox = {
             create: (o) => Sandbox.create({ ...opts, ...o }),
@@ -33,6 +41,12 @@ export class SandboxClient {
             list: (o) => Sandbox.list({ ...opts, ...o }),
             kill: (id, o) => Sandbox.kill(id, { ...opts, ...o }),
             pause: (id, o) => Sandbox.pause(id, { ...opts, ...o }),
+        };
+        this.Template = {
+            create: (o) => Template.create({ ...opts, ...o }),
+            get: (id, o) => Template.get(id, { ...opts, ...o }),
+            list: (o) => Template.list({ ...opts, ...o }),
+            delete: (id, o) => Template.delete(id, { ...opts, ...o }),
         };
     }
 }

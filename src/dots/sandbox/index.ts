@@ -4,6 +4,19 @@
  */
 export { SandboxClient } from "./client.js";
 export {
+    Pages,
+    Template,
+    type ImageSource,
+    type TemplateBuildInfo,
+    type TemplateBuildStatus,
+    type TemplateCreateOptions,
+    type TemplateInfo,
+    type TemplateListOptions,
+    type TemplateStatus,
+    type TemplateUpdateOptions,
+    type TemplateWaitOptions,
+} from "./templates.js";
+export {
     Command,
     Commands,
     type CommandAttachOptions,

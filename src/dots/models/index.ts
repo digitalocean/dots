@@ -90356,6 +90356,15 @@ export function createError2FromDiscriminatorValue(parseNode: ParseNode | undefi
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Image_source}
+ */
+// @ts-ignore
+export function createImage_sourceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoImage_source;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Sandbox_command_event}
  */
 // @ts-ignore
@@ -90480,6 +90489,51 @@ export function createStream_errorFromDiscriminatorValue(parseNode: ParseNode | 
     return deserializeIntoStream_error;
 }
 /**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Template_build}
+ */
+// @ts-ignore
+export function createTemplate_buildFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTemplate_build;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Template_create}
+ */
+// @ts-ignore
+export function createTemplate_createFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTemplate_create;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Template_spec}
+ */
+// @ts-ignore
+export function createTemplate_specFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTemplate_spec;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Template_update}
+ */
+// @ts-ignore
+export function createTemplate_updateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTemplate_update;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Template}
+ */
+// @ts-ignore
+export function createTemplateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTemplate;
+}
+/**
  * The deserialization information for the current model
  * @param Error2 The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
@@ -90490,6 +90544,20 @@ export function deserializeIntoError2(error2: Partial<Error2> | undefined = {}) 
         "id": n => { error2.id = n.getStringValue(); },
         "message": n => { error2.messageEscaped = n.getStringValue(); },
         "request_id": n => { error2.requestId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Image_source The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoImage_source(image_source: Partial<Image_source> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "digest": n => { image_source.digest = n.getStringValue(); },
+        "registry": n => { image_source.registry = n.getStringValue(); },
+        "repository": n => { image_source.repository = n.getStringValue(); },
+        "tag": n => { image_source.tag = n.getStringValue(); },
     }
 }
 /**
@@ -90670,6 +90738,77 @@ export function deserializeIntoStream_error_details(stream_error_details: Partia
     }
 }
 /**
+ * The deserialization information for the current model
+ * @param Template The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTemplate(template: Partial<Template> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "created_at": n => { template.createdAt = n.getDateValue(); },
+        "name": n => { template.name = n.getStringValue(); },
+        "spec": n => { template.spec = n.getObjectValue<Template_spec>(createTemplate_specFromDiscriminatorValue); },
+        "status": n => { template.status = n.getEnumValue<Template_status>(Template_statusObject) ?? Template_statusObject.TEMPLATE_STATUS_UNSPECIFIED; },
+        "template_id": n => { template.templateId = n.getStringValue(); },
+        "updated_at": n => { template.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Template_build The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTemplate_build(template_build: Partial<Template_build> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "build_id": n => { template_build.buildId = n.getStringValue(); },
+        "created_at": n => { template_build.createdAt = n.getDateValue(); },
+        "error": n => { template_build.errorEscaped = n.getStringValue(); },
+        "name": n => { template_build.name = n.getStringValue(); },
+        "spec": n => { template_build.spec = n.getObjectValue<Template_spec>(createTemplate_specFromDiscriminatorValue); },
+        "status": n => { template_build.status = n.getEnumValue<Template_build_status>(Template_build_statusObject) ?? Template_build_statusObject.TEMPLATE_BUILD_STATUS_UNSPECIFIED; },
+        "template_id": n => { template_build.templateId = n.getStringValue(); },
+        "updated_at": n => { template_build.updatedAt = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Template_create The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTemplate_create(template_create: Partial<Template_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "base_template": n => { template_create.baseTemplate = n.getStringValue(); },
+        "name": n => { template_create.name = n.getStringValue(); },
+        "source_oci_ref": n => { template_create.sourceOciRef = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Template_spec The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTemplate_spec(template_spec: Partial<Template_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "base_template": n => { template_spec.baseTemplate = n.getStringValue(); },
+        "image": n => { template_spec.image = n.getObjectValue<Image_source>(createImage_sourceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Template_update The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTemplate_update(template_update: Partial<Template_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "base_template": n => { template_update.baseTemplate = n.getStringValue(); },
+        "source_oci_ref": n => { template_update.sourceOciRef = n.getStringValue(); },
+    }
+}
+/**
  * The DigitalOcean-standard error body (`id`, `message`, `request_id`). The gateway builds it from the gRPC status.
  */
 export interface Error2 extends AdditionalDataHolder, ApiError, Parsable {
@@ -90699,6 +90838,27 @@ export interface ErrorEscaped extends AdditionalDataHolder, ApiError, Parsable {
      * Optionally, some endpoints may include a request ID that should be  provided when reporting bugs or opening support tickets to help  identify the issue.
      */
     requestId?: string | null;
+}
+/**
+ * Identifies a customer OCI image. Auth for private DOCR images is resolved server-side from the caller's team.
+ */
+export interface Image_source extends AdditionalDataHolder, Parsable {
+    /**
+     * When set, preferred over tag for pulls.
+     */
+    digest?: string | null;
+    /**
+     * The registry property
+     */
+    registry?: string | null;
+    /**
+     * The repository property
+     */
+    repository?: string | null;
+    /**
+     * The tag property
+     */
+    tag?: string | null;
 }
 /**
  * A command running in a sandbox.
@@ -90892,6 +91052,21 @@ export function serializeError2(writer: SerializationWriter, error2: Partial<Err
 }
 /**
  * Serializes information the current object
+ * @param Image_source The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeImage_source(writer: SerializationWriter, image_source: Partial<Image_source> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!image_source || isSerializingDerivedType) { return; }
+    writer.writeStringValue("digest", image_source.digest);
+    writer.writeStringValue("registry", image_source.registry);
+    writer.writeStringValue("repository", image_source.repository);
+    writer.writeStringValue("tag", image_source.tag);
+    writer.writeAdditionalData(image_source.additionalData);
+}
+/**
+ * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param Sandbox_command The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
@@ -91075,6 +91250,70 @@ export function serializeStream_error_details(writer: SerializationWriter, strea
     writer.writeAdditionalData(stream_error_details.additionalData);
 }
 /**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Template The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTemplate(writer: SerializationWriter, template: Partial<Template> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!template || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Template_status>("status", template.status ?? Template_statusObject.TEMPLATE_STATUS_UNSPECIFIED);
+    writer.writeAdditionalData(template.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Template_build The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTemplate_build(writer: SerializationWriter, template_build: Partial<Template_build> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!template_build || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<Template_build_status>("status", template_build.status ?? Template_build_statusObject.TEMPLATE_BUILD_STATUS_UNSPECIFIED);
+    writer.writeAdditionalData(template_build.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Template_create The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTemplate_create(writer: SerializationWriter, template_create: Partial<Template_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!template_create || isSerializingDerivedType) { return; }
+    writer.writeStringValue("base_template", template_create.baseTemplate);
+    writer.writeStringValue("name", template_create.name);
+    writer.writeStringValue("source_oci_ref", template_create.sourceOciRef);
+    writer.writeAdditionalData(template_create.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Template_spec The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTemplate_spec(writer: SerializationWriter, template_spec: Partial<Template_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!template_spec || isSerializingDerivedType) { return; }
+    writer.writeStringValue("base_template", template_spec.baseTemplate);
+    writer.writeObjectValue<Image_source>("image", template_spec.image, serializeImage_source);
+    writer.writeAdditionalData(template_spec.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Template_update The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeTemplate_update(writer: SerializationWriter, template_update: Partial<Template_update> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!template_update || isSerializingDerivedType) { return; }
+    writer.writeStringValue("base_template", template_update.baseTemplate);
+    writer.writeStringValue("source_oci_ref", template_update.sourceOciRef);
+    writer.writeAdditionalData(template_update.additionalData);
+}
+/**
  * A streaming transport error from the gateway.
  */
 export interface Stream_error extends AdditionalDataHolder, Parsable {
@@ -91110,6 +91349,117 @@ export interface Stream_error_details extends AdditionalDataHolder, Parsable {
     value?: ArrayBuffer | null;
 }
 /**
+ * A team custom sandbox template.
+ */
+export interface Template extends AdditionalDataHolder, Parsable {
+    /**
+     * The time the template was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * The template name.
+     */
+    name?: string | null;
+    /**
+     * The spec property
+     */
+    spec?: Template_spec | null;
+    /**
+     * The product status of a team custom template.
+     */
+    status?: Template_status | null;
+    /**
+     * The unique ID of the template.
+     */
+    templateId?: string | null;
+    /**
+     * The time the template was last updated, in ISO 8601 format.
+     */
+    updatedAt?: Date | null;
+}
+/**
+ * One rebase of a customer image onto a base template.
+ */
+export interface Template_build extends AdditionalDataHolder, Parsable {
+    /**
+     * The unique ID of the build.
+     */
+    buildId?: string | null;
+    /**
+     * The time the build was created, in ISO 8601 format.
+     */
+    createdAt?: Date | null;
+    /**
+     * An error message when the build failed.
+     */
+    errorEscaped?: string | null;
+    /**
+     * The template name at the time of the build.
+     */
+    name?: string | null;
+    /**
+     * The spec property
+     */
+    spec?: Template_spec | null;
+    /**
+     * The status of a single rebase build.
+     */
+    status?: Template_build_status | null;
+    /**
+     * The unique ID of the template.
+     */
+    templateId?: string | null;
+    /**
+     * The time the build was last updated, in ISO 8601 format.
+     */
+    updatedAt?: Date | null;
+}
+export type Template_build_status = (typeof Template_build_statusObject)[keyof typeof Template_build_statusObject];
+/**
+ * The body of a create-template request.
+ */
+export interface Template_create extends AdditionalDataHolder, Parsable {
+    /**
+     * Accepted base template key to rebase onto (for example `coding-base`).
+     */
+    baseTemplate?: string | null;
+    /**
+     * Template name. Must not collide with a global base template name.
+     */
+    name?: string | null;
+    /**
+     * Customer OCI image reference (`registry/repository:tag` or `@digest`). Equivalent to E2B `fromImage`; parsed into an image source server-side.
+     */
+    sourceOciRef?: string | null;
+}
+/**
+ * The configuration returned on template and build resources.
+ */
+export interface Template_spec extends AdditionalDataHolder, Parsable {
+    /**
+     * Accepted base template key (for example `coding-base`).
+     */
+    baseTemplate?: string | null;
+    /**
+     * Identifies a customer OCI image. Auth for private DOCR images is resolved server-side from the caller's team.
+     */
+    image?: Image_source | null;
+}
+export type Template_status = (typeof Template_statusObject)[keyof typeof Template_statusObject];
+/**
+ * The body of an update-template request. Omitted fields keep their previous values. The template ID is taken from the path.
+ */
+export interface Template_update extends AdditionalDataHolder, Parsable {
+    /**
+     * When set, replaces the stored base template for the next build.
+     */
+    baseTemplate?: string | null;
+    /**
+     * When set, replaces the customer image for the next build.
+     */
+    sourceOciRef?: string | null;
+}
+/**
  * Signal to send to a sandbox command. Defaults to SIGTERM when unset.
  */
 export const Sandbox_command_signalObject = {
@@ -91125,6 +91475,26 @@ export const Sandbox_stateObject = {
     SANDBOX_STATE_RUNNING: "SANDBOX_STATE_RUNNING",
     SANDBOX_STATE_PAUSED: "SANDBOX_STATE_PAUSED",
     SANDBOX_STATE_CREATING: "SANDBOX_STATE_CREATING",
+} as const;
+/**
+ * The status of a single rebase build.
+ */
+export const Template_build_statusObject = {
+    TEMPLATE_BUILD_STATUS_UNSPECIFIED: "TEMPLATE_BUILD_STATUS_UNSPECIFIED",
+    TEMPLATE_BUILD_STATUS_PENDING: "TEMPLATE_BUILD_STATUS_PENDING",
+    TEMPLATE_BUILD_STATUS_BUILDING: "TEMPLATE_BUILD_STATUS_BUILDING",
+    TEMPLATE_BUILD_STATUS_SUCCEEDED: "TEMPLATE_BUILD_STATUS_SUCCEEDED",
+    TEMPLATE_BUILD_STATUS_FAILED: "TEMPLATE_BUILD_STATUS_FAILED",
+} as const;
+/**
+ * The product status of a team custom template.
+ */
+export const Template_statusObject = {
+    TEMPLATE_STATUS_UNSPECIFIED: "TEMPLATE_STATUS_UNSPECIFIED",
+    TEMPLATE_STATUS_PENDING: "TEMPLATE_STATUS_PENDING",
+    TEMPLATE_STATUS_BUILDING: "TEMPLATE_STATUS_BUILDING",
+    TEMPLATE_STATUS_READY: "TEMPLATE_STATUS_READY",
+    TEMPLATE_STATUS_FAILED: "TEMPLATE_STATUS_FAILED",
 } as const;
 /* tslint:enable */
 /* eslint-enable */
