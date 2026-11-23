@@ -16,6 +16,8 @@ import { FilesRequestBuilderRequestsMetadata, type FilesRequestBuilder } from '.
 // @ts-ignore
 import { PauseRequestBuilderRequestsMetadata, type PauseRequestBuilder } from './pause/index.js';
 // @ts-ignore
+import { Port_forwardRequestBuilderRequestsMetadata, type Port_forwardRequestBuilder } from './port_forward/index.js';
+// @ts-ignore
 import { ResumeRequestBuilderRequestsMetadata, type ResumeRequestBuilder } from './resume/index.js';
 // @ts-ignore
 import { type UrlsRequestBuilder, UrlsRequestBuilderNavigationMetadata, UrlsRequestBuilderRequestsMetadata } from './urls/index.js';
@@ -121,6 +123,10 @@ export interface WithMicrovm_ItemRequestBuilder extends BaseRequestBuilder<WithM
      */
     get pause(): PauseRequestBuilder;
     /**
+     * The port_forward property
+     */
+    get port_forward(): Port_forwardRequestBuilder;
+    /**
      * The resume property
      */
     get resume(): ResumeRequestBuilder;
@@ -215,6 +221,9 @@ export const WithMicrovm_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     },
     pause: {
         requestsMetadata: PauseRequestBuilderRequestsMetadata,
+    },
+    port_forward: {
+        requestsMetadata: Port_forwardRequestBuilderRequestsMetadata,
     },
     resume: {
         requestsMetadata: ResumeRequestBuilderRequestsMetadata,
