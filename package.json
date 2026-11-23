@@ -9,6 +9,10 @@
     "./inference": "./src/inference-gen/inference.js",
     "./harness-runtime": "./src/dots/harnessRuntime/index.js",
     "./sandbox": "./src/dots/sandbox/index.js",
+    "./sandbox/compat": "./src/dots/sandbox/compat/index.js",
+    "./sandbox/compat/e2b": "./src/dots/sandbox/compat/e2b/index.js",
+    "./sandbox/compat/modal": "./src/dots/sandbox/compat/modal/index.js",
+    "./sandbox/compat/daytona": "./src/dots/sandbox/compat/daytona/index.js",
     "./package.json": "./package.json",
     "./*": "./*"
   },

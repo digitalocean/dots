@@ -365,6 +365,55 @@ await snapshot.delete();                                  // false if it is alre
 
 `name` is 1 to 63 characters: lowercase letters, digits and hyphens. It is checked before the request is sent. `ttl` is a duration string such as `168h`; when it is unset the platform default applies. The snapshot captures the sandbox's boot disk and memory, not its workspace data disk, and the sandbox must be on a microVM cell. `new SandboxClient(opts).Snapshot` works like the other namespaces. The API has no call to start a sandbox from a snapshot yet, so the SDK has none either.
 
+## **Migrating from E2B, Modal and Daytona**
+
+`@digitalocean/dots/sandbox/compat` holds three clients for code that was written against another sandbox platform. They are **for migration only**: change the import or the constructor, keep the rest of the code, and the calls run on DigitalOcean Sandboxes. New code should use `SandboxClient` from `@digitalocean/dots/sandbox`.
+
+```typescript
+// was: import { Sandbox } from "e2b";
+import { Sandbox } from "@digitalocean/dots/sandbox/compat/e2b";
+
+const sandbox = await Sandbox.create({ apiKey: process.env.DIGITALOCEAN_ACCESS_TOKEN });
+const r = await sandbox.commands.run("echo hello");
+console.log(r.stdout);
+await sandbox.kill();
+```
+
+| Client | Import from | Replaces | Matches |
+|---|---|---|---|
+| `E2bClient` (also `E2B`, `Sandbox`, `Template`) | `@digitalocean/dots/sandbox/compat/e2b` | `e2b` | `e2b@2.64.0` |
+| `ModalClient` | `@digitalocean/dots/sandbox/compat/modal` | `modal` (JavaScript SDK) | `modal@0.11.2` |
+| `DaytonaClient` (also `Daytona`) | `@digitalocean/dots/sandbox/compat/daytona` | `@daytona/sdk` | `@daytona/sdk@2.1.0`, the 0.x-style client that SDK 2.x keeps under `daytona.v0` |
+
+The three clients are also exported from `@digitalocean/dots/sandbox/compat`. Nothing loads until you import it.
+
+- **Same names and signatures.** Every public class, method and option type of the vendor SDK exists, with the vendor's own signature.
+- **Authentication.** The vendor's key field (`apiKey` for E2B and Daytona, `tokenSecret` for Modal) is a DigitalOcean API token, or set `DIGITALOCEAN_ACCESS_TOKEN`. No request ever goes to E2B, Modal or Daytona. Their `domain`, `apiUrl`, `serverUrl`, `endpoint`, `organizationId`, `headers`, `proxy`, logging, retry and request-timeout options are ignored.
+- **Not implemented yet.** A member that DigitalOcean Sandboxes cannot serve keeps its signature and throws `NotImplementedError` (`err.member`, `err.platform`): `E2B: Sandbox.pause is not implemented on DigitalOcean Sandboxes yet: needs ...`. The same error is thrown, before any request, when you pass an option that would change behavior and cannot be honored, such as a sandbox lifetime (`timeoutMs`), metadata, a volume or a network policy. Nothing is silently dropped. These members are wired up here when the matching API ships.
+- **Errors.** A failed call throws the vendor's own error class (`SandboxNotFoundError`, `DaytonaNotFoundError`, `NotFoundError` and so on), chosen from the HTTP status.
+
+| Area | E2B | Modal | Daytona |
+|---|---|---|---|
+| Create, get, connect, list, kill | `Sandbox.create`, `connect`, `list`, `kill`, `getInfo`, `isRunning` | `sandboxes.create`, `fromId`, `list`, `Sandbox.terminate`, `poll`, `wait` | `create`, `get`, `list`, `delete` |
+| Pause and resume | `pause`, `betaPause`, `connect` | `experimentalPause`, `experimentalResume` | `start`, `stop`, `pause` |
+| Run a command | `commands.run` (foreground and `background`), `connect`, `list`, `kill`, `sendStdin`, `closeStdin`, `CommandHandle` | `Sandbox.exec` and `ContainerProcess` (text and binary streams, stdin, exit code), `command` as the entrypoint | `process.executeCommand` |
+| Templates and images | `Template().fromImage(ref)` with `Template.build`, `buildInBackground`, `exists`, `delete` | `images.fromRegistry(tag)` builds a template on first use (named `modal-<hash of tag>`) | `snapshot.create({ name, image: "<oci-ref>" })`, `list`, `get`, `delete` |
+| Snapshots | `Sandbox.createSnapshot`, `listSnapshots`, `deleteSnapshot` | Not implemented | `sandbox.createSnapshot(name)` |
+| Environment and network | `envs`, `allowInternetAccess` | `env`, `secrets.fromObject`, `blockNetwork` | `envVars`, `networkBlockAll` |
+| Files | Not implemented | Not implemented | Not implemented |
+| PTY | Not implemented | Not implemented | Not implemented |
+| Ports, URLs, tunnels | Not implemented | Not implemented | Not implemented |
+| Volumes | Not implemented | Not implemented | Not implemented |
+| Git, LSP, code interpreter, computer use | Not implemented | Not applicable | Not implemented |
+| Lifetime, timeouts, auto-stop | Not implemented | Not implemented | Not implemented |
+| Metadata, labels, tags, names | Not implemented | Not implemented | Not implemented |
+| Create from a snapshot or an image build | Not implemented | Not implemented | Not implemented |
+| Functions, classes, queues | Not applicable | Not implemented | Not applicable |
+
+State and ID mapping: a DigitalOcean sandbox ID is the E2B `sandboxId`, the Modal `sandboxId` and the Daytona `id` (and `name`). The DigitalOcean state `running` is E2B `running`, Daytona `started`; `paused` is E2B `paused`, Daytona `stopped`. A command that exits non-zero throws `CommandExitError` for E2B and returns the exit code for Modal and Daytona, as the vendors do. Daytona's `result` is stdout followed by stderr.
+
+The stub surface is generated from the vendors' published typings with `scripts/gen-sandbox-compat.mjs`; the overlay that wires the working members is `src/dots/sandbox/compat/<vendor>/index.ts`. A new vendor release means regenerating, then checking what its new members need.
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.
