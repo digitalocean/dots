@@ -73,7 +73,7 @@ export function deserializeIntoSecretsGetResponse(secretsGetResponse: Partial<Se
         "links": n => { secretsGetResponse.links = n.getObjectValue<SecretsGetResponse_links>(createSecretsGetResponse_linksFromDiscriminatorValue); },
         "meta": n => { secretsGetResponse.meta = n.getObjectValue<SecretsGetResponse_meta>(createSecretsGetResponse_metaFromDiscriminatorValue); },
         "secrets": n => { secretsGetResponse.secrets = n.getCollectionOfObjectValues<Secret_list_item>(createSecret_list_itemFromDiscriminatorValue); },
-        "unavailable_regions": n => { secretsGetResponse.unavailableRegions = n.getCollectionOfPrimitiveValues<string>(); },
+        "unavailable_regions": n => { secretsGetResponse.unavailableRegions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**

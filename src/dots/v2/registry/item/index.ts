@@ -18,18 +18,22 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
 export interface WithRegistry_nameItemRequestBuilder extends BaseRequestBuilder<WithRegistry_nameItemRequestBuilder> {
     /**
      * The garbageCollection property
+     * @deprecated 
      */
     get garbageCollection(): GarbageCollectionRequestBuilder;
     /**
      * The garbageCollections property
+     * @deprecated 
      */
     get garbageCollections(): GarbageCollectionsRequestBuilder;
     /**
      * The repositories property
+     * @deprecated 
      */
     get repositories(): RepositoriesRequestBuilder;
     /**
      * The repositoriesV2 property
+     * @deprecated 
      */
     get repositoriesV2(): RepositoriesV2RequestBuilder;
 }

@@ -60,6 +60,7 @@ export interface ActionGatewayRequestBuilder extends BaseRequestBuilder<ActionGa
     get providerCredentials(): ProviderCredentialsRequestBuilder;
     /**
      * The sessions property
+     * @deprecated 
      */
     get sessions(): SessionsRequestBuilder;
     /**

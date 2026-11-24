@@ -55,7 +55,7 @@ export function deserializeIntoSnapshotsGetResponse(snapshotsGetResponse: Partia
 export function deserializeIntoSnapshotsPostRequestBody(snapshotsPostRequestBody: Partial<SnapshotsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { snapshotsPostRequestBody.name = n.getStringValue(); },
-        "tags": n => { snapshotsPostRequestBody.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { snapshotsPostRequestBody.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**

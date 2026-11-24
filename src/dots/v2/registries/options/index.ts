@@ -52,7 +52,7 @@ export function deserializeIntoOptionsGetResponse(optionsGetResponse: Partial<Op
 // @ts-ignore
 export function deserializeIntoOptionsGetResponse_options(optionsGetResponse_options: Partial<OptionsGetResponse_options> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "available_regions": n => { optionsGetResponse_options.availableRegions = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_regions": n => { optionsGetResponse_options.availableRegions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "subscription_tiers": n => { optionsGetResponse_options.subscriptionTiers = n.getCollectionOfObjectValues<OptionsGetResponse_options_subscription_tiers>(createOptionsGetResponse_options_subscription_tiersFromDiscriminatorValue); },
     }
 }

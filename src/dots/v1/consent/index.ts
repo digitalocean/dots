@@ -182,7 +182,7 @@ export const ConsentRequestBuilderRequestsMetadata: RequestsMetadata = {
         responseBodyFactory:  createList_consentsFromDiscriminatorValue,
     },
     put: {
-        uriTemplate: ConsentRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v1/consent?source={source}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

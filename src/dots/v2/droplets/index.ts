@@ -444,7 +444,7 @@ export const DropletsRequestBuilderNavigationMetadata: Record<Exclude<keyof Drop
  */
 export const DropletsRequestBuilderRequestsMetadata: RequestsMetadata = {
     delete: {
-        uriTemplate: DropletsRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/droplets?tag_name={tag_name}",
         responseBodyContentType: "application/json",
         errorMappings: {
             401: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

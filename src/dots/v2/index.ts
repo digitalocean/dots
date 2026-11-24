@@ -232,6 +232,7 @@ export interface V2RequestBuilder extends BaseRequestBuilder<V2RequestBuilder> {
     get registries(): RegistriesRequestBuilder;
     /**
      * The registry property
+     * @deprecated 
      */
     get registry(): RegistryRequestBuilder;
     /**

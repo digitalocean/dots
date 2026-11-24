@@ -23,7 +23,7 @@ export function createPartUploadUrlsPostRequestBodyFromDiscriminatorValue(parseN
 // @ts-ignore
 export function deserializeIntoPartUploadUrlsPostRequestBody(partUploadUrlsPostRequestBody: Partial<PartUploadUrlsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "part_numbers": n => { partUploadUrlsPostRequestBody.partNumbers = n.getCollectionOfPrimitiveValues<number>(); },
+        "part_numbers": n => { partUploadUrlsPostRequestBody.partNumbers = n.getCollectionOfPrimitiveValues<number>("number"); },
     }
 }
 export interface PartUploadUrlsPostRequestBody extends AdditionalDataHolder, Parsable {

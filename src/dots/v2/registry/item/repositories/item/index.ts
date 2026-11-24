@@ -14,10 +14,12 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
 export interface WithRepository_nameItemRequestBuilder extends BaseRequestBuilder<WithRepository_nameItemRequestBuilder> {
     /**
      * The digests property
+     * @deprecated 
      */
     get digests(): DigestsRequestBuilder;
     /**
      * The tags property
+     * @deprecated 
      */
     get tags(): TagsRequestBuilder;
 }
