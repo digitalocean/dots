@@ -1,7 +1,7 @@
 {
   "name": "@digitalocean/dots",
   "type": "module",
-  "version": "1.25.0",
+  "version": "1.26.0",
   "description": "TypeScript client generator based on DigitalOcean's OpenAPI specification.",
   "main": "index.js",
   "exports": {
@@ -67,9 +67,9 @@
   },
   "dependencies": {
     "@azure/core-http": "^3.0.5",
-    "@microsoft/kiota-authentication-azure": "^1.0.0-preview.61",
-    "@microsoft/kiota-bundle": "^1.0.0-preview.9",
-    "@microsoft/kiota-http-fetchlibrary": "^1.0.0-preview.97",
+    "@microsoft/kiota-authentication-azure": "^1.0.0-preview.114",
+    "@microsoft/kiota-bundle": "^1.0.0-preview.114",
+    "@microsoft/kiota-http-fetchlibrary": "^1.0.0-preview.114",
     "dotenv": "^17.2.0",
     "uuid": "^11.1.0"
   }

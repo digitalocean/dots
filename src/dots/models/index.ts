@@ -21592,6 +21592,15 @@ export function createDroplet_create_imageFromDiscriminatorValue(parseNode: Pars
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {(number | string)[]}
+ */
+// @ts-ignore
+export function createDroplet_create_ssh_keysFromDiscriminatorValue(parseNode: ParseNode | undefined) : (number | string)[] | undefined {
+    return parseNode?.getCollectionOfPrimitiveValues<number>("number") ?? parseNode?.getCollectionOfPrimitiveValues<string>("string");
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Droplet_create}
  */
 // @ts-ignore
@@ -26158,6 +26167,15 @@ export function createSession_config_changesFromDiscriminatorValue(parseNode: Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_config_egress_changes}
+ */
+// @ts-ignore
+export function createSession_config_egress_changesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_config_egress_changes;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Session_config_section_changes}
  */
 // @ts-ignore
@@ -29701,7 +29719,7 @@ export function deserializeIntoAccount(account: Partial<Account> | undefined = {
     return {
         "droplet_limit": n => { account.dropletLimit = n.getNumberValue(); },
         "email": n => { account.email = n.getStringValue(); },
-        "email_verified": n => { account.emailVerified = n.getBooleanValue(); },
+        "email_verified": n => { account.emailVerified = n.getBooleanValue() ?? false; },
         "floating_ip_limit": n => { account.floatingIpLimit = n.getNumberValue(); },
         "name": n => { account.name = n.getStringValue(); },
         "status": n => { account.status = n.getEnumValue<Account_status>(Account_statusObject) ?? Account_statusObject.Active; },
@@ -29780,7 +29798,7 @@ export function deserializeIntoAddons_app_metadata(addons_app_metadata: Partial<
         "display_name": n => { addons_app_metadata.displayName = n.getStringValue(); },
         "id": n => { addons_app_metadata.id = n.getNumberValue(); },
         "name": n => { addons_app_metadata.name = n.getStringValue(); },
-        "options": n => { addons_app_metadata.options = n.getCollectionOfPrimitiveValues<string>(); },
+        "options": n => { addons_app_metadata.options = n.getCollectionOfPrimitiveValues<string>("string"); },
         "type": n => { addons_app_metadata.type = n.getEnumValue<Addons_app_metadata_type>(Addons_app_metadata_typeObject); },
     }
 }
@@ -30196,7 +30214,7 @@ export function deserializeIntoAgent_manifest_spec_runtime_config(agent_manifest
 // @ts-ignore
 export function deserializeIntoAgent_manifest_spec_runtime_custom(agent_manifest_spec_runtime_custom: Partial<Agent_manifest_spec_runtime_custom> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "entrypoint": n => { agent_manifest_spec_runtime_custom.entrypoint = n.getCollectionOfPrimitiveValues<string>(); },
+        "entrypoint": n => { agent_manifest_spec_runtime_custom.entrypoint = n.getCollectionOfPrimitiveValues<string>("string"); },
         "image": n => { agent_manifest_spec_runtime_custom.image = n.getStringValue(); },
     }
 }
@@ -30226,7 +30244,7 @@ export function deserializeIntoAgent_manifest_spec_sandbox(agent_manifest_spec_s
 export function deserializeIntoAgent_manifest_spec_sandbox_egress(agent_manifest_spec_sandbox_egress: Partial<Agent_manifest_spec_sandbox_egress> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "allow": n => { agent_manifest_spec_sandbox_egress.allow = n.getCollectionOfObjectValues<Agent_manifest_spec_sandbox_egress_allow>(createAgent_manifest_spec_sandbox_egress_allowFromDiscriminatorValue); },
-        "allowIps": n => { agent_manifest_spec_sandbox_egress.allowIps = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowIps": n => { agent_manifest_spec_sandbox_egress.allowIps = n.getCollectionOfPrimitiveValues<string>("string"); },
         "subnetUuid": n => { agent_manifest_spec_sandbox_egress.subnetUuid = n.getStringValue(); },
         "unrestricted": n => { agent_manifest_spec_sandbox_egress.unrestricted = n.getBooleanValue(); },
         "vpcUuid": n => { agent_manifest_spec_sandbox_egress.vpcUuid = n.getStringValue(); },
@@ -30309,7 +30327,7 @@ export function deserializeIntoAgent_manifest_spec_serving_scaleToZero(agent_man
 // @ts-ignore
 export function deserializeIntoAgent_manifest_spec_skills(agent_manifest_spec_skills: Partial<Agent_manifest_spec_skills> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowedTools": n => { agent_manifest_spec_skills.allowedTools = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowedTools": n => { agent_manifest_spec_skills.allowedTools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "description": n => { agent_manifest_spec_skills.description = n.getStringValue(); },
         "instructions": n => { agent_manifest_spec_skills.instructions = n.getStringValue(); },
         "license": n => { agent_manifest_spec_skills.license = n.getStringValue(); },
@@ -30349,9 +30367,9 @@ export function deserializeIntoAgent_manifest_spec_tools_mcpServers(agent_manife
     return {
         "auth": n => { agent_manifest_spec_tools_mcpServers.auth = n.getObjectValue<Agent_manifest_spec_tools_mcpServers_auth>(createAgent_manifest_spec_tools_mcpServers_authFromDiscriminatorValue); },
         "name": n => { agent_manifest_spec_tools_mcpServers.name = n.getStringValue(); },
-        "preloadTools": n => { agent_manifest_spec_tools_mcpServers.preloadTools = n.getCollectionOfPrimitiveValues<string>(); },
+        "preloadTools": n => { agent_manifest_spec_tools_mcpServers.preloadTools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "ref": n => { agent_manifest_spec_tools_mcpServers.ref = n.getStringValue(); },
-        "tools": n => { agent_manifest_spec_tools_mcpServers.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { agent_manifest_spec_tools_mcpServers.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "url": n => { agent_manifest_spec_tools_mcpServers.url = n.getStringValue(); },
     }
 }
@@ -30375,7 +30393,7 @@ export function deserializeIntoAgent_manifest_spec_tools_mcpServers_auth(agent_m
 // @ts-ignore
 export function deserializeIntoAgent_manifest_spec_workspace(agent_manifest_spec_workspace: Partial<Agent_manifest_spec_workspace> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "repos": n => { agent_manifest_spec_workspace.repos = n.getCollectionOfPrimitiveValues<string>(); },
+        "repos": n => { agent_manifest_spec_workspace.repos = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -30438,8 +30456,8 @@ export function deserializeIntoAlert_policy(alert_policy: Partial<Alert_policy> 
         "compare": n => { alert_policy.compare = n.getEnumValue<Alert_policy_compare>(Alert_policy_compareObject); },
         "description": n => { alert_policy.description = n.getStringValue(); },
         "enabled": n => { alert_policy.enabled = n.getBooleanValue(); },
-        "entities": n => { alert_policy.entities = n.getCollectionOfPrimitiveValues<string>(); },
-        "tags": n => { alert_policy.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "entities": n => { alert_policy.entities = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "tags": n => { alert_policy.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "type": n => { alert_policy.type = n.getEnumValue<Alert_policy_type>(Alert_policy_typeObject); },
         "uuid": n => { alert_policy.uuid = n.getStringValue(); },
         "value": n => { alert_policy.value = n.getNumberValue(); },
@@ -30458,8 +30476,8 @@ export function deserializeIntoAlert_policy_request(alert_policy_request: Partia
         "compare": n => { alert_policy_request.compare = n.getEnumValue<Alert_policy_request_compare>(Alert_policy_request_compareObject); },
         "description": n => { alert_policy_request.description = n.getStringValue(); },
         "enabled": n => { alert_policy_request.enabled = n.getBooleanValue(); },
-        "entities": n => { alert_policy_request.entities = n.getCollectionOfPrimitiveValues<string>(); },
-        "tags": n => { alert_policy_request.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "entities": n => { alert_policy_request.entities = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "tags": n => { alert_policy_request.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "type": n => { alert_policy_request.type = n.getEnumValue<Alert_policy_request_type>(Alert_policy_request_typeObject); },
         "value": n => { alert_policy_request.value = n.getNumberValue(); },
         "window": n => { alert_policy_request.window = n.getEnumValue<Alert_policy_request_window>(Alert_policy_request_windowObject); },
@@ -30556,7 +30574,7 @@ export function deserializeIntoAlert_updatable(alert_updatable: Partial<Alert_up
 // @ts-ignore
 export function deserializeIntoAlerts(alerts: Partial<Alerts> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "email": n => { alerts.email = n.getCollectionOfPrimitiveValues<string>(); },
+        "email": n => { alerts.email = n.getCollectionOfPrimitiveValues<string>("string"); },
         "slack": n => { alerts.slack = n.getCollectionOfObjectValues<Slack_details>(createSlack_detailsFromDiscriminatorValue); },
     }
 }
@@ -30635,7 +30653,7 @@ export function deserializeIntoApiAgent(apiAgent: Partial<ApiAgent> | undefined 
         "route_created_by": n => { apiAgent.routeCreatedBy = n.getStringValue(); },
         "route_name": n => { apiAgent.routeName = n.getStringValue(); },
         "route_uuid": n => { apiAgent.routeUuid = n.getStringValue(); },
-        "tags": n => { apiAgent.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiAgent.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "temperature": n => { apiAgent.temperature = n.getNumberValue(); },
         "template": n => { apiAgent.template = n.getObjectValue<ApiAgentTemplate>(createApiAgentTemplateFromDiscriminatorValue); },
         "thinking_token_budget": n => { apiAgent.thinkingTokenBudget = n.getNumberValue(); },
@@ -30645,7 +30663,7 @@ export function deserializeIntoApiAgent(apiAgent: Partial<ApiAgent> | undefined 
         "user_id": n => { apiAgent.userId = n.getStringValue(); },
         "uuid": n => { apiAgent.uuid = n.getStringValue(); },
         "version_hash": n => { apiAgent.versionHash = n.getStringValue(); },
-        "vpc_egress_ips": n => { apiAgent.vpcEgressIps = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_egress_ips": n => { apiAgent.vpcEgressIps = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vpc_uuid": n => { apiAgent.vpcUuid = n.getStringValue(); },
         "web_fetch_enabled": n => { apiAgent.webFetchEnabled = n.getBooleanValue(); },
         "web_search_enabled": n => { apiAgent.webSearchEnabled = n.getBooleanValue(); },
@@ -30880,7 +30898,7 @@ export function deserializeIntoApiAgentPublic(apiAgentPublic: Partial<ApiAgentPu
         "route_created_by": n => { apiAgentPublic.routeCreatedBy = n.getStringValue(); },
         "route_name": n => { apiAgentPublic.routeName = n.getStringValue(); },
         "route_uuid": n => { apiAgentPublic.routeUuid = n.getStringValue(); },
-        "tags": n => { apiAgentPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiAgentPublic.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "temperature": n => { apiAgentPublic.temperature = n.getNumberValue(); },
         "template": n => { apiAgentPublic.template = n.getObjectValue<ApiAgentTemplate>(createApiAgentTemplateFromDiscriminatorValue); },
         "thinking_token_budget": n => { apiAgentPublic.thinkingTokenBudget = n.getNumberValue(); },
@@ -30929,7 +30947,7 @@ export function deserializeIntoApiAgentTemplate(apiAgentTemplate: Partial<ApiAge
         "name": n => { apiAgentTemplate.name = n.getStringValue(); },
         "short_description": n => { apiAgentTemplate.shortDescription = n.getStringValue(); },
         "summary": n => { apiAgentTemplate.summary = n.getStringValue(); },
-        "tags": n => { apiAgentTemplate.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiAgentTemplate.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "temperature": n => { apiAgentTemplate.temperature = n.getNumberValue(); },
         "template_type": n => { apiAgentTemplate.templateType = n.getEnumValue<ApiAgentTemplateType>(ApiAgentTemplateTypeObject) ?? ApiAgentTemplateTypeObject.AGENT_TEMPLATE_TYPE_STANDARD; },
         "top_p": n => { apiAgentTemplate.topP = n.getNumberValue(); },
@@ -30975,7 +30993,7 @@ export function deserializeIntoApiAgentVersion(apiAgentVersion: Partial<ApiAgent
         "name": n => { apiAgentVersion.name = n.getStringValue(); },
         "provide_citations": n => { apiAgentVersion.provideCitations = n.getBooleanValue(); },
         "retrieval_method": n => { apiAgentVersion.retrievalMethod = n.getEnumValue<ApiRetrievalMethod>(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
-        "tags": n => { apiAgentVersion.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiAgentVersion.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "temperature": n => { apiAgentVersion.temperature = n.getNumberValue(); },
         "top_p": n => { apiAgentVersion.topP = n.getNumberValue(); },
         "trigger_action": n => { apiAgentVersion.triggerAction = n.getStringValue(); },
@@ -31170,7 +31188,7 @@ export function deserializeIntoApiCandidateInferenceConfig(apiCandidateInference
 // @ts-ignore
 export function deserializeIntoApiChatbot(apiChatbot: Partial<ApiChatbot> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_domains": n => { apiChatbot.allowedDomains = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_domains": n => { apiChatbot.allowedDomains = n.getCollectionOfPrimitiveValues<string>("string"); },
         "button_background_color": n => { apiChatbot.buttonBackgroundColor = n.getStringValue(); },
         "logo": n => { apiChatbot.logo = n.getStringValue(); },
         "name": n => { apiChatbot.name = n.getStringValue(); },
@@ -31241,7 +31259,7 @@ export function deserializeIntoApiCreateAgentInputPublic(apiCreateAgentInputPubl
         "anthropic_key_uuid": n => { apiCreateAgentInputPublic.anthropicKeyUuid = n.getStringValue(); },
         "description": n => { apiCreateAgentInputPublic.description = n.getStringValue(); },
         "instruction": n => { apiCreateAgentInputPublic.instruction = n.getStringValue(); },
-        "knowledge_base_uuid": n => { apiCreateAgentInputPublic.knowledgeBaseUuid = n.getCollectionOfPrimitiveValues<string>(); },
+        "knowledge_base_uuid": n => { apiCreateAgentInputPublic.knowledgeBaseUuid = n.getCollectionOfPrimitiveValues<string>("string"); },
         "mcp_servers": n => { apiCreateAgentInputPublic.mcpServers = n.getCollectionOfObjectValues<ApiMcpServer>(createApiMcpServerFromDiscriminatorValue); },
         "model_provider_key_uuid": n => { apiCreateAgentInputPublic.modelProviderKeyUuid = n.getStringValue(); },
         "model_router_uuid": n => { apiCreateAgentInputPublic.modelRouterUuid = n.getStringValue(); },
@@ -31252,7 +31270,7 @@ export function deserializeIntoApiCreateAgentInputPublic(apiCreateAgentInputPubl
         "reasoning_effort": n => { apiCreateAgentInputPublic.reasoningEffort = n.getStringValue(); },
         "region": n => { apiCreateAgentInputPublic.region = n.getStringValue(); },
         "router_preset_slug": n => { apiCreateAgentInputPublic.routerPresetSlug = n.getStringValue(); },
-        "tags": n => { apiCreateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiCreateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "thinking_token_budget": n => { apiCreateAgentInputPublic.thinkingTokenBudget = n.getNumberValue(); },
         "web_fetch_enabled": n => { apiCreateAgentInputPublic.webFetchEnabled = n.getBooleanValue(); },
         "web_search_enabled": n => { apiCreateAgentInputPublic.webSearchEnabled = n.getBooleanValue(); },
@@ -31376,7 +31394,7 @@ export function deserializeIntoApiCreateEvaluationTestCaseInputPublic(apiCreateE
         "agent_workspace_name": n => { apiCreateEvaluationTestCaseInputPublic.agentWorkspaceName = n.getStringValue(); },
         "dataset_uuid": n => { apiCreateEvaluationTestCaseInputPublic.datasetUuid = n.getStringValue(); },
         "description": n => { apiCreateEvaluationTestCaseInputPublic.description = n.getStringValue(); },
-        "metrics": n => { apiCreateEvaluationTestCaseInputPublic.metrics = n.getCollectionOfPrimitiveValues<string>(); },
+        "metrics": n => { apiCreateEvaluationTestCaseInputPublic.metrics = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { apiCreateEvaluationTestCaseInputPublic.name = n.getStringValue(); },
         "star_metric": n => { apiCreateEvaluationTestCaseInputPublic.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
         "workspace_uuid": n => { apiCreateEvaluationTestCaseInputPublic.workspaceUuid = n.getStringValue(); },
@@ -31436,7 +31454,7 @@ export function deserializeIntoApiCreateKnowledgeBaseInputPublic(apiCreateKnowle
         "region": n => { apiCreateKnowledgeBaseInputPublic.region = n.getStringValue(); },
         "reranking_config": n => { apiCreateKnowledgeBaseInputPublic.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
         "size": n => { apiCreateKnowledgeBaseInputPublic.size = n.getEnumValue<ApiOpenSearchPlanSize>(ApiOpenSearchPlanSizeObject) ?? ApiOpenSearchPlanSizeObject.OPEN_SEARCH_PLAN_SIZE_UNSPECIFIED; },
-        "tags": n => { apiCreateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiCreateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vpc_uuid": n => { apiCreateKnowledgeBaseInputPublic.vpcUuid = n.getStringValue(); },
     }
 }
@@ -31489,7 +31507,7 @@ export function deserializeIntoApiCreateModelEvaluationRunInputPublic(apiCreateM
         "epochs": n => { apiCreateModelEvaluationRunInputPublic.epochs = n.getNumberValue(); },
         "eval_preset_uuid": n => { apiCreateModelEvaluationRunInputPublic.evalPresetUuid = n.getStringValue(); },
         "judge_model_uuid": n => { apiCreateModelEvaluationRunInputPublic.judgeModelUuid = n.getStringValue(); },
-        "metric_uuids": n => { apiCreateModelEvaluationRunInputPublic.metricUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "metric_uuids": n => { apiCreateModelEvaluationRunInputPublic.metricUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { apiCreateModelEvaluationRunInputPublic.name = n.getStringValue(); },
         "preset_name": n => { apiCreateModelEvaluationRunInputPublic.presetName = n.getStringValue(); },
         "preset_save_sections": n => { apiCreateModelEvaluationRunInputPublic.presetSaveSections = n.getCollectionOfEnumValues<ApiPresetSaveSection>(ApiPresetSaveSectionObject); },
@@ -31518,10 +31536,10 @@ export function deserializeIntoApiCreateModelEvaluationRunOutput(apiCreateModelE
 export function deserializeIntoApiCreateModelRouterInputPublic(apiCreateModelRouterInputPublic: Partial<ApiCreateModelRouterInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { apiCreateModelRouterInputPublic.description = n.getStringValue(); },
-        "fallback_models": n => { apiCreateModelRouterInputPublic.fallbackModels = n.getCollectionOfPrimitiveValues<string>(); },
+        "fallback_models": n => { apiCreateModelRouterInputPublic.fallbackModels = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { apiCreateModelRouterInputPublic.name = n.getStringValue(); },
         "policies": n => { apiCreateModelRouterInputPublic.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
-        "regions": n => { apiCreateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { apiCreateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -31624,7 +31642,7 @@ export function deserializeIntoApiCreateScenarioSetUploadPresignedUrlsInputPubli
 // @ts-ignore
 export function deserializeIntoApiCreateScheduledIndexingInputPublic(apiCreateScheduledIndexingInputPublic: Partial<ApiCreateScheduledIndexingInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "days": n => { apiCreateScheduledIndexingInputPublic.days = n.getCollectionOfPrimitiveValues<number>(); },
+        "days": n => { apiCreateScheduledIndexingInputPublic.days = n.getCollectionOfPrimitiveValues<number>("number"); },
         "knowledge_base_uuid": n => { apiCreateScheduledIndexingInputPublic.knowledgeBaseUuid = n.getStringValue(); },
         "time": n => { apiCreateScheduledIndexingInputPublic.time = n.getStringValue(); },
     }
@@ -31688,7 +31706,7 @@ export function deserializeIntoApiCreateSimulationRunOutput(apiCreateSimulationR
 // @ts-ignore
 export function deserializeIntoApiCreateWorkspaceInputPublic(apiCreateWorkspaceInputPublic: Partial<ApiCreateWorkspaceInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "agent_uuids": n => { apiCreateWorkspaceInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "agent_uuids": n => { apiCreateWorkspaceInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "description": n => { apiCreateWorkspaceInputPublic.description = n.getStringValue(); },
         "name": n => { apiCreateWorkspaceInputPublic.name = n.getStringValue(); },
     }
@@ -31737,10 +31755,10 @@ export function deserializeIntoApiCustomModel(apiCustomModel: Partial<ApiCustomM
         "description": n => { apiCustomModel.description = n.getStringValue(); },
         "error_message": n => { apiCustomModel.errorMessage = n.getStringValue(); },
         "file_count": n => { apiCustomModel.fileCount = n.getNumberValue(); },
-        "input_modalities": n => { apiCustomModel.inputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "input_modalities": n => { apiCustomModel.inputModalities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "license": n => { apiCustomModel.license = n.getStringValue(); },
         "name": n => { apiCustomModel.name = n.getStringValue(); },
-        "output_modalities": n => { apiCustomModel.outputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "output_modalities": n => { apiCustomModel.outputModalities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "parameters": n => { apiCustomModel.parameters = n.getStringValue(); },
         "source_ref": n => { apiCustomModel.sourceRef = n.getObjectValue<CustomModelSourceRef>(createCustomModelSourceRefFromDiscriminatorValue); },
         "source_type": n => { apiCustomModel.sourceType = n.getEnumValue<CustomModelSourceType>(CustomModelSourceTypeObject) ?? CustomModelSourceTypeObject.SOURCE_TYPE_UNSPECIFIED; },
@@ -32221,7 +32239,7 @@ export function deserializeIntoApiEvaluationTestCase(apiEvaluationTestCase: Part
 // @ts-ignore
 export function deserializeIntoApiEvaluationTestCaseMetricList(apiEvaluationTestCaseMetricList: Partial<ApiEvaluationTestCaseMetricList> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "metric_uuids": n => { apiEvaluationTestCaseMetricList.metricUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "metric_uuids": n => { apiEvaluationTestCaseMetricList.metricUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -32750,7 +32768,7 @@ export function deserializeIntoApiIndexingJob(apiIndexingJob: Partial<ApiIndexin
         "completed_datasources": n => { apiIndexingJob.completedDatasources = n.getNumberValue(); },
         "created_at": n => { apiIndexingJob.createdAt = n.getDateValue(); },
         "data_source_jobs": n => { apiIndexingJob.dataSourceJobs = n.getCollectionOfObjectValues<ApiIndexedDataSource>(createApiIndexedDataSourceFromDiscriminatorValue); },
-        "data_source_uuids": n => { apiIndexingJob.dataSourceUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "data_source_uuids": n => { apiIndexingJob.dataSourceUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "finished_at": n => { apiIndexingJob.finishedAt = n.getDateValue(); },
         "is_report_available": n => { apiIndexingJob.isReportAvailable = n.getBooleanValue(); },
         "knowledge_base_uuid": n => { apiIndexingJob.knowledgeBaseUuid = n.getStringValue(); },
@@ -32803,7 +32821,7 @@ export function deserializeIntoApiKnowledgeBase(apiKnowledgeBase: Partial<ApiKno
         "project_id": n => { apiKnowledgeBase.projectId = n.getStringValue(); },
         "region": n => { apiKnowledgeBase.region = n.getStringValue(); },
         "reranking_config": n => { apiKnowledgeBase.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
-        "tags": n => { apiKnowledgeBase.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiKnowledgeBase.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { apiKnowledgeBase.updatedAt = n.getDateValue(); },
         "user_id": n => { apiKnowledgeBase.userId = n.getStringValue(); },
         "uuid": n => { apiKnowledgeBase.uuid = n.getStringValue(); },
@@ -33200,10 +33218,10 @@ export function deserializeIntoApiListModelAPIKeysOutput(apiListModelAPIKeysOutp
 // @ts-ignore
 export function deserializeIntoApiListModelCatalogOutput(apiListModelCatalogOutput: Partial<ApiListModelCatalogOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "available_availability": n => { apiListModelCatalogOutput.availableAvailability = n.getCollectionOfPrimitiveValues<string>(); },
-        "available_badges": n => { apiListModelCatalogOutput.availableBadges = n.getCollectionOfPrimitiveValues<string>(); },
-        "available_model_types": n => { apiListModelCatalogOutput.availableModelTypes = n.getCollectionOfPrimitiveValues<string>(); },
-        "available_providers": n => { apiListModelCatalogOutput.availableProviders = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_availability": n => { apiListModelCatalogOutput.availableAvailability = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "available_badges": n => { apiListModelCatalogOutput.availableBadges = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "available_model_types": n => { apiListModelCatalogOutput.availableModelTypes = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "available_providers": n => { apiListModelCatalogOutput.availableProviders = n.getCollectionOfPrimitiveValues<string>("string"); },
         "available_sort_by": n => { apiListModelCatalogOutput.availableSortBy = n.getCollectionOfEnumValues<ApiModelCatalogSortBy>(ApiModelCatalogSortByObject); },
         "available_sort_directions": n => { apiListModelCatalogOutput.availableSortDirections = n.getCollectionOfEnumValues<ApiSortDirection>(ApiSortDirectionObject); },
         "data": n => { apiListModelCatalogOutput.data = n.getCollectionOfObjectValues<ApiModelCatalogEntry>(createApiModelCatalogEntryFromDiscriminatorValue); },
@@ -33219,9 +33237,9 @@ export function deserializeIntoApiListModelCatalogOutput(apiListModelCatalogOutp
 export function deserializeIntoApiListModelCatalogV2Output(apiListModelCatalogV2Output: Partial<ApiListModelCatalogV2Output> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "available_badges": n => { apiListModelCatalogV2Output.availableBadges = n.getCollectionOfEnumValues<ApiModelCatalogBadge>(ApiModelCatalogBadgeObject); },
-        "available_creators": n => { apiListModelCatalogV2Output.availableCreators = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_creators": n => { apiListModelCatalogV2Output.availableCreators = n.getCollectionOfPrimitiveValues<string>("string"); },
         "available_input_modalities": n => { apiListModelCatalogV2Output.availableInputModalities = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
-        "available_model_types": n => { apiListModelCatalogV2Output.availableModelTypes = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_model_types": n => { apiListModelCatalogV2Output.availableModelTypes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "available_output_modalities": n => { apiListModelCatalogV2Output.availableOutputModalities = n.getCollectionOfEnumValues<ApiModelModality>(ApiModelModalityObject); },
         "available_products": n => { apiListModelCatalogV2Output.availableProducts = n.getCollectionOfEnumValues<ApiModelCatalogProduct>(ApiModelCatalogProductObject); },
         "available_serving": n => { apiListModelCatalogV2Output.availableServing = n.getCollectionOfEnumValues<ApiModelServing>(ApiModelServingObject); },
@@ -33353,7 +33371,7 @@ export function deserializeIntoApiListRegionsOutput(apiListRegionsOutput: Partia
 // @ts-ignore
 export function deserializeIntoApiListScenarioLibraryOutput(apiListScenarioLibraryOutput: Partial<ApiListScenarioLibraryOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "available_categories": n => { apiListScenarioLibraryOutput.availableCategories = n.getCollectionOfPrimitiveValues<string>(); },
+        "available_categories": n => { apiListScenarioLibraryOutput.availableCategories = n.getCollectionOfPrimitiveValues<string>("string"); },
         "available_sort_by": n => { apiListScenarioLibraryOutput.availableSortBy = n.getCollectionOfEnumValues<ApiScenarioLibrarySortField>(ApiScenarioLibrarySortFieldObject); },
         "available_sort_directions": n => { apiListScenarioLibraryOutput.availableSortDirections = n.getCollectionOfEnumValues<ApiSortDirection>(ApiSortDirectionObject); },
         "links": n => { apiListScenarioLibraryOutput.links = n.getObjectValue<ApiLinks>(createApiLinksFromDiscriminatorValue); },
@@ -33473,7 +33491,7 @@ export function deserializeIntoApiLLMSpan_tools(apiLLMSpan_tools: Partial<ApiLLM
 // @ts-ignore
 export function deserializeIntoApiMcpServer(apiMcpServer: Partial<ApiMcpServer> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_tools": n => { apiMcpServer.allowedTools = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_tools": n => { apiMcpServer.allowedTools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "authorization": n => { apiMcpServer.authorization = n.getStringValue(); },
         "headers": n => { apiMcpServer.headers = n.getObjectValue<ApiMcpServer_headers>(createApiMcpServer_headersFromDiscriminatorValue); },
         "server_label": n => { apiMcpServer.serverLabel = n.getStringValue(); },
@@ -33535,7 +33553,7 @@ export function deserializeIntoApiModel(apiModel: Partial<ApiModel> | undefined 
     return {
         "agreement": n => { apiModel.agreement = n.getObjectValue<ApiAgreement>(createApiAgreementFromDiscriminatorValue); },
         "benchmark_score": n => { apiModel.benchmarkScore = n.getObjectValue<ApiModel_benchmark_score>(createApiModel_benchmark_scoreFromDiscriminatorValue); },
-        "capabilities": n => { apiModel.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModel.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "context_window": n => { apiModel.contextWindow = n.getStringValue(); },
         "created_at": n => { apiModel.createdAt = n.getDateValue(); },
         "endpoints": n => { apiModel.endpoints = n.getCollectionOfObjectValues<ApiModelEndpoint>(createApiModelEndpointFromDiscriminatorValue); },
@@ -33552,7 +33570,7 @@ export function deserializeIntoApiModel(apiModel: Partial<ApiModel> | undefined 
         "parameter_count": n => { apiModel.parameterCount = n.getNumberValue(); },
         "parent_uuid": n => { apiModel.parentUuid = n.getStringValue(); },
         "provider": n => { apiModel.provider = n.getEnumValue<ApiModelProvider>(ApiModelProviderObject) ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN; },
-        "reasoning_efforts": n => { apiModel.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>(); },
+        "reasoning_efforts": n => { apiModel.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>("string"); },
         "settings": n => { apiModel.settings = n.getCollectionOfObjectValues<ApiModelSetting>(createApiModelSettingFromDiscriminatorValue); },
         "thinking": n => { apiModel.thinking = n.getBooleanValue(); },
         "type": n => { apiModel.type = n.getStringValue(); },
@@ -33608,10 +33626,10 @@ export function deserializeIntoApiModelAPIKeyInfo(apiModelAPIKeyInfo: Partial<Ap
 // @ts-ignore
 export function deserializeIntoApiModelCatalogCard(apiModelCatalogCard: Partial<ApiModelCatalogCard> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "availability": n => { apiModelCatalogCard.availability = n.getCollectionOfPrimitiveValues<string>(); },
-        "badges": n => { apiModelCatalogCard.badges = n.getCollectionOfPrimitiveValues<string>(); },
+        "availability": n => { apiModelCatalogCard.availability = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "badges": n => { apiModelCatalogCard.badges = n.getCollectionOfPrimitiveValues<string>("string"); },
         "benchmark_score": n => { apiModelCatalogCard.benchmarkScore = n.getObjectValue<ApiModelCatalogCard_benchmark_score>(createApiModelCatalogCard_benchmark_scoreFromDiscriminatorValue); },
-        "capabilities": n => { apiModelCatalogCard.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModelCatalogCard.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "code_snippets": n => { apiModelCatalogCard.codeSnippets = n.getObjectValue<ApiCodeSnippets>(createApiCodeSnippetsFromDiscriminatorValue); },
         "context_window": n => { apiModelCatalogCard.contextWindow = n.getStringValue(); },
         "creator": n => { apiModelCatalogCard.creator = n.getStringValue(); },
@@ -33648,10 +33666,10 @@ export function deserializeIntoApiModelCatalogCard_benchmark_score(apiModelCatal
 // @ts-ignore
 export function deserializeIntoApiModelCatalogEntry(apiModelCatalogEntry: Partial<ApiModelCatalogEntry> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "availability": n => { apiModelCatalogEntry.availability = n.getCollectionOfPrimitiveValues<string>(); },
-        "badges": n => { apiModelCatalogEntry.badges = n.getCollectionOfPrimitiveValues<string>(); },
+        "availability": n => { apiModelCatalogEntry.availability = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "badges": n => { apiModelCatalogEntry.badges = n.getCollectionOfPrimitiveValues<string>("string"); },
         "benchmark_score": n => { apiModelCatalogEntry.benchmarkScore = n.getObjectValue<ApiModelCatalogEntry_benchmark_score>(createApiModelCatalogEntry_benchmark_scoreFromDiscriminatorValue); },
-        "capabilities": n => { apiModelCatalogEntry.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModelCatalogEntry.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "context_window": n => { apiModelCatalogEntry.contextWindow = n.getStringValue(); },
         "created_at": n => { apiModelCatalogEntry.createdAt = n.getDateValue(); },
         "creator": n => { apiModelCatalogEntry.creator = n.getStringValue(); },
@@ -33687,7 +33705,7 @@ export function deserializeIntoApiModelCatalogEntry_benchmark_score(apiModelCata
 export function deserializeIntoApiModelCatalogEntryV2(apiModelCatalogEntryV2: Partial<ApiModelCatalogEntryV2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "badges": n => { apiModelCatalogEntryV2.badges = n.getCollectionOfEnumValues<ApiModelCatalogBadge>(ApiModelCatalogBadgeObject); },
-        "capabilities": n => { apiModelCatalogEntryV2.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModelCatalogEntryV2.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "code_snippets": n => { apiModelCatalogEntryV2.codeSnippets = n.getObjectValue<ApiCodeSnippets>(createApiCodeSnippetsFromDiscriminatorValue); },
         "context_window": n => { apiModelCatalogEntryV2.contextWindow = n.getStringValue(); },
         "created_at": n => { apiModelCatalogEntryV2.createdAt = n.getDateValue(); },
@@ -33709,7 +33727,7 @@ export function deserializeIntoApiModelCatalogEntryV2(apiModelCatalogEntryV2: Pa
         "pricing_detail": n => { apiModelCatalogEntryV2.pricingDetail = n.getObjectValue<ApiModelPricingDetail>(createApiModelPricingDetailFromDiscriminatorValue); },
         "products": n => { apiModelCatalogEntryV2.products = n.getCollectionOfEnumValues<ApiModelCatalogProduct>(ApiModelCatalogProductObject); },
         "provider": n => { apiModelCatalogEntryV2.provider = n.getEnumValue<ApiModelProvider>(ApiModelProviderObject) ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN; },
-        "reasoning_efforts": n => { apiModelCatalogEntryV2.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>(); },
+        "reasoning_efforts": n => { apiModelCatalogEntryV2.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>("string"); },
         "scaled_pricing_enabled": n => { apiModelCatalogEntryV2.scaledPricingEnabled = n.getBooleanValue(); },
         "serving": n => { apiModelCatalogEntryV2.serving = n.getCollectionOfEnumValues<ApiModelServing>(ApiModelServingObject); },
         "short_description": n => { apiModelCatalogEntryV2.shortDescription = n.getStringValue(); },
@@ -33751,7 +33769,7 @@ export function deserializeIntoApiModelCatalogPerformance(apiModelCatalogPerform
 // @ts-ignore
 export function deserializeIntoApiModelEndpoint(apiModelEndpoint: Partial<ApiModelEndpoint> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "capabilities": n => { apiModelEndpoint.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModelEndpoint.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "endpoint": n => { apiModelEndpoint.endpoint = n.getStringValue(); },
     }
 }
@@ -33951,8 +33969,8 @@ export function deserializeIntoApiModelLivelinessMetric(apiModelLivelinessMetric
 // @ts-ignore
 export function deserializeIntoApiModelModalities(apiModelModalities: Partial<ApiModelModalities> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "input": n => { apiModelModalities.input = n.getCollectionOfPrimitiveValues<string>(); },
-        "output": n => { apiModelModalities.output = n.getCollectionOfPrimitiveValues<string>(); },
+        "input": n => { apiModelModalities.input = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "output": n => { apiModelModalities.output = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -34066,7 +34084,7 @@ export function deserializeIntoApiModelPublic(apiModelPublic: Partial<ApiModelPu
     return {
         "agreement": n => { apiModelPublic.agreement = n.getObjectValue<ApiAgreement>(createApiAgreementFromDiscriminatorValue); },
         "benchmark_score": n => { apiModelPublic.benchmarkScore = n.getObjectValue<ApiModelPublic_benchmark_score>(createApiModelPublic_benchmark_scoreFromDiscriminatorValue); },
-        "capabilities": n => { apiModelPublic.capabilities = n.getCollectionOfPrimitiveValues<string>(); },
+        "capabilities": n => { apiModelPublic.capabilities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "context_window": n => { apiModelPublic.contextWindow = n.getStringValue(); },
         "created_at": n => { apiModelPublic.createdAt = n.getDateValue(); },
         "description": n => { apiModelPublic.description = n.getStringValue(); },
@@ -34084,7 +34102,7 @@ export function deserializeIntoApiModelPublic(apiModelPublic: Partial<ApiModelPu
         "parent_uuid": n => { apiModelPublic.parentUuid = n.getStringValue(); },
         "pricing": n => { apiModelPublic.pricing = n.getObjectValue<ApiModelPricing>(createApiModelPricingFromDiscriminatorValue); },
         "provider": n => { apiModelPublic.provider = n.getEnumValue<ApiModelProvider>(ApiModelProviderObject) ?? ApiModelProviderObject.MODEL_PROVIDER_DIGITALOCEAN; },
-        "reasoning_efforts": n => { apiModelPublic.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>(); },
+        "reasoning_efforts": n => { apiModelPublic.reasoningEfforts = n.getCollectionOfPrimitiveValues<string>("string"); },
         "settings": n => { apiModelPublic.settings = n.getCollectionOfObjectValues<ApiModelSetting>(createApiModelSettingFromDiscriminatorValue); },
         "thinking": n => { apiModelPublic.thinking = n.getBooleanValue(); },
         "type": n => { apiModelPublic.type = n.getStringValue(); },
@@ -34117,7 +34135,7 @@ export function deserializeIntoApiModelRouter(apiModelRouter: Partial<ApiModelRo
         "created_at": n => { apiModelRouter.createdAt = n.getDateValue(); },
         "description": n => { apiModelRouter.description = n.getStringValue(); },
         "name": n => { apiModelRouter.name = n.getStringValue(); },
-        "regions": n => { apiModelRouter.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { apiModelRouter.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { apiModelRouter.updatedAt = n.getDateValue(); },
         "uuid": n => { apiModelRouter.uuid = n.getStringValue(); },
     }
@@ -34130,7 +34148,7 @@ export function deserializeIntoApiModelRouter(apiModelRouter: Partial<ApiModelRo
 // @ts-ignore
 export function deserializeIntoApiModelRouterConfig(apiModelRouterConfig: Partial<ApiModelRouterConfig> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "fallback_models": n => { apiModelRouterConfig.fallbackModels = n.getCollectionOfPrimitiveValues<string>(); },
+        "fallback_models": n => { apiModelRouterConfig.fallbackModels = n.getCollectionOfPrimitiveValues<string>("string"); },
         "policies": n => { apiModelRouterConfig.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
     }
 }
@@ -34181,7 +34199,7 @@ export function deserializeIntoApiModelRouterTaskDetails(apiModelRouterTaskDetai
 export function deserializeIntoApiModelRouterTaskPolicy(apiModelRouterTaskPolicy: Partial<ApiModelRouterTaskPolicy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "custom_task": n => { apiModelRouterTaskPolicy.customTask = n.getObjectValue<ApiModelRouterTaskDetails>(createApiModelRouterTaskDetailsFromDiscriminatorValue); },
-        "models": n => { apiModelRouterTaskPolicy.models = n.getCollectionOfPrimitiveValues<string>(); },
+        "models": n => { apiModelRouterTaskPolicy.models = n.getCollectionOfPrimitiveValues<string>("string"); },
         "selection_policy": n => { apiModelRouterTaskPolicy.selectionPolicy = n.getObjectValue<ApiModelRouterSelectionPolicy>(createApiModelRouterSelectionPolicyFromDiscriminatorValue); },
         "task_slug": n => { apiModelRouterTaskPolicy.taskSlug = n.getStringValue(); },
     }
@@ -34196,10 +34214,10 @@ export function deserializeIntoApiModelRouterTaskPreset(apiModelRouterTaskPreset
     return {
         "category": n => { apiModelRouterTaskPreset.category = n.getStringValue(); },
         "description": n => { apiModelRouterTaskPreset.description = n.getStringValue(); },
-        "models": n => { apiModelRouterTaskPreset.models = n.getCollectionOfPrimitiveValues<string>(); },
+        "models": n => { apiModelRouterTaskPreset.models = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { apiModelRouterTaskPreset.name = n.getStringValue(); },
         "selection_policy": n => { apiModelRouterTaskPreset.selectionPolicy = n.getObjectValue<ApiModelRouterSelectionPolicy>(createApiModelRouterSelectionPolicyFromDiscriminatorValue); },
-        "tags": n => { apiModelRouterTaskPreset.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiModelRouterTaskPreset.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "task_slug": n => { apiModelRouterTaskPreset.taskSlug = n.getStringValue(); },
     }
 }
@@ -34229,7 +34247,7 @@ export function deserializeIntoApiModelSetting(apiModelSetting: Partial<ApiModel
         "max": n => { apiModelSetting.max = n.getNumberValue(); },
         "min": n => { apiModelSetting.min = n.getNumberValue(); },
         "name": n => { apiModelSetting.name = n.getStringValue(); },
-        "options": n => { apiModelSetting.options = n.getCollectionOfPrimitiveValues<string>(); },
+        "options": n => { apiModelSetting.options = n.getCollectionOfPrimitiveValues<string>("string"); },
         "step": n => { apiModelSetting.step = n.getNumberValue(); },
         "type": n => { apiModelSetting.type = n.getStringValue(); },
     }
@@ -34255,7 +34273,7 @@ export function deserializeIntoApiModelVersion(apiModelVersion: Partial<ApiModel
 // @ts-ignore
 export function deserializeIntoApiMoveAgentsToWorkspaceInputPublic(apiMoveAgentsToWorkspaceInputPublic: Partial<ApiMoveAgentsToWorkspaceInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "agent_uuids": n => { apiMoveAgentsToWorkspaceInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "agent_uuids": n => { apiMoveAgentsToWorkspaceInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "workspace_uuid": n => { apiMoveAgentsToWorkspaceInputPublic.workspaceUuid = n.getStringValue(); },
     }
 }
@@ -34527,8 +34545,8 @@ export function deserializeIntoApiRollbackToAgentVersionOutput(apiRollbackToAgen
 // @ts-ignore
 export function deserializeIntoApiRunEvaluationTestCaseInputPublic(apiRunEvaluationTestCaseInputPublic: Partial<ApiRunEvaluationTestCaseInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "agent_deployment_names": n => { apiRunEvaluationTestCaseInputPublic.agentDeploymentNames = n.getCollectionOfPrimitiveValues<string>(); },
-        "agent_uuids": n => { apiRunEvaluationTestCaseInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "agent_deployment_names": n => { apiRunEvaluationTestCaseInputPublic.agentDeploymentNames = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "agent_uuids": n => { apiRunEvaluationTestCaseInputPublic.agentUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "run_name": n => { apiRunEvaluationTestCaseInputPublic.runName = n.getStringValue(); },
         "test_case_uuid": n => { apiRunEvaluationTestCaseInputPublic.testCaseUuid = n.getStringValue(); },
     }
@@ -34541,7 +34559,7 @@ export function deserializeIntoApiRunEvaluationTestCaseInputPublic(apiRunEvaluat
 // @ts-ignore
 export function deserializeIntoApiRunEvaluationTestCaseOutput(apiRunEvaluationTestCaseOutput: Partial<ApiRunEvaluationTestCaseOutput> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "evaluation_run_uuids": n => { apiRunEvaluationTestCaseOutput.evaluationRunUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "evaluation_run_uuids": n => { apiRunEvaluationTestCaseOutput.evaluationRunUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -34557,7 +34575,7 @@ export function deserializeIntoApiScenario(apiScenario: Partial<ApiScenario> | u
         "max_turns": n => { apiScenario.maxTurns = n.getNumberValue(); },
         "name": n => { apiScenario.name = n.getStringValue(); },
         "scenario_uuid": n => { apiScenario.scenarioUuid = n.getStringValue(); },
-        "stopping_criteria": n => { apiScenario.stoppingCriteria = n.getCollectionOfPrimitiveValues<string>(); },
+        "stopping_criteria": n => { apiScenario.stoppingCriteria = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_persona": n => { apiScenario.userPersona = n.getStringValue(); },
     }
 }
@@ -34617,7 +34635,7 @@ export function deserializeIntoApiScenarioSet(apiScenarioSet: Partial<ApiScenari
 export function deserializeIntoApiScheduledIndexingInfo(apiScheduledIndexingInfo: Partial<ApiScheduledIndexingInfo> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "created_at": n => { apiScheduledIndexingInfo.createdAt = n.getDateValue(); },
-        "days": n => { apiScheduledIndexingInfo.days = n.getCollectionOfPrimitiveValues<number>(); },
+        "days": n => { apiScheduledIndexingInfo.days = n.getCollectionOfPrimitiveValues<number>("number"); },
         "deleted_at": n => { apiScheduledIndexingInfo.deletedAt = n.getDateValue(); },
         "is_active": n => { apiScheduledIndexingInfo.isActive = n.getBooleanValue(); },
         "knowledge_base_uuid": n => { apiScheduledIndexingInfo.knowledgeBaseUuid = n.getStringValue(); },
@@ -34675,7 +34693,7 @@ export function deserializeIntoApiSimulationEpisodeCounts(apiSimulationEpisodeCo
 // @ts-ignore
 export function deserializeIntoApiSimulationEvaluationConfig(apiSimulationEvaluationConfig: Partial<ApiSimulationEvaluationConfig> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "metric_uuids": n => { apiSimulationEvaluationConfig.metricUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "metric_uuids": n => { apiSimulationEvaluationConfig.metricUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "star_metric": n => { apiSimulationEvaluationConfig.starMetric = n.getObjectValue<ApiStarMetric>(createApiStarMetricFromDiscriminatorValue); },
     }
 }
@@ -34909,7 +34927,7 @@ export function deserializeIntoApiSpanCommon(apiSpanCommon: Partial<ApiSpanCommo
         "duration_ns": n => { apiSpanCommon.durationNs = n.getStringValue(); },
         "metadata": n => { apiSpanCommon.metadata = n.getObjectValue<ApiSpanCommon_metadata>(createApiSpanCommon_metadataFromDiscriminatorValue); },
         "status_code": n => { apiSpanCommon.statusCode = n.getNumberValue(); },
-        "tags": n => { apiSpanCommon.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiSpanCommon.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -34957,7 +34975,7 @@ export function deserializeIntoApiStarMetricSummary(apiStarMetricSummary: Partia
 // @ts-ignore
 export function deserializeIntoApiStartKnowledgeBaseIndexingJobInputPublic(apiStartKnowledgeBaseIndexingJobInputPublic: Partial<ApiStartKnowledgeBaseIndexingJobInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "data_source_uuids": n => { apiStartKnowledgeBaseIndexingJobInputPublic.dataSourceUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "data_source_uuids": n => { apiStartKnowledgeBaseIndexingJobInputPublic.dataSourceUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
         "knowledge_base_uuid": n => { apiStartKnowledgeBaseIndexingJobInputPublic.knowledgeBaseUuid = n.getStringValue(); },
     }
 }
@@ -35203,7 +35221,7 @@ export function deserializeIntoApiUpdateAgentFunctionOutput(apiUpdateAgentFuncti
 export function deserializeIntoApiUpdateAgentInputPublic(apiUpdateAgentInputPublic: Partial<ApiUpdateAgentInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "agent_log_insights_enabled": n => { apiUpdateAgentInputPublic.agentLogInsightsEnabled = n.getBooleanValue(); },
-        "allowed_domains": n => { apiUpdateAgentInputPublic.allowedDomains = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_domains": n => { apiUpdateAgentInputPublic.allowedDomains = n.getCollectionOfPrimitiveValues<string>("string"); },
         "anthropic_key_uuid": n => { apiUpdateAgentInputPublic.anthropicKeyUuid = n.getStringValue(); },
         "clear_mcp_servers": n => { apiUpdateAgentInputPublic.clearMcpServers = n.getBooleanValue(); },
         "conversation_logs_enabled": n => { apiUpdateAgentInputPublic.conversationLogsEnabled = n.getBooleanValue(); },
@@ -35222,7 +35240,7 @@ export function deserializeIntoApiUpdateAgentInputPublic(apiUpdateAgentInputPubl
         "reasoning_effort": n => { apiUpdateAgentInputPublic.reasoningEffort = n.getStringValue(); },
         "retrieval_method": n => { apiUpdateAgentInputPublic.retrievalMethod = n.getEnumValue<ApiRetrievalMethod>(ApiRetrievalMethodObject) ?? ApiRetrievalMethodObject.RETRIEVAL_METHOD_UNKNOWN; },
         "router_preset_slug": n => { apiUpdateAgentInputPublic.routerPresetSlug = n.getStringValue(); },
-        "tags": n => { apiUpdateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiUpdateAgentInputPublic.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "temperature": n => { apiUpdateAgentInputPublic.temperature = n.getNumberValue(); },
         "thinking_token_budget": n => { apiUpdateAgentInputPublic.thinkingTokenBudget = n.getNumberValue(); },
         "top_p": n => { apiUpdateAgentInputPublic.topP = n.getNumberValue(); },
@@ -35300,10 +35318,10 @@ export function deserializeIntoApiUpdateCustomEvaluationMetricOutput(apiUpdateCu
 export function deserializeIntoApiUpdateCustomModelMetadataInputPublic(apiUpdateCustomModelMetadataInputPublic: Partial<ApiUpdateCustomModelMetadataInputPublic> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { apiUpdateCustomModelMetadataInputPublic.description = n.getStringValue(); },
-        "input_modalities": n => { apiUpdateCustomModelMetadataInputPublic.inputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "input_modalities": n => { apiUpdateCustomModelMetadataInputPublic.inputModalities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "license": n => { apiUpdateCustomModelMetadataInputPublic.license = n.getStringValue(); },
         "name": n => { apiUpdateCustomModelMetadataInputPublic.name = n.getStringValue(); },
-        "output_modalities": n => { apiUpdateCustomModelMetadataInputPublic.outputModalities = n.getCollectionOfPrimitiveValues<string>(); },
+        "output_modalities": n => { apiUpdateCustomModelMetadataInputPublic.outputModalities = n.getCollectionOfPrimitiveValues<string>("string"); },
         "parameters": n => { apiUpdateCustomModelMetadataInputPublic.parameters = n.getStringValue(); },
         "tags": n => { apiUpdateCustomModelMetadataInputPublic.tags = n.getObjectValue<CustomModelTags>(createCustomModelTagsFromDiscriminatorValue); },
         "uuid": n => { apiUpdateCustomModelMetadataInputPublic.uuid = n.getStringValue(); },
@@ -35385,7 +35403,7 @@ export function deserializeIntoApiUpdateKnowledgeBaseInputPublic(apiUpdateKnowle
         "name": n => { apiUpdateKnowledgeBaseInputPublic.name = n.getStringValue(); },
         "project_id": n => { apiUpdateKnowledgeBaseInputPublic.projectId = n.getStringValue(); },
         "reranking_config": n => { apiUpdateKnowledgeBaseInputPublic.rerankingConfig = n.getObjectValue<ApiRerankingConfiguration>(createApiRerankingConfigurationFromDiscriminatorValue); },
-        "tags": n => { apiUpdateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { apiUpdateKnowledgeBaseInputPublic.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "uuid": n => { apiUpdateKnowledgeBaseInputPublic.uuid = n.getStringValue(); },
     }
 }
@@ -35487,7 +35505,7 @@ export function deserializeIntoApiUpdateModelRouterInputPublic(apiUpdateModelRou
         "fallback_models": n => { apiUpdateModelRouterInputPublic.fallbackModels = n.getCollectionOfObjectValues<ApiUpdateModelRouterInputPublic_fallback_models>(createApiUpdateModelRouterInputPublic_fallback_modelsFromDiscriminatorValue); },
         "name": n => { apiUpdateModelRouterInputPublic.name = n.getStringValue(); },
         "policies": n => { apiUpdateModelRouterInputPublic.policies = n.getCollectionOfObjectValues<ApiModelRouterTaskPolicy>(createApiModelRouterTaskPolicyFromDiscriminatorValue); },
-        "regions": n => { apiUpdateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { apiUpdateModelRouterInputPublic.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "uuid": n => { apiUpdateModelRouterInputPublic.uuid = n.getStringValue(); },
     }
 }
@@ -35630,7 +35648,7 @@ export function deserializeIntoApiWebCrawlerDataSource(apiWebCrawlerDataSource: 
         "base_url": n => { apiWebCrawlerDataSource.baseUrl = n.getStringValue(); },
         "crawling_option": n => { apiWebCrawlerDataSource.crawlingOption = n.getEnumValue<ApiCrawlingOption>(ApiCrawlingOptionObject) ?? ApiCrawlingOptionObject.UNKNOWN; },
         "embed_media": n => { apiWebCrawlerDataSource.embedMedia = n.getBooleanValue(); },
-        "exclude_tags": n => { apiWebCrawlerDataSource.excludeTags = n.getCollectionOfPrimitiveValues<string>(); },
+        "exclude_tags": n => { apiWebCrawlerDataSource.excludeTags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -35704,7 +35722,7 @@ export function deserializeIntoApp(app: Partial<App> | undefined = {}) : Record<
 export function deserializeIntoApp_alert(app_alert: Partial<App_alert> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "component_name": n => { app_alert.componentName = n.getStringValue(); },
-        "emails": n => { app_alert.emails = n.getCollectionOfPrimitiveValues<string>(); },
+        "emails": n => { app_alert.emails = n.getCollectionOfPrimitiveValues<string>("string"); },
         "id": n => { app_alert.id = n.getStringValue(); },
         "phase": n => { app_alert.phase = n.getEnumValue<App_alert_phase>(App_alert_phaseObject) ?? App_alert_phaseObject.UNKNOWN; },
         "progress": n => { app_alert.progress = n.getObjectValue<App_alert_progress>(createApp_alert_progressFromDiscriminatorValue); },
@@ -35809,7 +35827,7 @@ export function deserializeIntoApp_autoscaling_spec_metrics(app_autoscaling_spec
 // @ts-ignore
 export function deserializeIntoApp_autoscaling_spec_metrics_cpu(app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "percent": n => { app_autoscaling_spec_metrics_cpu.percent = n.getNumberValue(); },
+        "percent": n => { app_autoscaling_spec_metrics_cpu.percent = n.getNumberValue() ?? 80; },
     }
 }
 /**
@@ -36307,7 +36325,7 @@ export function deserializeIntoApp_job_spec(app_job_spec: Partial<App_job_spec> 
         "github": n => { app_job_spec.github = n.getObjectValue<Apps_github_source_spec>(createApps_github_source_specFromDiscriminatorValue); },
         "gitlab": n => { app_job_spec.gitlab = n.getObjectValue<Apps_gitlab_source_spec>(createApps_gitlab_source_specFromDiscriminatorValue); },
         "image": n => { app_job_spec.image = n.getObjectValue<Apps_image_source_spec>(createApps_image_source_specFromDiscriminatorValue); },
-        "instance_count": n => { app_job_spec.instanceCount = n.getNumberValue(); },
+        "instance_count": n => { app_job_spec.instanceCount = n.getNumberValue() ?? 1; },
         "instance_size_slug": n => { app_job_spec.instanceSizeSlug = n.getStringValue(); },
         "kind": n => { app_job_spec.kind = n.getEnumValue<App_job_spec_kind>(App_job_spec_kindObject) ?? App_job_spec_kindObject.UNSPECIFIED; },
         "log_destinations": n => { app_job_spec.logDestinations = n.getCollectionOfObjectValues<App_log_destination_definition>(createApp_log_destination_definitionFromDiscriminatorValue); },
@@ -36448,7 +36466,7 @@ export function deserializeIntoApp_metrics_bandwidth_usage_details(app_metrics_b
 // @ts-ignore
 export function deserializeIntoApp_metrics_bandwidth_usage_request(app_metrics_bandwidth_usage_request: Partial<App_metrics_bandwidth_usage_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "app_ids": n => { app_metrics_bandwidth_usage_request.appIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "app_ids": n => { app_metrics_bandwidth_usage_request.appIds = n.getCollectionOfPrimitiveValues<string>("string"); },
         "date": n => { app_metrics_bandwidth_usage_request.date = n.getDateValue(); },
     }
 }
@@ -36501,7 +36519,7 @@ export function deserializeIntoApp_response(app_response: Partial<App_response> 
 export function deserializeIntoApp_rollback_validation_condition(app_rollback_validation_condition: Partial<App_rollback_validation_condition> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "code": n => { app_rollback_validation_condition.code = n.getEnumValue<App_rollback_validation_condition_code>(App_rollback_validation_condition_codeObject); },
-        "components": n => { app_rollback_validation_condition.components = n.getCollectionOfPrimitiveValues<string>(); },
+        "components": n => { app_rollback_validation_condition.components = n.getCollectionOfPrimitiveValues<string>("string"); },
         "message": n => { app_rollback_validation_condition.message = n.getStringValue(); },
     }
 }
@@ -36538,9 +36556,9 @@ export function deserializeIntoApp_service_spec(app_service_spec: Partial<App_se
         "health_check": n => { app_service_spec.healthCheck = n.getObjectValue<App_service_spec_health_check>(createApp_service_spec_health_checkFromDiscriminatorValue); },
         "http_port": n => { app_service_spec.httpPort = n.getNumberValue(); },
         "image": n => { app_service_spec.image = n.getObjectValue<Apps_image_source_spec>(createApps_image_source_specFromDiscriminatorValue); },
-        "instance_count": n => { app_service_spec.instanceCount = n.getNumberValue(); },
+        "instance_count": n => { app_service_spec.instanceCount = n.getNumberValue() ?? 1; },
         "instance_size_slug": n => { app_service_spec.instanceSizeSlug = n.getStringValue(); },
-        "internal_ports": n => { app_service_spec.internalPorts = n.getCollectionOfPrimitiveValues<number>(); },
+        "internal_ports": n => { app_service_spec.internalPorts = n.getCollectionOfPrimitiveValues<number>("number"); },
         "liveness_health_check": n => { app_service_spec.livenessHealthCheck = n.getObjectValue<App_health_check_spec>(createApp_health_check_specFromDiscriminatorValue); },
         "log_destinations": n => { app_service_spec.logDestinations = n.getCollectionOfObjectValues<App_log_destination_definition>(createApp_log_destination_definitionFromDiscriminatorValue); },
         "name": n => { app_service_spec.name = n.getStringValue(); },
@@ -36589,11 +36607,11 @@ export function deserializeIntoApp_service_spec_termination(app_service_spec_ter
 export function deserializeIntoApp_spec(app_spec: Partial<App_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "databases": n => { app_spec.databases = n.getCollectionOfObjectValues<App_database_spec>(createApp_database_specFromDiscriminatorValue); },
-        "disable_edge_cache": n => { app_spec.disableEdgeCache = n.getBooleanValue(); },
-        "disable_email_obfuscation": n => { app_spec.disableEmailObfuscation = n.getBooleanValue(); },
+        "disable_edge_cache": n => { app_spec.disableEdgeCache = n.getBooleanValue() ?? false; },
+        "disable_email_obfuscation": n => { app_spec.disableEmailObfuscation = n.getBooleanValue() ?? false; },
         "domains": n => { app_spec.domains = n.getCollectionOfObjectValues<App_domain_spec>(createApp_domain_specFromDiscriminatorValue); },
         "egress": n => { app_spec.egress = n.getObjectValue<App_egress_spec>(createApp_egress_specFromDiscriminatorValue); },
-        "enhanced_threat_control_enabled": n => { app_spec.enhancedThreatControlEnabled = n.getBooleanValue(); },
+        "enhanced_threat_control_enabled": n => { app_spec.enhancedThreatControlEnabled = n.getBooleanValue() ?? false; },
         "functions": n => { app_spec.functions = n.getCollectionOfObjectValues<App_functions_spec>(createApp_functions_specFromDiscriminatorValue); },
         "ingress": n => { app_spec.ingress = n.getObjectValue<App_ingress_spec>(createApp_ingress_specFromDiscriminatorValue); },
         "jobs": n => { app_spec.jobs = n.getCollectionOfObjectValues<App_job_spec>(createApp_job_specFromDiscriminatorValue); },
@@ -36655,7 +36673,7 @@ export function deserializeIntoApp_worker_spec(app_worker_spec: Partial<App_work
         "github": n => { app_worker_spec.github = n.getObjectValue<Apps_github_source_spec>(createApps_github_source_specFromDiscriminatorValue); },
         "gitlab": n => { app_worker_spec.gitlab = n.getObjectValue<Apps_gitlab_source_spec>(createApps_gitlab_source_specFromDiscriminatorValue); },
         "image": n => { app_worker_spec.image = n.getObjectValue<Apps_image_source_spec>(createApps_image_source_specFromDiscriminatorValue); },
-        "instance_count": n => { app_worker_spec.instanceCount = n.getNumberValue(); },
+        "instance_count": n => { app_worker_spec.instanceCount = n.getNumberValue() ?? 1; },
         "instance_size_slug": n => { app_worker_spec.instanceSizeSlug = n.getStringValue(); },
         "liveness_health_check": n => { app_worker_spec.livenessHealthCheck = n.getObjectValue<App_health_check_spec>(createApp_health_check_specFromDiscriminatorValue); },
         "log_destinations": n => { app_worker_spec.logDestinations = n.getCollectionOfObjectValues<App_log_destination_definition>(createApp_log_destination_definitionFromDiscriminatorValue); },
@@ -36719,7 +36737,7 @@ export function deserializeIntoApps_alert_response(apps_alert_response: Partial<
 // @ts-ignore
 export function deserializeIntoApps_assign_app_alert_destinations_request(apps_assign_app_alert_destinations_request: Partial<Apps_assign_app_alert_destinations_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "emails": n => { apps_assign_app_alert_destinations_request.emails = n.getCollectionOfPrimitiveValues<string>(); },
+        "emails": n => { apps_assign_app_alert_destinations_request.emails = n.getCollectionOfPrimitiveValues<string>("string"); },
         "slack_webhooks": n => { apps_assign_app_alert_destinations_request.slackWebhooks = n.getCollectionOfObjectValues<App_alert_slack_webhook>(createApp_alert_slack_webhookFromDiscriminatorValue); },
     }
 }
@@ -36745,10 +36763,10 @@ export function deserializeIntoApps_bitbucket_source_spec(apps_bitbucket_source_
 export function deserializeIntoApps_cors_policy(apps_cors_policy: Partial<Apps_cors_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "allow_credentials": n => { apps_cors_policy.allowCredentials = n.getBooleanValue(); },
-        "allow_headers": n => { apps_cors_policy.allowHeaders = n.getCollectionOfPrimitiveValues<string>(); },
-        "allow_methods": n => { apps_cors_policy.allowMethods = n.getCollectionOfPrimitiveValues<string>(); },
+        "allow_headers": n => { apps_cors_policy.allowHeaders = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "allow_methods": n => { apps_cors_policy.allowMethods = n.getCollectionOfPrimitiveValues<string>("string"); },
         "allow_origins": n => { apps_cors_policy.allowOrigins = n.getCollectionOfObjectValues<Apps_string_match>(createApps_string_matchFromDiscriminatorValue); },
-        "expose_headers": n => { apps_cors_policy.exposeHeaders = n.getCollectionOfPrimitiveValues<string>(); },
+        "expose_headers": n => { apps_cors_policy.exposeHeaders = n.getCollectionOfPrimitiveValues<string>("string"); },
         "max_age": n => { apps_cors_policy.maxAge = n.getStringValue(); },
     }
 }
@@ -37034,7 +37052,7 @@ export function deserializeIntoApps_get_instance_size_response(apps_get_instance
 // @ts-ignore
 export function deserializeIntoApps_get_logs_response(apps_get_logs_response: Partial<Apps_get_logs_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "historic_urls": n => { apps_get_logs_response.historicUrls = n.getCollectionOfPrimitiveValues<string>(); },
+        "historic_urls": n => { apps_get_logs_response.historicUrls = n.getCollectionOfPrimitiveValues<string>("string"); },
         "live_url": n => { apps_get_logs_response.liveUrl = n.getStringValue(); },
     }
 }
@@ -37171,7 +37189,7 @@ export function deserializeIntoApps_list_regions_response(apps_list_regions_resp
 export function deserializeIntoApps_region(apps_region: Partial<Apps_region> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "continent": n => { apps_region.continent = n.getStringValue(); },
-        "data_centers": n => { apps_region.dataCenters = n.getCollectionOfPrimitiveValues<string>(); },
+        "data_centers": n => { apps_region.dataCenters = n.getCollectionOfPrimitiveValues<string>("string"); },
         "default": n => { apps_region.defaultEscaped = n.getBooleanValue(); },
         "disabled": n => { apps_region.disabled = n.getBooleanValue(); },
         "flag": n => { apps_region.flag = n.getStringValue(); },
@@ -37201,7 +37219,7 @@ export function deserializeIntoApps_response(apps_response: Partial<Apps_respons
 // @ts-ignore
 export function deserializeIntoApps_restart_request(apps_restart_request: Partial<Apps_restart_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "components": n => { apps_restart_request.components = n.getCollectionOfPrimitiveValues<string>(); },
+        "components": n => { apps_restart_request.components = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -37238,7 +37256,7 @@ export function deserializeIntoApps_string_match(apps_string_match: Partial<Apps
 export function deserializeIntoApps_update_app_request(apps_update_app_request: Partial<Apps_update_app_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "spec": n => { apps_update_app_request.spec = n.getObjectValue<App_spec>(createApp_specFromDiscriminatorValue); },
-        "update_all_source_versions": n => { apps_update_app_request.updateAllSourceVersions = n.getBooleanValue(); },
+        "update_all_source_versions": n => { apps_update_app_request.updateAllSourceVersions = n.getBooleanValue() ?? false; },
     }
 }
 /**
@@ -37470,11 +37488,11 @@ export function deserializeIntoAutoscale_pool_droplet_template(autoscale_pool_dr
         "ipv6": n => { autoscale_pool_droplet_template.ipv6 = n.getBooleanValue(); },
         "name": n => { autoscale_pool_droplet_template.name = n.getStringValue(); },
         "project_id": n => { autoscale_pool_droplet_template.projectId = n.getStringValue(); },
-        "public_networking": n => { autoscale_pool_droplet_template.publicNetworking = n.getBooleanValue(); },
+        "public_networking": n => { autoscale_pool_droplet_template.publicNetworking = n.getBooleanValue() ?? true; },
         "region": n => { autoscale_pool_droplet_template.region = n.getEnumValue<Autoscale_pool_droplet_template_region>(Autoscale_pool_droplet_template_regionObject); },
         "size": n => { autoscale_pool_droplet_template.size = n.getStringValue(); },
-        "ssh_keys": n => { autoscale_pool_droplet_template.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
-        "tags": n => { autoscale_pool_droplet_template.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "ssh_keys": n => { autoscale_pool_droplet_template.sshKeys = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "tags": n => { autoscale_pool_droplet_template.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_data": n => { autoscale_pool_droplet_template.userData = n.getStringValue(); },
         "vpc_uuid": n => { autoscale_pool_droplet_template.vpcUuid = n.getStringValue(); },
         "with_droplet_agent": n => { autoscale_pool_droplet_template.withDropletAgent = n.getBooleanValue(); },
@@ -37896,7 +37914,7 @@ export function deserializeIntoCdn_endpoint(cdn_endpoint: Partial<Cdn_endpoint> 
         "endpoint": n => { cdn_endpoint.endpoint = n.getStringValue(); },
         "id": n => { cdn_endpoint.id = n.getGuidValue(); },
         "origin": n => { cdn_endpoint.origin = n.getStringValue(); },
-        "ttl": n => { cdn_endpoint.ttl = n.getNumberValue(); },
+        "ttl": n => { cdn_endpoint.ttl = n.getNumberValue() ?? 3600; },
     }
 }
 /**
@@ -37908,7 +37926,7 @@ export function deserializeIntoCdn_endpoint(cdn_endpoint: Partial<Cdn_endpoint> 
 export function deserializeIntoCertificate(certificate: Partial<Certificate> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "created_at": n => { certificate.createdAt = n.getDateValue(); },
-        "dns_names": n => { certificate.dnsNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "dns_names": n => { certificate.dnsNames = n.getCollectionOfPrimitiveValues<string>("string"); },
         "id": n => { certificate.id = n.getGuidValue(); },
         "name": n => { certificate.name = n.getStringValue(); },
         "not_after": n => { certificate.notAfter = n.getDateValue(); },
@@ -37952,7 +37970,7 @@ export function deserializeIntoCertificate_request_custom(certificate_request_cu
 export function deserializeIntoCertificate_request_lets_encrypt(certificate_request_lets_encrypt: Partial<Certificate_request_lets_encrypt> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoCertificate_create_base(certificate_request_lets_encrypt),
-        "dns_names": n => { certificate_request_lets_encrypt.dnsNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "dns_names": n => { certificate_request_lets_encrypt.dnsNames = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -37963,20 +37981,20 @@ export function deserializeIntoCertificate_request_lets_encrypt(certificate_requ
 // @ts-ignore
 export function deserializeIntoChat_completion_request(chat_completion_request: Partial<Chat_completion_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "frequency_penalty": n => { chat_completion_request.frequencyPenalty = n.getNumberValue(); },
+        "frequency_penalty": n => { chat_completion_request.frequencyPenalty = n.getNumberValue() ?? 0; },
         "logit_bias": n => { chat_completion_request.logitBias = n.getObjectValue<Chat_completion_request_logit_bias>(createChat_completion_request_logit_biasFromDiscriminatorValue); },
-        "logprobs": n => { chat_completion_request.logprobs = n.getBooleanValue(); },
+        "logprobs": n => { chat_completion_request.logprobs = n.getBooleanValue() ?? false; },
         "max_completion_tokens": n => { chat_completion_request.maxCompletionTokens = n.getNumberValue(); },
         "max_tokens": n => { chat_completion_request.maxTokens = n.getNumberValue(); },
         "messages": n => { chat_completion_request.messages = n.getCollectionOfObjectValues<Chat_message>(createChat_messageFromDiscriminatorValue); },
         "metadata": n => { chat_completion_request.metadata = n.getObjectValue<Chat_completion_request_metadata>(createChat_completion_request_metadataFromDiscriminatorValue); },
         "model": n => { chat_completion_request.model = n.getStringValue(); },
-        "n": n => { chat_completion_request.n = n.getNumberValue(); },
-        "presence_penalty": n => { chat_completion_request.presencePenalty = n.getNumberValue(); },
+        "n": n => { chat_completion_request.n = n.getNumberValue() ?? 1; },
+        "presence_penalty": n => { chat_completion_request.presencePenalty = n.getNumberValue() ?? 0; },
         "reasoning_effort": n => { chat_completion_request.reasoningEffort = n.getEnumValue<Chat_completion_request_reasoning_effort>(Chat_completion_request_reasoning_effortObject); },
         "seed": n => { chat_completion_request.seed = n.getNumberValue(); },
-        "stop": n => { chat_completion_request.stop = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue(); },
-        "stream": n => { chat_completion_request.stream = n.getBooleanValue(); },
+        "stop": n => { chat_completion_request.stop = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue(); },
+        "stream": n => { chat_completion_request.stream = n.getBooleanValue() ?? false; },
         "stream_options": n => { chat_completion_request.streamOptions = n.getObjectValue<Chat_completion_request_stream_options>(createChat_completion_request_stream_optionsFromDiscriminatorValue); },
         "temperature": n => { chat_completion_request.temperature = n.getNumberValue(); },
         "tool_choice": n => { chat_completion_request.toolChoice = n.getObjectValue<Chat_completion_request_tool_choiceMember1>(createChat_completion_request_tool_choiceMember1FromDiscriminatorValue) ?? n.getStringValue(); },
@@ -38014,7 +38032,7 @@ export function deserializeIntoChat_completion_request_metadata(chat_completion_
 // @ts-ignore
 export function deserializeIntoChat_completion_request_stop(chat_completion_request_stop: Partial<Parsable | string[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "" : n => { chat_completion_request_stop = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue()},
+        "" : n => { chat_completion_request_stop = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue()},
     }
 }
 /**
@@ -38153,7 +38171,7 @@ export function deserializeIntoChat_completion_response_choices_message_tool_cal
 // @ts-ignore
 export function deserializeIntoChat_completion_token_logprob(chat_completion_token_logprob: Partial<Chat_completion_token_logprob> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "bytes": n => { chat_completion_token_logprob.bytes = n.getCollectionOfPrimitiveValues<number>(); },
+        "bytes": n => { chat_completion_token_logprob.bytes = n.getCollectionOfPrimitiveValues<number>("number"); },
         "logprob": n => { chat_completion_token_logprob.logprob = n.getNumberValue(); },
         "token": n => { chat_completion_token_logprob.token = n.getStringValue(); },
         "top_logprobs": n => { chat_completion_token_logprob.topLogprobs = n.getCollectionOfObjectValues<Chat_completion_top_logprob_item>(createChat_completion_top_logprob_itemFromDiscriminatorValue); },
@@ -38204,7 +38222,7 @@ export function deserializeIntoChat_completion_tool_call_function(chat_completio
 // @ts-ignore
 export function deserializeIntoChat_completion_top_logprob_item(chat_completion_top_logprob_item: Partial<Chat_completion_top_logprob_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "bytes": n => { chat_completion_top_logprob_item.bytes = n.getCollectionOfPrimitiveValues<number>(); },
+        "bytes": n => { chat_completion_top_logprob_item.bytes = n.getCollectionOfPrimitiveValues<number>("number"); },
         "logprob": n => { chat_completion_top_logprob_item.logprob = n.getNumberValue(); },
         "token": n => { chat_completion_top_logprob_item.token = n.getStringValue(); },
     }
@@ -38233,7 +38251,7 @@ export function deserializeIntoChat_message(chat_message: Partial<Chat_message> 
 // @ts-ignore
 export function deserializeIntoCheck(check: Partial<Check> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "enabled": n => { check.enabled = n.getBooleanValue(); },
+        "enabled": n => { check.enabled = n.getBooleanValue() ?? true; },
         "id": n => { check.id = n.getGuidValue(); },
         "name": n => { check.name = n.getStringValue(); },
         "regions": n => { check.regions = n.getCollectionOfEnumValues<Check_regions>(Check_regionsObject); },
@@ -38249,7 +38267,7 @@ export function deserializeIntoCheck(check: Partial<Check> | undefined = {}) : R
 // @ts-ignore
 export function deserializeIntoCheck_updatable(check_updatable: Partial<Check_updatable> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "enabled": n => { check_updatable.enabled = n.getBooleanValue(); },
+        "enabled": n => { check_updatable.enabled = n.getBooleanValue() ?? true; },
         "name": n => { check_updatable.name = n.getStringValue(); },
         "regions": n => { check_updatable.regions = n.getCollectionOfEnumValues<Check_updatable_regions>(Check_updatable_regionsObject); },
         "target": n => { check_updatable.target = n.getStringValue(); },
@@ -38319,19 +38337,19 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "amd_gpu_dra_driver": n => { cluster.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
-        "auto_upgrade": n => { cluster.autoUpgrade = n.getBooleanValue(); },
+        "auto_upgrade": n => { cluster.autoUpgrade = n.getBooleanValue() ?? false; },
         "cluster_autoscaler_configuration": n => { cluster.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster.clusterSubnet = n.getStringValue(); },
         "control_plane_firewall": n => { cluster.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
         "coredns_autoscaler": n => { cluster.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
         "created_at": n => { cluster.createdAt = n.getDateValue(); },
         "endpoint": n => { cluster.endpoint = n.getStringValue(); },
-        "gpu_operator_ready": n => { cluster.gpuOperatorReady = n.getBooleanValue(); },
+        "gpu_operator_ready": n => { cluster.gpuOperatorReady = n.getBooleanValue() ?? false; },
         "ha": n => { cluster.ha = n.getBooleanValue(); },
         "id": n => { cluster.id = n.getGuidValue(); },
         "insights": n => { cluster.insights = n.getObjectValue<Insights_opt_in2>(createInsights_opt_in2FromDiscriminatorValue); },
         "ipv4": n => { cluster.ipv4 = n.getStringValue(); },
-        "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue(); },
+        "isolated_workers": n => { cluster.isolatedWorkers = n.getBooleanValue() ?? false; },
         "maintenance_policy": n => { cluster.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster.name = n.getStringValue(); },
         "nfs_csi_plugin": n => { cluster.nfsCsiPlugin = n.getObjectValue<Nfs_csi_plugin>(createNfs_csi_pluginFromDiscriminatorValue); },
@@ -38346,8 +38364,8 @@ export function deserializeIntoCluster(cluster: Partial<Cluster> | undefined = {
         "service_subnet": n => { cluster.serviceSubnet = n.getStringValue(); },
         "sso": n => { cluster.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
         "status": n => { cluster.status = n.getObjectValue<Cluster_status>(createCluster_statusFromDiscriminatorValue); },
-        "surge_upgrade": n => { cluster.surgeUpgrade = n.getBooleanValue(); },
-        "tags": n => { cluster.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "surge_upgrade": n => { cluster.surgeUpgrade = n.getBooleanValue() ?? false; },
+        "tags": n => { cluster.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { cluster.updatedAt = n.getDateValue(); },
         "version": n => { cluster.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster.vpcUuid = n.getGuidValue(); },
@@ -38378,18 +38396,18 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster_read.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster_read.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "amd_gpu_dra_driver": n => { cluster_read.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
-        "auto_upgrade": n => { cluster_read.autoUpgrade = n.getBooleanValue(); },
+        "auto_upgrade": n => { cluster_read.autoUpgrade = n.getBooleanValue() ?? false; },
         "cluster_autoscaler_configuration": n => { cluster_read.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "cluster_subnet": n => { cluster_read.clusterSubnet = n.getStringValue(); },
         "control_plane_firewall": n => { cluster_read.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
         "coredns_autoscaler": n => { cluster_read.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
         "created_at": n => { cluster_read.createdAt = n.getDateValue(); },
         "endpoint": n => { cluster_read.endpoint = n.getStringValue(); },
-        "gpu_operator_ready": n => { cluster_read.gpuOperatorReady = n.getBooleanValue(); },
-        "ha": n => { cluster_read.ha = n.getBooleanValue(); },
+        "gpu_operator_ready": n => { cluster_read.gpuOperatorReady = n.getBooleanValue() ?? false; },
+        "ha": n => { cluster_read.ha = n.getBooleanValue() ?? false; },
         "id": n => { cluster_read.id = n.getGuidValue(); },
         "ipv4": n => { cluster_read.ipv4 = n.getStringValue(); },
-        "isolated_workers": n => { cluster_read.isolatedWorkers = n.getBooleanValue(); },
+        "isolated_workers": n => { cluster_read.isolatedWorkers = n.getBooleanValue() ?? false; },
         "maintenance_policy": n => { cluster_read.maintenancePolicy = n.getObjectValue<Maintenance_policy>(createMaintenance_policyFromDiscriminatorValue); },
         "name": n => { cluster_read.name = n.getStringValue(); },
         "nfs_csi_plugin": n => { cluster_read.nfsCsiPlugin = n.getObjectValue<Nfs_csi_plugin>(createNfs_csi_pluginFromDiscriminatorValue); },
@@ -38399,14 +38417,14 @@ export function deserializeIntoCluster_read(cluster_read: Partial<Cluster_read> 
         "p2p_oci_registry_plugin": n => { cluster_read.p2pOciRegistryPlugin = n.getObjectValue<P2p_oci_registry_plugin>(createP2p_oci_registry_pluginFromDiscriminatorValue); },
         "rdma_shared_dev_plugin": n => { cluster_read.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "region": n => { cluster_read.region = n.getStringValue(); },
-        "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>(); },
+        "registries": n => { cluster_read.registries = n.getCollectionOfPrimitiveValues<string>("string"); },
         "registry_enabled": n => { cluster_read.registryEnabled = n.getBooleanValue(); },
         "routing_agent": n => { cluster_read.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "service_subnet": n => { cluster_read.serviceSubnet = n.getStringValue(); },
         "sso": n => { cluster_read.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
         "status": n => { cluster_read.status = n.getObjectValue<Cluster_read_status>(createCluster_read_statusFromDiscriminatorValue); },
-        "surge_upgrade": n => { cluster_read.surgeUpgrade = n.getBooleanValue(); },
-        "tags": n => { cluster_read.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "surge_upgrade": n => { cluster_read.surgeUpgrade = n.getBooleanValue() ?? false; },
+        "tags": n => { cluster_read.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { cluster_read.updatedAt = n.getDateValue(); },
         "version": n => { cluster_read.version = n.getStringValue(); },
         "vpc_uuid": n => { cluster_read.vpcUuid = n.getGuidValue(); },
@@ -38433,8 +38451,8 @@ export function deserializeIntoCluster_read_status(cluster_read_status: Partial<
 // @ts-ignore
 export function deserializeIntoCluster_registries(cluster_registries: Partial<Cluster_registries> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "cluster_uuids": n => { cluster_registries.clusterUuids = n.getCollectionOfPrimitiveValues<string>(); },
-        "registries": n => { cluster_registries.registries = n.getCollectionOfPrimitiveValues<string>(); },
+        "cluster_uuids": n => { cluster_registries.clusterUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "registries": n => { cluster_registries.registries = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -38445,7 +38463,7 @@ export function deserializeIntoCluster_registries(cluster_registries: Partial<Cl
 // @ts-ignore
 export function deserializeIntoCluster_registry(cluster_registry: Partial<Cluster_registry> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "cluster_uuids": n => { cluster_registry.clusterUuids = n.getCollectionOfPrimitiveValues<string>(); },
+        "cluster_uuids": n => { cluster_registry.clusterUuids = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -38471,7 +38489,7 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "amd_gpu_device_metrics_exporter_plugin": n => { cluster_update.amdGpuDeviceMetricsExporterPlugin = n.getObjectValue<Amd_gpu_device_metrics_exporter_plugin>(createAmd_gpu_device_metrics_exporter_pluginFromDiscriminatorValue); },
         "amd_gpu_device_plugin": n => { cluster_update.amdGpuDevicePlugin = n.getObjectValue<Amd_gpu_device_plugin>(createAmd_gpu_device_pluginFromDiscriminatorValue); },
         "amd_gpu_dra_driver": n => { cluster_update.amdGpuDraDriver = n.getObjectValue<Amd_gpu_dra_driver>(createAmd_gpu_dra_driverFromDiscriminatorValue); },
-        "auto_upgrade": n => { cluster_update.autoUpgrade = n.getBooleanValue(); },
+        "auto_upgrade": n => { cluster_update.autoUpgrade = n.getBooleanValue() ?? false; },
         "cluster_autoscaler_configuration": n => { cluster_update.clusterAutoscalerConfiguration = n.getObjectValue<Cluster_autoscaler_configuration>(createCluster_autoscaler_configurationFromDiscriminatorValue); },
         "control_plane_firewall": n => { cluster_update.controlPlaneFirewall = n.getObjectValue<Control_plane_firewall>(createControl_plane_firewallFromDiscriminatorValue); },
         "coredns_autoscaler": n => { cluster_update.corednsAutoscaler = n.getObjectValue<Coredns_autoscaler>(createCoredns_autoscalerFromDiscriminatorValue); },
@@ -38486,8 +38504,8 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
         "rdma_shared_dev_plugin": n => { cluster_update.rdmaSharedDevPlugin = n.getObjectValue<Rdma_shared_dev_plugin>(createRdma_shared_dev_pluginFromDiscriminatorValue); },
         "routing_agent": n => { cluster_update.routingAgent = n.getObjectValue<Routing_agent>(createRouting_agentFromDiscriminatorValue); },
         "sso": n => { cluster_update.sso = n.getObjectValue<Sso>(createSsoFromDiscriminatorValue); },
-        "surge_upgrade": n => { cluster_update.surgeUpgrade = n.getBooleanValue(); },
-        "tags": n => { cluster_update.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "surge_upgrade": n => { cluster_update.surgeUpgrade = n.getBooleanValue() ?? false; },
+        "tags": n => { cluster_update.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -38498,10 +38516,10 @@ export function deserializeIntoCluster_update(cluster_update: Partial<Cluster_up
 // @ts-ignore
 export function deserializeIntoClusterlint_request(clusterlint_request: Partial<Clusterlint_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "exclude_checks": n => { clusterlint_request.excludeChecks = n.getCollectionOfPrimitiveValues<string>(); },
-        "exclude_groups": n => { clusterlint_request.excludeGroups = n.getCollectionOfPrimitiveValues<string>(); },
-        "include_checks": n => { clusterlint_request.includeChecks = n.getCollectionOfPrimitiveValues<string>(); },
-        "include_groups": n => { clusterlint_request.includeGroups = n.getCollectionOfPrimitiveValues<string>(); },
+        "exclude_checks": n => { clusterlint_request.excludeChecks = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "exclude_groups": n => { clusterlint_request.excludeGroups = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "include_checks": n => { clusterlint_request.includeChecks = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "include_groups": n => { clusterlint_request.includeGroups = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -38553,12 +38571,12 @@ export function deserializeIntoClusterlint_results_diagnostics_object(clusterlin
 // @ts-ignore
 export function deserializeIntoCompletion_usage(completion_usage: Partial<Completion_usage> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "cache_created_input_tokens": n => { completion_usage.cacheCreatedInputTokens = n.getNumberValue(); },
+        "cache_created_input_tokens": n => { completion_usage.cacheCreatedInputTokens = n.getNumberValue() ?? 0; },
         "cache_creation": n => { completion_usage.cacheCreation = n.getObjectValue<Completion_usage_cache_creation>(createCompletion_usage_cache_creationFromDiscriminatorValue); },
-        "cache_read_input_tokens": n => { completion_usage.cacheReadInputTokens = n.getNumberValue(); },
-        "completion_tokens": n => { completion_usage.completionTokens = n.getNumberValue(); },
-        "prompt_tokens": n => { completion_usage.promptTokens = n.getNumberValue(); },
-        "total_tokens": n => { completion_usage.totalTokens = n.getNumberValue(); },
+        "cache_read_input_tokens": n => { completion_usage.cacheReadInputTokens = n.getNumberValue() ?? 0; },
+        "completion_tokens": n => { completion_usage.completionTokens = n.getNumberValue() ?? 0; },
+        "prompt_tokens": n => { completion_usage.promptTokens = n.getNumberValue() ?? 0; },
+        "total_tokens": n => { completion_usage.totalTokens = n.getNumberValue() ?? 0; },
     }
 }
 /**
@@ -38569,8 +38587,8 @@ export function deserializeIntoCompletion_usage(completion_usage: Partial<Comple
 // @ts-ignore
 export function deserializeIntoCompletion_usage_cache_creation(completion_usage_cache_creation: Partial<Completion_usage_cache_creation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "ephemeral_1h_input_tokens": n => { completion_usage_cache_creation.ephemeral1hInputTokens = n.getNumberValue(); },
-        "ephemeral_5m_input_tokens": n => { completion_usage_cache_creation.ephemeral5mInputTokens = n.getNumberValue(); },
+        "ephemeral_1h_input_tokens": n => { completion_usage_cache_creation.ephemeral1hInputTokens = n.getNumberValue() ?? 0; },
+        "ephemeral_5m_input_tokens": n => { completion_usage_cache_creation.ephemeral5mInputTokens = n.getNumberValue() ?? 0; },
     }
 }
 /**
@@ -38594,7 +38612,7 @@ export function deserializeIntoConnection(connection: Partial<Connection> | unde
         "provider": n => { connection.provider = n.getStringValue(); },
         "provider_display_name": n => { connection.providerDisplayName = n.getStringValue(); },
         "revoked_at": n => { connection.revokedAt = n.getDateValue(); },
-        "scopes": n => { connection.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { connection.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "status": n => { connection.status = n.getEnumValue<Connection_status>(Connection_statusObject); },
         "updated_at": n => { connection.updatedAt = n.getDateValue(); },
         "user_id": n => { connection.userId = n.getStringValue(); },
@@ -38646,7 +38664,7 @@ export function deserializeIntoConnection_create(connection_create: Partial<Conn
         "credential": n => { connection_create.credential = n.getObjectValue<Connection_create_credential>(createConnection_create_credentialFromDiscriminatorValue); },
         "network": n => { connection_create.network = n.getObjectValue<Connection_create_network>(createConnection_create_networkFromDiscriminatorValue); },
         "provider": n => { connection_create.provider = n.getStringValue(); },
-        "scopes": n => { connection_create.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { connection_create.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_id": n => { connection_create.userId = n.getStringValue(); },
     }
 }
@@ -38724,7 +38742,7 @@ export function deserializeIntoConnection_create_network_vpc(connection_create_n
 // @ts-ignore
 export function deserializeIntoConnection_create_network_vpc_destinations(connection_create_network_vpc_destinations: Partial<Connection_create_network_vpc_destinations> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_ip_cidrs": n => { connection_create_network_vpc_destinations.allowedIpCidrs = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_ip_cidrs": n => { connection_create_network_vpc_destinations.allowedIpCidrs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "host": n => { connection_create_network_vpc_destinations.host = n.getStringValue(); },
         "port": n => { connection_create_network_vpc_destinations.port = n.getNumberValue(); },
     }
@@ -38761,7 +38779,7 @@ export function deserializeIntoConnection_network_vpc(connection_network_vpc: Pa
 // @ts-ignore
 export function deserializeIntoConnection_network_vpc_destinations(connection_network_vpc_destinations: Partial<Connection_network_vpc_destinations> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_ip_cidrs": n => { connection_network_vpc_destinations.allowedIpCidrs = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_ip_cidrs": n => { connection_network_vpc_destinations.allowedIpCidrs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "host": n => { connection_network_vpc_destinations.host = n.getStringValue(); },
         "port": n => { connection_network_vpc_destinations.port = n.getNumberValue(); },
     }
@@ -38775,7 +38793,7 @@ export function deserializeIntoConnection_network_vpc_destinations(connection_ne
 export function deserializeIntoConnection_oauth(connection_oauth: Partial<Connection_oauth> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "granted_at": n => { connection_oauth.grantedAt = n.getDateValue(); },
-        "scopes": n => { connection_oauth.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { connection_oauth.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -38786,8 +38804,8 @@ export function deserializeIntoConnection_oauth(connection_oauth: Partial<Connec
 // @ts-ignore
 export function deserializeIntoConnection_parameter_spec(connection_parameter_spec: Partial<Connection_parameter_spec> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_host_suffixes": n => { connection_parameter_spec.allowedHostSuffixes = n.getCollectionOfPrimitiveValues<string>(); },
-        "allowed_values": n => { connection_parameter_spec.allowedValues = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_host_suffixes": n => { connection_parameter_spec.allowedHostSuffixes = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "allowed_values": n => { connection_parameter_spec.allowedValues = n.getCollectionOfPrimitiveValues<string>("string"); },
         "description": n => { connection_parameter_spec.description = n.getStringValue(); },
         "input_kind": n => { connection_parameter_spec.inputKind = n.getEnumValue<Connection_parameter_spec_input_kind>(Connection_parameter_spec_input_kindObject); },
         "key": n => { connection_parameter_spec.key = n.getStringValue(); },
@@ -38879,7 +38897,7 @@ export function deserializeIntoConsent_record(consent_record: Partial<Consent_re
 // @ts-ignore
 export function deserializeIntoControl_plane_firewall(control_plane_firewall: Partial<Control_plane_firewall> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowed_addresses": n => { control_plane_firewall.allowedAddresses = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowed_addresses": n => { control_plane_firewall.allowedAddresses = n.getCollectionOfPrimitiveValues<string>("string"); },
         "enabled": n => { control_plane_firewall.enabled = n.getBooleanValue(); },
     }
 }
@@ -38953,8 +38971,8 @@ export function deserializeIntoCreate_export_request(create_export_request: Part
         "agent_id": n => { create_export_request.agentId = n.getGuidValue(); },
         "end_time": n => { create_export_request.endTime = n.getDateValue(); },
         "environment_id": n => { create_export_request.environmentId = n.getGuidValue(); },
-        "session_ids": n => { create_export_request.sessionIds = n.getCollectionOfPrimitiveValues<Guid>(); },
-        "signal_type": n => { create_export_request.signalType = n.getCollectionOfPrimitiveValues<string>(); },
+        "session_ids": n => { create_export_request.sessionIds = n.getCollectionOfPrimitiveValues<Guid>("string"); },
+        "signal_type": n => { create_export_request.signalType = n.getCollectionOfPrimitiveValues<string>("string"); },
         "start_time": n => { create_export_request.startTime = n.getDateValue(); },
         "type": n => { create_export_request.type = n.getEnumValue<Create_export_request_type>(Create_export_request_typeObject); },
     }
@@ -38977,7 +38995,7 @@ export function deserializeIntoCreate_image_request(create_image_request: Partia
         "prompt": n => { create_image_request.prompt = n.getStringValue(); },
         "quality": n => { create_image_request.quality = n.getStringValue(); },
         "size": n => { create_image_request.size = n.getEnumValue<Create_image_request_size>(Create_image_request_sizeObject); },
-        "stream": n => { create_image_request.stream = n.getBooleanValue(); },
+        "stream": n => { create_image_request.stream = n.getBooleanValue() ?? false; },
         "user": n => { create_image_request.user = n.getStringValue(); },
     }
 }
@@ -39001,7 +39019,7 @@ export function deserializeIntoCreate_namespace(create_namespace: Partial<Create
 // @ts-ignore
 export function deserializeIntoCreate_provider_connection_request(create_provider_connection_request: Partial<Create_provider_connection_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "scopes": n => { create_provider_connection_request.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { create_provider_connection_request.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_id": n => { create_provider_connection_request.userId = n.getStringValue(); },
     }
 }
@@ -39018,8 +39036,8 @@ export function deserializeIntoCreate_response_request(create_response_request: 
         "max_output_tokens": n => { create_response_request.maxOutputTokens = n.getNumberValue(); },
         "metadata": n => { create_response_request.metadata = n.getObjectValue<Create_response_request_metadata>(createCreate_response_request_metadataFromDiscriminatorValue); },
         "model": n => { create_response_request.model = n.getStringValue(); },
-        "stop": n => { create_response_request.stop = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue(); },
-        "stream": n => { create_response_request.stream = n.getBooleanValue(); },
+        "stop": n => { create_response_request.stop = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue(); },
+        "stream": n => { create_response_request.stream = n.getBooleanValue() ?? false; },
         "stream_options": n => { create_response_request.streamOptions = n.getObjectValue<Create_response_request_stream_options>(createCreate_response_request_stream_optionsFromDiscriminatorValue); },
         "temperature": n => { create_response_request.temperature = n.getNumberValue(); },
         "tool_choice": n => { create_response_request.toolChoice = n.getObjectValue<Create_response_request_tool_choiceMember1>(createCreate_response_request_tool_choiceMember1FromDiscriminatorValue) ?? n.getStringValue(); },
@@ -39068,7 +39086,7 @@ export function deserializeIntoCreate_response_request_metadata(create_response_
 // @ts-ignore
 export function deserializeIntoCreate_response_request_stop(create_response_request_stop: Partial<Parsable | string[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "" : n => { create_response_request_stop = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue()},
+        "" : n => { create_response_request_stop = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue()},
     }
 }
 /**
@@ -39257,7 +39275,7 @@ export function deserializeIntoCreate_session_response(create_session_response: 
     return {
         "mcpUrl": n => { create_session_response.mcpUrl = n.getStringValue(); },
         "session": n => { create_session_response.session = n.getObjectValue<Session>(createSessionFromDiscriminatorValue); },
-        "tools": n => { create_session_response.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { create_session_response.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -39522,7 +39540,7 @@ export function deserializeIntoCustomModelSourceRef(customModelSourceRef: Partia
 // @ts-ignore
 export function deserializeIntoCustomModelTags(customModelTags: Partial<CustomModelTags> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "tags": n => { customModelTags.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { customModelTags.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -39657,7 +39675,7 @@ export function deserializeIntoDatabase_cluster(database_cluster: Partial<Databa
         "autoscale": n => { database_cluster.autoscale = n.getObjectValue<Database_autoscale_params>(createDatabase_autoscale_paramsFromDiscriminatorValue); },
         "connection": n => { database_cluster.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster.createdAt = n.getDateValue(); },
-        "db_names": n => { database_cluster.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "db_names": n => { database_cluster.dbNames = n.getCollectionOfPrimitiveValues<string>("string"); },
         "do_settings": n => { database_cluster.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "engine": n => { database_cluster.engine = n.getEnumValue<Database_cluster_engine>(Database_cluster_engineObject); },
         "id": n => { database_cluster.id = n.getGuidValue(); },
@@ -39677,7 +39695,7 @@ export function deserializeIntoDatabase_cluster(database_cluster: Partial<Databa
         "standby_private_connection": n => { database_cluster.standbyPrivateConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "status": n => { database_cluster.status = n.getEnumValue<Database_cluster_status>(Database_cluster_statusObject); },
         "storage_size_mib": n => { database_cluster.storageSizeMib = n.getNumberValue(); },
-        "tags": n => { database_cluster.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { database_cluster.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "ui_connection": n => { database_cluster.uiConnection = n.getObjectValue<Opensearch_connection>(createOpensearch_connectionFromDiscriminatorValue); },
         "users": n => { database_cluster.users = n.getCollectionOfObjectValues<Database_user>(createDatabase_userFromDiscriminatorValue); },
         "version": n => { database_cluster.version = n.getStringValue(); },
@@ -39695,7 +39713,7 @@ export function deserializeIntoDatabase_cluster_read(database_cluster_read: Part
     return {
         "connection": n => { database_cluster_read.connection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "created_at": n => { database_cluster_read.createdAt = n.getDateValue(); },
-        "db_names": n => { database_cluster_read.dbNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "db_names": n => { database_cluster_read.dbNames = n.getCollectionOfPrimitiveValues<string>("string"); },
         "do_settings": n => { database_cluster_read.doSettings = n.getObjectValue<Do_settings>(createDo_settingsFromDiscriminatorValue); },
         "engine": n => { database_cluster_read.engine = n.getEnumValue<Database_cluster_read_engine>(Database_cluster_read_engineObject); },
         "id": n => { database_cluster_read.id = n.getGuidValue(); },
@@ -39715,7 +39733,7 @@ export function deserializeIntoDatabase_cluster_read(database_cluster_read: Part
         "standby_private_connection": n => { database_cluster_read.standbyPrivateConnection = n.getObjectValue<Database_connection>(createDatabase_connectionFromDiscriminatorValue); },
         "status": n => { database_cluster_read.status = n.getEnumValue<Database_cluster_read_status>(Database_cluster_read_statusObject); },
         "storage_size_mib": n => { database_cluster_read.storageSizeMib = n.getNumberValue(); },
-        "tags": n => { database_cluster_read.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { database_cluster_read.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "ui_connection": n => { database_cluster_read.uiConnection = n.getObjectValue<Opensearch_connection>(createOpensearch_connectionFromDiscriminatorValue); },
         "users": n => { database_cluster_read.users = n.getCollectionOfObjectValues<Database_user>(createDatabase_userFromDiscriminatorValue); },
         "version": n => { database_cluster_read.version = n.getStringValue(); },
@@ -39803,7 +39821,7 @@ export function deserializeIntoDatabase_kafka_schema_create(database_kafka_schem
 export function deserializeIntoDatabase_layout_option(database_layout_option: Partial<Database_layout_option> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "num_nodes": n => { database_layout_option.numNodes = n.getNumberValue(); },
-        "sizes": n => { database_layout_option.sizes = n.getCollectionOfPrimitiveValues<string>(); },
+        "sizes": n => { database_layout_option.sizes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -39815,7 +39833,7 @@ export function deserializeIntoDatabase_layout_option(database_layout_option: Pa
 export function deserializeIntoDatabase_maintenance_window(database_maintenance_window: Partial<Database_maintenance_window> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "day": n => { database_maintenance_window.day = n.getStringValue(); },
-        "description": n => { database_maintenance_window.description = n.getCollectionOfPrimitiveValues<string>(); },
+        "description": n => { database_maintenance_window.description = n.getCollectionOfPrimitiveValues<string>("string"); },
         "hour": n => { database_maintenance_window.hour = n.getStringValue(); },
         "pending": n => { database_maintenance_window.pending = n.getBooleanValue(); },
     }
@@ -39850,7 +39868,7 @@ export function deserializeIntoDatabase_replica(database_replica: Partial<Databa
         "size": n => { database_replica.size = n.getStringValue(); },
         "status": n => { database_replica.status = n.getEnumValue<Database_replica_status>(Database_replica_statusObject); },
         "storage_size_mib": n => { database_replica.storageSizeMib = n.getNumberValue(); },
-        "tags": n => { database_replica.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { database_replica.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -39872,7 +39890,7 @@ export function deserializeIntoDatabase_replica_read(database_replica_read: Part
         "size": n => { database_replica_read.size = n.getStringValue(); },
         "status": n => { database_replica_read.status = n.getEnumValue<Database_replica_read_status>(Database_replica_read_statusObject); },
         "storage_size_mib": n => { database_replica_read.storageSizeMib = n.getNumberValue(); },
-        "tags": n => { database_replica_read.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { database_replica_read.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -40046,7 +40064,7 @@ export function deserializeIntoDedicated_inference_endpoints(dedicated_inference
 // @ts-ignore
 export function deserializeIntoDedicated_inference_gpu_model_config(dedicated_inference_gpu_model_config: Partial<Dedicated_inference_gpu_model_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "gpu_slugs": n => { dedicated_inference_gpu_model_config.gpuSlugs = n.getCollectionOfPrimitiveValues<string>(); },
+        "gpu_slugs": n => { dedicated_inference_gpu_model_config.gpuSlugs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "is_gated_model": n => { dedicated_inference_gpu_model_config.isGatedModel = n.getBooleanValue(); },
         "model_name": n => { dedicated_inference_gpu_model_config.modelName = n.getStringValue(); },
         "model_slug": n => { dedicated_inference_gpu_model_config.modelSlug = n.getStringValue(); },
@@ -40085,7 +40103,7 @@ export function deserializeIntoDedicated_inference_size(dedicated_inference_size
 // @ts-ignore
 export function deserializeIntoDedicated_inference_sizes_response(dedicated_inference_sizes_response: Partial<Dedicated_inference_sizes_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "enabled_regions": n => { dedicated_inference_sizes_response.enabledRegions = n.getCollectionOfPrimitiveValues<string>(); },
+        "enabled_regions": n => { dedicated_inference_sizes_response.enabledRegions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "sizes": n => { dedicated_inference_sizes_response.sizes = n.getCollectionOfObjectValues<Dedicated_inference_size>(createDedicated_inference_sizeFromDiscriminatorValue); },
     }
 }
@@ -40204,7 +40222,7 @@ export function deserializeIntoDefinitions_session(definitions_session: Partial<
         "session_id": n => { definitions_session.sessionId = n.getStringValue(); },
         "status": n => { definitions_session.status = n.getEnumValue<Session_status>(Session_statusObject) ?? Session_statusObject.SESSION_STATUS_UNSPECIFIED; },
         "update": n => { definitions_session.update = n.getObjectValue<Session_config_update>(createSession_config_updateFromDiscriminatorValue); },
-        "warnings": n => { definitions_session.warnings = n.getCollectionOfPrimitiveValues<string>(); },
+        "warnings": n => { definitions_session.warnings = n.getCollectionOfPrimitiveValues<string>("string"); },
         "workspace_id": n => { definitions_session.workspaceId = n.getStringValue(); },
     }
 }
@@ -40322,9 +40340,9 @@ export function deserializeIntoDestination_request(destination_request: Partial<
 // @ts-ignore
 export function deserializeIntoDestroy_associated_kubernetes_resources(destroy_associated_kubernetes_resources: Partial<Destroy_associated_kubernetes_resources> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "load_balancers": n => { destroy_associated_kubernetes_resources.loadBalancers = n.getCollectionOfPrimitiveValues<string>(); },
-        "volumes": n => { destroy_associated_kubernetes_resources.volumes = n.getCollectionOfPrimitiveValues<string>(); },
-        "volume_snapshots": n => { destroy_associated_kubernetes_resources.volumeSnapshots = n.getCollectionOfPrimitiveValues<string>(); },
+        "load_balancers": n => { destroy_associated_kubernetes_resources.loadBalancers = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "volumes": n => { destroy_associated_kubernetes_resources.volumes = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "volume_snapshots": n => { destroy_associated_kubernetes_resources.volumeSnapshots = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -40374,7 +40392,7 @@ export function deserializeIntoDisk_info_size(disk_info_size: Partial<Disk_info_
 // @ts-ignore
 export function deserializeIntoDo_settings(do_settings: Partial<Do_settings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "service_cnames": n => { do_settings.serviceCnames = n.getCollectionOfPrimitiveValues<string>(); },
+        "service_cnames": n => { do_settings.serviceCnames = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -40564,11 +40582,11 @@ export function deserializeIntoDomains(domains: Partial<Domains> | undefined = {
 // @ts-ignore
 export function deserializeIntoDroplet(droplet: Partial<Droplet> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "backup_ids": n => { droplet.backupIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "backup_ids": n => { droplet.backupIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "created_at": n => { droplet.createdAt = n.getDateValue(); },
         "disk": n => { droplet.disk = n.getNumberValue(); },
         "disk_info": n => { droplet.diskInfo = n.getCollectionOfObjectValues<Disk_info>(createDisk_infoFromDiscriminatorValue); },
-        "features": n => { droplet.features = n.getCollectionOfPrimitiveValues<string>(); },
+        "features": n => { droplet.features = n.getCollectionOfPrimitiveValues<string>("string"); },
         "gpu_info": n => { droplet.gpuInfo = n.getObjectValue<Gpu_info>(createGpu_infoFromDiscriminatorValue); },
         "id": n => { droplet.id = n.getNumberValue(); },
         "image": n => { droplet.image = n.getObjectValue<Image>(createImageFromDiscriminatorValue); },
@@ -40581,12 +40599,12 @@ export function deserializeIntoDroplet(droplet: Partial<Droplet> | undefined = {
         "region": n => { droplet.region = n.getObjectValue<Region>(createRegionFromDiscriminatorValue); },
         "size": n => { droplet.size = n.getObjectValue<Size>(createSizeFromDiscriminatorValue); },
         "size_slug": n => { droplet.sizeSlug = n.getStringValue(); },
-        "snapshot_ids": n => { droplet.snapshotIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "snapshot_ids": n => { droplet.snapshotIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "status": n => { droplet.status = n.getEnumValue<Droplet_status>(Droplet_statusObject); },
         "subnet_uuid": n => { droplet.subnetUuid = n.getStringValue(); },
-        "tags": n => { droplet.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { droplet.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vcpus": n => { droplet.vcpus = n.getNumberValue(); },
-        "volume_ids": n => { droplet.volumeIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "volume_ids": n => { droplet.volumeIds = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vpc_uuid": n => { droplet.vpcUuid = n.getStringValue(); },
     }
 }
@@ -40736,19 +40754,19 @@ export function deserializeIntoDroplet_backup_policy_record(droplet_backup_polic
 export function deserializeIntoDroplet_create(droplet_create: Partial<Droplet_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "backup_policy": n => { droplet_create.backupPolicy = n.getObjectValue<Droplet_backup_policy>(createDroplet_backup_policyFromDiscriminatorValue); },
-        "backups": n => { droplet_create.backups = n.getBooleanValue(); },
+        "backups": n => { droplet_create.backups = n.getBooleanValue() ?? false; },
         "image": n => { droplet_create.image = n.getNumberValue() ?? n.getStringValue(); },
-        "ipv6": n => { droplet_create.ipv6 = n.getBooleanValue(); },
-        "monitoring": n => { droplet_create.monitoring = n.getBooleanValue(); },
-        "private_networking": n => { droplet_create.privateNetworking = n.getBooleanValue(); },
-        "public_networking": n => { droplet_create.publicNetworking = n.getBooleanValue(); },
+        "ipv6": n => { droplet_create.ipv6 = n.getBooleanValue() ?? false; },
+        "monitoring": n => { droplet_create.monitoring = n.getBooleanValue() ?? false; },
+        "private_networking": n => { droplet_create.privateNetworking = n.getBooleanValue() ?? false; },
+        "public_networking": n => { droplet_create.publicNetworking = n.getBooleanValue() ?? true; },
         "region": n => { droplet_create.region = n.getStringValue(); },
         "size": n => { droplet_create.size = n.getStringValue(); },
-        "ssh_keys": n => { droplet_create.sshKeys = n.getCollectionOfPrimitiveValues<string>(); },
+        "ssh_keys": n => { droplet_create.sshKeys = n.getCollectionOfPrimitiveValues<number>("number") ?? n.getCollectionOfPrimitiveValues<string>("string"); },
         "subnet_uuid": n => { droplet_create.subnetUuid = n.getStringValue(); },
-        "tags": n => { droplet_create.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { droplet_create.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_data": n => { droplet_create.userData = n.getStringValue(); },
-        "volumes": n => { droplet_create.volumes = n.getCollectionOfPrimitiveValues<string>(); },
+        "volumes": n => { droplet_create.volumes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vpc_uuid": n => { droplet_create.vpcUuid = n.getStringValue(); },
         "with_droplet_agent": n => { droplet_create.withDropletAgent = n.getBooleanValue(); },
     }
@@ -40762,7 +40780,7 @@ export function deserializeIntoDroplet_create(droplet_create: Partial<Droplet_cr
 export function deserializeIntoDroplet_multi_create(droplet_multi_create: Partial<Droplet_multi_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoDroplet_create(droplet_multi_create),
-        "names": n => { droplet_multi_create.names = n.getCollectionOfPrimitiveValues<string>(); },
+        "names": n => { droplet_multi_create.names = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -40823,9 +40841,9 @@ export function deserializeIntoDroplet_snapshot(droplet_snapshot: Partial<Drople
 export function deserializeIntoElasticsearch_logsink(elasticsearch_logsink: Partial<Elasticsearch_logsink> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "ca": n => { elasticsearch_logsink.ca = n.getStringValue(); },
-        "index_days_max": n => { elasticsearch_logsink.indexDaysMax = n.getNumberValue(); },
+        "index_days_max": n => { elasticsearch_logsink.indexDaysMax = n.getNumberValue() ?? 7; },
         "index_prefix": n => { elasticsearch_logsink.indexPrefix = n.getStringValue(); },
-        "timeout": n => { elasticsearch_logsink.timeout = n.getNumberValue(); },
+        "timeout": n => { elasticsearch_logsink.timeout = n.getNumberValue() ?? 10; },
         "url": n => { elasticsearch_logsink.url = n.getStringValue(); },
     }
 }
@@ -40848,7 +40866,7 @@ export function deserializeIntoEmail_notification_config(email_notification_conf
 // @ts-ignore
 export function deserializeIntoEmbedding_data_item(embedding_data_item: Partial<Embedding_data_item> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "embedding": n => { embedding_data_item.embedding = n.getCollectionOfPrimitiveValues<number>() ?? n.getStringValue(); },
+        "embedding": n => { embedding_data_item.embedding = n.getCollectionOfPrimitiveValues<number>("number") ?? n.getStringValue(); },
         "index": n => { embedding_data_item.index = n.getNumberValue(); },
         "object": n => { embedding_data_item.object = n.getEnumValue<Embedding_data_item_object>(Embedding_data_item_objectObject); },
     }
@@ -40861,7 +40879,7 @@ export function deserializeIntoEmbedding_data_item(embedding_data_item: Partial<
 // @ts-ignore
 export function deserializeIntoEmbedding_data_item_embedding(embedding_data_item_embedding: Partial<Parsable | number[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "" : n => { embedding_data_item_embedding = n.getCollectionOfPrimitiveValues<number>() ?? n.getStringValue()},
+        "" : n => { embedding_data_item_embedding = n.getCollectionOfPrimitiveValues<number>("number") ?? n.getStringValue()},
     }
 }
 /**
@@ -40873,7 +40891,7 @@ export function deserializeIntoEmbedding_data_item_embedding(embedding_data_item
 export function deserializeIntoEmbeddings_request(embeddings_request: Partial<Embeddings_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "encoding_format": n => { embeddings_request.encodingFormat = n.getEnumValue<Embeddings_request_encoding_format>(Embeddings_request_encoding_formatObject) ?? Embeddings_request_encoding_formatObject.Float; },
-        "input": n => { embeddings_request.input = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue(); },
+        "input": n => { embeddings_request.input = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue(); },
         "model": n => { embeddings_request.model = n.getStringValue(); },
         "user": n => { embeddings_request.user = n.getStringValue(); },
     }
@@ -40886,7 +40904,7 @@ export function deserializeIntoEmbeddings_request(embeddings_request: Partial<Em
 // @ts-ignore
 export function deserializeIntoEmbeddings_request_input(embeddings_request_input: Partial<Parsable | string[] | string> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "" : n => { embeddings_request_input = n.getCollectionOfPrimitiveValues<string>() ?? n.getStringValue()},
+        "" : n => { embeddings_request_input = n.getCollectionOfPrimitiveValues<string>("string") ?? n.getStringValue()},
     }
 }
 /**
@@ -40971,7 +40989,7 @@ export function deserializeIntoEndpoint_config(endpoint_config: Partial<Endpoint
         "cache": n => { endpoint_config.cache = n.getObjectValue<Session_cache>(createSession_cacheFromDiscriminatorValue); },
         "customInstructions": n => { endpoint_config.customInstructions = n.getStringValue(); },
         "outputViews": n => { endpoint_config.outputViews = n.getObjectValue<Endpoint_config_outputViews>(createEndpoint_config_outputViewsFromDiscriminatorValue); },
-        "preloadTools": n => { endpoint_config.preloadTools = n.getCollectionOfPrimitiveValues<string>(); },
+        "preloadTools": n => { endpoint_config.preloadTools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41198,7 +41216,7 @@ export function deserializeIntoEndpoint_version_spec(endpoint_version_spec: Part
         "insights": n => { endpoint_version_spec.insights = n.getObjectValue<Endpoint_version_spec_insights>(createEndpoint_version_spec_insightsFromDiscriminatorValue); },
         "network": n => { endpoint_version_spec.network = n.getObjectValue<Endpoint_network>(createEndpoint_networkFromDiscriminatorValue); },
         "policy": n => { endpoint_version_spec.policy = n.getObjectValue<Endpoint_policy>(createEndpoint_policyFromDiscriminatorValue); },
-        "tools": n => { endpoint_version_spec.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { endpoint_version_spec.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41259,8 +41277,8 @@ export function deserializeIntoError_envelope(error_envelope: Partial<Error_enve
 export function deserializeIntoError_with_root_causes(error_with_root_causes: Partial<Error_with_root_causes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "error": n => { error_with_root_causes.errorEscaped = n.getStringValue(); },
-        "messages": n => { error_with_root_causes.messages = n.getCollectionOfPrimitiveValues<string>(); },
-        "root_causes": n => { error_with_root_causes.rootCauses = n.getCollectionOfPrimitiveValues<string>(); },
+        "messages": n => { error_with_root_causes.messages = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "root_causes": n => { error_with_root_causes.rootCauses = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41298,7 +41316,7 @@ export function deserializeIntoEvents_logs(events_logs: Partial<Events_logs> | u
 // @ts-ignore
 export function deserializeIntoExec_in_sandbox_request(exec_in_sandbox_request: Partial<Exec_in_sandbox_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "argv": n => { exec_in_sandbox_request.argv = n.getCollectionOfPrimitiveValues<string>(); },
+        "argv": n => { exec_in_sandbox_request.argv = n.getCollectionOfPrimitiveValues<string>("string"); },
         "env": n => { exec_in_sandbox_request.env = n.getObjectValue<Exec_in_sandbox_request_env>(createExec_in_sandbox_request_envFromDiscriminatorValue); },
         "keep_stdin_open": n => { exec_in_sandbox_request.keepStdinOpen = n.getBooleanValue(); },
         "stdin": n => { exec_in_sandbox_request.stdin = n.getByteArrayValue(); },
@@ -41338,7 +41356,7 @@ export function deserializeIntoExec_in_sandbox_response(exec_in_sandbox_response
 // @ts-ignore
 export function deserializeIntoExec_request(exec_request: Partial<Exec_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "argv": n => { exec_request.argv = n.getCollectionOfPrimitiveValues<string>(); },
+        "argv": n => { exec_request.argv = n.getCollectionOfPrimitiveValues<string>("string"); },
         "cwd": n => { exec_request.cwd = n.getStringValue(); },
         "output_encoding": n => { exec_request.outputEncoding = n.getEnumValue<Exec_request_output_encoding>(Exec_request_output_encodingObject) ?? Exec_request_output_encodingObject.Utf8; },
     }
@@ -41433,8 +41451,8 @@ export function deserializeIntoExport_job(export_job: Partial<Export_job> | unde
 // @ts-ignore
 export function deserializeIntoExport_job_filters(export_job_filters: Partial<Export_job_filters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "session_ids": n => { export_job_filters.sessionIds = n.getCollectionOfPrimitiveValues<string>(); },
-        "signal_type": n => { export_job_filters.signalType = n.getCollectionOfPrimitiveValues<string>(); },
+        "session_ids": n => { export_job_filters.sessionIds = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "signal_type": n => { export_job_filters.signalType = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41456,7 +41474,7 @@ export function deserializeIntoExport_options(export_options: Partial<Export_opt
 // @ts-ignore
 export function deserializeIntoExport_options_filters(export_options_filters: Partial<Export_options_filters> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "signal_type": n => { export_options_filters.signalType = n.getCollectionOfPrimitiveValues<string>(); },
+        "signal_type": n => { export_options_filters.signalType = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41485,12 +41503,12 @@ export function deserializeIntoFirewall(firewall: Partial<Firewall> | undefined 
     return {
         ...deserializeIntoFirewall_rules(firewall),
         "created_at": n => { firewall.createdAt = n.getDateValue(); },
-        "droplet_ids": n => { firewall.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { firewall.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "id": n => { firewall.id = n.getStringValue(); },
         "name": n => { firewall.name = n.getStringValue(); },
         "pending_changes": n => { firewall.pendingChanges = n.getCollectionOfObjectValues<Firewall_pending_changes>(createFirewall_pending_changesFromDiscriminatorValue); },
         "status": n => { firewall.status = n.getEnumValue<Firewall_status>(Firewall_statusObject); },
-        "tags": n => { firewall.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { firewall.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41543,11 +41561,11 @@ export function deserializeIntoFirewall_rule_base(firewall_rule_base: Partial<Fi
 // @ts-ignore
 export function deserializeIntoFirewall_rule_target(firewall_rule_target: Partial<Firewall_rule_target> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "addresses": n => { firewall_rule_target.addresses = n.getCollectionOfPrimitiveValues<string>(); },
-        "droplet_ids": n => { firewall_rule_target.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
-        "kubernetes_ids": n => { firewall_rule_target.kubernetesIds = n.getCollectionOfPrimitiveValues<string>(); },
-        "load_balancer_uids": n => { firewall_rule_target.loadBalancerUids = n.getCollectionOfPrimitiveValues<string>(); },
-        "tags": n => { firewall_rule_target.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "addresses": n => { firewall_rule_target.addresses = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "droplet_ids": n => { firewall_rule_target.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
+        "kubernetes_ids": n => { firewall_rule_target.kubernetesIds = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "load_balancer_uids": n => { firewall_rule_target.loadBalancerUids = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "tags": n => { firewall_rule_target.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -41666,7 +41684,7 @@ export function deserializeIntoFloatingIPsAction(floatingIPsAction: Partial<Floa
 // @ts-ignore
 export function deserializeIntoFork_session_request(fork_session_request: Partial<Fork_session_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "count": n => { fork_session_request.count = n.getNumberValue(); },
+        "count": n => { fork_session_request.count = n.getNumberValue() ?? 1; },
         "from_checkpoint_id": n => { fork_session_request.fromCheckpointId = n.getStringValue(); },
     }
 }
@@ -42066,13 +42084,13 @@ export function deserializeIntoHarness_regions_response(harness_regions_response
 // @ts-ignore
 export function deserializeIntoHealth_check(health_check: Partial<Health_check> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "check_interval_seconds": n => { health_check.checkIntervalSeconds = n.getNumberValue(); },
-        "healthy_threshold": n => { health_check.healthyThreshold = n.getNumberValue(); },
+        "check_interval_seconds": n => { health_check.checkIntervalSeconds = n.getNumberValue() ?? 10; },
+        "healthy_threshold": n => { health_check.healthyThreshold = n.getNumberValue() ?? 3; },
         "path": n => { health_check.path = n.getStringValue() ?? "/"; },
-        "port": n => { health_check.port = n.getNumberValue(); },
+        "port": n => { health_check.port = n.getNumberValue() ?? 80; },
         "protocol": n => { health_check.protocol = n.getEnumValue<Health_check_protocol>(Health_check_protocolObject) ?? Health_check_protocolObject.Http; },
-        "response_timeout_seconds": n => { health_check.responseTimeoutSeconds = n.getNumberValue(); },
-        "unhealthy_threshold": n => { health_check.unhealthyThreshold = n.getNumberValue(); },
+        "response_timeout_seconds": n => { health_check.responseTimeoutSeconds = n.getNumberValue() ?? 5; },
+        "unhealthy_threshold": n => { health_check.unhealthyThreshold = n.getNumberValue() ?? 5; },
     }
 }
 /**
@@ -42139,7 +42157,7 @@ export function deserializeIntoImage(image: Partial<Image> | undefined = {}) : R
         "size_gigabytes": n => { image.sizeGigabytes = n.getNumberValue(); },
         "slug": n => { image.slug = n.getStringValue(); },
         "status": n => { image.status = n.getEnumValue<Image_status>(Image_statusObject); },
-        "tags": n => { image.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { image.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "type": n => { image.type = n.getEnumValue<Image_type>(Image_typeObject); },
     }
 }
@@ -42209,7 +42227,7 @@ export function deserializeIntoImage_new_custom(image_new_custom: Partial<Image_
     return {
         ...deserializeIntoImage_update(image_new_custom),
         "region": n => { image_new_custom.region = n.getEnumValue<Region_slug>(Region_slugObject); },
-        "tags": n => { image_new_custom.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { image_new_custom.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "url": n => { image_new_custom.url = n.getStringValue(); },
     }
 }
@@ -42455,7 +42473,7 @@ export function deserializeIntoInvoke_tools_response(invoke_tools_response: Part
 // @ts-ignore
 export function deserializeIntoKafka_advanced_config(kafka_advanced_config: Partial<Kafka_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "auto_create_topics_enable": n => { kafka_advanced_config.autoCreateTopicsEnable = n.getBooleanValue(); },
+        "auto_create_topics_enable": n => { kafka_advanced_config.autoCreateTopicsEnable = n.getBooleanValue() ?? false; },
         "compression_type": n => { kafka_advanced_config.compressionType = n.getEnumValue<Kafka_advanced_config_compression_type>(Kafka_advanced_config_compression_typeObject); },
         "connections_max_idle_ms": n => { kafka_advanced_config.connectionsMaxIdleMs = n.getNumberValue(); },
         "default_replication_factor": n => { kafka_advanced_config.defaultReplicationFactor = n.getNumberValue(); },
@@ -42491,7 +42509,7 @@ export function deserializeIntoKafka_advanced_config(kafka_advanced_config: Part
         "producer_purgatory_purge_interval_requests": n => { kafka_advanced_config.producerPurgatoryPurgeIntervalRequests = n.getNumberValue(); },
         "replica_fetch_max_bytes": n => { kafka_advanced_config.replicaFetchMaxBytes = n.getNumberValue(); },
         "replica_fetch_response_max_bytes": n => { kafka_advanced_config.replicaFetchResponseMaxBytes = n.getNumberValue(); },
-        "schema_registry": n => { kafka_advanced_config.schemaRegistry = n.getBooleanValue(); },
+        "schema_registry": n => { kafka_advanced_config.schemaRegistry = n.getBooleanValue() ?? false; },
         "socket_request_max_bytes": n => { kafka_advanced_config.socketRequestMaxBytes = n.getNumberValue(); },
         "transaction_remove_expired_transaction_cleanup_interval_ms": n => { kafka_advanced_config.transactionRemoveExpiredTransactionCleanupIntervalMs = n.getNumberValue(); },
         "transaction_state_log_segment_bytes": n => { kafka_advanced_config.transactionStateLogSegmentBytes = n.getNumberValue(); },
@@ -42561,25 +42579,25 @@ export function deserializeIntoKafka_topic_config(kafka_topic_config: Partial<Ka
     return {
         "cleanup_policy": n => { kafka_topic_config.cleanupPolicy = n.getEnumValue<Kafka_topic_config_cleanup_policy>(Kafka_topic_config_cleanup_policyObject) ?? Kafka_topic_config_cleanup_policyObject.Delete; },
         "compression_type": n => { kafka_topic_config.compressionType = n.getEnumValue<Kafka_topic_config_compression_type>(Kafka_topic_config_compression_typeObject) ?? Kafka_topic_config_compression_typeObject.Producer; },
-        "delete_retention_ms": n => { kafka_topic_config.deleteRetentionMs = n.getNumberValue(); },
-        "file_delete_delay_ms": n => { kafka_topic_config.fileDeleteDelayMs = n.getNumberValue(); },
+        "delete_retention_ms": n => { kafka_topic_config.deleteRetentionMs = n.getNumberValue() ?? 86400000; },
+        "file_delete_delay_ms": n => { kafka_topic_config.fileDeleteDelayMs = n.getNumberValue() ?? 60000; },
         "flush_messages": n => { kafka_topic_config.flushMessages = n.getNumberValue(); },
         "flush_ms": n => { kafka_topic_config.flushMs = n.getNumberValue(); },
-        "index_interval_bytes": n => { kafka_topic_config.indexIntervalBytes = n.getNumberValue(); },
+        "index_interval_bytes": n => { kafka_topic_config.indexIntervalBytes = n.getNumberValue() ?? 4096; },
         "max_compaction_lag_ms": n => { kafka_topic_config.maxCompactionLagMs = n.getNumberValue(); },
-        "max_message_bytes": n => { kafka_topic_config.maxMessageBytes = n.getNumberValue(); },
-        "message_down_conversion_enable": n => { kafka_topic_config.messageDownConversionEnable = n.getBooleanValue(); },
+        "max_message_bytes": n => { kafka_topic_config.maxMessageBytes = n.getNumberValue() ?? 1048588; },
+        "message_down_conversion_enable": n => { kafka_topic_config.messageDownConversionEnable = n.getBooleanValue() ?? true; },
         "message_format_version": n => { kafka_topic_config.messageFormatVersion = n.getEnumValue<Kafka_topic_config_message_format_version>(Kafka_topic_config_message_format_versionObject) ?? Kafka_topic_config_message_format_versionObject.ThreeZeroIV1; },
         "message_timestamp_type": n => { kafka_topic_config.messageTimestampType = n.getEnumValue<Kafka_topic_config_message_timestamp_type>(Kafka_topic_config_message_timestamp_typeObject) ?? Kafka_topic_config_message_timestamp_typeObject.Create_time; },
-        "min_cleanable_dirty_ratio": n => { kafka_topic_config.minCleanableDirtyRatio = n.getNumberValue(); },
-        "min_compaction_lag_ms": n => { kafka_topic_config.minCompactionLagMs = n.getNumberValue(); },
-        "min_insync_replicas": n => { kafka_topic_config.minInsyncReplicas = n.getNumberValue(); },
-        "preallocate": n => { kafka_topic_config.preallocate = n.getBooleanValue(); },
-        "retention_bytes": n => { kafka_topic_config.retentionBytes = n.getNumberValue(); },
-        "retention_ms": n => { kafka_topic_config.retentionMs = n.getNumberValue(); },
-        "segment_bytes": n => { kafka_topic_config.segmentBytes = n.getNumberValue(); },
-        "segment_jitter_ms": n => { kafka_topic_config.segmentJitterMs = n.getNumberValue(); },
-        "segment_ms": n => { kafka_topic_config.segmentMs = n.getNumberValue(); },
+        "min_cleanable_dirty_ratio": n => { kafka_topic_config.minCleanableDirtyRatio = n.getNumberValue() ?? 0.5; },
+        "min_compaction_lag_ms": n => { kafka_topic_config.minCompactionLagMs = n.getNumberValue() ?? 0; },
+        "min_insync_replicas": n => { kafka_topic_config.minInsyncReplicas = n.getNumberValue() ?? 1; },
+        "preallocate": n => { kafka_topic_config.preallocate = n.getBooleanValue() ?? false; },
+        "retention_bytes": n => { kafka_topic_config.retentionBytes = n.getNumberValue() ?? -1; },
+        "retention_ms": n => { kafka_topic_config.retentionMs = n.getNumberValue() ?? 604800000; },
+        "segment_bytes": n => { kafka_topic_config.segmentBytes = n.getNumberValue() ?? 209715200; },
+        "segment_jitter_ms": n => { kafka_topic_config.segmentJitterMs = n.getNumberValue() ?? 0; },
+        "segment_ms": n => { kafka_topic_config.segmentMs = n.getNumberValue() ?? 604800000; },
     }
 }
 /**
@@ -42706,7 +42724,7 @@ export function deserializeIntoKubernetes_node_pool(kubernetes_node_pool: Partia
         "name": n => { kubernetes_node_pool.name = n.getStringValue(); },
         "nodes": n => { kubernetes_node_pool.nodes = n.getCollectionOfObjectValues<Node>(createNodeFromDiscriminatorValue); },
         "size": n => { kubernetes_node_pool.size = n.getStringValue(); },
-        "tags": n => { kubernetes_node_pool.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { kubernetes_node_pool.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "taints": n => { kubernetes_node_pool.taints = n.getCollectionOfObjectValues<Kubernetes_node_pool_taint>(createKubernetes_node_pool_taintFromDiscriminatorValue); },
     }
 }
@@ -42749,7 +42767,7 @@ export function deserializeIntoKubernetes_node_pool_update(kubernetes_node_pool_
         "min_nodes": n => { kubernetes_node_pool_update.minNodes = n.getNumberValue(); },
         "name": n => { kubernetes_node_pool_update.name = n.getStringValue(); },
         "nodes": n => { kubernetes_node_pool_update.nodes = n.getCollectionOfObjectValues<Node>(createNodeFromDiscriminatorValue); },
-        "tags": n => { kubernetes_node_pool_update.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { kubernetes_node_pool_update.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "taints": n => { kubernetes_node_pool_update.taints = n.getCollectionOfObjectValues<Kubernetes_node_pool_taint>(createKubernetes_node_pool_taintFromDiscriminatorValue); },
     }
 }
@@ -42821,7 +42839,7 @@ export function deserializeIntoKubernetes_version(kubernetes_version: Partial<Ku
     return {
         "kubernetes_version": n => { kubernetes_version.kubernetesVersion = n.getStringValue(); },
         "slug": n => { kubernetes_version.slug = n.getStringValue(); },
-        "supported_features": n => { kubernetes_version.supportedFeatures = n.getCollectionOfPrimitiveValues<string>(); },
+        "supported_features": n => { kubernetes_version.supportedFeatures = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -42832,8 +42850,8 @@ export function deserializeIntoKubernetes_version(kubernetes_version: Partial<Ku
 // @ts-ignore
 export function deserializeIntoLb_firewall(lb_firewall: Partial<Lb_firewall> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allow": n => { lb_firewall.allow = n.getCollectionOfPrimitiveValues<string>(); },
-        "deny": n => { lb_firewall.deny = n.getCollectionOfPrimitiveValues<string>(); },
+        "allow": n => { lb_firewall.allow = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "deny": n => { lb_firewall.deny = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -43187,7 +43205,7 @@ export function deserializeIntoList_triggers_response(list_triggers_response: Pa
 export function deserializeIntoList_users_response(list_users_response: Partial<List_users_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "pagination": n => { list_users_response.pagination = n.getObjectValue<Pagination>(createPaginationFromDiscriminatorValue); },
-        "user_ids": n => { list_users_response.userIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "user_ids": n => { list_users_response.userIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -43223,16 +43241,16 @@ export function deserializeIntoLoad_balancer(load_balancer: Partial<Load_balance
     return {
         "algorithm": n => { load_balancer.algorithm = n.getEnumValue<Load_balancer_algorithm>(Load_balancer_algorithmObject) ?? Load_balancer_algorithmObject.Round_robin; },
         "created_at": n => { load_balancer.createdAt = n.getDateValue(); },
-        "disable_lets_encrypt_dns_records": n => { load_balancer.disableLetsEncryptDnsRecords = n.getBooleanValue(); },
+        "disable_lets_encrypt_dns_records": n => { load_balancer.disableLetsEncryptDnsRecords = n.getBooleanValue() ?? false; },
         "domains": n => { load_balancer.domains = n.getCollectionOfObjectValues<Domains>(createDomainsFromDiscriminatorValue); },
-        "droplet_ids": n => { load_balancer.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
-        "enable_backend_keepalive": n => { load_balancer.enableBackendKeepalive = n.getBooleanValue(); },
-        "enable_proxy_protocol": n => { load_balancer.enableProxyProtocol = n.getBooleanValue(); },
+        "droplet_ids": n => { load_balancer.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
+        "enable_backend_keepalive": n => { load_balancer.enableBackendKeepalive = n.getBooleanValue() ?? false; },
+        "enable_proxy_protocol": n => { load_balancer.enableProxyProtocol = n.getBooleanValue() ?? false; },
         "firewall": n => { load_balancer.firewall = n.getObjectValue<Lb_firewall>(createLb_firewallFromDiscriminatorValue); },
         "forwarding_rules": n => { load_balancer.forwardingRules = n.getCollectionOfObjectValues<Forwarding_rule>(createForwarding_ruleFromDiscriminatorValue); },
         "glb_settings": n => { load_balancer.glbSettings = n.getObjectValue<Glb_settings>(createGlb_settingsFromDiscriminatorValue); },
         "health_check": n => { load_balancer.healthCheck = n.getObjectValue<Health_check>(createHealth_checkFromDiscriminatorValue); },
-        "http_idle_timeout_seconds": n => { load_balancer.httpIdleTimeoutSeconds = n.getNumberValue(); },
+        "http_idle_timeout_seconds": n => { load_balancer.httpIdleTimeoutSeconds = n.getNumberValue() ?? 60; },
         "id": n => { load_balancer.id = n.getGuidValue(); },
         "ip": n => { load_balancer.ip = n.getStringValue(); },
         "ipv6": n => { load_balancer.ipv6 = n.getStringValue(); },
@@ -43240,15 +43258,15 @@ export function deserializeIntoLoad_balancer(load_balancer: Partial<Load_balance
         "network": n => { load_balancer.network = n.getEnumValue<Load_balancer_network>(Load_balancer_networkObject) ?? Load_balancer_networkObject.EXTERNAL; },
         "network_stack": n => { load_balancer.networkStack = n.getEnumValue<Load_balancer_network_stack>(Load_balancer_network_stackObject) ?? Load_balancer_network_stackObject.IPV4; },
         "project_id": n => { load_balancer.projectId = n.getStringValue(); },
-        "redirect_http_to_https": n => { load_balancer.redirectHttpToHttps = n.getBooleanValue(); },
+        "redirect_http_to_https": n => { load_balancer.redirectHttpToHttps = n.getBooleanValue() ?? false; },
         "region": n => { load_balancer.region = n.getObjectValue<Load_balancer_region>(createLoad_balancer_regionFromDiscriminatorValue); },
         "size": n => { load_balancer.size = n.getEnumValue<Load_balancer_size>(Load_balancer_sizeObject) ?? Load_balancer_sizeObject.LbSmall; },
-        "size_unit": n => { load_balancer.sizeUnit = n.getNumberValue(); },
+        "size_unit": n => { load_balancer.sizeUnit = n.getNumberValue() ?? 1; },
         "status": n => { load_balancer.status = n.getEnumValue<Load_balancer_status>(Load_balancer_statusObject); },
         "sticky_sessions": n => { load_balancer.stickySessions = n.getObjectValue<Sticky_sessions>(createSticky_sessionsFromDiscriminatorValue); },
         "subnet_uuid": n => { load_balancer.subnetUuid = n.getGuidValue(); },
         "tag": n => { load_balancer.tag = n.getStringValue(); },
-        "target_load_balancer_ids": n => { load_balancer.targetLoadBalancerIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "target_load_balancer_ids": n => { load_balancer.targetLoadBalancerIds = n.getCollectionOfPrimitiveValues<string>("string"); },
         "tls_cipher_policy": n => { load_balancer.tlsCipherPolicy = n.getEnumValue<Load_balancer_tls_cipher_policy>(Load_balancer_tls_cipher_policyObject) ?? Load_balancer_tls_cipher_policyObject.DEFAULTEscaped; },
         "type": n => { load_balancer.type = n.getEnumValue<Load_balancer_type>(Load_balancer_typeObject) ?? Load_balancer_typeObject.REGIONAL; },
         "vpc_uuid": n => { load_balancer.vpcUuid = n.getGuidValue(); },
@@ -43262,7 +43280,7 @@ export function deserializeIntoLoad_balancer(load_balancer: Partial<Load_balance
 // @ts-ignore
 export function deserializeIntoLoad_balancer_droplet_ids(load_balancer_droplet_ids: Partial<Load_balancer_droplet_ids> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "droplet_ids": n => { load_balancer_droplet_ids.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { load_balancer_droplet_ids.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
     }
 }
 /**
@@ -43372,7 +43390,7 @@ export function deserializeIntoLogs_filter_value(logs_filter_value: Partial<Logs
 // @ts-ignore
 export function deserializeIntoLogs_filter_value_number_array_value(logs_filter_value_number_array_value: Partial<Logs_filter_value_number_array_value> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "values": n => { logs_filter_value_number_array_value.values = n.getCollectionOfPrimitiveValues<number>(); },
+        "values": n => { logs_filter_value_number_array_value.values = n.getCollectionOfPrimitiveValues<number>("number"); },
     }
 }
 /**
@@ -43383,7 +43401,7 @@ export function deserializeIntoLogs_filter_value_number_array_value(logs_filter_
 // @ts-ignore
 export function deserializeIntoLogs_filter_value_string_array_value(logs_filter_value_string_array_value: Partial<Logs_filter_value_string_array_value> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "values": n => { logs_filter_value_string_array_value.values = n.getCollectionOfPrimitiveValues<string>(); },
+        "values": n => { logs_filter_value_string_array_value.values = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -43446,7 +43464,7 @@ export function deserializeIntoLogs_order_by(logs_order_by: Partial<Logs_order_b
 export function deserializeIntoLogs_pagination_request(logs_pagination_request: Partial<Logs_pagination_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "cursor": n => { logs_pagination_request.cursor = n.getStringValue(); },
-        "limit": n => { logs_pagination_request.limit = n.getNumberValue(); },
+        "limit": n => { logs_pagination_request.limit = n.getNumberValue() ?? 100; },
     }
 }
 /**
@@ -43654,7 +43672,7 @@ export function deserializeIntoMcp_server(mcp_server: Partial<Mcp_server> | unde
         "lastSyncedAt": n => { mcp_server.lastSyncedAt = n.getStringValue(); },
         "oauth_authorization_ttl_seconds": n => { mcp_server.oauthAuthorizationTtlSeconds = n.getStringValue(); },
         "oauth_authorize_url": n => { mcp_server.oauthAuthorizeUrl = n.getStringValue(); },
-        "oauth_scopes": n => { mcp_server.oauthScopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "oauth_scopes": n => { mcp_server.oauthScopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "protocolVersion": n => { mcp_server.protocolVersion = n.getStringValue(); },
         "serverRef": n => { mcp_server.serverRef = n.getStringValue(); },
         "syncError": n => { mcp_server.syncError = n.getStringValue(); },
@@ -43681,7 +43699,7 @@ export function deserializeIntoMcp_server_create(mcp_server_create: Partial<Mcp_
         "oauth_authorize_url": n => { mcp_server_create.oauthAuthorizeUrl = n.getStringValue(); },
         "oauth_client_id": n => { mcp_server_create.oauthClientId = n.getStringValue(); },
         "oauth_client_secret": n => { mcp_server_create.oauthClientSecret = n.getStringValue(); },
-        "oauth_scopes": n => { mcp_server_create.oauthScopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "oauth_scopes": n => { mcp_server_create.oauthScopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "oauth_token_url": n => { mcp_server_create.oauthTokenUrl = n.getStringValue(); },
         "serverRef": n => { mcp_server_create.serverRef = n.getStringValue(); },
         "transport": n => { mcp_server_create.transport = n.getEnumValue<Mcp_server_create_transport>(Mcp_server_create_transportObject) ?? Mcp_server_create_transportObject.Streamable_http; },
@@ -43733,7 +43751,7 @@ export function deserializeIntoMcp_server_tool(mcp_server_tool: Partial<Mcp_serv
 // @ts-ignore
 export function deserializeIntoMcp_server_tools_update(mcp_server_tools_update: Partial<Mcp_server_tools_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "enabledToolSlugs": n => { mcp_server_tools_update.enabledToolSlugs = n.getCollectionOfPrimitiveValues<string>(); },
+        "enabledToolSlugs": n => { mcp_server_tools_update.enabledToolSlugs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_id": n => { mcp_server_tools_update.userId = n.getStringValue(); },
     }
 }
@@ -43839,8 +43857,8 @@ export function deserializeIntoMessages_create_request(messages_create_request: 
         "model": n => { messages_create_request.model = n.getStringValue(); },
         "reasoning_effort": n => { messages_create_request.reasoningEffort = n.getEnumValue<Messages_create_request_reasoning_effort>(Messages_create_request_reasoning_effortObject); },
         "speed": n => { messages_create_request.speed = n.getEnumValue<Messages_create_request_speed>(Messages_create_request_speedObject); },
-        "stop_sequences": n => { messages_create_request.stopSequences = n.getCollectionOfPrimitiveValues<string>(); },
-        "stream": n => { messages_create_request.stream = n.getBooleanValue(); },
+        "stop_sequences": n => { messages_create_request.stopSequences = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "stream": n => { messages_create_request.stream = n.getBooleanValue() ?? false; },
         "system": n => { messages_create_request.system = n.getCollectionOfObjectValues<Messages_request_text_block_param>(createMessages_request_text_block_paramFromDiscriminatorValue) ?? n.getStringValue(); },
         "temperature": n => { messages_create_request.temperature = n.getNumberValue(); },
         "thinking": n => { messages_create_request.thinking = n.getObjectValue<Messages_thinking_config_param>(createMessages_thinking_config_paramFromDiscriminatorValue); },
@@ -44065,8 +44083,8 @@ export function deserializeIntoMetrics_query(metrics_query: Partial<Metrics_quer
     return {
         "filters": n => { metrics_query.filters = n.getCollectionOfObjectValues<Query_filter>(createQuery_filterFromDiscriminatorValue); },
         "metric": n => { metrics_query.metric = n.getStringValue(); },
-        "resource_urns": n => { metrics_query.resourceUrns = n.getCollectionOfPrimitiveValues<string>(); },
-        "tags": n => { metrics_query.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "resource_urns": n => { metrics_query.resourceUrns = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "tags": n => { metrics_query.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44113,7 +44131,7 @@ export function deserializeIntoMicrovm(microvm: Partial<Microvm> | undefined = {
     return {
         ...deserializeIntoMicrovm_base(microvm),
         "project_id": n => { microvm.projectId = n.getGuidValue(); },
-        "tags": n => { microvm.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { microvm.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44164,7 +44182,7 @@ export function deserializeIntoMicrovm_auto_pause(microvm_auto_pause: Partial<Mi
 export function deserializeIntoMicrovm_base(microvm_base: Partial<Microvm_base> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "auto_pause": n => { microvm_base.autoPause = n.getObjectValue<Microvm_auto_pause>(createMicrovm_auto_pauseFromDiscriminatorValue); },
-        "auto_resume": n => { microvm_base.autoResume = n.getBooleanValue(); },
+        "auto_resume": n => { microvm_base.autoResume = n.getBooleanValue() ?? true; },
         "created_at": n => { microvm_base.createdAt = n.getDateValue(); },
         "egress_policy": n => { microvm_base.egressPolicy = n.getObjectValue<Microvm_egress_policy>(createMicrovm_egress_policyFromDiscriminatorValue); },
         "failure_reason": n => { microvm_base.failureReason = n.getStringValue(); },
@@ -44172,7 +44190,7 @@ export function deserializeIntoMicrovm_base(microvm_base: Partial<Microvm_base> 
         "id": n => { microvm_base.id = n.getGuidValue(); },
         "name": n => { microvm_base.name = n.getStringValue(); },
         "networking": n => { microvm_base.networking = n.getEnumValue<Microvm_base_networking>(Microvm_base_networkingObject) ?? Microvm_base_networkingObject.Public; },
-        "ports": n => { microvm_base.ports = n.getCollectionOfPrimitiveValues<number>(); },
+        "ports": n => { microvm_base.ports = n.getCollectionOfPrimitiveValues<number>("number"); },
         "region": n => { microvm_base.region = n.getStringValue(); },
         "size": n => { microvm_base.size = n.getObjectValue<Microvm_size>(createMicrovm_sizeFromDiscriminatorValue); },
         "source": n => { microvm_base.source = n.getObjectValue<Microvm_source>(createMicrovm_sourceFromDiscriminatorValue); },
@@ -44189,20 +44207,20 @@ export function deserializeIntoMicrovm_base(microvm_base: Partial<Microvm_base> 
 export function deserializeIntoMicrovm_create(microvm_create: Partial<Microvm_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "auto_pause": n => { microvm_create.autoPause = n.getObjectValue<Microvm_auto_pause>(createMicrovm_auto_pauseFromDiscriminatorValue); },
-        "auto_resume": n => { microvm_create.autoResume = n.getBooleanValue(); },
+        "auto_resume": n => { microvm_create.autoResume = n.getBooleanValue() ?? true; },
         "egress_policy": n => { microvm_create.egressPolicy = n.getObjectValue<Microvm_egress_policy>(createMicrovm_egress_policyFromDiscriminatorValue); },
         "environment": n => { microvm_create.environment = n.getObjectValue<Microvm_create_environment>(createMicrovm_create_environmentFromDiscriminatorValue); },
-        "http_port": n => { microvm_create.httpPort = n.getNumberValue(); },
+        "http_port": n => { microvm_create.httpPort = n.getNumberValue() ?? 8080; },
         "http_protocol": n => { microvm_create.httpProtocol = n.getEnumValue<Microvm_create_http_protocol>(Microvm_create_http_protocolObject); },
-        "ingress": n => { microvm_create.ingress = n.getBooleanValue(); },
+        "ingress": n => { microvm_create.ingress = n.getBooleanValue() ?? true; },
         "name": n => { microvm_create.name = n.getStringValue(); },
         "networking": n => { microvm_create.networking = n.getEnumValue<Microvm_create_networking>(Microvm_create_networkingObject) ?? Microvm_create_networkingObject.Public; },
-        "ports": n => { microvm_create.ports = n.getCollectionOfPrimitiveValues<number>(); },
+        "ports": n => { microvm_create.ports = n.getCollectionOfPrimitiveValues<number>("number"); },
         "project_id": n => { microvm_create.projectId = n.getGuidValue(); },
         "region": n => { microvm_create.region = n.getStringValue(); },
         "size": n => { microvm_create.size = n.getObjectValue<Microvm_size>(createMicrovm_sizeFromDiscriminatorValue); },
         "source": n => { microvm_create.source = n.getObjectValue<Microvm_source>(createMicrovm_sourceFromDiscriminatorValue); },
-        "tags": n => { microvm_create.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { microvm_create.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "vpc_uuid": n => { microvm_create.vpcUuid = n.getGuidValue(); },
     }
 }
@@ -44335,7 +44353,7 @@ export function deserializeIntoMicrovm_options_sizes(microvm_options_sizes: Part
         "disk": n => { microvm_options_sizes.disk = n.getNumberValue(); },
         "memory": n => { microvm_options_sizes.memory = n.getNumberValue(); },
         "pricing": n => { microvm_options_sizes.pricing = n.getObjectValue<Microvm_options_sizes_pricing>(createMicrovm_options_sizes_pricingFromDiscriminatorValue); },
-        "regions": n => { microvm_options_sizes.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { microvm_options_sizes.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44384,7 +44402,7 @@ export function deserializeIntoMicrovm_source(microvm_source: Partial<Microvm_so
 export function deserializeIntoMicrovm_update(microvm_update: Partial<Microvm_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { microvm_update.name = n.getStringValue(); },
-        "tags": n => { microvm_update.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { microvm_update.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44462,9 +44480,9 @@ export function deserializeIntoMongo_advanced_config(mongo_advanced_config: Part
     return {
         "default_read_concern": n => { mongo_advanced_config.defaultReadConcern = n.getEnumValue<Mongo_advanced_config_default_read_concern>(Mongo_advanced_config_default_read_concernObject) ?? Mongo_advanced_config_default_read_concernObject.Local; },
         "default_write_concern": n => { mongo_advanced_config.defaultWriteConcern = n.getStringValue() ?? "majority"; },
-        "slow_op_threshold_ms": n => { mongo_advanced_config.slowOpThresholdMs = n.getNumberValue(); },
-        "transaction_lifetime_limit_seconds": n => { mongo_advanced_config.transactionLifetimeLimitSeconds = n.getNumberValue(); },
-        "verbosity": n => { mongo_advanced_config.verbosity = n.getNumberValue(); },
+        "slow_op_threshold_ms": n => { mongo_advanced_config.slowOpThresholdMs = n.getNumberValue() ?? 100; },
+        "transaction_lifetime_limit_seconds": n => { mongo_advanced_config.transactionLifetimeLimitSeconds = n.getNumberValue() ?? 60; },
+        "verbosity": n => { mongo_advanced_config.verbosity = n.getNumberValue() ?? 0; },
     }
 }
 /**
@@ -44881,7 +44899,7 @@ export function deserializeIntoNfs_request(nfs_request: Partial<Nfs_request> | u
         "performance_tier": n => { nfs_request.performanceTier = n.getStringValue(); },
         "region": n => { nfs_request.region = n.getStringValue(); },
         "size_gib": n => { nfs_request.sizeGib = n.getNumberValue(); },
-        "vpc_ids": n => { nfs_request.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_ids": n => { nfs_request.vpcIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44902,7 +44920,7 @@ export function deserializeIntoNfs_response(nfs_response: Partial<Nfs_response> 
         "region": n => { nfs_response.region = n.getStringValue(); },
         "size_gib": n => { nfs_response.sizeGib = n.getNumberValue(); },
         "status": n => { nfs_response.status = n.getEnumValue<Nfs_response_status>(Nfs_response_statusObject); },
-        "vpc_ids": n => { nfs_response.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_ids": n => { nfs_response.vpcIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -44979,7 +44997,7 @@ export function deserializeIntoNode_status(node_status: Partial<Node_status> | u
 // @ts-ignore
 export function deserializeIntoNotification(notification: Partial<Notification> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "email": n => { notification.email = n.getCollectionOfPrimitiveValues<string>(); },
+        "email": n => { notification.email = n.getCollectionOfPrimitiveValues<string>("string"); },
         "slack": n => { notification.slack = n.getCollectionOfObjectValues<Notification_slack>(createNotification_slackFromDiscriminatorValue); },
     }
 }
@@ -45093,7 +45111,7 @@ export function deserializeIntoOneClicks(oneClicks: Partial<OneClicks> | undefin
 // @ts-ignore
 export function deserializeIntoOneClicks_create(oneClicks_create: Partial<OneClicks_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "addon_slugs": n => { oneClicks_create.addonSlugs = n.getCollectionOfPrimitiveValues<string>(); },
+        "addon_slugs": n => { oneClicks_create.addonSlugs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "cluster_uuid": n => { oneClicks_create.clusterUuid = n.getStringValue(); },
     }
 }
@@ -45118,36 +45136,36 @@ export function deserializeIntoOnline_migration(online_migration: Partial<Online
 // @ts-ignore
 export function deserializeIntoOpensearch_advanced_config(opensearch_advanced_config: Partial<Opensearch_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "action_auto_create_index_enabled": n => { opensearch_advanced_config.actionAutoCreateIndexEnabled = n.getBooleanValue(); },
+        "action_auto_create_index_enabled": n => { opensearch_advanced_config.actionAutoCreateIndexEnabled = n.getBooleanValue() ?? true; },
         "action_destructive_requires_name": n => { opensearch_advanced_config.actionDestructiveRequiresName = n.getBooleanValue(); },
         "cluster_max_shards_per_node": n => { opensearch_advanced_config.clusterMaxShardsPerNode = n.getNumberValue(); },
-        "cluster_routing_allocation_node_concurrent_recoveries": n => { opensearch_advanced_config.clusterRoutingAllocationNodeConcurrentRecoveries = n.getNumberValue(); },
-        "enable_security_audit": n => { opensearch_advanced_config.enableSecurityAudit = n.getBooleanValue(); },
-        "http_max_content_length_bytes": n => { opensearch_advanced_config.httpMaxContentLengthBytes = n.getNumberValue(); },
-        "http_max_header_size_bytes": n => { opensearch_advanced_config.httpMaxHeaderSizeBytes = n.getNumberValue(); },
-        "http_max_initial_line_length_bytes": n => { opensearch_advanced_config.httpMaxInitialLineLengthBytes = n.getNumberValue(); },
+        "cluster_routing_allocation_node_concurrent_recoveries": n => { opensearch_advanced_config.clusterRoutingAllocationNodeConcurrentRecoveries = n.getNumberValue() ?? 2; },
+        "enable_security_audit": n => { opensearch_advanced_config.enableSecurityAudit = n.getBooleanValue() ?? false; },
+        "http_max_content_length_bytes": n => { opensearch_advanced_config.httpMaxContentLengthBytes = n.getNumberValue() ?? 100000000; },
+        "http_max_header_size_bytes": n => { opensearch_advanced_config.httpMaxHeaderSizeBytes = n.getNumberValue() ?? 8192; },
+        "http_max_initial_line_length_bytes": n => { opensearch_advanced_config.httpMaxInitialLineLengthBytes = n.getNumberValue() ?? 4096; },
         "indices_fielddata_cache_size_percentage": n => { opensearch_advanced_config.indicesFielddataCacheSizePercentage = n.getNumberValue(); },
-        "indices_memory_index_buffer_size_percentage": n => { opensearch_advanced_config.indicesMemoryIndexBufferSizePercentage = n.getNumberValue(); },
+        "indices_memory_index_buffer_size_percentage": n => { opensearch_advanced_config.indicesMemoryIndexBufferSizePercentage = n.getNumberValue() ?? 10; },
         "indices_memory_max_index_buffer_size_mb": n => { opensearch_advanced_config.indicesMemoryMaxIndexBufferSizeMb = n.getNumberValue(); },
-        "indices_memory_min_index_buffer_size_mb": n => { opensearch_advanced_config.indicesMemoryMinIndexBufferSizeMb = n.getNumberValue(); },
-        "indices_queries_cache_size_percentage": n => { opensearch_advanced_config.indicesQueriesCacheSizePercentage = n.getNumberValue(); },
-        "indices_query_bool_max_clause_count": n => { opensearch_advanced_config.indicesQueryBoolMaxClauseCount = n.getNumberValue(); },
-        "indices_recovery_max_concurrent_file_chunks": n => { opensearch_advanced_config.indicesRecoveryMaxConcurrentFileChunks = n.getNumberValue(); },
-        "indices_recovery_max_mb_per_sec": n => { opensearch_advanced_config.indicesRecoveryMaxMbPerSec = n.getNumberValue(); },
-        "ism_enabled": n => { opensearch_advanced_config.ismEnabled = n.getBooleanValue(); },
-        "ism_history_enabled": n => { opensearch_advanced_config.ismHistoryEnabled = n.getBooleanValue(); },
-        "ism_history_max_age_hours": n => { opensearch_advanced_config.ismHistoryMaxAgeHours = n.getNumberValue(); },
-        "ism_history_max_docs": n => { opensearch_advanced_config.ismHistoryMaxDocs = n.getNumberValue(); },
-        "ism_history_rollover_check_period_hours": n => { opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours = n.getNumberValue(); },
-        "ism_history_rollover_retention_period_days": n => { opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays = n.getNumberValue(); },
-        "keep_index_refresh_interval": n => { opensearch_advanced_config.keepIndexRefreshInterval = n.getBooleanValue(); },
-        "knn_memory_circuit_breaker_enabled": n => { opensearch_advanced_config.knnMemoryCircuitBreakerEnabled = n.getBooleanValue(); },
-        "knn_memory_circuit_breaker_limit": n => { opensearch_advanced_config.knnMemoryCircuitBreakerLimit = n.getNumberValue(); },
-        "override_main_response_version": n => { opensearch_advanced_config.overrideMainResponseVersion = n.getBooleanValue(); },
-        "plugins_alerting_filter_by_backend_roles_enabled": n => { opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled = n.getBooleanValue(); },
-        "reindex_remote_whitelist": n => { opensearch_advanced_config.reindexRemoteWhitelist = n.getCollectionOfPrimitiveValues<string>(); },
+        "indices_memory_min_index_buffer_size_mb": n => { opensearch_advanced_config.indicesMemoryMinIndexBufferSizeMb = n.getNumberValue() ?? 48; },
+        "indices_queries_cache_size_percentage": n => { opensearch_advanced_config.indicesQueriesCacheSizePercentage = n.getNumberValue() ?? 10; },
+        "indices_query_bool_max_clause_count": n => { opensearch_advanced_config.indicesQueryBoolMaxClauseCount = n.getNumberValue() ?? 1024; },
+        "indices_recovery_max_concurrent_file_chunks": n => { opensearch_advanced_config.indicesRecoveryMaxConcurrentFileChunks = n.getNumberValue() ?? 2; },
+        "indices_recovery_max_mb_per_sec": n => { opensearch_advanced_config.indicesRecoveryMaxMbPerSec = n.getNumberValue() ?? 40; },
+        "ism_enabled": n => { opensearch_advanced_config.ismEnabled = n.getBooleanValue() ?? true; },
+        "ism_history_enabled": n => { opensearch_advanced_config.ismHistoryEnabled = n.getBooleanValue() ?? true; },
+        "ism_history_max_age_hours": n => { opensearch_advanced_config.ismHistoryMaxAgeHours = n.getNumberValue() ?? 24; },
+        "ism_history_max_docs": n => { opensearch_advanced_config.ismHistoryMaxDocs = n.getNumberValue() ?? 2500000; },
+        "ism_history_rollover_check_period_hours": n => { opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours = n.getNumberValue() ?? 8; },
+        "ism_history_rollover_retention_period_days": n => { opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays = n.getNumberValue() ?? 30; },
+        "keep_index_refresh_interval": n => { opensearch_advanced_config.keepIndexRefreshInterval = n.getBooleanValue() ?? false; },
+        "knn_memory_circuit_breaker_enabled": n => { opensearch_advanced_config.knnMemoryCircuitBreakerEnabled = n.getBooleanValue() ?? true; },
+        "knn_memory_circuit_breaker_limit": n => { opensearch_advanced_config.knnMemoryCircuitBreakerLimit = n.getNumberValue() ?? 50; },
+        "override_main_response_version": n => { opensearch_advanced_config.overrideMainResponseVersion = n.getBooleanValue() ?? false; },
+        "plugins_alerting_filter_by_backend_roles_enabled": n => { opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled = n.getBooleanValue() ?? false; },
+        "reindex_remote_whitelist": n => { opensearch_advanced_config.reindexRemoteWhitelist = n.getCollectionOfPrimitiveValues<string>("string"); },
         "script_max_compilations_rate": n => { opensearch_advanced_config.scriptMaxCompilationsRate = n.getStringValue() ?? "use-context"; },
-        "search_max_buckets": n => { opensearch_advanced_config.searchMaxBuckets = n.getNumberValue(); },
+        "search_max_buckets": n => { opensearch_advanced_config.searchMaxBuckets = n.getNumberValue() ?? 10000; },
         "thread_pool_analyze_queue_size": n => { opensearch_advanced_config.threadPoolAnalyzeQueueSize = n.getNumberValue(); },
         "thread_pool_analyze_size": n => { opensearch_advanced_config.threadPoolAnalyzeSize = n.getNumberValue(); },
         "thread_pool_force_merge_size": n => { opensearch_advanced_config.threadPoolForceMergeSize = n.getNumberValue(); },
@@ -45203,7 +45221,7 @@ export function deserializeIntoOpensearch_config_omit_credentials(opensearch_con
         "endpoint": n => { opensearch_config_omit_credentials.endpoint = n.getStringValue(); },
         "id": n => { opensearch_config_omit_credentials.id = n.getStringValue(); },
         "index_name": n => { opensearch_config_omit_credentials.indexName = n.getStringValue(); },
-        "retention_days": n => { opensearch_config_omit_credentials.retentionDays = n.getNumberValue(); },
+        "retention_days": n => { opensearch_config_omit_credentials.retentionDays = n.getNumberValue() ?? 14; },
     }
 }
 /**
@@ -45219,7 +45237,7 @@ export function deserializeIntoOpensearch_config_request(opensearch_config_reque
         "credentials": n => { opensearch_config_request.credentials = n.getObjectValue<Opensearch_config_request_credentials>(createOpensearch_config_request_credentialsFromDiscriminatorValue); },
         "endpoint": n => { opensearch_config_request.endpoint = n.getStringValue(); },
         "index_name": n => { opensearch_config_request.indexName = n.getStringValue(); },
-        "retention_days": n => { opensearch_config_request.retentionDays = n.getNumberValue(); },
+        "retention_days": n => { opensearch_config_request.retentionDays = n.getNumberValue() ?? 14; },
     }
 }
 /**
@@ -45287,9 +45305,9 @@ export function deserializeIntoOpensearch_index_base(opensearch_index_base: Part
 export function deserializeIntoOpensearch_logsink(opensearch_logsink: Partial<Opensearch_logsink> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "ca": n => { opensearch_logsink.ca = n.getStringValue(); },
-        "index_days_max": n => { opensearch_logsink.indexDaysMax = n.getNumberValue(); },
+        "index_days_max": n => { opensearch_logsink.indexDaysMax = n.getNumberValue() ?? 7; },
         "index_prefix": n => { opensearch_logsink.indexPrefix = n.getStringValue(); },
-        "timeout": n => { opensearch_logsink.timeout = n.getNumberValue(); },
+        "timeout": n => { opensearch_logsink.timeout = n.getNumberValue() ?? 10; },
         "url": n => { opensearch_logsink.url = n.getStringValue(); },
     }
 }
@@ -45333,8 +45351,8 @@ export function deserializeIntoOptions_options(options_options: Partial<Options_
 export function deserializeIntoOptions_options_advanced_mysql(options_options_advanced_mysql: Partial<Options_options_advanced_mysql> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_advanced_mysql.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_advanced_mysql.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_advanced_mysql.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_advanced_mysql.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_advanced_mysql.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45346,8 +45364,8 @@ export function deserializeIntoOptions_options_advanced_mysql(options_options_ad
 export function deserializeIntoOptions_options_advanced_pg(options_options_advanced_pg: Partial<Options_options_advanced_pg> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_advanced_pg.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_advanced_pg.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_advanced_pg.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_advanced_pg.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_advanced_pg.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45359,8 +45377,8 @@ export function deserializeIntoOptions_options_advanced_pg(options_options_advan
 export function deserializeIntoOptions_options_kafka(options_options_kafka: Partial<Options_options_kafka> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_kafka.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_kafka.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_kafka.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_kafka.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_kafka.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45372,8 +45390,8 @@ export function deserializeIntoOptions_options_kafka(options_options_kafka: Part
 export function deserializeIntoOptions_options_mongodb(options_options_mongodb: Partial<Options_options_mongodb> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_mongodb.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_mongodb.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_mongodb.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_mongodb.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_mongodb.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45385,8 +45403,8 @@ export function deserializeIntoOptions_options_mongodb(options_options_mongodb: 
 export function deserializeIntoOptions_options_mysql(options_options_mysql: Partial<Options_options_mysql> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_mysql.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_mysql.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_mysql.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_mysql.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_mysql.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45398,8 +45416,8 @@ export function deserializeIntoOptions_options_mysql(options_options_mysql: Part
 export function deserializeIntoOptions_options_opensearch(options_options_opensearch: Partial<Options_options_opensearch> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_opensearch.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_opensearch.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_opensearch.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_opensearch.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_opensearch.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45411,8 +45429,8 @@ export function deserializeIntoOptions_options_opensearch(options_options_opense
 export function deserializeIntoOptions_options_pg(options_options_pg: Partial<Options_options_pg> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_pg.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_pg.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_pg.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_pg.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_pg.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45424,8 +45442,8 @@ export function deserializeIntoOptions_options_pg(options_options_pg: Partial<Op
 export function deserializeIntoOptions_options_redis(options_options_redis: Partial<Options_options_redis> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_redis.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_redis.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_redis.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_redis.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_redis.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45437,8 +45455,8 @@ export function deserializeIntoOptions_options_redis(options_options_redis: Part
 export function deserializeIntoOptions_options_valkey(options_options_valkey: Partial<Options_options_valkey> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "layouts": n => { options_options_valkey.layouts = n.getCollectionOfObjectValues<Database_layout_option>(createDatabase_layout_optionFromDiscriminatorValue); },
-        "regions": n => { options_options_valkey.regions = n.getCollectionOfPrimitiveValues<string>(); },
-        "versions": n => { options_options_valkey.versions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { options_options_valkey.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "versions": n => { options_options_valkey.versions = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45488,7 +45506,7 @@ export function deserializeIntoOutput_view(output_view: Partial<Output_view> | u
     return {
         "audit": n => { output_view.audit = n.getObjectValue<Output_view_audit>(createOutput_view_auditFromDiscriminatorValue); },
         "description": n => { output_view.description = n.getStringValue(); },
-        "fields": n => { output_view.fields = n.getCollectionOfPrimitiveValues<string>(); },
+        "fields": n => { output_view.fields = n.getCollectionOfPrimitiveValues<string>("string"); },
         "kind": n => { output_view.kind = n.getEnumValue<Output_view_kind>(Output_view_kindObject); },
         "name": n => { output_view.name = n.getStringValue(); },
         "output_schema": n => { output_view.outputSchema = n.getObjectValue<Output_view_output_schema>(createOutput_view_output_schemaFromDiscriminatorValue); },
@@ -45521,7 +45539,7 @@ export function deserializeIntoOutput_view_audit(output_view_audit: Partial<Outp
 export function deserializeIntoOutput_view_create(output_view_create: Partial<Output_view_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { output_view_create.description = n.getStringValue(); },
-        "fields": n => { output_view_create.fields = n.getCollectionOfPrimitiveValues<string>(); },
+        "fields": n => { output_view_create.fields = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { output_view_create.name = n.getStringValue(); },
         "tool": n => { output_view_create.tool = n.getStringValue(); },
         "tool_id": n => { output_view_create.toolId = n.getStringValue(); },
@@ -45546,7 +45564,7 @@ export function deserializeIntoOutput_view_output_schema(output_view_output_sche
 export function deserializeIntoOutput_view_preview(output_view_preview: Partial<Output_view_preview> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { output_view_preview.description = n.getStringValue(); },
-        "fields": n => { output_view_preview.fields = n.getCollectionOfPrimitiveValues<string>(); },
+        "fields": n => { output_view_preview.fields = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { output_view_preview.name = n.getStringValue(); },
         "tool": n => { output_view_preview.tool = n.getStringValue(); },
         "tool_id": n => { output_view_preview.toolId = n.getStringValue(); },
@@ -45641,7 +45659,7 @@ export function deserializeIntoPagination(pagination: Partial<Pagination> | unde
 export function deserializeIntoPartner_attachment(partner_attachment: Partial<Partner_attachment> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "bgp": n => { partner_attachment.bgp = n.getObjectValue<Partner_attachment_bgp>(createPartner_attachment_bgpFromDiscriminatorValue); },
-        "children": n => { partner_attachment.children = n.getCollectionOfPrimitiveValues<string>(); },
+        "children": n => { partner_attachment.children = n.getCollectionOfPrimitiveValues<string>("string"); },
         "connection_bandwidth_in_mbps": n => { partner_attachment.connectionBandwidthInMbps = n.getNumberValue(); },
         "created_at": n => { partner_attachment.createdAt = n.getDateValue(); },
         "id": n => { partner_attachment.id = n.getStringValue(); },
@@ -45650,7 +45668,7 @@ export function deserializeIntoPartner_attachment(partner_attachment: Partial<Pa
         "parent_uuid": n => { partner_attachment.parentUuid = n.getStringValue(); },
         "region": n => { partner_attachment.region = n.getStringValue(); },
         "state": n => { partner_attachment.state = n.getStringValue(); },
-        "vpc_ids": n => { partner_attachment.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_ids": n => { partner_attachment.vpcIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45697,7 +45715,7 @@ export function deserializeIntoPartner_attachment_updatableMember1(partner_attac
 // @ts-ignore
 export function deserializeIntoPartner_attachment_updatableMember2(partner_attachment_updatableMember2: Partial<Partner_attachment_updatableMember2> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "vpc_ids": n => { partner_attachment_updatableMember2.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_ids": n => { partner_attachment_updatableMember2.vpcIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45740,7 +45758,7 @@ export function deserializeIntoPartner_attachment_writable(partner_attachment_wr
         "parent_uuid": n => { partner_attachment_writable.parentUuid = n.getStringValue(); },
         "redundancy_zone": n => { partner_attachment_writable.redundancyZone = n.getEnumValue<Partner_attachment_writable_redundancy_zone>(Partner_attachment_writable_redundancy_zoneObject); },
         "region": n => { partner_attachment_writable.region = n.getEnumValue<Partner_attachment_writable_region>(Partner_attachment_writable_regionObject); },
-        "vpc_ids": n => { partner_attachment_writable.vpcIds = n.getCollectionOfPrimitiveValues<string>(); },
+        "vpc_ids": n => { partner_attachment_writable.vpcIds = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45779,7 +45797,7 @@ export function deserializeIntoPatch_session_response(patch_session_response: Pa
     return {
         "outcome": n => { patch_session_response.outcome = n.getEnumValue<Patch_session_response_outcome>(Patch_session_response_outcomeObject); },
         "session": n => { patch_session_response.session = n.getObjectValue<Definitions_session>(createDefinitions_sessionFromDiscriminatorValue); },
-        "warnings": n => { patch_session_response.warnings = n.getCollectionOfPrimitiveValues<string>(); },
+        "warnings": n => { patch_session_response.warnings = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -45820,7 +45838,7 @@ export function deserializeIntoPending_deployment_spec_vpc(pending_deployment_sp
 // @ts-ignore
 export function deserializeIntoPermission_filesystem(permission_filesystem: Partial<Permission_filesystem> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allowWrite": n => { permission_filesystem.allowWrite = n.getCollectionOfPrimitiveValues<string>(); },
+        "allowWrite": n => { permission_filesystem.allowWrite = n.getCollectionOfPrimitiveValues<string>("string"); },
         "mode": n => { permission_filesystem.mode = n.getEnumValue<Permission_filesystem_mode>(Permission_filesystem_modeObject); },
     }
 }
@@ -45832,7 +45850,7 @@ export function deserializeIntoPermission_filesystem(permission_filesystem: Part
 // @ts-ignore
 export function deserializeIntoPermission_network(permission_network: Partial<Permission_network> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "allow": n => { permission_network.allow = n.getCollectionOfPrimitiveValues<string>(); },
+        "allow": n => { permission_network.allow = n.getCollectionOfPrimitiveValues<string>("string"); },
         "default": n => { permission_network.defaultEscaped = n.getEnumValue<Permission_network_default>(Permission_network_defaultObject); },
     }
 }
@@ -46099,7 +46117,7 @@ export function deserializeIntoProject(project: Partial<Project> | undefined = {
 // @ts-ignore
 export function deserializeIntoProject_assignment(project_assignment: Partial<Project_assignment> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "resources": n => { project_assignment.resources = n.getCollectionOfPrimitiveValues<string>(); },
+        "resources": n => { project_assignment.resources = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -46154,6 +46172,8 @@ export function deserializeIntoProm_matrix_data(prom_matrix_data: Partial<Prom_m
 // @ts-ignore
 export function deserializeIntoProm_matrix_sample(prom_matrix_sample: Partial<Prom_matrix_sample> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "metric": n => { prom_matrix_sample.metric = n.getObjectValue<Prom_metric_labels>(createProm_metric_labelsFromDiscriminatorValue); },
+        "values": n => { prom_matrix_sample.values = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
     }
 }
 /**
@@ -46245,7 +46265,7 @@ export function deserializeIntoProm_series_response(prom_series_response: Partia
 // @ts-ignore
 export function deserializeIntoProm_string_list_response(prom_string_list_response: Partial<Prom_string_list_response> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "data": n => { prom_string_list_response.data = n.getCollectionOfPrimitiveValues<string>(); },
+        "data": n => { prom_string_list_response.data = n.getCollectionOfPrimitiveValues<string>("string"); },
         "status": n => { prom_string_list_response.status = n.getEnumValue<Prom_string_list_response_status>(Prom_string_list_response_statusObject); },
     }
 }
@@ -46302,7 +46322,7 @@ export function deserializeIntoProvider_connection_authorization(provider_connec
 export function deserializeIntoProvider_connection_oauth(provider_connection_oauth: Partial<Provider_connection_oauth> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "granted_at": n => { provider_connection_oauth.grantedAt = n.getDateValue(); },
-        "scopes": n => { provider_connection_oauth.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { provider_connection_oauth.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -46461,7 +46481,7 @@ export function deserializeIntoProvider_health(provider_health: Partial<Provider
 export function deserializeIntoProvider_summary(provider_summary: Partial<Provider_summary> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "auth_type": n => { provider_summary.authType = n.getStringValue(); },
-        "auth_types": n => { provider_summary.authTypes = n.getCollectionOfPrimitiveValues<string>(); },
+        "auth_types": n => { provider_summary.authTypes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "connection_parameters": n => { provider_summary.connectionParameters = n.getCollectionOfObjectValues<Connection_parameter_spec>(createConnection_parameter_specFromDiscriminatorValue); },
         "credential_parameters": n => { provider_summary.credentialParameters = n.getCollectionOfObjectValues<Connection_parameter_spec>(createConnection_parameter_specFromDiscriminatorValue); },
         "description": n => { provider_summary.description = n.getStringValue(); },
@@ -46469,7 +46489,7 @@ export function deserializeIntoProvider_summary(provider_summary: Partial<Provid
         "name": n => { provider_summary.name = n.getStringValue(); },
         "oauth_client_setup_url": n => { provider_summary.oauthClientSetupUrl = n.getStringValue(); },
         "oauth_redirect_url": n => { provider_summary.oauthRedirectUrl = n.getStringValue(); },
-        "scopes": n => { provider_summary.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { provider_summary.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -46480,7 +46500,7 @@ export function deserializeIntoProvider_summary(provider_summary: Partial<Provid
 // @ts-ignore
 export function deserializeIntoPurge_cache(purge_cache: Partial<Purge_cache> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "files": n => { purge_cache.files = n.getCollectionOfPrimitiveValues<string>(); },
+        "files": n => { purge_cache.files = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -46517,15 +46537,15 @@ export function deserializeIntoRedis_advanced_config(redis_advanced_config: Part
     return {
         "redis_acl_channels_default": n => { redis_advanced_config.redisAclChannelsDefault = n.getEnumValue<Redis_advanced_config_redis_acl_channels_default>(Redis_advanced_config_redis_acl_channels_defaultObject); },
         "redis_io_threads": n => { redis_advanced_config.redisIoThreads = n.getNumberValue(); },
-        "redis_lfu_decay_time": n => { redis_advanced_config.redisLfuDecayTime = n.getNumberValue(); },
-        "redis_lfu_log_factor": n => { redis_advanced_config.redisLfuLogFactor = n.getNumberValue(); },
+        "redis_lfu_decay_time": n => { redis_advanced_config.redisLfuDecayTime = n.getNumberValue() ?? 1; },
+        "redis_lfu_log_factor": n => { redis_advanced_config.redisLfuLogFactor = n.getNumberValue() ?? 10; },
         "redis_maxmemory_policy": n => { redis_advanced_config.redisMaxmemoryPolicy = n.getEnumValue<Redis_advanced_config_redis_maxmemory_policy>(Redis_advanced_config_redis_maxmemory_policyObject); },
         "redis_notify_keyspace_events": n => { redis_advanced_config.redisNotifyKeyspaceEvents = n.getStringValue(); },
         "redis_number_of_databases": n => { redis_advanced_config.redisNumberOfDatabases = n.getNumberValue(); },
         "redis_persistence": n => { redis_advanced_config.redisPersistence = n.getEnumValue<Redis_advanced_config_redis_persistence>(Redis_advanced_config_redis_persistenceObject); },
         "redis_pubsub_client_output_buffer_limit": n => { redis_advanced_config.redisPubsubClientOutputBufferLimit = n.getNumberValue(); },
-        "redis_ssl": n => { redis_advanced_config.redisSsl = n.getBooleanValue(); },
-        "redis_timeout": n => { redis_advanced_config.redisTimeout = n.getNumberValue(); },
+        "redis_ssl": n => { redis_advanced_config.redisSsl = n.getBooleanValue() ?? true; },
+        "redis_timeout": n => { redis_advanced_config.redisTimeout = n.getNumberValue() ?? 300; },
     }
 }
 /**
@@ -46537,9 +46557,9 @@ export function deserializeIntoRedis_advanced_config(redis_advanced_config: Part
 export function deserializeIntoRegion(region: Partial<Region> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "available": n => { region.available = n.getBooleanValue(); },
-        "features": n => { region.features = n.getCollectionOfPrimitiveValues<string>(); },
+        "features": n => { region.features = n.getCollectionOfPrimitiveValues<string>("string"); },
         "name": n => { region.name = n.getStringValue(); },
-        "sizes": n => { region.sizes = n.getCollectionOfPrimitiveValues<string>(); },
+        "sizes": n => { region.sizes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "slug": n => { region.slug = n.getStringValue(); },
     }
 }
@@ -46671,7 +46691,7 @@ export function deserializeIntoRepository_manifest(repository_manifest: Partial<
         "registry_name": n => { repository_manifest.registryName = n.getStringValue(); },
         "repository": n => { repository_manifest.repository = n.getStringValue(); },
         "size_bytes": n => { repository_manifest.sizeBytes = n.getNumberValue(); },
-        "tags": n => { repository_manifest.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { repository_manifest.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { repository_manifest.updatedAt = n.getDateValue(); },
     }
 }
@@ -47056,7 +47076,7 @@ export function deserializeIntoRoute(route: Partial<Route> | undefined = {}) : R
         "destination_cidr": n => { route.destinationCidr = n.getStringValue(); },
         "id": n => { route.id = n.getGuidValue(); },
         "modifiable": n => { route.modifiable = n.getBooleanValue(); },
-        "target_urns": n => { route.targetUrns = n.getCollectionOfPrimitiveValues<string>(); },
+        "target_urns": n => { route.targetUrns = n.getCollectionOfPrimitiveValues<string>("string"); },
         "type": n => { route.type = n.getEnumValue<Route_type>(Route_typeObject); },
     }
 }
@@ -47069,7 +47089,7 @@ export function deserializeIntoRoute(route: Partial<Route> | undefined = {}) : R
 export function deserializeIntoRoute_create(route_create: Partial<Route_create> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "destination_cidr": n => { route_create.destinationCidr = n.getStringValue(); },
-        "target_urns": n => { route_create.targetUrns = n.getCollectionOfPrimitiveValues<string>(); },
+        "target_urns": n => { route_create.targetUrns = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47080,7 +47100,7 @@ export function deserializeIntoRoute_create(route_create: Partial<Route_create> 
 // @ts-ignore
 export function deserializeIntoRoute_update(route_update: Partial<Route_update> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "target_urns": n => { route_update.targetUrns = n.getCollectionOfPrimitiveValues<string>(); },
+        "target_urns": n => { route_update.targetUrns = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47369,10 +47389,10 @@ export function deserializeIntoSearch_tools_group(search_tools_group: Partial<Se
 // @ts-ignore
 export function deserializeIntoSearch_tools_request(search_tools_request: Partial<Search_tools_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "limit": n => { search_tools_request.limit = n.getNumberValue(); },
-        "providers": n => { search_tools_request.providers = n.getCollectionOfPrimitiveValues<string>(); },
+        "limit": n => { search_tools_request.limit = n.getNumberValue() ?? 10; },
+        "providers": n => { search_tools_request.providers = n.getCollectionOfPrimitiveValues<string>("string"); },
         "queries": n => { search_tools_request.queries = n.getCollectionOfObjectValues<Search_query>(createSearch_queryFromDiscriminatorValue); },
-        "tags": n => { search_tools_request.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { search_tools_request.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47489,11 +47509,11 @@ export function deserializeIntoSecret_version(secret_version: Partial<Secret_ver
 // @ts-ignore
 export function deserializeIntoSelective_destroy_associated_resource(selective_destroy_associated_resource: Partial<Selective_destroy_associated_resource> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "floating_ips": n => { selective_destroy_associated_resource.floatingIps = n.getCollectionOfPrimitiveValues<string>(); },
-        "reserved_ips": n => { selective_destroy_associated_resource.reservedIps = n.getCollectionOfPrimitiveValues<string>(); },
-        "snapshots": n => { selective_destroy_associated_resource.snapshots = n.getCollectionOfPrimitiveValues<string>(); },
-        "volumes": n => { selective_destroy_associated_resource.volumes = n.getCollectionOfPrimitiveValues<string>(); },
-        "volume_snapshots": n => { selective_destroy_associated_resource.volumeSnapshots = n.getCollectionOfPrimitiveValues<string>(); },
+        "floating_ips": n => { selective_destroy_associated_resource.floatingIps = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "reserved_ips": n => { selective_destroy_associated_resource.reservedIps = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "snapshots": n => { selective_destroy_associated_resource.snapshots = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "volumes": n => { selective_destroy_associated_resource.volumes = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "volume_snapshots": n => { selective_destroy_associated_resource.volumeSnapshots = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47554,7 +47574,7 @@ export function deserializeIntoSession_cache(session_cache: Partial<Session_cach
     return {
         "allEligible": n => { session_cache.allEligible = n.getBooleanValue(); },
         "maxAgeSeconds": n => { session_cache.maxAgeSeconds = n.getNumberValue(); },
-        "tools": n => { session_cache.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { session_cache.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47576,9 +47596,23 @@ export function deserializeIntoSession_config(session_config: Partial<Session_co
 // @ts-ignore
 export function deserializeIntoSession_config_changes(session_config_changes: Partial<Session_config_changes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+        "egress": n => { session_config_changes.egress = n.getObjectValue<Session_config_egress_changes>(createSession_config_egress_changesFromDiscriminatorValue); },
         "env": n => { session_config_changes.env = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
         "secrets": n => { session_config_changes.secrets = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
         "tools": n => { session_config_changes.tools = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_config_egress_changes The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_config_egress_changes(session_config_egress_changes: Partial<Session_config_egress_changes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "added": n => { session_config_egress_changes.added = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "mode": n => { session_config_egress_changes.mode = n.getEnumValue<Session_config_egress_changes_mode>(Session_config_egress_changes_modeObject); },
+        "removed": n => { session_config_egress_changes.removed = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47589,9 +47623,9 @@ export function deserializeIntoSession_config_changes(session_config_changes: Pa
 // @ts-ignore
 export function deserializeIntoSession_config_section_changes(session_config_section_changes: Partial<Session_config_section_changes> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "added": n => { session_config_section_changes.added = n.getCollectionOfPrimitiveValues<string>(); },
-        "changed": n => { session_config_section_changes.changed = n.getCollectionOfPrimitiveValues<string>(); },
-        "removed": n => { session_config_section_changes.removed = n.getCollectionOfPrimitiveValues<string>(); },
+        "added": n => { session_config_section_changes.added = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "changed": n => { session_config_section_changes.changed = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "removed": n => { session_config_section_changes.removed = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47610,7 +47644,7 @@ export function deserializeIntoSession_config_update(session_config_update: Part
         "manifest_hash": n => { session_config_update.manifestHash = n.getStringValue(); },
         "previous_hash": n => { session_config_update.previousHash = n.getStringValue(); },
         "reverted": n => { session_config_update.reverted = n.getBooleanValue(); },
-        "sections": n => { session_config_update.sections = n.getCollectionOfPrimitiveValues<string>(); },
+        "sections": n => { session_config_update.sections = n.getCollectionOfPrimitiveValues<string>("string"); },
         "session_id": n => { session_config_update.sessionId = n.getStringValue(); },
         "started_at": n => { session_config_update.startedAt = n.getDateValue(); },
         "state": n => { session_config_update.state = n.getEnumValue<Session_config_update_state>(Session_config_update_stateObject); },
@@ -47633,7 +47667,7 @@ export function deserializeIntoSession_create(session_create: Partial<Session_cr
         "name": n => { session_create.name = n.getStringValue(); },
         "network": n => { session_create.network = n.getObjectValue<Session_network>(createSession_networkFromDiscriminatorValue); },
         "policy": n => { session_create.policy = n.getObjectValue<Session_policy>(createSession_policyFromDiscriminatorValue); },
-        "tools": n => { session_create.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { session_create.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -47658,7 +47692,7 @@ export function deserializeIntoSession_dialogue(session_dialogue: Partial<Sessio
         "id": n => { session_dialogue.id = n.getStringValue(); },
         "run_status": n => { session_dialogue.runStatus = n.getStringValue(); },
         "sequence": n => { session_dialogue.sequence = n.getNumberValue(); },
-        "signals": n => { session_dialogue.signals = n.getCollectionOfPrimitiveValues<string>(); },
+        "signals": n => { session_dialogue.signals = n.getCollectionOfPrimitiveValues<string>("string"); },
         "user_message": n => { session_dialogue.userMessage = n.getStringValue(); },
     }
 }
@@ -47925,7 +47959,7 @@ export function deserializeIntoSinks_response(sinks_response: Partial<Sinks_resp
 // @ts-ignore
 export function deserializeIntoSize(size: Partial<Size> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "available": n => { size.available = n.getBooleanValue(); },
+        "available": n => { size.available = n.getBooleanValue() ?? true; },
         "description": n => { size.description = n.getStringValue(); },
         "disk": n => { size.disk = n.getNumberValue(); },
         "disk_info": n => { size.diskInfo = n.getCollectionOfObjectValues<Disk_info>(createDisk_infoFromDiscriminatorValue); },
@@ -47933,7 +47967,7 @@ export function deserializeIntoSize(size: Partial<Size> | undefined = {}) : Reco
         "memory": n => { size.memory = n.getNumberValue(); },
         "price_hourly": n => { size.priceHourly = n.getNumberValue(); },
         "price_monthly": n => { size.priceMonthly = n.getNumberValue(); },
-        "regions": n => { size.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { size.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "slug": n => { size.slug = n.getStringValue(); },
         "transfer": n => { size.transfer = n.getNumberValue(); },
         "vcpus": n => { size.vcpus = n.getNumberValue(); },
@@ -47998,7 +48032,7 @@ export function deserializeIntoSnapshots(snapshots: Partial<Snapshots> | undefin
         "id": n => { snapshots.id = n.getStringValue(); },
         "resource_id": n => { snapshots.resourceId = n.getStringValue(); },
         "resource_type": n => { snapshots.resourceType = n.getEnumValue<Snapshots_resource_type>(Snapshots_resource_typeObject); },
-        "tags": n => { snapshots.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { snapshots.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -48012,7 +48046,7 @@ export function deserializeIntoSnapshots_base(snapshots_base: Partial<Snapshots_
         "created_at": n => { snapshots_base.createdAt = n.getDateValue(); },
         "min_disk_size": n => { snapshots_base.minDiskSize = n.getNumberValue(); },
         "name": n => { snapshots_base.name = n.getStringValue(); },
-        "regions": n => { snapshots_base.regions = n.getCollectionOfPrimitiveValues<string>(); },
+        "regions": n => { snapshots_base.regions = n.getCollectionOfPrimitiveValues<string>("string"); },
         "size_gigabytes": n => { snapshots_base.sizeGigabytes = n.getNumberValue(); },
     }
 }
@@ -48025,7 +48059,7 @@ export function deserializeIntoSnapshots_base(snapshots_base: Partial<Snapshots_
 export function deserializeIntoSource_database(source_database: Partial<Source_database> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "disable_ssl": n => { source_database.disableSsl = n.getBooleanValue(); },
-        "ignore_dbs": n => { source_database.ignoreDbs = n.getCollectionOfPrimitiveValues<string>(); },
+        "ignore_dbs": n => { source_database.ignoreDbs = n.getCollectionOfPrimitiveValues<string>("string"); },
         "source": n => { source_database.source = n.getObjectValue<Source_database_source>(createSource_database_sourceFromDiscriminatorValue); },
     }
 }
@@ -48202,7 +48236,7 @@ export function deserializeIntoSpans_order_by(spans_order_by: Partial<Spans_orde
 // @ts-ignore
 export function deserializeIntoSpans_pagination_request(spans_pagination_request: Partial<Spans_pagination_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "limit": n => { spans_pagination_request.limit = n.getNumberValue(); },
+        "limit": n => { spans_pagination_request.limit = n.getNumberValue() ?? 100; },
     }
 }
 /**
@@ -48323,9 +48357,9 @@ export function deserializeIntoSshKeys(sshKeys: Partial<SshKeys> | undefined = {
 export function deserializeIntoSso(sso: Partial<Sso> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "client_id": n => { sso.clientId = n.getStringValue(); },
-        "enabled": n => { sso.enabled = n.getBooleanValue(); },
+        "enabled": n => { sso.enabled = n.getBooleanValue() ?? false; },
         "issuer_url": n => { sso.issuerUrl = n.getStringValue(); },
-        "required": n => { sso.required = n.getBooleanValue(); },
+        "required": n => { sso.required = n.getBooleanValue() ?? false; },
     }
 }
 /**
@@ -48432,8 +48466,8 @@ export function deserializeIntoSubscription_tier_base(subscription_tier_base: Pa
 export function deserializeIntoSupported_droplet_backup_policy(supported_droplet_backup_policy: Partial<Supported_droplet_backup_policy> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { supported_droplet_backup_policy.name = n.getStringValue(); },
-        "possible_days": n => { supported_droplet_backup_policy.possibleDays = n.getCollectionOfPrimitiveValues<string>(); },
-        "possible_window_starts": n => { supported_droplet_backup_policy.possibleWindowStarts = n.getCollectionOfPrimitiveValues<number>(); },
+        "possible_days": n => { supported_droplet_backup_policy.possibleDays = n.getCollectionOfPrimitiveValues<string>("string"); },
+        "possible_window_starts": n => { supported_droplet_backup_policy.possibleWindowStarts = n.getCollectionOfPrimitiveValues<number>("number"); },
         "retention_period_days": n => { supported_droplet_backup_policy.retentionPeriodDays = n.getNumberValue(); },
         "window_length_hours": n => { supported_droplet_backup_policy.windowLengthHours = n.getNumberValue(); },
     }
@@ -48750,9 +48784,9 @@ export function deserializeIntoTool_definition(tool_definition: Partial<Tool_def
 // @ts-ignore
 export function deserializeIntoTool_definition_auth(tool_definition_auth: Partial<Tool_definition_auth> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "modes": n => { tool_definition_auth.modes = n.getCollectionOfPrimitiveValues<string>(); },
+        "modes": n => { tool_definition_auth.modes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "provider": n => { tool_definition_auth.provider = n.getStringValue(); },
-        "scopes": n => { tool_definition_auth.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { tool_definition_auth.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -48899,7 +48933,7 @@ export function deserializeIntoTool_version_change(tool_version_change: Partial<
         "breaking": n => { tool_version_change.breaking = n.getBooleanValue(); },
         "path": n => { tool_version_change.path = n.getStringValue(); },
         "type": n => { tool_version_change.type = n.getEnumValue<Tool_version_change_type>(Tool_version_change_typeObject); },
-        "values": n => { tool_version_change.values = n.getCollectionOfPrimitiveValues<string>(); },
+        "values": n => { tool_version_change.values = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -48935,7 +48969,7 @@ export function deserializeIntoToolbelt(toolbelt: Partial<Toolbelt> | undefined 
         "reference_latest": n => { toolbelt.referenceLatest = n.getStringValue(); },
         "status": n => { toolbelt.status = n.getEnumValue<Toolbelt_status>(Toolbelt_statusObject); },
         "tool_count": n => { toolbelt.toolCount = n.getNumberValue(); },
-        "tools": n => { toolbelt.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { toolbelt.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { toolbelt.updatedAt = n.getDateValue(); },
         "version": n => { toolbelt.version = n.getStringValue(); },
     }
@@ -48951,7 +48985,7 @@ export function deserializeIntoToolbelt_create(toolbelt_create: Partial<Toolbelt
         "description": n => { toolbelt_create.description = n.getStringValue(); },
         "display_name": n => { toolbelt_create.displayName = n.getStringValue(); },
         "name": n => { toolbelt_create.name = n.getStringValue(); },
-        "tools": n => { toolbelt_create.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { toolbelt_create.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
         "version": n => { toolbelt_create.version = n.getStringValue() ?? "1"; },
     }
 }
@@ -48963,7 +48997,7 @@ export function deserializeIntoToolbelt_create(toolbelt_create: Partial<Toolbelt
 // @ts-ignore
 export function deserializeIntoToolbelt_provider_summary(toolbelt_provider_summary: Partial<Toolbelt_provider_summary> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "categories": n => { toolbelt_provider_summary.categories = n.getCollectionOfPrimitiveValues<string>(); },
+        "categories": n => { toolbelt_provider_summary.categories = n.getCollectionOfPrimitiveValues<string>("string"); },
         "created_at": n => { toolbelt_provider_summary.createdAt = n.getDateValue(); },
         "description": n => { toolbelt_provider_summary.description = n.getStringValue(); },
         "id": n => { toolbelt_provider_summary.id = n.getStringValue(); },
@@ -49027,7 +49061,7 @@ export function deserializeIntoToolbelt_tool_detail(toolbelt_tool_detail: Partia
 // @ts-ignore
 export function deserializeIntoToolbelt_tools(toolbelt_tools: Partial<Toolbelt_tools> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "tools": n => { toolbelt_tools.tools = n.getCollectionOfPrimitiveValues<string>(); },
+        "tools": n => { toolbelt_tools.tools = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -49061,7 +49095,7 @@ export function deserializeIntoToolbelts_response(toolbelts_response: Partial<To
 // @ts-ignore
 export function deserializeIntoToolkit(toolkit: Partial<Toolkit> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "categories": n => { toolkit.categories = n.getCollectionOfPrimitiveValues<string>(); },
+        "categories": n => { toolkit.categories = n.getCollectionOfPrimitiveValues<string>("string"); },
         "created_at": n => { toolkit.createdAt = n.getDateValue(); },
         "description": n => { toolkit.description = n.getStringValue(); },
         "id": n => { toolkit.id = n.getStringValue(); },
@@ -49207,7 +49241,7 @@ export function deserializeIntoTraces_order_by(traces_order_by: Partial<Traces_o
 // @ts-ignore
 export function deserializeIntoTraces_pagination_request(traces_pagination_request: Partial<Traces_pagination_request> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "limit": n => { traces_pagination_request.limit = n.getNumberValue(); },
+        "limit": n => { traces_pagination_request.limit = n.getNumberValue() ?? 100; },
     }
 }
 /**
@@ -49339,7 +49373,7 @@ export function deserializeIntoTraces_trace_summary(traces_trace_summary: Partia
         "error_count": n => { traces_trace_summary.errorCount = n.getNumberValue(); },
         "service_name": n => { traces_trace_summary.serviceName = n.getStringValue(); },
         "span_count": n => { traces_trace_summary.spanCount = n.getNumberValue(); },
-        "span_names": n => { traces_trace_summary.spanNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "span_names": n => { traces_trace_summary.spanNames = n.getCollectionOfPrimitiveValues<string>("string"); },
         "started": n => { traces_trace_summary.started = n.getDateValue(); },
         "status": n => { traces_trace_summary.status = n.getEnumValue<Traces_trace_summary_status>(Traces_trace_summary_statusObject); },
         "trace_id": n => { traces_trace_summary.traceId = n.getStringValue(); },
@@ -49459,7 +49493,7 @@ export function deserializeIntoUpdate_endpoint(update_endpoint: Partial<Update_e
     return {
         "certificate_id": n => { update_endpoint.certificateId = n.getGuidValue(); },
         "custom_domain": n => { update_endpoint.customDomain = n.getStringValue(); },
-        "ttl": n => { update_endpoint.ttl = n.getNumberValue(); },
+        "ttl": n => { update_endpoint.ttl = n.getNumberValue() ?? 3600; },
     }
 }
 /**
@@ -49546,7 +49580,7 @@ export function deserializeIntoUser_connections(user_connections: Partial<User_c
         "provider": n => { user_connections.provider = n.getStringValue(); },
         "provider_display_name": n => { user_connections.providerDisplayName = n.getStringValue(); },
         "revoked_at": n => { user_connections.revokedAt = n.getDateValue(); },
-        "scopes": n => { user_connections.scopes = n.getCollectionOfPrimitiveValues<string>(); },
+        "scopes": n => { user_connections.scopes = n.getCollectionOfPrimitiveValues<string>("string"); },
         "status": n => { user_connections.status = n.getEnumValue<User_connections_status>(User_connections_statusObject); },
         "updated_at": n => { user_connections.updatedAt = n.getDateValue(); },
         "user_id": n => { user_connections.userId = n.getStringValue(); },
@@ -49611,7 +49645,7 @@ export function deserializeIntoUser_settings_acl(user_settings_acl: Partial<User
 // @ts-ignore
 export function deserializeIntoUser_settings_mongo_user_settings(user_settings_mongo_user_settings: Partial<User_settings_mongo_user_settings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "databases": n => { user_settings_mongo_user_settings.databases = n.getCollectionOfPrimitiveValues<string>(); },
+        "databases": n => { user_settings_mongo_user_settings.databases = n.getCollectionOfPrimitiveValues<string>("string"); },
         "role": n => { user_settings_mongo_user_settings.role = n.getEnumValue<User_settings_mongo_user_settings_role>(User_settings_mongo_user_settings_roleObject); },
     }
 }
@@ -49684,7 +49718,7 @@ export function deserializeIntoUser2(user2: Partial<User2> | undefined = {}) : R
 // @ts-ignore
 export function deserializeIntoUser2_kubernetes_cluster_user(user2_kubernetes_cluster_user: Partial<User2_kubernetes_cluster_user> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "groups": n => { user2_kubernetes_cluster_user.groups = n.getCollectionOfPrimitiveValues<string>(); },
+        "groups": n => { user2_kubernetes_cluster_user.groups = n.getCollectionOfPrimitiveValues<string>("string"); },
         "username": n => { user2_kubernetes_cluster_user.username = n.getStringValue(); },
     }
 }
@@ -49725,19 +49759,19 @@ export function deserializeIntoValidation_result(validation_result: Partial<Vali
 // @ts-ignore
 export function deserializeIntoValkey_advanced_config(valkey_advanced_config: Partial<Valkey_advanced_config> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "frequent_snapshots": n => { valkey_advanced_config.frequentSnapshots = n.getBooleanValue(); },
+        "frequent_snapshots": n => { valkey_advanced_config.frequentSnapshots = n.getBooleanValue() ?? true; },
         "valkey_acl_channels_default": n => { valkey_advanced_config.valkeyAclChannelsDefault = n.getEnumValue<Valkey_advanced_config_valkey_acl_channels_default>(Valkey_advanced_config_valkey_acl_channels_defaultObject); },
-        "valkey_active_expire_effort": n => { valkey_advanced_config.valkeyActiveExpireEffort = n.getNumberValue(); },
+        "valkey_active_expire_effort": n => { valkey_advanced_config.valkeyActiveExpireEffort = n.getNumberValue() ?? 1; },
         "valkey_io_threads": n => { valkey_advanced_config.valkeyIoThreads = n.getNumberValue(); },
-        "valkey_lfu_decay_time": n => { valkey_advanced_config.valkeyLfuDecayTime = n.getNumberValue(); },
-        "valkey_lfu_log_factor": n => { valkey_advanced_config.valkeyLfuLogFactor = n.getNumberValue(); },
+        "valkey_lfu_decay_time": n => { valkey_advanced_config.valkeyLfuDecayTime = n.getNumberValue() ?? 1; },
+        "valkey_lfu_log_factor": n => { valkey_advanced_config.valkeyLfuLogFactor = n.getNumberValue() ?? 10; },
         "valkey_maxmemory_policy": n => { valkey_advanced_config.valkeyMaxmemoryPolicy = n.getEnumValue<Eviction_policy_model>(Eviction_policy_modelObject); },
         "valkey_notify_keyspace_events": n => { valkey_advanced_config.valkeyNotifyKeyspaceEvents = n.getStringValue(); },
         "valkey_number_of_databases": n => { valkey_advanced_config.valkeyNumberOfDatabases = n.getNumberValue(); },
         "valkey_persistence": n => { valkey_advanced_config.valkeyPersistence = n.getEnumValue<Valkey_advanced_config_valkey_persistence>(Valkey_advanced_config_valkey_persistenceObject); },
         "valkey_pubsub_client_output_buffer_limit": n => { valkey_advanced_config.valkeyPubsubClientOutputBufferLimit = n.getNumberValue(); },
-        "valkey_ssl": n => { valkey_advanced_config.valkeySsl = n.getBooleanValue(); },
-        "valkey_timeout": n => { valkey_advanced_config.valkeyTimeout = n.getNumberValue(); },
+        "valkey_ssl": n => { valkey_advanced_config.valkeySsl = n.getBooleanValue() ?? true; },
+        "valkey_timeout": n => { valkey_advanced_config.valkeyTimeout = n.getNumberValue() ?? 300; },
     }
 }
 /**
@@ -49766,7 +49800,7 @@ export function deserializeIntoVectordbCreateVectorDBRequest(vectordbCreateVecto
         "project_id": n => { vectordbCreateVectorDBRequest.projectId = n.getStringValue(); },
         "region": n => { vectordbCreateVectorDBRequest.region = n.getStringValue(); },
         "size": n => { vectordbCreateVectorDBRequest.size = n.getStringValue(); },
-        "tags": n => { vectordbCreateVectorDBRequest.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { vectordbCreateVectorDBRequest.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -49919,7 +49953,7 @@ export function deserializeIntoVectordbUpdateVectorDBResponse(vectordbUpdateVect
 export function deserializeIntoVectordbUpdateVectorDBTagsRequest(vectordbUpdateVectorDBTagsRequest: Partial<VectordbUpdateVectorDBTagsRequest> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "id": n => { vectordbUpdateVectorDBTagsRequest.id = n.getStringValue(); },
-        "tags": n => { vectordbUpdateVectorDBTagsRequest.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { vectordbUpdateVectorDBTagsRequest.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -49953,7 +49987,7 @@ export function deserializeIntoVectordbVectorDB(vectordbVectorDB: Partial<Vector
         "region": n => { vectordbVectorDB.region = n.getStringValue(); },
         "size": n => { vectordbVectorDB.size = n.getStringValue(); },
         "status": n => { vectordbVectorDB.status = n.getStringValue(); },
-        "tags": n => { vectordbVectorDB.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { vectordbVectorDB.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
         "updated_at": n => { vectordbVectorDB.updatedAt = n.getDateValue(); },
     }
 }
@@ -50042,7 +50076,7 @@ export function deserializeIntoVolume_action_post_attach(volume_action_post_atta
     return {
         ...deserializeIntoVolume_action_post_base(volume_action_post_attach),
         "droplet_id": n => { volume_action_post_attach.dropletId = n.getNumberValue(); },
-        "tags": n => { volume_action_post_attach.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { volume_action_post_attach.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -50091,11 +50125,11 @@ export function deserializeIntoVolume_base_read(volume_base_read: Partial<Volume
     return {
         "created_at": n => { volume_base_read.createdAt = n.getStringValue(); },
         "description": n => { volume_base_read.description = n.getStringValue(); },
-        "droplet_ids": n => { volume_base_read.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { volume_base_read.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "id": n => { volume_base_read.id = n.getStringValue(); },
         "name": n => { volume_base_read.name = n.getStringValue(); },
         "size_gigabytes": n => { volume_base_read.sizeGigabytes = n.getNumberValue(); },
-        "tags": n => { volume_base_read.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { volume_base_read.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -50133,7 +50167,7 @@ export function deserializeIntoVolumes_ext4(volumes_ext4: Partial<Volumes_ext4> 
     return {
         "created_at": n => { volumes_ext4.createdAt = n.getStringValue(); },
         "description": n => { volumes_ext4.description = n.getStringValue(); },
-        "droplet_ids": n => { volumes_ext4.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { volumes_ext4.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "filesystem_label": n => { volumes_ext4.filesystemLabel = n.getStringValue(); },
         "filesystem_type": n => { volumes_ext4.filesystemType = n.getStringValue(); },
         "id": n => { volumes_ext4.id = n.getStringValue(); },
@@ -50141,7 +50175,7 @@ export function deserializeIntoVolumes_ext4(volumes_ext4: Partial<Volumes_ext4> 
         "region": n => { volumes_ext4.region = n.getEnumValue<Region_slug>(Region_slugObject); },
         "size_gigabytes": n => { volumes_ext4.sizeGigabytes = n.getNumberValue(); },
         "snapshot_id": n => { volumes_ext4.snapshotId = n.getStringValue(); },
-        "tags": n => { volumes_ext4.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { volumes_ext4.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -50154,7 +50188,7 @@ export function deserializeIntoVolumes_xfs(volumes_xfs: Partial<Volumes_xfs> | u
     return {
         "created_at": n => { volumes_xfs.createdAt = n.getStringValue(); },
         "description": n => { volumes_xfs.description = n.getStringValue(); },
-        "droplet_ids": n => { volumes_xfs.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { volumes_xfs.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
         "filesystem_label": n => { volumes_xfs.filesystemLabel = n.getStringValue(); },
         "filesystem_type": n => { volumes_xfs.filesystemType = n.getStringValue(); },
         "id": n => { volumes_xfs.id = n.getStringValue(); },
@@ -50162,7 +50196,7 @@ export function deserializeIntoVolumes_xfs(volumes_xfs: Partial<Volumes_xfs> | u
         "region": n => { volumes_xfs.region = n.getEnumValue<Region_slug>(Region_slugObject); },
         "size_gigabytes": n => { volumes_xfs.sizeGigabytes = n.getNumberValue(); },
         "snapshot_id": n => { volumes_xfs.snapshotId = n.getStringValue(); },
-        "tags": n => { volumes_xfs.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { volumes_xfs.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -50350,7 +50384,7 @@ export function deserializeIntoVpc_peering(vpc_peering: Partial<Vpc_peering> | u
         "id": n => { vpc_peering.id = n.getGuidValue(); },
         "name": n => { vpc_peering.name = n.getStringValue(); },
         "status": n => { vpc_peering.status = n.getEnumValue<Vpc_peering_status>(Vpc_peering_statusObject); },
-        "vpc_ids": n => { vpc_peering.vpcIds = n.getCollectionOfPrimitiveValues<Guid>(); },
+        "vpc_ids": n => { vpc_peering.vpcIds = n.getCollectionOfPrimitiveValues<Guid>("string"); },
     }
 }
 /**
@@ -51234,7 +51268,7 @@ export interface Droplet_create extends AdditionalDataHolder, Parsable {
     /**
      * An array containing the IDs or fingerprints of the SSH keys that you wish to embed in the Droplet's root account upon creation. You must add the keys to your team before they can be embedded on a Droplet.<br>Requires `ssh_key:read` scope.
      */
-    sshKeys?: string[] | null;
+    sshKeys?: (number | string)[] | null;
     /**
      * An optional string specifying the UUID of the VPC subnet to which the Droplet will be assigned. If excluded, the Droplet will be assigned to a default subnet of the VPC.<br>Requires `vpc:read` scope.
      */
@@ -51261,6 +51295,7 @@ export interface Droplet_create extends AdditionalDataHolder, Parsable {
     withDropletAgent?: boolean | null;
 }
 export type Droplet_create_image = number | string;
+export type Droplet_create_ssh_keys = number | string;
 export interface Droplet_multi_create extends Droplet_create, Parsable {
     /**
      * An array of human human-readable strings you wish to use when displaying the Droplet name. Each name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. Each name set during creation will also determine the hostname for the Droplet in its internal configuration.
@@ -55622,7 +55657,7 @@ export interface Microvm_options extends AdditionalDataHolder, Parsable {
      */
     defaultRegion?: string | null;
     /**
-     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `file_transfer` gates `files`; `egress_policy` gates `egress_policy` on create; `egress_credentials` gates `egress_policy.credentials` (requires `egress_policy`, and only in regions that support credential injection).
+     * Features and whether they are enabled for your team. `exec_pty` gates `exec` and `console`; `port_forward` gates `port_forward`; `file_transfer` gates `files`; `egress_policy` gates `egress_policy` on create; `egress_credentials` gates `egress_policy.credentials` (requires `egress_policy`, and only in regions that support credential injection).
      */
     features?: Microvm_options_features[] | null;
     /**
@@ -57653,7 +57688,7 @@ export type Partner_attachment_writable_region = (typeof Partner_attachment_writ
  */
 export interface Patch_session_request extends Parsable {
     /**
-     * A partial agent manifest, as a YAML string, that holds only the sections to change. Can'tbe combined with `resume_on_topoff`. Requires session settings updates to be enabled foryour team (`403` otherwise).Supported sections are `tools`, `env`, and `secrets`. Sections you omit are not changed.Any other top-level key returns `400`, including `model` (to change the model, set`HARNESS_INFERENCE_MODEL` in `env`) and `permissions` (can't be changed on an existingsession).Each section you include replaces that section in full:- `tools`: the complete list of tools for the session. Only Action Gateway tools  (`do.actions` entries) can be added, removed, or changed. Custom MCP servers can't be  changed on an existing session: include the session's current custom MCP servers  exactly as they are. Adding, removing, or changing one returns `422`. To remove all Action Gateway tools from a session that has no custom  MCP servers, send `tools: []`. `tools: null` returns `400`.- `env`: the complete set of environment variables, as name-value pairs. A variable you  leave out is removed. `env: {}` removes all variables; `env: null` returns `400`.- `secrets`: the complete set of secrets, as name-value pairs. A secret you leave out is  removed. For each secret, set the value to a string to add or rotate it, or to `{}` to  keep its current value. A `null` value returns `400`.**Changing the model.** The only way to change a session's model is through `env`. Set`HARNESS_INFERENCE_MODEL` to a DigitalOcean Serverless Inference model ID, or to`router:<name>` for an inference router. This worksonly on sessions created with `HARNESS_INFERENCE_MODEL` set and without their owninference endpoint. Adding, removing, or changing the key on any other session, or movinga session to its own endpoint, returns `422`. A malformed value (empty, multi-line, or over256 bytes) returns `400`. Whether the model exists is not checked when you send therequest; an unknown model fails on the agent's next turn.**Reserved keys.** `HARNESS_INFERENCE_API_KEY` and `HARNESS_INFERENCE_BASE_URL` aremanaged by the platform: include them with their current values, or the request returns`422`. Framework keys can't be changed either (`422`). Secrets that are not plain values(such as URL-bound or OAuth secrets) can't be changed on an existing session (`422`).Example that changes the model, keeps one secret, and rotates another. Because eachsection is a full replacement, the example assumes the session has no other envvariables or secrets:```yamlenv:  HARNESS_INFERENCE_MODEL: llama3.3-70b-instruct  LOG_LEVEL: infosecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN: new-token-value```
+     * A partial agent manifest, as a YAML string, that holds only the sections to change. Can'tbe combined with `resume_on_topoff`. Requires session settings updates to be enabled foryour team (`403` otherwise).Supported sections are `tools`, `env`, `secrets`, and `egress`. Sections you omit are notchanged. Any other top-level key returns `400`, including `model` (set the model in `env`instead; see **Changing the model**) and `permissions` (can't be changed on an existingsession).Each section you include replaces that section in full:- `tools`: the complete list of tools for the session. Only Action Gateway tools  (`do.actions` entries) can be added, removed, or changed. Custom MCP servers can't be  changed on an existing session: include the session's current custom MCP servers  exactly as they are. Adding, removing, or changing one returns `422`. To remove all  Action Gateway tools from a session that has no custom MCP servers, send `tools: []`.  `tools: null` returns `400`.- `env`: the complete set of environment variables, as name-value pairs. A variable you  leave out is removed. `env: {}` removes all variables; `env: null` returns `400`.- `secrets`: the complete set of secrets, as name-value pairs. A secret you leave out is  removed. For each secret, set the value to a string to add or rotate it, or to `{}` to  keep its current value. URL-bound secrets also accept an object; see **URL-bound  secrets**. A `null` value returns `400`.- `egress`: the complete egress allowlist, as an object with `allow_hosts` (hostnames) and  `allow_ips` (exact IPv4 or IPv6 addresses, not CIDR ranges). Only this object form is  supported in an update. It replaces the session's  current allowlist: a host or IP address you leave out is removed. Leave out `vpc_uuid`  and `subnet_uuid` to keep the session's current VPC, or set them to their current values.  A different value returns `422`. See **Egress**.**URL-bound secrets.** The egress proxy sends a URL-bound secret only to requests thatmatch its `url`; the agent never receives the value. An update to a URL-bound secretdoesn't restart the agent. In `secrets`, you can:- Rotate the value: set the secret to the new value as a string. Its `url` and `scheme`  don't change.- Move it to another URL or scheme: set it to `{value, url, scheme}`. A new host or path,  or a change to `scheme: raw`, requires `value` (`400` otherwise). Sending the current  `value`, `url`, and `scheme` again is not a change.- Add one: set it to `{value, url}`. `scheme` is optional and defaults to `bearer`  (`Authorization: Bearer <value>`); `raw` sends the value exactly as stored.- Bind an existing plain secret to a URL: set it to `{url}`. The secret keeps its current  value.- Keep one unchanged: set it to `{}`.- Remove one: leave it out of `secrets`.`url` must use `https://` and name an exact hostname (no wildcards, IP addresses, or`localhost`), with an optional path and no port, query, or fragment. A session can have upto 16 URL-bound secrets, fewer if it has storage mounts, which count toward the same limit. A URL-bound secret can't be changed back to a plain secret. Ifthe session has an egress allowlist, the secret's host is added to it. After a rollback orfork, a URL-bound secret that was moved off its agent config's URL can need its valueagain: the request returns `409` until you send `value`.**Egress.** `egress` changes the hosts and IP addresses the session can reach. The newallowlist takes effect on the session's next outbound connection, without an agentrestart. Connections that are already open stay open, including connections to a host youremoved. Only `allow_hosts` and `allow_ips` can change; the VPC is fixed when the sessionis created. A session created with unrestricted egress and no URL-bound secrets can't gainan allowlist: the update ends in `FAILED` with `error` set to `requires_new_session`.**Changing the model.** You change a session's model through `env`. The key to set dependson the model endpoint the session was created with:- DigitalOcean Serverless Inference (created with `HARNESS_INFERENCE_MODEL` and without  `OPENAI_BASE_URL`, `ANTHROPIC_BASE_URL`, or an `ANTHROPIC_API_KEY` secret): set  `HARNESS_INFERENCE_MODEL` to a Serverless Inference model ID, or to `router:<name>` for  an inference router. Removing the key, or moving the session to its own endpoint,  returns `422`. Adding the key to a session that was created without it also returns  `422`.- Your own OpenAI-compatible endpoint (created with `OPENAI_BASE_URL`): set `MODEL`. The  session reads `MODEL` before `OPENAI_MODEL`, so set `OPENAI_MODEL` only if the session  uses it and doesn't have `MODEL`.- Your own Anthropic endpoint (created with `ANTHROPIC_BASE_URL`), or the Anthropic API  (created with an `ANTHROPIC_API_KEY` secret and no base URL): set `ANTHROPIC_MODEL`. The  session reads `ANTHROPIC_MODEL` before `MODEL`.On a session that uses its own endpoint, the following rules also apply:- Removing the model key makes the agent use its default model for that endpoint.- The model provider and the base URL (`OPENAI_BASE_URL` or `ANTHROPIC_BASE_URL`) can't be  changed (`422`). Include the base URL with its current value.- The provider API key (`OPENAI_API_KEY` or `ANTHROPIC_API_KEY`) can only be rotated: set  it to the new value as a string, or to `{}` to keep it. Removing it, adding it to a  session that was created without it, or changing its `url` or `scheme` returns `422`.  If the key is URL-bound, rotating it follows the URL-bound secret rules: the agent isn't  restarted, and URL-bound secret updates must be enabled for your team (`403`  otherwise).A model name can't be empty, start or end with whitespace, span more than one line, belonger than 256 bytes, or contain ` #` or `: ` (`400`). Whether the endpoint serves themodel is not checked when you send the request; an unknown model fails on the agent's nextturn.**Reserved keys.** `HARNESS_INFERENCE_API_KEY` and `HARNESS_INFERENCE_BASE_URL` aremanaged by the platform: include them with their current values, or the request returns`422`. Framework keys can't be changed either (`422`). OAuth secrets and mount-onlysecrets (`env: false`) can't be changed on an existing session: set them to `{}` (`422`otherwise).Example that changes the model, keeps one secret, and rotates another. Because eachsection is a full replacement, the example assumes the session has no other envvariables or secrets:```yamlenv:  HARNESS_INFERENCE_MODEL: llama3.3-70b-instruct  LOG_LEVEL: infosecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN: new-token-value```Example that changes the model and rotates the provider API key of a session that wascreated with its own OpenAI-compatible endpoint. The example assumes the session has noother env variables or secrets:```yamlenv:  OPENAI_BASE_URL: https://llm.example.com/v1  MODEL: my-model-v2secrets:  OPENAI_API_KEY: new-api-key```Example that keeps one URL-bound secret, moves another to a new URL, and replaces theegress allowlist. The example assumes the session has no other secrets:```yamlsecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN:    value: new-token-value    url: https://example.atlassian.net/rest/api/3egress:  allow_hosts:    - api.github.com    - example.atlassian.net  allow_ips:    - 203.0.113.10```
      */
     manifestYaml?: string | null;
     /**
@@ -58298,6 +58333,14 @@ export interface Prom_matrix_data extends AdditionalDataHolder, Parsable {
 }
 export type Prom_matrix_data_resultType = (typeof Prom_matrix_data_resultTypeObject)[keyof typeof Prom_matrix_data_resultTypeObject];
 export interface Prom_matrix_sample extends AdditionalDataHolder, Parsable {
+    /**
+     * Metric labels as key/value pairs. By default, metric names in responses use Prometheus underscored spelling (for example `do_droplets_cpu_time`), even when the request used a dotted selector (for example `do.droplets.cpu_time`).
+     */
+    metric?: Prom_metric_labels | null;
+    /**
+     * The values property
+     */
+    values?: UntypedNode | null;
 }
 /**
  * Metric labels as key/value pairs. By default, metric names in responses use Prometheus underscored spelling (for example `do_droplets_cpu_time`), even when the request used a dotted selector (for example `do.droplets.cpu_time`).
@@ -60117,7 +60160,7 @@ export function serializeAccount(writer: SerializationWriter, account: Partial<A
     if (!account || isSerializingDerivedType) { return; }
     writer.writeNumberValue("droplet_limit", account.dropletLimit);
     writer.writeStringValue("email", account.email);
-    writer.writeBooleanValue("email_verified", account.emailVerified);
+    writer.writeBooleanValue("email_verified", account.emailVerified ?? false);
     writer.writeNumberValue("floating_ip_limit", account.floatingIpLimit);
     writer.writeStringValue("name", account.name);
     writer.writeEnumValue<Account_status>("status", account.status ?? Account_statusObject.Active);
@@ -60252,10 +60295,10 @@ export function serializeAddons_feature(writer: SerializationWriter, addons_feat
     writer.writeEnumValue<Addons_feature_type>("type", addons_feature.type);
     writer.writeEnumValue<Addons_feature_unit>("unit", addons_feature.unit);
     writer.writeDateValue("updated_at", addons_feature.updatedAt);
-    if ( typeof addons_feature.value === "boolean") {
+    if (typeof addons_feature.value === "boolean" ) {
         writer.writeBooleanValue("value", addons_feature.value as boolean);
     }
-    else if ( typeof addons_feature.value === "string") {
+    else if (typeof addons_feature.value === "string" ) {
         writer.writeStringValue("value", addons_feature.value as string);
     }
     writer.writeAdditionalData(addons_feature.additionalData);
@@ -60336,10 +60379,10 @@ export function serializeAddons_resource(writer: SerializationWriter, addons_res
 export function serializeAddons_resource_metadata(writer: SerializationWriter, addons_resource_metadata: Partial<Addons_resource_metadata> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!addons_resource_metadata || isSerializingDerivedType) { return; }
     writer.writeStringValue("name", addons_resource_metadata.name);
-    if ( typeof addons_resource_metadata.value === "boolean") {
+    if (typeof addons_resource_metadata.value === "boolean" ) {
         writer.writeBooleanValue("value", addons_resource_metadata.value as boolean);
     }
-    else if ( typeof addons_resource_metadata.value === "string") {
+    else if (typeof addons_resource_metadata.value === "string" ) {
         writer.writeStringValue("value", addons_resource_metadata.value as string);
     }
     writer.writeAdditionalData(addons_resource_metadata.additionalData);
@@ -66705,7 +66748,7 @@ export function serializeApp_autoscaling_spec_metrics(writer: SerializationWrite
 // @ts-ignore
 export function serializeApp_autoscaling_spec_metrics_cpu(writer: SerializationWriter, app_autoscaling_spec_metrics_cpu: Partial<App_autoscaling_spec_metrics_cpu> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_autoscaling_spec_metrics_cpu || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("percent", app_autoscaling_spec_metrics_cpu.percent);
+    writer.writeNumberValue("percent", app_autoscaling_spec_metrics_cpu.percent ?? 80);
     writer.writeAdditionalData(app_autoscaling_spec_metrics_cpu.additionalData);
 }
 /**
@@ -67235,8 +67278,8 @@ export function serializeApp_job_spec(writer: SerializationWriter, app_job_spec:
     writer.writeObjectValue<Apps_github_source_spec>("github", app_job_spec.github, serializeApps_github_source_spec);
     writer.writeObjectValue<Apps_gitlab_source_spec>("gitlab", app_job_spec.gitlab, serializeApps_gitlab_source_spec);
     writer.writeObjectValue<Apps_image_source_spec>("image", app_job_spec.image, serializeApps_image_source_spec);
-    writer.writeNumberValue("instance_count", app_job_spec.instanceCount);
-    if ( typeof app_job_spec.instanceSizeSlug === "string") {
+    writer.writeNumberValue("instance_count", app_job_spec.instanceCount ?? 1);
+    if (typeof app_job_spec.instanceSizeSlug === "string" ) {
         writer.writeStringValue("instance_size_slug", app_job_spec.instanceSizeSlug as string);
     }
     writer.writeEnumValue<App_job_spec_kind>("kind", app_job_spec.kind ?? App_job_spec_kindObject.UNSPECIFIED);
@@ -67499,8 +67542,8 @@ export function serializeApp_service_spec(writer: SerializationWriter, app_servi
     writer.writeObjectValue<App_service_spec_health_check>("health_check", app_service_spec.healthCheck, serializeApp_service_spec_health_check);
     writer.writeNumberValue("http_port", app_service_spec.httpPort);
     writer.writeObjectValue<Apps_image_source_spec>("image", app_service_spec.image, serializeApps_image_source_spec);
-    writer.writeNumberValue("instance_count", app_service_spec.instanceCount);
-    if ( typeof app_service_spec.instanceSizeSlug === "string") {
+    writer.writeNumberValue("instance_count", app_service_spec.instanceCount ?? 1);
+    if (typeof app_service_spec.instanceSizeSlug === "string" ) {
         writer.writeStringValue("instance_size_slug", app_service_spec.instanceSizeSlug as string);
     }
     writer.writeCollectionOfPrimitiveValues<number>("internal_ports", app_service_spec.internalPorts);
@@ -67569,11 +67612,11 @@ export function serializeApp_service_spec_termination(writer: SerializationWrite
 export function serializeApp_spec(writer: SerializationWriter, app_spec: Partial<App_spec> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!app_spec || isSerializingDerivedType) { return; }
     writer.writeCollectionOfObjectValues<App_database_spec>("databases", app_spec.databases, serializeApp_database_spec);
-    writer.writeBooleanValue("disable_edge_cache", app_spec.disableEdgeCache);
-    writer.writeBooleanValue("disable_email_obfuscation", app_spec.disableEmailObfuscation);
+    writer.writeBooleanValue("disable_edge_cache", app_spec.disableEdgeCache ?? false);
+    writer.writeBooleanValue("disable_email_obfuscation", app_spec.disableEmailObfuscation ?? false);
     writer.writeCollectionOfObjectValues<App_domain_spec>("domains", app_spec.domains, serializeApp_domain_spec);
     writer.writeObjectValue<App_egress_spec>("egress", app_spec.egress, serializeApp_egress_spec);
-    writer.writeBooleanValue("enhanced_threat_control_enabled", app_spec.enhancedThreatControlEnabled);
+    writer.writeBooleanValue("enhanced_threat_control_enabled", app_spec.enhancedThreatControlEnabled ?? false);
     writer.writeCollectionOfObjectValues<App_functions_spec>("functions", app_spec.functions, serializeApp_functions_spec);
     writer.writeObjectValue<App_ingress_spec>("ingress", app_spec.ingress, serializeApp_ingress_spec);
     writer.writeCollectionOfObjectValues<App_job_spec>("jobs", app_spec.jobs, serializeApp_job_spec);
@@ -67636,8 +67679,8 @@ export function serializeApp_worker_spec(writer: SerializationWriter, app_worker
     writer.writeObjectValue<Apps_github_source_spec>("github", app_worker_spec.github, serializeApps_github_source_spec);
     writer.writeObjectValue<Apps_gitlab_source_spec>("gitlab", app_worker_spec.gitlab, serializeApps_gitlab_source_spec);
     writer.writeObjectValue<Apps_image_source_spec>("image", app_worker_spec.image, serializeApps_image_source_spec);
-    writer.writeNumberValue("instance_count", app_worker_spec.instanceCount);
-    if ( typeof app_worker_spec.instanceSizeSlug === "string") {
+    writer.writeNumberValue("instance_count", app_worker_spec.instanceCount ?? 1);
+    if (typeof app_worker_spec.instanceSizeSlug === "string" ) {
         writer.writeStringValue("instance_size_slug", app_worker_spec.instanceSizeSlug as string);
     }
     writer.writeObjectValue<App_health_check_spec>("liveness_health_check", app_worker_spec.livenessHealthCheck, serializeApp_health_check_spec);
@@ -68267,7 +68310,7 @@ export function serializeApps_string_match(writer: SerializationWriter, apps_str
 export function serializeApps_update_app_request(writer: SerializationWriter, apps_update_app_request: Partial<Apps_update_app_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!apps_update_app_request || isSerializingDerivedType) { return; }
     writer.writeObjectValue<App_spec>("spec", apps_update_app_request.spec, serializeApp_spec);
-    writer.writeBooleanValue("update_all_source_versions", apps_update_app_request.updateAllSourceVersions);
+    writer.writeBooleanValue("update_all_source_versions", apps_update_app_request.updateAllSourceVersions ?? false);
     writer.writeAdditionalData(apps_update_app_request.additionalData);
 }
 /**
@@ -68512,7 +68555,7 @@ export function serializeAutoscale_pool_droplet_template(writer: SerializationWr
     writer.writeBooleanValue("ipv6", autoscale_pool_droplet_template.ipv6);
     writer.writeStringValue("name", autoscale_pool_droplet_template.name);
     writer.writeStringValue("project_id", autoscale_pool_droplet_template.projectId);
-    writer.writeBooleanValue("public_networking", autoscale_pool_droplet_template.publicNetworking);
+    writer.writeBooleanValue("public_networking", autoscale_pool_droplet_template.publicNetworking ?? true);
     writer.writeEnumValue<Autoscale_pool_droplet_template_region>("region", autoscale_pool_droplet_template.region);
     writer.writeStringValue("size", autoscale_pool_droplet_template.size);
     writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", autoscale_pool_droplet_template.sshKeys);
@@ -68963,7 +69006,7 @@ export function serializeCdn_endpoint(writer: SerializationWriter, cdn_endpoint:
     writer.writeGuidValue("certificate_id", cdn_endpoint.certificateId);
     writer.writeStringValue("custom_domain", cdn_endpoint.customDomain);
     writer.writeStringValue("origin", cdn_endpoint.origin);
-    writer.writeNumberValue("ttl", cdn_endpoint.ttl);
+    writer.writeNumberValue("ttl", cdn_endpoint.ttl ?? 3600);
     writer.writeAdditionalData(cdn_endpoint.additionalData);
 }
 /**
@@ -69028,28 +69071,28 @@ export function serializeCertificate_request_lets_encrypt(writer: SerializationW
 // @ts-ignore
 export function serializeChat_completion_request(writer: SerializationWriter, chat_completion_request: Partial<Chat_completion_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!chat_completion_request || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("frequency_penalty", chat_completion_request.frequencyPenalty);
+    writer.writeNumberValue("frequency_penalty", chat_completion_request.frequencyPenalty ?? 0);
     writer.writeObjectValue<Chat_completion_request_logit_bias>("logit_bias", chat_completion_request.logitBias, serializeChat_completion_request_logit_bias);
-    writer.writeBooleanValue("logprobs", chat_completion_request.logprobs);
+    writer.writeBooleanValue("logprobs", chat_completion_request.logprobs ?? false);
     writer.writeNumberValue("max_completion_tokens", chat_completion_request.maxCompletionTokens);
     writer.writeNumberValue("max_tokens", chat_completion_request.maxTokens);
     writer.writeCollectionOfObjectValues<Chat_message>("messages", chat_completion_request.messages, serializeChat_message);
     writer.writeObjectValue<Chat_completion_request_metadata>("metadata", chat_completion_request.metadata, serializeChat_completion_request_metadata);
     writer.writeStringValue("model", chat_completion_request.model);
-    writer.writeNumberValue("n", chat_completion_request.n);
-    writer.writeNumberValue("presence_penalty", chat_completion_request.presencePenalty);
+    writer.writeNumberValue("n", chat_completion_request.n ?? 1);
+    writer.writeNumberValue("presence_penalty", chat_completion_request.presencePenalty ?? 0);
     writer.writeEnumValue<Chat_completion_request_reasoning_effort>("reasoning_effort", chat_completion_request.reasoningEffort);
     writer.writeNumberValue("seed", chat_completion_request.seed);
-    if ( typeof chat_completion_request.stop === "string") {
+    if (Array.isArray(chat_completion_request.stop) && (chat_completion_request.stop).every(item => typeof item === "string")) {
+        writer.writeCollectionOfPrimitiveValues<string>("stop", chat_completion_request.stop as string[]);
+    }
+    else if (typeof chat_completion_request.stop === "string" ) {
         writer.writeStringValue("stop", chat_completion_request.stop as string);
     }
-    else {
-        writer.writeCollectionOfObjectValues<string>("stop", chat_completion_request.stop as string[] | undefined | null, serializeChat_completion_request_stop);
-    }
-    writer.writeBooleanValue("stream", chat_completion_request.stream);
+    writer.writeBooleanValue("stream", chat_completion_request.stream ?? false);
     writer.writeObjectValue<Chat_completion_request_stream_options>("stream_options", chat_completion_request.streamOptions, serializeChat_completion_request_stream_options);
     writer.writeNumberValue("temperature", chat_completion_request.temperature);
-    if ( typeof chat_completion_request.toolChoice === "string") {
+    if (typeof chat_completion_request.toolChoice === "string" ) {
         writer.writeStringValue("tool_choice", chat_completion_request.toolChoice as string);
     }
     else {
@@ -69092,7 +69135,7 @@ export function serializeChat_completion_request_metadata(writer: SerializationW
 // @ts-ignore
 export function serializeChat_completion_request_stop(writer: SerializationWriter, chat_completion_request_stop: Partial<Parsable | Chat_completion_request_stop> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (chat_completion_request_stop === undefined || chat_completion_request_stop === null) return;
-    if (Array.isArray(chat_completion_request_stop) && (chat_completion_request_stop).every(item => typeof item === 'string')) {
+    if (Array.isArray(chat_completion_request_stop) && (chat_completion_request_stop).every(item => typeof item === "string")) {
         writer.writeCollectionOfPrimitiveValues<string>(undefined, chat_completion_request_stop as string[]);
     }
     else if (typeof chat_completion_request_stop === "string" ) {
@@ -69329,7 +69372,7 @@ export function serializeChat_message(writer: SerializationWriter, chat_message:
 // @ts-ignore
 export function serializeCheck(writer: SerializationWriter, check: Partial<Check> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!check || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("enabled", check.enabled);
+    writer.writeBooleanValue("enabled", check.enabled ?? true);
     writer.writeStringValue("name", check.name);
     if(check.regions)
     writer.writeCollectionOfEnumValues<Check_regions>("regions", check.regions);
@@ -69346,7 +69389,7 @@ export function serializeCheck(writer: SerializationWriter, check: Partial<Check
 // @ts-ignore
 export function serializeCheck_updatable(writer: SerializationWriter, check_updatable: Partial<Check_updatable> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!check_updatable || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("enabled", check_updatable.enabled);
+    writer.writeBooleanValue("enabled", check_updatable.enabled ?? true);
     writer.writeStringValue("name", check_updatable.name);
     if(check_updatable.regions)
     writer.writeCollectionOfEnumValues<Check_updatable_regions>("regions", check_updatable.regions);
@@ -69413,15 +69456,15 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
-    writer.writeBooleanValue("auto_upgrade", cluster.autoUpgrade);
+    writer.writeBooleanValue("auto_upgrade", cluster.autoUpgrade ?? false);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster.corednsAutoscaler, serializeCoredns_autoscaler);
-    writer.writeBooleanValue("gpu_operator_ready", cluster.gpuOperatorReady);
+    writer.writeBooleanValue("gpu_operator_ready", cluster.gpuOperatorReady ?? false);
     writer.writeBooleanValue("ha", cluster.ha);
     writer.writeObjectValue<Insights_opt_in2>("insights", cluster.insights, serializeInsights_opt_in2);
-    writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers);
+    writer.writeBooleanValue("isolated_workers", cluster.isolatedWorkers ?? false);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster.name);
     writer.writeObjectValue<Nfs_csi_plugin>("nfs_csi_plugin", cluster.nfsCsiPlugin, serializeNfs_csi_plugin);
@@ -69434,7 +69477,7 @@ export function serializeCluster(writer: SerializationWriter, cluster: Partial<C
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster.routingAgent, serializeRouting_agent);
     writer.writeStringValue("service_subnet", cluster.serviceSubnet);
     writer.writeObjectValue<Sso>("sso", cluster.sso, serializeSso);
-    writer.writeBooleanValue("surge_upgrade", cluster.surgeUpgrade);
+    writer.writeBooleanValue("surge_upgrade", cluster.surgeUpgrade ?? false);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster.tags);
     writer.writeStringValue("version", cluster.version);
     writer.writeGuidValue("vpc_uuid", cluster.vpcUuid);
@@ -69468,14 +69511,14 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_read.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_read.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster_read.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
-    writer.writeBooleanValue("auto_upgrade", cluster_read.autoUpgrade);
+    writer.writeBooleanValue("auto_upgrade", cluster_read.autoUpgrade ?? false);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_read.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeStringValue("cluster_subnet", cluster_read.clusterSubnet);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_read.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_read.corednsAutoscaler, serializeCoredns_autoscaler);
-    writer.writeBooleanValue("gpu_operator_ready", cluster_read.gpuOperatorReady);
-    writer.writeBooleanValue("ha", cluster_read.ha);
-    writer.writeBooleanValue("isolated_workers", cluster_read.isolatedWorkers);
+    writer.writeBooleanValue("gpu_operator_ready", cluster_read.gpuOperatorReady ?? false);
+    writer.writeBooleanValue("ha", cluster_read.ha ?? false);
+    writer.writeBooleanValue("isolated_workers", cluster_read.isolatedWorkers ?? false);
     writer.writeObjectValue<Maintenance_policy>("maintenance_policy", cluster_read.maintenancePolicy, serializeMaintenance_policy);
     writer.writeStringValue("name", cluster_read.name);
     writer.writeObjectValue<Nfs_csi_plugin>("nfs_csi_plugin", cluster_read.nfsCsiPlugin, serializeNfs_csi_plugin);
@@ -69489,7 +69532,7 @@ export function serializeCluster_read(writer: SerializationWriter, cluster_read:
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_read.routingAgent, serializeRouting_agent);
     writer.writeStringValue("service_subnet", cluster_read.serviceSubnet);
     writer.writeObjectValue<Sso>("sso", cluster_read.sso, serializeSso);
-    writer.writeBooleanValue("surge_upgrade", cluster_read.surgeUpgrade);
+    writer.writeBooleanValue("surge_upgrade", cluster_read.surgeUpgrade ?? false);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_read.tags);
     writer.writeStringValue("version", cluster_read.version);
     writer.writeGuidValue("vpc_uuid", cluster_read.vpcUuid);
@@ -69559,7 +69602,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Amd_gpu_device_metrics_exporter_plugin>("amd_gpu_device_metrics_exporter_plugin", cluster_update.amdGpuDeviceMetricsExporterPlugin, serializeAmd_gpu_device_metrics_exporter_plugin);
     writer.writeObjectValue<Amd_gpu_device_plugin>("amd_gpu_device_plugin", cluster_update.amdGpuDevicePlugin, serializeAmd_gpu_device_plugin);
     writer.writeObjectValue<Amd_gpu_dra_driver>("amd_gpu_dra_driver", cluster_update.amdGpuDraDriver, serializeAmd_gpu_dra_driver);
-    writer.writeBooleanValue("auto_upgrade", cluster_update.autoUpgrade);
+    writer.writeBooleanValue("auto_upgrade", cluster_update.autoUpgrade ?? false);
     writer.writeObjectValue<Cluster_autoscaler_configuration>("cluster_autoscaler_configuration", cluster_update.clusterAutoscalerConfiguration, serializeCluster_autoscaler_configuration);
     writer.writeObjectValue<Control_plane_firewall>("control_plane_firewall", cluster_update.controlPlaneFirewall, serializeControl_plane_firewall);
     writer.writeObjectValue<Coredns_autoscaler>("coredns_autoscaler", cluster_update.corednsAutoscaler, serializeCoredns_autoscaler);
@@ -69574,7 +69617,7 @@ export function serializeCluster_update(writer: SerializationWriter, cluster_upd
     writer.writeObjectValue<Rdma_shared_dev_plugin>("rdma_shared_dev_plugin", cluster_update.rdmaSharedDevPlugin, serializeRdma_shared_dev_plugin);
     writer.writeObjectValue<Routing_agent>("routing_agent", cluster_update.routingAgent, serializeRouting_agent);
     writer.writeObjectValue<Sso>("sso", cluster_update.sso, serializeSso);
-    writer.writeBooleanValue("surge_upgrade", cluster_update.surgeUpgrade);
+    writer.writeBooleanValue("surge_upgrade", cluster_update.surgeUpgrade ?? false);
     writer.writeCollectionOfPrimitiveValues<string>("tags", cluster_update.tags);
     writer.writeAdditionalData(cluster_update.additionalData);
 }
@@ -69646,12 +69689,12 @@ export function serializeClusterlint_results_diagnostics_object(writer: Serializ
 // @ts-ignore
 export function serializeCompletion_usage(writer: SerializationWriter, completion_usage: Partial<Completion_usage> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!completion_usage || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("cache_created_input_tokens", completion_usage.cacheCreatedInputTokens);
+    writer.writeNumberValue("cache_created_input_tokens", completion_usage.cacheCreatedInputTokens ?? 0);
     writer.writeObjectValue<Completion_usage_cache_creation>("cache_creation", completion_usage.cacheCreation, serializeCompletion_usage_cache_creation);
-    writer.writeNumberValue("cache_read_input_tokens", completion_usage.cacheReadInputTokens);
-    writer.writeNumberValue("completion_tokens", completion_usage.completionTokens);
-    writer.writeNumberValue("prompt_tokens", completion_usage.promptTokens);
-    writer.writeNumberValue("total_tokens", completion_usage.totalTokens);
+    writer.writeNumberValue("cache_read_input_tokens", completion_usage.cacheReadInputTokens ?? 0);
+    writer.writeNumberValue("completion_tokens", completion_usage.completionTokens ?? 0);
+    writer.writeNumberValue("prompt_tokens", completion_usage.promptTokens ?? 0);
+    writer.writeNumberValue("total_tokens", completion_usage.totalTokens ?? 0);
     writer.writeAdditionalData(completion_usage.additionalData);
 }
 /**
@@ -69663,8 +69706,8 @@ export function serializeCompletion_usage(writer: SerializationWriter, completio
 // @ts-ignore
 export function serializeCompletion_usage_cache_creation(writer: SerializationWriter, completion_usage_cache_creation: Partial<Completion_usage_cache_creation> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!completion_usage_cache_creation || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("ephemeral_1h_input_tokens", completion_usage_cache_creation.ephemeral1hInputTokens);
-    writer.writeNumberValue("ephemeral_5m_input_tokens", completion_usage_cache_creation.ephemeral5mInputTokens);
+    writer.writeNumberValue("ephemeral_1h_input_tokens", completion_usage_cache_creation.ephemeral1hInputTokens ?? 0);
+    writer.writeNumberValue("ephemeral_5m_input_tokens", completion_usage_cache_creation.ephemeral5mInputTokens ?? 0);
     writer.writeAdditionalData(completion_usage_cache_creation.additionalData);
 }
 /**
@@ -70098,7 +70141,7 @@ export function serializeCreate_image_request(writer: SerializationWriter, creat
     writer.writeStringValue("prompt", create_image_request.prompt);
     writer.writeStringValue("quality", create_image_request.quality);
     writer.writeEnumValue<Create_image_request_size>("size", create_image_request.size);
-    writer.writeBooleanValue("stream", create_image_request.stream);
+    writer.writeBooleanValue("stream", create_image_request.stream ?? false);
     writer.writeStringValue("user", create_image_request.user);
     writer.writeAdditionalData(create_image_request.additionalData);
 }
@@ -70137,7 +70180,7 @@ export function serializeCreate_provider_connection_request(writer: Serializatio
 // @ts-ignore
 export function serializeCreate_response_request(writer: SerializationWriter, create_response_request: Partial<Create_response_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!create_response_request || isSerializingDerivedType) { return; }
-    if ( typeof create_response_request.input === "string") {
+    if (typeof create_response_request.input === "string" ) {
         writer.writeStringValue("input", create_response_request.input as string);
     }
     else {
@@ -70147,16 +70190,16 @@ export function serializeCreate_response_request(writer: SerializationWriter, cr
     writer.writeNumberValue("max_output_tokens", create_response_request.maxOutputTokens);
     writer.writeObjectValue<Create_response_request_metadata>("metadata", create_response_request.metadata, serializeCreate_response_request_metadata);
     writer.writeStringValue("model", create_response_request.model);
-    if ( typeof create_response_request.stop === "string") {
+    if (Array.isArray(create_response_request.stop) && (create_response_request.stop).every(item => typeof item === "string")) {
+        writer.writeCollectionOfPrimitiveValues<string>("stop", create_response_request.stop as string[]);
+    }
+    else if (typeof create_response_request.stop === "string" ) {
         writer.writeStringValue("stop", create_response_request.stop as string);
     }
-    else {
-        writer.writeCollectionOfObjectValues<string>("stop", create_response_request.stop as string[] | undefined | null, serializeCreate_response_request_stop);
-    }
-    writer.writeBooleanValue("stream", create_response_request.stream);
+    writer.writeBooleanValue("stream", create_response_request.stream ?? false);
     writer.writeObjectValue<Create_response_request_stream_options>("stream_options", create_response_request.streamOptions, serializeCreate_response_request_stream_options);
     writer.writeNumberValue("temperature", create_response_request.temperature);
-    if ( typeof create_response_request.toolChoice === "string") {
+    if (typeof create_response_request.toolChoice === "string" ) {
         writer.writeStringValue("tool_choice", create_response_request.toolChoice as string);
     }
     else {
@@ -70208,7 +70251,7 @@ export function serializeCreate_response_request_metadata(writer: SerializationW
 // @ts-ignore
 export function serializeCreate_response_request_stop(writer: SerializationWriter, create_response_request_stop: Partial<Parsable | Create_response_request_stop> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (create_response_request_stop === undefined || create_response_request_stop === null) return;
-    if (Array.isArray(create_response_request_stop) && (create_response_request_stop).every(item => typeof item === 'string')) {
+    if (Array.isArray(create_response_request_stop) && (create_response_request_stop).every(item => typeof item === "string")) {
         writer.writeCollectionOfPrimitiveValues<string>(undefined, create_response_request_stop as string[]);
     }
     else if (typeof create_response_request_stop === "string" ) {
@@ -71816,10 +71859,10 @@ export function serializeDroplet_action_enable_backups(writer: SerializationWrit
 export function serializeDroplet_action_rebuild(writer: SerializationWriter, droplet_action_rebuild: Partial<Droplet_action_rebuild> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!droplet_action_rebuild || isSerializingDerivedType) { return; }
     serializeDroplet_action(writer, droplet_action_rebuild, isSerializingDerivedType)
-    if ( typeof droplet_action_rebuild.image === "number") {
+    if (typeof droplet_action_rebuild.image === "number" ) {
         writer.writeNumberValue("image", droplet_action_rebuild.image as number);
     }
-    else if ( typeof droplet_action_rebuild.image === "string") {
+    else if (typeof droplet_action_rebuild.image === "string" ) {
         writer.writeStringValue("image", droplet_action_rebuild.image as string);
     }
 }
@@ -71928,20 +71971,25 @@ export function serializeDroplet_backup_policy_record(writer: SerializationWrite
 export function serializeDroplet_create(writer: SerializationWriter, droplet_create: Partial<Droplet_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!droplet_create || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Droplet_backup_policy>("backup_policy", droplet_create.backupPolicy, serializeDroplet_backup_policy);
-    writer.writeBooleanValue("backups", droplet_create.backups);
-    if ( typeof droplet_create.image === "number") {
+    writer.writeBooleanValue("backups", droplet_create.backups ?? false);
+    if (typeof droplet_create.image === "number" ) {
         writer.writeNumberValue("image", droplet_create.image as number);
     }
-    else if ( typeof droplet_create.image === "string") {
+    else if (typeof droplet_create.image === "string" ) {
         writer.writeStringValue("image", droplet_create.image as string);
     }
-    writer.writeBooleanValue("ipv6", droplet_create.ipv6);
-    writer.writeBooleanValue("monitoring", droplet_create.monitoring);
-    writer.writeBooleanValue("private_networking", droplet_create.privateNetworking);
-    writer.writeBooleanValue("public_networking", droplet_create.publicNetworking);
+    writer.writeBooleanValue("ipv6", droplet_create.ipv6 ?? false);
+    writer.writeBooleanValue("monitoring", droplet_create.monitoring ?? false);
+    writer.writeBooleanValue("private_networking", droplet_create.privateNetworking ?? false);
+    writer.writeBooleanValue("public_networking", droplet_create.publicNetworking ?? true);
     writer.writeStringValue("region", droplet_create.region);
     writer.writeStringValue("size", droplet_create.size);
-    writer.writeCollectionOfPrimitiveValues<string>("ssh_keys", droplet_create.sshKeys);
+    if (typeof droplet_create.sshKeys === "number" ) {
+        writer.writeNumberValue("ssh_keys", droplet_create.sshKeys as number);
+    }
+    else if (typeof droplet_create.sshKeys === "string" ) {
+        writer.writeStringValue("ssh_keys", droplet_create.sshKeys as string);
+    }
     writer.writeStringValue("subnet_uuid", droplet_create.subnetUuid);
     writer.writeCollectionOfPrimitiveValues<string>("tags", droplet_create.tags);
     writer.writeStringValue("user_data", droplet_create.userData);
@@ -71965,6 +72013,23 @@ export function serializeDroplet_create_image(writer: SerializationWriter, key: 
     }
     else if (typeof droplet_create_image === "string" ) {
         writer.writeStringValue(undefined, droplet_create_image as string);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param Droplet_create_ssh_keys The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param key The name of the property to write in the serialization.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeDroplet_create_ssh_keys(writer: SerializationWriter, key: string, droplet_create_ssh_keys: Parsable | Droplet_create_ssh_keys | undefined, isSerializingDerivedType: boolean = false) : void {
+    if (droplet_create_ssh_keys === undefined || droplet_create_ssh_keys === null) return;
+    if (typeof droplet_create_ssh_keys === "number" ) {
+        writer.writeNumberValue(undefined, droplet_create_ssh_keys as number);
+    }
+    else if (typeof droplet_create_ssh_keys === "string" ) {
+        writer.writeStringValue(undefined, droplet_create_ssh_keys as string);
     }
 }
 /**
@@ -72040,9 +72105,9 @@ export function serializeDroplet_snapshot(writer: SerializationWriter, droplet_s
 export function serializeElasticsearch_logsink(writer: SerializationWriter, elasticsearch_logsink: Partial<Elasticsearch_logsink> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!elasticsearch_logsink || isSerializingDerivedType) { return; }
     writer.writeStringValue("ca", elasticsearch_logsink.ca);
-    writer.writeNumberValue("index_days_max", elasticsearch_logsink.indexDaysMax);
+    writer.writeNumberValue("index_days_max", elasticsearch_logsink.indexDaysMax ?? 7);
     writer.writeStringValue("index_prefix", elasticsearch_logsink.indexPrefix);
-    writer.writeNumberValue("timeout", elasticsearch_logsink.timeout);
+    writer.writeNumberValue("timeout", elasticsearch_logsink.timeout ?? 10);
     writer.writeStringValue("url", elasticsearch_logsink.url);
     writer.writeAdditionalData(elasticsearch_logsink.additionalData);
 }
@@ -72067,11 +72132,11 @@ export function serializeEmail_notification_config(writer: SerializationWriter, 
 // @ts-ignore
 export function serializeEmbedding_data_item(writer: SerializationWriter, embedding_data_item: Partial<Embedding_data_item> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!embedding_data_item || isSerializingDerivedType) { return; }
-    if ( typeof embedding_data_item.embedding === "string") {
-        writer.writeStringValue("embedding", embedding_data_item.embedding as string);
+    if (Array.isArray(embedding_data_item.embedding) && (embedding_data_item.embedding).every(item => typeof item === "number")) {
+        writer.writeCollectionOfPrimitiveValues<number>("embedding", embedding_data_item.embedding as number[]);
     }
-    else {
-        writer.writeCollectionOfObjectValues<number>("embedding", embedding_data_item.embedding as number[] | undefined | null, serializeEmbedding_data_item_embedding);
+    else if (typeof embedding_data_item.embedding === "string" ) {
+        writer.writeStringValue("embedding", embedding_data_item.embedding as string);
     }
     writer.writeNumberValue("index", embedding_data_item.index);
     writer.writeEnumValue<Embedding_data_item_object>("object", embedding_data_item.object);
@@ -72086,7 +72151,7 @@ export function serializeEmbedding_data_item(writer: SerializationWriter, embedd
 // @ts-ignore
 export function serializeEmbedding_data_item_embedding(writer: SerializationWriter, embedding_data_item_embedding: Partial<Parsable | Embedding_data_item_embedding> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (embedding_data_item_embedding === undefined || embedding_data_item_embedding === null) return;
-    if (Array.isArray(embedding_data_item_embedding) && (embedding_data_item_embedding).every(item => typeof item === 'number')) {
+    if (Array.isArray(embedding_data_item_embedding) && (embedding_data_item_embedding).every(item => typeof item === "number")) {
         writer.writeCollectionOfPrimitiveValues<number>(undefined, embedding_data_item_embedding as number[]);
     }
     else if (typeof embedding_data_item_embedding === "string" ) {
@@ -72103,11 +72168,11 @@ export function serializeEmbedding_data_item_embedding(writer: SerializationWrit
 export function serializeEmbeddings_request(writer: SerializationWriter, embeddings_request: Partial<Embeddings_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!embeddings_request || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Embeddings_request_encoding_format>("encoding_format", embeddings_request.encodingFormat ?? Embeddings_request_encoding_formatObject.Float);
-    if ( typeof embeddings_request.input === "string") {
-        writer.writeStringValue("input", embeddings_request.input as string);
+    if (Array.isArray(embeddings_request.input) && (embeddings_request.input).every(item => typeof item === "string")) {
+        writer.writeCollectionOfPrimitiveValues<string>("input", embeddings_request.input as string[]);
     }
-    else {
-        writer.writeCollectionOfPrimitiveValues("input", embeddings_request.input);
+    else if (typeof embeddings_request.input === "string" ) {
+        writer.writeStringValue("input", embeddings_request.input as string);
     }
     writer.writeStringValue("model", embeddings_request.model);
     writer.writeStringValue("user", embeddings_request.user);
@@ -72121,7 +72186,7 @@ export function serializeEmbeddings_request(writer: SerializationWriter, embeddi
 // @ts-ignore
 export function serializeEmbeddings_request_input(writer: SerializationWriter, embeddings_request_input: Partial<Parsable | Embeddings_request_input> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (embeddings_request_input === undefined || embeddings_request_input === null) return;
-    if (Array.isArray(embeddings_request_input) && (embeddings_request_input).every(item => typeof item === 'string')) {
+    if (Array.isArray(embeddings_request_input) && (embeddings_request_input).every(item => typeof item === "string")) {
         writer.writeCollectionOfPrimitiveValues<string>(undefined, embeddings_request_input as string[]);
     }
     else if (typeof embeddings_request_input === "string" ) {
@@ -72954,7 +73019,7 @@ export function serializeFloatingIPsAction(writer: SerializationWriter, floating
 // @ts-ignore
 export function serializeFork_session_request(writer: SerializationWriter, fork_session_request: Partial<Fork_session_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!fork_session_request || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("count", fork_session_request.count);
+    writer.writeNumberValue("count", fork_session_request.count ?? 1);
     writer.writeStringValue("from_checkpoint_id", fork_session_request.fromCheckpointId);
     writer.writeAdditionalData(fork_session_request.additionalData);
 }
@@ -73387,13 +73452,13 @@ export function serializeHarness_regions_response(writer: SerializationWriter, h
 // @ts-ignore
 export function serializeHealth_check(writer: SerializationWriter, health_check: Partial<Health_check> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!health_check || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("check_interval_seconds", health_check.checkIntervalSeconds);
-    writer.writeNumberValue("healthy_threshold", health_check.healthyThreshold);
+    writer.writeNumberValue("check_interval_seconds", health_check.checkIntervalSeconds ?? 10);
+    writer.writeNumberValue("healthy_threshold", health_check.healthyThreshold ?? 3);
     writer.writeStringValue("path", health_check.path ?? "/");
-    writer.writeNumberValue("port", health_check.port);
+    writer.writeNumberValue("port", health_check.port ?? 80);
     writer.writeEnumValue<Health_check_protocol>("protocol", health_check.protocol ?? Health_check_protocolObject.Http);
-    writer.writeNumberValue("response_timeout_seconds", health_check.responseTimeoutSeconds);
-    writer.writeNumberValue("unhealthy_threshold", health_check.unhealthyThreshold);
+    writer.writeNumberValue("response_timeout_seconds", health_check.responseTimeoutSeconds ?? 5);
+    writer.writeNumberValue("unhealthy_threshold", health_check.unhealthyThreshold ?? 5);
     writer.writeAdditionalData(health_check.additionalData);
 }
 /**
@@ -73800,7 +73865,7 @@ export function serializeInvoke_tools_response(writer: SerializationWriter, invo
 // @ts-ignore
 export function serializeKafka_advanced_config(writer: SerializationWriter, kafka_advanced_config: Partial<Kafka_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!kafka_advanced_config || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("auto_create_topics_enable", kafka_advanced_config.autoCreateTopicsEnable);
+    writer.writeBooleanValue("auto_create_topics_enable", kafka_advanced_config.autoCreateTopicsEnable ?? false);
     writer.writeEnumValue<Kafka_advanced_config_compression_type>("compression_type", kafka_advanced_config.compressionType);
     writer.writeNumberValue("connections_max_idle_ms", kafka_advanced_config.connectionsMaxIdleMs);
     writer.writeNumberValue("default_replication_factor", kafka_advanced_config.defaultReplicationFactor);
@@ -73836,7 +73901,7 @@ export function serializeKafka_advanced_config(writer: SerializationWriter, kafk
     writer.writeNumberValue("producer_purgatory_purge_interval_requests", kafka_advanced_config.producerPurgatoryPurgeIntervalRequests);
     writer.writeNumberValue("replica_fetch_max_bytes", kafka_advanced_config.replicaFetchMaxBytes);
     writer.writeNumberValue("replica_fetch_response_max_bytes", kafka_advanced_config.replicaFetchResponseMaxBytes);
-    writer.writeBooleanValue("schema_registry", kafka_advanced_config.schemaRegistry);
+    writer.writeBooleanValue("schema_registry", kafka_advanced_config.schemaRegistry ?? false);
     writer.writeNumberValue("socket_request_max_bytes", kafka_advanced_config.socketRequestMaxBytes);
     writer.writeNumberValue("transaction_remove_expired_transaction_cleanup_interval_ms", kafka_advanced_config.transactionRemoveExpiredTransactionCleanupIntervalMs);
     writer.writeNumberValue("transaction_state_log_segment_bytes", kafka_advanced_config.transactionStateLogSegmentBytes);
@@ -73910,25 +73975,25 @@ export function serializeKafka_topic_config(writer: SerializationWriter, kafka_t
     if (!kafka_topic_config || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Kafka_topic_config_cleanup_policy>("cleanup_policy", kafka_topic_config.cleanupPolicy ?? Kafka_topic_config_cleanup_policyObject.Delete);
     writer.writeEnumValue<Kafka_topic_config_compression_type>("compression_type", kafka_topic_config.compressionType ?? Kafka_topic_config_compression_typeObject.Producer);
-    writer.writeNumberValue("delete_retention_ms", kafka_topic_config.deleteRetentionMs);
-    writer.writeNumberValue("file_delete_delay_ms", kafka_topic_config.fileDeleteDelayMs);
+    writer.writeNumberValue("delete_retention_ms", kafka_topic_config.deleteRetentionMs ?? 86400000);
+    writer.writeNumberValue("file_delete_delay_ms", kafka_topic_config.fileDeleteDelayMs ?? 60000);
     writer.writeNumberValue("flush_messages", kafka_topic_config.flushMessages);
     writer.writeNumberValue("flush_ms", kafka_topic_config.flushMs);
-    writer.writeNumberValue("index_interval_bytes", kafka_topic_config.indexIntervalBytes);
+    writer.writeNumberValue("index_interval_bytes", kafka_topic_config.indexIntervalBytes ?? 4096);
     writer.writeNumberValue("max_compaction_lag_ms", kafka_topic_config.maxCompactionLagMs);
-    writer.writeNumberValue("max_message_bytes", kafka_topic_config.maxMessageBytes);
-    writer.writeBooleanValue("message_down_conversion_enable", kafka_topic_config.messageDownConversionEnable);
+    writer.writeNumberValue("max_message_bytes", kafka_topic_config.maxMessageBytes ?? 1048588);
+    writer.writeBooleanValue("message_down_conversion_enable", kafka_topic_config.messageDownConversionEnable ?? true);
     writer.writeEnumValue<Kafka_topic_config_message_format_version>("message_format_version", kafka_topic_config.messageFormatVersion ?? Kafka_topic_config_message_format_versionObject.ThreeZeroIV1);
     writer.writeEnumValue<Kafka_topic_config_message_timestamp_type>("message_timestamp_type", kafka_topic_config.messageTimestampType ?? Kafka_topic_config_message_timestamp_typeObject.Create_time);
-    writer.writeNumberValue("min_cleanable_dirty_ratio", kafka_topic_config.minCleanableDirtyRatio);
-    writer.writeNumberValue("min_compaction_lag_ms", kafka_topic_config.minCompactionLagMs);
-    writer.writeNumberValue("min_insync_replicas", kafka_topic_config.minInsyncReplicas);
-    writer.writeBooleanValue("preallocate", kafka_topic_config.preallocate);
-    writer.writeNumberValue("retention_bytes", kafka_topic_config.retentionBytes);
-    writer.writeNumberValue("retention_ms", kafka_topic_config.retentionMs);
-    writer.writeNumberValue("segment_bytes", kafka_topic_config.segmentBytes);
-    writer.writeNumberValue("segment_jitter_ms", kafka_topic_config.segmentJitterMs);
-    writer.writeNumberValue("segment_ms", kafka_topic_config.segmentMs);
+    writer.writeNumberValue("min_cleanable_dirty_ratio", kafka_topic_config.minCleanableDirtyRatio ?? 0.5);
+    writer.writeNumberValue("min_compaction_lag_ms", kafka_topic_config.minCompactionLagMs ?? 0);
+    writer.writeNumberValue("min_insync_replicas", kafka_topic_config.minInsyncReplicas ?? 1);
+    writer.writeBooleanValue("preallocate", kafka_topic_config.preallocate ?? false);
+    writer.writeNumberValue("retention_bytes", kafka_topic_config.retentionBytes ?? -1);
+    writer.writeNumberValue("retention_ms", kafka_topic_config.retentionMs ?? 604800000);
+    writer.writeNumberValue("segment_bytes", kafka_topic_config.segmentBytes ?? 209715200);
+    writer.writeNumberValue("segment_jitter_ms", kafka_topic_config.segmentJitterMs ?? 0);
+    writer.writeNumberValue("segment_ms", kafka_topic_config.segmentMs ?? 604800000);
     writer.writeAdditionalData(kafka_topic_config.additionalData);
 }
 /**
@@ -74613,24 +74678,24 @@ export function serializeList_workspaces_response(writer: SerializationWriter, l
 export function serializeLoad_balancer(writer: SerializationWriter, load_balancer: Partial<Load_balancer> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!load_balancer || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Load_balancer_algorithm>("algorithm", load_balancer.algorithm ?? Load_balancer_algorithmObject.Round_robin);
-    writer.writeBooleanValue("disable_lets_encrypt_dns_records", load_balancer.disableLetsEncryptDnsRecords);
+    writer.writeBooleanValue("disable_lets_encrypt_dns_records", load_balancer.disableLetsEncryptDnsRecords ?? false);
     writer.writeCollectionOfObjectValues<Domains>("domains", load_balancer.domains, serializeDomains);
     writer.writeCollectionOfPrimitiveValues<number>("droplet_ids", load_balancer.dropletIds);
-    writer.writeBooleanValue("enable_backend_keepalive", load_balancer.enableBackendKeepalive);
-    writer.writeBooleanValue("enable_proxy_protocol", load_balancer.enableProxyProtocol);
+    writer.writeBooleanValue("enable_backend_keepalive", load_balancer.enableBackendKeepalive ?? false);
+    writer.writeBooleanValue("enable_proxy_protocol", load_balancer.enableProxyProtocol ?? false);
     writer.writeObjectValue<Lb_firewall>("firewall", load_balancer.firewall, serializeLb_firewall);
     writer.writeCollectionOfObjectValues<Forwarding_rule>("forwarding_rules", load_balancer.forwardingRules, serializeForwarding_rule);
     writer.writeObjectValue<Glb_settings>("glb_settings", load_balancer.glbSettings, serializeGlb_settings);
     writer.writeObjectValue<Health_check>("health_check", load_balancer.healthCheck, serializeHealth_check);
-    writer.writeNumberValue("http_idle_timeout_seconds", load_balancer.httpIdleTimeoutSeconds);
+    writer.writeNumberValue("http_idle_timeout_seconds", load_balancer.httpIdleTimeoutSeconds ?? 60);
     writer.writeStringValue("name", load_balancer.name);
     writer.writeEnumValue<Load_balancer_network>("network", load_balancer.network ?? Load_balancer_networkObject.EXTERNAL);
     writer.writeEnumValue<Load_balancer_network_stack>("network_stack", load_balancer.networkStack ?? Load_balancer_network_stackObject.IPV4);
     writer.writeStringValue("project_id", load_balancer.projectId);
-    writer.writeBooleanValue("redirect_http_to_https", load_balancer.redirectHttpToHttps);
+    writer.writeBooleanValue("redirect_http_to_https", load_balancer.redirectHttpToHttps ?? false);
     writer.writeObjectValue<Load_balancer_region>("region", load_balancer.region, serializeLoad_balancer_region);
     writer.writeEnumValue<Load_balancer_size>("size", load_balancer.size ?? Load_balancer_sizeObject.LbSmall);
-    writer.writeNumberValue("size_unit", load_balancer.sizeUnit);
+    writer.writeNumberValue("size_unit", load_balancer.sizeUnit ?? 1);
     writer.writeObjectValue<Sticky_sessions>("sticky_sessions", load_balancer.stickySessions, serializeSticky_sessions);
     writer.writeGuidValue("subnet_uuid", load_balancer.subnetUuid);
     writer.writeStringValue("tag", load_balancer.tag);
@@ -74847,7 +74912,7 @@ export function serializeLogs_order_by(writer: SerializationWriter, logs_order_b
 export function serializeLogs_pagination_request(writer: SerializationWriter, logs_pagination_request: Partial<Logs_pagination_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!logs_pagination_request || isSerializingDerivedType) { return; }
     writer.writeStringValue("cursor", logs_pagination_request.cursor);
-    writer.writeNumberValue("limit", logs_pagination_request.limit);
+    writer.writeNumberValue("limit", logs_pagination_request.limit ?? 100);
     writer.writeAdditionalData(logs_pagination_request.additionalData);
 }
 /**
@@ -75201,7 +75266,7 @@ export function serializeMember_current_utilization(writer: SerializationWriter,
 // @ts-ignore
 export function serializeMessages_api_message_param(writer: SerializationWriter, messages_api_message_param: Partial<Messages_api_message_param> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!messages_api_message_param || isSerializingDerivedType) { return; }
-    if ( typeof messages_api_message_param.content === "string") {
+    if (typeof messages_api_message_param.content === "string" ) {
         writer.writeStringValue("content", messages_api_message_param.content as string);
     }
     else {
@@ -75262,8 +75327,8 @@ export function serializeMessages_create_request(writer: SerializationWriter, me
     writer.writeEnumValue<Messages_create_request_reasoning_effort>("reasoning_effort", messages_create_request.reasoningEffort);
     writer.writeEnumValue<Messages_create_request_speed>("speed", messages_create_request.speed);
     writer.writeCollectionOfPrimitiveValues<string>("stop_sequences", messages_create_request.stopSequences);
-    writer.writeBooleanValue("stream", messages_create_request.stream);
-    if ( typeof messages_create_request.system === "string") {
+    writer.writeBooleanValue("stream", messages_create_request.stream ?? false);
+    if (typeof messages_create_request.system === "string" ) {
         writer.writeStringValue("system", messages_create_request.system as string);
     }
     else {
@@ -75271,7 +75336,7 @@ export function serializeMessages_create_request(writer: SerializationWriter, me
     }
     writer.writeNumberValue("temperature", messages_create_request.temperature);
     writer.writeObjectValue<Messages_thinking_config_param>("thinking", messages_create_request.thinking, serializeMessages_thinking_config_param);
-    if ( typeof messages_create_request.toolChoice === "string") {
+    if (typeof messages_create_request.toolChoice === "string" ) {
         writer.writeStringValue("tool_choice", messages_create_request.toolChoice as string);
     }
     else {
@@ -75609,7 +75674,7 @@ export function serializeMicrovm_auto_pause(writer: SerializationWriter, microvm
 export function serializeMicrovm_base(writer: SerializationWriter, microvm_base: Partial<Microvm_base> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!microvm_base || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Microvm_auto_pause>("auto_pause", microvm_base.autoPause, serializeMicrovm_auto_pause);
-    writer.writeBooleanValue("auto_resume", microvm_base.autoResume);
+    writer.writeBooleanValue("auto_resume", microvm_base.autoResume ?? true);
     writer.writeObjectValue<Microvm_egress_policy>("egress_policy", microvm_base.egressPolicy, serializeMicrovm_egress_policy);
     writer.writeEnumValue<Microvm_base_http_protocol>("http_protocol", microvm_base.httpProtocol);
     writer.writeStringValue("name", microvm_base.name);
@@ -75630,12 +75695,12 @@ export function serializeMicrovm_base(writer: SerializationWriter, microvm_base:
 export function serializeMicrovm_create(writer: SerializationWriter, microvm_create: Partial<Microvm_create> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!microvm_create || isSerializingDerivedType) { return; }
     writer.writeObjectValue<Microvm_auto_pause>("auto_pause", microvm_create.autoPause, serializeMicrovm_auto_pause);
-    writer.writeBooleanValue("auto_resume", microvm_create.autoResume);
+    writer.writeBooleanValue("auto_resume", microvm_create.autoResume ?? true);
     writer.writeObjectValue<Microvm_egress_policy>("egress_policy", microvm_create.egressPolicy, serializeMicrovm_egress_policy);
     writer.writeObjectValue<Microvm_create_environment>("environment", microvm_create.environment, serializeMicrovm_create_environment);
-    writer.writeNumberValue("http_port", microvm_create.httpPort);
+    writer.writeNumberValue("http_port", microvm_create.httpPort ?? 8080);
     writer.writeEnumValue<Microvm_create_http_protocol>("http_protocol", microvm_create.httpProtocol);
-    writer.writeBooleanValue("ingress", microvm_create.ingress);
+    writer.writeBooleanValue("ingress", microvm_create.ingress ?? true);
     writer.writeStringValue("name", microvm_create.name);
     writer.writeEnumValue<Microvm_create_networking>("networking", microvm_create.networking ?? Microvm_create_networkingObject.Public);
     writer.writeCollectionOfPrimitiveValues<number>("ports", microvm_create.ports);
@@ -75921,9 +75986,9 @@ export function serializeMongo_advanced_config(writer: SerializationWriter, mong
     if (!mongo_advanced_config || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Mongo_advanced_config_default_read_concern>("default_read_concern", mongo_advanced_config.defaultReadConcern ?? Mongo_advanced_config_default_read_concernObject.Local);
     writer.writeStringValue("default_write_concern", mongo_advanced_config.defaultWriteConcern ?? "majority");
-    writer.writeNumberValue("slow_op_threshold_ms", mongo_advanced_config.slowOpThresholdMs);
-    writer.writeNumberValue("transaction_lifetime_limit_seconds", mongo_advanced_config.transactionLifetimeLimitSeconds);
-    writer.writeNumberValue("verbosity", mongo_advanced_config.verbosity);
+    writer.writeNumberValue("slow_op_threshold_ms", mongo_advanced_config.slowOpThresholdMs ?? 100);
+    writer.writeNumberValue("transaction_lifetime_limit_seconds", mongo_advanced_config.transactionLifetimeLimitSeconds ?? 60);
+    writer.writeNumberValue("verbosity", mongo_advanced_config.verbosity ?? 0);
     writer.writeAdditionalData(mongo_advanced_config.additionalData);
 }
 /**
@@ -76611,36 +76676,36 @@ export function serializeOnline_migration(writer: SerializationWriter, online_mi
 // @ts-ignore
 export function serializeOpensearch_advanced_config(writer: SerializationWriter, opensearch_advanced_config: Partial<Opensearch_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!opensearch_advanced_config || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("action_auto_create_index_enabled", opensearch_advanced_config.actionAutoCreateIndexEnabled);
+    writer.writeBooleanValue("action_auto_create_index_enabled", opensearch_advanced_config.actionAutoCreateIndexEnabled ?? true);
     writer.writeBooleanValue("action_destructive_requires_name", opensearch_advanced_config.actionDestructiveRequiresName);
     writer.writeNumberValue("cluster_max_shards_per_node", opensearch_advanced_config.clusterMaxShardsPerNode);
-    writer.writeNumberValue("cluster_routing_allocation_node_concurrent_recoveries", opensearch_advanced_config.clusterRoutingAllocationNodeConcurrentRecoveries);
-    writer.writeBooleanValue("enable_security_audit", opensearch_advanced_config.enableSecurityAudit);
-    writer.writeNumberValue("http_max_content_length_bytes", opensearch_advanced_config.httpMaxContentLengthBytes);
-    writer.writeNumberValue("http_max_header_size_bytes", opensearch_advanced_config.httpMaxHeaderSizeBytes);
-    writer.writeNumberValue("http_max_initial_line_length_bytes", opensearch_advanced_config.httpMaxInitialLineLengthBytes);
+    writer.writeNumberValue("cluster_routing_allocation_node_concurrent_recoveries", opensearch_advanced_config.clusterRoutingAllocationNodeConcurrentRecoveries ?? 2);
+    writer.writeBooleanValue("enable_security_audit", opensearch_advanced_config.enableSecurityAudit ?? false);
+    writer.writeNumberValue("http_max_content_length_bytes", opensearch_advanced_config.httpMaxContentLengthBytes ?? 100000000);
+    writer.writeNumberValue("http_max_header_size_bytes", opensearch_advanced_config.httpMaxHeaderSizeBytes ?? 8192);
+    writer.writeNumberValue("http_max_initial_line_length_bytes", opensearch_advanced_config.httpMaxInitialLineLengthBytes ?? 4096);
     writer.writeNumberValue("indices_fielddata_cache_size_percentage", opensearch_advanced_config.indicesFielddataCacheSizePercentage);
-    writer.writeNumberValue("indices_memory_index_buffer_size_percentage", opensearch_advanced_config.indicesMemoryIndexBufferSizePercentage);
+    writer.writeNumberValue("indices_memory_index_buffer_size_percentage", opensearch_advanced_config.indicesMemoryIndexBufferSizePercentage ?? 10);
     writer.writeNumberValue("indices_memory_max_index_buffer_size_mb", opensearch_advanced_config.indicesMemoryMaxIndexBufferSizeMb);
-    writer.writeNumberValue("indices_memory_min_index_buffer_size_mb", opensearch_advanced_config.indicesMemoryMinIndexBufferSizeMb);
-    writer.writeNumberValue("indices_queries_cache_size_percentage", opensearch_advanced_config.indicesQueriesCacheSizePercentage);
-    writer.writeNumberValue("indices_query_bool_max_clause_count", opensearch_advanced_config.indicesQueryBoolMaxClauseCount);
-    writer.writeNumberValue("indices_recovery_max_concurrent_file_chunks", opensearch_advanced_config.indicesRecoveryMaxConcurrentFileChunks);
-    writer.writeNumberValue("indices_recovery_max_mb_per_sec", opensearch_advanced_config.indicesRecoveryMaxMbPerSec);
-    writer.writeBooleanValue("ism_enabled", opensearch_advanced_config.ismEnabled);
-    writer.writeBooleanValue("ism_history_enabled", opensearch_advanced_config.ismHistoryEnabled);
-    writer.writeNumberValue("ism_history_max_age_hours", opensearch_advanced_config.ismHistoryMaxAgeHours);
-    writer.writeNumberValue("ism_history_max_docs", opensearch_advanced_config.ismHistoryMaxDocs);
-    writer.writeNumberValue("ism_history_rollover_check_period_hours", opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours);
-    writer.writeNumberValue("ism_history_rollover_retention_period_days", opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays);
-    writer.writeBooleanValue("keep_index_refresh_interval", opensearch_advanced_config.keepIndexRefreshInterval);
-    writer.writeBooleanValue("knn_memory_circuit_breaker_enabled", opensearch_advanced_config.knnMemoryCircuitBreakerEnabled);
-    writer.writeNumberValue("knn_memory_circuit_breaker_limit", opensearch_advanced_config.knnMemoryCircuitBreakerLimit);
-    writer.writeBooleanValue("override_main_response_version", opensearch_advanced_config.overrideMainResponseVersion);
-    writer.writeBooleanValue("plugins_alerting_filter_by_backend_roles_enabled", opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled);
+    writer.writeNumberValue("indices_memory_min_index_buffer_size_mb", opensearch_advanced_config.indicesMemoryMinIndexBufferSizeMb ?? 48);
+    writer.writeNumberValue("indices_queries_cache_size_percentage", opensearch_advanced_config.indicesQueriesCacheSizePercentage ?? 10);
+    writer.writeNumberValue("indices_query_bool_max_clause_count", opensearch_advanced_config.indicesQueryBoolMaxClauseCount ?? 1024);
+    writer.writeNumberValue("indices_recovery_max_concurrent_file_chunks", opensearch_advanced_config.indicesRecoveryMaxConcurrentFileChunks ?? 2);
+    writer.writeNumberValue("indices_recovery_max_mb_per_sec", opensearch_advanced_config.indicesRecoveryMaxMbPerSec ?? 40);
+    writer.writeBooleanValue("ism_enabled", opensearch_advanced_config.ismEnabled ?? true);
+    writer.writeBooleanValue("ism_history_enabled", opensearch_advanced_config.ismHistoryEnabled ?? true);
+    writer.writeNumberValue("ism_history_max_age_hours", opensearch_advanced_config.ismHistoryMaxAgeHours ?? 24);
+    writer.writeNumberValue("ism_history_max_docs", opensearch_advanced_config.ismHistoryMaxDocs ?? 2500000);
+    writer.writeNumberValue("ism_history_rollover_check_period_hours", opensearch_advanced_config.ismHistoryRolloverCheckPeriodHours ?? 8);
+    writer.writeNumberValue("ism_history_rollover_retention_period_days", opensearch_advanced_config.ismHistoryRolloverRetentionPeriodDays ?? 30);
+    writer.writeBooleanValue("keep_index_refresh_interval", opensearch_advanced_config.keepIndexRefreshInterval ?? false);
+    writer.writeBooleanValue("knn_memory_circuit_breaker_enabled", opensearch_advanced_config.knnMemoryCircuitBreakerEnabled ?? true);
+    writer.writeNumberValue("knn_memory_circuit_breaker_limit", opensearch_advanced_config.knnMemoryCircuitBreakerLimit ?? 50);
+    writer.writeBooleanValue("override_main_response_version", opensearch_advanced_config.overrideMainResponseVersion ?? false);
+    writer.writeBooleanValue("plugins_alerting_filter_by_backend_roles_enabled", opensearch_advanced_config.pluginsAlertingFilterByBackendRolesEnabled ?? false);
     writer.writeCollectionOfPrimitiveValues<string>("reindex_remote_whitelist", opensearch_advanced_config.reindexRemoteWhitelist);
     writer.writeStringValue("script_max_compilations_rate", opensearch_advanced_config.scriptMaxCompilationsRate ?? "use-context");
-    writer.writeNumberValue("search_max_buckets", opensearch_advanced_config.searchMaxBuckets);
+    writer.writeNumberValue("search_max_buckets", opensearch_advanced_config.searchMaxBuckets ?? 10000);
     writer.writeNumberValue("thread_pool_analyze_queue_size", opensearch_advanced_config.threadPoolAnalyzeQueueSize);
     writer.writeNumberValue("thread_pool_analyze_size", opensearch_advanced_config.threadPoolAnalyzeSize);
     writer.writeNumberValue("thread_pool_force_merge_size", opensearch_advanced_config.threadPoolForceMergeSize);
@@ -76699,7 +76764,7 @@ export function serializeOpensearch_config_omit_credentials(writer: Serializatio
     writer.writeStringValue("endpoint", opensearch_config_omit_credentials.endpoint);
     writer.writeStringValue("id", opensearch_config_omit_credentials.id);
     writer.writeStringValue("index_name", opensearch_config_omit_credentials.indexName);
-    writer.writeNumberValue("retention_days", opensearch_config_omit_credentials.retentionDays);
+    writer.writeNumberValue("retention_days", opensearch_config_omit_credentials.retentionDays ?? 14);
     writer.writeAdditionalData(opensearch_config_omit_credentials.additionalData);
 }
 /**
@@ -76716,7 +76781,7 @@ export function serializeOpensearch_config_request(writer: SerializationWriter, 
     writer.writeObjectValue<Opensearch_config_request_credentials>("credentials", opensearch_config_request.credentials, serializeOpensearch_config_request_credentials);
     writer.writeStringValue("endpoint", opensearch_config_request.endpoint);
     writer.writeStringValue("index_name", opensearch_config_request.indexName);
-    writer.writeNumberValue("retention_days", opensearch_config_request.retentionDays);
+    writer.writeNumberValue("retention_days", opensearch_config_request.retentionDays ?? 14);
     writer.writeAdditionalData(opensearch_config_request.additionalData);
 }
 /**
@@ -76782,9 +76847,9 @@ export function serializeOpensearch_index_base(writer: SerializationWriter, open
 export function serializeOpensearch_logsink(writer: SerializationWriter, opensearch_logsink: Partial<Opensearch_logsink> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!opensearch_logsink || isSerializingDerivedType) { return; }
     writer.writeStringValue("ca", opensearch_logsink.ca);
-    writer.writeNumberValue("index_days_max", opensearch_logsink.indexDaysMax);
+    writer.writeNumberValue("index_days_max", opensearch_logsink.indexDaysMax ?? 7);
     writer.writeStringValue("index_prefix", opensearch_logsink.indexPrefix);
-    writer.writeNumberValue("timeout", opensearch_logsink.timeout);
+    writer.writeNumberValue("timeout", opensearch_logsink.timeout ?? 10);
     writer.writeStringValue("url", opensearch_logsink.url);
     writer.writeAdditionalData(opensearch_logsink.additionalData);
 }
@@ -77665,6 +77730,8 @@ export function serializeProm_matrix_data(writer: SerializationWriter, prom_matr
 // @ts-ignore
 export function serializeProm_matrix_sample(writer: SerializationWriter, prom_matrix_sample: Partial<Prom_matrix_sample> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!prom_matrix_sample || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Prom_metric_labels>("metric", prom_matrix_sample.metric, serializeProm_metric_labels);
+    writer.writeObjectValue("values", prom_matrix_sample.values);
     writer.writeAdditionalData(prom_matrix_sample.additionalData);
 }
 /**
@@ -78054,15 +78121,15 @@ export function serializeRedis_advanced_config(writer: SerializationWriter, redi
     if (!redis_advanced_config || isSerializingDerivedType) { return; }
     writer.writeEnumValue<Redis_advanced_config_redis_acl_channels_default>("redis_acl_channels_default", redis_advanced_config.redisAclChannelsDefault);
     writer.writeNumberValue("redis_io_threads", redis_advanced_config.redisIoThreads);
-    writer.writeNumberValue("redis_lfu_decay_time", redis_advanced_config.redisLfuDecayTime);
-    writer.writeNumberValue("redis_lfu_log_factor", redis_advanced_config.redisLfuLogFactor);
+    writer.writeNumberValue("redis_lfu_decay_time", redis_advanced_config.redisLfuDecayTime ?? 1);
+    writer.writeNumberValue("redis_lfu_log_factor", redis_advanced_config.redisLfuLogFactor ?? 10);
     writer.writeEnumValue<Redis_advanced_config_redis_maxmemory_policy>("redis_maxmemory_policy", redis_advanced_config.redisMaxmemoryPolicy);
     writer.writeStringValue("redis_notify_keyspace_events", redis_advanced_config.redisNotifyKeyspaceEvents);
     writer.writeNumberValue("redis_number_of_databases", redis_advanced_config.redisNumberOfDatabases);
     writer.writeEnumValue<Redis_advanced_config_redis_persistence>("redis_persistence", redis_advanced_config.redisPersistence);
     writer.writeNumberValue("redis_pubsub_client_output_buffer_limit", redis_advanced_config.redisPubsubClientOutputBufferLimit);
-    writer.writeBooleanValue("redis_ssl", redis_advanced_config.redisSsl);
-    writer.writeNumberValue("redis_timeout", redis_advanced_config.redisTimeout);
+    writer.writeBooleanValue("redis_ssl", redis_advanced_config.redisSsl ?? true);
+    writer.writeNumberValue("redis_timeout", redis_advanced_config.redisTimeout ?? 300);
     writer.writeAdditionalData(redis_advanced_config.additionalData);
 }
 /**
@@ -78968,7 +79035,7 @@ export function serializeSearch_tools_group(writer: SerializationWriter, search_
 // @ts-ignore
 export function serializeSearch_tools_request(writer: SerializationWriter, search_tools_request: Partial<Search_tools_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!search_tools_request || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("limit", search_tools_request.limit);
+    writer.writeNumberValue("limit", search_tools_request.limit ?? 10);
     writer.writeCollectionOfPrimitiveValues<string>("providers", search_tools_request.providers);
     writer.writeCollectionOfObjectValues<Search_query>("queries", search_tools_request.queries, serializeSearch_query);
     writer.writeCollectionOfPrimitiveValues<string>("tags", search_tools_request.tags);
@@ -79189,10 +79256,25 @@ export function serializeSession_config(writer: SerializationWriter, session_con
 // @ts-ignore
 export function serializeSession_config_changes(writer: SerializationWriter, session_config_changes: Partial<Session_config_changes> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!session_config_changes || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Session_config_egress_changes>("egress", session_config_changes.egress, serializeSession_config_egress_changes);
     writer.writeObjectValue<Session_config_section_changes>("env", session_config_changes.env, serializeSession_config_section_changes);
     writer.writeObjectValue<Session_config_section_changes>("secrets", session_config_changes.secrets, serializeSession_config_section_changes);
     writer.writeObjectValue<Session_config_section_changes>("tools", session_config_changes.tools, serializeSession_config_section_changes);
     writer.writeAdditionalData(session_config_changes.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_config_egress_changes The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_config_egress_changes(writer: SerializationWriter, session_config_egress_changes: Partial<Session_config_egress_changes> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_config_egress_changes || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("added", session_config_egress_changes.added);
+    writer.writeEnumValue<Session_config_egress_changes_mode>("mode", session_config_egress_changes.mode);
+    writer.writeCollectionOfPrimitiveValues<string>("removed", session_config_egress_changes.removed);
+    writer.writeAdditionalData(session_config_egress_changes.additionalData);
 }
 /**
  * Serializes information the current object
@@ -79565,7 +79647,7 @@ export function serializeSinks_response(writer: SerializationWriter, sinks_respo
 // @ts-ignore
 export function serializeSize(writer: SerializationWriter, size: Partial<Size> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!size || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("available", size.available);
+    writer.writeBooleanValue("available", size.available ?? true);
     writer.writeStringValue("description", size.description);
     writer.writeNumberValue("disk", size.disk);
     writer.writeCollectionOfObjectValues<Disk_info>("disk_info", size.diskInfo, serializeDisk_info);
@@ -79860,7 +79942,7 @@ export function serializeSpans_order_by(writer: SerializationWriter, spans_order
 // @ts-ignore
 export function serializeSpans_pagination_request(writer: SerializationWriter, spans_pagination_request: Partial<Spans_pagination_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!spans_pagination_request || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("limit", spans_pagination_request.limit);
+    writer.writeNumberValue("limit", spans_pagination_request.limit ?? 100);
     writer.writeAdditionalData(spans_pagination_request.additionalData);
 }
 /**
@@ -79989,9 +80071,9 @@ export function serializeSshKeys(writer: SerializationWriter, sshKeys: Partial<S
 export function serializeSso(writer: SerializationWriter, sso: Partial<Sso> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!sso || isSerializingDerivedType) { return; }
     writer.writeStringValue("client_id", sso.clientId);
-    writer.writeBooleanValue("enabled", sso.enabled);
+    writer.writeBooleanValue("enabled", sso.enabled ?? false);
     writer.writeStringValue("issuer_url", sso.issuerUrl);
-    writer.writeBooleanValue("required", sso.required);
+    writer.writeBooleanValue("required", sso.required ?? false);
     writer.writeAdditionalData(sso.additionalData);
 }
 /**
@@ -80930,7 +81012,7 @@ export function serializeTraces_order_by(writer: SerializationWriter, traces_ord
 // @ts-ignore
 export function serializeTraces_pagination_request(writer: SerializationWriter, traces_pagination_request: Partial<Traces_pagination_request> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!traces_pagination_request || isSerializingDerivedType) { return; }
-    writer.writeNumberValue("limit", traces_pagination_request.limit);
+    writer.writeNumberValue("limit", traces_pagination_request.limit ?? 100);
 }
 /**
  * Serializes information the current object
@@ -81195,7 +81277,7 @@ export function serializeUpdate_endpoint(writer: SerializationWriter, update_end
     if (!update_endpoint || isSerializingDerivedType) { return; }
     writer.writeGuidValue("certificate_id", update_endpoint.certificateId);
     writer.writeStringValue("custom_domain", update_endpoint.customDomain);
-    writer.writeNumberValue("ttl", update_endpoint.ttl);
+    writer.writeNumberValue("ttl", update_endpoint.ttl ?? 3600);
     writer.writeAdditionalData(update_endpoint.additionalData);
 }
 /**
@@ -81481,19 +81563,19 @@ export function serializeValidation_result(writer: SerializationWriter, validati
 // @ts-ignore
 export function serializeValkey_advanced_config(writer: SerializationWriter, valkey_advanced_config: Partial<Valkey_advanced_config> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!valkey_advanced_config || isSerializingDerivedType) { return; }
-    writer.writeBooleanValue("frequent_snapshots", valkey_advanced_config.frequentSnapshots);
+    writer.writeBooleanValue("frequent_snapshots", valkey_advanced_config.frequentSnapshots ?? true);
     writer.writeEnumValue<Valkey_advanced_config_valkey_acl_channels_default>("valkey_acl_channels_default", valkey_advanced_config.valkeyAclChannelsDefault);
-    writer.writeNumberValue("valkey_active_expire_effort", valkey_advanced_config.valkeyActiveExpireEffort);
+    writer.writeNumberValue("valkey_active_expire_effort", valkey_advanced_config.valkeyActiveExpireEffort ?? 1);
     writer.writeNumberValue("valkey_io_threads", valkey_advanced_config.valkeyIoThreads);
-    writer.writeNumberValue("valkey_lfu_decay_time", valkey_advanced_config.valkeyLfuDecayTime);
-    writer.writeNumberValue("valkey_lfu_log_factor", valkey_advanced_config.valkeyLfuLogFactor);
+    writer.writeNumberValue("valkey_lfu_decay_time", valkey_advanced_config.valkeyLfuDecayTime ?? 1);
+    writer.writeNumberValue("valkey_lfu_log_factor", valkey_advanced_config.valkeyLfuLogFactor ?? 10);
     writer.writeEnumValue<Eviction_policy_model>("valkey_maxmemory_policy", valkey_advanced_config.valkeyMaxmemoryPolicy);
     writer.writeStringValue("valkey_notify_keyspace_events", valkey_advanced_config.valkeyNotifyKeyspaceEvents);
     writer.writeNumberValue("valkey_number_of_databases", valkey_advanced_config.valkeyNumberOfDatabases);
     writer.writeEnumValue<Valkey_advanced_config_valkey_persistence>("valkey_persistence", valkey_advanced_config.valkeyPersistence);
     writer.writeNumberValue("valkey_pubsub_client_output_buffer_limit", valkey_advanced_config.valkeyPubsubClientOutputBufferLimit);
-    writer.writeBooleanValue("valkey_ssl", valkey_advanced_config.valkeySsl);
-    writer.writeNumberValue("valkey_timeout", valkey_advanced_config.valkeyTimeout);
+    writer.writeBooleanValue("valkey_ssl", valkey_advanced_config.valkeySsl ?? true);
+    writer.writeNumberValue("valkey_timeout", valkey_advanced_config.valkeyTimeout ?? 300);
     writer.writeAdditionalData(valkey_advanced_config.additionalData);
 }
 /**
@@ -82655,11 +82737,15 @@ export interface Session_config extends AdditionalDataHolder, Parsable {
  */
 export interface Session_config_changes extends AdditionalDataHolder, Parsable {
     /**
+     * The hosts and IP addresses an `egress` change added or removed, and the new egress mode when it changed. Omitted when the egress policy is unchanged.
+     */
+    egress?: Session_config_egress_changes | null;
+    /**
      * Names of the entries added, removed, or changed in one manifest section.
      */
     env?: Session_config_section_changes | null;
     /**
-     * Names of the entries added, removed, or changed in one manifest section.
+     * Secret names, never values. On an update, `changed` lists the secrets that got a new value or were bound to another URL or scheme. On `config_diff`, `changed` lists only the secrets bound to a different URL or scheme than in the agent config.
      */
     secrets?: Session_config_section_changes | null;
     /**
@@ -82667,6 +82753,24 @@ export interface Session_config_changes extends AdditionalDataHolder, Parsable {
      */
     tools?: Session_config_section_changes | null;
 }
+/**
+ * The hosts and IP addresses an `egress` change added or removed, and the new egress mode when it changed. Omitted when the egress policy is unchanged.
+ */
+export interface Session_config_egress_changes extends AdditionalDataHolder, Parsable {
+    /**
+     * The added property
+     */
+    added?: string[] | null;
+    /**
+     * The new egress mode. Present only when the mode changed.
+     */
+    mode?: Session_config_egress_changes_mode | null;
+    /**
+     * The removed property
+     */
+    removed?: string[] | null;
+}
+export type Session_config_egress_changes_mode = (typeof Session_config_egress_changes_modeObject)[keyof typeof Session_config_egress_changes_modeObject];
 /**
  * Names of the entries added, removed, or changed in one manifest section.
  */
@@ -82733,7 +82837,7 @@ export interface Session_config_update extends AdditionalDataHolder, Parsable {
      */
     startedAt?: Date | null;
     /**
-     * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and `secrets` changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
+     * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and plain secret changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
      */
     state?: Session_config_update_state | null;
     /**
@@ -89836,6 +89940,14 @@ export const Scan_statusObject = {
     SCAN_NOT_RUN: "SCAN_NOT_RUN",
 } as const;
 /**
+ * The new egress mode. Present only when the mode changed.
+ */
+export const Session_config_egress_changes_modeObject = {
+    Allowlist: "allowlist",
+    Unrestricted: "unrestricted",
+    Deny_all: "deny_all",
+} as const;
+/**
  * Failure class; present when state is FAILED.
  */
 export const Session_config_update_errorObject = {
@@ -89848,7 +89960,7 @@ export const Session_config_update_kindObject = {
     Rollback: "rollback",
 } as const;
 /**
- * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and `secrets` changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
+ * State of a session settings update. `APPLYING`: in progress. `APPLIED`: live. `APPLIED_RESTARTED`: live, and the agent was restarted to apply it (`env` and plain secret changes). `FAILED`: the update did not take effect; see `reverted` and `detail`.
  */
 export const Session_config_update_stateObject = {
     APPLYING: "APPLYING",

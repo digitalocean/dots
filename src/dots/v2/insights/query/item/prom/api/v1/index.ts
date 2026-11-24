@@ -46,7 +46,7 @@ export const V1RequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region
 /**
  * Metadata for all the navigation properties in the request builder.
  */
-export const V1RequestBuilderNavigationMetadata: Record<Exclude<keyof V1RequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+export const V1RequestBuilderNavigationMetadata: Record<string, NavigationMetadata> /* postgen-kiota-compat: query nav vs QUERY method */ = {
     label: {
         navigationMetadata: LabelRequestBuilderNavigationMetadata,
     },

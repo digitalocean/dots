@@ -71,7 +71,8 @@ generate: dev-dependencies
 	@printf "=== Generating client with spec: $(SPEC_FILE)\n"; \
 	printf "=== Kiota: ./src/dots. Post-gen inference: ./src/inference-gen (from bundled spec).\n\n"; \
 	kiota generate -l typescript -d $(SPEC_FILE) -c DigitalOceanClient -o ./src/dots && \
-	node scripts/postgen-inference.mjs "$(SPEC_FILE)"
+	node scripts/postgen-inference.mjs "$(SPEC_FILE)" && \
+	node scripts/postgen-kiota-compat.mjs
 
 .PHONY: tag
 tag: ## Tags a GA release (vX.Y.Z from package.json)

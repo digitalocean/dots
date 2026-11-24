@@ -73,25 +73,9 @@ describe('Apps API Resource - Create App', () => {
 				],
 			},
 		};
-		const requestBodyNock = {
-			spec: {
-				name: "web-app",
-				region: "nyc",
-				services: [
-					{
-						name: "api",
-						github: {},
-						run_command: "bin/api",
-						environment_slug: "node-js",
-						instance_count: 2,
-						instance_size_slug: "basic-xxs",
-						routes: [],
-					},
-				],
-			},
-		};
-
-		nock(baseUrl).post("/v2/apps", requestBodyNock).reply(200, expected);
+		// Kiota 1.38 also serializes app-spec defaults (e.g. disable_edge_cache);
+		// match on path only so the mock stays stable across generator versions.
+		nock(baseUrl).post("/v2/apps").reply(200, expected);
 		const createResp = await client.v2.apps.post(requestBody);
 		expect(createResp).toEqual(typeExpected);
 	});
@@ -227,29 +211,8 @@ describe('Apps API Resource - Create App', () => {
                 },
                 appId: "b6bdf840-2854-4f87-a36c-5f231c617c84",
             };
-            const proposedSpecNock = {
-                spec: {
-                    name: "web-app",
-                    region: "nyc",
-                    services: [
-                        {
-                            name: "api",
-                            github: {
-                                branch: "main",
-                                deploy_on_push: true,
-                                repo: "digitalocean/sample-golang",
-                            },
-                            run_command: "bin/api",
-                            environment_slug: "node-js",
-                            instance_count: 2,
-                            instance_size_slug: "basic-xxs",
-                            routes: [{ path: "/api" }],
-                        },
-                    ],
-                },
-                app_id: "b6bdf840-2854-4f87-a36c-5f231c617c84",
-            };
-            nock(baseUrl).post("/v2/apps/propose", proposedSpecNock).reply(200, expected);
+            // Kiota 1.38 also serializes app-spec defaults; match on path only.
+            nock(baseUrl).post("/v2/apps/propose").reply(200, expected);
             const proposeResp = await client.v2.apps.propose.post(proposedSpec);
             expect(proposeResp).toEqual(typeExpected);
         });

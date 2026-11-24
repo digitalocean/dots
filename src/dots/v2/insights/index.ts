@@ -52,7 +52,7 @@ export const InsightsRequestBuilderUriTemplate = "{+baseurl}/v2/insights";
 /**
  * Metadata for all the navigation properties in the request builder.
  */
-export const InsightsRequestBuilderNavigationMetadata: Record<Exclude<keyof InsightsRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+export const InsightsRequestBuilderNavigationMetadata: Record<string, NavigationMetadata> /* postgen-kiota-compat: query nav vs QUERY method */ = {
     alertInstances: {
         requestsMetadata: AlertInstancesRequestBuilderRequestsMetadata,
         navigationMetadata: AlertInstancesRequestBuilderNavigationMetadata,

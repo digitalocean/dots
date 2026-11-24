@@ -189,7 +189,7 @@ export interface WithSecretPutRequestBody_values extends AdditionalDataHolder, P
 /**
  * Uri template for the request builder.
  */
-export const WithSecretItemRequestBuilderUriTemplate = "{+baseurl}/v2/security/secrets/{secret}?region={region}";
+export const WithSecretItemRequestBuilderUriTemplate = "{+baseurl}/v2/security/secrets/{secret}";
 /**
  * Metadata for all the navigation properties in the request builder.
  */
@@ -206,7 +206,7 @@ export const WithSecretItemRequestBuilderNavigationMetadata: Record<Exclude<keyo
  */
 export const WithSecretItemRequestBuilderRequestsMetadata: RequestsMetadata = {
     delete: {
-        uriTemplate: WithSecretItemRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/security/secrets/{secret}?region={region}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,
@@ -221,7 +221,7 @@ export const WithSecretItemRequestBuilderRequestsMetadata: RequestsMetadata = {
         adapterMethodName: "sendNoResponseContent",
     },
     get: {
-        uriTemplate: WithSecretItemRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/security/secrets/{secret}?region={region}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createErrorEscapedFromDiscriminatorValue as ParsableFactory<Parsable>,

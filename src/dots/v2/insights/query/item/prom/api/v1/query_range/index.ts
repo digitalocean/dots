@@ -145,13 +145,13 @@ export function serializeQuery_rangePostRequestBody(writer: SerializationWriter,
 /**
  * Uri template for the request builder.
  */
-export const Query_rangeRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query_range?end={end}&query={query}&start={start}&step={step}{&timeout*}";
+export const Query_rangeRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query_range{?timeout*}";
 /**
  * Metadata for all the requests in the request builder.
  */
 export const Query_rangeRequestBuilderRequestsMetadata: RequestsMetadata = {
     get: {
-        uriTemplate: Query_rangeRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query_range?end={end}&query={query}&start={start}&step={step}{&timeout*}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createProm_errorFromDiscriminatorValue as ParsableFactory<Parsable>,

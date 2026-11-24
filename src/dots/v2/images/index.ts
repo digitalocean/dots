@@ -80,7 +80,7 @@ export interface ImagesRequestBuilder extends BaseRequestBuilder<ImagesRequestBu
      * @param image_id A unique number (id) or string (slug) used to identify and reference aspecific image.**Public** images can be identified by image `id` or `slug`.**Private** images *must* be identified by image `id`.
      * @returns {WithImage_ItemRequestBuilder}
      */
-     byImage_id(image_id: number) : WithImage_ItemRequestBuilder;
+     byImage_id(image_id: string) : WithImage_ItemRequestBuilder;
     /**
      * To list all of the images available on your account, send a GET request to /v2/images.## Filtering Results-----It's possible to request filtered results by including certain query parameters.**Image Type**Either 1-Click Application or OS Distribution images can be filtered by using the `type` query parameter.> Important: The `type` query parameter does not directly relate to the `type` attribute.To retrieve only ***distribution*** images, include the `type` query parameter set to distribution, `/v2/images?type=distribution`.To retrieve only ***application*** images, include the `type` query parameter set to application, `/v2/images?type=application`.**User Images**To retrieve only the private images of a user, include the `private` query parameter set to true, `/v2/images?private=true`.**Tags**To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.

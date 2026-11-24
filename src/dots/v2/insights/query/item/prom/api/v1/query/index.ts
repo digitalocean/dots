@@ -125,13 +125,13 @@ export function serializeQueryPostRequestBody(writer: SerializationWriter, query
 /**
  * Uri template for the request builder.
  */
-export const QueryRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query?query={query}{&time*,timeout*}";
+export const QueryRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query{?time*,timeout*}";
 /**
  * Metadata for all the requests in the request builder.
  */
 export const QueryRequestBuilderRequestsMetadata: RequestsMetadata = {
     get: {
-        uriTemplate: QueryRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/insights/query/{region}/prom/api/v1/query?query={query}{&time*,timeout*}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createProm_errorFromDiscriminatorValue as ParsableFactory<Parsable>,

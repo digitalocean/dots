@@ -24,7 +24,7 @@ export function createSeriesPostRequestBodyFromDiscriminatorValue(parseNode: Par
 export function deserializeIntoSeriesPostRequestBody(seriesPostRequestBody: Partial<SeriesPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "end": n => { seriesPostRequestBody.end = n.getStringValue(); },
-        "match[]": n => { seriesPostRequestBody.match = n.getCollectionOfPrimitiveValues<string>(); },
+        "match[]": n => { seriesPostRequestBody.match = n.getCollectionOfPrimitiveValues<string>("string"); },
         "start": n => { seriesPostRequestBody.start = n.getStringValue(); },
     }
 }
@@ -125,7 +125,7 @@ export interface SeriesRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const SeriesRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/series?match[]={match%5B%5D}{&end*,start*}";
+export const SeriesRequestBuilderUriTemplate = "{+baseurl}/v2/insights/query/{region}/prom/api/v1/series{?end*,start*}";
 /**
  * Mapper for query parameters from symbol name to serialization name represented as a constant.
  */
@@ -137,7 +137,7 @@ const SeriesRequestBuilderGetQueryParametersMapper: Record<string, string> = {
  */
 export const SeriesRequestBuilderRequestsMetadata: RequestsMetadata = {
     get: {
-        uriTemplate: SeriesRequestBuilderUriTemplate,
+        uriTemplate: "{+baseurl}/v2/insights/query/{region}/prom/api/v1/series{?end*,start*,match%5B%5D*}",
         responseBodyContentType: "application/json",
         errorMappings: {
             400: createProm_errorFromDiscriminatorValue as ParsableFactory<Parsable>,

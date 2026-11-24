@@ -32,7 +32,7 @@ export function createDropletsPostRequestBodyFromDiscriminatorValue(parseNode: P
 // @ts-ignore
 export function deserializeIntoDropletsDeleteRequestBody(dropletsDeleteRequestBody: Partial<DropletsDeleteRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "droplet_ids": n => { dropletsDeleteRequestBody.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { dropletsDeleteRequestBody.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
     }
 }
 /**
@@ -43,7 +43,7 @@ export function deserializeIntoDropletsDeleteRequestBody(dropletsDeleteRequestBo
 // @ts-ignore
 export function deserializeIntoDropletsPostRequestBody(dropletsPostRequestBody: Partial<DropletsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "droplet_ids": n => { dropletsPostRequestBody.dropletIds = n.getCollectionOfPrimitiveValues<number>(); },
+        "droplet_ids": n => { dropletsPostRequestBody.dropletIds = n.getCollectionOfPrimitiveValues<number>("number"); },
     }
 }
 export interface DropletsDeleteRequestBody extends AdditionalDataHolder, Parsable {
