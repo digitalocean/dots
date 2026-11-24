@@ -23,7 +23,7 @@ export function createRecyclePostRequestBodyFromDiscriminatorValue(parseNode: Pa
 // @ts-ignore
 export function deserializeIntoRecyclePostRequestBody(recyclePostRequestBody: Partial<RecyclePostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "nodes": n => { recyclePostRequestBody.nodes = n.getCollectionOfPrimitiveValues<string>(); },
+        "nodes": n => { recyclePostRequestBody.nodes = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 export interface RecyclePostRequestBody extends AdditionalDataHolder, Parsable {

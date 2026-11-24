@@ -25,7 +25,7 @@ export function createSuppressionsPostRequestBodyFromDiscriminatorValue(parseNod
 // @ts-ignore
 export function deserializeIntoSuppressionsPostRequestBody(suppressionsPostRequestBody: Partial<SuppressionsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "resources": n => { suppressionsPostRequestBody.resources = n.getCollectionOfPrimitiveValues<string>(); },
+        "resources": n => { suppressionsPostRequestBody.resources = n.getCollectionOfPrimitiveValues<string>("string"); },
         "rule_uuid": n => { suppressionsPostRequestBody.ruleUuid = n.getStringValue(); },
     }
 }

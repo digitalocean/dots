@@ -119,32 +119,36 @@ export function deserializeIntoActionsPostResponse(actionsPostResponse: Partial<
 // @ts-ignore
 export function serializeActionsPostRequestBody(writer: SerializationWriter, actionsPostRequestBody: Partial<Droplet_action | Droplet_action_snapshot> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (actionsPostRequestBody === undefined || actionsPostRequestBody === null) return;
-    switch (actionsPostRequestBody.type) {
-        case "disable_backups":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "enable_backups":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "enable_ipv6":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "power_cycle":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "power_off":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "power_on":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "shutdown":
-            serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
-            break;
-        case "snapshot":
-            serializeDroplet_action_snapshot(writer, actionsPostRequestBody as Droplet_action_snapshot);
-            break;
+    if (typeof actionsPostRequestBody === "object" && "type" in actionsPostRequestBody) {
+        switch (actionsPostRequestBody.type) {
+            case "disable_backups":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "enable_backups":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "enable_ipv6":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "power_cycle":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "power_off":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "power_on":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "shutdown":
+                serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+                return;
+            case "snapshot":
+                serializeDroplet_action_snapshot(writer, actionsPostRequestBody as Droplet_action_snapshot);
+                return;
+        }
     }
+    serializeDroplet_action(writer, actionsPostRequestBody as Droplet_action);
+    serializeDroplet_action_snapshot(writer, actionsPostRequestBody as Droplet_action_snapshot);
 }
 /**
  * Serializes information the current object

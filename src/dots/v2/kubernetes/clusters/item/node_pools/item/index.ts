@@ -90,6 +90,7 @@ export interface WithNode_pool_ItemRequestBuilder extends BaseRequestBuilder<Wit
     get nodes(): NodesRequestBuilder;
     /**
      * The recycle property
+     * @deprecated 
      */
     get recycle(): RecycleRequestBuilder;
     /**

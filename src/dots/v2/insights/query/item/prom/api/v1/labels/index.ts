@@ -24,7 +24,7 @@ export function createLabelsPostRequestBodyFromDiscriminatorValue(parseNode: Par
 export function deserializeIntoLabelsPostRequestBody(labelsPostRequestBody: Partial<LabelsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "end": n => { labelsPostRequestBody.end = n.getStringValue(); },
-        "match[]": n => { labelsPostRequestBody.match = n.getCollectionOfPrimitiveValues<string>(); },
+        "match[]": n => { labelsPostRequestBody.match = n.getCollectionOfPrimitiveValues<string>("string"); },
         "start": n => { labelsPostRequestBody.start = n.getStringValue(); },
     }
 }

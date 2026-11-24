@@ -57,7 +57,7 @@ export function deserializeIntoVpc_peeringsGetResponse(vpc_peeringsGetResponse: 
 export function deserializeIntoVpc_peeringsPostRequestBody(vpc_peeringsPostRequestBody: Partial<Vpc_peeringsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "name": n => { vpc_peeringsPostRequestBody.name = n.getStringValue(); },
-        "vpc_ids": n => { vpc_peeringsPostRequestBody.vpcIds = n.getCollectionOfPrimitiveValues<Guid>(); },
+        "vpc_ids": n => { vpc_peeringsPostRequestBody.vpcIds = n.getCollectionOfPrimitiveValues<Guid>("string"); },
     }
 }
 /**

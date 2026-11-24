@@ -32,7 +32,7 @@ export function createTagsPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 // @ts-ignore
 export function deserializeIntoTagsDeleteRequestBody(tagsDeleteRequestBody: Partial<TagsDeleteRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "tags": n => { tagsDeleteRequestBody.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { tagsDeleteRequestBody.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
@@ -43,7 +43,7 @@ export function deserializeIntoTagsDeleteRequestBody(tagsDeleteRequestBody: Part
 // @ts-ignore
 export function deserializeIntoTagsPostRequestBody(tagsPostRequestBody: Partial<TagsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "tags": n => { tagsPostRequestBody.tags = n.getCollectionOfPrimitiveValues<string>(); },
+        "tags": n => { tagsPostRequestBody.tags = n.getCollectionOfPrimitiveValues<string>("string"); },
     }
 }
 /**
