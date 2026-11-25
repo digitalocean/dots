@@ -24,7 +24,7 @@
 import { HttpMethod, openStream, prepareRequest } from "../streaming/harnessStream.js";
 import { ExecRequestBuilderUriTemplate } from "../v2/sandboxes/item/exec/index.js";
 import { rejectUnknownOptions, type Connection } from "./config.js";
-import { call, errorForStatus, SandboxError, toSandboxError } from "./errors.js";
+import { call, CommandError, errorForStatus, SandboxError, toSandboxError } from "./errors.js";
 import { readJsonObjects } from "./jsonStream.js";
 
 /** What to run: a shell string (run as `bash -lc <command>`) or an argv array run as is. */
@@ -83,6 +83,8 @@ export interface ExecWaitOptions {
 /** The outcome of a process that exited. A non-zero `exitCode` is not an error. */
 export interface ExecResult {
     exitCode: number;
+    /** True when `exitCode` is 0. */
+    ok: boolean;
     stdout: string;
     stderr: string;
     /** How long the process ran, in milliseconds. */
@@ -107,6 +109,69 @@ const BASE_KEYS = ["cwd", "envVars", "timeoutSeconds", "stdin", "signal"];
 const RUN_KEYS = [...BASE_KEYS, "onStdout", "onStderr"];
 const START_KEYS = [...BASE_KEYS, "keepStdinOpen", "pty"];
 const PTY_KEYS = ["rows", "cols", "term"];
+
+/** A duration: seconds, or a string such as `"90s"`, `"10m"` or `"2h"`. */
+export type ExecDuration = number | string;
+
+/** Options for calling `sandbox.exec(...)` directly. */
+export interface ExecCallOptions extends ExecRunOptions {
+    /** Environment variables for the process. The same as `envVars`. */
+    env?: Record<string, string>;
+    /** Kill the process after this long. The same as `timeoutSeconds`, with duration strings. */
+    timeout?: ExecDuration;
+    /** Throw a {@link CommandError} when the process exits non-zero. */
+    check?: boolean;
+}
+
+/**
+ * `sandbox.exec`: call it to run a command and wait (`await sandbox.exec("ls")`),
+ * or use its methods for more control.
+ */
+export interface ExecCallable {
+    (command: ExecCommand, opts?: ExecCallOptions): Promise<ExecResult>;
+    run: Exec["run"];
+    start: Exec["start"];
+}
+
+const DURATION_UNITS: Record<string, number> = { s: 1, m: 60, h: 3600 };
+
+/** Converts `90`, `"90"`, `"90s"`, `"10m"` or `"2h"` to whole seconds. */
+export function parseDuration(value: ExecDuration, where: string): number {
+    if (typeof value === "number") {
+        if (!Number.isInteger(value) || value < 0) {
+            throw new SandboxError(`${where}: \`timeout\` must be a non-negative whole number of seconds`);
+        }
+        return value;
+    }
+    const m = /^(\d+)\s*([smh]?)$/.exec(String(value).trim());
+    if (!m) throw new SandboxError(`${where}: \`timeout\` must be seconds or a string such as "90s", "10m" or "2h"`);
+    return Number(m[1]) * DURATION_UNITS[m[2] || "s"];
+}
+
+/** @internal Builds `sandbox.exec`: a function that also has the {@link Exec} methods. */
+export function createExec(conn: Connection, sandboxId: string): ExecCallable {
+    const exec = new Exec(conn, sandboxId);
+    const invoke = async (command: ExecCommand, opts: ExecCallOptions = {}): Promise<ExecResult> => {
+        rejectUnknownOptions(opts, [...RUN_KEYS, "env", "timeout", "check"], "exec");
+        const { env, envVars, timeout, check, ...rest } = opts;
+        const run: ExecRunOptions = { ...rest };
+        if (env && envVars) throw new SandboxError("exec: pass `env` or `envVars`, not both");
+        if (env ?? envVars) run.envVars = env ?? envVars;
+        if (timeout !== undefined) {
+            if (rest.timeoutSeconds !== undefined) throw new SandboxError("exec: pass `timeout` or `timeoutSeconds`, not both");
+            run.timeoutSeconds = parseDuration(timeout, "exec");
+        }
+        const result = await exec.run(command, run);
+        if (check && !result.ok) {
+            throw new CommandError(`command exited with code ${result.exitCode}`, result);
+        }
+        return result;
+    };
+    return Object.assign(invoke, {
+        run: exec.run.bind(exec) as Exec["run"],
+        start: exec.start.bind(exec) as Exec["start"],
+    });
+}
 
 /** Runs processes in one sandbox and streams their output. */
 export class Exec {
@@ -280,6 +345,7 @@ export class ExecSession implements AsyncIterable<ExecEvent> {
             } else if (event.type === "exit") {
                 return {
                     exitCode: event.exitCode,
+                    ok: event.exitCode === 0,
                     stdout,
                     stderr,
                     durationMs: event.durationMs,

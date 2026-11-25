@@ -41,6 +41,15 @@ export class RateLimitError extends SandboxError {}
 export class ServiceError extends SandboxError {}
 /** A wait ran out of time. The operation may still finish later. */
 export class SandboxTimeoutError extends SandboxError {}
+/** A command exited non-zero and the call asked to `check` it. `result` holds its output. */
+export class CommandError<R = unknown> extends SandboxError {
+    constructor(
+        message: string,
+        readonly result: R,
+    ) {
+        super(message);
+    }
+}
 
 const BY_STATUS: Record<number, typeof SandboxError> = {
     400: InvalidRequestError,

@@ -16,7 +16,7 @@
 
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import { Commands } from "./commands.js";
-import { Exec } from "./exec.js";
+import { createExec, type ExecCallable } from "./exec.js";
 import { Files } from "./files.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
@@ -70,7 +70,7 @@ export class Sandbox {
     readonly files: Files;
 
     /** Run processes with their output streamed on the same request, optionally with stdin or a PTY. */
-    readonly exec: Exec;
+    readonly exec: ExecCallable;
 
     private readonly client: DigitalOceanClient;
     private readonly conn: Connection;
@@ -81,7 +81,7 @@ export class Sandbox {
         this.info = info;
         this.commands = new Commands(conn, info.sandboxId);
         this.files = new Files(conn, info.sandboxId);
-        this.exec = new Exec(conn, info.sandboxId);
+        this.exec = createExec(conn, info.sandboxId);
     }
 
     get sandboxId(): string {

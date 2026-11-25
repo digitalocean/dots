@@ -48,7 +48,10 @@ export {
 export {
     Exec,
     ExecSession,
+    type ExecCallable,
+    type ExecCallOptions,
     type ExecCommand,
+    type ExecDuration,
     type ExecEvent,
     type ExecPtyOptions,
     type ExecResult,
@@ -65,6 +68,7 @@ export {
     PermissionDeniedError,
     RateLimitError,
     SandboxError,
+    CommandError,
     SandboxTimeoutError,
     ServiceError,
 } from "./errors.js";

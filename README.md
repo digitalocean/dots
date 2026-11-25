@@ -388,6 +388,12 @@ Every upload sends the body's SHA-256 in `X-Content-Sha256`, and the sandbox che
 
 #### Exec
 ```typescript
+// Call sandbox.exec directly to run a command and wait for it. It does not throw on a non-zero exit.
+const r = await sandbox.exec("pytest -x", { cwd: "/workspace", env: { CI: "1" }, timeout: "2m" });
+console.log(r.stdout, r.stderr, r.exitCode, r.ok);        // ok is exitCode === 0
+await sandbox.exec("pytest -x", { check: true });         // throws CommandError (with .result) on a non-zero exit
+
+// sandbox.exec.run takes the same options as exec.run(...) with onStdout and onStderr callbacks.
 // Output streams back on the same request, so even a command that exits at once is not missed.
 const result = await sandbox.exec.run("echo hello; echo oops >&2; exit 3", {
     cwd: "/workspace",

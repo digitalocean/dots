@@ -1,6 +1,6 @@
 import { Readable } from "node:stream";
 import nock from "nock";
-import { InvalidRequestError, Sandbox, SandboxError, ServiceError } from "../../src/dots/sandbox/index.js";
+import { CommandError, InvalidRequestError, Sandbox, SandboxError, ServiceError } from "../../src/dots/sandbox/index.js";
 
 const API = "https://api.digitalocean.com";
 const OPTS = { token: "test-token" };
@@ -51,10 +51,57 @@ describe("Sandbox exec", () => {
             onStderr: (t) => err.push(t),
         });
         expect(seen.body).toEqual({ argv: ["bash", "-lc", "echo hello; echo oops >&2; exit 3"] });
-        expect(result).toEqual({ exitCode: 3, stdout: "hello\n", stderr: "oops\n", durationMs: 39, status: undefined, error: undefined });
+        expect(result).toEqual({ exitCode: 3, ok: false, stdout: "hello\n", stderr: "oops\n", durationMs: 39, status: undefined, error: undefined });
         expect(out).toEqual(["hello\n"]);
         expect(err).toEqual(["oops\n"]);
         expect(nock.isDone()).toBe(true);
+    });
+
+    it("sandbox.exec is callable: it runs the command like exec.run and reports ok", async () => {
+        const sb = await sandbox();
+        const seen: { body?: unknown } = {};
+        execReply(line({ stdout: b64("hi\n") }) + line({ exit: { duration_ms: "7" } }), seen);
+        const result = await sb.exec("echo hi");
+        expect(seen.body).toEqual({ argv: ["bash", "-lc", "echo hi"] });
+        expect(result).toMatchObject({ exitCode: 0, ok: true, stdout: "hi\n" });
+        expect(typeof sb.exec.run).toBe("function");
+        expect(typeof sb.exec.start).toBe("function");
+    });
+
+    it("exec() takes env and a duration timeout, as the docs show", async () => {
+        const sb = await sandbox();
+        const seen: { body?: unknown } = {};
+        execReply(line({ exit: {} }), seen);
+        await sb.exec("pytest -x", { cwd: "/workspace", env: { CI: "1" }, timeout: "2m" });
+        expect(seen.body).toEqual({
+            argv: ["bash", "-lc", "pytest -x"],
+            workdir: "/workspace",
+            env_vars: { CI: "1" },
+            timeout_seconds: "120",
+        });
+    });
+
+    it("exec() does not throw on a non-zero exit, and check: true throws CommandError with the result", async () => {
+        const sb = await sandbox();
+        execReply(line({ stderr: b64("boom") }) + line({ exit: { exit_code: 2 } }));
+        const failed = await sb.exec("false");
+        expect(failed).toMatchObject({ exitCode: 2, ok: false, stderr: "boom" });
+
+        execReply(line({ stderr: b64("boom") }) + line({ exit: { exit_code: 2 } }));
+        const err = await sb.exec("false", { check: true }).catch((e: unknown) => e);
+        expect(err).toBeInstanceOf(CommandError);
+        expect(err).toBeInstanceOf(SandboxError);
+        expect((err as CommandError<{ exitCode: number }>).result.exitCode).toBe(2);
+        expect((err as Error).message).toBe("command exited with code 2");
+    });
+
+    it("exec() validates env/timeout options before sending", async () => {
+        const sb = await sandbox();
+        await expect(sb.exec("ls", { timeout: "soon" })).rejects.toThrow(/timeout/);
+        await expect(sb.exec("ls", { timeout: -1 })).rejects.toThrow(/timeout/);
+        await expect(sb.exec("ls", { env: { A: "1" }, envVars: { B: "2" } })).rejects.toThrow(/env/);
+        await expect(sb.exec("ls", { timeout: 5, timeoutSeconds: 5 })).rejects.toThrow(/timeout/);
+        await expect(sb.exec("ls", { nope: 1 } as never)).rejects.toThrow(/unsupported option/);
     });
 
     it("an exit without exit_code is 0", async () => {
