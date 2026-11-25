@@ -16,6 +16,7 @@
 
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import { Commands } from "./commands.js";
+import { Files } from "./files.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
 import { createSnapshot, type Snapshot, type SnapshotCreateOptions } from "./snapshots.js";
@@ -64,6 +65,9 @@ export class Sandbox {
     /** Start, list and stream the commands running in this sandbox. */
     readonly commands: Commands;
 
+    /** Read, write, list and manage the files in this sandbox. */
+    readonly files: Files;
+
     private readonly client: DigitalOceanClient;
     private readonly conn: Connection;
 
@@ -72,6 +76,7 @@ export class Sandbox {
         this.client = conn.client;
         this.info = info;
         this.commands = new Commands(conn, info.sandboxId);
+        this.files = new Files(conn, info.sandboxId);
     }
 
     get sandboxId(): string {

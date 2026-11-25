@@ -90356,6 +90356,42 @@ export function createError2FromDiscriminatorValue(parseNode: ParseNode | undefi
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_entry}
+ */
+// @ts-ignore
+export function createFile_entryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_entry;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_make_directory}
+ */
+// @ts-ignore
+export function createFile_make_directoryFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_make_directory;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_move}
+ */
+// @ts-ignore
+export function createFile_moveFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_move;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {File_remove}
+ */
+// @ts-ignore
+export function createFile_removeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFile_remove;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Image_source}
  */
 // @ts-ignore
@@ -90562,6 +90598,60 @@ export function deserializeIntoError2(error2: Partial<Error2> | undefined = {}) 
         "id": n => { error2.id = n.getStringValue(); },
         "message": n => { error2.messageEscaped = n.getStringValue(); },
         "request_id": n => { error2.requestId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param File_entry The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_entry(file_entry: Partial<File_entry> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "group": n => { file_entry.group = n.getStringValue(); },
+        "mode": n => { file_entry.mode = n.getNumberValue(); },
+        "modified_time": n => { file_entry.modifiedTime = n.getDateValue(); },
+        "name": n => { file_entry.name = n.getStringValue(); },
+        "owner": n => { file_entry.owner = n.getStringValue(); },
+        "path": n => { file_entry.path = n.getStringValue(); },
+        "permissions": n => { file_entry.permissions = n.getStringValue(); },
+        "size": n => { file_entry.size = n.getStringValue(); },
+        "symlink_target": n => { file_entry.symlinkTarget = n.getStringValue(); },
+        "type": n => { file_entry.type = n.getEnumValue<File_entry_type>(File_entry_typeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param File_make_directory The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_make_directory(file_make_directory: Partial<File_make_directory> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "path": n => { file_make_directory.path = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param File_move The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_move(file_move: Partial<File_move> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "destination": n => { file_move.destination = n.getStringValue(); },
+        "source": n => { file_move.source = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param File_remove The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFile_remove(file_remove: Partial<File_remove> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "path": n => { file_remove.path = n.getStringValue(); },
     }
 }
 /**
@@ -90888,6 +90978,83 @@ export interface ErrorEscaped extends AdditionalDataHolder, ApiError, Parsable {
     requestId?: string | null;
 }
 /**
+ * A file, directory, or symlink in a sandbox workspace.
+ */
+export interface File_entry extends AdditionalDataHolder, Parsable {
+    /**
+     * The group that owns the entry.
+     */
+    group?: string | null;
+    /**
+     * The Unix file mode bits, for example `420` (`0644`).
+     */
+    mode?: number | null;
+    /**
+     * When the entry was last modified.
+     */
+    modifiedTime?: Date | null;
+    /**
+     * The base name of the entry.
+     */
+    name?: string | null;
+    /**
+     * The user that owns the entry.
+     */
+    owner?: string | null;
+    /**
+     * The absolute path of the entry in the sandbox.
+     */
+    path?: string | null;
+    /**
+     * The permissions in `ls` form, for example `-rw-r--r--`.
+     */
+    permissions?: string | null;
+    /**
+     * The size in bytes. Encoded as a string per protobuf JSON.
+     */
+    size?: string | null;
+    /**
+     * Symlink only. The path the symlink points to. Empty unless `type` is `FILE_ENTRY_TYPE_SYMLINK`.
+     */
+    symlinkTarget?: string | null;
+    /**
+     * The type of a file system entry.
+     */
+    type?: File_entry_type | null;
+}
+export type File_entry_type = (typeof File_entry_typeObject)[keyof typeof File_entry_typeObject];
+/**
+ * The body of a make-directory request.
+ */
+export interface File_make_directory extends AdditionalDataHolder, Parsable {
+    /**
+     * The directory to create.
+     */
+    path?: string | null;
+}
+/**
+ * The body of a move-file request.
+ */
+export interface File_move extends AdditionalDataHolder, Parsable {
+    /**
+     * The new path.
+     */
+    destination?: string | null;
+    /**
+     * The file, directory, or symlink to move.
+     */
+    source?: string | null;
+}
+/**
+ * The body of a remove-file request.
+ */
+export interface File_remove extends AdditionalDataHolder, Parsable {
+    /**
+     * The file or directory to remove.
+     */
+    path?: string | null;
+}
+/**
  * Identifies a customer OCI image. Auth for private DOCR images is resolved server-side from the caller's team.
  */
 export interface Image_source extends AdditionalDataHolder, Parsable {
@@ -91097,6 +91264,55 @@ export function serializeError2(writer: SerializationWriter, error2: Partial<Err
     writer.writeStringValue("message", error2.messageEscaped);
     writer.writeStringValue("request_id", error2.requestId);
     writer.writeAdditionalData(error2.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_entry The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_entry(writer: SerializationWriter, file_entry: Partial<File_entry> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_entry || isSerializingDerivedType) { return; }
+    writer.writeEnumValue<File_entry_type>("type", file_entry.type);
+    writer.writeAdditionalData(file_entry.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_make_directory The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_make_directory(writer: SerializationWriter, file_make_directory: Partial<File_make_directory> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_make_directory || isSerializingDerivedType) { return; }
+    writer.writeStringValue("path", file_make_directory.path);
+    writer.writeAdditionalData(file_make_directory.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_move The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_move(writer: SerializationWriter, file_move: Partial<File_move> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_move || isSerializingDerivedType) { return; }
+    writer.writeStringValue("destination", file_move.destination);
+    writer.writeStringValue("source", file_move.source);
+    writer.writeAdditionalData(file_move.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param File_remove The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFile_remove(writer: SerializationWriter, file_remove: Partial<File_remove> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!file_remove || isSerializingDerivedType) { return; }
+    writer.writeStringValue("path", file_remove.path);
+    writer.writeAdditionalData(file_remove.additionalData);
 }
 /**
  * Serializes information the current object
@@ -91583,6 +91799,15 @@ export interface Template_update extends AdditionalDataHolder, Parsable {
      */
     sourceOciRef?: string | null;
 }
+/**
+ * The type of a file system entry.
+ */
+export const File_entry_typeObject = {
+    FILE_ENTRY_TYPE_UNSPECIFIED: "FILE_ENTRY_TYPE_UNSPECIFIED",
+    FILE_ENTRY_TYPE_FILE: "FILE_ENTRY_TYPE_FILE",
+    FILE_ENTRY_TYPE_DIRECTORY: "FILE_ENTRY_TYPE_DIRECTORY",
+    FILE_ENTRY_TYPE_SYMLINK: "FILE_ENTRY_TYPE_SYMLINK",
+} as const;
 /**
  * Signal to send to a sandbox command. Defaults to SIGTERM when unset.
  */

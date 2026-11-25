@@ -35,6 +35,16 @@ export {
     type CommandSignal,
     type CommandStartOptions,
 } from "./commands.js";
+export {
+    Files,
+    type FileData,
+    type FileEntry,
+    type FileEntryType,
+    type FileListOptions,
+    type FileTransferOptions,
+    type FileWriteResult,
+    type MakeDirResult,
+} from "./files.js";
 export type { ClientOptions } from "./config.js";
 export {
     AuthenticationError,

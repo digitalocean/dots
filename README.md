@@ -347,7 +347,7 @@ await template.delete();                                  // false if it is alre
 
 `Template.get(id)`, `Template.delete(id)` and `new SandboxClient(opts).Template` work like their sandbox counterparts. Global base templates are not listed: pass them by name to `Sandbox.create`.
 
-Output can only be read while a command runs: a command that exits before the stream attaches fails with `NotFoundError`. File transfer is not available yet: it needs routes that are not in the API.
+Output can only be read while a command runs: a command that exits before the stream attaches fails with `NotFoundError`.
 
 #### Snapshots
 ```typescript
@@ -364,6 +364,27 @@ await snapshot.delete();                                  // false if it is alre
 ```
 
 `name` is 1 to 63 characters: lowercase letters, digits and hyphens. It is checked before the request is sent. `ttl` is a duration string such as `168h`; when it is unset the platform default applies. The snapshot captures the sandbox's boot disk and memory, not its workspace data disk, and the sandbox must be on a microVM cell. `new SandboxClient(opts).Snapshot` works like the other namespaces. The API has no call to start a sandbox from a snapshot yet, so the SDK has none either.
+
+#### Files
+```typescript
+// Write and read a file (up to 50 MiB). A string is written as UTF-8; Uint8Array, ArrayBuffer and Blob work too.
+await sandbox.files.write("/workspace/hello.txt", "Hello\n");   // { path, bytesWritten }
+const text = await sandbox.files.readText("/workspace/hello.txt");
+const bytes = await sandbox.files.read("/workspace/hello.txt");  // Uint8Array
+
+// Directories travel as tar archives
+await sandbox.files.writeArchive("/workspace/src", tarBytes);    // extracts into /workspace/src
+const tar = await sandbox.files.readArchive("/workspace/src");
+
+for (const e of await sandbox.files.list("/workspace", { depth: 2 })) console.log(e.type, e.path, e.size);
+const info = await sandbox.files.getInfo("/workspace/hello.txt");  // NotFoundError when missing
+if (await sandbox.files.exists("/workspace/out")) { /* ... */ }
+const { created, entry } = await sandbox.files.makeDir("/workspace/out/logs"); // creates parents; created is false if it existed
+await sandbox.files.move("/workspace/hello.txt", "/workspace/out/hello.txt");
+await sandbox.files.remove("/workspace/out");                     // a missing path is not an error
+```
+
+Every upload sends the body's SHA-256 in `X-Content-Sha256`, and the sandbox checks it after the write. Every download ends in an integrity footer that the SDK checks against the payload and strips; a mismatch or a missing footer throws `SandboxError`. A transfer that answers `503` (too many concurrent transfers) is retried three times with backoff, honoring `Retry-After`, before it throws `ServiceError`. A `FileEntry` has `name`, `type` (`"file"`, `"directory"`, `"symlink"` or `"unspecified"`), `path`, `size` and `mode` as numbers, and `permissions`, `owner`, `group`, `modifiedTime` and `symlinkTarget` when set. Paths are checked before the request is sent.
 
 ## **Known Issues**
 
