@@ -45,6 +45,17 @@ export {
     type FileWriteResult,
     type MakeDirResult,
 } from "./files.js";
+export {
+    Exec,
+    ExecSession,
+    type ExecCommand,
+    type ExecEvent,
+    type ExecPtyOptions,
+    type ExecResult,
+    type ExecRunOptions,
+    type ExecStartOptions,
+    type ExecWaitOptions,
+} from "./exec.js";
 export type { ClientOptions } from "./config.js";
 export {
     AuthenticationError,

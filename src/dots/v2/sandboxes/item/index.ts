@@ -6,6 +6,8 @@ import { createError2FromDiscriminatorValue, createErrorEscapedFromDiscriminator
 // @ts-ignore
 import { CommandsRequestBuilderNavigationMetadata, CommandsRequestBuilderRequestsMetadata, type CommandsRequestBuilder } from './commands/index.js';
 // @ts-ignore
+import { ExecRequestBuilderNavigationMetadata, ExecRequestBuilderRequestsMetadata, type ExecRequestBuilder } from './exec/index.js';
+// @ts-ignore
 import { FilesRequestBuilderNavigationMetadata, type FilesRequestBuilder } from './files/index.js';
 // @ts-ignore
 import { PauseRequestBuilderRequestsMetadata, type PauseRequestBuilder } from './pause/index.js';
@@ -95,6 +97,10 @@ export interface WithSandbox_ItemRequestBuilder extends BaseRequestBuilder<WithS
      */
     get commands(): CommandsRequestBuilder;
     /**
+     * The exec property
+     */
+    get exec(): ExecRequestBuilder;
+    /**
      * The files property
      */
     get files(): FilesRequestBuilder;
@@ -158,6 +164,10 @@ export const WithSandbox_ItemRequestBuilderNavigationMetadata: Record<Exclude<ke
     commands: {
         requestsMetadata: CommandsRequestBuilderRequestsMetadata,
         navigationMetadata: CommandsRequestBuilderNavigationMetadata,
+    },
+    exec: {
+        requestsMetadata: ExecRequestBuilderRequestsMetadata,
+        navigationMetadata: ExecRequestBuilderNavigationMetadata,
     },
     files: {
         navigationMetadata: FilesRequestBuilderNavigationMetadata,

@@ -20,6 +20,9 @@ import { HttpMethod, openStream, prepareRequest } from "../streaming/harnessStre
 import { StreamRequestBuilderUriTemplate } from "../v2/sandboxes/item/commands/item/stream/index.js";
 import type { Connection } from "./config.js";
 import { call, NotFoundError, SandboxError, toSandboxError } from "./errors.js";
+import { readJsonObjects } from "./jsonStream.js";
+
+export { JsonObjectReader } from "./jsonStream.js";
 
 /** A command that is running in a sandbox. */
 export interface CommandInfo {
@@ -262,26 +265,9 @@ export class Command {
             throw converted;
         }
 
-        const reader = body.getReader();
-        const decoder = new TextDecoder();
-        const objects = new JsonObjectReader();
-        try {
-            for (;;) {
-                let chunk: Awaited<ReturnType<typeof reader.read>>;
-                try {
-                    chunk = await reader.read();
-                } catch (err) {
-                    if (signal?.aborted) return;
-                    throw err;
-                }
-                if (chunk.done) break;
-                for (const raw of objects.push(decoder.decode(chunk.value, { stream: true }))) {
-                    const event = toEvent(raw);
-                    if (event) yield event;
-                }
-            }
-        } finally {
-            await reader.cancel().catch(() => undefined);
+        for await (const raw of readJsonObjects(body, signal)) {
+            const event = toEvent(raw);
+            if (event) yield event;
         }
     }
 }
@@ -311,45 +297,4 @@ function toEvent(raw: any): CommandEvent | undefined {
 function output(type: "stdout" | "stderr", base64: string): CommandEvent {
     const data = new Uint8Array(Buffer.from(base64, "base64"));
     return { type, data, text: new TextDecoder().decode(data) };
-}
-
-/**
- * Splits a stream of concatenated JSON objects (newline-delimited or not) into
- * parsed objects, keeping a partial object for the next chunk. Braces inside
- * strings do not count.
- */
-export class JsonObjectReader {
-    private buf = "";
-
-    push(text: string): unknown[] {
-        this.buf += text;
-        const out: unknown[] = [];
-        let depth = 0;
-        let inString = false;
-        let escaped = false;
-        let start = -1;
-        let consumed = 0;
-        for (let i = 0; i < this.buf.length; i++) {
-            const ch = this.buf[i];
-            if (inString) {
-                if (escaped) escaped = false;
-                else if (ch === "\\") escaped = true;
-                else if (ch === '"') inString = false;
-                continue;
-            }
-            if (ch === '"') inString = true;
-            else if (ch === "{") {
-                if (depth === 0) start = i;
-                depth++;
-            } else if (ch === "}" && depth > 0) {
-                depth--;
-                if (depth === 0) {
-                    out.push(JSON.parse(this.buf.slice(start, i + 1)));
-                    consumed = i + 1;
-                }
-            }
-        }
-        this.buf = depth === 0 ? "" : this.buf.slice(start >= 0 ? start : consumed);
-        return out;
-    }
 }

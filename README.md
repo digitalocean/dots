@@ -386,6 +386,33 @@ await sandbox.files.remove("/workspace/out");                     // a missing p
 
 Every upload sends the body's SHA-256 in `X-Content-Sha256`, and the sandbox checks it after the write. Every download ends in an integrity footer that the SDK checks against the payload and strips; a mismatch or a missing footer throws `SandboxError`. A transfer that answers `503` (too many concurrent transfers) is retried three times with backoff, honoring `Retry-After`, before it throws `ServiceError`. A `FileEntry` has `name`, `type` (`"file"`, `"directory"`, `"symlink"` or `"unspecified"`), `path`, `size` and `mode` as numbers, and `permissions`, `owner`, `group`, `modifiedTime` and `symlinkTarget` when set. Paths are checked before the request is sent.
 
+#### Exec
+```typescript
+// Output streams back on the same request, so even a command that exits at once is not missed.
+const result = await sandbox.exec.run("echo hello; echo oops >&2; exit 3", {
+    cwd: "/workspace",
+    onStdout: (text) => process.stdout.write(text), // optional, as output arrives
+});
+console.log(result.stdout, result.stderr, result.exitCode, result.durationMs); // a non-zero exit code is returned, not thrown
+await sandbox.exec.run(["python3", "-c", "print(1)"]);   // an argv array runs as is
+await sandbox.exec.run(["cat"], { stdin: "hi\n" });       // stdin sent with the start request
+
+// Interactive: stdin stays open, and execId is known once start returns
+const session = await sandbox.exec.start(["cat"]);
+await session.writeStdin("hello\n");                     // the stdin offset is tracked for you
+await session.closeStdin();
+for await (const event of session) {                      // started, stdout, stderr, exit
+    if (event.type === "stdout") process.stdout.write(event.text);
+}
+
+// A PTY; an omitted command starts the default shell
+const shell = await sandbox.exec.start(undefined, { pty: { rows: 24, cols: 80, term: "xterm-256color" } });
+await shell.resize(40, 120);
+shell.close();                                            // disconnects; the process may keep running
+```
+
+Prefer `exec.run` over `commands.run` for short commands: `commands.run` attaches to the output after the command starts, so a command that exits first fails with `NotFoundError`. A stream that ends without an exit event throws `SandboxError`. Options are checked before the request is sent: a command is required unless `pty` is set, `timeoutSeconds` must be a non-negative integer, and PTY rows and columns must be 1 to 1000.
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.

@@ -90500,6 +90500,87 @@ export function createSandbox_createFromDiscriminatorValue(parseNode: ParseNode 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_event}
+ */
+// @ts-ignore
+export function createSandbox_exec_eventFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_event;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_exit}
+ */
+// @ts-ignore
+export function createSandbox_exec_exitFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_exit;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_keepalive}
+ */
+// @ts-ignore
+export function createSandbox_exec_keepaliveFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_keepalive;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_pty}
+ */
+// @ts-ignore
+export function createSandbox_exec_ptyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_pty;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_resize}
+ */
+// @ts-ignore
+export function createSandbox_exec_resizeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_resize;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_start_env_vars}
+ */
+// @ts-ignore
+export function createSandbox_exec_start_env_varsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_start_env_vars;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_started}
+ */
+// @ts-ignore
+export function createSandbox_exec_startedFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_started;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_start}
+ */
+// @ts-ignore
+export function createSandbox_exec_startFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_start;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sandbox_exec_stdin}
+ */
+// @ts-ignore
+export function createSandbox_exec_stdinFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSandbox_exec_stdin;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Sandbox_info}
  */
 // @ts-ignore
@@ -90801,6 +90882,121 @@ export function deserializeIntoSandbox_create(sandbox_create: Partial<Sandbox_cr
 // @ts-ignore
 export function deserializeIntoSandbox_create_env_vars(sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_event The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_event(sandbox_exec_event: Partial<Sandbox_exec_event> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "exit": n => { sandbox_exec_event.exit = n.getObjectValue<Sandbox_exec_exit>(createSandbox_exec_exitFromDiscriminatorValue); },
+        "keepalive": n => { sandbox_exec_event.keepalive = n.getObjectValue<Sandbox_exec_keepalive>(createSandbox_exec_keepaliveFromDiscriminatorValue); },
+        "started": n => { sandbox_exec_event.started = n.getObjectValue<Sandbox_exec_started>(createSandbox_exec_startedFromDiscriminatorValue); },
+        "stderr": n => { sandbox_exec_event.stderr = n.getByteArrayValue(); },
+        "stdout": n => { sandbox_exec_event.stdout = n.getByteArrayValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_exit The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_exit(sandbox_exec_exit: Partial<Sandbox_exec_exit> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "duration_ms": n => { sandbox_exec_exit.durationMs = n.getStringValue(); },
+        "error": n => { sandbox_exec_exit.errorEscaped = n.getStringValue(); },
+        "exit_code": n => { sandbox_exec_exit.exitCode = n.getNumberValue(); },
+        "status": n => { sandbox_exec_exit.status = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_keepalive The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_keepalive(sandbox_exec_keepalive: Partial<Sandbox_exec_keepalive> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_pty The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_pty(sandbox_exec_pty: Partial<Sandbox_exec_pty> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cols": n => { sandbox_exec_pty.cols = n.getNumberValue(); },
+        "rows": n => { sandbox_exec_pty.rows = n.getNumberValue(); },
+        "term": n => { sandbox_exec_pty.term = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_resize The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_resize(sandbox_exec_resize: Partial<Sandbox_exec_resize> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "cols": n => { sandbox_exec_resize.cols = n.getNumberValue(); },
+        "rows": n => { sandbox_exec_resize.rows = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_start The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_start(sandbox_exec_start: Partial<Sandbox_exec_start> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "argv": n => { sandbox_exec_start.argv = n.getCollectionOfPrimitiveValues<string>(); },
+        "env_vars": n => { sandbox_exec_start.envVars = n.getObjectValue<Sandbox_exec_start_env_vars>(createSandbox_exec_start_env_varsFromDiscriminatorValue); },
+        "keep_stdin_open": n => { sandbox_exec_start.keepStdinOpen = n.getBooleanValue(); },
+        "pty": n => { sandbox_exec_start.pty = n.getObjectValue<Sandbox_exec_pty>(createSandbox_exec_ptyFromDiscriminatorValue); },
+        "stdin": n => { sandbox_exec_start.stdin = n.getByteArrayValue(); },
+        "timeout_seconds": n => { sandbox_exec_start.timeoutSeconds = n.getStringValue(); },
+        "workdir": n => { sandbox_exec_start.workdir = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_start_env_vars The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_start_env_vars(sandbox_exec_start_env_vars: Partial<Sandbox_exec_start_env_vars> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_started The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_started(sandbox_exec_started: Partial<Sandbox_exec_started> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "exec_id": n => { sandbox_exec_started.execId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Sandbox_exec_stdin The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSandbox_exec_stdin(sandbox_exec_stdin: Partial<Sandbox_exec_stdin> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "data": n => { sandbox_exec_stdin.data = n.getByteArrayValue(); },
+        "eof": n => { sandbox_exec_stdin.eof = n.getBooleanValue(); },
+        "offset": n => { sandbox_exec_stdin.offset = n.getStringValue(); },
     }
 }
 /**
@@ -91226,6 +91422,145 @@ export interface Sandbox_create extends AdditionalDataHolder, Parsable {
 export interface Sandbox_create_env_vars extends AdditionalDataHolder, Parsable {
 }
 /**
+ * One event on the exec start stream. Exactly one of the fields is set per event.
+ */
+export interface Sandbox_exec_event extends AdditionalDataHolder, Parsable {
+    /**
+     * The exit property
+     */
+    exit?: Sandbox_exec_exit | null;
+    /**
+     * An empty keepalive event on the exec stream.
+     */
+    keepalive?: Sandbox_exec_keepalive | null;
+    /**
+     * The started property
+     */
+    started?: Sandbox_exec_started | null;
+    /**
+     * Base64-encoded stderr chunk.
+     */
+    stderr?: ArrayBuffer | null;
+    /**
+     * Base64-encoded stdout chunk.
+     */
+    stdout?: ArrayBuffer | null;
+}
+export interface Sandbox_exec_exit extends AdditionalDataHolder, Parsable {
+    /**
+     * How long the process ran, in milliseconds. Encoded as a string per protobuf JSON.
+     */
+    durationMs?: string | null;
+    /**
+     * Error message when the process did not exit cleanly.
+     */
+    errorEscaped?: string | null;
+    /**
+     * Process exit code.
+     */
+    exitCode?: number | null;
+    /**
+     * Exit status string from the guest.
+     */
+    status?: string | null;
+}
+/**
+ * An empty keepalive event on the exec stream.
+ */
+export interface Sandbox_exec_keepalive extends AdditionalDataHolder, Parsable {
+}
+/**
+ * PTY options for a start-sandbox-exec request. Presence turns the PTY on; omitted fields default to 24x80 and `xterm-256color`.
+ */
+export interface Sandbox_exec_pty extends AdditionalDataHolder, Parsable {
+    /**
+     * Terminal columns. Defaults to 80.
+     */
+    cols?: number | null;
+    /**
+     * Terminal rows. Defaults to 24.
+     */
+    rows?: number | null;
+    /**
+     * Terminal type. Defaults to `xterm-256color`.
+     */
+    term?: string | null;
+}
+/**
+ * The body of a resize-sandbox-exec request.
+ */
+export interface Sandbox_exec_resize extends AdditionalDataHolder, Parsable {
+    /**
+     * Terminal columns. Must be between 1 and 1000.
+     */
+    cols?: number | null;
+    /**
+     * Terminal rows. Must be between 1 and 1000.
+     */
+    rows?: number | null;
+}
+/**
+ * The body of a start-sandbox-exec request.
+ */
+export interface Sandbox_exec_start extends AdditionalDataHolder, Parsable {
+    /**
+     * `argv[0]` is the executable. Empty `argv` is allowed only when `pty` is set (guest default shell, typically `/bin/bash -l`).
+     */
+    argv?: string[] | null;
+    /**
+     * Environment variables for the exec.
+     */
+    envVars?: Sandbox_exec_start_env_vars | null;
+    /**
+     * When true, stdin stays open for later stdin writes after the start stream half-closes.
+     */
+    keepStdinOpen?: boolean | null;
+    /**
+     * When set, allocate a PTY. Optional fields default to 24x80 and `xterm-256color`.
+     */
+    pty?: Sandbox_exec_pty | null;
+    /**
+     * Optional first stdin chunk sent with the start frame (base64 over HTTP).
+     */
+    stdin?: ArrayBuffer | null;
+    /**
+     * Zero means the service default stream timeout. Encoded as a string per protobuf JSON.
+     */
+    timeoutSeconds?: string | null;
+    /**
+     * Working directory for the exec.
+     */
+    workdir?: string | null;
+}
+/**
+ * Environment variables for the exec.
+ */
+export interface Sandbox_exec_start_env_vars extends AdditionalDataHolder, Parsable {
+}
+export interface Sandbox_exec_started extends AdditionalDataHolder, Parsable {
+    /**
+     * The ID of the started exec session.
+     */
+    execId?: string | null;
+}
+/**
+ * The body of a write-sandbox-exec-stdin request.
+ */
+export interface Sandbox_exec_stdin extends AdditionalDataHolder, Parsable {
+    /**
+     * Base64-encoded stdin bytes.
+     */
+    data?: ArrayBuffer | null;
+    /**
+     * When true, close stdin on a pipe exec; on a PTY send VEOF (`0x04`).
+     */
+    eof?: boolean | null;
+    /**
+     * Bytes the guest has already accepted. Zero is a valid first write. Encoded as a string per protobuf JSON.
+     */
+    offset?: string | null;
+}
+/**
  * A sandbox.
  */
 export interface Sandbox_info extends AdditionalDataHolder, Parsable {
@@ -91471,6 +91806,130 @@ export function serializeSandbox_create(writer: SerializationWriter, sandbox_cre
 export function serializeSandbox_create_env_vars(writer: SerializationWriter, sandbox_create_env_vars: Partial<Sandbox_create_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!sandbox_create_env_vars || isSerializingDerivedType) { return; }
     writer.writeAdditionalData(sandbox_create_env_vars.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_event The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_event(writer: SerializationWriter, sandbox_exec_event: Partial<Sandbox_exec_event> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_event || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<Sandbox_exec_exit>("exit", sandbox_exec_event.exit, serializeSandbox_exec_exit);
+    writer.writeObjectValue<Sandbox_exec_keepalive>("keepalive", sandbox_exec_event.keepalive, serializeSandbox_exec_keepalive);
+    writer.writeObjectValue<Sandbox_exec_started>("started", sandbox_exec_event.started, serializeSandbox_exec_started);
+    writer.writeByteArrayValue("stderr", sandbox_exec_event.stderr);
+    writer.writeByteArrayValue("stdout", sandbox_exec_event.stdout);
+    writer.writeAdditionalData(sandbox_exec_event.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_exit The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_exit(writer: SerializationWriter, sandbox_exec_exit: Partial<Sandbox_exec_exit> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_exit || isSerializingDerivedType) { return; }
+    writer.writeStringValue("duration_ms", sandbox_exec_exit.durationMs);
+    writer.writeStringValue("error", sandbox_exec_exit.errorEscaped);
+    writer.writeNumberValue("exit_code", sandbox_exec_exit.exitCode);
+    writer.writeStringValue("status", sandbox_exec_exit.status);
+    writer.writeAdditionalData(sandbox_exec_exit.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_keepalive The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_keepalive(writer: SerializationWriter, sandbox_exec_keepalive: Partial<Sandbox_exec_keepalive> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_keepalive || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_exec_keepalive.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_pty The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_pty(writer: SerializationWriter, sandbox_exec_pty: Partial<Sandbox_exec_pty> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_pty || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("cols", sandbox_exec_pty.cols);
+    writer.writeNumberValue("rows", sandbox_exec_pty.rows);
+    writer.writeStringValue("term", sandbox_exec_pty.term);
+    writer.writeAdditionalData(sandbox_exec_pty.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_resize The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_resize(writer: SerializationWriter, sandbox_exec_resize: Partial<Sandbox_exec_resize> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_resize || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("cols", sandbox_exec_resize.cols);
+    writer.writeNumberValue("rows", sandbox_exec_resize.rows);
+    writer.writeAdditionalData(sandbox_exec_resize.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_start The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_start(writer: SerializationWriter, sandbox_exec_start: Partial<Sandbox_exec_start> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_start || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("argv", sandbox_exec_start.argv);
+    writer.writeObjectValue<Sandbox_exec_start_env_vars>("env_vars", sandbox_exec_start.envVars, serializeSandbox_exec_start_env_vars);
+    writer.writeBooleanValue("keep_stdin_open", sandbox_exec_start.keepStdinOpen);
+    writer.writeObjectValue<Sandbox_exec_pty>("pty", sandbox_exec_start.pty, serializeSandbox_exec_pty);
+    writer.writeByteArrayValue("stdin", sandbox_exec_start.stdin);
+    writer.writeStringValue("timeout_seconds", sandbox_exec_start.timeoutSeconds);
+    writer.writeStringValue("workdir", sandbox_exec_start.workdir);
+    writer.writeAdditionalData(sandbox_exec_start.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_start_env_vars The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_start_env_vars(writer: SerializationWriter, sandbox_exec_start_env_vars: Partial<Sandbox_exec_start_env_vars> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_start_env_vars || isSerializingDerivedType) { return; }
+    writer.writeAdditionalData(sandbox_exec_start_env_vars.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_started The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_started(writer: SerializationWriter, sandbox_exec_started: Partial<Sandbox_exec_started> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_started || isSerializingDerivedType) { return; }
+    writer.writeStringValue("exec_id", sandbox_exec_started.execId);
+    writer.writeAdditionalData(sandbox_exec_started.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Sandbox_exec_stdin The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSandbox_exec_stdin(writer: SerializationWriter, sandbox_exec_stdin: Partial<Sandbox_exec_stdin> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sandbox_exec_stdin || isSerializingDerivedType) { return; }
+    writer.writeByteArrayValue("data", sandbox_exec_stdin.data);
+    writer.writeBooleanValue("eof", sandbox_exec_stdin.eof);
+    writer.writeStringValue("offset", sandbox_exec_stdin.offset);
+    writer.writeAdditionalData(sandbox_exec_stdin.additionalData);
 }
 /**
  * Serializes information the current object
