@@ -26270,6 +26270,15 @@ export function createSession_insightsFromDiscriminatorValue(parseNode: ParseNod
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Session_mutability}
+ */
+// @ts-ignore
+export function createSession_mutabilityFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSession_mutability;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Session_network}
  */
 // @ts-ignore
@@ -29422,7 +29431,7 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      */
     configDiff?: Session_config_changes | null;
     /**
-     * True when the running config differs from the manifest the session was created from, for example after a successful PATCH with `manifest_yaml`. Omitted when false.
+     * True when the running config differs from the manifest the session was created from, for example after a successful PATCH with `manifest_yaml`. Omitted when false. `config_diff` doesn't cover every kind of drift: after an update that only switched an OAuth connection, `config_drifted` is true and `config_diff` is omitted. `manifest` shows the new `actor`.
      */
     configDrifted?: boolean | null;
     /**
@@ -29457,6 +29466,10 @@ export interface Definitions_session extends AdditionalDataHolder, Parsable {
      * The effective manifest of the session. Present only when `config_drifted` is true. Never contains secret values.
      */
     manifest?: Definitions_session_manifest | null;
+    /**
+     * Which manifest sections a live config update (`PATCH /v2/agents/sessions/{session_id}` with `manifest_yaml`) can change on this session. It describes what this session's agent can take, recorded when the session was created. A flag that is `false` answers `409` with `(update_unsupported)` when a PATCH tries to change what it covers. A session created before the field existed reads `false` for every key. A top-level `model` section in `manifest_yaml` returns `400` whatever this says.
+     */
+    mutability?: Session_mutability | null;
     /**
      * User-assignable display name, unique per team among non-terminal sessions. Usable in place of session_id by clients (doctl / Console resolve it to the id via the ListSessions ?name= filter; the {session_id} path stays UUID-only). Supplied via the environment-spec metadata.name, or auto-generated ("session-<agent-type>-<date-time>") when omitted.
      */
@@ -40233,6 +40246,7 @@ export function deserializeIntoDefinitions_session(definitions_session: Partial<
         "keep_warm": n => { definitions_session.keepWarm = n.getBooleanValue(); },
         "last_event_at": n => { definitions_session.lastEventAt = n.getDateValue(); },
         "manifest": n => { definitions_session.manifest = n.getObjectValue<Definitions_session_manifest>(createDefinitions_session_manifestFromDiscriminatorValue); },
+        "mutability": n => { definitions_session.mutability = n.getObjectValue<Session_mutability>(createSession_mutabilityFromDiscriminatorValue); },
         "name": n => { definitions_session.name = n.getStringValue(); },
         "openai_environment_id": n => { definitions_session.openaiEnvironmentId = n.getStringValue(); },
         "openai_session_id": n => { definitions_session.openaiSessionId = n.getStringValue(); },
@@ -47621,6 +47635,7 @@ export function deserializeIntoSession_config_changes(session_config_changes: Pa
         "env": n => { session_config_changes.env = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
         "permissions": n => { session_config_changes.permissions = n.getObjectValue<Session_config_permissions_changes>(createSession_config_permissions_changesFromDiscriminatorValue); },
         "secrets": n => { session_config_changes.secrets = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
+        "skills": n => { session_config_changes.skills = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
         "tools": n => { session_config_changes.tools = n.getObjectValue<Session_config_section_changes>(createSession_config_section_changesFromDiscriminatorValue); },
     }
 }
@@ -47770,6 +47785,25 @@ export function deserializeIntoSession_insights(session_insights: Partial<Sessio
         "logs": n => { session_insights.logs = n.getBooleanValue(); },
         "metrics": n => { session_insights.metrics = n.getBooleanValue(); },
         "traces": n => { session_insights.traces = n.getBooleanValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param Session_mutability The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSession_mutability(session_mutability: Partial<Session_mutability> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "custom_tools": n => { session_mutability.customTools = n.getBooleanValue(); },
+        "egress": n => { session_mutability.egress = n.getBooleanValue(); },
+        "env": n => { session_mutability.env = n.getBooleanValue(); },
+        "model": n => { session_mutability.model = n.getBooleanValue(); },
+        "permissions": n => { session_mutability.permissions = n.getBooleanValue(); },
+        "secrets": n => { session_mutability.secrets = n.getBooleanValue(); },
+        "skills": n => { session_mutability.skills = n.getBooleanValue(); },
+        "system_prompt": n => { session_mutability.systemPrompt = n.getBooleanValue(); },
+        "tools": n => { session_mutability.tools = n.getBooleanValue(); },
     }
 }
 /**
@@ -57735,7 +57769,7 @@ export type Partner_attachment_writable_region = (typeof Partner_attachment_writ
  */
 export interface Patch_session_request extends Parsable {
     /**
-     * A partial agent manifest, as a YAML string, that holds only the sections to change. Can'tbe combined with `resume_on_topoff`. Requires session settings updates to be enabled foryour team (`403` otherwise).Supported sections are `tools`, `env`, `secrets`, `egress`, and `permissions`. Sections youomit are not changed. Any other top-level key returns `400`, including `model` (set themodel in `env` instead; see **Changing the model**).Each section you include replaces that section in full:- `tools`: the complete list of tools for the session. Only Action Gateway tools  (`do.actions` entries) can be added, removed, or changed. Custom MCP servers can't be  changed on an existing session: include the session's current custom MCP servers  exactly as they are. Adding, removing, or changing one returns `422`. To remove all  Action Gateway tools from a session that has no custom MCP servers, send `tools: []`.  `tools: null` returns `400`.- `env`: the complete set of environment variables, as name-value pairs. A variable you  leave out is removed. `env: {}` removes all variables; `env: null` returns `400`.- `secrets`: the complete set of secrets, as name-value pairs. A secret you leave out is  removed. For each secret, set the value to a string to add or rotate it, or to `{}` to  keep its current value. URL-bound and OAuth secrets also accept an object; see  **URL-bound secrets** and **Switching an OAuth connection**. A `null` value returns  `400`.- `egress`: the complete egress allowlist, as an object with `allow_hosts` (hostnames) and  `allow_ips` (exact IPv4 or IPv6 addresses, not CIDR ranges). Only this object form is  supported in an update. It replaces the session's  current allowlist: a host or IP address you leave out is removed. Leave out `vpc_uuid`  and `subnet_uuid` to keep the session's current VPC, or set them to their current values.  A different value returns `422`. See **Egress**.- `permissions`: the complete permission policy, `default` and the full `rules` list,  with the same fields as at session creation. A rule you leave out is removed.  `permissions: {}` removes the policy (the agent's built-in default applies);  `permissions: null` returns `400`. What can change depends on the session's agent, and  `permissions.filesystem` and `permissions.network` can't be changed. Removing a rule is  a change too: a rule of a type the agent can't change must be kept, so `{}` returns  `409` while the policy has one. If any change  can't be applied on the agent, the request returns `409` and nothing is applied; the  error message names the unsupported changes so you can remove them and send the update  again. Sessions created before live permissions updates were released return `409`.**URL-bound secrets.** The egress proxy sends a URL-bound secret only to requests thatmatch its `url`; the agent never receives the value. An update to a URL-bound secretdoesn't restart the agent. In `secrets`, you can:- Rotate the value: set the secret to the new value as a string. Its `url` and `scheme`  don't change.- Move it to another URL or scheme: set it to `{value, url, scheme}`. A new host or path,  or a change to `scheme: raw`, requires `value` (`400` otherwise). Sending the current  `value`, `url`, and `scheme` again is not a change.- Add one: set it to `{value, url}`. `scheme` is optional and defaults to `bearer`  (`Authorization: Bearer <value>`); `raw` sends the value exactly as stored.- Bind an existing plain secret to a URL: set it to `{url}`. The secret keeps its current  value.- Keep one unchanged: set it to `{}`.- Remove one: leave it out of `secrets`.`url` must use `https://` and name an exact hostname (no wildcards, IP addresses, or`localhost`), with an optional path and no port, query, or fragment. A session can have upto 16 URL-bound secrets, fewer if it has storage mounts, which count toward the same limit. A URL-bound secret can't be changed back to a plain secret. Ifthe session has an egress allowlist, the secret's host is added to it. After a rollback orfork, a URL-bound secret that was moved off its agent config's URL can need its valueagain: the request returns `409` until you send `value`.**Egress.** `egress` changes the hosts and IP addresses the session can reach. The newallowlist takes effect on the session's next outbound connection, without an agentrestart. Connections that are already open stay open, including connections to a host youremoved. Only `allow_hosts` and `allow_ips` can change; the VPC is fixed when the sessionis created. A session created with unrestricted egress and no URL-bound secrets can't gainan allowlist: the update ends in `FAILED` with `error` set to `requires_new_session`.**Switching an OAuth connection.** An OAuth secret that was created with `actor` can moveto another connection of the same provider: set it to `{source: oauth, provider, actor}`with the new connection's `user_id` as `actor`. The connection must be active, and eitheryours or shared with your team (`400` otherwise), except when you switch back to theconnection the agent config names. Switching OAuth connections must be enabled for yourteam (`403` otherwise). The agent restarts to read the new token. Sending the connectionthe secret already uses is not a change. Adding or removing an OAuth secret, changing itsprovider, or switching one that was created without `actor` returns `422`.This example switches `GITHUB_TOKEN` to the connection `github2` and assumes the sessionhas no other secrets:```yamlsecrets:  GITHUB_TOKEN:    source: oauth    provider: github    actor: github2```**Changing the model.** You change a session's model through `env`. The key to set dependson the model endpoint the session was created with:- DigitalOcean Serverless Inference (created with `HARNESS_INFERENCE_MODEL` and without  `OPENAI_BASE_URL`, `ANTHROPIC_BASE_URL`, or an `ANTHROPIC_API_KEY` secret): set  `HARNESS_INFERENCE_MODEL` to a Serverless Inference model ID, or to `router:<name>` for  an inference router. Removing the key, or moving the session to its own endpoint,  returns `422`. Adding the key to a session that was created without it also returns  `422`.- Your own OpenAI-compatible endpoint (created with `OPENAI_BASE_URL`): set `MODEL`. The  session reads `MODEL` before `OPENAI_MODEL`, so set `OPENAI_MODEL` only if the session  uses it and doesn't have `MODEL`.- Your own Anthropic endpoint (created with `ANTHROPIC_BASE_URL`), or the Anthropic API  (created with an `ANTHROPIC_API_KEY` secret and no base URL): set `ANTHROPIC_MODEL`. The  session reads `ANTHROPIC_MODEL` before `MODEL`.On a session that uses its own endpoint, the following rules also apply:- Removing the model key makes the agent use its default model for that endpoint.- The model provider and the base URL (`OPENAI_BASE_URL` or `ANTHROPIC_BASE_URL`) can't be  changed (`422`). Include the base URL with its current value.- The provider API key (`OPENAI_API_KEY` or `ANTHROPIC_API_KEY`) can only be rotated: set  it to the new value as a string, or to `{}` to keep it. Removing it, adding it to a  session that was created without it, or changing its `url` or `scheme` returns `422`.  If the key is URL-bound, rotating it follows the URL-bound secret rules: the agent isn't  restarted, and URL-bound secret updates must be enabled for your team (`403`  otherwise).A model name can't be empty, start or end with whitespace, span more than one line, belonger than 256 bytes, or contain ` #` or `: ` (`400`). Whether the endpoint serves themodel is not checked when you send the request; an unknown model fails on the agent's nextturn.**Reserved keys.** `HARNESS_INFERENCE_API_KEY` and `HARNESS_INFERENCE_BASE_URL` aremanaged by the platform: include them with their current values, or the request returns`422`. Framework keys can't be changed either (`422`). Mount-only secrets (`env: false`)can't be changed on an existing session: set them to `{}` (`422` otherwise). Set an OAuthsecret to `{}` unless you switch its connection.Example that changes the model, keeps one secret, and rotates another. Because eachsection is a full replacement, the example assumes the session has no other envvariables or secrets:```yamlenv:  HARNESS_INFERENCE_MODEL: llama3.3-70b-instruct  LOG_LEVEL: infosecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN: new-token-value```Example that changes the model and rotates the provider API key of a session that wascreated with its own OpenAI-compatible endpoint. The example assumes the session has noother env variables or secrets:```yamlenv:  OPENAI_BASE_URL: https://llm.example.com/v1  MODEL: my-model-v2secrets:  OPENAI_API_KEY: new-api-key```Example that keeps one URL-bound secret, moves another to a new URL, and replaces theegress allowlist. The example assumes the session has no other secrets:```yamlsecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN:    value: new-token-value    url: https://example.atlassian.net/rest/api/3egress:  allow_hosts:    - api.github.com    - example.atlassian.net  allow_ips:    - 203.0.113.10```
+     * A partial agent manifest, as a YAML string, that holds only the sections to change. Can'tbe combined with `resume_on_topoff`. Requires session settings updates to be enabled foryour team (`403` otherwise).Supported sections are `tools`, `env`, `secrets`, `egress`, `permissions`, and `skills`.Sections you omit are not changed. Any other top-level key returns `400`, including `model`(set the model in `env` instead; see **Changing the model**).Each section you include replaces that section in full:- `tools`: the complete list of tools for the session. Action Gateway tools  (`do.actions` entries) can be added, removed, or changed. A custom MCP server can be  added, modified, or removed only where the session's `mutability.custom_tools` is  `true`; otherwise the request returns `409`. Include the session's current custom MCP  servers exactly as they are unless you are changing them. A server with `auth` that is  added, moved to another `url`, or given another secret slot needs its secret's value in  the same request, or a URL-bound secret that covers its `url`; otherwise the request  returns `400`. To remove all Action Gateway tools from a session that has no custom MCP  servers, send `tools: []`. `tools: null` returns `400`.- `env`: the complete set of environment variables, as name-value pairs. A variable you  leave out is removed. `env: {}` removes all variables; `env: null` returns `400`.- `secrets`: the complete set of secrets, as name-value pairs. A secret you leave out is  removed. For each secret, set the value to a string to add or rotate it, or to `{}` to  keep its current value. URL-bound and OAuth secrets also accept an object; see  **URL-bound secrets** and **Switching an OAuth connection**. A `null` value returns  `400`.- `egress`: the complete egress allowlist, as an object with `allow_hosts` (hostnames) and  `allow_ips` (exact IPv4 or IPv6 addresses, not CIDR ranges). Only this object form is  supported in an update. It replaces the session's  current allowlist: a host or IP address you leave out is removed. Leave out `vpc_uuid`  and `subnet_uuid` to keep the session's current VPC, or set them to their current values.  A different value returns `422`. See **Egress**.- `permissions`: the complete permission policy, `default` and the full `rules` list,  with the same fields as at session creation. A rule you leave out is removed.  `permissions: {}` removes the policy (the agent's built-in default applies);  `permissions: null` returns `400`. What can change depends on the session's agent, and  `permissions.filesystem` and `permissions.network` can't be changed. Removing a rule is  a change too: a rule of a type the agent can't change must be kept, so `{}` returns  `409` while the policy has one. If any change  can't be applied on the agent, the request returns `409` and nothing is applied; the  error message names the unsupported changes so you can remove them and send the update  again. Sessions created before live permissions updates were released return `409`.- `skills`: the complete list of inline skills, with the same fields and limits as at  session creation. A skill you leave out is removed. `skills: []` removes every skill;  `skills: null` returns `400`. The same skills in a different order are not a change.  Supported on `claude-code`, `codex`, and `opencode` sessions (`409` otherwise), and must  be enabled for your team (`403` otherwise). The agent reloads its skills without a  restart. If the agent refuses them (for example, a skill named like one the session's  repository already ships), the update ends in `FAILED` with `error` set to  `update_failed` and the session keeps its previous skills: rename the skill and send the  update again. Only an agent that can't reload skills on a running session ends with  `requires_new_session`.**URL-bound secrets.** The egress proxy sends a URL-bound secret only to requests thatmatch its `url`; the agent never receives the value. An update to a URL-bound secretdoesn't restart the agent. In `secrets`, you can:- Rotate the value: set the secret to the new value as a string. Its `url` and `scheme`  don't change.- Move it to another URL or scheme: set it to `{value, url, scheme}`. A new host or path,  or a change to `scheme: raw`, requires `value` (`400` otherwise). Sending the current  `value`, `url`, and `scheme` again is not a change.- Add one: set it to `{value, url}`. `scheme` is optional and defaults to `bearer`  (`Authorization: Bearer <value>`); `raw` sends the value exactly as stored.- Bind an existing plain secret to a URL: set it to `{url}`. The secret keeps its current  value.- Keep one unchanged: set it to `{}`.- Remove one: leave it out of `secrets`.`url` must use `https://` and name an exact hostname (no wildcards, IP addresses, or`localhost`), with an optional path and no port, query, or fragment. A session can have upto 16 URL-bound secrets, fewer if it has storage mounts, which count toward the same limit. A URL-bound secret can't be changed back to a plain secret. Ifthe session has an egress allowlist, the secret's host is added to it. After a rollback orfork, a URL-bound secret that was moved off its agent config's URL can need its valueagain: the request returns `409` until you send `value`.**Egress.** `egress` changes the hosts and IP addresses the session can reach. The newallowlist takes effect on the session's next outbound connection, without an agentrestart. Connections that are already open stay open, including connections to a host youremoved. Only `allow_hosts` and `allow_ips` can change; the VPC is fixed when the sessionis created. A session created with unrestricted egress and no URL-bound secrets can't gainan allowlist: the update ends in `FAILED` with `error` set to `requires_new_session`.**Switching an OAuth connection.** An OAuth secret that was created with `actor` can moveto another connection of the same provider: set it to `{source: oauth, provider, actor}`with the new connection's `user_id` as `actor`; leaving out `provider` or `actor` returns`400`. The connection must be active and owned by you, except when you switch back to theconnection the agent config names. Another team member's connection returns `400`.Switching OAuth connections must be enabled for your team (`403` otherwise). The agentrestarts to read the new token. Sending the connection the secret already uses is not achange. Adding or removing an OAuth secret, changing its provider, or switching one thatwas created without `actor` returns `422`.This example switches `GITHUB_TOKEN` to the connection `github2` and assumes the sessionhas no other secrets:```yamlsecrets:  GITHUB_TOKEN:    source: oauth    provider: github    actor: github2```**Changing the model.** You change a session's model through `env`. The key to set dependson the model endpoint the session was created with:- DigitalOcean Serverless Inference (created with `HARNESS_INFERENCE_MODEL` and without  `OPENAI_BASE_URL`, `ANTHROPIC_BASE_URL`, or an `ANTHROPIC_API_KEY` secret): set  `HARNESS_INFERENCE_MODEL` to a Serverless Inference model ID, or to `router:<name>` for  an inference router. Removing the key, or moving the session to its own endpoint,  returns `422`. Adding the key to a session that was created without it also returns  `422`.- Your own OpenAI-compatible endpoint (created with `OPENAI_BASE_URL`): set `MODEL`. The  session reads `MODEL` before `OPENAI_MODEL`, so set `OPENAI_MODEL` only if the session  uses it and doesn't have `MODEL`.- Your own Anthropic endpoint (created with `ANTHROPIC_BASE_URL`), or the Anthropic API  (created with an `ANTHROPIC_API_KEY` secret and no base URL): set `ANTHROPIC_MODEL`. The  session reads `ANTHROPIC_MODEL` before `MODEL`.On a session that uses its own endpoint, the following rules also apply:- Removing the model key makes the agent use its default model for that endpoint.- The model provider and the base URL (`OPENAI_BASE_URL` or `ANTHROPIC_BASE_URL`) can't be  changed (`422`). Include the base URL with its current value.- The provider API key (`OPENAI_API_KEY` or `ANTHROPIC_API_KEY`) can only be rotated: set  it to the new value as a string, or to `{}` to keep it. Removing it, adding it to a  session that was created without it, or changing its `url` or `scheme` returns `422`.  If the key is URL-bound, rotating it follows the URL-bound secret rules: the agent isn't  restarted, and URL-bound secret updates must be enabled for your team (`403`  otherwise).A model name can't be empty, start or end with whitespace, span more than one line, belonger than 256 bytes, or contain ` #` or `: ` (`400`). Whether the endpoint serves themodel is not checked when you send the request; an unknown model fails on the agent's nextturn.**Reserved keys.** `HARNESS_INFERENCE_API_KEY` and `HARNESS_INFERENCE_BASE_URL` aremanaged by the platform: include them with their current values, or the request returns`422`. Framework keys can't be changed either (`422`). Mount-only secrets (`env: false`)can't be changed on an existing session: set them to `{}` (`422` otherwise). Set an OAuthsecret to `{}` unless you switch its connection.Example that changes the model, keeps one secret, and rotates another. Because eachsection is a full replacement, the example assumes the session has no other envvariables or secrets:```yamlenv:  HARNESS_INFERENCE_MODEL: llama3.3-70b-instruct  LOG_LEVEL: infosecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN: new-token-value```Example that changes the model and rotates the provider API key of a session that wascreated with its own OpenAI-compatible endpoint. The example assumes the session has noother env variables or secrets:```yamlenv:  OPENAI_BASE_URL: https://llm.example.com/v1  MODEL: my-model-v2secrets:  OPENAI_API_KEY: new-api-key```Example that keeps one URL-bound secret, moves another to a new URL, and replaces theegress allowlist. The example assumes the session has no other secrets:```yamlsecrets:  GITHUB_TOKEN: {}  JIRA_API_TOKEN:    value: new-token-value    url: https://example.atlassian.net/rest/api/3egress:  allow_hosts:    - api.github.com    - example.atlassian.net  allow_ips:    - 203.0.113.10```
      */
     manifestYaml?: string | null;
     /**
@@ -71426,6 +71460,7 @@ export function serializeDefinitions_session(writer: SerializationWriter, defini
     writer.writeBooleanValue("keep_warm", definitions_session.keepWarm);
     writer.writeDateValue("last_event_at", definitions_session.lastEventAt);
     writer.writeObjectValue<Definitions_session_manifest>("manifest", definitions_session.manifest, serializeDefinitions_session_manifest);
+    writer.writeObjectValue<Session_mutability>("mutability", definitions_session.mutability, serializeSession_mutability);
     writer.writeStringValue("name", definitions_session.name);
     writer.writeStringValue("openai_environment_id", definitions_session.openaiEnvironmentId);
     writer.writeStringValue("openai_session_id", definitions_session.openaiSessionId);
@@ -79298,6 +79333,7 @@ export function serializeSession_config_changes(writer: SerializationWriter, ses
     writer.writeObjectValue<Session_config_section_changes>("env", session_config_changes.env, serializeSession_config_section_changes);
     writer.writeObjectValue<Session_config_permissions_changes>("permissions", session_config_changes.permissions, serializeSession_config_permissions_changes);
     writer.writeObjectValue<Session_config_section_changes>("secrets", session_config_changes.secrets, serializeSession_config_section_changes);
+    writer.writeObjectValue<Session_config_section_changes>("skills", session_config_changes.skills, serializeSession_config_section_changes);
     writer.writeObjectValue<Session_config_section_changes>("tools", session_config_changes.tools, serializeSession_config_section_changes);
     writer.writeAdditionalData(session_config_changes.additionalData);
 }
@@ -79458,6 +79494,25 @@ export function serializeSession_insights(writer: SerializationWriter, session_i
     writer.writeBooleanValue("metrics", session_insights.metrics);
     writer.writeBooleanValue("traces", session_insights.traces);
     writer.writeAdditionalData(session_insights.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Session_mutability The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSession_mutability(writer: SerializationWriter, session_mutability: Partial<Session_mutability> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!session_mutability || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("custom_tools", session_mutability.customTools);
+    writer.writeBooleanValue("egress", session_mutability.egress);
+    writer.writeBooleanValue("env", session_mutability.env);
+    writer.writeBooleanValue("model", session_mutability.model);
+    writer.writeBooleanValue("permissions", session_mutability.permissions);
+    writer.writeBooleanValue("secrets", session_mutability.secrets);
+    writer.writeBooleanValue("skills", session_mutability.skills);
+    writer.writeBooleanValue("system_prompt", session_mutability.systemPrompt);
+    writer.writeBooleanValue("tools", session_mutability.tools);
 }
 /**
  * Serializes information the current object
@@ -82815,9 +82870,13 @@ export interface Session_config_changes extends AdditionalDataHolder, Parsable {
      */
     permissions?: Session_config_permissions_changes | null;
     /**
-     * Secret names, never values. On an update, `changed` lists the secrets that got a new value or were bound to another URL or scheme. On `config_diff`, `changed` lists only the secrets bound to a different URL or scheme than in the agent config.
+     * Secret names, never values. On an update, `changed` lists the secrets that got a new value, were bound to another URL or scheme, or were switched to another OAuth connection. On `config_diff`, `changed` lists only the secrets bound to a different URL or scheme than in the agent config; a switched OAuth connection isn't listed there.
      */
     secrets?: Session_config_section_changes | null;
+    /**
+     * Skill names, never their content. `changed` lists the skills kept under the same name whose definition changed.
+     */
+    skills?: Session_config_section_changes | null;
     /**
      * Names of the entries added, removed, or changed in one manifest section.
      */
@@ -83068,6 +83127,47 @@ export interface Session_insights extends AdditionalDataHolder, Parsable {
      * Whether the session's customer traces are sent to Insights.
      */
     traces?: boolean | null;
+}
+/**
+ * Which manifest sections a live config update (`PATCH /v2/agents/sessions/{session_id}` with `manifest_yaml`) can change on this session. It describes what this session's agent can take, recorded when the session was created. A flag that is `false` answers `409` with `(update_unsupported)` when a PATCH tries to change what it covers. A session created before the field existed reads `false` for every key. A top-level `model` section in `manifest_yaml` returns `400` whatever this says.
+ */
+export interface Session_mutability extends Parsable {
+    /**
+     * A live update can add, modify, or remove a custom MCP server (`name` and `url`) in the `tools` section. It also needs `tools`. The agent restarts when the change alters its environment. A session reads `false` until its agent's custom-server update is supported, and keeps reading `false` after that if it was created earlier. A server with `auth` that is added, moved to another `url`, or given another secret slot must carry its secret's value in the same request, or use a URL-bound secret whose `url` covers the server's `url` (`400` otherwise). A new server host under an egress allowlist also needs `egress`.
+     */
+    customTools?: boolean | null;
+    /**
+     * A live update can change the `egress` section: the destinations the session can reach.
+     */
+    egress?: boolean | null;
+    /**
+     * A live update can change `env` keys other than the model keys. A patch that changes both needs both.
+     */
+    env?: boolean | null;
+    /**
+     * The session's model can be changed, through `env.HARNESS_INFERENCE_MODEL` or, on a session with its own endpoint, the env key that endpoint reads its model from. Independent of `env`.
+     */
+    model?: boolean | null;
+    /**
+     * A live update can change `permissions`: the default and the rules of the types the session's agent enforces live. `filesystem` and `network` never change on a running session.
+     */
+    permissions?: boolean | null;
+    /**
+     * A live update can change the `secrets` section.
+     */
+    secrets?: boolean | null;
+    /**
+     * A live update can change the `skills` section, the inline skill list, which is replaced as a whole. Only claude-code, codex and opencode can reload skills live. A session reads `false` until its agent's live skill update is supported, and keeps reading `false` after that if it was created earlier. While skills updates are enabled team by team, a team that has them can also change the skills of a claude-code, codex, or opencode session that reads `false`, unless the session was created before this field existed.
+     */
+    skills?: boolean | null;
+    /**
+     * The session's standing instruction can be replaced by a live update.
+     */
+    systemPrompt?: boolean | null;
+    /**
+     * A live update can change the `tools` section: the Action Gateway (`do.actions`) entries. A custom MCP server also needs `custom_tools`.
+     */
+    tools?: boolean | null;
 }
 /**
  * Attaches a session to a VPC.
