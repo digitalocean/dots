@@ -1,8 +1,13 @@
+import type { AgentSandbox } from "./agentSandbox.js";
 import type { ClientOptions } from "./config.js";
 import {
     Sandbox,
+    type AgentSandboxCreateOptions,
     type SandboxCreateOptions,
+    type SandboxGetOptions,
     type SandboxListOptions,
+    type SessionGetOptions,
+    type SessionListOptions,
     type SandboxPaginator,
 } from "./sandbox.js";
 import { Snapshot, type SnapshotCreateOptions, type SnapshotListOptions } from "./snapshots.js";
@@ -20,9 +25,13 @@ import type { SandboxInfo } from "./types.js";
 export class SandboxClient {
     readonly Sandbox: {
         create(opts?: SandboxCreateOptions): Promise<Sandbox>;
-        get(sandboxId: string, opts?: ClientOptions): Promise<Sandbox>;
+        create(opts: AgentSandboxCreateOptions): Promise<AgentSandbox>;
+        getSession(sessionId: string, opts?: ClientOptions): Promise<AgentSandbox>;
+        get(sandboxId: string, opts?: SandboxGetOptions): Promise<Sandbox>;
+        get(sessionId: string, opts: SessionGetOptions): Promise<AgentSandbox>;
         connect(sandboxId: string, opts?: ClientOptions): Promise<Sandbox>;
         list(opts?: SandboxListOptions): SandboxPaginator;
+        list(opts: SessionListOptions): AsyncGenerator<AgentSandbox>;
         kill(sandboxId: string, opts?: ClientOptions): Promise<boolean>;
         pause(sandboxId: string, opts?: ClientOptions): Promise<SandboxInfo>;
     };
@@ -43,10 +52,14 @@ export class SandboxClient {
 
     constructor(opts: ClientOptions = {}) {
         this.Sandbox = {
-            create: (o) => Sandbox.create({ ...opts, ...o }),
-            get: (id, o) => Sandbox.get(id, { ...opts, ...o }),
+            create: ((o?: SandboxCreateOptions | AgentSandboxCreateOptions) =>
+                Sandbox.create({ ...opts, ...o } as never)) as SandboxClient["Sandbox"]["create"],
+            getSession: (id, o) => Sandbox.getSession(id, { ...opts, ...o }),
+            get: ((id: string, o?: SandboxGetOptions | SessionGetOptions) =>
+                Sandbox.get(id, { ...opts, ...o } as never)) as SandboxClient["Sandbox"]["get"],
             connect: (id, o) => Sandbox.connect(id, { ...opts, ...o }),
-            list: (o) => Sandbox.list({ ...opts, ...o }),
+            list: ((o?: SandboxListOptions | SessionListOptions) =>
+                Sandbox.list({ ...opts, ...o } as never)) as SandboxClient["Sandbox"]["list"],
             kill: (id, o) => Sandbox.kill(id, { ...opts, ...o }),
             pause: (id, o) => Sandbox.pause(id, { ...opts, ...o }),
         };

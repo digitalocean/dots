@@ -5,6 +5,7 @@
  * HTTP status, so callers branch with `instanceof`.
  */
 
+import { HarnessRuntimeError, TimeoutError as HarnessTimeoutError } from "../harnessRuntime/errors.js";
 import { HarnessStreamError } from "../streaming/harnessStream.js";
 
 /** Any failed sandbox call. */
@@ -41,6 +42,8 @@ export class RateLimitError extends SandboxError {}
 export class ServiceError extends SandboxError {}
 /** A wait ran out of time. The operation may still finish later. */
 export class SandboxTimeoutError extends SandboxError {}
+/** The object cannot do this: a PTY on an agent session, or a session operation on a bare sandbox. Raised before any request. */
+export class UnsupportedError extends SandboxError {}
 /** A command exited non-zero and the call asked to `check` it. `result` holds its output. */
 export class CommandError<R = unknown> extends SandboxError {
     constructor(
@@ -100,6 +103,25 @@ export async function call<T>(operation: () => Promise<T>): Promise<T> {
         return await operation();
     } catch (err) {
         throw toSandboxError(err);
+    }
+}
+
+/** Maps a Harness Runtime error to the sandbox error of the same HTTP status, so one `catch` covers both APIs. */
+export function fromHarnessError(err: unknown): unknown {
+    if (err instanceof HarnessTimeoutError) return new SandboxTimeoutError(err.message);
+    if (err instanceof HarnessRuntimeError) {
+        if (err.status === 0) return new SandboxError(err.message);
+        return errorForStatus(err.status, err.message, undefined, err.requestId, err.retryAfter);
+    }
+    return err;
+}
+
+/** Runs a Harness Runtime call and rethrows its failure as a sandbox error. */
+export async function viaHarness<T>(operation: () => Promise<T>): Promise<T> {
+    try {
+        return await operation();
+    } catch (err) {
+        throw fromHarnessError(err);
     }
 }
 

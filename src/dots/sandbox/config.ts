@@ -1,6 +1,7 @@
 import { FetchRequestAdapter, KiotaClientFactory } from "@microsoft/kiota-http-fetchlibrary";
 import { createDigitalOceanClient, type DigitalOceanClient } from "../digitalOceanClient.js";
 import { DigitalOceanApiKeyAuthenticationProvider } from "../DigitalOceanApiKeyAuthenticationProvider.js";
+import { HarnessRuntime } from "../harnessRuntime/index.js";
 import { DEFAULT_BASE_URL, type HarnessStreamOptions } from "../streaming/harnessStream.js";
 import { AuthenticationError, errorForStatus, SandboxError } from "./errors.js";
 
@@ -48,6 +49,8 @@ export async function guardedFetch(input: Parameters<typeof fetch>[0], init?: Re
 export interface Connection {
     client: DigitalOceanClient;
     transport: Pick<HarnessStreamOptions, "authProvider" | "baseUrl">;
+    /** The Harness Runtime client for the same token and origin, built on first use. Only agent sessions use it. */
+    harness(): HarnessRuntime;
 }
 
 /** Resolves the token and builds the {@link Connection} the SDK sends every call through. */
@@ -62,5 +65,10 @@ export function connect(opts: ClientOptions = {}, env: NodeJS.ProcessEnv = proce
     const adapter = new FetchRequestAdapter(authProvider, undefined, undefined, KiotaClientFactory.create(guardedFetch));
     const baseUrl = (opts.apiUrl ?? env.DIGITALOCEAN_API_URL ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
     adapter.baseUrl = baseUrl;
-    return { client: createDigitalOceanClient(adapter), transport: { authProvider, baseUrl } };
+    let harness: HarnessRuntime | undefined;
+    return {
+        client: createDigitalOceanClient(adapter),
+        transport: { authProvider, baseUrl },
+        harness: () => (harness ??= new HarnessRuntime({ token, baseUrl })),
+    };
 }

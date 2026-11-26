@@ -15,11 +15,13 @@
  */
 
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
+import type { Manifest } from "../harnessRuntime/session.js";
+import { AgentSandbox } from "./agentSandbox.js";
 import { Commands } from "./commands.js";
 import { createExec, type ExecCallable } from "./exec.js";
 import { Files } from "./files.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
-import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
+import { call, fromHarnessError, NotFoundError, required, SandboxError, SandboxTimeoutError, UnsupportedError, viaHarness } from "./errors.js";
 import { createSnapshot, type Snapshot, type SnapshotCreateOptions } from "./snapshots.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
@@ -40,7 +42,31 @@ export interface SandboxCreateOptions extends ClientOptions {
     envVars?: Record<string, string>;
 }
 
+/** Which API a `get` or `list` call uses. `"sandbox"` (the default) is the sandbox API and `"session"` the harness API. */
+export type SandboxKind = "sandbox" | "session";
+
+/** `Sandbox.get(id)`: a bare sandbox, through the sandbox API. */
+export interface SandboxGetOptions extends ClientOptions {
+    kind?: "sandbox";
+}
+
+/** `Sandbox.get(id, { kind: "session" })`: an agent session, through the harness API only. */
+export interface SessionGetOptions extends ClientOptions {
+    kind: "session";
+}
+
+/** `Sandbox.list({ kind: "session" })`: the team's agent sessions, through the harness API only. */
+export interface SessionListOptions extends ClientOptions {
+    kind: "session";
+    /** Return only sessions in this status, such as `SESSION_STATUS_READY`. */
+    status?: string;
+    /** Return only sessions whose name matches. */
+    search?: string;
+}
+
 export interface SandboxListOptions extends ClientOptions {
+    /** `"sandbox"` is the default. Use `"session"` (see {@link SessionListOptions}) for agent sessions. */
+    kind?: "sandbox";
     /** Return only sandboxes in this state. */
     state?: SandboxState;
     /** Page size. */
@@ -56,10 +82,60 @@ export interface WaitOptions {
     pollIntervalMs?: number;
 }
 
+/** The agent to run, as options instead of a manifest: `Sandbox.create({ agent: { harness: "opencode", model } })`. */
+export interface AgentOptions {
+    /** The agent: `opencode`, `claude-code`, `codex`, and so on. `sandbox` and `none` run no agent and are refused. */
+    harness: string;
+    /** The model, set as `HARNESS_INFERENCE_MODEL` in the agent's environment. */
+    model?: string;
+    /** Environment variables for the agent and its sandbox. */
+    env?: Record<string, string>;
+    /** Secrets for the agent, such as a model key. Not logged and not in the saved config. */
+    secrets?: Record<string, string>;
+    /** Tool rules, as in a manifest: `{ default: "allow", rules: [{ tool: "bash", action: "ask" }] }`. */
+    permissions?: Record<string, unknown>;
+}
+
+interface AgentCreateBase extends ClientOptions {
+    /** Session name, unique among the team's live sessions. */
+    name?: string;
+    /** `false` returns as soon as the session is allocated, without waiting for it to be ready. */
+    wait?: boolean;
+    /** How long to wait for the session to be ready. Defaults to 10 minutes. */
+    timeoutMs?: number;
+    /** Defaults to true: mint the agent's DigitalOcean inference key. `false` brings your own. */
+    manageModelAccessKey?: boolean;
+    /** The options of a bare sandbox cannot be combined with an agent. */
+    template?: never;
+    size?: never;
+    allowInternetAccess?: never;
+    envVars?: never;
+}
+
+/**
+ * `Sandbox.create({ agent })` or `Sandbox.create({ manifest })`: creates a Harness Runtime session and returns an
+ * {@link AgentSandbox}. Pass the agent as `agent` options, or as a full `manifest` (YAML text or an object), not
+ * both. Either way it must name an agent (`harness: opencode`, and so on).
+ */
+export type AgentSandboxCreateOptions = AgentCreateBase &
+    ({ agent: AgentOptions; manifest?: never } | { manifest: Manifest; agent?: never });
+
 const CREATE_KEYS = ["template", "size", "allowInternetAccess", "envVars"];
-const LIST_KEYS = ["state", "limit", "nextToken"];
+const AGENT_CREATE_KEYS = ["agent", "manifest", "name", "wait", "timeoutMs", "manageModelAccessKey"];
+const LIST_KEYS = ["kind", "state", "limit", "nextToken"];
+const SESSION_LIST_KEYS = ["kind", "status", "search"];
+const KINDS = new Set<string>(["sandbox", "session"]);
+
+function checkKind(kind: unknown, where: string): void {
+    if (kind !== undefined && !KINDS.has(String(kind))) {
+        throw new SandboxError(`${where}: \`kind\` must be "sandbox" or "session"`);
+    }
+}
 
 export class Sandbox {
+    /** Tells this apart from an {@link AgentSandbox}, which has `kind: "session"`. */
+    readonly kind = "sandbox" as const;
+
     /** The record as last returned by the API. Call {@link getInfo} to refresh it. */
     info: SandboxInfo;
 
@@ -94,8 +170,31 @@ export class Sandbox {
         return this.info.template;
     }
 
-    /** Creates a sandbox. Resolves once it is running. */
-    static async create(opts: SandboxCreateOptions = {}): Promise<Sandbox> {
+    /**
+     * A bare sandbox has no session operations: this throws {@link UnsupportedError}, and its type is `never`.
+     * Create the sandbox from a manifest (`Sandbox.create({ manifest })`) to get an {@link AgentSandbox}.
+     */
+    get session(): never {
+        throw new UnsupportedError(
+            'a bare sandbox (kind "sandbox") has no session operations. Create an agent session with ' +
+                "Sandbox.create({ manifest }) to use them.",
+        );
+    }
+
+    /**
+     * Creates a sandbox and resolves once it is running. Without `manifest` it calls the sandbox API
+     * (`POST /v2/sandboxes`) and returns a bare `Sandbox`. With `manifest` it calls the harness API
+     * (`POST /v2/harness-runtime/sessions`) and returns an {@link AgentSandbox}.
+     */
+    static async create(opts?: SandboxCreateOptions): Promise<Sandbox>;
+    static async create(opts: AgentSandboxCreateOptions): Promise<AgentSandbox>;
+    static async create(opts: SandboxCreateOptions | AgentSandboxCreateOptions = {}): Promise<Sandbox | AgentSandbox> {
+        const o = opts as { manifest?: unknown; agent?: unknown };
+        if (o.manifest !== undefined || o.agent !== undefined) return createAgent(opts as AgentSandboxCreateOptions);
+        return Sandbox.createBare(opts as SandboxCreateOptions);
+    }
+
+    private static async createBare(opts: SandboxCreateOptions): Promise<Sandbox> {
         rejectUnknownOptions(opts, CREATE_KEYS, "Sandbox.create");
         const template = opts.template ?? DEFAULT_TEMPLATE;
         if (!template.trim()) {
@@ -113,10 +212,25 @@ export class Sandbox {
         return new Sandbox(conn, toInfo(res?.sandbox));
     }
 
-    /** Fetches a sandbox by id. */
-    static async get(sandboxId: string, opts: ClientOptions = {}): Promise<Sandbox> {
+    /**
+     * Fetches a sandbox by id through the sandbox API and returns a bare `Sandbox`. With `{ kind: "session" }` it
+     * fetches an agent session through the harness API only and returns an {@link AgentSandbox}. The kind picks
+     * the API: nothing tries the other one or falls back to it.
+     */
+    static async get(sandboxId: string, opts?: SandboxGetOptions): Promise<Sandbox>;
+    static async get(sessionId: string, opts: SessionGetOptions): Promise<AgentSandbox>;
+    static async get(id: string, opts: SandboxGetOptions | SessionGetOptions = {}): Promise<Sandbox | AgentSandbox> {
+        checkKind(opts.kind, "Sandbox.get");
+        if (opts.kind === "session") return Sandbox.getSession(id, opts);
         const conn = connect(opts);
-        return new Sandbox(conn, await fetchInfo(conn.client, sandboxId));
+        return new Sandbox(conn, await fetchInfo(conn.client, id));
+    }
+
+    /** Fetches an agent session by session id, through the harness API. Returns an {@link AgentSandbox}. */
+    static async getSession(sessionId: string, opts: ClientOptions & { kind?: "session" } = {}): Promise<AgentSandbox> {
+        if (!sessionId?.trim()) throw new SandboxError("`sessionId` is required");
+        const conn = connect(opts);
+        return new AgentSandbox(await viaHarness(() => conn.harness().sessions.get(sessionId)));
     }
 
     /** Fetches a sandbox by id and resumes it if it is paused. */
@@ -130,9 +244,17 @@ export class Sandbox {
      * Lists the team's sandboxes. Iterate it to walk every page, or call
      * `nextItems()` for one page at a time.
      */
-    static list(opts: SandboxListOptions = {}): SandboxPaginator {
+    static list(opts?: SandboxListOptions): SandboxPaginator;
+    /** With `{ kind: "session" }`, lists agent sessions through the harness API only. Iterate it with `for await`. */
+    static list(opts: SessionListOptions): AsyncGenerator<AgentSandbox>;
+    static list(opts: SandboxListOptions | SessionListOptions = {}): SandboxPaginator | AsyncGenerator<AgentSandbox> {
+        checkKind(opts.kind, "Sandbox.list");
+        if (opts.kind === "session") {
+            rejectUnknownOptions(opts, SESSION_LIST_KEYS, "Sandbox.list");
+            return listSessions(connect(opts), opts);
+        }
         rejectUnknownOptions(opts, LIST_KEYS, "Sandbox.list");
-        return new SandboxPaginator(connect(opts), opts);
+        return new SandboxPaginator(connect(opts), opts as SandboxListOptions);
     }
 
     /** Deletes a sandbox by id. Resolves `false` when it does not exist. */
@@ -203,6 +325,81 @@ export class Sandbox {
     async [Symbol.asyncDispose](): Promise<void> {
         await this.kill();
     }
+}
+
+async function* listSessions(conn: Connection, opts: SessionListOptions): AsyncGenerator<AgentSandbox> {
+    try {
+        for await (const s of conn.harness().sessions.list({ status: opts.status, search: opts.search })) {
+            yield new AgentSandbox(s);
+        }
+    } catch (err) {
+        throw fromHarnessError(err);
+    }
+}
+
+/** Harness kinds that run no agent: those are a bare sandbox, so `Sandbox.create()` makes them. */
+const NO_AGENT = new Set(["sandbox", "none"]);
+
+/** Refuses a manifest that names no agent, before any request. Reads a top-level `harness:` the way the harness SDK does. */
+function assertAgentManifest(manifest: Manifest): void {
+    const text = typeof manifest === "string" ? manifest : undefined;
+    if (text !== undefined && /^apiVersion:/m.test(text)) return; // the legacy envelope: the API reads the agent
+    const harness = text !== undefined ? /^harness:\s*["']?([\w-]+)/m.exec(text)?.[1] : (manifest as { harness?: unknown }).harness;
+    if (harness === undefined || NO_AGENT.has(String(harness))) {
+        throw new SandboxError(
+            "Sandbox.create({ manifest }) creates an agent session, so the manifest must name an agent, such as " +
+                "`harness: opencode`. For a bare sandbox call Sandbox.create() with no manifest.",
+        );
+    }
+}
+
+const AGENT_KEYS = ["harness", "model", "env", "secrets", "permissions"];
+
+/** Builds the manifest for `Sandbox.create({ agent })`. Nothing is sent for a bad `agent`. */
+function manifestFromAgent(agent: AgentOptions): Record<string, unknown> {
+    if (agent === null || typeof agent !== "object") throw new SandboxError("Sandbox.create: `agent` must be an object");
+    const bad = Object.keys(agent).filter((k) => !AGENT_KEYS.includes(k) && (agent as unknown as Record<string, unknown>)[k] !== undefined);
+    if (bad.length) throw new SandboxError(`Sandbox.create: unsupported agent option${bad.length > 1 ? "s" : ""} ${bad.join(", ")}`);
+    if (typeof agent.harness !== "string" || !agent.harness.trim()) {
+        throw new SandboxError("Sandbox.create: `agent.harness` is required, such as `opencode`");
+    }
+    const env = { ...agent.env };
+    if (agent.model !== undefined) {
+        if (!agent.model.trim()) throw new SandboxError("Sandbox.create: `agent.model` must not be empty");
+        if ("HARNESS_INFERENCE_MODEL" in env) {
+            throw new SandboxError("Sandbox.create: pass `agent.model` or `agent.env.HARNESS_INFERENCE_MODEL`, not both");
+        }
+        env.HARNESS_INFERENCE_MODEL = agent.model;
+    }
+    const manifest: Record<string, unknown> = { harness: agent.harness };
+    if (Object.keys(env).length) manifest.env = env;
+    if (agent.secrets && Object.keys(agent.secrets).length) manifest.secrets = { ...agent.secrets };
+    if (agent.permissions) manifest.permissions = agent.permissions;
+    return manifest;
+}
+
+async function createAgent(opts: AgentSandboxCreateOptions): Promise<AgentSandbox> {
+    const conflicting = CREATE_KEYS.filter((k) => (opts as unknown as Record<string, unknown>)[k] !== undefined);
+    if (conflicting.length) {
+        throw new SandboxError(`Sandbox.create: \`manifest\` and \`agent\` cannot be combined with ${conflicting.join(", ")}`);
+    }
+    rejectUnknownOptions(opts, AGENT_CREATE_KEYS, "Sandbox.create");
+    if (opts.manifest !== undefined && opts.agent !== undefined) {
+        throw new SandboxError("Sandbox.create: pass `agent` or `manifest`, not both");
+    }
+    const manifest = opts.agent !== undefined ? manifestFromAgent(opts.agent) : (opts.manifest as Manifest);
+    assertAgentManifest(manifest);
+    const conn = connect(opts);
+    const session = await viaHarness(() =>
+        conn.harness().sessions.create({
+            manifest,
+            name: opts.name,
+            wait: opts.wait,
+            timeoutMs: opts.timeoutMs,
+            manageModelAccessKey: opts.manageModelAccessKey,
+        }),
+    );
+    return new AgentSandbox(session);
 }
 
 /** One page at a time via `nextItems()`, or every sandbox via `for await`. */

@@ -419,6 +419,61 @@ shell.close();                                            // disconnects; the pr
 
 Prefer `exec.run` over `commands.run` for short commands: `commands.run` attaches to the output after the command starts, so a command that exits first fails with `NotFoundError`. A stream that ends without an exit event throws `SandboxError`. Options are checked before the request is sent: a command is required unless `pty` is set, `timeoutSeconds` must be a non-negative integer, and PTY rows and columns must be 1 to 1000.
 
+#### Agent sessions (managed harness)
+`Sandbox` is one entry point for two APIs. The kind of object decides the API for every call on it:
+
+| You call | API | You get |
+| --- | --- | --- |
+| `Sandbox.create()` | sandbox API, `POST /v2/sandboxes` | `Sandbox` (`kind: "sandbox"`, has `sandboxId`) |
+| `Sandbox.create({ agent })` or `Sandbox.create({ manifest })` | harness API, `POST /v2/harness-runtime/sessions` | `AgentSandbox` (`kind: "session"`, has `sessionId` and `sandboxId`) |
+| `Sandbox.get(id)`, `Sandbox.connect(id)`, `Sandbox.list()` | sandbox API | `Sandbox` |
+| `Sandbox.get(id, { kind: "session" })`, `Sandbox.getSession(id)` | harness API | `AgentSandbox` |
+| `Sandbox.list({ kind: "session" })` | harness API | async iterator of `AgentSandbox` |
+
+```typescript
+import { readFileSync } from "node:fs";
+import { Sandbox } from "@digitalocean/dots/sandbox";
+
+// Describe the agent as options. The SDK builds the manifest for you.
+await using box = await Sandbox.create({
+    agent: { harness: "opencode", model: "anthropic-claude-5.5-haiku", permissions: { default: "allow", rules: [{ tool: "bash", action: "ask" }] } },
+});
+
+// Or pass a full manifest (YAML text or an object). Either way it must name an agent, such as `harness: opencode`.
+// A complete one is in examples/harness-runtime/agent.yaml. Pass `agent` or `manifest`, not both.
+await using fromFile = await Sandbox.create({ manifest: readFileSync("agent.yaml", "utf8") });
+
+await box.exec("pytest -x", { cwd: "/workspace", env: { CI: "1" }, timeout: "2m", check: true }); // same options and result as a bare sandbox
+await box.files.upload("a.txt", "hi");       // harness files: upload, download, downloadText, copyFromLocal, copyToLocal
+await box.run("Fix the failing test");       // the agent; box.send() and box.events() too
+const agent = box.agent();                   // the agent only: run, send, events, history, cancel, resolveApproval
+await box.pause(); await box.resume();
+box.session;                                 // the full harness Session: spawn with live stdin, checkpoint, fork, approvals
+```
+
+Every `AgentSandbox` method is the harness API. The shortcuts on `box` are thin wrappers over `box.session`, which is the underlying harness `Session`:
+
+| On `box` | Same as | Notes |
+| --- | --- | --- |
+| `box.send(text)`, `box.run(text, opts)`, `box.events()` | `box.agent().send`, `.run`, `.events` (and `box.session.*`) | the agent; `run` waits for the turn, `send` returns the run id |
+| `box.agent()` | | an `AgentHandle`: `run`, `send`, `events`, `history`, `cancel` (`acked`, `no_turn`, `unsupported`) and `resolveApproval`. It never touches the sandbox, so `exec` and `files` stay on `box` |
+| `box.pause()`, `box.resume()`, `box.kill()` | `box.session.pause`, `.resume`, `.destroy` | `kill` also deletes the saved config; `false` if already gone |
+| `box.getInfo()`, `box.waitUntilReady()` | `box.session.refresh`, `.waitUntilReady` | |
+| `box.files` | `box.session.files` | the same object |
+| `box.exec(cmd, opts)` | `box.session.exec`, with the bare sandbox's options and result | `box.session.exec` takes `timeoutMs`, returns no `ok`, and has no `check` or `env`/`timeout` aliases |
+| only on `box.session` | | `spawn`, `checkpoint`, `fork`, `rollback`, `cancel`, `resolveApproval`, `updateConfig`, `history`, `portForward` |
+
+Both spellings call the harness API, so `box.send("hi")` and `box.session.send("hi")` do the same thing. Use the one on `box` when it exists. Use `box.session` for what it does not wrap.
+
+- **`kind` on `get` and `list`:** `kind` is `"sandbox"` by default. `{ kind: "session" }` uses the harness API only. A call never queries both APIs or falls back, so a sandbox id passed to `get(id, { kind: "session" })` is a `NotFoundError` unless it is a session id. `list` with `kind: "session"` takes `status` and `search`; the sandbox form takes `state`, `limit` and `nextToken`.
+- **Create options:** `agent` takes `harness` (required), `model` (sent as `HARNESS_INFERENCE_MODEL`), `env`, `secrets` and `permissions`. `agent` and `manifest` are alternatives: passing both, an unknown `agent` key, or `model` together with `env.HARNESS_INFERENCE_MODEL` is an error before any request. Both forms also take `name`, `wait`, `timeoutMs` and `manageModelAccessKey`, and reject `template`, `size`, `allowInternetAccess` and `envVars`, and an agent that is `sandbox` or `none`. For a bare sandbox call `Sandbox.create()`.
+- **No mixing.** A bare `Sandbox` never calls the harness API, and an `AgentSandbox` never calls the sandbox API (its `sandboxId` is informational: a rollback replaces it). Session operations are blocked on a bare sandbox. It has no `send`, `run` or `events`, so `sandbox.send()` is a compile error in TypeScript and a `TypeError: sandbox.send is not a function` in plain JavaScript or a REPL, with no request sent. `sandbox.session` throws `UnsupportedError`, and its type is `never`, so `sandbox.session.send()` does not compile either. A PTY (`exec.start`) is the sandbox API's, so an `AgentSandbox` has none: use `box.session.spawn(cmd, { stdin: true })` for live stdin.
+- **Cleanup:** `box.kill()` destroys the session, deletes the config saved for the manifest, and revokes the managed key. It resolves `false` if the session is already gone. `await using` does the same at the end of a scope.
+- **Errors:** harness errors come back as the sandbox error classes (`NotFoundError`, `ConflictError`, `SandboxTimeoutError`, and so on), so one `catch` covers both APIs.
+- **Differences from a bare sandbox:** `box.exec` runs a string as `sh -c` (the bare sandbox uses `bash -lc`), starts in `/workspace` when `cwd` is omitted, and keeps at most 1 MiB per stream unless you stream (`truncated` says so). `box.files` has the harness methods, not `list`, `move` or `makeDir`. `box.status` is the raw `SESSION_STATUS_*` string.
+
+Runnable examples, one per call: [examples/agentSandbox](examples/agentSandbox/README.md) (create, get and list, exec, files, run/send/events, spawn, lifecycle, errors, client, approvals, the `agent` option). A short side-by-side of both kinds: [examples/sandbox/12-agent-session.ts](examples/sandbox/12-agent-session.ts).
+
 ## **Known Issues**
 
 >This section lists the known issues of the client generator.

@@ -62,6 +62,7 @@ npx tsx check.ts && rm check.ts
 | [`09-errors.ts`](09-errors.ts) | Triggers and catches `NotFoundError`, `InvalidRequestError`, `AuthenticationError`, `SandboxError` |
 | [`10-parallel.ts`](10-parallel.ts) | Runs three sandboxes at the same time |
 | [`11-cleanup.ts`](11-cleanup.ts) | Lists (and with `DELETE=1`, deletes) sandboxes older than `MAX_AGE_HOURS` |
+| [`12-agent-session.ts`](12-agent-session.ts) | `Sandbox.create({ manifest })`: an agent session (harness API) next to a bare sandbox (sandbox API), and the calls each blocks |
 
 ```shell
 npx tsx examples/sandbox/01-hello.ts
