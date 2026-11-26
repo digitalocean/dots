@@ -432,11 +432,12 @@ Prefer `exec.run` over `commands.run` for short commands: `commands.run` attache
 
 ```typescript
 import { readFileSync } from "node:fs";
-import { Sandbox } from "@digitalocean/dots/sandbox";
+import { Agent, Sandbox } from "@digitalocean/dots/sandbox";
 
-// Describe the agent as options. The SDK builds the manifest for you.
+// Describe the agent with `Agent`. The SDK builds the manifest for you. A plain object works too:
+// `agent: { harness: "opencode", model: "..." }`.
 await using box = await Sandbox.create({
-    agent: { harness: "opencode", model: "anthropic-claude-5.5-haiku", permissions: { default: "allow", rules: [{ tool: "bash", action: "ask" }] } },
+    agent: new Agent("opencode", { model: "anthropic-claude-5.5-haiku", permissions: { default: "allow", rules: [{ tool: "bash", action: "ask" }] } }),
 });
 
 // Or pass a full manifest (YAML text or an object). Either way it must name an agent, such as `harness: opencode`.
@@ -466,7 +467,7 @@ Every `AgentSandbox` method is the harness API. The shortcuts on `box` are thin 
 Both spellings call the harness API, so `box.send("hi")` and `box.session.send("hi")` do the same thing. Use the one on `box` when it exists. Use `box.session` for what it does not wrap.
 
 - **`kind` on `get` and `list`:** `kind` is `"sandbox"` by default. `{ kind: "session" }` uses the harness API only. A call never queries both APIs or falls back, so a sandbox id passed to `get(id, { kind: "session" })` is a `NotFoundError` unless it is a session id. `list` with `kind: "session"` takes `status` and `search`; the sandbox form takes `state`, `limit` and `nextToken`.
-- **Create options:** `agent` takes `harness` (required), `model` (sent as `HARNESS_INFERENCE_MODEL`), `env`, `secrets` and `permissions`. `agent` and `manifest` are alternatives: passing both, an unknown `agent` key, or `model` together with `env.HARNESS_INFERENCE_MODEL` is an error before any request. Both forms also take `name`, `wait`, `timeoutMs` and `manageModelAccessKey`, and reject `template`, `size`, `allowInternetAccess` and `envVars`, and an agent that is `sandbox` or `none`. For a bare sandbox call `Sandbox.create()`.
+- **Create options:** `new Agent(harness, options)` (or the plain object `{ harness, ...options }`) takes `harness` (required), `model` (sent as `HARNESS_INFERENCE_MODEL`), `env`, `secrets` and `permissions`. `agent` and `manifest` are alternatives: passing both, an unknown `agent` key, or `model` together with `env.HARNESS_INFERENCE_MODEL` is an error before any request. Both forms also take `name`, `wait`, `timeoutMs` and `manageModelAccessKey`, and reject `template`, `size`, `allowInternetAccess` and `envVars`, and an agent that is `sandbox` or `none`. For a bare sandbox call `Sandbox.create()`.
 - **No mixing.** A bare `Sandbox` never calls the harness API, and an `AgentSandbox` never calls the sandbox API (its `sandboxId` is informational: a rollback replaces it). Session operations are blocked on a bare sandbox. It has no `send`, `run` or `events`, so `sandbox.send()` is a compile error in TypeScript and a `TypeError: sandbox.send is not a function` in plain JavaScript or a REPL, with no request sent. `sandbox.session` throws `UnsupportedError`, and its type is `never`, so `sandbox.session.send()` does not compile either. A PTY (`exec.start`) is the sandbox API's, so an `AgentSandbox` has none: use `box.session.spawn(cmd, { stdin: true })` for live stdin.
 - **Cleanup:** `box.kill()` destroys the session, deletes the config saved for the manifest, and revokes the managed key. It resolves `false` if the session is already gone. `await using` does the same at the end of a scope.
 - **Errors:** harness errors come back as the sandbox error classes (`NotFoundError`, `ConflictError`, `SandboxTimeoutError`, and so on), so one `catch` covers both APIs.

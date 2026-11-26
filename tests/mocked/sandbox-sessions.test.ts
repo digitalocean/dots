@@ -4,6 +4,7 @@
  */
 import nock from "nock";
 import {
+    Agent,
     AgentHandle,
     AgentSandbox,
     CommandError,
@@ -109,6 +110,28 @@ describe("unified Sandbox", () => {
                 secrets: { GITHUB_TOKEN: "t" },
                 permissions: { default: "allow", rules: [{ tool: "bash", action: "ask" }] },
             });
+        });
+
+        it("with `new Agent(harness, options)` sends the same manifest as the object form", async () => {
+            const bodies: unknown[] = [];
+            for (let i = 0; i < 2; i++) {
+                api()
+                    .post("/v2/harness-runtime/sessions", (b) => (bodies.push(b), true))
+                    .query(true)
+                    .reply(201, { session: sessionInfo() });
+            }
+            const options = { model: "m1", env: { A: "1" }, permissions: { default: "allow" } };
+            await Sandbox.create({ ...OPTS, agent: new Agent("opencode", options) });
+            await Sandbox.create({ ...OPTS, agent: { harness: "opencode", ...options } });
+            expect(bodies[0]).toEqual(bodies[1]);
+            expect(bodies[0]).toEqual({ harness: "opencode", env: { A: "1", HARNESS_INFERENCE_MODEL: "m1" }, permissions: { default: "allow" } });
+        });
+
+        it("refuses an Agent that names no agent, or has a bad option, before any request", async () => {
+            await expect(Sandbox.create({ ...OPTS, agent: new Agent("sandbox") })).rejects.toThrow(/must name an agent/);
+            await expect(Sandbox.create({ ...OPTS, agent: new Agent("") })).rejects.toThrow(/`agent.harness` is required/);
+            await expect(Sandbox.create({ ...OPTS, agent: new Agent("opencode", { temperature: 1 } as never) })).rejects.toThrow(/unsupported agent option temperature/);
+            expect(nock.pendingMocks()).toEqual([]);
         });
 
         it("with a bare `agent` sends only the harness", async () => {

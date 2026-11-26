@@ -34,7 +34,7 @@ on a DigitalOcean model.
 | [`08-errors.ts`](08-errors.ts) | the sandbox error classes for harness failures, `UnsupportedError`, refused options |
 | [`09-client.ts`](09-client.ts) | `SandboxClient`: bind the token once |
 | [`10-approvals.ts`](10-approvals.ts) | human in the loop: `onApproval` on `run` (you answer on the terminal), and `events` with `session.resolveApproval` (a policy answers from code) |
-| [`11-agent-option.ts`](11-agent-option.ts) | `Sandbox.create({ agent: { harness, model, env, secrets, permissions } })` instead of a manifest, and `box.agent()`: `run`, `send`, `history`, `cancel` |
+| [`11-agent-option.ts`](11-agent-option.ts) | `Sandbox.create({ agent: new Agent(harness, { model, env, secrets, permissions }) })` instead of a manifest (or the plain object), and `box.agent()`: `run`, `send`, `history`, `cancel` |
 
 ```shell
 npx tsx examples/agentSandbox/01-create.ts

@@ -82,7 +82,7 @@ export interface WaitOptions {
     pollIntervalMs?: number;
 }
 
-/** The agent to run, as options instead of a manifest: `Sandbox.create({ agent: { harness: "opencode", model } })`. */
+/** The agent to run, as options instead of a manifest: `Sandbox.create({ agent: { harness: "opencode", model } })`. `new Agent(harness, options)` is the same thing as a value. */
 export interface AgentOptions {
     /** The agent: `opencode`, `claude-code`, `codex`, and so on. `sandbox` and `none` run no agent and are refused. */
     harness: string;
@@ -94,6 +94,26 @@ export interface AgentOptions {
     secrets?: Record<string, string>;
     /** Tool rules, as in a manifest: `{ default: "allow", rules: [{ tool: "bash", action: "ask" }] }`. */
     permissions?: Record<string, unknown>;
+}
+
+/**
+ * The agent to run: `new Agent("opencode", { model })`. The same options as {@link AgentOptions}, with the harness
+ * as the first argument. Pass it as `Sandbox.create({ agent })`.
+ *
+ * ```ts
+ * const box = await Sandbox.create({ agent: new Agent("opencode", { model: "anthropic-claude-5.5-haiku" }) });
+ * ```
+ */
+export class Agent {
+    /** The agent: `opencode`, `claude-code`, `codex`, and so on. */
+    readonly harness: string;
+    /** The model, env, secrets and permissions, as in {@link AgentOptions}. */
+    readonly options: Readonly<Omit<AgentOptions, "harness">>;
+
+    constructor(harness: string, options: Omit<AgentOptions, "harness"> = {}) {
+        this.harness = harness;
+        this.options = { ...options };
+    }
 }
 
 interface AgentCreateBase extends ClientOptions {
@@ -118,7 +138,7 @@ interface AgentCreateBase extends ClientOptions {
  * both. Either way it must name an agent (`harness: opencode`, and so on).
  */
 export type AgentSandboxCreateOptions = AgentCreateBase &
-    ({ agent: AgentOptions; manifest?: never } | { manifest: Manifest; agent?: never });
+    ({ agent: Agent | AgentOptions; manifest?: never } | { manifest: Manifest; agent?: never });
 
 const CREATE_KEYS = ["template", "size", "allowInternetAccess", "envVars"];
 const AGENT_CREATE_KEYS = ["agent", "manifest", "name", "wait", "timeoutMs", "manageModelAccessKey"];
@@ -356,7 +376,8 @@ function assertAgentManifest(manifest: Manifest): void {
 const AGENT_KEYS = ["harness", "model", "env", "secrets", "permissions"];
 
 /** Builds the manifest for `Sandbox.create({ agent })`. Nothing is sent for a bad `agent`. */
-function manifestFromAgent(agent: AgentOptions): Record<string, unknown> {
+function manifestFromAgent(input: Agent | AgentOptions): Record<string, unknown> {
+    const agent: AgentOptions = input instanceof Agent ? { ...input.options, harness: input.harness } : input;
     if (agent === null || typeof agent !== "object") throw new SandboxError("Sandbox.create: `agent` must be an object");
     const bad = Object.keys(agent).filter((k) => !AGENT_KEYS.includes(k) && (agent as unknown as Record<string, unknown>)[k] !== undefined);
     if (bad.length) throw new SandboxError(`Sandbox.create: unsupported agent option${bad.length > 1 ? "s" : ""} ${bad.join(", ")}`);

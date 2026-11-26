@@ -75,6 +75,7 @@ export {
     UnsupportedError,
 } from "./errors.js";
 export {
+    Agent,
     DEFAULT_SIZE,
     DEFAULT_TEMPLATE,
     Sandbox,

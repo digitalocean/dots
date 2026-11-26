@@ -1,5 +1,5 @@
 /**
- * Sandbox.create({ agent }) and box.agent(): describe the agent as options, then drive it through its own handle.
+ * Sandbox.create({ agent: new Agent(...) }) and box.agent(): describe the agent, then drive it through its own handle.
  *
  *   npx tsx examples/agentSandbox/11-agent-option.ts
  *
@@ -8,19 +8,19 @@
  * This starts the agent, which uses inference.
  * Downstream code imports from "@digitalocean/dots/sandbox" instead of the relative path.
  */
-import { Sandbox } from "../../src/dots/sandbox/index.js";
+import { Agent, Sandbox } from "../../src/dots/sandbox/index.js";
 
-// `agent` replaces a manifest file: the SDK builds the manifest from these options and creates the session
+// `agent` replaces a manifest file: the SDK builds the manifest from the Agent and creates the session
 // through the harness API. It must name an agent. Pass `agent` or `manifest`, not both (see 01-create.ts).
 await using box = await Sandbox.create({
-    agent: {
-        harness: "opencode",
+    agent: new Agent("opencode", {
         model: "anthropic-claude-5.5-haiku", // sent as HARNESS_INFERENCE_MODEL
         env: { LOG_LEVEL: "info" }, // for the agent and its sandbox
         // secrets: { GITHUB_TOKEN: process.env.GITHUB_TOKEN! }, // not logged, not in the saved config
         permissions: { default: "allow", rules: [{ tool: "bash", action: "ask" }] }, // shell commands need approval
-    },
+    }),
 });
+// The plain object does the same: agent: { harness: "opencode", model: "..." }.
 console.log(`${box.kind} ${box.sessionId} on sandbox ${box.sandboxId}`);
 
 // box.agent() is the agent and nothing else. The sandbox calls stay on box and do not wait for a run:
