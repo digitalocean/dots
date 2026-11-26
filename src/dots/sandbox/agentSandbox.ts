@@ -13,9 +13,18 @@
  */
 
 import type { Session } from "../harnessRuntime/session.js";
-import { rejectUnknownOptions } from "./config.js";
+import type { TriggerHandle } from "../harnessRuntime/triggers.js";
+import { rejectUnknownOptions, type Connection } from "./config.js";
 import { CommandError, NotFoundError, SandboxError, viaHarness } from "./errors.js";
 import { parseDuration, type ExecCallOptions, type ExecCommand, type ExecResult } from "./exec.js";
+import {
+    checkTriggerRequest,
+    createTrigger,
+    type CronSchedule,
+    type TriggerBase,
+    type WebhookSchedule,
+    type WebhookTriggerResult,
+} from "./triggers.js";
 
 const EXEC_KEYS = ["cwd", "envVars", "env", "timeoutSeconds", "timeout", "stdin", "signal", "onStdout", "onStderr", "check"];
 
@@ -68,8 +77,11 @@ export class AgentSandbox {
     /** Copy files in and out of `/workspace`: `upload`, `download`, `downloadText`, `copyFromLocal`, `copyToLocal`. */
     readonly files: Session["files"];
 
-    /** @internal Use `Sandbox.create({ manifest })` or `Sandbox.getSession(id)`. */
-    constructor(session: Session) {
+    private readonly conn: Connection;
+
+    /** @internal Use `Sandbox.create({ agent })`, `Sandbox.create({ manifest })` or `Sandbox.getSession(id)`. */
+    constructor(session: Session, conn: Connection) {
+        this.conn = conn;
         this.session = session;
         this.files = session.files;
     }
@@ -89,6 +101,27 @@ export class AgentSandbox {
     /** The agent in this session: `run`, `send`, `events`, `history`, `cancel` and `resolveApproval`. */
     agent(): AgentHandle {
         return new AgentHandle(this.session);
+    }
+
+    /**
+     * Runs this session's agent on a schedule or from a webhook. The trigger is bound to this session: each run
+     * resumes it, so the agent keeps its files and history. A bound session must be paused when a run fires and
+     * is best treated as dedicated to the trigger, because messaging it or any call that resumes it wakes it.
+     * Pass `pause: true` to pause it first. Without `pause`, a session that is still awake is for the API to
+     * accept or reject. `cron` returns the trigger; `webhook` returns `{ trigger, setup }`, where `setup` holds the
+     * URL and the signing secret, which is shown only once.
+     *
+     * ```ts
+     * const t = await box.trigger({ name: "docs-sync", prompt: "Sync the docs", cron: "0 * * * *", pause: true });
+     * ```
+     */
+    async trigger(opts: TriggerBase & CronSchedule & { pause?: boolean }): Promise<TriggerHandle>;
+    async trigger(opts: TriggerBase & WebhookSchedule & { pause?: boolean }): Promise<WebhookTriggerResult>;
+    async trigger(opts: (TriggerBase & (CronSchedule | WebhookSchedule)) & { pause?: boolean }): Promise<TriggerHandle | WebhookTriggerResult> {
+        checkTriggerRequest(opts, ["pause"], "box.trigger");
+        const { pause, ...request } = opts;
+        if (pause) await this.pause();
+        return createTrigger(this.conn, { session: this.sessionId }, request);
     }
 
     /** Reads the session again. */

@@ -286,6 +286,129 @@ describe("unified Sandbox", () => {
         });
     });
 
+    describe("triggers", () => {
+        const CRON = { trigger: { trigger_id: "t1", kind: "cron", name: "n", cron: { cron_expr: "0 * * * *", timezone: "UTC" } } };
+        const capture = () => {
+            const seen: { body?: Record<string, unknown> } = {};
+            return { seen, body: (b: Record<string, unknown>) => ((seen.body = b), true) };
+        };
+
+        it("Sandbox.trigger with `agent` starts a fresh session per run, from the built manifest", async () => {
+            const c = capture();
+            api().post("/v2/harness-runtime/triggers", c.body).reply(201, CRON);
+            const t = await Sandbox.trigger({
+                ...OPTS,
+                name: "docs-sync",
+                prompt: "Sync the docs",
+                cron: "0 * * * *",
+                agent: new Agent("opencode", { model: "m", secrets: { OPENAI_API_KEY: "k" } }),
+                output: { email: "me@example.com" },
+            });
+            expect(t.id).toBe("t1");
+            expect(c.seen.body).toMatchObject({
+                kind: "cron",
+                name: "docs-sync",
+                session_mode: "fresh",
+                prompt_template: "Sync the docs",
+                cron: { cron_expr: "0 * * * *", timezone: "UTC" }, // timezone defaults to UTC
+                output: { mode: "email", email: "me@example.com" },
+            });
+            expect(JSON.parse(String(c.seen.body?.session_template))).toEqual({
+                harness: "opencode",
+                env: { HARNESS_INFERENCE_MODEL: "m" },
+                secrets: { OPENAI_API_KEY: "k" },
+            });
+        });
+
+        it("Sandbox.trigger with a manifest and a webhook returns the handle and the one-time setup", async () => {
+            const c = capture();
+            api()
+                .post("/v2/harness-runtime/triggers", c.body)
+                .reply(201, {
+                    trigger: { trigger_id: "t2", kind: "webhook", webhook: { provider: "github", webhook_url: "https://hook" } },
+                    webhook_secret: "s3cret",
+                })
+                .get("/v2/harness-runtime/webhook-providers")
+                .reply(200, { providers: [{ key: "github", display_name: "GitHub" }] });
+            const { trigger, setup } = await Sandbox.trigger({ ...OPTS, name: "pr", prompt: "Review {{payload}}", webhook: "github", manifest: AGENT });
+            expect(trigger.id).toBe("t2");
+            expect(setup.secret).toBe("s3cret");
+            expect(setup.url).toBe("https://hook");
+            expect(c.seen.body).toMatchObject({ kind: "webhook", session_mode: "fresh", webhook: { provider: "github" } });
+        });
+
+        it.each([
+            ["neither cron nor webhook", { name: "n", prompt: "p", agent: AGENT }, /`cron` \(a schedule\) or `webhook`/],
+            ["both cron and webhook", { name: "n", prompt: "p", cron: "* * * * *", webhook: "custom", agent: AGENT }, /not both or neither/],
+            ["no agent or manifest", { name: "n", prompt: "p", cron: "* * * * *" }, /pass `agent` or `manifest`/],
+            ["both agent and manifest", { name: "n", prompt: "p", cron: "* * * * *", agent: AGENT, manifest: AGENT }, /`agent` or `manifest`, not both/],
+            ["an agent that runs no agent", { name: "n", prompt: "p", cron: "* * * * *", agent: { harness: "sandbox" } }, /must name an agent/],
+            ["a missing name", { prompt: "p", cron: "* * * * *", agent: AGENT }, /`name` is required/],
+            ["a bad webhook provider", { name: "n", prompt: "p", webhook: "svn", agent: AGENT }, /must be "github", "gitlab" or "custom"/],
+            ["an unknown option", { name: "n", prompt: "p", cron: "* * * * *", agent: AGENT, schedule: "x" }, /unsupported option schedule/],
+        ])("Sandbox.trigger refuses %s, before any request", async (_label, opts, message) => {
+            await expect(Sandbox.trigger({ ...OPTS, ...opts } as never)).rejects.toThrow(message);
+            expect(nock.pendingMocks()).toEqual([]);
+        });
+
+        it("Sandbox.trigger maps a harness failure to a sandbox error", async () => {
+            api().post("/v2/harness-runtime/triggers").reply(409, { message: "name taken" });
+            const err = await Sandbox.trigger({ ...OPTS, name: "n", prompt: "p", cron: "* * * * *", agent: AGENT }).catch((e) => e);
+            expect(err).toBeInstanceOf(ConflictError);
+        });
+
+        it("box.trigger binds the trigger to the session (reuse mode)", async () => {
+            api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });
+            const box = await Sandbox.getSession("s1", OPTS);
+            const c = capture();
+            api().post("/v2/harness-runtime/triggers", c.body).reply(201, CRON);
+            const t = await box.trigger({ name: "n", prompt: "p", cron: "0 9 * * 1-5", timezone: "Asia/Kolkata" });
+            expect(t.id).toBe("t1");
+            expect(c.seen.body).toMatchObject({
+                kind: "cron",
+                session_mode: "reuse",
+                bound_session_id: "s1",
+                cron: { cron_expr: "0 9 * * 1-5", timezone: "Asia/Kolkata" },
+            });
+            expect(c.seen.body).not.toHaveProperty("session_template");
+        });
+
+        it("box.trigger with pause: true pauses the session first", async () => {
+            api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });
+            const box = await Sandbox.getSession("s1", OPTS);
+            const order: string[] = [];
+            api()
+                .post("/v2/harness-runtime/sessions/s1/pause")
+                .reply(200, () => (order.push("pause"), {}))
+                .post("/v2/harness-runtime/triggers")
+                .reply(201, () => (order.push("trigger"), CRON));
+            await box.trigger({ name: "n", prompt: "p", cron: "* * * * *", pause: true });
+            expect(order).toEqual(["pause", "trigger"]);
+        });
+
+        it("box.trigger without pause does not pause", async () => {
+            api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });
+            const box = await Sandbox.getSession("s1", OPTS);
+            api().post("/v2/harness-runtime/triggers").reply(201, CRON);
+            await box.trigger({ name: "n", prompt: "p", cron: "* * * * *" });
+            expect(nock.isDone()).toBe(true); // no pause interceptor was set, so none was sent
+        });
+
+        it("box.trigger refuses a bad request before pausing or sending anything", async () => {
+            api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });
+            const box = await Sandbox.getSession("s1", OPTS);
+            await expect(box.trigger({ name: "n", prompt: "p", pause: true } as never)).rejects.toThrow(/`cron` \(a schedule\) or `webhook`/);
+            await expect(box.trigger({ name: "n", prompt: "p", cron: "* * * * *", manifest: AGENT } as never)).rejects.toThrow(/unsupported option manifest/);
+            expect(nock.pendingMocks()).toEqual([]);
+        });
+
+        it("a bare sandbox has no trigger", async () => {
+            api().get("/v2/sandboxes/sb-1").reply(200, { sandbox: sandboxInfo() });
+            const bare = await Sandbox.get("sb-1", OPTS);
+            expect((bare as unknown as { trigger?: unknown }).trigger).toBeUndefined();
+        });
+    });
+
     describe("an agent session", () => {
         async function agent() {
             api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });

@@ -1,3 +1,4 @@
+import type { TriggerHandle } from "../harnessRuntime/triggers.js";
 import type { AgentSandbox } from "./agentSandbox.js";
 import type { ClientOptions } from "./config.js";
 import {
@@ -6,10 +7,12 @@ import {
     type SandboxCreateOptions,
     type SandboxGetOptions,
     type SandboxListOptions,
+    type SandboxTriggerOptions,
     type SessionGetOptions,
     type SessionListOptions,
     type SandboxPaginator,
 } from "./sandbox.js";
+import type { CronSchedule, WebhookSchedule, WebhookTriggerResult } from "./triggers.js";
 import { Snapshot, type SnapshotCreateOptions, type SnapshotListOptions } from "./snapshots.js";
 import { Template, type Pages, type TemplateCreateOptions, type TemplateListOptions } from "./templates.js";
 import type { SandboxInfo } from "./types.js";
@@ -27,6 +30,8 @@ export class SandboxClient {
         create(opts?: SandboxCreateOptions): Promise<Sandbox>;
         create(opts: AgentSandboxCreateOptions): Promise<AgentSandbox>;
         getSession(sessionId: string, opts?: ClientOptions): Promise<AgentSandbox>;
+        trigger(opts: SandboxTriggerOptions & CronSchedule): Promise<TriggerHandle>;
+        trigger(opts: SandboxTriggerOptions & WebhookSchedule): Promise<WebhookTriggerResult>;
         get(sandboxId: string, opts?: SandboxGetOptions): Promise<Sandbox>;
         get(sessionId: string, opts: SessionGetOptions): Promise<AgentSandbox>;
         connect(sandboxId: string, opts?: ClientOptions): Promise<Sandbox>;
@@ -55,6 +60,8 @@ export class SandboxClient {
             create: ((o?: SandboxCreateOptions | AgentSandboxCreateOptions) =>
                 Sandbox.create({ ...opts, ...o } as never)) as SandboxClient["Sandbox"]["create"],
             getSession: (id, o) => Sandbox.getSession(id, { ...opts, ...o }),
+            trigger: ((o: SandboxTriggerOptions & (CronSchedule | WebhookSchedule)) =>
+                Sandbox.trigger({ ...opts, ...o } as never)) as SandboxClient["Sandbox"]["trigger"],
             get: ((id: string, o?: SandboxGetOptions | SessionGetOptions) =>
                 Sandbox.get(id, { ...opts, ...o } as never)) as SandboxClient["Sandbox"]["get"],
             connect: (id, o) => Sandbox.connect(id, { ...opts, ...o }),

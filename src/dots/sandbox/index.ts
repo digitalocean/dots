@@ -4,6 +4,12 @@
  */
 export { AgentHandle, AgentSandbox } from "./agentSandbox.js";
 export { SandboxClient } from "./client.js";
+export type {
+    CronSchedule,
+    TriggerBase,
+    WebhookSchedule,
+    WebhookTriggerResult,
+} from "./triggers.js";
 export { Pages } from "./pages.js";
 export {
     Snapshot,
@@ -86,6 +92,7 @@ export {
     type SandboxGetOptions,
     type SandboxKind,
     type SandboxListOptions,
+    type SandboxTriggerOptions,
     type SessionGetOptions,
     type SessionListOptions,
     type WaitOptions,

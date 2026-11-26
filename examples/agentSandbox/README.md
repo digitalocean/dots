@@ -35,6 +35,7 @@ on a DigitalOcean model.
 | [`09-client.ts`](09-client.ts) | `SandboxClient`: bind the token once |
 | [`10-approvals.ts`](10-approvals.ts) | human in the loop: `onApproval` on `run` (you answer on the terminal), and `events` with `session.resolveApproval` (a policy answers from code) |
 | [`11-agent-option.ts`](11-agent-option.ts) | `Sandbox.create({ agent: new Agent(harness, { model, env, secrets, permissions }) })` instead of a manifest (or the plain object), and `box.agent()`: `run`, `send`, `history`, `cancel` |
+| [`12-triggers.ts`](12-triggers.ts) | `Sandbox.trigger({ agent \| manifest, cron \| webhook })` for a fresh session per run, and `box.trigger({ ..., pause })` bound to a session |
 
 ```shell
 npx tsx examples/agentSandbox/01-create.ts

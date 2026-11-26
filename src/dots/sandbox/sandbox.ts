@@ -16,12 +16,21 @@
 
 import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import type { Manifest } from "../harnessRuntime/session.js";
+import type { TriggerHandle } from "../harnessRuntime/triggers.js";
 import { AgentSandbox } from "./agentSandbox.js";
 import { Commands } from "./commands.js";
 import { createExec, type ExecCallable } from "./exec.js";
 import { Files } from "./files.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, fromHarnessError, NotFoundError, required, SandboxError, SandboxTimeoutError, UnsupportedError, viaHarness } from "./errors.js";
+import {
+    checkTriggerRequest,
+    createTrigger,
+    type CronSchedule,
+    type TriggerBase,
+    type WebhookSchedule,
+    type WebhookTriggerResult,
+} from "./triggers.js";
 import { createSnapshot, type Snapshot, type SnapshotCreateOptions } from "./snapshots.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
@@ -115,6 +124,11 @@ export class Agent {
         this.options = { ...options };
     }
 }
+
+/** What `Sandbox.trigger` runs on each firing: an agent, or a full manifest. */
+export type SandboxTriggerOptions = TriggerBase &
+    ClientOptions &
+    ({ agent: Agent | AgentOptions; manifest?: never } | { manifest: Manifest; agent?: never });
 
 interface AgentCreateBase extends ClientOptions {
     /** Session name, unique among the team's live sessions. */
@@ -250,7 +264,39 @@ export class Sandbox {
     static async getSession(sessionId: string, opts: ClientOptions & { kind?: "session" } = {}): Promise<AgentSandbox> {
         if (!sessionId?.trim()) throw new SandboxError("`sessionId` is required");
         const conn = connect(opts);
-        return new AgentSandbox(await viaHarness(() => conn.harness().sessions.get(sessionId)));
+        return new AgentSandbox(await viaHarness(() => conn.harness().sessions.get(sessionId)), conn);
+    }
+
+    /**
+     * Runs an agent on a schedule or from a webhook, in a fresh session for each run. Describe the agent with
+     * `agent` (an {@link Agent} or options) or a full `manifest`. `cron` returns the trigger; `webhook` returns
+     * `{ trigger, setup }`, where `setup` holds the URL and the signing secret, which is shown only once.
+     *
+     * A trigger's sessions get no managed inference key, so the agent must bring its own: put it in
+     * `agent.secrets` (or the manifest's `secrets`). To run an existing session on a schedule instead, use
+     * `box.trigger(...)`. The returned trigger is the harness `TriggerHandle`: its errors are harness errors.
+     *
+     * ```ts
+     * const t = await Sandbox.trigger({
+     *     name: "standup", prompt: "Write a status note", cron: "0 9 * * 1-5", timezone: "Asia/Kolkata",
+     *     agent: new Agent("opencode", { secrets: { OPENAI_API_KEY: key } }),
+     * });
+     * ```
+     */
+    static async trigger(opts: SandboxTriggerOptions & CronSchedule): Promise<TriggerHandle>;
+    static async trigger(opts: SandboxTriggerOptions & WebhookSchedule): Promise<WebhookTriggerResult>;
+    static async trigger(opts: SandboxTriggerOptions & (CronSchedule | WebhookSchedule)): Promise<TriggerHandle | WebhookTriggerResult> {
+        checkTriggerRequest(opts, ["agent", "manifest", "token", "apiUrl"], "Sandbox.trigger");
+        if (opts.manifest !== undefined && opts.agent !== undefined) {
+            throw new SandboxError("Sandbox.trigger: pass `agent` or `manifest`, not both");
+        }
+        if (opts.manifest === undefined && opts.agent === undefined) {
+            throw new SandboxError("Sandbox.trigger: pass `agent` or `manifest`, the agent each run starts. To use an existing session, call box.trigger()");
+        }
+        const manifest = opts.agent !== undefined ? manifestFromAgent(opts.agent) : (opts.manifest as Manifest);
+        assertAgentManifest(manifest);
+        const { agent: _agent, manifest: _manifest, token: _token, apiUrl: _apiUrl, ...request } = opts;
+        return createTrigger(connect(opts), { manifest }, request as never);
     }
 
     /** Fetches a sandbox by id and resumes it if it is paused. */
@@ -350,7 +396,7 @@ export class Sandbox {
 async function* listSessions(conn: Connection, opts: SessionListOptions): AsyncGenerator<AgentSandbox> {
     try {
         for await (const s of conn.harness().sessions.list({ status: opts.status, search: opts.search })) {
-            yield new AgentSandbox(s);
+            yield new AgentSandbox(s, conn);
         }
     } catch (err) {
         throw fromHarnessError(err);
@@ -420,7 +466,7 @@ async function createAgent(opts: AgentSandboxCreateOptions): Promise<AgentSandbo
             manageModelAccessKey: opts.manageModelAccessKey,
         }),
     );
-    return new AgentSandbox(session);
+    return new AgentSandbox(session, conn);
 }
 
 /** One page at a time via `nextItems()`, or every sandbox via `for await`. */
