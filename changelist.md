@@ -1,6 +1,9 @@
 ## Changelist
 
-Current commit: digitalocean/openapi@f6299b8 (2026-11-25T17:56:05Z)
-Target commit: digitalocean/openapi@d7dcbf2 (2026-11-26T06:33:40Z)
+Current commit: digitalocean/openapi@d7dcbf2 (2026-11-26T06:33:40Z)
+Target commit: digitalocean/openapi@a37afbc (2026-11-27T16:10:08Z)
 
-* digitalocean/openapi#1367: docs(MARSOHS-3129): document the 429 on DELETE session for workspace removals - 2026-11-26T06:33:40Z []
+* digitalocean/openapi#1372: Drop Replit and detect GitHub Copilot only through COPILOT_CLI - 2026-11-27T09:23:02Z []
+* digitalocean/openapi#1371: change in workflow trigger token - 2026-11-27T07:31:10Z []
+* digitalocean/openapi#1359: hosted-agents(sandbox-api): add /v2/sandboxes commands OpenAPI - 2026-11-27T16:10:08Z []
+* digitalocean/openapi#1358: hosted-agents(sandbox-api): add /v2/sandboxes lifecycle OpenAPI - 2026-11-27T15:18:37Z []
