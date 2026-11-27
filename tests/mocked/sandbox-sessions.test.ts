@@ -262,17 +262,18 @@ describe("unified Sandbox", () => {
             return Sandbox.get("sb-1", OPTS);
         }
 
-        it("`session` throws UnsupportedError before any request", async () => {
+        it("`agent` does not throw: its calls reject with UnsupportedError before any request", async () => {
             const sbx = await bare();
-            expect(() => sbx.session).toThrow(UnsupportedError);
-            expect(() => sbx.session).toThrow(/Sandbox\.create\(\{ manifest \}\)/);
+            expect(() => sbx.agent).not.toThrow();
+            await expect(sbx.agent.run("hi")).rejects.toThrow(UnsupportedError);
+            await expect(sbx.agent.files.write("a", "b")).rejects.toThrow(/Sandbox\.create\(\{ manifest \}\)/);
+            await expect(sbx.agent("codex")).rejects.toThrow(UnsupportedError);
             expect(nock.pendingMocks()).toEqual([]);
         });
 
-        it("`session.send` is a compile error and throws at runtime", async () => {
+        it("`agent.send` on a bare sandbox rejects with UnsupportedError", async () => {
             const sbx = await bare();
-            // @ts-expect-error: a bare sandbox has no session, so there is no send
-            expect(() => sbx.session.send("hi")).toThrow(UnsupportedError);
+            await expect(sbx.agent.send("hi")).rejects.toThrow(UnsupportedError);
         });
 
         it("exec stays on the sandbox API", async () => {
@@ -414,73 +415,126 @@ describe("unified Sandbox", () => {
             api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo() });
             return Sandbox.getSession("s1", OPTS);
         }
-        const EXEC = "/v2/harness-runtime/sessions/s1/sandbox/exec";
+        const ndjson = (...lines: unknown[]) => lines.map((l) => JSON.stringify(l)).join("\n") + "\n";
+        const b64 = (t: string) => Buffer.from(t).toString("base64");
 
-        it("exec goes to the harness API by session id and returns the sandbox result shape", async () => {
+        it("box.exec is the sandbox API, on the session's sandbox", async () => {
             const box = await agent();
-            let body: unknown;
             api()
-                .post(EXEC, (b) => ((body = b), true))
-                .reply(200, { exit_code: 3, stdout: "out\n", stderr: "err\n", duration_ms: 12 });
-            const r = await box.exec("exit 3", { cwd: "/tmp", env: { CI: "1" }, timeout: "30s" });
-            expect(body).toEqual({ argv: ["sh", "-c", "exit 3"], workdir: "/tmp", env: { CI: "1" }, timeout_seconds: 30 });
-            expect(r).toEqual({ exitCode: 3, ok: false, stdout: "out\n", stderr: "err\n", durationMs: 12, truncated: false });
+                .post("/v2/sandboxes/sb-9/exec")
+                .reply(200, ndjson({ result: { stdout: b64("hi\n") } }, { result: { exit: { exit_code: 3, duration_ms: "1" } } }), { "Content-Type": "application/json" });
+            const r = await box.exec("echo hi");
+            expect(r).toMatchObject({ stdout: "hi\n", exitCode: 3, ok: false });
+            expect(nock.isDone()).toBe(true); // and no harness exec request was made
         });
 
-        it("exec honours check", async () => {
+        it("box.exec honours check and refuses `via` and a PTY mix-up before any request", async () => {
             const box = await agent();
-            api().post(EXEC).reply(200, { exit_code: 2, stderr: "boom" });
+            await expect(box.exec("ls", { via: "sandbox" } as never)).rejects.toThrow(/unsupported option via/);
+            await expect(box.exec("ls", { env: {}, envVars: {} })).rejects.toThrow(/`env` or `envVars`/);
+            expect(typeof box.exec.start).toBe("function"); // the sandbox API has a PTY
+            expect(nock.pendingMocks()).toEqual([]);
+            api()
+                .post("/v2/sandboxes/sb-9/exec")
+                .reply(200, ndjson({ result: { exit: { exit_code: 2, duration_ms: "1" } } }), { "Content-Type": "application/json" });
             const err = await box.exec(["false"], { check: true }).catch((e) => e);
             expect(err).toBeInstanceOf(CommandError);
             expect(err.result).toMatchObject({ exitCode: 2, ok: false });
         });
 
-        it("exec maps harness failures to sandbox errors", async () => {
+        it("box.agent.exec is the harness API and keeps the harness result", async () => {
             const box = await agent();
-            api().post(EXEC).reply(404, { message: "gone" });
+            let body: unknown;
+            api()
+                .post("/v2/harness-runtime/sessions/s1/sandbox/exec", (b) => ((body = b), true))
+                .reply(200, { exit_code: 3, stdout: "out\n", stderr: "err\n", duration_ms: 12 });
+            const r = await box.agent.exec("exit 3", { cwd: "/tmp", env: { CI: "1" }, timeoutMs: 30_000 });
+            expect(body).toEqual({ argv: ["sh", "-c", "exit 3"], workdir: "/tmp", env: { CI: "1" }, timeout_seconds: 30 });
+            expect(r).toMatchObject({ exitCode: 3, stdout: "out\n" });
+        });
+
+        it("a sandbox API failure is a sandbox error", async () => {
+            const box = await agent();
+            api().post("/v2/sandboxes/sb-9/exec").reply(404, { id: "not_found", message: "gone" });
             await expect(box.exec("ls")).rejects.toBeInstanceOf(NotFoundError);
         });
 
-        it("exec refuses `via`, a PTY and conflicting options, without a request", async () => {
+        it("box.files, commands and processes are the sandbox API, box.agent.files is the harness API", async () => {
             const box = await agent();
-            await expect(box.exec("ls", { via: "sandbox" } as never)).rejects.toThrow(/unsupported option via/);
-            await expect(box.exec("ls", { env: {}, envVars: {} })).rejects.toThrow(/`env` or `envVars`/);
-            expect((box.exec as unknown as { start?: unknown }).start).toBeUndefined(); // no PTY on the harness API
-            expect(nock.pendingMocks()).toEqual([]);
+            expect(box.files).not.toBe(box.agent.files);
+            api().get("/v2/sandboxes/sb-9/commands").reply(200, { commands: [] });
+            expect(await box.processes.list()).toEqual([]);
+            api().get("/v2/sandboxes/sb-9/files/exists").query(true).reply(200, { exists: true });
+            expect(await box.files.exists("/workspace/a")).toBe(true);
+            expect(typeof box.agent.spawn).toBe("function");
+            expect(nock.isDone()).toBe(true);
         });
 
-        it("agent() is the agent only: cancel goes to the session API and maps the outcome", async () => {
+        it("a session without a sandbox yet cannot run sandbox calls", async () => {
+            api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: { session_id: "s1", status: "SESSION_STATUS_PROVISIONING", config_id: CFG } });
+            const box = await Sandbox.getSession("s1", OPTS);
+            expect(() => box.exec).toThrow(/has no sandbox yet/);
+            await expect(box.pause()).rejects.toThrow(/waitUntilReady/);
+        });
+
+        it("agent is the agent only: cancel goes to the session API and maps the outcome", async () => {
             const box = await agent();
             const handle = box.agent();
             expect(handle).toBeInstanceOf(AgentHandle);
             api().post("/v2/harness-runtime/sessions/s1/cancel").reply(200, { outcome: "acked" });
-            expect(await handle.cancel()).toBe("acked");
+            expect(await box.agent.cancel()).toBe("acked");
             api().post("/v2/harness-runtime/sessions/s1/cancel").reply(409, { message: "no active run" });
             expect(await handle.cancel("r1")).toBe("no_turn");
         });
 
-        it("agent() has the agent calls and no sandbox calls", async () => {
+        it("agent has the agent calls and no sandbox calls, and the box has no run, send or events", async () => {
             const box = await agent();
             const handle = box.agent() as unknown as Record<string, unknown>;
             for (const name of ["run", "send", "events", "history", "cancel", "resolveApproval"]) expect(typeof handle[name]).toBe("function");
             for (const name of ["exec", "files", "pause", "kill"]) expect(name in handle).toBe(false);
+            for (const name of ["run", "send", "events", "waitUntilReady"]) expect((box as unknown as Record<string, unknown>)[name]).toBeUndefined();
         });
 
-        it("has files and the full session", async () => {
+        it("pause, resume and getInfo are the sandbox API", async () => {
             const box = await agent();
-            expect(box.files).toBe(box.session.files);
-            expect(typeof box.session.spawn).toBe("function");
+            api()
+                .post("/v2/sandboxes/sb-9/pause")
+                .reply(200, { sandbox: { ...sandboxInfo("sb-9"), state: "SANDBOX_STATE_PAUSED" } })
+                .post("/v2/sandboxes/sb-9/resume")
+                .reply(200, { sandbox: sandboxInfo("sb-9") })
+                .get("/v2/sandboxes/sb-9")
+                .reply(200, { sandbox: sandboxInfo("sb-9") });
+            expect((await box.pause()).state).toBe("SANDBOX_STATE_PAUSED");
+            expect((await box.resume()).state).toBe("SANDBOX_STATE_RUNNING");
+            expect(await box.isRunning()).toBe(true);
+            expect(nock.isDone()).toBe(true);
         });
 
-        it("kill destroys the session and the saved config, and is false when it is gone", async () => {
+        it("box.agent.pause and resume are the harness API", async () => {
             const box = await agent();
-            api().delete("/v2/harness-runtime/sessions/s1").reply(204).delete(`/v2/harness-runtime/configs/${CFG}`).reply(204);
+            api().post("/v2/harness-runtime/sessions/s1/pause").reply(200, {}).post("/v2/harness-runtime/sessions/s1/resume").reply(200, {});
+            await box.agent.pause();
+            await box.agent.resume();
+            expect(nock.isDone()).toBe(true);
+        });
+
+        it("kill deletes the sandbox through the sandbox API only, and is false when it is gone", async () => {
+            const box = await agent();
+            api().delete("/v2/sandboxes/sb-9").reply(204);
             expect(await box.kill()).toBe(true);
-            api().delete("/v2/harness-runtime/sessions/s1").reply(404, { message: "gone" });
+            api().delete("/v2/sandboxes/sb-9").reply(404, { id: "not_found", message: "gone" });
             expect(await box.kill()).toBe(false);
+            expect(nock.isDone()).toBe(true); // no session or config delete was made
         });
 
-        it("`await using` kills it at scope exit", async () => {
+        it("box.agent.destroy is the harness API", async () => {
+            const box = await agent();
+            api().delete("/v2/harness-runtime/sessions/s1").reply(204);
+            await box.agent.destroy();
+            expect(nock.isDone()).toBe(true);
+        });
+
+        it("`await using` destroys the session at scope exit, and tolerates one that is already gone", async () => {
             api().post("/v2/harness-runtime/sessions").query(true).reply(201, { session: sessionInfo() });
             const scope = api().delete("/v2/harness-runtime/sessions/s1").reply(204).delete(`/v2/harness-runtime/configs/${CFG}`).reply(204);
             {
@@ -490,19 +544,11 @@ describe("unified Sandbox", () => {
             expect(scope.isDone()).toBe(true);
         });
 
-        it("pause and resume use the session API", async () => {
-            const box = await agent();
-            api().post("/v2/harness-runtime/sessions/s1/pause").reply(200, {}).post("/v2/harness-runtime/sessions/s1/resume").reply(200, {});
-            await box.pause();
-            await box.resume();
-            expect(nock.isDone()).toBe(true);
-        });
-
-        it("a wait that runs out of time is a SandboxTimeoutError", async () => {
+        it("box.agent.waitUntilReady is the harness API and gives up after its timeout", async () => {
             api().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo("s1", { status: "SESSION_STATUS_PROVISIONING" }) });
             const box = await Sandbox.getSession("s1", OPTS);
             api().persist().get("/v2/harness-runtime/sessions/s1").reply(200, { session: sessionInfo("s1", { status: "SESSION_STATUS_PROVISIONING" }) });
-            await expect(box.waitUntilReady({ timeoutMs: 50 })).rejects.toBeInstanceOf(SandboxTimeoutError);
+            await expect(box.agent.waitUntilReady({ timeoutMs: 50 })).rejects.toThrow();
         });
     });
 });

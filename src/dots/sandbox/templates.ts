@@ -26,7 +26,7 @@ import type {
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { Pages } from "./pages.js";
 import { DEFAULT_TEMPLATE } from "./sandbox.js";
-import { call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
+import { BuildError, call, NotFoundError, required, SandboxError, SandboxTimeoutError } from "./errors.js";
 
 export { Pages };
 
@@ -277,11 +277,11 @@ export class Template {
             const failed = page
                 .filter((b) => b.status === "TEMPLATE_BUILD_STATUS_FAILED" && b.error)
                 .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0))[0];
-            if (failed) return new SandboxError(`${message}: ${failed.error}`);
+            if (failed) return new BuildError(`${message}: ${failed.error}`, failed.error);
         } catch {
             /* the build list is a nicety; report the failure without it */
         }
-        return new SandboxError(message);
+        return new BuildError(message);
     }
 }
 

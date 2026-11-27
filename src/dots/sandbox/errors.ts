@@ -44,6 +44,17 @@ export class ServiceError extends SandboxError {}
 export class SandboxTimeoutError extends SandboxError {}
 /** The object cannot do this: a PTY on an agent session, or a session operation on a bare sandbox. Raised before any request. */
 export class UnsupportedError extends SandboxError {}
+/** The names the Agent Sandbox spec uses, for the errors above. `instanceof` works with either name. */
+export { AuthenticationError as AuthError, ConflictError as StateError, SandboxTimeoutError as CommandTimeoutError, UnsupportedError as NotSupportedError };
+/** An image build failed. `log` holds the build log when the API returned one. */
+export class BuildError extends SandboxError {
+    constructor(
+        message: string,
+        readonly log?: string,
+    ) {
+        super(message);
+    }
+}
 /** A command exited non-zero and the call asked to `check` it. `result` holds its output. */
 export class CommandError<R = unknown> extends SandboxError {
     constructor(

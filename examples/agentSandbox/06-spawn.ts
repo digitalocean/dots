@@ -1,6 +1,6 @@
 /**
- * box.session.spawn: background commands and live stdin. box.exec runs and waits; spawn starts one
- * and returns while it runs.
+ * box.spawn: a background command (sandbox API). box.agent.spawn: the harness API's, with live stdin.
+ * box.exec runs and waits; spawn starts one and returns while it runs.
  *
  *   npx tsx examples/agentSandbox/06-spawn.ts
  *
@@ -15,21 +15,20 @@ import { Sandbox } from "../../src/dots/sandbox/index.js";
 
 const manifest = readFileSync(new URL("../harness-runtime/agent.yaml", import.meta.url), "utf8");
 await using box = await Sandbox.create({ manifest });
-await box.files.upload("site/index.html", "<h1>hello from a background server</h1>\n");
+await box.files.makeDir("/workspace/site");
+await box.files.write("/workspace/site/index.html", "<h1>hello from a background server</h1>\n");
 
-// spawn returns while the command runs. Leaving the scope kills it.
-await using server = await box.session.spawn(["python3", "-m", "http.server", "8080"], {
-    cwd: "/workspace/site",
-    onStderr: (text) => process.stderr.write(`[server] ${text}`),
-});
+// box.spawn is the sandbox API: it returns a Command with a pid. box.processes.list() lists them.
+const server = await box.spawn("cd /workspace/site && python3 -m http.server 8080");
+console.log("running", (await box.processes.list()).map((p) => p.pid).join(", "));
 const page = await box.exec("for i in $(seq 20); do curl -sf localhost:8080/ && exit 0; sleep 0.5; done; exit 1");
 console.log(page.ok ? page.stdout.trim() : `the server did not answer: ${page.stderr}`);
-server.kill();
+await server.kill();
 
 // Live stdin: write while the command runs. It is enabled team by team, and needs a recent image.
-// This is the agent session's replacement for a PTY, which only the sandbox API has.
+// box.agent.spawn is the harness API's. The sandbox API's live stdin is box.exec.start(cmd, { keepStdinOpen: true }).
 try {
-    const py = await box.session.spawn(["python3", "-i"], { stdin: true, onStdout: (t) => process.stdout.write(t) });
+    const py = await box.agent.spawn(["python3", "-i"], { stdin: true, onStdout: (t) => process.stdout.write(t) });
     await py.write("print(1 + 1)\n");
     await py.write("print('done')\n");
     await py.closeStdin();

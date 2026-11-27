@@ -18,8 +18,21 @@ import type { DigitalOceanClient } from "../digitalOceanClient.js";
 import type { Manifest } from "../harnessRuntime/session.js";
 import type { TriggerHandle } from "../harnessRuntime/triggers.js";
 import { AgentSandbox } from "./agentSandbox.js";
-import { Commands } from "./commands.js";
-import { createExec, type ExecCallable } from "./exec.js";
+import { Commands, type Command, type CommandStartOptions } from "./commands.js";
+import { createExec, type ExecCallable, type ExecCallOptions, type ExecCommand, type ExecResult } from "./exec.js";
+import {
+    egressToInternetAccess,
+    egressToManifest,
+    ExecStream,
+    permissionsToManifest,
+    refuseNotBuilt,
+    resolveImage,
+    secretsToEnv,
+    type Egress,
+    type Image,
+    type Permissions,
+    type Secret,
+} from "./spec.js";
 import { Files } from "./files.js";
 import { connect, rejectUnknownOptions, type ClientOptions, type Connection } from "./config.js";
 import { call, fromHarnessError, NotFoundError, required, SandboxError, SandboxTimeoutError, UnsupportedError, viaHarness } from "./errors.js";
@@ -32,6 +45,7 @@ import {
     type WebhookTriggerResult,
 } from "./triggers.js";
 import { createSnapshot, type Snapshot, type SnapshotCreateOptions } from "./snapshots.js";
+import { deleteSandbox, fetchInfo, pauseSandbox, resumeSandbox } from "./sandboxApi.js";
 import { toInfo, type SandboxInfo, type SandboxState } from "./types.js";
 
 /** Template used when `template` is omitted. */
@@ -49,6 +63,14 @@ export interface SandboxCreateOptions extends ClientOptions {
     allowInternetAccess?: boolean;
     /** Environment variables for the sandbox. The values are secrets. */
     envVars?: Record<string, string>;
+    /** What to boot from: an {@link Image} or a saved template name. The same as `template`, which this replaces. */
+    image?: string | Image;
+    /** A ready-made environment by name. Only `"coding"` exists. */
+    environment?: string;
+    /** `"none"`, `[]` or `"unrestricted"`. A bare sandbox has no host allowlist: that needs an agent. */
+    egress?: Egress;
+    /** Credentials as environment variables. The same as `envVars`, but a {@link Secret} bound to hosts is refused. */
+    secrets?: Record<string, string | Secret>;
 }
 
 /** Which API a `get` or `list` call uses. `"sandbox"` (the default) is the sandbox API and `"session"` the harness API. */
@@ -101,8 +123,8 @@ export interface AgentOptions {
     env?: Record<string, string>;
     /** Secrets for the agent, such as a model key. Not logged and not in the saved config. */
     secrets?: Record<string, string>;
-    /** Tool rules, as in a manifest: `{ default: "allow", rules: [{ tool: "bash", action: "ask" }] }`. */
-    permissions?: Record<string, unknown>;
+    /** Tool rules: a {@link Permissions}, or a manifest block such as `{ default: "allow", rules: [{ tool: "bash", action: "ask" }] }`. */
+    permissions?: Permissions | Record<string, unknown>;
 }
 
 /**
@@ -139,6 +161,14 @@ interface AgentCreateBase extends ClientOptions {
     timeoutMs?: number;
     /** Defaults to true: mint the agent's DigitalOcean inference key. `false` brings your own. */
     manageModelAccessKey?: boolean;
+    /** What the agent's sandbox boots from. Only `"coding"` or a saved template name work. */
+    image?: string | Image;
+    /** A ready-made environment by name. Only `"coding"` exists. */
+    environment?: string;
+    /** Where the sandbox may connect: a host list, `"none"`, `"unrestricted"` or `{ allowHosts, allowIps }`. */
+    egress?: Egress;
+    /** Credentials for the sandbox and agent, added to `agent.secrets`. A {@link Secret} bound to hosts is refused. */
+    secrets?: Record<string, string | Secret>;
     /** The options of a bare sandbox cannot be combined with an agent. */
     template?: never;
     size?: never;
@@ -154,8 +184,9 @@ interface AgentCreateBase extends ClientOptions {
 export type AgentSandboxCreateOptions = AgentCreateBase &
     ({ agent: Agent | AgentOptions; manifest?: never } | { manifest: Manifest; agent?: never });
 
-const CREATE_KEYS = ["template", "size", "allowInternetAccess", "envVars"];
-const AGENT_CREATE_KEYS = ["agent", "manifest", "name", "wait", "timeoutMs", "manageModelAccessKey"];
+const BARE_ONLY_KEYS = ["template", "size", "allowInternetAccess", "envVars"];
+const CREATE_KEYS = [...BARE_ONLY_KEYS, "image", "environment", "egress", "secrets"];
+const AGENT_CREATE_KEYS = ["agent", "manifest", "name", "wait", "timeoutMs", "manageModelAccessKey", "image", "environment", "egress", "secrets"];
 const LIST_KEYS = ["kind", "state", "limit", "nextToken"];
 const SESSION_LIST_KEYS = ["kind", "status", "search"];
 const KINDS = new Set<string>(["sandbox", "session"]);
@@ -205,19 +236,18 @@ export class Sandbox {
     }
 
     /**
-     * A bare sandbox has no session operations: this throws {@link UnsupportedError}, and its type is `never`.
-     * Create the sandbox from a manifest (`Sandbox.create({ manifest })`) to get an {@link AgentSandbox}.
+     * A bare sandbox has no agent. Reading `sbx.agent` does not throw: every call on it, at any depth
+     * (`sbx.agent.run(...)`, `sbx.agent.files.write(...)`, `sbx.agent("codex")`), returns a promise that rejects with
+     * {@link UnsupportedError}, so `await` in a `try` or a `.catch` handles it. An unhandled rejection still ends a Node process.
+     * Create the sandbox with `agent` or `manifest` (`Sandbox.create({ agent })`) to get an {@link AgentSandbox}.
      */
-    get session(): never {
-        throw new UnsupportedError(
-            'a bare sandbox (kind "sandbox") has no session operations. Create an agent session with ' +
-                "Sandbox.create({ manifest }) to use them.",
-        );
+    get agent(): NoAgent {
+        return noAgent();
     }
 
     /**
-     * Creates a sandbox and resolves once it is running. Without `manifest` it calls the sandbox API
-     * (`POST /v2/sandboxes`) and returns a bare `Sandbox`. With `manifest` it calls the harness API
+     * Creates a sandbox and resolves once it is running. Without `agent` or `manifest` it calls the sandbox API
+     * (`POST /v2/sandboxes`) and returns a bare `Sandbox`. With one it calls the harness API
      * (`POST /v2/harness-runtime/sessions`) and returns an {@link AgentSandbox}.
      */
     static async create(opts?: SandboxCreateOptions): Promise<Sandbox>;
@@ -229,18 +259,37 @@ export class Sandbox {
     }
 
     private static async createBare(opts: SandboxCreateOptions): Promise<Sandbox> {
+        refuseNotBuilt(opts, "Sandbox.create");
+        if ((opts as { name?: unknown }).name !== undefined) {
+            throw new UnsupportedError("Sandbox.create: `name` is not supported on a bare sandbox yet: the sandbox API has no name field");
+        }
         rejectUnknownOptions(opts, CREATE_KEYS, "Sandbox.create");
-        const template = opts.template ?? DEFAULT_TEMPLATE;
+        const image = resolveImage(opts.image, opts.environment, "Sandbox.create");
+        if (image !== undefined && opts.template !== undefined) {
+            throw new SandboxError("Sandbox.create: pass `image` or `template`, not both");
+        }
+        const template = image ?? opts.template ?? DEFAULT_TEMPLATE;
         if (!template.trim()) {
             throw new SandboxError("Sandbox.create: `template` must not be empty");
+        }
+        if (opts.egress !== undefined && opts.allowInternetAccess !== undefined) {
+            throw new SandboxError("Sandbox.create: pass `egress` or `allowInternetAccess`, not both");
+        }
+        const allowInternetAccess = opts.egress !== undefined ? egressToInternetAccess(opts.egress, "Sandbox.create") : opts.allowInternetAccess;
+        let envVars = opts.envVars;
+        if (opts.secrets !== undefined) {
+            const fromSecrets = secretsToEnv(opts.secrets, "Sandbox.create");
+            const dup = Object.keys(fromSecrets).filter((k) => opts.envVars && k in opts.envVars);
+            if (dup.length) throw new SandboxError(`Sandbox.create: ${dup.join(", ")} is in both \`secrets\` and \`envVars\``);
+            envVars = { ...opts.envVars, ...fromSecrets };
         }
         const conn = connect(opts);
         const res = await call(() =>
             conn.client.v2.sandboxes.post({
                 template,
                 sizeSlug: opts.size ?? DEFAULT_SIZE,
-                allowInternetAccess: opts.allowInternetAccess,
-                envVars: opts.envVars ? { additionalData: { ...opts.envVars } } : undefined,
+                allowInternetAccess,
+                envVars: envVars ? { additionalData: { ...envVars } } : undefined,
             }),
         );
         return new Sandbox(conn, toInfo(res?.sandbox));
@@ -352,8 +401,7 @@ export class Sandbox {
 
     /** Resumes a paused sandbox. */
     async resume(): Promise<SandboxInfo> {
-        const res = await call(() => this.client.v2.sandboxes.bySandbox_id(this.sandboxId).resume.post());
-        this.info = toInfo(res?.sandbox);
+        this.info = await resumeSandbox(this.client, this.sandboxId);
         return this.info;
     }
 
@@ -363,6 +411,33 @@ export class Sandbox {
      */
     async createSnapshot(opts: SnapshotCreateOptions = {}): Promise<Snapshot> {
         return createSnapshot(this.conn, this.sandboxId, opts, "sandbox.createSnapshot");
+    }
+
+    /**
+     * Runs a command and streams its output as it arrives: `for await (const c of sbx.execStream("npm ci")) ...`.
+     * After the loop `stream.result` is the same result `exec` returns.
+     */
+    execStream(command: ExecCommand, opts: Omit<ExecCallOptions, "onStdout" | "onStderr"> = {}): ExecStream<ExecResult> {
+        return new ExecStream<ExecResult>((on) => this.exec(command, { ...opts, ...on }));
+    }
+
+    /** Starts a command in the background and returns while it runs: `proc.wait()` or `proc.kill()`. */
+    spawn(command: string, opts: CommandStartOptions = {}): Promise<Command> {
+        return this.commands.start(command, opts);
+    }
+
+    /** The background commands: `sbx.processes.list()`. */
+    get processes(): Commands {
+        return this.commands;
+    }
+
+    /**
+     * Deletes the sandbox. The same as {@link kill}. `purgeHistory` is refused: a bare sandbox keeps no platform
+     * records to purge.
+     */
+    async delete(opts: { purgeHistory?: boolean } = {}): Promise<boolean> {
+        if (opts.purgeHistory) throw new UnsupportedError("sandbox.delete: `purgeHistory` is not supported: a bare sandbox has no platform records");
+        return this.kill();
     }
 
     /** Deletes the sandbox. Resolves `false` when it is already gone. */
@@ -441,12 +516,30 @@ function manifestFromAgent(input: Agent | AgentOptions): Record<string, unknown>
     const manifest: Record<string, unknown> = { harness: agent.harness };
     if (Object.keys(env).length) manifest.env = env;
     if (agent.secrets && Object.keys(agent.secrets).length) manifest.secrets = { ...agent.secrets };
-    if (agent.permissions) manifest.permissions = agent.permissions;
+    if (agent.permissions) manifest.permissions = permissionsToManifest(agent.permissions);
     return manifest;
 }
 
+/**
+ * Puts the sandbox-layer options (`image`, `egress`, `secrets`) on an agent's manifest. A name goes in as
+ * `template` and a host list as `egress`, the flat manifest keys; secrets join the agent's own.
+ */
+function applySandboxLayer(manifest: Record<string, unknown>, opts: AgentSandboxCreateOptions): void {
+    const image = resolveImage(opts.image, opts.environment, "Sandbox.create");
+    if (image !== undefined) manifest.template = image;
+    if (opts.egress !== undefined) manifest.egress = egressToManifest(opts.egress, "Sandbox.create");
+    if (opts.secrets !== undefined) {
+        const plain = secretsToEnv(opts.secrets, "Sandbox.create");
+        const existing = (manifest.secrets ?? {}) as Record<string, string>;
+        const dup = Object.keys(plain).filter((k) => k in existing);
+        if (dup.length) throw new SandboxError(`Sandbox.create: ${dup.join(", ")} is in both \`secrets\` and \`agent.secrets\``);
+        manifest.secrets = { ...existing, ...plain };
+    }
+}
+
 async function createAgent(opts: AgentSandboxCreateOptions): Promise<AgentSandbox> {
-    const conflicting = CREATE_KEYS.filter((k) => (opts as unknown as Record<string, unknown>)[k] !== undefined);
+    refuseNotBuilt(opts, "Sandbox.create");
+    const conflicting = BARE_ONLY_KEYS.filter((k) => (opts as unknown as Record<string, unknown>)[k] !== undefined);
     if (conflicting.length) {
         throw new SandboxError(`Sandbox.create: \`manifest\` and \`agent\` cannot be combined with ${conflicting.join(", ")}`);
     }
@@ -454,7 +547,12 @@ async function createAgent(opts: AgentSandboxCreateOptions): Promise<AgentSandbo
     if (opts.manifest !== undefined && opts.agent !== undefined) {
         throw new SandboxError("Sandbox.create: pass `agent` or `manifest`, not both");
     }
+    const layered = ["image", "environment", "egress", "secrets"].filter((k) => (opts as unknown as Record<string, unknown>)[k] !== undefined);
+    if (opts.manifest !== undefined && layered.length) {
+        throw new SandboxError(`Sandbox.create: a \`manifest\` holds the whole spec, so put ${layered.join(", ")} in it, or use \`agent\``);
+    }
     const manifest = opts.agent !== undefined ? manifestFromAgent(opts.agent) : (opts.manifest as Manifest);
+    if (opts.agent !== undefined) applySandboxLayer(manifest as Record<string, unknown>, opts);
     assertAgentManifest(manifest);
     const conn = connect(opts);
     const session = await viaHarness(() =>
@@ -509,27 +607,21 @@ export class SandboxPaginator implements AsyncIterable<Sandbox> {
     }
 }
 
-async function fetchInfo(client: DigitalOceanClient, sandboxId: string): Promise<SandboxInfo> {
-    const res = await call(() => client.v2.sandboxes.bySandbox_id(requireId(sandboxId)).get());
-    return toInfo(required(res, "the sandbox").sandbox);
-}
 
-async function pauseSandbox(client: DigitalOceanClient, sandboxId: string): Promise<SandboxInfo> {
-    const res = await call(() => client.v2.sandboxes.bySandbox_id(requireId(sandboxId)).pause.post());
-    return toInfo(res?.sandbox);
-}
+/** The type of `sbx.agent` on a bare sandbox: any call, at any depth, returns a rejected promise. */
+export type NoAgent = ((...args: unknown[]) => Promise<never>) & { readonly [key: string]: NoAgent };
 
-async function deleteSandbox(client: DigitalOceanClient, sandboxId: string): Promise<boolean> {
-    try {
-        await call(() => client.v2.sandboxes.bySandbox_id(requireId(sandboxId)).delete());
-        return true;
-    } catch (err) {
-        if (err instanceof NotFoundError) return false;
-        throw err;
-    }
-}
-
-function requireId(sandboxId: string): string {
-    if (!sandboxId?.trim()) throw new SandboxError("`sandboxId` is required");
-    return sandboxId;
+function noAgent(): NoAgent {
+    const fail = (): Promise<never> =>
+        Promise.reject(
+            new UnsupportedError(
+                'a bare sandbox (kind "sandbox") has no agent. Create one with ' +
+                    "Sandbox.create({ agent }) or Sandbox.create({ manifest }) to use `sbx.agent`.",
+            ),
+        );
+    const make = (): NoAgent =>
+        new Proxy(fail, {
+            get: (_t, prop) => (typeof prop === "symbol" || prop === "then" ? undefined : make()), // not thenable, no surprises in logs
+        }) as unknown as NoAgent;
+    return make();
 }

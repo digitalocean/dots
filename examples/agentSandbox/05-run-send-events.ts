@@ -18,7 +18,7 @@ process.once("SIGINT", () => interrupt.abort(new Error("interrupted")));
 await using box = await Sandbox.create({ manifest });
 
 // run sends a prompt and resolves when the turn ends. onText streams the answer.
-const result = await box.run("List the files in /workspace and say which tools this machine has installed.", {
+const result = await box.agent.run("List the files in /workspace and say which tools this machine has installed.", {
     onText: (text) => process.stdout.write(text),
     signal: interrupt.signal, // stops the wait, not the run
 });
@@ -28,10 +28,10 @@ if (result.error) console.log(`error ${result.error.code}: ${result.error.messag
 // send returns the run id without waiting. events() is the live stream: it reconnects on its own, and
 // leaving the loop disconnects. Attach first, then send, so no event is missed.
 const stop = new AbortController();
-const events = box.events({ signal: stop.signal });
+const events = box.agent.events({ signal: stop.signal });
 const first = events.next(); // opens the stream
 await new Promise((r) => setTimeout(r, 1000));
-const runId = await box.send("Say hello in one short sentence.");
+const runId = await box.agent.send("Say hello in one short sentence.");
 console.log(`sent run ${runId}`);
 
 let event = await first;
@@ -42,4 +42,4 @@ while (!event.done) {
 }
 stop.abort();
 
-// Approvals, checkpoints, forks and cancel are on box.session (see examples/harness-runtime).
+// Approvals, checkpoints, forks and cancel are on box.agent (see examples/harness-runtime).

@@ -2,7 +2,28 @@
  * `@digitalocean/dots/sandbox`: DigitalOcean Sandboxes on `/v2/sandboxes`.
  * Hand-written. `make generate` does not touch this folder.
  */
-export { AgentHandle, AgentSandbox } from "./agentSandbox.js";
+export {
+    AgentHandle,
+    AgentSandbox,
+    type AgentAccessor,
+    type AgentApproval,
+    type AgentRunOptions,
+} from "./agentSandbox.js";
+export { Trigger, type TriggerCreateOptions, type TriggerRuns } from "./trigger.js";
+export {
+    Bash,
+    Email,
+    ExecStream,
+    Image,
+    Permissions,
+    Secret,
+    Slack,
+    type Egress,
+    type PermissionAction,
+    type PermissionsOptions,
+    type StreamChunk,
+    type ToolRule,
+} from "./spec.js";
 export { SandboxClient } from "./client.js";
 export type {
     CronSchedule,
@@ -69,6 +90,11 @@ export {
 export type { ClientOptions } from "./config.js";
 export {
     AuthenticationError,
+    AuthError,
+    BuildError,
+    CommandTimeoutError,
+    NotSupportedError,
+    StateError,
     ConflictError,
     InvalidRequestError,
     NotFoundError,

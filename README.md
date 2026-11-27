@@ -444,38 +444,71 @@ await using box = await Sandbox.create({
 // A complete one is in examples/harness-runtime/agent.yaml. Pass `agent` or `manifest`, not both.
 await using fromFile = await Sandbox.create({ manifest: readFileSync("agent.yaml", "utf8") });
 
-await box.exec("pytest -x", { cwd: "/workspace", env: { CI: "1" }, timeout: "2m", check: true }); // same options and result as a bare sandbox
-await box.files.upload("a.txt", "hi");       // harness files: upload, download, downloadText, copyFromLocal, copyToLocal
-await box.run("Fix the failing test");       // the agent; box.send() and box.events() too
-const agent = box.agent();                   // the agent only: run, send, events, history, cancel, resolveApproval
-await box.pause(); await box.resume();
-box.session;                                 // the full harness Session: spawn with live stdin, checkpoint, fork, approvals
+// box.<call> is the sandbox API, on the session's sandbox. box.agent.<call> is the harness API.
+await box.exec("pytest -x", { cwd: "/workspace", env: { CI: "1" }, timeout: "2m", check: true }); // sandbox API
+await box.files.write("/workspace/a.txt", "hi");   // sandbox API: write, read, list, move, exists, makeDir, remove
+await box.agent.run("Fix the failing test", { onText: (t) => process.stdout.write(t) }); // harness API
+await box.pause(); await box.resume();            // sandbox API
+await box.agent.checkpoint();                      // harness API: the whole harness Session is on box.agent
 ```
 
-Every `AgentSandbox` method is the harness API. The shortcuts on `box` are thin wrappers over `box.session`, which is the underlying harness `Session`:
+`box.<call>` and `box.agent.<call>` are two different APIs:
 
-| On `box` | Same as | Notes |
+| Call | API | Notes |
 | --- | --- | --- |
-| `box.send(text)`, `box.run(text, opts)`, `box.events()` | `box.agent().send`, `.run`, `.events` (and `box.session.*`) | the agent; `run` waits for the turn, `send` returns the run id |
-| `box.agent()` | | an `AgentHandle`: `run`, `send`, `events`, `history`, `cancel` (`acked`, `no_turn`, `unsupported`) and `resolveApproval`. It never touches the sandbox, so `exec` and `files` stay on `box` |
-| `box.pause()`, `box.resume()`, `box.kill()` | `box.session.pause`, `.resume`, `.destroy` | `kill` also deletes the saved config; `false` if already gone |
-| `box.getInfo()`, `box.waitUntilReady()` | `box.session.refresh`, `.waitUntilReady` | |
-| `box.files` | `box.session.files` | the same object |
-| `box.exec(cmd, opts)` | `box.session.exec`, with the bare sandbox's options and result | `box.session.exec` takes `timeoutMs`, returns no `ok`, and has no `check` or `env`/`timeout` aliases |
-| only on `box.session` | | `spawn`, `checkpoint`, `fork`, `rollback`, `cancel`, `resolveApproval`, `updateConfig`, `history`, `portForward` |
+| `box.exec`, `execStream`, `spawn`, `processes`, `commands`, `files` | sandbox: `/v2/sandboxes/{sandboxId}/...` | the same code as a bare sandbox: `bash -lc`, PTY and stdin through `box.exec.start`, `ok` and `check` |
+| `box.pause()`, `resume()`, `kill()`, `delete()`, `getInfo()`, `isRunning()`, `createSnapshot()` | sandbox | `kill` deletes the sandbox only. It leaves the session and its saved config, so also call `box.agent.destroy()` (which `await using` does) |
+| `box.agent.run`, `send`, `events`, `history`, `cancel`, `approve`, `reject`, `defer`, `onApproval` | harness: `/v2/harness-runtime/sessions/{sessionId}/...` | the agent. Errors come back as sandbox errors. `box.agent()` with no arguments is the same handle |
+| `box.agent.checkpoint`, `fork`, `rollback`, `pause`, `resume`, `refresh`, `waitUntilReady`, `destroy`, `updateConfig`, `exec`, `spawn`, `files`, `portForward` | harness | the harness `Session` as the harness SDK has it. `box.agent.exec` runs `sh -c`, takes `timeoutMs` and has no PTY. `box.agent.spawn` has live stdin |
+| `box.trigger` | harness | there is no sandbox API for triggers. `pause: true` pauses the session through the harness API |
+| `box.sessionId`, `box.sandboxId`, `box.status`, `box.pauseReason` | none | read from the session record |
 
-Both spellings call the harness API, so `box.send("hi")` and `box.session.send("hi")` do the same thing. Use the one on `box` when it exists. Use `box.session` for what it does not wrap.
+`box.sandboxId` comes from the session, so a rollback is followed. `box.<call>` on a session that has no sandbox yet (`wait: false`) throws until `box.agent.waitUntilReady()` returns. Whether `/v2/sandboxes/{id}` accepts a session's sandbox id is not verified against the real API.
 
 - **`kind` on `get` and `list`:** `kind` is `"sandbox"` by default. `{ kind: "session" }` uses the harness API only. A call never queries both APIs or falls back, so a sandbox id passed to `get(id, { kind: "session" })` is a `NotFoundError` unless it is a session id. `list` with `kind: "session"` takes `status` and `search`; the sandbox form takes `state`, `limit` and `nextToken`.
 - **Create options:** `new Agent(harness, options)` (or the plain object `{ harness, ...options }`) takes `harness` (required), `model` (sent as `HARNESS_INFERENCE_MODEL`), `env`, `secrets` and `permissions`. `agent` and `manifest` are alternatives: passing both, an unknown `agent` key, or `model` together with `env.HARNESS_INFERENCE_MODEL` is an error before any request. Both forms also take `name`, `wait`, `timeoutMs` and `manageModelAccessKey`, and reject `template`, `size`, `allowInternetAccess` and `envVars`, and an agent that is `sandbox` or `none`. For a bare sandbox call `Sandbox.create()`.
-- **No mixing.** A bare `Sandbox` never calls the harness API, and an `AgentSandbox` never calls the sandbox API (its `sandboxId` is informational: a rollback replaces it). Session operations are blocked on a bare sandbox. It has no `send`, `run` or `events`, so `sandbox.send()` is a compile error in TypeScript and a `TypeError: sandbox.send is not a function` in plain JavaScript or a REPL, with no request sent. `sandbox.session` throws `UnsupportedError`, and its type is `never`, so `sandbox.session.send()` does not compile either. A PTY (`exec.start`) is the sandbox API's, so an `AgentSandbox` has none: use `box.session.spawn(cmd, { stdin: true })` for live stdin.
-- **Cleanup:** `box.kill()` destroys the session, deletes the config saved for the manifest, and revokes the managed key. It resolves `false` if the session is already gone. `await using` does the same at the end of a scope.
+- **Bare sandbox:** it has no `agent`. `sandbox.agent` does not throw, but every call on it (`sandbox.agent.run()`) returns a promise that rejects with `UnsupportedError`, so `try`/`await` or `.catch` lets the script carry on. It has no `send`, `run` or `events` either (`TypeError` in plain JavaScript or a REPL, with no request sent).
+- **Cleanup:** `await using` destroys the session at the end of a scope (harness API: it deletes the sandbox and the saved config and revokes the managed key). `box.kill()` is only the sandbox API's delete, and it resolves `false` if the sandbox is already gone.
 - **Errors:** harness errors come back as the sandbox error classes (`NotFoundError`, `ConflictError`, `SandboxTimeoutError`, and so on), so one `catch` covers both APIs.
-- **Differences from a bare sandbox:** `box.exec` runs a string as `sh -c` (the bare sandbox uses `bash -lc`), starts in `/workspace` when `cwd` is omitted, and keeps at most 1 MiB per stream unless you stream (`truncated` says so). `box.files` has the harness methods, not `list`, `move` or `makeDir`. `box.status` is the raw `SESSION_STATUS_*` string.
+- **Differences from a bare sandbox:** `box.status` is the raw `SESSION_STATUS_*` string, and `box.agent` and `box.trigger` exist. The sandbox calls are the same.
 
 - **Triggers:** run an agent on a schedule or from a webhook. `Sandbox.trigger({ name, prompt, agent | manifest, cron | webhook })` starts a fresh session for each run. `box.trigger({ name, prompt, cron | webhook, pause? })` binds the trigger to that session, so each run resumes it with its files and history; a bound session must be paused when a run fires, and `pause: true` pauses it first. `cron` takes an expression and an optional `timezone` (default `"UTC"`) and returns the trigger. `webhook` (`"github"`, `"gitlab"` or `"custom"`) returns `{ trigger, setup }`; `setup.secret` is shown once. Options are checked before any request, and the call fails with a sandbox error. A trigger's fresh sessions get no managed inference key, so put the agent's key in `secrets`. The returned trigger is the harness `TriggerHandle` (`executions()`, `pause()`, `resume()`, `rotateSecret()`, `delete()`), and its errors are harness errors. A bare sandbox has no `trigger`.
 
-Runnable examples, one per call: [examples/agentSandbox](examples/agentSandbox/README.md) (create, get and list, exec, files, run/send/events, spawn, lifecycle, errors, client, approvals, the `agent` option, triggers). A short side-by-side of both kinds: [examples/sandbox/12-agent-session.ts](examples/sandbox/12-agent-session.ts).
+#### Agent Sandbox spec: what is built
+
+The shapes from the Agent Sandbox spec are in `@digitalocean/dots/sandbox`, in TypeScript form (camelCase, an options object). Anything the spec names that no API can honor yet throws `NotSupportedError` (the same class as `UnsupportedError`) before any request, so a setting is never quietly ignored.
+
+```ts
+import { Agent, Bash, Image, Permissions, Sandbox } from "@digitalocean/dots/sandbox";
+
+await using sbx = await Sandbox.create({
+    image: Image.coding(),
+    egress: ["github.com", "api.openai.com"],
+    secrets: { GITHUB_TOKEN: process.env.GH! },
+    agent: new Agent("opencode", {
+        secrets: { OPENAI_API_KEY: key },
+        permissions: new Permissions({ default: "ask", allow: [Bash("git *")], deny: [Bash("rm -rf *")] }),
+    }),
+});
+await sbx.agent.run("Fix the failing test", { onText: (t) => process.stdout.write(t), onApproval: (req) => req.approve() });
+for await (const c of sbx.execStream("pytest -q")) process.stdout.write(c.text);
+```
+
+| Spec | Status |
+| --- | --- |
+| `Sandbox.create({ agent })`, `sbx.agent.run/send/events/history/cancel`, `sbx.agent.approve/reject/defer(id)`, `sbx.agent.onApproval(fn)`, `req.tool` | Built. `sbx.agent` is a property, and `sbx.agent()` is the same handle |
+| `Permissions`, `Bash`, `egress` (host list, `"none"`, `"unrestricted"`, `{ allowHosts, allowIps }`), plain `secrets`, `image` (a name, `Image.coding()`) | Built on an agent. A bare sandbox takes `egress` as `"none"`, `[]` or `"unrestricted"` only, and `secrets` as env vars |
+| `execStream`, `spawn`, `processes.list()`, `delete()`, `pauseReason` | Built on a bare sandbox. On an agent `processes.list()` is refused (no API), and `purgeHistory` is refused on both |
+| `Trigger.create`, `Trigger.cron`, `Email`, `Slack` | Built, over `Sandbox.trigger` and `box.trigger` |
+| `Image.fromRegistry(ref).build(name)`, `Image.list()`, `BuildError` | Built |
+| `Image.ubuntu`, `fromDockerfile`, `aptInstall`, `pipInstall`, `run`, `withHarness`, the other ready-made environments | Not built: they throw when used to create or build |
+| `Secret(value, { hosts })`, `managed`, `cpu`, `memoryGb`, `timeout`, `idleTimeout`, `onIdle`, `metadata`, `labels`, `name` on a bare sandbox, `profile`, `signals`, `mounts`, `workspace` | Not built: refused. There is no API for them |
+| `checkpoint`, `fork`, `rollback`, `forward`, `expose`, `shell`, `sbx.agent(harness)` attach, `sbx.update` | Not wired up. The harness `box.agent` has `checkpoint`, `fork`, `rollback`, `portForward` and `updateConfig` |
+| `sbx.status` as `"running"` or `"paused"` | Not changed: `box.status` is still the raw `SESSION_STATUS_*` string |
+
+`image` on an agent is sent as the manifest key `template`, and `egress` as `egress`. The `egress` key is documented for the flat manifest. `template` as a flat key is not, so if the API refuses it, pass a full `manifest` instead. The token is read from `DIGITALOCEAN_ACCESS_TOKEN`, then `DIGITALOCEAN_TOKEN`.
+
+Runnable examples, one per call: [examples/agentSandbox](examples/agentSandbox/README.md) (create, get and list, exec, files, run/send/events, spawn, lifecycle, errors, client, approvals, the `agent` option, triggers, the spec surface). A short side-by-side of both kinds: [examples/sandbox/12-agent-session.ts](examples/sandbox/12-agent-session.ts).
 
 ## **Known Issues**
 

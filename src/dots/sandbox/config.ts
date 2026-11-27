@@ -55,7 +55,7 @@ export interface Connection {
 
 /** Resolves the token and builds the {@link Connection} the SDK sends every call through. */
 export function connect(opts: ClientOptions = {}, env: NodeJS.ProcessEnv = process.env): Connection {
-    const token = (opts.token ?? env.DIGITALOCEAN_ACCESS_TOKEN)?.trim();
+    const token = (opts.token ?? env.DIGITALOCEAN_ACCESS_TOKEN ?? env.DIGITALOCEAN_TOKEN)?.trim();
     if (!token) {
         throw new AuthenticationError(
             "no API token: pass `token`, or set DIGITALOCEAN_ACCESS_TOKEN",

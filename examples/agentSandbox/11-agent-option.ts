@@ -1,5 +1,5 @@
 /**
- * Sandbox.create({ agent: new Agent(...) }) and box.agent(): describe the agent, then drive it through its own handle.
+ * Sandbox.create({ agent: new Agent(...) }) and box.agent: describe the agent, then drive it through its own handle.
  *
  *   npx tsx examples/agentSandbox/11-agent-option.ts
  *
@@ -23,9 +23,9 @@ await using box = await Sandbox.create({
 // The plain object does the same: agent: { harness: "opencode", model: "..." }.
 console.log(`${box.kind} ${box.sessionId} on sandbox ${box.sandboxId}`);
 
-// box.agent() is the agent and nothing else. The sandbox calls stay on box and do not wait for a run:
-// box.exec, box.files, box.pause, box.kill.
-const agent = box.agent();
+// box.agent is the agent and nothing else. The sandbox calls stay on box and do not wait for a run:
+// box.exec, box.files, box.pause, box.kill (the sandbox API). box.agent is the harness API.
+const agent = box.agent;
 
 // run sends a prompt and resolves when the turn ends. onApproval answers the shell-command requests the
 // permissions above create. See 10-approvals.ts for the terminal and policy versions.

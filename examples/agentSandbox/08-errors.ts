@@ -44,9 +44,9 @@ await using box = await Sandbox.create({ manifest });
 await show("5. via", () => box.exec("ls", { via: "sandbox" } as never));
 await show("6. env and envVars", () => box.exec("ls", { env: {}, envVars: {} }));
 
-// 7. There is no PTY on an agent session: exec.start does not exist (the sandbox API has it).
-console.log(`7. box.exec.start: ${(box.exec as unknown as { start?: unknown }).start}`);
+// 7. box.exec is the sandbox API, so it has exec.start (a PTY). The harness API's exec has none: box.agent.exec.
+console.log(`7. box.exec.start: ${typeof box.exec.start}, box.agent.exec.start: ${typeof (box.agent.exec as unknown as { start?: unknown }).start}`);
 
-// 8. A bare sandbox is the mirror image: its `session` throws UnsupportedError (see examples/sandbox).
+// 8. A bare sandbox is the mirror image: its `agent` calls reject with UnsupportedError (see examples/sandbox).
 await using bare = await Sandbox.create();
-await show("8. bare.session", () => bare.session);
+await show("8. bare.agent", () => bare.agent);

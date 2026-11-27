@@ -24,10 +24,10 @@ await using b = await Sandbox.create({
 });
 console.log(`object   session ${b.sessionId}`);
 
-// 3. wait: false returns as soon as the session is allocated. Wait yourself with waitUntilReady.
+// 3. wait: false returns as soon as the session is allocated. Wait yourself with box.agent.waitUntilReady.
 await using c = await Sandbox.create({ manifest: yaml, wait: false });
 console.log(`wait:false  status ${c.status}`);
-await c.waitUntilReady({ timeoutMs: 5 * 60_000 });
+await c.agent.waitUntilReady({ timeoutMs: 5 * 60_000 });
 console.log(`ready       status ${c.status}`);
 
 // 4. timeoutMs bounds the wait. A session that is not ready in time is destroyed and SandboxTimeoutError is thrown.

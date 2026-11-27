@@ -31,7 +31,7 @@ await using box = await Sandbox.create({ manifest });
 // Each request has approve(), reject(reason) and defer(reason). `category` is `permission`, `question` or
 // `plan_approval`, `toolName` is the tool where the agent reports it, and `details` is the full request.
 console.log("--- part 1: you decide ---");
-const first = await box.run("Use the shell to print the kernel version and the free disk space.", {
+const first = await box.agent.run("Use the shell to print the kernel version and the free disk space.", {
     onText: (text) => process.stdout.write(text),
     signal: interrupt.signal,
     onApproval: async (request) => {
@@ -44,14 +44,14 @@ const first = await box.run("Use the shell to print the kernel version and the f
 console.log(`\n${first.status}`);
 
 // Part 2: decide from code. send() returns the run id at once, and events() is the live stream. A request
-// arrives as a `run.human_input_requested` event, and box.session.resolveApproval(id, outcome) answers it, from
+// arrives as a `run.human_input_requested` event, and box.agent.resolveApproval(id, outcome) answers it, from
 // this process or any other that can read the session. Here a policy answers: allow `uname`, refuse the rest.
 console.log("\n--- part 2: a policy decides ---");
 const stop = new AbortController();
-const events = box.events({ signal: stop.signal });
+const events = box.agent.events({ signal: stop.signal });
 const pending = events.next(); // opens the stream before the prompt is sent, so no event is missed
 await new Promise((r) => setTimeout(r, 1000));
-const runId = await box.send("Use the shell to run `uname -a`, then run `ls /`, and tell me both results.");
+const runId = await box.agent.send("Use the shell to run `uname -a`, then run `ls /`, and tell me both results.");
 console.log(`sent run ${runId}`);
 
 for (let step = await pending; !step.done; step = await events.next()) {
@@ -63,8 +63,8 @@ for (let step = await pending; !step.done; step = await events.next()) {
         const command = JSON.stringify(body.payload ?? {});
         const allowed = command.includes("uname");
         console.log(`request ${hitlId}: ${command.slice(0, 120)} -> ${allowed ? "approve" : "reject"}`);
-        await box.session.resolveApproval(hitlId, allowed ? "approve" : "reject", allowed ? undefined : "not allowed by policy");
-        // "defer" leaves it for someone else: box.session.resolveApproval(hitlId, "defer").
+        await box.agent.resolveApproval(hitlId, allowed ? "approve" : "reject", allowed ? undefined : "not allowed by policy");
+        // "defer" leaves it for someone else: box.agent.resolveApproval(hitlId, "defer").
     } else if (event.type === "run.completed" || event.type === "run.failed") {
         console.log(event.type);
         break;
@@ -73,7 +73,7 @@ for (let step = await pending; !step.done; step = await events.next()) {
 stop.abort();
 
 // Without onApproval, and with nobody resolving, a request stays pending and the run waits.
-// box.session.cancel() stops a run that is stuck on one.
+// box.agent.cancel() stops a run that is stuck on one.
 
 /** Asks one question on the terminal. */
 async function ask(question: string): Promise<string> {
